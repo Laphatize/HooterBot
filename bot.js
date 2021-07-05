@@ -28,7 +28,7 @@ const client = new discord.Client({
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MEMBER_ADD,
-        Intents.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
         Intents.FLAGS.DIRECT_MESSAGES,
     ]
 }).setMaxListeners(0)
