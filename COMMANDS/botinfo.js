@@ -46,10 +46,8 @@ module.exports = {
         .addField(`${config.emjDiscordjs} Discord.js:`, `${DJSversion}`, true)
         .addField(`Uptime:`, `${botUptime}`, true)
         .addField(`Description:`, `*"${pjson.description}"*`)
-        .addField(`GitHub Repository`, `[Guide](${pjson.repository.url.split(`+`).pop()} 'MrMusicMan789's GitHub')`)
-        .setThumbnail()
-        
-        
+        .addField(`GitHub Repository`, `${pjson.repository.url.split(`+`).pop()}`)
+        .setThumbnail('https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/HooterBot_Square_Shadow.png')
 
         // RESPONDING TO USER WITH INFO EMBED
         message.channel.send({embeds: [infoEmbed]})
