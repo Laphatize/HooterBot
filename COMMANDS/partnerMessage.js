@@ -50,8 +50,8 @@ module.exports = {
         // EMBED MESSAGE
         let partnerEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`**Announcement from our partnered server: ${partnerName}**`)
-            .setDescription(`${partnerMsg}\n`)
+            .setTitle(`**Announcement from our partnered server:   ${partnerName}**`)
+            .setDescription(`${partnerMsg}\n\n`)
             .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
 
 
