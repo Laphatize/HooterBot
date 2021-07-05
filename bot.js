@@ -1,6 +1,6 @@
 require('dotenv').config();
 const discord = require('discord.js')
-const { Collection, Intents } = require('discord.js');
+const { Collection } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json')
 
@@ -24,12 +24,21 @@ const config = require ('./config.json')
 // INITIALIZATION - SETMAXLISTENERS NEEDED RIGHT NOW SINCE I MADE A MISTAKE IN THE COMMAND HANDLER :'( 
 const client = new discord.Client({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        Intents.FLAGS.DIRECT_MESSAGE,
-        Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+        'GUILDS',
+        'GUILD_MEMBERS',
+        // 'GUILD_BANS ',
+        // 'GUILD_EMOJIS',
+        // 'GUILD_INTEGRATIONS',
+        // 'GUILD_WEBHOOKS',
+        // 'GUILD_INVITES',
+        // 'GUILD_VOICE_STATES',
+        // 'GUILD_PRESENCES',
+        'GUILD_MESSAGES',
+        'GUILD_MESSAGE_REACTIONS',
+        // 'GUILD_MESSAGE_TYPING',
+        'DIRECT_MESSAGES',
+        'DIRECT_MESSAGE_REACTIONS',
+        // 'DIRECT_MESSAGE_TYPING',
     ]
 }).setMaxListeners(0)
 
