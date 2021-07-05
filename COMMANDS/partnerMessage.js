@@ -36,11 +36,15 @@ module.exports = {
         }
 
 
+        console.log(`fullCommand = ${fullCommand}`)
+
         // PARTNER NAME
-        partnerName = fullCommand.indexOf(0, '|')
+        partnerName = fullCommand.indexOf(0, '|'+1)
+        console.log(`partnerName = ${partnerName}`)
 
         // PARTNER MESSAGE
         partnerMsg = fullCommand.split('|').pop();
+        console.log(`partnerMsg = ${partnerMsg}`)
         
         // EMBED MESSAGE
         let partnerEmbed = new discord.MessageEmbed()
