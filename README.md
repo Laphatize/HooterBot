@@ -1,4 +1,4 @@
-[![Node.js CI](https://github.com/MrMusicMan789/HooterBot/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/MrMusicMan789/HooterBot/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/MrMusicMan789/HooterBot-v2/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/MrMusicMan789/HooterBot-v2/actions/workflows/node.js.yml)
 
 # HooterBot
 (v2 in DJS v13)
