@@ -24,7 +24,7 @@ module.exports = {
 
         let botUptime = `${days}D, ${hours}H, ${minutes}M and ${seconds}S`;
         
-        let DJSv = pjson.dependencies['discord.js'].split(`^`).pop().split(',', 1)[0]
+        let DJSv = pjson.dependencies['discord.js'].split(`^`).pop().split('-', 1)[0]
 
         if(pjson.dependencies['discord.js'].split(`^`).pop().includes('dev')) {
             
