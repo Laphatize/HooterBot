@@ -3,7 +3,7 @@ const config = require('../config.json')
 
 module.exports = {
     commands: ['partnerMessage'],
-    expectedArgs: ' <partner name> | <message> ',
+    expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
     permissionError: ``,
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
@@ -18,7 +18,9 @@ module.exports = {
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');
 
-        if (fullCommand.includes("|")) {
+
+        // REJECTING IF MESSAGE DOES NOT CONTAIN AT LEAST ONE SEPARATOR
+        if (!fullCommand.includes("|")) {
             // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
             let notFormattedEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
@@ -34,16 +36,17 @@ module.exports = {
         }
 
 
-        // SPLITTING STRING TO REMOVE PREFIX AND COMMAND INVOCATION
+        // PARTNER NAME
+        partnerName = fullCommand.indexOf(0, '|')
 
-
-        
+        // PARTNER MESSAGE
+        partnerMsg = fullCommand.split('|').pop();
         
         // EMBED MESSAGE
         let partnerEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`**Announcement from our partnered server**`)
-            .setDescription(`fullCommand ${fullCommand}`)
+            .setTitle(`**Announcement from our partnered server: ${partnerName}**`)
+            .setDescription(`${partnerMsg}`)
             .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
 
 
