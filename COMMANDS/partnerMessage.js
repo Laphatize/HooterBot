@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require('../config.json')
 
 module.exports = {
-    commands: ['partnerMessage'],
+    commands: ['partnerMessage', 'partnerAnnouncement', 'partnerMsg'],
     expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
     permissionError: ``,
@@ -39,7 +39,8 @@ module.exports = {
         console.log(`fullCommand = ${fullCommand}`)
 
         // PARTNER NAME
-        partnerName = fullCommand.indexOf(0, '|'+1)
+        splitPoint = fullCommand.indexOf('|')
+        partnerName = fullCommand.substring(0, splitPoint)
         console.log(`partnerName = ${partnerName}`)
 
         // PARTNER MESSAGE
@@ -50,7 +51,7 @@ module.exports = {
         let partnerEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`**Announcement from our partnered server: ${partnerName}**`)
-            .setDescription(`${partnerMsg}`)
+            .setDescription(`${partnerMsg}\n`)
             .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
 
 
