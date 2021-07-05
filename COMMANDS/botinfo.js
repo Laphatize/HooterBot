@@ -29,7 +29,7 @@ module.exports = {
         if(pjson.dependencies['discord.js'].split(`^`).pop().includes('dev')) {
             
             devVer = pjson.dependencies['discord.js'].split(`-`).pop()
-            DJSversion = DJSv.concat(`\n${devVer}`)
+            DJSversion = DJSv.concat(`\n*(${devVer})*`)
         }
         else {
             DJSversion = DJSv;
