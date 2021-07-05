@@ -13,7 +13,10 @@ module.exports = {
     maxArgs: 0,
     callback: async (message, arguments, text, client) => {
         
-        let helptext = `Here is a list of my commands you can use:\n\n`;
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
+        let helptext = `Here is a list of my commands you can use, ${message.author}:\n\n`;
 
         const commands = loadCommands()
 

@@ -12,10 +12,15 @@ module.exports = {
     maxArgs: 1,
     callback: async (message, arguments, text, client) => {
         
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
+
         let categoryChanger = message.author;
 
         const category = message.guild.channels.cache.find(ch => ch.type == "category" && ch.name.toLowerCase() == arguments[0].toLowerCase());
         
+
         // IF NO CATEGORY PROVIDED
         if(!category) {
             let noCatEmbed = new discord.MessageEmbed()
@@ -24,6 +29,7 @@ module.exports = {
 
             return message.channel.send({embeds: [noCatEmbed]})
         }
+
 
         // UPDATING DATABASE
         await guildSchema.findOneAndUpdate({
@@ -37,13 +43,16 @@ module.exports = {
             upsert: true
         })
 
+
         // DEFINING UPDATE EMBED
         let catUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
 
+
         // SENDING EMBED
         message.channel.send({embeds: [catUpdateEmbed]})
+
 
         // DEFINING LOG EMBED
         let logTicketCatUpdateEmbed = new discord.MessageEmbed()
@@ -51,6 +60,7 @@ module.exports = {
         .setTitle(`Ticket Category Updated`)
         .setDescription(`**New ticket category:** \`\`${category.name}\`\`\n**Changed by:** ${categoryChanger}`)
         .setTimestamp()
+        
         
         // LOG ENTRY
         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})

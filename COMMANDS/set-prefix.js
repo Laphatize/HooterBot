@@ -13,6 +13,9 @@ module.exports = {
     maxArgs: 1,
     callback: async (message, arguments, text, client) => {
 
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
         // IF PREFIX LONGER THAN 5 CHARACTERS
         if (arguments[0].length > 5) {
             let longPrefixEmbed = new discord.MessageEmbed()

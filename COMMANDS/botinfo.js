@@ -13,6 +13,10 @@ module.exports = {
     maxArgs: 0,
     callback: (message, arguments, text, client) => {
 
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
+
         // UPTIME CALCULATION
         let totalSeconds = (client.uptime / 1000);
         let days = Math.floor(totalSeconds / 86400);
@@ -27,13 +31,13 @@ module.exports = {
         let DJSv = pjson.dependencies['discord.js'].split(`^`).pop().split('-', 1)[0]
 
         if(pjson.dependencies['discord.js'].split(`^`).pop().includes('dev')) {
-            
             devVer = pjson.dependencies['discord.js'].split(`-`).pop()
             DJSversion = DJSv.concat(`\n*(${devVer})*`)
         }
         else {
             DJSversion = DJSv;
         }
+
 
         // CREATING EMBED FOR RESPONSE        
         let infoEmbed = new discord.MessageEmbed()
@@ -49,6 +53,7 @@ module.exports = {
         .addField(`GitHub Repository`, `${pjson.repository.url.split(`+`).pop()}`)
         .setThumbnail('https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/HooterBot_Square_Shadow.png')
 
+        
         // RESPONDING TO USER WITH INFO EMBED
         message.channel.send({embeds: [infoEmbed]})
     },
