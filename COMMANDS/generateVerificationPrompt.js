@@ -106,6 +106,6 @@ module.exports = {
             upsert: true
         })
     },
-    permissions: '',
-    requiredRoles: ['MrMusicMan789'],
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
 }

@@ -8,7 +8,7 @@ module.exports = {
     expectedArgs: '<"on" = maintenance | "off" = regular use>',
     cooldown: -1,
     permissionError: ``,
-    description: `(${config.emjAdmin}) Toggles the verification prompt on or off for maintenance mode.`,
+    description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     minArgs: 1,
     maxArgs: 1,
     callback: async (message, arguments, text, client) => {

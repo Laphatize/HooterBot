@@ -17,6 +17,7 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
 
         let helptext = `Here is a list of my commands you can use, ${message.author}:\n\n`;
+        let commandList = ''; // THE LIST OF COMMMANDS GENERATED
 
         const commands = loadCommands()
 
@@ -74,7 +75,7 @@ module.exports = {
 
 
             // CONCATENATING COMMAND LIST - COMMAND NAME IN BOLD ON FIRST LINE, DESCRIPTION ON SECOND
-            helptext += `**${serverPrefix}${mainCommand}${args}**\n${description}\n\n`
+            commandList += `**${serverPrefix}${mainCommand}${args}**\n${description}\n\n`
         }
 
         
@@ -82,11 +83,11 @@ module.exports = {
         let helpEmbed = new discord.MessageEmbed()
         .setColor(config.embedBlue)
         .setTitle(`**Help:**`)
-        .setDescription(`${helptext}`)
+        .setDescription(`${commandList}`)
         .setFooter(`(Crown = Need administrator permissions.)`)
         
         // RESPONDING TO USER WITH COMMAND LIST
-        message.channel.send({embeds: [helpEmbed]})
+        message.channel.send({content: helptext, embeds: [helpEmbed]})
     },
     permissions: '',
     requiredRoles: [],
