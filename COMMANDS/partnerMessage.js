@@ -43,39 +43,42 @@ module.exports = {
         // PARTNER MESSAGE
         partnerMsg = fullCommand.split('|').pop();
 
+        console.log(`partnerName = ${partnerName}`)
+        console.log(`partnerMsg = ${partnerMsg}`)
 
-        // EMBED MESSAGE FOR NON-IMAGE
-        if(fullCommand.match("|").length() == 1) {
-        let partnerEmbed = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
-            .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
-            .setDescription(`${partnerMsg}`)
-            .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+
+        // // EMBED MESSAGE FOR NON-IMAGE
+        // if(fullCommand.match("|").length() == 1) {
+        // let partnerEmbed = new discord.MessageEmbed()
+        //     .setColor(config.embedDarkGrey)
+        //     .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+        //     .setDescription(`${partnerMsg}`)
+        //     .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+        //     .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
             
-            // POSTING EMBED MESSAGE AND BUTTON
-            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
-        }
+        //     // POSTING EMBED MESSAGE AND BUTTON
+        //     await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
+        // }
 
-        if(fullCommand.match("|").length() == 2) {
+        // if(fullCommand.match("|").length() == 2) {
 
-            let fullCommandArgs = fullCommand.split("|")
-            console.log(`fullCommandArgs = ${fullCommandArgs}`)
-            console.log(`fullCommandArgs[2] = ${fullCommandArgs[2]}`)
-            console.log(`This array value above should be my image URL value.`)
+        //     let fullCommandArgs = fullCommand.split("|")
+        //     console.log(`fullCommandArgs = ${fullCommandArgs}`)
+        //     console.log(`fullCommandArgs[2] = ${fullCommandArgs[2]}`)
+        //     console.log(`This array value above should be my image URL value.`)
 
-        let partnerEmbedImage = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
-            .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
-            .setDescription(`${partnerMsg}`)
-            .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
-            .url('')
+        // let partnerEmbedImage = new discord.MessageEmbed()
+        //     .setColor(config.embedDarkGrey)
+        //     .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+        //     .setDescription(`${partnerMsg}`)
+        //     .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+        //     .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+        //     // .url('')
 
 
-            // POSTING EMBED MESSAGE AND BUTTON
-            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
-        }
+        //     // POSTING EMBED MESSAGE AND BUTTON
+        //     await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
+        // }
     },
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
