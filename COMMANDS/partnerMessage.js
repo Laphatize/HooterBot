@@ -25,7 +25,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You need to use a `` | `` in your command. Use the following format:\n\n \`\` <partner name> | <message> \`\``)
+            .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` <partner name> | <message> \`\``)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
