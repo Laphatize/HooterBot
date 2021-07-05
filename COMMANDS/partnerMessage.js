@@ -45,7 +45,7 @@ module.exports = {
 
 
         // EMBED MESSAGE FOR NON-IMAGE
-        if(fullCommand.count("|") == 1) {
+        if(fullCommand.match("|").length() == 1) {
         let partnerEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
@@ -57,7 +57,7 @@ module.exports = {
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
         }
 
-        if(fullCommand.count("|") == 2) {
+        if(fullCommand.match("|").length() == 2) {
 
             let fullCommandArgs = fullCommand.split("|")
             console.log(`fullCommandArgs = ${fullCommandArgs}`)
