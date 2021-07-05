@@ -52,7 +52,7 @@ module.exports = {
             .setColor(config.embedDarkGrey)
             .setTitle(`**Announcement from our partnered server:   ${partnerName}**`)
             .setDescription(`${partnerMsg}\n\n`)
-            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+            .addField(`\nWant to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
 
 
         // POSTING EMBED MESSAGE AND BUTTON
