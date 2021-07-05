@@ -118,7 +118,7 @@ module.exports = {
                 let logTicketCatUpdateEmbed = new discord.MessageEmbed()
                 .setColor(config.embedDarkGrey)
                 .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelID}>.\n**Changed by:** ${verifChanger}`)
+                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
                 .setTimestamp()
                 
                 // LOG ENTRY

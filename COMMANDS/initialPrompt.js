@@ -6,7 +6,7 @@ module.exports = {
     expectedArgs: '',
     cooldown: -1,
     permissionError: ``,
-    description: `(${config.emjAdmin}) The the embed sent in DMs to verify a user.`,
+    description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
     minArgs: 0,
     maxArgs: 0,
     callback: async (message, arguments, text, client) => {
