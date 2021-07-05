@@ -16,7 +16,7 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
-        let helptext = `Here is a list of my commands you can use, ${message.author}:\n\n`;
+        let helptext = `Here is a list of the commands you can use, ${message.author}:\n\n`;
         let commandList = ''; // THE LIST OF COMMMANDS GENERATED
 
         const commands = loadCommands()
