@@ -46,7 +46,7 @@ module.exports = {
         .addField(`${config.emjDiscordjs} Discord.js:`, `${DJSversion}`, true)
         .addField(`Uptime:`, `${botUptime}`, true)
         .addField(`Description:`, `*"${pjson.description}"*`)
-        .addField(`GitHub Repository`, `[Guide](${pjson.repository.url.split(`+`).pop()}'MrMusicMan789's GitHub')`)
+        .addField(`GitHub Repository`, `[Guide](${pjson.repository.url.split(`+`).pop()} 'MrMusicMan789's GitHub')`)
         .setThumbnail()
         
         
