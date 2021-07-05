@@ -26,7 +26,7 @@ module.exports = {
             .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - DM <@${ModMailId}> to get started.`)
 
             // SENDING DM EMBED
-            member.send({embeds: [welcomeDMEmbed]})
+            await member.send({embeds: [welcomeDMEmbed]})
             .catch(err => console.log(err))
 
             
@@ -41,7 +41,7 @@ module.exports = {
             let fullWelcomeMessage = channelMsgStart.concat(channelMsgEnding);
             
             // SEND TO #joins CHANNEL
-            joinsChannel.send({content: [fullWelcomeMessage]})
+            await joinsChannel.send({content: fullWelcomeMessage})
             .catch(err => console.log(err))
 	},
 };
