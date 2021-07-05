@@ -4,7 +4,6 @@
 ![Discord](https://img.shields.io/discord/829409161581821992?style=flat&color=5865F2&label=Discord&logo=Discord)
 
 # HooterBot
-(v2 in DJS v13)
 
 <img src="HooterBot_GitHubProfile.png" width="300" align="center" link="">
 
