@@ -119,7 +119,7 @@ module.exports = (client, commandOptions) => {
                         .setTitle(`${config.emjORANGETICK} Sorry!`)
                         .setDescription(`${permissionError}\nYou must have the \`\`${permissions}\`\` permission to use this command.`)
 
-                        message.channel.send(cmdUserPermErrEmbed)
+                        message.channel.send({embeds: [cmdUserPermErrEmbed]})
                         return
                     }
                 }
@@ -137,7 +137,7 @@ module.exports = (client, commandOptions) => {
                             .setDescription(`You must have the \`\`${requiredRoles}\`\` role to use this command.`)
 
                         // SENDING EMBED
-                        message.channel.send(cmdPermErrEmbed)
+                        message.channel.send({embeds: [cmdPermErrEmbed]})
 
                         // DELETE AFTER 5 SECONDS
                         .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
@@ -172,7 +172,7 @@ module.exports = (client, commandOptions) => {
 
                 // ENSURE CORRECT NUMBER OF ARGS
                 if (arguments.length < minArgs || (maxArgs !== null && arguments.legnth > maxArgs)) {
-                    message.channel.send(cmdSyntaxErrEmbed)
+                    message.channel.send({embeds: [cmdSyntaxErrEmbed]})
 
                     // DELETE AFTER 5 SECONDS
                     .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})

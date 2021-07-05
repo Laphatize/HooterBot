@@ -75,7 +75,7 @@ module.exports = {
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
-                    msg.edit(ticketMaintenanceEmbed)
+                    msg.edit({embeds: [ticketMaintenanceEmbed]})
                 })
                 .catch(err => console.log(err))
                 
@@ -87,7 +87,7 @@ module.exports = {
                 .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send(logTicketCatUpdateEmbed)
+                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
             }
 
 
@@ -110,7 +110,7 @@ module.exports = {
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
-                    msg.edit(ticketEmbed)
+                    msg.edit({embeds: [ticketEmbed]})
                 })
                 .catch(err => console.log(err))
 
@@ -122,7 +122,7 @@ module.exports = {
                 .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send(logTicketCatUpdateEmbed)
+                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
             }
         }
     },

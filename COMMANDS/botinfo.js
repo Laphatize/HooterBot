@@ -39,7 +39,7 @@ module.exports = {
         .setThumbnail('https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/HooterBot_Square_Shadow.png')
 
         // RESPONDING TO USER WITH INFO EMBED
-        message.channel.send(infoEmbed)
+        message.channel.send({embeds: [infoEmbed]})
     },
     permissions: '',
     requiredRoles: [],

@@ -26,7 +26,7 @@ module.exports = {
             .addField(`Voice chat features:`, `Screen sharing`)
 
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send(ticketEmbed);
+        await message.channel.send({embeds: [ticketEmbed]});
     },
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],

@@ -40,7 +40,7 @@ module.exports = {
             .setDescription(`You need to set the ticket category using \`\`${serverPrefix}ticketcategory\`\` or \`\`${serverPrefix}setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
-            message.channel.send(noCatEmbed)
+            message.channel.send({embeds: [noCatEmbed]})
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -61,7 +61,7 @@ module.exports = {
             .setDescription(`A verification prompt already exists in ${verifPromptChannel}.`)
 
             // SENDING TO CHANNEL
-            message.channel.send(verifExistsAlreadyEmbed)
+            message.channel.send({embeds: [verifExistsAlreadyEmbed]})
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -86,7 +86,7 @@ module.exports = {
 
 
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send(ticketEmbed)
+        await message.channel.send({embeds: [ticketEmbed]})
 
         // GETTING MESSAGE ID OF ticketEmbed
         .then(sentEmbed => {

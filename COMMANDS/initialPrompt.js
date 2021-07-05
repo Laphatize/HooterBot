@@ -46,7 +46,7 @@ module.exports = {
         //     .addComponent(CancelButton)
         
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send(ticketEmbed);
+        await message.channel.send({embeds: [ticketEmbed]});
     },
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],

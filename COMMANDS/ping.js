@@ -18,7 +18,7 @@ module.exports = {
             .setTimestamp()
 
         // SENDING INITIAL EMBED
-        message.channel.send(initialPingEmbed)
+        message.channel.send({embeds: [initialPingEmbed]})
         .catch(err => {
             console.log(`************* ERROR ************`)
             console.log(`Sending initial ping embed.\n`)
@@ -62,7 +62,7 @@ module.exports = {
                 .setTimestamp()
 
             // SENDING EMBED
-            m.edit(updatedPingEmbed)
+            m.edit({embeds: [updatedPingEmbed]})
             .catch(err => {
                 console.log(`************* ERROR ************`)
                 console.log(`Sending updated ping embed.\n`)

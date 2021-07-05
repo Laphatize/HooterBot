@@ -22,7 +22,7 @@ module.exports = {
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.)`)
 
-            return message.channel.send(noCatEmbed)
+            return message.channel.send({embeds: [noCatEmbed]})
         }
 
         // UPDATING DATABASE
@@ -43,7 +43,7 @@ module.exports = {
             .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
 
         // SENDING EMBED
-        message.channel.send(catUpdateEmbed)
+        message.channel.send({embeds: [catUpdateEmbed]})
 
         // DEFINING LOG EMBED
         let logTicketCatUpdateEmbed = new discord.MessageEmbed()
@@ -53,7 +53,7 @@ module.exports = {
         .setTimestamp()
         
         // LOG ENTRY
-        client.channels.cache.get(config.logActionsChannelId).send(logTicketCatUpdateEmbed)
+        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
     },
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
