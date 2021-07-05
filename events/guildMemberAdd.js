@@ -41,7 +41,7 @@ module.exports = {
             let fullWelcomeMessage = channelMsgStart.concat(channelMsgEnding);
             
             // SEND TO #joins CHANNEL
-            joinsChannel.send({embeds: [fullWelcomeMessage]})
+            joinsChannel.send({content: [fullWelcomeMessage]})
             .catch(err => console.log(err))
 	},
 };
