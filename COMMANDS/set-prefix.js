@@ -19,7 +19,7 @@ module.exports = {
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error!`)
             .setDescription(`Sorry, please provide a prefix that is 5 characters long or smaller.`)
-            return message.channel.send({embeds: [longPrefixEmbed] })
+            return message.channel.send(longPrefixEmbed)
         }
 
         const newPrefix = arguments[0]
@@ -44,7 +44,7 @@ module.exports = {
         .setDescription(`The new prefix is **${newPrefix}** (e.g. \`\`${newPrefix}command\`\`).`)
 
         // SENDING EMBED
-        message.channel.send({embeds: [updatePrefixEmbed] })
+        message.channel.send(updatePrefixEmbed)
         
         // DEFINING LOG EMBED
         let logPrefixUpdateEmbed = new discord.MessageEmbed()
@@ -54,7 +54,7 @@ module.exports = {
         .setTimestamp()
         
         // LOG ENTRY
-        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logPrefixUpdateEmbed] })
+        client.channels.cache.get(config.logActionsChannelId).send(logPrefixUpdateEmbed)
         
         // UPDATE CACHE
         commandBase.updateCache(message.guild.id, newPrefix)

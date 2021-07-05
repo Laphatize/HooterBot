@@ -41,7 +41,7 @@ module.exports = {
             .setDescription(`You first need to create a verification prompt in the server using \`\`${serverPrefix}verifEmbed\`\` in <#${config.rolesChannelId}> before the verification prompt can be toggled in and out of maintenance mode.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [noCatEmbed] })
+            message.channel.send(noCatEmbed)
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -64,18 +64,18 @@ module.exports = {
                 \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**`)
 
 
-                // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
-                let VerifButtonMaintenance = new MessageButton()
-                .setLabel(`Begin Verification`)
-                .setStyle(`grey`)
-                .setID(`begin_verification_button_disabld`)
-                .setDisabled(true)
+                // // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
+                // let VerifButtonMaintenance = new MessageButton()
+                // .setLabel(`Begin Verification`)
+                // .setStyle(`grey`)
+                // .setID(`begin_verification_button_disabld`)
+                // .setDisabled(true)
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
-                    msg.edit({ buttons: VerifButtonMaintenance, embed: ticketMaintenanceEmbed })
+                    msg.edit(ticketMaintenanceEmbed)
                 })
                 .catch(err => console.log(err))
                 
@@ -87,7 +87,7 @@ module.exports = {
                 .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed] })
+                client.channels.cache.get(config.logActionsChannelId).send(logTicketCatUpdateEmbed)
             }
 
 
@@ -100,17 +100,17 @@ module.exports = {
                 .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
-                // INITIALIZING BUTTON
-                let beginVerifButton = new MessageButton()
-                    .setLabel(`Begin Verification`)
-                    .setStyle(`green`)
-                    .setID(`begin_verification_button`)
+                // // INITIALIZING BUTTON
+                // let beginVerifButton = new MessageButton()
+                //     .setLabel(`Begin Verification`)
+                //     .setStyle(`green`)
+                //     .setID(`begin_verification_button`)
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
-                    msg.edit({ buttons: beginVerifButton, embed: ticketEmbed })
+                    msg.edit(ticketEmbed)
                 })
                 .catch(err => console.log(err))
 
@@ -122,7 +122,7 @@ module.exports = {
                 .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed] })
+                client.channels.cache.get(config.logActionsChannelId).send(logTicketCatUpdateEmbed)
             }
         }
     },

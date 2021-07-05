@@ -82,7 +82,7 @@ module.exports = (client, commandOptions) => {
     }
 
     // MESSAGE LISTENER
-    client.on('message', async (message) => {
+    client.on('messageCreate', async (message) => {
         const { member, content, guild } = message
         
         // IGNORE DM USE
@@ -119,7 +119,7 @@ module.exports = (client, commandOptions) => {
                         .setTitle(`${config.emjORANGETICK} Sorry!`)
                         .setDescription(`${permissionError}\nYou must have the \`\`${permissions}\`\` permission to use this command.`)
 
-                        message.channel.send({ embeds: [cmdUserPermErrEmbed] })
+                        message.channel.send(cmdUserPermErrEmbed)
                         return
                     }
                 }
@@ -137,7 +137,7 @@ module.exports = (client, commandOptions) => {
                             .setDescription(`You must have the \`\`${requiredRoles}\`\` role to use this command.`)
 
                         // SENDING EMBED
-                        message.channel.send({ embeds: [cmdPermErrEmbed] })
+                        message.channel.send(cmdPermErrEmbed)
 
                         // DELETE AFTER 5 SECONDS
                         .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
@@ -172,7 +172,7 @@ module.exports = (client, commandOptions) => {
 
                 // ENSURE CORRECT NUMBER OF ARGS
                 if (arguments.length < minArgs || (maxArgs !== null && arguments.legnth > maxArgs)) {
-                    message.channel.send({ embeds: [cmdSyntaxErrEmbed] })
+                    message.channel.send(cmdSyntaxErrEmbed)
 
                     // DELETE AFTER 5 SECONDS
                     .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})

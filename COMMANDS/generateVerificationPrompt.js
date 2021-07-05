@@ -40,7 +40,7 @@ module.exports = {
             .setDescription(`You need to set the ticket category using \`\`${serverPrefix}ticketcategory\`\` or \`\`${serverPrefix}setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({ embeds: [noCatEmbed] })
+            message.channel.send(noCatEmbed)
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -61,7 +61,7 @@ module.exports = {
             .setDescription(`A verification prompt already exists in ${verifPromptChannel}.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({ embeds: [verifExistsAlreadyEmbed] })
+            message.channel.send(verifExistsAlreadyEmbed)
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -78,15 +78,15 @@ module.exports = {
             .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
-        // INITIALIZING BUTTON
-        let beginVerifButton = new MessageButton()
-            .setLabel("Begin Verification")
-            .setStyle("green")
-            .setID("begin_verification_button")
+        // // INITIALIZING BUTTON
+        // let beginVerifButton = new MessageButton()
+        //     .setLabel("Begin Verification")
+        //     .setStyle("green")
+        //     .setID("begin_verification_button")
 
 
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send({ buttons: beginVerifButton, embeds: [ticketEmbed] })
+        await message.channel.send(ticketEmbed)
 
         // GETTING MESSAGE ID OF ticketEmbed
         .then(sentEmbed => {
