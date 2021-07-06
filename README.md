@@ -7,4 +7,4 @@
 
 <img src="HooterBot_GitHubProfile.png" width="300" align="center" link="">
 
-A bot used by the Temple University Discord server to assist in verifying students from Temple University. May also be updated to perform additional tasks.
+A bot created for the Temple University Discord server to assist with verifying students and employees, helping with tasks in the server, and more.
