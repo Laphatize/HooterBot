@@ -90,6 +90,38 @@ module.exports = (client, commandOptions) => {
             return;
         }
         
+        // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
+        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
+            
+            // THE BOT CANNOT SPEAK, LOG ACTION IN LOG CHANNEL
+            
+            // DEFINING LOG EMBED
+            let logTalkPermErrorEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: Unable To Send Message in Channel!`)
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`User:`, `${message.author}`)
+            .addField(`Message Content:`, `${message.content}`)
+            .setTimestamp()
+            
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
+            
+
+            // DEFINING LOG EMBED
+            let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
+            .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`User:`, `${message.author}`)
+            .addField(`Message Content:`, `${message.content}`)
+            .setTimestamp()
+            // DM USER WHO ISSUED COMMAND
+            message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+        }
+
+
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
         const dbData = await guildSchema.findOne({
