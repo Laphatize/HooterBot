@@ -1,4 +1,5 @@
 const discord = require('discord.js')
+const { MessageActionRow, MessageButton } = require('discord.js')
 const config = require('../config.json')
 const guildSchema = require('../Database/guildSchema');
 
@@ -40,7 +41,7 @@ module.exports = {
             .setDescription(`You need to set the ticket category using \`\`${serverPrefix}ticketcategory\`\` or \`\`${serverPrefix}setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [noCatEmbed]})
+            message.channel.send({ embeds: [noCatEmbed] })
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
@@ -61,13 +62,12 @@ module.exports = {
             .setDescription(`A verification prompt already exists in ${verifPromptChannel}.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [verifExistsAlreadyEmbed]})
+            message.channel.send({ embeds: [verifExistsAlreadyEmbed] })
             // DELETE AFTER 10 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
             return
         }
-
 
 
         // EMBED MESSAGE
@@ -78,15 +78,19 @@ module.exports = {
             .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
-        // // INITIALIZING BUTTON
-        // let beginVerifButton = new MessageButton()
-        //     .setLabel("Begin Verification")
-        //     .setStyle("green")
-        //     .setID("begin_verification_button")
+        // BUTTON ROW
+        const buttonRow = new MessageActionRow()
+            .addComponents(
+                // BUTTON
+                new MessageButton()
+                    .setLabel("Begin Verification")
+                    .setStyle("green")
+                    .setID("begin_verification_button")
+            );
 
 
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send({embeds: [ticketEmbed]})
+        await message.channel.send({ embeds: [ticketEmbed], components: [buttonRow] })
 
         // GETTING MESSAGE ID OF ticketEmbed
         .then(sentEmbed => {
