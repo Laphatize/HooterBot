@@ -96,7 +96,7 @@ process.on('unhandledRejection', err =>{
     let logErrEmbed = new discord.MessageEmbed()
     .setColor(config.embedDarkGrey)
     .setTitle(`An Unknown Error Has Occurred`)
-    .setDescription(`\`\`\`${err}\`\`\``)
+    .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
     .setTimestamp()
     
 
