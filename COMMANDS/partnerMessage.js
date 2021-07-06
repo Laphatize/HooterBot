@@ -50,7 +50,7 @@ module.exports = {
 
 
         // EMBED MESSAGE WITHOUT IMAGE
-        if(!args[2]) {
+        if(!splitPoint[2]) {
         let partnerEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
@@ -63,7 +63,7 @@ module.exports = {
         }
 
         // EMBED MESSAGE WITH IMAGE
-        if(args[2]) {
+        if(splitPoint[2]) {
 
             let fullCommandArgs = fullCommand.split("|")
             console.log(`fullCommandArgs = ${fullCommandArgs}`)
