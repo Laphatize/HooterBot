@@ -45,8 +45,8 @@ const client = new discord.Client({
 
 
 // COLLECTIONS
-client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
+client.commands = new discord.Collection();
+client.cooldowns = new discord.Collection();
 
 
 
