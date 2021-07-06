@@ -64,7 +64,7 @@ module.exports = {
                 .addField(`partnerName`, `\`\`${partnerName}\`\``)
                 .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
                 .setTimestamp()
-                message.channel.send({embeds: msgSendErrorEmbed})
+                message.channel.send({embeds: [msgSendErrorEmbed]})
             })
         }
 
@@ -90,7 +90,7 @@ module.exports = {
                 .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
                 .addField(`imageURL`, `\`\`${imageURL}\`\``)
                 .setTimestamp()
-                message.channel.send({embeds: msgSendErrorEmbed})
+                message.channel.send({embeds: [msgSendErrorEmbed]})
             })
         }
     },
