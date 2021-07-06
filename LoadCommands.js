@@ -4,7 +4,7 @@ const fs = require('fs')
 module.exports = (client) => {
     // IMPORTING COMMAND-BASE FROM COMMANDS FOLDER
     const baseFile = 'command-base.js'
-    const commandBase = require(`./COMMANDS/${baseFile}`)
+    const commandBase = require(`./COMMANDS/CommandBase/${baseFile}`)
 
     const commands = []
 
