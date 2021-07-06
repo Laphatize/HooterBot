@@ -76,7 +76,6 @@ module.exports = {
                 .setDescription(`${partnerMsg}`)
                 .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
                 .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
-                .image(`${imageURL}`)
 
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage], files: [`${imageURL}`]})
