@@ -3,7 +3,7 @@ const guildSchema = require('../../Database/guildSchema')
 const config = require('../../config.json');
 
 module.exports = {
-    commands: [`ticketcategory`, `setcategory`],
+    commands: [`setticketcategory`, `setcategory`],
     expectedArgs: '<Category name>',
     cooldown: -1,
     permissionError: ``,

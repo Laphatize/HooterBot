@@ -1,5 +1,5 @@
 const discord = require('discord.js')
-const config = require('../config.json')
+const config = require('../../config.json')
 
 module.exports = {
     commands: ['verifyPerksEmbed'],
@@ -13,8 +13,6 @@ module.exports = {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
-
-
 
         
         // EMBED MESSAGE
