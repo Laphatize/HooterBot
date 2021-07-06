@@ -85,7 +85,7 @@ module.exports = {
                 new MessageButton()
                     .setLabel("Begin Verification")
                     .setStyle("green")
-                    .setID("begin_verification_button")
+                    .setCustomID("begin_verification_button")
             );
 
 
