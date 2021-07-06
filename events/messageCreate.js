@@ -30,7 +30,7 @@ module.exports = {
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
 	    const cmdName = args.shift().toLowerCase();
 
         
