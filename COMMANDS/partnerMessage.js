@@ -49,38 +49,51 @@ module.exports = {
         console.log(`imageURL = splitPoint[2] = ${imageURL}`)
 
 
-        // // EMBED MESSAGE FOR NON-IMAGE
-        // if(fullCommand.match("|").length() == 1) {
-        // let partnerEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedDarkGrey)
-        //     .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
-        //     .setDescription(`${partnerMsg}`)
-        //     .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-        //     .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+        // EMBED MESSAGE WITHOUT IMAGE
+        if(!args[2]) {
+        let partnerEmbed = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+            .setDescription(`${partnerMsg}`)
+            .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
             
-        //     // POSTING EMBED MESSAGE AND BUTTON
-        //     await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
-        // }
+            // POSTING EMBED MESSAGE AND BUTTON
+            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
+        }
 
-        // if(fullCommand.match("|").length() == 2) {
+        // EMBED MESSAGE WITH IMAGE
+        if(args[2]) {
 
-        //     let fullCommandArgs = fullCommand.split("|")
-        //     console.log(`fullCommandArgs = ${fullCommandArgs}`)
-        //     console.log(`fullCommandArgs[2] = ${fullCommandArgs[2]}`)
-        //     console.log(`This array value above should be my image URL value.`)
+            let fullCommandArgs = fullCommand.split("|")
+            console.log(`fullCommandArgs = ${fullCommandArgs}`)
+            console.log(`fullCommandArgs[2] = ${fullCommandArgs[2]}`)
+            console.log(`This array value above should be my image URL value.`)
 
-        // let partnerEmbedImage = new discord.MessageEmbed()
-        //     .setColor(config.embedDarkGrey)
-        //     .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
-        //     .setDescription(`${partnerMsg}`)
-        //     .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-        //     .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
-        //     // .url('')
+        let partnerEmbedImage = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+            .setDescription(`${partnerMsg}`)
+            .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+            .url(`${imageURL}`)
 
 
-        //     // POSTING EMBED MESSAGE AND BUTTON
-        //     await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
-        // }
+            // POSTING EMBED MESSAGE AND BUTTON
+            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
+            .catch(err => {
+                console.log(err)
+
+                let msgSendErrorEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error!`)
+                .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
+                .addField(`partnerName`, `${partnerName}`)
+                .addField(`partnerMsg`, `${partnerMsg}`)
+                .addField(`imageURL`, `${imageURL}`)
+                return message.channel.send({embeds: msgSendErrorEmbed})
+            })
+        }
     },
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
