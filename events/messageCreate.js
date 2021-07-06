@@ -3,25 +3,25 @@ const guildSchema = require('../Database/guildSchema')
 const config = require('../config.json')
 const guildPrefixes = {}
 
-        
-// SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
-// CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
-const dbData = await guildSchema.findOne({
-    GUILD_ID: message.guild.id
-});
-
-
-// SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-if(dbData.PREFIX) {
-    serverPrefix = dbData.PREFIX;
-} else if(!dbData.PREFIX) {
-    serverPrefix = config.prefix;
-}
-
 
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
+   
+        // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
+        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        });
+
+
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            serverPrefix = dbData.PREFIX;
+        } else if(!dbData.PREFIX) {
+            serverPrefix = config.prefix;
+        }
+
 
         // MESSAGE IS NOT A COMMAND, IGNORE
         if (!message.content.startsWith(serverPrefix) || message.author.bot) {
