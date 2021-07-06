@@ -43,12 +43,6 @@ module.exports = {
         imageURL = splitPoint[2]
 
 
-        console.log(`splitPoint = ${splitPoint}`)
-        console.log(`partnerName = splitPoint[0] = ${partnerName}`)
-        console.log(`partnerMsg = splitPoint[1] = ${partnerMsg}`)
-        console.log(`imageURL = splitPoint[2] = ${imageURL}`)
-
-
         // EMBED MESSAGE WITHOUT IMAGE
         if(!splitPoint[2]) {
         let partnerEmbed = new discord.MessageEmbed()
@@ -60,23 +54,29 @@ module.exports = {
             
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
+            .catch(err => {
+                console.log(err)
+
+                let msgSendErrorEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error!`)
+                .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
+                .addField(`partnerName`, `\`\`${partnerName}\`\``)
+                .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                .setTimestamp()
+                message.channel.send({embeds: msgSendErrorEmbed})
+            })
         }
 
         // EMBED MESSAGE WITH IMAGE
         if(splitPoint[2]) {
-
-            let fullCommandArgs = fullCommand.split("|")
-            console.log(`fullCommandArgs = ${fullCommandArgs}`)
-            console.log(`fullCommandArgs[2] = ${fullCommandArgs[2]}`)
-            console.log(`This array value above should be my image URL value.`)
-
-        let partnerEmbedImage = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
-            .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
-            .setDescription(`${partnerMsg}`)
-            .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-            .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
-
+            let partnerEmbedImage = new discord.MessageEmbed()
+                .setColor(config.embedDarkGrey)
+                .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+                .setDescription(`${partnerMsg}`)
+                .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+                .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+                .image(`${imageURL}`)
 
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage], files: [`${imageURL}`]})
@@ -87,10 +87,11 @@ module.exports = {
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Error!`)
                 .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
-                .addField(`partnerName`, `${partnerName}`)
-                .addField(`partnerMsg`, `${partnerMsg}`)
-                .addField(`imageURL`, `${imageURL}`)
-                return message.channel.send({embeds: msgSendErrorEmbed})
+                .addField(`partnerName`, `\`\`${partnerName}\`\``)
+                .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                .addField(`imageURL`, `\`\`${imageURL}\`\``)
+                .setTimestamp()
+                message.channel.send({embeds: msgSendErrorEmbed})
             })
         }
     },
