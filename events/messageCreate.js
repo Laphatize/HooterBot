@@ -55,7 +55,7 @@ let recentCmdRun = []
 
 module.exports = {
 	name: 'messageCreate',
-	execute(message, commandOptions, client) {
+	async execute(message, commandOptions, client) {
 		const { member, content, guild } = message
 
 		let {
