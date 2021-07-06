@@ -85,8 +85,8 @@ module.exports = {
                 new MessageButton()
                     .setLabel("Begin Verification")
                     .setStyle("SUCCESS")
-                    .setCustomID("begin_verification_button")
-            );
+                    .setCustomID("beginVerifBtn")
+            )
 
 
         // POSTING EMBED MESSAGE AND BUTTON
