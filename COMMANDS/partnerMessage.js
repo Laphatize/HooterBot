@@ -37,14 +37,16 @@ module.exports = {
 
 
         // PARTNER NAME
-        splitPoint = fullCommand.indexOf('|')
-        partnerName = fullCommand.substring(0, splitPoint)
+        splitPoint = fullCommand.split('|')
+        partnerName = splitPoint[0]
+        partnerMsg = splitPoint[1]
+        imageURL = splitPoint[2]
 
-        // PARTNER MESSAGE
-        partnerMsg = fullCommand.split('|').pop();
 
-        console.log(`partnerName = ${partnerName}`)
-        console.log(`partnerMsg = ${partnerMsg}`)
+        console.log(`splitPoint = ${splitPoint}`)
+        console.log(`partnerName = splitPoint[0] = ${partnerName}`)
+        console.log(`partnerMsg = splitPoint[1] = ${partnerMsg}`)
+        console.log(`imageURL = splitPoint[2] = ${imageURL}`)
 
 
         // // EMBED MESSAGE FOR NON-IMAGE
