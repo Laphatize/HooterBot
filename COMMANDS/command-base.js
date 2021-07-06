@@ -39,10 +39,10 @@ const validatePerms =  (permissions) => {
         'USE_SLASH_COMMANDS'
     ]
 
-    // IF PERM USED THAT IS NOT VALID
+    // CHECKING IF PERM USED IN COMMAND IS NOT IN ARRAY
     for (const permission of permissions) {
         if (!validPerms.includes(permission)) {
-            throw new Error(`Unknown permission node "${permission}".`)
+            throw new Error(`Unknown permission: "${permission}".`)
         }
     }
 }
@@ -81,7 +81,7 @@ module.exports = (client, commandOptions) => {
         validatePerms(permissions)
     }
 
-    // MESSAGE LISTENER
+    // MESSAGE LISTENER -- THIS IS A BIG NO-NO WHY DID YOU DO IT LIKE THIS MMM!?!?!??
     client.on('messageCreate', async (message) => {
         const { member, content, guild } = message
         
