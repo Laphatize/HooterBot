@@ -5,7 +5,7 @@ const guildPrefixes = {}
 // CONNECT TO DB
 module.exports = {
     name: 'loadPrefixes',
-    async (client) {
+    async execute(client) {
         for (const guild of client.guilds.cache) {
             const guildID = guild[1].id
 
