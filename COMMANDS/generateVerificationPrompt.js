@@ -83,9 +83,9 @@ module.exports = {
             .addComponents(
                 // BUTTON
                 new MessageButton()
-                    .setCustomID('primary')
-                    .setLabel('primary')
-                    .setStyle('PRIMARY')
+                    .setLabel("Begin Verification")
+                    .setStyle("SUCCESS")
+                    .setCustomId("begin_verification_button")
             );
 
 
