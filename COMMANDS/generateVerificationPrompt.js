@@ -83,10 +83,10 @@ module.exports = {
             .addComponents(
                 // BUTTON
                 new MessageButton()
-                    .setLabel("Begin Verification")
-                    .setStyle("SUCCESS")
-                    .setCustomID("beginVerifBtn")
-            )
+                    .setCustomID('primary')
+                    .setLabel('primary')
+                    .setStyle('PRIMARY')
+            );
 
 
         // POSTING EMBED MESSAGE AND BUTTON
