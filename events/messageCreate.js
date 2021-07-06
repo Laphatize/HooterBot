@@ -196,7 +196,7 @@ module.exports = {
 
 
         if (timestamps.has(message.author.id)) {
-            const expireTime = timestamps.get(message.author.id) + cooldownAmount;
+            const expireTime = timestamps.get(message.author.id) + cooldownTime;
     
             if (now < expireTime) {
 
@@ -224,7 +224,7 @@ module.exports = {
 
         // SETTING COOLDOWN TIMEOUT
         timestamps.set(message.author.id, now);
-	    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+	    setTimeout(() => timestamps.delete(message.author.id), cooldownTime);
 
 
         // EXECUTE COMMAND
