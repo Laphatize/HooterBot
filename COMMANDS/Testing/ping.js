@@ -1,5 +1,5 @@
 const discord = require('discord.js')
-const config = require ('../config.json')
+const config = require ('../../config.json')
 
 module.exports = {
     commands: ['ping', 'test', 'testing'],
@@ -9,13 +9,17 @@ module.exports = {
     description: `A command to test if ${config.botName} is responding or suffering from latency issues.`,
     minArgs: 0,
     maxArgs: 0,
+    permissions: '',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {
+        
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlue)
             .setTitle(`Ping...`)
             .setDescription(`Bot latency =\nAPI latency =`)
             .setTimestamp()
+
 
         // SENDING INITIAL EMBED
         message.channel.send({embeds: [initialPingEmbed]})
@@ -26,12 +30,14 @@ module.exports = {
             console.log(`********* END OF ERROR ***********\n\n`)
         })
 
+
         // CALCULATE PING BETWEEN MESSAGES
         .then(m => {
             var botPing = m.createdTimestamp - message.createdTimestamp
             var apiPing = client.ws.ping
 
             let botLatEmj, apiLatEmj
+
 
             // BOT LATENCY EMOJI PICK
             if (botPing < 100) {
@@ -44,6 +50,7 @@ module.exports = {
                 botLatEmj = config.emjREDTICK
             }
 
+
             // API LATENCY EMOJI PICK
             if (apiPing < 75) {
                 apiLatEmj = config.emjGREENTICK
@@ -54,6 +61,8 @@ module.exports = {
             if (apiPing >= 125) {
                 apiLatEmj = config.emjREDTICK
             }
+
+
             //DEFINING UPDAETE EMBED
             let updatedPingEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlue)
@@ -61,7 +70,8 @@ module.exports = {
                 .setDescription(`Bot latency = **${botPing}ms** ${botLatEmj}\nAPI latency = **${apiPing}ms** ${apiLatEmj}`)
                 .setTimestamp()
 
-            // SENDING EMBED
+
+            // SENDING UPDATED EMBED
             m.edit({embeds: [updatedPingEmbed]})
             .catch(err => {
                 console.log(`************* ERROR ************`)
@@ -71,6 +81,4 @@ module.exports = {
             })
         })
     },
-    permissions: '',
-    requiredRoles: [],
 }

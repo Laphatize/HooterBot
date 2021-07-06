@@ -1,7 +1,7 @@
 const discord = require('discord.js')
-const guildSchema = require('../Database/guildSchema')
-const commandBase = require('../COMMANDS/command-base')
-const config = require('../config.json')
+const guildSchema = require('../../Database/guildSchema')
+const updateCache = require('../../events/updateCache')
+const config = require('../../config.json')
 
 module.exports = {
     commands: ['setprefix'],
@@ -11,10 +11,19 @@ module.exports = {
     description: `(${config.emjAdmin}) A command to change the prefix of ${config.botName}.`,
     minArgs: 1,
     maxArgs: 1,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
+
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
+
 
         // IF PREFIX LONGER THAN 5 CHARACTERS
         if (arguments[0].length > 5) {
@@ -24,6 +33,7 @@ module.exports = {
             .setDescription(`Sorry, please provide a prefix that is 5 characters long or smaller.`)
             return message.channel.send({embeds: [longPrefixEmbed]})
         }
+
 
         const newPrefix = arguments[0]
 
@@ -40,15 +50,18 @@ module.exports = {
             upsert: true
         })
 
+
         // DEFINING UPDATE EMBED
         let updatePrefixEmbed = new discord.MessageEmbed()
         .setColor(config.embedGreen)
         .setTitle(`${config.emjGREENTICK} Prefix Updated!`)
         .setDescription(`The new prefix is **${newPrefix}** (e.g. \`\`${newPrefix}command\`\`).`)
 
+
         // SENDING EMBED
         message.channel.send({embeds: [updatePrefixEmbed]})
         
+
         // DEFINING LOG EMBED
         let logPrefixUpdateEmbed = new discord.MessageEmbed()
         .setColor(config.embedDarkGrey)
@@ -56,12 +69,12 @@ module.exports = {
         .setDescription(`**New command prefix:** \`\` ${newPrefix} \`\`\n**Changed by:** ${prefixChanger}`)
         .setTimestamp()
         
+
         // LOG ENTRY
         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logPrefixUpdateEmbed]})
         
+
         // UPDATE CACHE
-        commandBase.updateCache(message.guild.id, newPrefix)
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+        updateCache(message.guild.id, newPrefix)
+    }
 }

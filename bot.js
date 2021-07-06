@@ -60,6 +60,16 @@ for (const file of eventFiles) {
 }
 
 
+// COMMAND HANDLER
+client.commands = new discord.Collection();
+const cmdFiles = fs.readdirSync('./COMMANDS').filter(file => file.endsWith('.js'));
+
+for (const file of cmdFiles) {
+    const command = require(`./COMMANDS/${file}`);
+    client.commands.set(command.name, command);
+}
+
+
 
 // BOT LOGGING IN
 client.login(process.env.HB_BOT_TOKEN);

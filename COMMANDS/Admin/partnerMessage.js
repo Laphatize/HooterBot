@@ -1,5 +1,5 @@
 const discord = require('discord.js')
-const config = require('../config.json')
+const config = require('../../config.json')
 
 module.exports = {
     commands: ['partnerMessage', 'partnerAnnouncement', 'partnerMsg'],
@@ -9,12 +9,20 @@ module.exports = {
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     minArgs: 1,
     maxArgs: 1,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {        
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
 
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
+
+        
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');
 
@@ -55,8 +63,10 @@ module.exports = {
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
             .catch(err => {
+                // LOGGING
                 console.log(err)
 
+                // INFORMING USER
                 let msgSendErrorEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Error!`)
@@ -67,6 +77,7 @@ module.exports = {
                 message.channel.send({embeds: [msgSendErrorEmbed]})
             })
         }
+
 
         // EMBED MESSAGE WITH IMAGE
         if(splitPoint[2]) {
@@ -78,11 +89,14 @@ module.exports = {
                 .setImage(`${imageURL}`)
                 .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
 
+
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
             .catch(err => {
+                // LOGGING
                 console.log(err)
 
+                // INFORMING USER
                 let msgSendErrorEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Error!`)
@@ -94,7 +108,5 @@ module.exports = {
                 message.channel.send({embeds: [msgSendErrorEmbed]})
             })
         }
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

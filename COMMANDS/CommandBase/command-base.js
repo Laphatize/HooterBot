@@ -1,6 +1,6 @@
 const discord = require('discord.js')
-const guildSchema = require('../Database/guildSchema')
-const config = require('../config.json')
+const guildSchema = require('../../Database/guildSchema')
+const config = require('../../config.json')
 const guildPrefixes = {}
 
 const validatePerms =  (permissions) => {
@@ -69,8 +69,7 @@ module.exports = (client, commandOptions) => {
     if (typeof commands === 'string') {
         commands = [commands]
     }
-
-    console.log(`Command: "${commands[0]}"`)
+    
 
     // ENSURE PERMS IN ARRAY AND VALID
     if (permissions.length) {

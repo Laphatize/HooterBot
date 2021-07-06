@@ -1,6 +1,13 @@
 const discord = require('discord.js')
-const config = require('../config.json')
-const guildSchema = require('../Database/guildSchema');
+const config = require('../../config.json')
+const guildSchema = require('../../Database/guildSchema');
+
+/*********************************************/
+/*                  TO DO                    */
+/* 1. BRING BUTTONS BACK ONLINE              */
+/* 2.                                        */
+/* 3.                                        */
+/*********************************************/
 
 
 module.exports = {
@@ -11,12 +18,20 @@ module.exports = {
     description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     minArgs: 1,
     maxArgs: 1,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {
 
         let verifChanger = message.author;
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
+
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
 
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -125,7 +140,5 @@ module.exports = {
                 client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
             }
         }
-    },
-    permissions: '',
-    requiredRoles: [],
+    }
 }

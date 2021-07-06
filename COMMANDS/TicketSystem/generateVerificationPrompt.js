@@ -18,7 +18,12 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
         
 
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
 
+        
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id

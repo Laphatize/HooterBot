@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 const { MessageActionRow, MessageButton } = require('discord.js')
-const config = require('../config.json')
+const config = require('../../config.json')
 
 module.exports = {
     commands: ['initialPrompt'],
@@ -10,10 +10,13 @@ module.exports = {
     description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
     minArgs: 0,
     maxArgs: 0,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
 
         // EMBED MESSAGE
         let ticketEmbed = new discord.MessageEmbed()
@@ -63,7 +66,5 @@ module.exports = {
         
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] });
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

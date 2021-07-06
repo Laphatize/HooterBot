@@ -15,6 +15,12 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
 
         
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
+        
+        
         // EMBED MESSAGE
         let ticketEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)

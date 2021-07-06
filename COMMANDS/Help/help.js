@@ -1,7 +1,7 @@
 const discord = require('discord.js')
-const loadCommands = require('../LoadCommands.js')
-const config = require ('../config.json')
-const guildSchema = require('../Database/guildSchema');
+const loadCommands = require('../../LoadCommands.js')
+const config = require ('../../config.json')
+const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
     commands: ['help'],
@@ -11,6 +11,8 @@ module.exports = {
     description: `Describes ${config.botName}'s commands. (🗺️📌 *You are here*)`,
     minArgs: 0,
     maxArgs: 0,
+    permissions: '',
+    requiredRoles: [],
     callback: async (message, arguments, text, client) => {
         
         // DELETING INVOCATION MESSAGE
@@ -88,7 +90,5 @@ module.exports = {
         
         // RESPONDING TO USER WITH COMMAND LIST
         message.channel.send({content: helptext, embeds: [helpEmbed]})
-    },
-    permissions: '',
-    requiredRoles: [],
+    }
 }

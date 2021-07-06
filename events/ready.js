@@ -1,7 +1,7 @@
 const config = require ('../config.json')
 const LoadCommands = require('../LoadCommands')
-const CommandBase = require('../COMMANDS/command-base')
-const db = require('../utils/mongo')
+const db = require('../utils/mongo');
+const updateCache = require('./updateCache');
 
 module.exports = {
 	name: 'ready',
@@ -29,7 +29,7 @@ module.exports = {
 
 		// LOADING PREFIXES FROM DB
 		console.log(`===== REGISTERING PREFIXES =====`);
-		CommandBase.loadPrefixes(client);
+		updateCache.loadPrefixes(client);
 		console.log(`Prefixes registered.`);
 		console.log(`================================\n\n`);
 

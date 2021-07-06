@@ -1,6 +1,6 @@
 const discord = require('discord.js')
-var pjson = require('../package.json');
-const config = require ('../config.json')
+var pjson = require('../../package.json');
+const config = require ('../../config.json')
 
 
 module.exports = {
@@ -11,6 +11,8 @@ module.exports = {
     description: `Describes the details about ${config.botName}.`,
     minArgs: 0,
     maxArgs: 0,
+    permissions: '',
+    requiredRoles: [],
     callback: (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
@@ -56,7 +58,5 @@ module.exports = {
         
         // RESPONDING TO USER WITH INFO EMBED
         message.channel.send({embeds: [infoEmbed]})
-    },
-    permissions: '',
-    requiredRoles: [],
+    }
 }

@@ -16,6 +16,12 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
 
 
+        // IGNORING DM USE
+        if(message.channel.type == "dm") {
+            return;
+        }
+
+        
         let categoryChanger = message.author;
 
         const category = message.guild.channels.cache.find(ch => ch.type == "category" && ch.name.toLowerCase() == arguments[0].toLowerCase());
