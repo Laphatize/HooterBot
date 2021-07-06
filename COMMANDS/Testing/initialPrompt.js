@@ -3,16 +3,17 @@ const { MessageActionRow, MessageButton } = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    commands: ['initialPrompt'],
+    name: `initialPrompt`,
+    aliases: [`verifPrompt1`],
+    description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
     expectedArgs: '',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
     minArgs: 0,
     maxArgs: 0,
+    guildOnly: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    callback: async (message, arguments, text, client) => {
+    execute: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

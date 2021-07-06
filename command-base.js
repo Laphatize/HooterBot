@@ -1,6 +1,6 @@
 const discord = require('discord.js')
-const guildSchema = require('../../Database/guildSchema')
-const config = require('../../config.json')
+const guildSchema = require('./Database/guildSchema')
+const config = require('./config.json')
 const guildPrefixes = {}
 
 const validatePerms =  (permissions) => {

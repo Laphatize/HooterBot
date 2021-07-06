@@ -2,16 +2,17 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    commands: ['partnerMessage', 'partnerAnnouncement', 'partnerMsg'],
+    name: `partnerMessage`,
+    aliases: [`partnerAnnouncement`, `partnerMsg`],
+    description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     minArgs: 1,
     maxArgs: 1,
+    guildOnly: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    callback: async (message, arguments, text, client) => {        
+    execute: async (message, arguments, text, client) => {        
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

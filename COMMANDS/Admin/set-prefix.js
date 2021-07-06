@@ -4,16 +4,17 @@ const updateCache = require('../../events/updateCache')
 const config = require('../../config.json')
 
 module.exports = {
-    commands: ['setprefix'],
+    name: `setprefix`,
+    aliases: [`botprefix`, `changeprefix`],
+    description: `(${config.emjAdmin}) A command to change the prefix of ${config.botName}.`,
     expectedArgs: '<new_prefix>',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) A command to change the prefix of ${config.botName}.`,
     minArgs: 1,
     maxArgs: 1,
+    guildOnly: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    callback: async (message, arguments, text, client) => {
+    execute: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

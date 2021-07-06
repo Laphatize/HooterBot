@@ -3,14 +3,17 @@ const guildSchema = require('../../Database/guildSchema')
 const config = require('../../config.json');
 
 module.exports = {
-    commands: [`setticketcategory`, `setcategory`],
+    name: `setTicketCategory`,
+    aliases: [`setcategory`, `ticketCategory`, `ticketCat`],
+    description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     expectedArgs: '<Category name>',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     minArgs: 1,
     maxArgs: 1,
-    callback: async (message, arguments, text, client) => {
+    guildOnly: true,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
+    execute: async (message, arguments, text, client) => {
         
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -70,7 +73,5 @@ module.exports = {
         
         // LOG ENTRY
         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

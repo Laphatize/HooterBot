@@ -1,5 +1,4 @@
 const config = require ('../config.json')
-const LoadCommands = require('../LoadCommands')
 const db = require('../utils/mongo');
 const updateCache = require('./updateCache');
 
@@ -18,12 +17,6 @@ module.exports = {
 		console.log(`======= ACTIVITY STATUS ========`);
 		client.user.setActivity(`verification requests`, {type: "WATCHING"});
 		console.log(`${config.botName}'s activity status is set.`)
-		console.log(`================================\n\n`);
-
-
-		// LOADING COMMANDS FROM loadCommands.js
-		console.log(`===== REGISTERING COMMANDS =====`);
-		LoadCommands(client);
 		console.log(`================================\n\n`);
 
 

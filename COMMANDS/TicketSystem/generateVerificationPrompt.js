@@ -5,14 +5,17 @@ const guildSchema = require('../../Database/guildSchema');
 
 
 module.exports = {
-    commands: ['generateVerificationPrompt', 'verifEmbed'],
+    name: `verifEmbed`,
+    aliases: [`generateVerificationPrompt`],
+    description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     expectedArgs: '',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     minArgs: 0,
     maxArgs: 0,
-    callback: async (message, arguments, text, client) => {
+    guildOnly: true,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
+    execute: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -114,7 +117,5 @@ module.exports = {
         },{ 
             upsert: true
         })
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

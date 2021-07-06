@@ -2,14 +2,17 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    commands: ['verifyPerksEmbed'],
+    name: `verifyPerksEmbed`,
+    aliases: [`verifyPerks`, `whyVerify`],
+    description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
     expectedArgs: '',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
     minArgs: 0,
     maxArgs: 0,
-    callback: async (message, arguments, text, client) => {
+    guildOnly: true,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
+    execute: async (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -33,7 +36,5 @@ module.exports = {
 
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({embeds: [ticketEmbed]});
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

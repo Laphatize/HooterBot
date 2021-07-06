@@ -2,16 +2,17 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    commands: ['ping', 'test', 'testing'],
+    name: `ping`,
+    aliases: [`test`, `testing`],
+    description: `A command to test if ${config.botName} is responding or suffering from latency issues.`,
     expectedArgs: '',
     cooldown: 10,
-    permissionError: ``,
-    description: `A command to test if ${config.botName} is responding or suffering from latency issues.`,
     minArgs: 0,
     maxArgs: 0,
+    guildOnly: false,
     permissions: '',
     requiredRoles: [],
-    callback: async (message, arguments, text, client) => {
+    execute: async (message, arguments, text, client) => {
         
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()

@@ -4,16 +4,17 @@ const config = require ('../../config.json')
 
 
 module.exports = {
-    commands: ['info', 'botinfo'],
+    name: `botinfo`,
+    aliases: [`info`],
+    description: `Describes the details about ${config.botName}.`,
     expectedArgs: '',
     cooldown: 60,
-    permissionError: '',
-    description: `Describes the details about ${config.botName}.`,
     minArgs: 0,
     maxArgs: 0,
+    guildOnly: false,
     permissions: '',
     requiredRoles: [],
-    callback: (message, arguments, text, client) => {
+    execute: (message, arguments, text, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

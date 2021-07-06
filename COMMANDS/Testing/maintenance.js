@@ -11,16 +11,17 @@ const guildSchema = require('../../Database/guildSchema');
 
 
 module.exports = {
-    commands: ['maintenance', 'verificationtoggle'],
+    name: `maintenance`,
+    aliases: [`verificationtogle`],
+    description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     expectedArgs: '<"on" = maintenance | "off" = regular use>',
     cooldown: -1,
-    permissionError: ``,
-    description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     minArgs: 1,
     maxArgs: 1,
+    guildOnly: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    callback: async (message, arguments, text, client) => {
+    execute: async (message, arguments, text, client) => {
 
         let verifChanger = message.author;
 
