@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.channel.permissionsFor(guild.me).has('SEND_MESSAGES')) { 
+        if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
