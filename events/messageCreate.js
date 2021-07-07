@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
+        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -33,7 +33,7 @@ module.exports = {
             .addField(`Server:`, `${message.guild.name}`)
             .addField(`Channel:`, `${message.channel}`)
             .addField(`Message Content:`, `${message.content}`)
-            .setFooter(`You are receiving this because I do not have permission to speak in the channel. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
+            .setFooter(`You are receiving this because I do not have permission to speak in the channel listed. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
 
 
             // DM USER WHO ISSUED COMMAND
