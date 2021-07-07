@@ -8,6 +8,32 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
    
+
+        // IF COMMAND IS A GUILD-ONLY BUT RUN IN DMs
+        if (command.guildOnly && message.channel.type === 'dm') {
+
+
+            // DEFINING EMBED
+            let guildOnlyEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
+            .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`User:`, `${message.author}`)
+            .addField(`Message Content:`, `${message.content}`)
+
+
+            // SENDING EMBED
+            message.channel.send( {embed: [guildOnlyEmbed]} )
+
+
+            // DELETE AFTER 5 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+            .catch(err => console.log(err))
+            return
+        }
+
+
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
         const dbData = await guildSchema.findOne({
@@ -41,31 +67,6 @@ module.exports = {
 
         // IF COMMAND DOESN'T EXIST
         if (!command) {
-            return
-        }
-
-
-        // IF COMMAND IS A GUILD-ONLY BUT RUN IN DMs
-        if (command.guildOnly && message.channel.type === 'dm') {
-
-
-            // DEFINING EMBED
-            let guildOnlyEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
-            .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-
-
-            // SENDING EMBED
-            message.channel.send( {embed: [guildOnlyEmbed]} )
-
-
-            // DELETE AFTER 5 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-            .catch(err => console.log(err))
             return
         }
 
