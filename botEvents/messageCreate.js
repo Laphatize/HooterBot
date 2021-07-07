@@ -44,11 +44,14 @@ module.exports = {
 
             // DM USER WHO ISSUED COMMAND VIA CACHE
             client.users.cache.get(message.author.id).send({embeds: [logTalkPermErrorDMEmbed]})
-                .catch(err => console.log(err))
+                .catch(err => { console.log(err)
 
-            // IF NOT CACHED MEMBER, ATTEMPT DM STILL
-            message.author.send({embeds: [logTalkPermErrorDMEmbed]})
-                .catch(err => console.log(err))
+                // IF NOT CACHED, ATTEMPT DM DIRECTLY
+                message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+                    .catch(err => console.log(err))
+                })
+
+            return;
         }
 
 
