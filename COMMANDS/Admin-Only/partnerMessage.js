@@ -7,14 +7,13 @@ module.exports = {
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
-    minArgs: 1,
-    maxArgs: 1,
+    minArgs: 0,
+    maxArgs: 0,
     guildOnly: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {  
-        
-        message.channel.send(hi)
+    execute: async (message, arguments, client) => {
+
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
