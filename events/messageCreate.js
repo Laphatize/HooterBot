@@ -199,7 +199,7 @@ module.exports = {
                 let cooldownWaitEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Not so fast!`)
-                    .setDescription(`You just ran that command. Please wait ${timeLeft.toFixed(1)} more second(s) before running \`\`${cmdName}\`\` again.`)
+                    .setDescription(`You just ran that command. Please wait ${timeLeft.toFixed(0)} more second(s) before running \`\`${cmdName}\`\` again.`)
                     .setFooter(`(This message will disappear when the cooldown has ended.)`)
         
 
