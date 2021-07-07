@@ -82,17 +82,27 @@ for (const folder of cmdFolders) {
             GUILD_ID: message.guild.id
         });
 
+        guildId = guild.id
 
         // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
         if(dbData.PREFIX) {
-            client.configs.set(message.guild.id, dbData) 
+            client.configs.set(guild.id, dbData) 
 
             console.log(`############# DATABASE ###############`);
             console.log(`Guild config map set.`);
             console.log(`######################################\n\n`);
-        } else {
+        }
+        else {
             console.log(`############# DATABASE ###############`);
             console.log(`ERROR: Guild config map not found.`);
+
+            console.log(`Creating config map.`);
+            client.configs.set(guildId, {
+                guildId,
+                prefix: config.prefix,
+            })
+
+
             console.log(`######################################\n\n`);
         }
     }
