@@ -73,27 +73,31 @@ module.exports = {
         }
    
 
-        // IF COMMAND IS A GUILD-ONLY BUT RUN IN DMs
-        if (command.guildOnly && message.channel.type === 'dm') {
+        // ENSURING GUILD USE ONLY IN GUILD
+        if (command.guildUse === false && message.channel.type === 'text') {
 
             // DEFINING EMBED
-            let guildOnlyEmbed = new discord.MessageEmbed()
+            let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
-            .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${serverPrefix} <something>\`\`.`)
 
             // SENDING EMBED
-            message.channel.send( {embed: [guildOnlyEmbed]} )
+            return message.author.send( {embed: [guildDisallowEmbed]} )
+        }
 
 
-            // DELETE AFTER 5 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-            .catch(err => console.log(err))
-            return
+        // ENSURING DM USE ONLY IN DMS
+        if (command.dmUse === false && message.channel.type === 'dm') {
+
+            // DEFINING EMBED
+            let dmDisallowEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${serverPrefix} <something>\`\`.`)
+
+            // SENDING EMBED
+            return message.author.send( {embed: [dmDisallowEmbed]} )
         }
 
 

@@ -9,7 +9,8 @@ module.exports = {
     cooldown: -1,
     minArgs: 0,
     maxArgs: 0,
-    guildOnly: true,
+    guildUse: true,
+    dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
