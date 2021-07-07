@@ -23,8 +23,8 @@ module.exports = {
         let ticketEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`**Verification - Ticket Opened**`)
-            .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> Temple University server.\nThere are **3** ways to verify:\n- Use a physical TUid card\n- Use a virtual TUid card\n- Using TUportal\n\nSelect a button below to begin.`)
-            .setFooter("If these buttons stop working, type \"$initialPrompt\". If it continues to fail, submit a ModMail ticket.")
+            .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> Temple University server.\nThere are **3** ways to verify:\n${config.indent}1. Use a physical TUid card\n${config.indent}2. Use a virtual TUid card\n${config.indent}3. Using TUportal\n\nAfter selecting your method, click the button for further instructions.`)
+            .setFooter("These buttons will stop working after X minutes due to API limitations. Type \"$initialPrompt\" here to reactivate. Submit a ModMail ticket if the problem persists.")
 
 
         // INITIALIZING BUTTON
