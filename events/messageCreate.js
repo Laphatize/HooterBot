@@ -8,10 +8,8 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        const { member, guild } = message
-
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!guild.me.permissions.has('SEND_MESSAGES')) { 
+        if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -132,7 +130,7 @@ module.exports = {
                 const role = message.guild.roles.cache.find((role) => role.name === command.requiredRole)
 
                 // VALIDATING ROLE
-                if (!role || !member.roles.cache.has(role.id)) {
+                if (!role || !message.member.roles.cache.has(role.id)) {
 
                     // DEFINING EMBED TO SEND
                         let cmdRoleErrEmbed = new discord.MessageEmbed()
