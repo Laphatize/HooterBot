@@ -17,30 +17,33 @@ module.exports = {
             // SEND TO #introduce-yourself CHANNEL
             await introduceYourselfChannel.send({embeds: [botJoinEmbed]})
             .catch(err => console.log(err))
+            .then(msg => {
 
 
-            // CREATE DATABASE ENTRY FOR GUILD
-            const result = await guildSchema.findOne({
-                // CONTENT USED TO FIND UNIQUE ENTRY
-                GUILD_NAME: member.guild.name,
-                GUILD_ID: member.guild.id
+                // CREATE DATABASE ENTRY FOR GUILD
+                const result = await guildSchema.findOne({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    GUILD_NAME: msg.guild.name,
+                    GUILD_ID: msg.guild.id
+                })
+                
+                console.log(`result = ${result}`)
+
+                // if(!result){
+                //     await guildSchema.insertOne({
+                //         GUILD_NAME: msg.guild.name,
+                //         GUILD_ID: msg.guild.id,
+                //         REGISTERED: Date.now(),
+                //         PREFIX: config.prefix,
+                //         TICKET_CAT_ID: null,
+                //         VERIF_PROMPT_CH_ID: null,
+                //         VERIF_PROMPT_MSG_ID: null
+                //     },{ 
+                //         // IF DNE, CREATE ENTRY FOR GUILD
+                //         upsert: true
+                //     })
+                // }
             })
-            
-            console.log(`result = ${result}`)
-
-            // if(!result){
-            //     await guildSchema.insertOne({
-            //         GUILD_NAME: member.guild.name,
-            //         GUILD_ID: member.guild.id,
-            //         REGISTERED: Date.now(),
-            //         PREFIX: config.prefix,
-            //         TICKET_CAT_ID: null,
-            //         VERIF_PROMPT_CH_ID: null,
-            //         VERIF_PROMPT_MSG_ID: null
-            //     },{ 
-            //         // IF DNE, CREATE ENTRY FOR GUILD
-            //         upsert: true
-            //     })
-            // }
+            .catch(err => console.log(err))
 	},
 };
