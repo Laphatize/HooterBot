@@ -8,6 +8,13 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        
+        // MESSAGE IS NOT A COMMAND
+        if (!message.content.startsWith(serverPrefix) || message.author.bot) {
+            return
+        }
+
+
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
 
@@ -18,13 +25,12 @@ module.exports = {
             .addField(`Channel:`, `${message.channel}`)
             .addField(`User:`, `${message.author}`)
             .addField(`Message Content:`, `${message.content}`)
-            .setTimestamp()
-            
 
             // LOG ENTRY
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
+                .catch(err => console.log(err))
 
-
+                
             // DEFINING LOG EMBED FOR DM
             let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
@@ -38,23 +44,9 @@ module.exports = {
 
             // DM USER WHO ISSUED COMMAND
             message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+                .catch(err => console.log(err))
             return
         }
-
-        // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
-        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY
-        const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
-        });
-
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
-        
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
@@ -65,13 +57,13 @@ module.exports = {
         // SETTING COMMAND TO NAME OR TO ALIAS
         const command = client.commands.get(cmdName.toLowerCase())
                         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName.toLowerCase()));
-
-
-        // MESSAGE IS NOT A COMMAND OR DNE
-        if (!message.content.startsWith(serverPrefix) || message.author.bot || !command) {
-            return
-        }
    
+
+        // COMMAND DNE
+        if(!command) {
+            return;
+        }
+
 
         // ENSURING GUILD USE ONLY IN GUILD
         if (command.guildUse === false && message.channel.type === 'text') {

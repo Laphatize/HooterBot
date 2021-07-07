@@ -1,27 +1,11 @@
 require('dotenv').config();
 const discord = require('discord.js')
-const { Collection } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json')
+const guildSchema = require('../Database/guildSchema')
 
 
-
-
-// // VARIABLES FOR TEMPLE SERVER
-// let logActionsChannelId = 829726733712359476;
-// let TranscriptsId  = 834441201197252648;
-// let modRoleId = 835182957160300604;
-// let adminRoleId = 829416550867140608;
-
-// // VARIABLES FOR MMM TEST SERVER - SET IN CONFIG FILE
-// let logActionsChannelId = 857106515156140062;
-// let TranscriptsId  = 857106503438041108;
-// let modRoleId = 857105754280427521;
-// let adminRoleId = 588107993153929248;
-
-
-
-// INITIALIZATION - SETMAXLISTENERS NEEDED RIGHT NOW SINCE I MADE A MISTAKE IN THE COMMAND HANDLER :'( 
+// INITIALIZATION
 const client = new discord.Client({
     intents: [
         'GUILDS',
@@ -43,11 +27,13 @@ const client = new discord.Client({
 })
 
 
-
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
 
+
+// MAPS
+client.configs = new Map();
 
 
 // EVENT HANDLER
@@ -79,10 +65,38 @@ for (const folder of cmdFolders) {
 }
 
 
+(async() => {
 
-// BOT LOGGING IN
-client.login(process.env.HB_BOT_TOKEN);
+    // BOT LOGGING IN
+    client.login(process.env.HB_BOT_TOKEN);
 
+
+    // PREP FOR PREFIX ASSIGNMENT AND CACHING
+    const guilds = client.guilds.cache.array();
+
+    // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT FOR EACH GUILD
+    for (const guild of guilds) {
+
+        // DB CHECK
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        });
+
+
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            client.configs.set(message.guild.id, dbData) 
+
+            console.log(`############# DATABASE ###############`);
+            console.log(`Guild config map set.`);
+            console.log(`######################################\n\n`);
+        } else {
+            console.log(`############# DATABASE ###############`);
+            console.log(`ERROR: Guild config map not found.`);
+            console.log(`######################################\n\n`);
+        }
+    }
+})();
 
 
 // UNKNOWN ERROR REPORTING
