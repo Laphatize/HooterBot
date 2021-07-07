@@ -8,6 +8,12 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        // IF SOMEONE SAYS THE BOT IS GOOD, SURPRISE!
+        if(message.content.toLowerCase().includes('good bot')) {
+            message.channel.send(`Thank you, ${message.author}, you are a good human. 😊`)
+        }
+
+
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
         const dbData = await guildSchema.findOne({
