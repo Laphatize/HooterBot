@@ -51,10 +51,10 @@ client.cooldowns = new discord.Collection();
 
 
 // EVENT HANDLER
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('./Events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
+	const event = require(`./Events/${file}`);
     // FOR ONE-TIME EVENTS
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));

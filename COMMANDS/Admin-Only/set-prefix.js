@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 const guildSchema = require('../../Database/guildSchema')
-const updateCache = require('../../events/updateCache')
+const updateCache = require('../../Events/updateCache')
 const config = require('../../config.json')
 
 module.exports = {
