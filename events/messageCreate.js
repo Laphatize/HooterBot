@@ -28,6 +28,8 @@ module.exports = {
             serverPrefix = config.prefix;
         }
 
+        console.log(`(line 31) serverPrefix = ${serverPrefix}\n`)
+
 
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
@@ -69,6 +71,7 @@ module.exports = {
             return
         }
 
+        console.log(`(line 74) serverPrefix = ${serverPrefix}\n`)
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
@@ -159,7 +162,7 @@ module.exports = {
             }
         }
 
-
+        console.log(`(line 165) serverPrefix = ${serverPrefix}\n`)
 
         // ENSURE CORRECT NUMBER OF ARGS
         if (args.length < command.minArgs || (command.maxArgs !== null && args.legnth > command.maxArgs)) {
