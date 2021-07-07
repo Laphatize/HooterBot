@@ -3,7 +3,7 @@ const config = require('../config.json');
 const guildSchema = require('../Database/guildSchema');
 
 module.exports = {
-	name: 'guildJoin',
+	name: 'guildCreate',
 	async execute(member, client) {
       
             introduceYourselfChannel = config.introductionsChannelId;
