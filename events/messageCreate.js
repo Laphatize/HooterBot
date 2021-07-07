@@ -11,7 +11,7 @@ module.exports = {
         const { member, guild } = message
 
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
+        if (!guild.me.permissions.has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
