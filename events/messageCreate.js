@@ -8,8 +8,10 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
+        const { member, guild } = message
+
+        // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
+        if (!message.channel.permissionsFor(guild.me).has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
