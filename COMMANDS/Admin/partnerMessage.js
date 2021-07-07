@@ -47,9 +47,9 @@ module.exports = {
 
         // PARTNER NAME
         splitPoint = fullCommand.split('|')
-        partnerName = splitPoint[0]
-        partnerMsg = splitPoint[1]
-        imageURL = splitPoint[2]
+        partnerName = splitPoint[0].trim()
+        partnerMsg = splitPoint[1].trim()
+        imageURL = splitPoint[2].trim()
 
 
         // EMBED MESSAGE WITHOUT IMAGE
