@@ -27,44 +27,33 @@ module.exports = {
             .setFooter("If these buttons stop working, type \"$initialPrompt\". If it continues to fail, submit a ModMail ticket.")
 
 
-    // // BUTTON ROW
-    // const buttonRow = new MessageActionRow()
-    // .addComponents(
-    //     // BUTTON
-    //     new MessageButton()
-    //         .setLabel("Begin Verification")
-    //         .setStyle("SUCCESS")
-    //         .setCustomId("begin_verification_button")
-
-
-    //         );
-
-
-
-        // INITIALIZING BUTTON
-        let TUidCardButton = new MessageButton()
-            .setLabel("Physical TUid Card")
-            .setStyle("grey")
-            .setID("physical_TUid_Card")
-        let VirtualTUidCardButton = new MessageButton()
-            .setLabel("Virtual TUid Card")
-            .setStyle("grey")
-            .setID("virtual_TUid_Card")
-        let TuPortalButton = new MessageButton()
-            .setLabel("TUportal")
-            .setStyle("grey")
-            .setID("TU_portal")
-        let CancelButton = new MessageButton()
-            .setLabel("Quit Verification")
-            .setStyle("red")
-            .setID("quit")
-
-        let row = new MessageActionRow()
-            .addComponent(TUidCardButton)
-            .addComponent(VirtualTUidCardButton)
-            .addComponent(TuPortalButton)
-            .addComponent(CancelButton)
-        
+    // BUTTON ROW
+    const buttonRow = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setLabel("Physical TUid Card")
+                .setStyle("SECONDARY")
+                .setId("physicalTuIdCard")
+        )
+        .addComponents(
+            new MessageButton()
+                .setLabel("Virtual TUid Card")
+                .setStyle("SECONDARY")
+                .setId("virtualTuIdCard")
+        )
+        .addComponents(
+            new MessageButton()
+                .setLabel("TUportal")
+                .setStyle("SECONDARY")
+                .setId("tuPortal")
+        )
+        .addComponents(
+            new MessageButton()
+                .setLabel("Quit Verification")
+                .setStyle("DANGER")
+                .setId("quit")
+        )
+    
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] });
     }
