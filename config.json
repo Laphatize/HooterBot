@@ -1,5 +1,5 @@
 {
-    "buildDate": "6 July 2021",
+    "buildDate": "7 July 2021",
     "prefix": "$",
     "botName": "HooterBot",
     "botAuthor": "MrMusicMan789#0789",
@@ -26,6 +26,7 @@
     "emjHooter1": "<:Hooter:860765992191918091>",
     "emjHooter2": "<:Hooter2:860765991939211285>",
     "emjVerified": "<:verified:856359139205447711>",
+    "indent": "<:indent_space:862214213749440523>",
 
     "logActionsChannelId": "857106515156140062",
     "logTranscriptsId": "857106503438041108",

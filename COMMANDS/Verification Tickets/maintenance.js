@@ -1,17 +1,27 @@
 const discord = require('discord.js')
-const config = require('../config.json')
-const guildSchema = require('../Database/guildSchema');
+const config = require('../../config.json')
+const guildSchema = require('../../Database/guildSchema');
+
+/*********************************************/
+/*                  TO DO                    */
+/* 1. BRING BUTTONS BACK ONLINE              */
+/* 2.                                        */
+/* 3.                                        */
+/*********************************************/
 
 
 module.exports = {
-    commands: ['maintenance', 'verificationtoggle'],
+    name: `maintenance`,
+    aliases: [`verificationtogle`],
+    description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     expectedArgs: '<"on" = maintenance | "off" = regular use>',
     cooldown: -1,
-    permissionError: ``,
-    description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     minArgs: 1,
     maxArgs: 1,
-    callback: async (message, arguments, text, client) => {
+    guildOnly: true,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
+    execute: async (message, arguments, client) => {
 
         let verifChanger = message.author;
 
@@ -125,7 +135,5 @@ module.exports = {
                 client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
             }
         }
-    },
-    permissions: '',
-    requiredRoles: [],
+    }
 }

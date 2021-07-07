@@ -5,20 +5,22 @@ const guildSchema = require('../../Database/guildSchema');
 
 
 module.exports = {
-    commands: ['generateVerificationPrompt', 'verifEmbed'],
+    name: `verifEmbed`,
+    aliases: [`generateVerificationPrompt`],
+    description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     expectedArgs: '',
     cooldown: -1,
-    permissionError: ``,
-    description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     minArgs: 0,
     maxArgs: 0,
-    callback: async (message, arguments, text, client) => {
+    guildOnly: true,
+    permissions: 'ADMINISTRATOR',
+    requiredRoles: [],
+    execute: async (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
         
-
-
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id
@@ -109,7 +111,5 @@ module.exports = {
         },{ 
             upsert: true
         })
-    },
-    permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
+    }
 }

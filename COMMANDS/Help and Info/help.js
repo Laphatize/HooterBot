@@ -1,0 +1,42 @@
+const discord = require('discord.js')
+const config = require ('../../config.json')
+const guildSchema = require('../../Database/guildSchema');
+
+module.exports = {
+    name: `help`,
+    aliases: [`commands`],
+    description: `Describes ${config.botName}'s commands. (🗺️📌 *You are here*)`,
+    expectedArgs: '',
+    cooldown: 60,
+    minArgs: 0,
+    maxArgs: 0,
+    guildOnly: false,
+    permissions: '',
+    requiredRoles: [],
+    execute: async (message, arguments, client) => {
+
+        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        });
+
+
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            serverPrefix = dbData.PREFIX;
+        } else if(!dbData.PREFIX) {
+            serverPrefix = config.prefix;
+        }
+
+
+		let offlineEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error!`)
+            .setDescription(`Sorry, this command is offline right now as MMM works on building a new, better version.`)
+            message.channel.send({embeds: [offlineEmbed]})
+			// DELETE AFTER 10 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+            .catch(err => console.log(err))
+            return
+	}
+}

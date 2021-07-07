@@ -1,17 +1,20 @@
 const discord = require('discord.js')
-var pjson = require('../package.json');
-const config = require ('../config.json')
+var pjson = require('../../package.json');
+const config = require ('../../config.json')
 
 
 module.exports = {
-    commands: ['info', 'botinfo'],
+    name: `botinfo`,
+    aliases: [`info`],
+    description: `Describes the details about ${config.botName}.`,
     expectedArgs: '',
     cooldown: 60,
-    permissionError: '',
-    description: `Describes the details about ${config.botName}.`,
     minArgs: 0,
     maxArgs: 0,
-    callback: (message, arguments, text, client) => {
+    guildOnly: false,
+    permissions: '',
+    requiredRoles: [],
+    execute: (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -56,7 +59,5 @@ module.exports = {
         
         // RESPONDING TO USER WITH INFO EMBED
         message.channel.send({embeds: [infoEmbed]})
-    },
-    permissions: '',
-    requiredRoles: [],
+    }
 }

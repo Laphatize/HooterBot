@@ -1,6 +1,6 @@
 {
     "name": "hooterbot",
-    "version": "0.5.3",
+    "version": "0.5.7",
     "description": "A bot created for the Temple University Discord server to assist with verifying students and employees, helping with tasks in the server, and more.",
     "main": "index.js",
     "scripts": {

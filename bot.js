@@ -40,15 +40,21 @@ const client = new discord.Client({
         'DIRECT_MESSAGE_REACTIONS',
         // 'DIRECT_MESSAGE_TYPING',
     ]
-}).setMaxListeners(0)
+})
+
+
+
+// COLLECTIONS
+client.commands = new discord.Collection();
+client.cooldowns = new discord.Collection();
 
 
 
 // EVENT HANDLER
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('./botEvents').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
+	const event = require(`./botEvents/${file}`);
     // FOR ONE-TIME EVENTS
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));
@@ -56,6 +62,19 @@ for (const file of eventFiles) {
     // FOR EVERY TIME EVENTS
     else {
 		client.on(event.name, (...args) => event.execute(...args, client));
+	}
+}
+
+
+// COMMAND HANDLER
+const cmdFolders = fs.readdirSync('./COMMANDS');
+
+for (const folder of cmdFolders) {
+    const cmdFiles = fs.readdirSync(`./COMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+	
+    for (const file of cmdFiles) {
+		const command = require(`./COMMANDS/${folder}/${file}`);
+		client.commands.set(command.name, command);
 	}
 }
 
@@ -71,4 +90,16 @@ process.on('unhandledRejection', err =>{
     console.log(`******** UNKNOWN ERROR *********`);
     console.log(err);
     console.log(`********************************\n`);
+
+    
+    // DEFINING LOG EMBED
+    let logErrEmbed = new discord.MessageEmbed()
+    .setColor(config.embedDarkGrey)
+    .setTitle(`An Unknown Error Has Occurred`)
+    .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
+    .setTimestamp()
+    
+
+    // LOG ENTRY
+    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrEmbed]})
 })
