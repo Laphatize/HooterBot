@@ -27,27 +27,32 @@ module.exports = {
             .setFooter("If these buttons stop working, type \"$initialPrompt\". If it continues to fail, submit a ModMail ticket.")
 
 
-    // BUTTON ROW
-    const buttonRow = new MessageActionRow()
-        .addComponents(
-            new MessageButton()
-                .setLabel("Physical TUid Card")
-                .setStyle("SECONDARY")
-                .setId("physicalTuIdCard"),
-            new MessageButton()
-                .setLabel("Virtual TUid Card")
-                .setStyle("SECONDARY")
-                .setId("virtualTuIdCard"),
-            new MessageButton()
-                .setLabel("TUportal")
-                .setStyle("SECONDARY")
-                .setId("tuPortal"),
-            new MessageButton()
-                .setLabel("Quit Verification")
-                .setStyle("DANGER")
-                .setId("quit")
-        )
-    
+        // INITIALIZING BUTTON
+        let TUidCardButton = new MessageButton()
+            .setLabel("Physical TUid Card")
+            .setStyle("SECONDARY")
+            .setId("physical_TUid_Card")
+        let VirtualTUidCardButton = new MessageButton()
+            .setLabel("Virtual TUid Card")
+            .setStyle("SECONDARY")
+            .setId("virtual_TUid_Card")
+        let TuPortalButton = new MessageButton()
+            .setLabel("TUportal")
+            .setStyle("SECONDARY")
+            .setId("TU_portal")
+        let CancelButton = new MessageButton()
+            .setLabel("Quit Verification")
+            .setStyle("DANGER")
+            .setId("quit")
+
+
+        // BUTTON ROW
+        let buttonRow = new MessageActionRow()
+            .addComponent(TUidCardButton)
+            .addComponent(VirtualTUidCardButton)
+            .addComponent(TuPortalButton)
+            .addComponent(CancelButton)
+        
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] });
     }
