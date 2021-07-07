@@ -18,5 +18,7 @@ module.exports = {
 
         // POSTING EMBED MESSAGE AND BUTTON
         await message.author.send({content: "This is a DM which means things are working."})
+        .catch(err => console.log(err))
+        return;
     }
 }

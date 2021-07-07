@@ -8,9 +8,6 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
         
-        console.log(`message.member = ${message.member}`)
-        console.log(`message.author = ${message.author}`)
-        
         // MESSAGE IS NOT A COMMAND
         if (!message.content.startsWith(config.prefix) || message.author.bot) {
             return
@@ -20,7 +17,7 @@ module.exports = {
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
 
-            console.log(`Bot knows it cannot speak in the channel.`)
+            console.log(`Bot cannot speak in the channel.`)
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -45,8 +42,11 @@ module.exports = {
             .addField(`Message Content:`, `${message.content}`)
             .setFooter(`You are receiving this because I do not have permission to speak in the channel listed. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
 
+            // DM USER WHO ISSUED COMMAND VIA CACHE
+            client.users.cache.get(message.author.id).send({embeds: [logTalkPermErrorDMEmbed]})
+                .catch(err => console.log(err))
 
-            // DM USER WHO ISSUED COMMAND
+            // IF NOT CACHED MEMBER, ATTEMPT DM STILL
             message.author.send({embeds: [logTalkPermErrorDMEmbed]})
                 .catch(err => console.log(err))
         }
