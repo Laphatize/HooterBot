@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    name: `partnerMessage`,
+    name: `partnermessage`,
     aliases: [`partnerAnnouncement`, `partnerMsg`],
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
