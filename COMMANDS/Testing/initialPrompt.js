@@ -48,10 +48,12 @@ module.exports = {
 
         // BUTTON ROW
         let buttonRow = new MessageActionRow()
-            .addComponent(TUidCardButton)
-            .addComponent(VirtualTUidCardButton)
-            .addComponent(TuPortalButton)
-            .addComponent(CancelButton)
+            .addComponent(
+                TUidCardButton,
+                VirtualTUidCardButton,
+                TuPortalButton,
+                CancelButton
+            );
         
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] });
