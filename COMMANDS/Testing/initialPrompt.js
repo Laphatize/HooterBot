@@ -33,21 +33,15 @@ module.exports = {
             new MessageButton()
                 .setLabel("Physical TUid Card")
                 .setStyle("SECONDARY")
-                .setId("physicalTuIdCard")
-        )
-        .addComponents(
+                .setId("physicalTuIdCard"),
             new MessageButton()
                 .setLabel("Virtual TUid Card")
                 .setStyle("SECONDARY")
-                .setId("virtualTuIdCard")
-        )
-        .addComponents(
+                .setId("virtualTuIdCard"),
             new MessageButton()
                 .setLabel("TUportal")
                 .setStyle("SECONDARY")
-                .setId("tuPortal")
-        )
-        .addComponents(
+                .setId("tuPortal"),
             new MessageButton()
                 .setLabel("Quit Verification")
                 .setStyle("DANGER")
