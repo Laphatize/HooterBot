@@ -8,6 +8,20 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
+        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        });
+
+
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            serverPrefix = dbData.PREFIX;
+        } else if(!dbData.PREFIX) {
+            serverPrefix = config.prefix;
+        }
+
 
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
@@ -47,21 +61,6 @@ module.exports = {
             .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
             .catch(err => console.log(err))
             return
-        }
-
-
-        // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
-        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
-        const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
-        });
-
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
         }
 
 
