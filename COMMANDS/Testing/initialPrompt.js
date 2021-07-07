@@ -31,19 +31,19 @@ module.exports = {
         let TUidCardButton = new MessageButton()
             .setLabel("Physical TUid Card")
             .setStyle("SECONDARY")
-            .setId("physical_TUid_Card")
+            .setCustomId("physical_TUid_Card")
         let VirtualTUidCardButton = new MessageButton()
             .setLabel("Virtual TUid Card")
             .setStyle("SECONDARY")
-            .setId("virtual_TUid_Card")
+            .setCustomId("virtual_TUid_Card")
         let TuPortalButton = new MessageButton()
             .setLabel("TUportal")
             .setStyle("SECONDARY")
-            .setId("TU_portal")
+            .setCustomId("TU_portal")
         let CancelButton = new MessageButton()
             .setLabel("Quit Verification")
             .setStyle("DANGER")
-            .setId("quit")
+            .setCustomId("quit")
 
 
         // BUTTON ROW
