@@ -1,5 +1,5 @@
 const config = require ('../config.json')
-const db = require('../Utils/mongo');
+const db = require('../Utilities/mongo');
 const updateCache = require('./updateCache');
 
 module.exports = {
