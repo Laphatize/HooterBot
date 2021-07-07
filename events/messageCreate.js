@@ -9,12 +9,12 @@ module.exports = {
 	async execute(message, client) {
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
+        if (!message.channel.permissionsFor(guild.me).has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Message in Channel!`)
+            .setTitle(`${config.emjREDTICK} Error: unable to send message in channel.`)
             .addField(`Channel:`, `${message.channel}`)
             .addField(`User:`, `${message.author}`)
             .addField(`Message Content:`, `${message.content}`)
@@ -28,7 +28,7 @@ module.exports = {
             // DEFINING LOG EMBED FOR DM
             let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
+            .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
             .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now.\nFor your convenience I've copied information about the command you ran below.`)
             .addField(`Server:`, `${message.guild.name}`)
             .addField(`Channel:`, `${message.channel}`)
@@ -79,7 +79,7 @@ module.exports = {
             // DEFINING EMBED
             let guildOnlyEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
+            .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
             .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
             .addField(`Channel:`, `${message.channel}`)
             .addField(`User:`, `${message.author}`)
@@ -239,7 +239,7 @@ module.exports = {
             // DEFINING LOG EMBED
             let logErrorEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Execute Command in Channel!`)
+            .setTitle(`${config.emjREDTICK} Error: unable to execute command in channel!`)
             .addField(`Channel:`, `${message.channel}`)
             .addField(`User:`, `${message.author}`)
             .addField(`Message Content:`, `${message.content}`)
