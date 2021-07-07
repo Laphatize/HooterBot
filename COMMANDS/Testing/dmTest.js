@@ -18,6 +18,6 @@ module.exports = {
 
 
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send({content: "This is a DM which means things are working."})
+        await message.author.send({content: "This is a DM which means things are working."})
     }
 }
