@@ -15,7 +15,7 @@ module.exports = {
                 .setDescription(`I'm ${config.botName}, a bot built by <@${config.botAuthor}> to help out in the server. I like throwing long error messages at MrMusicMan789 and exploring new features on Discord. I don't know what I'm going to study at Temple since I've not been given machine learning code (...yet, right?), but I'm looking forward to hanging out with everyone in the server! :)\nIf you want to learn more about me and what I can do, head to <#${config.botchannelId}> and run my commands \`\`<PREFIX>botinfo.\`\` and \`\`<PREFIX>help\`\`.'`)
             
             // SEND TO #introduce-yourself CHANNEL
-            await introduceYourselfChannel.send({content: botJoinEmbed})
+            await introduceYourselfChannel.send({embeds: botJoinEmbed})
             .catch(err => console.log(err))
 
 
