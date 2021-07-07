@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, client) {
 
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
-        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
+        // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id
         });
@@ -23,8 +23,6 @@ module.exports = {
         }
         
 
-        console.log(`(line 26) serverPrefix = ${serverPrefix}\n`)
-
 
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
@@ -32,11 +30,11 @@ module.exports = {
 
         
         // SETTING COMMAND TO NAME OR TO ALIAS
-        const command = client.commands.get(cmdName)
-                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+        const command = client.commands.get(cmdName.toLowerCase())
+                        || client.commands.find(cmd => cmd.aliases.toLowerCase() && cmd.aliases.includes(cmdName.toLowerCase()));
 
 
-        // MESSAGE IS NOT A COMMAND OR DNE, IGNORE
+        // MESSAGE IS NOT A COMMAND OR DNE
         if (!message.content.startsWith(serverPrefix) || message.author.bot || !command) {
             return
         }
@@ -65,7 +63,6 @@ module.exports = {
             return
         }
 
-        console.log(`(line 68) serverPrefix = ${serverPrefix}\n`)
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
@@ -99,7 +96,6 @@ module.exports = {
             return
         }
 
-        console.log(`(line 102) serverPrefix = ${serverPrefix}\n`)
 
         // CHECKING USER PERMISSION REQUIREMENT
         if (command.permissions) {
