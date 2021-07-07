@@ -36,7 +36,7 @@ module.exports = {
             let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
-            .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now.\nFor your convenience I've copied information about the command you ran below.`)
+            .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now. For your convenience, here's information about the command you ran below:`)
             .addField(`Server:`, `${message.guild.name}`)
             .addField(`Channel:`, `${message.channel}`)
             .addField(`Message Content:`, `${message.content}`)
