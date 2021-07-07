@@ -33,7 +33,7 @@ module.exports = {
 
         // CALCULATE PING BETWEEN MESSAGES
         .then(m => {
-            var botPing = Date.now() - m.createdTimestamp
+            var botPing = m.createdTimestamp - message.createdTimestamp
             var apiPing = client.ws.ping
 
             let botLatEmj, apiLatEmj
