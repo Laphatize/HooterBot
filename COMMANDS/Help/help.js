@@ -33,7 +33,7 @@ module.exports = {
 		const { commands } = message.client;
 
 
-		if (!args.length) {
+		if (!arguments.length) {
 			data.push(`Here\'s a list of my commands you can use:`);
 			data.push(commands.map(command => command.name).join(', '));
 			data.push(`\nYou can send \`${serverPrefix}help [command name]\` to get info on a specific command!`);
@@ -49,8 +49,8 @@ module.exports = {
 				});
 		}
 
-		const name = args[0].toLowerCase();
-		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+		const name = arguments[0].toLowerCase();
+		const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
 
 		if (!command) {
 			return message.reply('that\'s not a valid command!');

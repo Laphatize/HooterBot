@@ -33,11 +33,6 @@ module.exports = {
         const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
 	    const cmdName = args.shift().toLowerCase();
 
-
-
-        console.log(`\nargs = ${args}\n\ncmdName = ${cmdName}\n`)
-
-
         
         // SETTING COMMAND TO NAME OR TO ALIAS
         const command = client.commands.get(cmdName)
@@ -201,9 +196,6 @@ module.exports = {
 	    const cooldownTime = (command.cooldown || 0) * 1000;
 
         
-        // STRIPPING MESSAGE CONTENT SO THE BOT SPITS OUT THE SAME COMMAND NAME OR ALIAS THE USER USED FOR COOLDOWN WAITS
-
-        
 
         if (timestamps.has(message.author.id)) {
             const expireTime = timestamps.get(message.author.id) + cooldownTime;
@@ -217,7 +209,7 @@ module.exports = {
                 let cooldownWaitEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Not so fast!`)
-                    .setDescription(`You just ran that command. Please wait ${timeLeft.toFixed(1)} more second(s) before running \`\`${command.name}\`\` again.`)
+                    .setDescription(`You just ran that command. Please wait ${timeLeft.toFixed(1)} more second(s) before running \`\`${cmdName}\`\` again.`)
                     .setFooter(`(This message will disappear when the cooldown has ended.)`)
         
 
