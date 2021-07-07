@@ -17,7 +17,7 @@ module.exports = {
             // SEND TO #introduce-yourself CHANNEL
             await introduceYourselfChannel.send({embeds: [botJoinEmbed]})
             .catch(err => console.log(err))
-            .then(msg => {
+            .then(async msg => {
 
 
                 // CREATE DATABASE ENTRY FOR GUILD
