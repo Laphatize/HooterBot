@@ -229,7 +229,7 @@ module.exports = {
 
         // EXECUTE COMMAND
         try {
-            command.execute(message, args);
+            command.execute(message, args, client);
         } catch (error) {
             console.error(error);
 

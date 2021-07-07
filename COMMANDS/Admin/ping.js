@@ -12,7 +12,7 @@ module.exports = {
     guildOnly: false,
     permissions: '',
     requiredRoles: [],
-    execute: async (message, arguments, text, client) => {
+    execute: async (message, arguments, client) => {
         
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()
