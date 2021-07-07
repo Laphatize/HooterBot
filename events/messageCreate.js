@@ -31,7 +31,7 @@ module.exports = {
         
         // SETTING COMMAND TO NAME OR TO ALIAS
         const command = client.commands.get(cmdName.toLowerCase())
-                        || client.commands.find(cmd => cmd.aliases.toLowerCase() && cmd.aliases.includes(cmdName.toLowerCase()));
+                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName.toLowerCase()));
 
 
         // MESSAGE IS NOT A COMMAND OR DNE
