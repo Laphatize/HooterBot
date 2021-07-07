@@ -15,7 +15,7 @@ module.exports = {
 
 
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
+        if (!message.channel.permissionsFor(guild.me)) { 
 
             console.log(`Bot cannot speak in the channel.`)
 
