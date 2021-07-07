@@ -19,7 +19,6 @@ module.exports = {
             .setColor(config.embedBlue)
             .setTitle(`Ping...`)
             .setDescription(`Bot latency =\nAPI latency =`)
-            .setTimestamp()
 
 
         // SENDING INITIAL EMBED

@@ -11,21 +11,7 @@ module.exports = {
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
 
-            // DEFINING LOG EMBED
-            let logTalkPermErrorEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: unable to send message in channel.`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-            .setTimestamp()
-            
-
-            // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
-
-
-            // DEFINING LOG EMBED FOR DM
+            // DEFINING EMBED FOR DM
             let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
