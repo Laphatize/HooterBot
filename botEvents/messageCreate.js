@@ -17,7 +17,7 @@ module.exports = {
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
 
-            console.log(`Bot cannot speak in the channel.`)
+            console.log(`Bot cannot speak in the channel "${message.channel.name}" of the guild ${message.guild.name}.\n\n`)
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
