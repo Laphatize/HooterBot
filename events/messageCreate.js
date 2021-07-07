@@ -8,6 +8,39 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
+        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
+
+            // DEFINING LOG EMBED
+            let logTalkPermErrorEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: Unable To Send Message in Channel!`)
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`User:`, `${message.author}`)
+            .addField(`Message Content:`, `${message.content}`)
+            .setTimestamp()
+            
+
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
+
+
+            // DEFINING LOG EMBED FOR DM
+            let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
+            .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now.\nFor your convenience I've copied information about the command you ran below.`)
+            .addField(`Server:`, `${message.guild.name}`)
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`Message Content:`, `${message.content}`)
+            .setFooter(`You are receiving this because I do not have permission to speak in the channel. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
+
+
+            // DM USER WHO ISSUED COMMAND
+            message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+            return
+        }
+
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY
         const dbData = await guildSchema.findOne({
@@ -60,39 +93,6 @@ module.exports = {
             // DELETE AFTER 5 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
             .catch(err => console.log(err))
-            return
-        }
-
-
-        // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
-
-            // DEFINING LOG EMBED
-            let logTalkPermErrorEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Message in Channel!`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-            .setTimestamp()
-            
-
-            // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
-
-
-            // DEFINING LOG EMBED FOR DM
-            let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: Unable To Send Your Command.`)
-            .setDescription(`Hey ${message.author}, sorry for this message, but I wasn't able to send your message just now. For your convenience I've copied information about the command you ran below. I am sending this message because I do not have permission to speak in this channel, you'll want to investigate this.`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-
-
-            // DM USER WHO ISSUED COMMAND
-            message.author.send({embeds: [logTalkPermErrorDMEmbed]})
             return
         }
 

@@ -12,7 +12,9 @@ module.exports = {
     guildOnly: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {        
+    execute: async (message, arguments, client) => {  
+        
+        message.channel.send(hi)
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

@@ -7,7 +7,7 @@ module.exports = {
     name: `setprefix`,
     aliases: [`botprefix`, `changeprefix`],
     description: `(${config.emjAdmin}) A command to change the prefix of ${config.botName}.`,
-    expectedArgs: '<new_prefix>',
+    expectedArgs: ' <new_prefix> ',
     cooldown: -1,
     minArgs: 1,
     maxArgs: 1,
