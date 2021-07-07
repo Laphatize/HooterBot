@@ -8,12 +8,6 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        // IF SOMEONE SAYS THE BOT IS GOOD, SURPRISE!
-        if(message.content.toLowerCase().includes('good bot')) {
-            message.channel.send(`Thank you, ${message.author}, you are a good human. 😊`)
-        }
-
-
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY - IF IT DOES NOT, TELL USER AND STOP COMMAND.
         const dbData = await guildSchema.findOne({
@@ -27,8 +21,9 @@ module.exports = {
         } else if(!dbData.PREFIX) {
             serverPrefix = config.prefix;
         }
+        
 
-        console.log(`(line 31) serverPrefix = ${serverPrefix}\n`)
+        console.log(`(line 26) serverPrefix = ${serverPrefix}\n`)
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
@@ -50,7 +45,6 @@ module.exports = {
         // IF COMMAND IS A GUILD-ONLY BUT RUN IN DMs
         if (command.guildOnly && message.channel.type === 'dm') {
 
-
             // DEFINING EMBED
             let guildOnlyEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
@@ -71,11 +65,10 @@ module.exports = {
             return
         }
 
-        console.log(`(line 74) serverPrefix = ${serverPrefix}\n`)
+        console.log(`(line 68) serverPrefix = ${serverPrefix}\n`)
 
         // IF BOT LACKS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissionsIn(message.channel).has('SEND_MESSAGES')) { 
-            
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -106,12 +99,13 @@ module.exports = {
             return
         }
 
+        console.log(`(line 102) serverPrefix = ${serverPrefix}\n`)
 
         // CHECKING USER PERMISSION REQUIREMENT
         if (command.permissions) {
             const msgAuthorPerms = message.channel.permissionsFor(message.author);
-            if (!msgAuthorPerms || !msgAuthorPerms.has(command.permissions)) {
 
+            if (!msgAuthorPerms || !msgAuthorPerms.has(command.permissions)) {
 
                 // DELETING INVOCATION MESSAGE
                 client.setTimeout(() => message.delete(), 0 );
@@ -139,7 +133,6 @@ module.exports = {
             for (const requiredRole of command.requiredRoles) {
                 const role = message.guild.roles.cache.find((role) => role.name === command.requiredRole)
 
-
                 // VALIDATING ROLE
                 if (!role || !member.roles.cache.has(role.id)) {
 
@@ -162,7 +155,7 @@ module.exports = {
             }
         }
 
-        console.log(`(line 165) serverPrefix = ${serverPrefix}\n`)
+        console.log(`(line 158) serverPrefix = ${serverPrefix}\n`)
 
         // ENSURE CORRECT NUMBER OF ARGS
         if (args.length < command.minArgs || (command.maxArgs !== null && args.legnth > command.maxArgs)) {
@@ -173,7 +166,8 @@ module.exports = {
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
                 .setDescription(`Incorrect syntax - use \`\`${serverPrefix}${command.cmdName} ${command.expectedArgs}\`\` and try again.`)
-        
+
+                console.log(`(line 170) serverPrefix = ${serverPrefix}\n`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
