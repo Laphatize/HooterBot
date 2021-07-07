@@ -24,12 +24,12 @@ module.exports = {
             .setColor(config.embedTempleRed)
             .setTitle(`**Verification - Ticket Opened**`)
             .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> Temple University server.
-            \nThere are **3** ways you can verify you are an actual student or employee:
-            \n${config.indent}1. Use a physical TUid card
-            \n${config.indent}2. Use a virtual TUid card
-            \n${config.indent}3. Using TUportal
-            \n\nSelect the method you want to use with the buttons below for further instructions. You can quit verification at any time using the red "Quit Verification" button.`)
-            .setFooter("If the buttons stop working, ${buttonFix}.")
+            \nThere are three ways you can verify you are a student or employee:
+            \n${config.indent}**1.** Use a physical TUid card
+            \n${config.indent}**2.** Use a virtual TUid card
+            \n${config.indent}**3.** Using TUportal
+            \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.`)
+            .setFooter("If these buttons stop working, ${buttonFix}.")
 
 
         // INITIALIZING BUTTON

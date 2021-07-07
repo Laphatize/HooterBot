@@ -26,7 +26,7 @@ module.exports = {
             .setDescription(`To verify with a physical TUiD card:\n
             ${config.indent}**1.** Hold your TUid card up next to your screen with Discord open.\n
             ${config.indent}**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.\n
-            ${config.indent}${config.indent}*Note: If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
+            ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
             ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
             ${config.indent}**4.** Wait for a response from server staff. Responses may take up to 2 days.\n\n
             When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.`)

@@ -26,7 +26,7 @@ module.exports = {
             .setDescription(`To verify with a virtual TUid card:\n
             ${config.indent}**1.** Access your virtual TUid card through [TUportal](https://tuportal5.temple.edu/) under the \`\`Home\`\` tab in the "TUAPPLICATIONS" section.\n
             ${config.indent}**2.** Put the window showing your virtual TUid next to Discord and take a picture. Make sure the bottom-left corner of Discord is visible that shows your avatar, username, and tag.\n
-            ${config.indent}${config.indent}*Note: If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
+            ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
             ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
             ${config.indent}**4.** Wait for a response from a server admin. Responses may take up to 2 days.\n\n
             When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.`)
