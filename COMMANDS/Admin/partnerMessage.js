@@ -17,12 +17,6 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
-
-        // IGNORING DM USE
-        if(message.channel.type == "dm") {
-            return;
-        }
-
         
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');

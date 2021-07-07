@@ -19,12 +19,6 @@ module.exports = {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
-        
-
-        // IGNORING DM USE
-        if(message.channel.type == "dm") {
-            return;
-        }
 
         
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD

@@ -18,12 +18,6 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
-
-        // IGNORING DM USE
-        if(message.channel.type == "dm") {
-            return;
-        }
-
         
         let categoryChanger = message.author;
 

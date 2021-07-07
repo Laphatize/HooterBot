@@ -20,12 +20,6 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
 
 
-        // IGNORING DM USE
-        if(message.channel.type == "dm") {
-            return;
-        }
-
-
         // IF PREFIX LONGER THAN 5 CHARACTERS
         if (arguments[0].length > 5) {
             let longPrefixEmbed = new discord.MessageEmbed()
