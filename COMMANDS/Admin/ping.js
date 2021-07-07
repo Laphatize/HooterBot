@@ -13,11 +13,6 @@ module.exports = {
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
-        
-        // ESCAPING COMMAND IF THE BOT CAN'T SPEAK - ERROR MSGS SENT VIA messageCreate.js FILE.
-        if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
-            return;
-        }
 
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()
