@@ -32,8 +32,8 @@ module.exports = {
 
 
         // CALCULATE PING BETWEEN MESSAGES
-        .then(message => {
-            var botPing = Date.now() - message.createdTimestamp
+        .then(m => {
+            var botPing = Date.now() - m.createdTimestamp
             var apiPing = client.ws.ping
 
             let botLatEmj, apiLatEmj
@@ -72,7 +72,7 @@ module.exports = {
 
 
             // SENDING UPDATED EMBED
-            message.edit({embeds: [updatedPingEmbed]})
+            m.edit({embeds: [updatedPingEmbed]})
             .catch(err => {
                 console.log(`************* ERROR ************`)
                 console.log(`Sending updated ping embed.\n`)
