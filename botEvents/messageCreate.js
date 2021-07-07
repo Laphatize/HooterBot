@@ -10,7 +10,7 @@ module.exports = {
 
         
         // MESSAGE IS NOT A COMMAND
-        if (!message.content.startsWith(serverPrefix) || message.author.bot) {
+        if (!message.content.startsWith(config.prefix) || message.author.bot) {
             return
         }
 
@@ -30,7 +30,7 @@ module.exports = {
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
                 .catch(err => console.log(err))
 
-                
+
             // DEFINING LOG EMBED FOR DM
             let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
