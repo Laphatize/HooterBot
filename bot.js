@@ -2,7 +2,7 @@ require('dotenv').config();
 const discord = require('discord.js')
 const fs = require('fs');
 const config = require ('./config.json')
-const guildSchema = require('../Database/guildSchema')
+const guildSchema = require('./Database/guildSchema')
 
 
 // INITIALIZATION
