@@ -8,8 +8,10 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        const { member, guild } = message
+
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
+        if (!guild.me.permissions.has('SEND_MESSAGES')) { 
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -41,7 +43,6 @@ module.exports = {
             return
         }
 
-
         // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT
         // CHECK IF DATABASE HAS A VALUE SET FOR THE TICKET CATEGORY
         const dbData = await guildSchema.findOne({
@@ -56,7 +57,8 @@ module.exports = {
             serverPrefix = config.prefix;
         }
         
-        
+
+
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
@@ -130,7 +132,7 @@ module.exports = {
                 const role = message.guild.roles.cache.find((role) => role.name === command.requiredRole)
 
                 // VALIDATING ROLE
-                if (!role || !message.member.roles.cache.has(role.id)) {
+                if (!role || !member.roles.cache.has(role.id)) {
 
                     // DEFINING EMBED TO SEND
                         let cmdRoleErrEmbed = new discord.MessageEmbed()
