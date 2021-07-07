@@ -6,7 +6,6 @@ module.exports = {
 	name: 'guildCreate',
 	async execute(member, client) {
       
-            introduceYourselfChannel = config.introductionsChannelId;
             const introduceYourselfChannel = client.channels.cache.get(config.introductionsChannelId)
 
             // DM EMBED MESSAGE
