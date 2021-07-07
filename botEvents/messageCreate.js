@@ -50,7 +50,7 @@ module.exports = {
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
+        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
         
@@ -72,7 +72,7 @@ module.exports = {
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${serverPrefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [guildDisallowEmbed]} )
@@ -86,7 +86,7 @@ module.exports = {
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${serverPrefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [dmDisallowEmbed]} )
@@ -156,7 +156,7 @@ module.exports = {
             let cmdArgsErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`Incorrect syntax - use \`\`${serverPrefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
+                .setDescription(`Incorrect syntax - use \`\`${config.prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
