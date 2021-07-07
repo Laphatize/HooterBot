@@ -48,7 +48,7 @@ module.exports = {
 
         // BUTTON ROW
         let buttonRow = new MessageActionRow()
-            .addComponent(
+            .addComponents(
                 TUidCardButton,
                 VirtualTUidCardButton,
                 TuPortalButton,
