@@ -26,6 +26,7 @@ module.exports = {
             .addField(`Channel:`, `${message.channel}`)
             .addField(`User:`, `${message.author}`)
             .addField(`Message Content:`, `${message.content}`)
+            .setFooter(`This may be a permissions error either with my role or with the channel. Please take a moment to investigate.`)
 
             // LOG ENTRY
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
