@@ -151,7 +151,6 @@ module.exports = {
             }
         }
 
-        console.log(`(line 158) serverPrefix = ${serverPrefix}\n`)
 
         // ENSURE CORRECT NUMBER OF ARGS
         if (args.length < command.minArgs || (command.maxArgs !== null && args.legnth > command.maxArgs)) {
@@ -161,9 +160,7 @@ module.exports = {
             let cmdArgsErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`Incorrect syntax - use \`\`${serverPrefix}${command.cmdName} ${command.expectedArgs}\`\` and try again.`)
-
-                console.log(`(line 170) serverPrefix = ${serverPrefix}\n`)
+                .setDescription(`Incorrect syntax - use \`\`${serverPrefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
