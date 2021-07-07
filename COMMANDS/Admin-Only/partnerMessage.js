@@ -1,4 +1,5 @@
 const discord = require('discord.js')
+const guildSchema = require('../../Database/guildSchema')
 const config = require('../../config.json')
 
 module.exports = {
@@ -19,6 +20,20 @@ module.exports = {
         client.setTimeout(() => message.delete(), 0 );
 
         
+        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        });
+
+
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            serverPrefix = dbData.PREFIX;
+        } else if(!dbData.PREFIX) {
+            serverPrefix = config.prefix;
+        }
+
+        
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');
 
@@ -29,7 +44,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` <partner name> | <message> \`\``)
+            .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` ${serverPrefix} <partner name> | <message> | (optional) <direct image URL> \`\``)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
