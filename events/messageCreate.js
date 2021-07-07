@@ -7,6 +7,22 @@ const guildPrefixes = {}
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
+
+
+        // GRABBING COMMAND NAME AND ARGUMENTS
+        const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
+        const cmdName = args.shift().toLowerCase();
+
+        
+        // SETTING COMMAND TO NAME OR TO ALIAS
+        const command = client.commands.get(cmdName)
+                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+
+
+        // MESSAGE IS NOT A COMMAND OR DNE, IGNORE
+        if (!message.content.startsWith(serverPrefix) || message.author.bot || !command) {
+            return
+        }
    
 
         // IF COMMAND IS A GUILD-ONLY BUT RUN IN DMs
@@ -46,28 +62,6 @@ module.exports = {
             serverPrefix = dbData.PREFIX;
         } else if(!dbData.PREFIX) {
             serverPrefix = config.prefix;
-        }
-
-
-        // MESSAGE IS NOT A COMMAND, IGNORE
-        if (!message.content.startsWith(serverPrefix) || message.author.bot) {
-            return
-        }
-
-
-        // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(serverPrefix.length).trim().split(/ +/);
-	    const cmdName = args.shift().toLowerCase();
-
-        
-        // SETTING COMMAND TO NAME OR TO ALIAS
-        const command = client.commands.get(cmdName)
-                     || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-
-
-        // IF COMMAND DOESN'T EXIST
-        if (!command) {
-            return
         }
 
 
