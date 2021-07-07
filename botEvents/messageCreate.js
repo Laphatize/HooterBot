@@ -7,7 +7,9 @@ const guildPrefixes = {}
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
-
+        
+        console.log(`message.member = ${message.member}`)
+        console.log(`message.author = ${message.author}`)
         
         // MESSAGE IS NOT A COMMAND
         if (!message.content.startsWith(config.prefix) || message.author.bot) {
@@ -17,6 +19,8 @@ module.exports = {
 
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.guild.me.permissions.has('SEND_MESSAGES')) { 
+
+            console.log(`Bot knows it cannot speak in the channel.`)
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -45,7 +49,6 @@ module.exports = {
             // DM USER WHO ISSUED COMMAND
             message.author.send({embeds: [logTalkPermErrorDMEmbed]})
                 .catch(err => console.log(err))
-            return
         }
 
 
