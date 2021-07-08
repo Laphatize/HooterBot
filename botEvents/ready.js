@@ -24,11 +24,6 @@ module.exports = {
 		console.log(`======== REGISTERING PREFIXES ========`);
 		messageCreate.loadPrefixes(client);
 		console.log(`Prefixes registered.`);
-
-
-
-
-		console.log(`Prefixes cached from database.`);
 		console.log(`======================================\n\n`);
 
 
