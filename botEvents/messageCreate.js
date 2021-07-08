@@ -278,5 +278,8 @@ module.exports.loadPrefixes = async (client) => {
         catch(error) {
             // THE SERVER DOES NOT HAVE A CUSTOM PREFIX, IGNORE.
         }
+
+        // UPDATE CACHE WITH NEW PREFIX
+        
     }
 }

@@ -20,21 +20,15 @@ module.exports = {
 
         // SEND TO #introduce-yourself CHANNEL
         const message = await client.channels.cache.get(config.introductionsChannelId).send({embeds: [botJoinEmbed]})
-
+        console.log(`GUILD NAME: ${message.guild.name}`)
 
         // CREATE GUILD ENTRY - FOR NOW LEFT TO UPDATE SINCE DATABASE DELETION IS NOT CONFIGURED
-        await guildSchema.findOneAndUpdate({
-            // CONTENT USED TO FIND UNIQUE ENTRY
-            GUILD_NAME: message.guild.name,
-            GUILD_ID: message.guild.id
-        },{
-            // CONTENT TO BE UPDATED
-            PREFIX: config.prefix
-        },{ 
-            upsert: true
-        })
+        dbData = await guildSchema.findOne({ GUILD_NAME: message.guild.name })
 
-        console.log(`GUILD NAME: ${message.guild.name}`)
+        console.log(`\ndbData = ${dbData}\n`)
+
+
+
         console.log(`======================================\n\n`)
 	},
 };
