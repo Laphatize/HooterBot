@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const guildSchema = require('../Database/guildSchema')
 const config = require('../config.json')
+const { prefix } = require('../config.json')
 
 
 
@@ -9,7 +10,7 @@ module.exports = {
 	async execute(message, client) {
 
         // MESSAGE IS NOT A COMMAND OR IS A MESSAGE FROM THE BOT
-        if (!message.content.startsWith(config.prefix) || message.author.bot)   return;
+        if (!message.content.startsWith(prefix) || message.author.bot)   return;
 
 
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
@@ -17,23 +18,28 @@ module.exports = {
    
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
         
         // SETTING COMMAND TO NAME OR TO ALIAS
-        const command = client.commands.get(cmdName.toLowerCase())
-                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName.toLowerCase()));
+        const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+  
+
+        // COMMAND DNE
+        if(!command) {
+            return;
+        }
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (command.guildUse === 'false' && message.channel.type === 'text') {
+        if (!command.dmUse && message.channel.type === 'text') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [guildDisallowEmbed]} )
@@ -47,7 +53,7 @@ module.exports = {
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [dmDisallowEmbed]} )
@@ -94,12 +100,6 @@ module.exports = {
 
             return;
         }
-   
-
-        // COMMAND DNE
-        if(!command) {
-            return;
-        }
 
 
         // CHECKING USER PERMISSION REQUIREMENT
@@ -132,7 +132,7 @@ module.exports = {
         // CHECKING USER ROLE REQUIREMENT
         if(command.requiredRoles) {
             for (const requiredRole of command.requiredRoles) {
-                const role = message.guild.roles.cache.find((role) => role.name === command.requiredRole)
+                const role = message.guild.roles.cache.find((role) => role.name === requiredRole)
 
                 // VALIDATING ROLE
                 if (!role || !message.member.roles.cache.has(role.id)) {
@@ -165,7 +165,7 @@ module.exports = {
             let cmdArgsErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`Incorrect syntax - use \`\`${config.prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
+                .setDescription(`Incorrect syntax - use \`\`${prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
@@ -189,7 +189,7 @@ module.exports = {
         const timestamps = cooldowns.get(command.name);
 	    const cooldownTime = (command.cooldown || 0) * 1000;
         
-        
+
         // COOLDOWN 
         if (timestamps.has(message.author.id)) {
             const expireTime = timestamps.get(message.author.id) + cooldownTime;
