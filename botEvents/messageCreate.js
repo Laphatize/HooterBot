@@ -14,20 +14,17 @@ module.exports = {
 
 
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
-        // if (message.channel.type === 'dm')   return;
+        if (message.channel.type === 'dm')   return;
    
 
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
-
-        console.log(`args = ${args}\n`)
-        console.log(`cmdName = ${cmdName}`)
         
+
         // SETTING COMMAND TO NAME OR TO ALIAS
         const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   
-        console.log(`command = ${command}`)
 
         // COMMAND DNE
         if(!command) {
@@ -45,7 +42,10 @@ module.exports = {
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
-            return message.author.send( {embeds: [guildDisallowEmbed]} )
+            return message.channel.send( {embeds: [guildDisallowEmbed]} )
+            // DELETE AFTER 5 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+            .catch(err => console.log(err));
         }
 
 
