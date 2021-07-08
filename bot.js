@@ -66,10 +66,13 @@ for (const folder of cmdFolders) {
 
 
 // CACHE SYNC TO DB FOR PREFIX
-client.configs = new Map();
 (async () => {
+    client.configs = new Map();
     // GRABBING THE GUILDS THE BOT IS IN
     const guilds = client.guilds.cache.array();
+
+    console.log(`client.guilds.cache.array(); = ${client.guilds.cache.array()}`)
+    
     for (const guild of guilds) {
         const guildId = guild.id;
         const guildConfig = await guildSchema.findOne({ guildId });
