@@ -8,48 +8,46 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+
+        // MESSAGE IS NOT A COMMAND OR IS A MESSAGE FROM THE BOT
+        if (!message.content.startsWith(config.prefix) || message.author.bot)   return;
+
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
-        if (message.channel.type === 'dm') return;
+        // if (message.channel.type === 'dm')   return;
 
 
-        // // ENSURING GUILD USE ONLY IN GUILD
-        // if (command.guildUse === false && message.channel.type === 'text') {
+        // ENSURING GUILD USE ONLY IN GUILD
+        if (command.guildUse === 'false' && message.channel.type === 'text') {
 
-        //     // DEFINING EMBED
-        //     let guildDisallowEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedRed)
-        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+            // DEFINING EMBED
+            let guildDisallowEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
 
-        //     // SENDING EMBED
-        //     return message.author.send( {embed: [guildDisallowEmbed]} )
-        // }
-
-
-        // // ENSURING DM USE ONLY IN DMS
-        // if (command.dmUse === false && message.channel.type === 'dm') {
-
-        //     // DEFINING EMBED
-        //     let dmDisallowEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedRed)
-        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
-
-        //     // SENDING EMBED
-        //     return message.author.send( {embed: [dmDisallowEmbed]} )
-        // }
+            // SENDING EMBED
+            return message.author.send( {embed: [guildDisallowEmbed]} )
+        }
 
 
-        // MESSAGE IS NOT A COMMAND
-        if (!message.content.startsWith(config.prefix) || message.author.bot) {
-            return
+        // ENSURING DM USE ONLY IN DMS
+        if (command.dmUse === 'false' && message.channel.type === 'dm') {
+
+            // DEFINING EMBED
+            let dmDisallowEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+
+            // SENDING EMBED
+            return message.author.send( {embed: [dmDisallowEmbed]} )
         }
 
 
         // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
         if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
 
-            console.log(`Bot cannot speak in the channel "${message.channel.name}" of the guild ${message.guild.name}.\n\n`)
+            console.log(`Bot cannot speak in the channel "${message.channel.name}" of the guild ${message.guild.name}.`)
 
             // DEFINING LOG EMBED
             let logTalkPermErrorEmbed = new discord.MessageEmbed()
@@ -180,33 +178,29 @@ module.exports = {
         }
 
 
-        // COOLDOWN
+        // COOLDOWN SETUP
         const { cooldowns } = client;
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.name);
+	    const cooldownTime = (command.cooldown || 0) * 1000;
         if (!cooldowns.has(command.name)) {
             cooldowns.set(command.name, new discord.Collection());
         }
 
-
-        // DEFINING PIECES FOR COOLDOWN
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-	    const cooldownTime = (command.cooldown || 0) * 1000;
-
         
-
+        // COOLDOWN 
         if (timestamps.has(message.author.id)) {
             const expireTime = timestamps.get(message.author.id) + cooldownTime;
     
             if (now < expireTime) {
 
-                const timeLeft = (expireTime - now) / 1000;
-                
+                const timeLeft = ((expireTime - now) / 1000).toFixed(0);
 
                 // DEFINING EMBED TO SEND
                 let cooldownWaitEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Not so fast!`)
-                    .setDescription(`You just ran that command. Please wait ${timeLeft.toFixed(0)} more second(s) before running \`\`${cmdName}\`\` again.`)
+                    .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${cmdName}\`\` again.`)
                     .setFooter(`(This message will disappear when the cooldown has ended.)`)
         
 
@@ -215,7 +209,7 @@ module.exports = {
                 
 
                 // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft.toFixed(1))*1000 )})
+                .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
                 .catch(err => console.log(err))
                 return
             }
