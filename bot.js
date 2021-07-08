@@ -65,8 +65,8 @@ for (const folder of cmdFolders) {
 }
 
 
-// CACHE SYNC TO DB FOR PREFIX
 client.configs = new Map();
+
 (async () => {
     // GRABBING THE GUILDS THE BOT IS IN
     const guilds = client.guilds.cache.array();

@@ -41,12 +41,11 @@ module.exports = {
         // }
 
 
-        console.log(`client.configs.get(message.guild.id) = ${client.configs.get(message.guild.id)}`)
-        // const { PREFIX } = client.configs.get(message.guild.id);
-        // const guildPrefix = PREFIX;
+        const { PREFIX } = client.configs.get(message.guild.id);
+        const guildPrefix = PREFIX;
 
-        // console.log(`prefix = ${prefix}`)
-        // console.log(`guildPrefix = ${guildPrefix}`)
+        console.log(`prefix = ${prefix}`)
+        console.log(`guildPrefix = ${guildPrefix}`)
 
 
         // MESSAGE IS NOT A COMMAND
