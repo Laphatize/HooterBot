@@ -74,6 +74,8 @@ for (const folder of cmdFolders) {
     // PREP FOR PREFIX ASSIGNMENT AND CACHING
     const guilds = client.guilds.cache.array();
 
+    console.log(guilds);
+
     // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT FOR EACH GUILD
     for (const guild of guilds) {
 
@@ -121,6 +123,7 @@ process.on('unhandledRejection', err =>{
     .setColor(config.embedDarkGrey)
     .setTitle(`An Unknown Error Has Occurred`)
     .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
+    .setFooter('MMM, see the bot log for the full error stack.')
     .setTimestamp()
     
 
