@@ -9,11 +9,13 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        const prefix = guildPrefixes[message.guild.id] || defaultPrefix
+        const guildPrefix = guildPrefixes[message.guild.id] || defaultPrefix
+
+        console.log(guildPrefix)
 
 
         // MESSAGE IS NOT A COMMAND
-        if (!message.content.startsWith(prefix) || message.author.bot) {
+        if (!message.content.startsWith(guildPrefix) || message.author.bot) {
             return
         }
 
@@ -61,7 +63,7 @@ module.exports = {
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(config.defaultPrefix.length).trim().split(/ +/);
+        const args = message.content.slice(config.guildPrefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
         
@@ -83,7 +85,7 @@ module.exports = {
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [guildDisallowEmbed]} )
@@ -97,7 +99,7 @@ module.exports = {
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [dmDisallowEmbed]} )
@@ -167,7 +169,7 @@ module.exports = {
             let cmdArgsErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`Incorrect syntax - use \`\`${prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
+                .setDescription(`Incorrect syntax - use \`\`${guildPrefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
@@ -228,7 +230,7 @@ module.exports = {
 
         // EXECUTE COMMAND
         try {
-            command.execute(message, args, prefix, client);
+            command.execute(message, args, guildPrefix, client);
         } catch (error) {
             console.error(error);
 
@@ -268,7 +270,7 @@ module.exports.loadPrefixes = async (client) => {
 
         const result = await guildSchema.findOne({ GUILD_ID: guildId })
         try {
-            guildPrefixes[guildId] = result.prefix
+            guildPrefixes[guildId] = result.guildPrefix
         }
         catch(error) {
             // THE SERVER DOES NOT HAVE A CUSTOM PREFIX, IGNORE.
