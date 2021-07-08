@@ -15,28 +15,17 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        let adminRole = message.guild.roles.cache.find((role) => role.name === "Admin");
-        let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
-
-        let adminList = message.guild.roles.cache.get(adminRole);
-        let modList =  message.guild.roles.cache.get(modRole);
-
-        console.log(`adminList = ${adminList}\n`)
-        console.log(`modList = ${modList}\n`)
-
-
         // CREATING EMBED FOR RESPONSE        
         let serverStaffList = new discord.MessageEmbed()
-        .setColor(config.embedTempleRed)
-        .setTitle(`**Temple University server staff:**`)
-        .addField(`Admins:`, ``)
-        .addField(`Moderators:`, ``)
-        .setThumbnail('https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/HooterBot_Square_Shadow.png')
+        .setColor(config.embedBlurple)
+        .setTitle(`**Server Staff**`)
+        .addField(`${config.emjAdmin}Admins:`, `<@400071708947513355>   <@694391619868295241>   <@472185023622152203>`)
+        .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>   <@338762061502873600>   <@446818962760531989>   <@270661345588936715>   <@418870468955602944>`)
 
 
-        // // POSTING LINK
-        // await message.reply({embeds: [serverStaffList] })
-        // .catch(err => console.log(err))
-        // return;
+        // POST EMBED
+        await message.reply({embeds: [serverStaffList] })
+        .catch(err => console.log(err))
+        return;
     }
 }
