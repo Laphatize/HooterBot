@@ -267,14 +267,13 @@ module.exports = {
 
 
 
-// CONNECT TO DB
+// LOAD PREFIXES
 module.exports.loadPrefixes = async (client) => {
     for (const guild of client.guilds.cache) {
-        const guildId = guild[1].id
 
-        const result = await guildSchema.findOne({ GUILD_ID: guildId })
+        const result = await guildSchema.findOne({ GUILD_ID: guild[1].id })
         try {
-            guildPrefixes[guildId] = result.guildPrefix
+            guildPrefixes[guild[1].id] = result.prefix;
         }
         catch(error) {
             // THE SERVER DOES NOT HAVE A CUSTOM PREFIX, IGNORE.
