@@ -8,7 +8,6 @@ module.exports = {
 
         console.log(`======================================`)
         console.log(`GUILD EVENT: NEW SERVER JOINED`)
-        console.log(`======================================`)
 
 
         // DM EMBED MESSAGE
@@ -35,8 +34,7 @@ module.exports = {
             upsert: true
         })
 
-
-
-        // console.log(`======================================\n\n`)
+        console.log(`GUILD NAME: ${message.guild.name}`)
+        console.log(`======================================\n\n`)
 	},
 };
