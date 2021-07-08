@@ -45,7 +45,7 @@ module.exports = {
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
-            return message.author.send( {embed: [guildDisallowEmbed]} )
+            return message.author.send( {embeds: [guildDisallowEmbed]} )
         }
 
 
@@ -59,7 +59,7 @@ module.exports = {
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
-            return message.author.send( {embed: [dmDisallowEmbed]} )
+            return message.author.send( {embeds: [dmDisallowEmbed]} )
         }
 
 

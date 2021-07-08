@@ -7,8 +7,8 @@ module.exports = {
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
-    minArgs: 1,
-    maxArgs: 99,
+    minArgs: 0,
+    maxArgs: 0,
     guildUse: true,
     dmUse: false,
     permissions: 'ADMINISTRATOR',
@@ -22,6 +22,8 @@ module.exports = {
         
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');
+
+        console.log(fullCommand)
 
 
         // REJECTING IF MESSAGE DOES NOT CONTAIN AT LEAST ONE SEPARATOR
