@@ -65,10 +65,9 @@ for (const folder of cmdFolders) {
 }
 
 
+client.configs = new Map();
 
 (async () => {
-    client.configs = new Map();
-
     // GRABBING THE GUILDS THE BOT IS IN
     const guilds = client.guilds.cache.array();
     for (const guild of guilds) {
