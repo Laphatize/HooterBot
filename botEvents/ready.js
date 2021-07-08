@@ -1,6 +1,6 @@
 const config = require ('../config.json')
 const db = require('../Utilities/mongo');
-const updateCache = require('./updateCache');
+const messageCreate = require('./messageCreate');
 
 module.exports = {
 	name: 'ready',
@@ -22,7 +22,7 @@ module.exports = {
 
 		// LOADING PREFIXES FROM DB
 		console.log(`======== REGISTERING PREFIXES ========`);
-		updateCache.loadPrefixes(client);
+		messageCreate.loadPrefixes(client);
 		console.log(`Prefixes registered.`);
 		console.log(`======================================\n\n`);
 

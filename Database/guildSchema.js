@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose')
+const config = require('../config.json')
 
 module.exports = mongoose.model("Guild", new mongoose.Schema({
     
@@ -11,8 +12,8 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     // DATE BOT JOINS SERVER:
     REGISTERED: {type: String, default: Date.now(), required:true},
 
-    // DEFAULT PREFIX SET IN command-base.js
-    PREFIX: {type: String, required:true},
+    // DEFAULT PREFIX SET USING VALUE IN CONFIG FILE
+    PREFIX: {type: String, default: config.defaultPrefix, required:true},
 
     // CATEGORY FOR NEW TICKETS
     TICKET_CAT_ID: {type: String, required:true},

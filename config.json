@@ -1,6 +1,6 @@
 {
     "buildDate": "7 July 2021",
-    "prefix": "$",
+    "defaultPrefix": "$",
     "botName": "HooterBot",
     "botAuthor": "MrMusicMan789#0789",
     "botAuthorId": "472185023622152203",

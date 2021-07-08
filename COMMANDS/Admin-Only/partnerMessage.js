@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const guildSchema = require('../../Database/guildSchema')
 const config = require('../../config.json')
 
 module.exports = {
@@ -14,25 +13,11 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
-
-        
-        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-        const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
-        });
-
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
 
         
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
@@ -43,15 +28,15 @@ module.exports = {
         if (!fullCommand.includes("|")) {
             // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
             let notFormattedEmbed = new discord.MessageEmbed()
-            .setColor(config.embedTempleRed)
-            .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` ${serverPrefix} <partner name> | <message> | (optional) <direct image URL> \`\``)
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` ${prefix} <partner name> | <message> | (optional) <direct image URL> \`\``)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
-            // DELETE AFTER 10 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-            .catch(err => console.log(err))
+                // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
             return
         }
 
@@ -74,20 +59,32 @@ module.exports = {
             
             // POSTING EMBED MESSAGE AND BUTTON
             await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
-            .catch(err => {
-                // LOGGING
-                console.log(err)
+                .catch(err => {
+                    // LOGGING
+                    console.log(err)
 
-                // INFORMING USER
-                let msgSendErrorEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Error!`)
-                .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
-                .addField(`partnerName`, `\`\`${partnerName}\`\``)
-                .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                    // INFORMING USER
+                    let msgSendErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Error!`)
+                        .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
+                        .addField(`partnerName`, `\`\`${partnerName}\`\``)
+                        .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                        .setTimestamp()
+                    return message.channel.send({embeds: [msgSendErrorEmbed]})
+                })
+            
+            // CONFIRMING SUBMISSION IN CHANNEL
+            let msgSendSuccessEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Success!`)
+                .setDescription(`Your partner message has been successfully submitted to <#${config.serverAnnouncementsId}>.`)
                 .setTimestamp()
-                message.channel.send({embeds: [msgSendErrorEmbed]})
-            })
+            message.channel.send({embeds: [msgSendSuccessEmbed]})
+                // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
+            return
         }
 
 
@@ -110,15 +107,27 @@ module.exports = {
 
                 // INFORMING USER
                 let msgSendErrorEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Error!`)
-                .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
-                .addField(`partnerName`, `\`\`${partnerName}\`\``)
-                .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
-                .addField(`imageURL`, `\`\`${imageURL}\`\``)
-                .setTimestamp()
-                message.channel.send({embeds: [msgSendErrorEmbed]})
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
+                    .addField(`partnerName`, `\`\`${partnerName}\`\``)
+                    .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                    .addField(`imageURL`, `\`\`${imageURL}\`\``)
+                    .setTimestamp()
+                return message.channel.send({embeds: [msgSendErrorEmbed]})
             })
+
+            // CONFIRMING SUBMISSION IN CHANNEL
+            let msgSendSuccessEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Success!`)
+                .setDescription(`Your partner message (with an image) has been successfully submitted to <#${config.serverAnnouncementsId}>.`)
+                .setTimestamp()
+            message.channel.send({embeds: [msgSendSuccessEmbed]})
+                // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
+            return
         }
     }
 }

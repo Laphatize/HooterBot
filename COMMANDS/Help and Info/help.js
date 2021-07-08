@@ -14,20 +14,12 @@ module.exports = {
     dmUse: false,
     permissions: '',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id
         });
-
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
 
 
 		let offlineEmbed = new discord.MessageEmbed()

@@ -14,7 +14,7 @@ module.exports = {
     dmUse: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -30,7 +30,7 @@ module.exports = {
             ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
             ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
             ${config.indent}**4.** Wait for a response from a server admin. Responses may take up to 2 days.\n\n
-            When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.`)
+            When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.\n`)
             .setFooter(`virtualTuidCardPrompt v0.1 - TESTING`)
 
 

@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 const guildSchema = require('../../Database/guildSchema')
-const updateCache = require('../../botEvents/updateCache')
+const messageCreate = require('../../botEvents/messageCreate')
 const config = require('../../config.json')
 
 module.exports = {
@@ -15,10 +15,14 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
+        
+        let prefixChanger = message.author;
+        const newPrefix = arguments[0];
 
 
         // IF PREFIX LONGER THAN 5 CHARACTERS
@@ -30,10 +34,6 @@ module.exports = {
             return message.channel.send({embeds: [longPrefixEmbed]})
         }
 
-
-        const newPrefix = arguments[0]
-
-        let prefixChanger = message.author;
 
         await guildSchema.findOneAndUpdate({
             // CONTENT USED TO FIND UNIQUE ENTRY
@@ -71,6 +71,6 @@ module.exports = {
         
 
         // UPDATE CACHE
-        updateCache(message.guild.id, newPrefix)
+        messageCreate(message.guild.id, newPrefix)
     }
 }

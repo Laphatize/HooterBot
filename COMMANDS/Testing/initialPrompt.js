@@ -14,7 +14,7 @@ module.exports = {
     dmUse: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -29,8 +29,8 @@ module.exports = {
             \n${config.indent}**1.** Use a physical TUid card
             \n${config.indent}**2.** Use a virtual TUid card
             \n${config.indent}**3.** Using TUportal
-            \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.`)
-            .setFooter("If these buttons stop working, ${buttonFix}.")
+            \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
+            .setFooter("If these buttons stop working, (?).")
 
 
         // INITIALIZING BUTTON

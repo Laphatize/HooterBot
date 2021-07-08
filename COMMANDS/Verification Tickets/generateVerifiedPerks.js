@@ -13,7 +13,7 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    execute: async (message, arguments, prefix, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

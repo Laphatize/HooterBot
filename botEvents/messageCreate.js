@@ -1,15 +1,19 @@
 const discord = require('discord.js')
 const guildSchema = require('../Database/guildSchema')
 const config = require('../config.json')
-const guildPrefixes = {}
+const { defaultPrefix } = require('../config.json')
+const guildPrefixes = {}    // { guildId : prefix }
 
 
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        const prefix = guildPrefixes[message.guild.id] || defaultPrefix
+
+
         // MESSAGE IS NOT A COMMAND
-        if (!message.content.startsWith(config.prefix) || message.author.bot) {
+        if (!message.content.startsWith(prefix) || message.author.bot) {
             return
         }
 
@@ -57,7 +61,7 @@ module.exports = {
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        const args = message.content.slice(config.defaultPrefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
         
@@ -79,7 +83,7 @@ module.exports = {
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [guildDisallowEmbed]} )
@@ -93,7 +97,7 @@ module.exports = {
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${config.prefix} <something>\`\`.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
             return message.author.send( {embed: [dmDisallowEmbed]} )
@@ -163,7 +167,7 @@ module.exports = {
             let cmdArgsErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`Incorrect syntax - use \`\`${config.prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
+                .setDescription(`Incorrect syntax - use \`\`${prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
             // SENDING EMBED
             message.channel.send({embeds: [cmdArgsErrEmbed]})
@@ -224,7 +228,7 @@ module.exports = {
 
         // EXECUTE COMMAND
         try {
-            command.execute(message, args, client);
+            command.execute(message, args, prefix, client);
         } catch (error) {
             console.error(error);
 
@@ -257,15 +261,14 @@ module.exports = {
 
 
 
-
 // CONNECT TO DB
 module.exports.loadPrefixes = async (client) => {
     for (const guild of client.guilds.cache) {
-        const guildID = guild[1].id
+        const guildId = guild[1].id
 
-        const result = await guildSchema.findOne({ GUILD_ID: guildID })
+        const result = await guildSchema.findOne({ GUILD_ID: guildId })
         try {
-            guildPrefixes[guildID] = result.prefix
+            guildPrefixes[guildId] = result.prefix
         }
         catch(error) {
             // THE SERVER DOES NOT HAVE A CUSTOM PREFIX, IGNORE.
