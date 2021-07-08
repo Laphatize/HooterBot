@@ -13,7 +13,7 @@ module.exports = {
     dmUse: false,
     permissions: '',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
         let linkName = arguments[0].toLowerCase();
         let link;

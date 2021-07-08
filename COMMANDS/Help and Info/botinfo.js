@@ -15,7 +15,7 @@ module.exports = {
     dmUse: true,
     permissions: '',
     requiredRoles: [],
-    execute: (message, arguments, prefix, client) => {
+    execute: (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );

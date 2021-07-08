@@ -13,7 +13,7 @@ module.exports = {
     dmUse: true,
     permissions: '',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
         
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()

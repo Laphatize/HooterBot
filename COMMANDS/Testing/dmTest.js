@@ -13,7 +13,7 @@ module.exports = {
     dmUse: true,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
 
         // POSTING EMBED MESSAGE AND BUTTON

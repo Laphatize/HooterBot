@@ -22,7 +22,7 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
         let verifChanger = message.author;
 
@@ -41,7 +41,7 @@ module.exports = {
             let noCatEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You first need to create a verification prompt in the server using \`\`${prefix}verifEmbed\`\` in <#${config.rolesChannelId}> before the verification prompt can be toggled in and out of maintenance mode.`)
+            .setDescription(`You first need to create a verification prompt in the server using \`\`${config.prefix}verifEmbed\`\` in <#${config.rolesChannelId}> before the verification prompt can be toggled in and out of maintenance mode.`)
 
             // SENDING TO CHANNEL
             message.channel.send(noCatEmbed)

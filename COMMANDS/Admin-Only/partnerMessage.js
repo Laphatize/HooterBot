@@ -13,7 +13,7 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
 
         // DELETING INVOCATION MESSAGE
@@ -30,7 +30,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` ${prefix} <partner name> | <message> | (optional) <direct image URL> \`\``)
+                .setDescription(`You need to use a \`\` | \`\` in your command. Use the following format:\n\n \`\` ${config.prefix} <partner name> | <message> | (optional) <direct image URL> \`\``)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})

@@ -14,7 +14,7 @@ module.exports = {
     dmUse: false,
     permissions: '',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({

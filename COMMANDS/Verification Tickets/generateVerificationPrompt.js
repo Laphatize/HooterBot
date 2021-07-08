@@ -16,7 +16,7 @@ module.exports = {
     dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
-    execute: async (message, arguments, prefix, client) => {
+    execute: async (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
@@ -33,7 +33,7 @@ module.exports = {
             let noCatEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You need to set the ticket category using \`\`${prefix}ticketcategory\`\` or \`\`${prefix}setcategory\`\` before the verification prompt can be posted.`)
+            .setDescription(`You need to set the ticket category using \`\`${config.prefix}ticketcategory\`\` or \`\`${config.prefix}setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
             message.channel.send({ embeds: [noCatEmbed] })
