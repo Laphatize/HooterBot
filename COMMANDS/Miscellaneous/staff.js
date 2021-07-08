@@ -18,8 +18,8 @@ module.exports = {
         let adminRole = message.guild.roles.cache.find((role) => role.name === "Admin");
         let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
 
-        let adminList = message.guild.roles.cache.get(adminRole).members.map(m => m.user.id);
-        let modList =  message.guild.roles.cache.get(modRole).members.map(m => m.user.id);
+        let adminList = message.guild.roles.cache.get(adminRole);
+        let modList =  message.guild.roles.cache.get(modRole);
 
         console.log(`adminList = ${adminList}\n`)
         console.log(`modList = ${modList}\n`)
