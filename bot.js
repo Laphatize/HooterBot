@@ -65,6 +65,33 @@ for (const folder of cmdFolders) {
 }
 
 
+
+(async () => {
+    client.configs = new Map();
+
+    // GRABBING THE GUILDS THE BOT IS IN
+    const guilds = client.guilds.cache.array();
+    for (const guild of guilds) {
+        const guildId = guild.id;
+        const guildConfig = await guildSchema.findOne({ guildId });
+
+        console.log(`guildConfig = ${guildConfig}`)
+
+        if(guildConfig) {
+            client.configs.set(guildId, guildConfig);
+            console.log(`Guild config set for ${guild.name}.`)
+        } else {
+            console.log(`No guild config found for ${guild.name}.\nSetting ${config.defaultPrefix} as prefix.`)
+            client.configs.set(guildId, {
+                guildId,
+                prefix: config.defaultPrefix,
+            });
+        }
+    }
+})
+
+
+
 // UNKNOWN ERROR REPORTING
 process.on('unhandledRejection', err =>{
     console.log(`******** UNKNOWN ERROR *********`);
