@@ -2,8 +2,8 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    name: `link`,
-    aliases: [`usefullink`],
+    name: `staff`,
+    aliases: [``],
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     expectedArgs: '',
     cooldown: 60,
