@@ -21,10 +21,13 @@ module.exports = {
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
+        console.log(`args = ${args}\n`)
+        console.log(`cmdName = ${cmdName}`)
         
         // SETTING COMMAND TO NAME OR TO ALIAS
         const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   
+        console.log(`command = ${command}`)
 
         // COMMAND DNE
         if(!command) {
