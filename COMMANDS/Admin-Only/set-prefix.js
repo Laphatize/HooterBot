@@ -71,6 +71,6 @@ module.exports = {
         
 
         // UPDATE CACHE
-        messageCreate(message.guild.id, newPrefix)
+        messageCreate.loadPrefixes(message.guild.id, newPrefix)
     }
 }
