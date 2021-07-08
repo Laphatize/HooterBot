@@ -8,12 +8,22 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-
         // MESSAGE IS NOT A COMMAND OR IS A MESSAGE FROM THE BOT
         if (!message.content.startsWith(config.prefix) || message.author.bot)   return;
 
+        
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
         // if (message.channel.type === 'dm')   return;
+   
+
+        // GRABBING COMMAND NAME AND ARGUMENTS
+        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        const cmdName = args.shift().toLowerCase();
+
+        
+        // SETTING COMMAND TO NAME OR TO ALIAS
+        const command = client.commands.get(cmdName.toLowerCase())
+                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName.toLowerCase()));
 
 
         // ENSURING GUILD USE ONLY IN GUILD
@@ -84,16 +94,6 @@ module.exports = {
 
             return;
         }
-
-
-        // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-        const cmdName = args.shift().toLowerCase();
-
-        
-        // SETTING COMMAND TO NAME OR TO ALIAS
-        const command = client.commands.get(cmdName.toLowerCase())
-                        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName.toLowerCase()));
    
 
         // COMMAND DNE
