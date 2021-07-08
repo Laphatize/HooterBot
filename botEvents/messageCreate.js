@@ -36,7 +36,7 @@ module.exports = {
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (!command.dmUse && message.channel.type === 'text') {
+        if (!command.guildUse === 'false' && message.channel.type === 'text') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
