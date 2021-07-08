@@ -41,8 +41,8 @@ module.exports = {
         // }
 
 
-        const { prefix } = client.configs.get(message.guild.id);
-        const guildPrefix = prefix;
+        const { PREFIX } = client.configs.get(message.guild.id);
+        const guildPrefix = PREFIX;
 
         console.log(`prefix = ${prefix}`)
         console.log(`guildPrefix = ${guildPrefix}`)

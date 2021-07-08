@@ -87,7 +87,7 @@ client.configs = new Map();
             });
         }
     }
-})
+})();
 
 
 
