@@ -36,6 +36,60 @@ module.exports = {
             link = `https://templeu.instructure.com/`
         }
 
+        // COURSES
+        if(linkName === `courses`){
+            linkName = `Course Catalog`
+            link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
+        }
+
+        // ACADEMIC PLANS
+        if(linkName === `academicplan`){
+            linkName = `Academic Plans and Suggested Timelines`
+            link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
+        }
+
+        // FINALS
+        if(linkName === `finals`){
+            linkName = `Final Exam Schedules`
+            link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
+        }
+
+        // ADMISSIONS
+        if(linkName === `admissions`){
+            linkName = `Admissions`
+            link = `https://www.temple.edu/admissions`
+        }
+
+        // FINANCIAL AID
+        if(linkName === `financialaid` || linkName === `sfs`){
+            linkName = `Student Financial Services`
+            link = `https://sfs.temple.edu/about/appointments`
+        }
+
+        // CLUBS AND ORGS
+        if(linkName === `clubs` || linkName === `orgs`|| linkName === `organizations`){
+            linkName = `Clubs & Organizations`
+            link = `https://temple.campuslabs.com/engage/`
+        }
+
+        // ATHLETICS
+        if(linkName === `athletics` || linkName === `tickets`){
+            linkName = `Athleteics & Tickets`
+            link = `https://owlsports.com/`
+        }
+
+        // DINING
+        if(linkName === `dining`){
+            linkName = `Dining`
+            link = `https://temple.campusdish.com/`
+        }
+
+        // HOUSING
+        if(linkName === `housing`){
+            linkName = `Housing`
+            link = `https://housing.temple.edu/`
+        }
+
 
         // POSTING LINK
         await message.reply({content: `${linkName}: <${link}>`})
