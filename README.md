@@ -7,4 +7,4 @@
 
 <img src="HooterBot_GitHubProfile.png" width="300" align="center" link="">
 
-A bot created for the Temple University Discord server to assist with verifying students and employees, helping with tasks in the server, and more.
+A bot created for the [Temple University Discord server](https://discord.com/invite/vbtaBXt8dd) to assist with verifying students and employees, helping with tasks in the server, and more.
