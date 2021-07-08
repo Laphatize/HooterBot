@@ -11,7 +11,7 @@ module.exports = {
         // MESSAGE IS NOT A COMMAND OR IS A MESSAGE FROM THE BOT
         if (!message.content.startsWith(config.prefix) || message.author.bot)   return;
 
-        
+
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
         // if (message.channel.type === 'dm')   return;
    
@@ -180,13 +180,15 @@ module.exports = {
 
         // COOLDOWN SETUP
         const { cooldowns } = client;
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-	    const cooldownTime = (command.cooldown || 0) * 1000;
+
         if (!cooldowns.has(command.name)) {
             cooldowns.set(command.name, new discord.Collection());
         }
 
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.name);
+	    const cooldownTime = (command.cooldown || 0) * 1000;
+        
         
         // COOLDOWN 
         if (timestamps.has(message.author.id)) {
