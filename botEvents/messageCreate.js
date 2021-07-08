@@ -9,6 +9,38 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
+        if (message.channel.type === 'dm') return;
+
+
+        // // ENSURING GUILD USE ONLY IN GUILD
+        // if (command.guildUse === false && message.channel.type === 'text') {
+
+        //     // DEFINING EMBED
+        //     let guildDisallowEmbed = new discord.MessageEmbed()
+        //     .setColor(config.embedRed)
+        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
+
+        //     // SENDING EMBED
+        //     return message.author.send( {embed: [guildDisallowEmbed]} )
+        // }
+
+
+        // // ENSURING DM USE ONLY IN DMS
+        // if (command.dmUse === false && message.channel.type === 'dm') {
+
+        //     // DEFINING EMBED
+        //     let dmDisallowEmbed = new discord.MessageEmbed()
+        //     .setColor(config.embedRed)
+        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
+
+        //     // SENDING EMBED
+        //     return message.author.send( {embed: [dmDisallowEmbed]} )
+        // }
+
+
         const guildPrefix = guildPrefixes[message.guild.id] || defaultPrefix
 
         console.log(`guildPrefix = ${guildPrefix}`)
@@ -75,34 +107,6 @@ module.exports = {
         // COMMAND DNE
         if(!command) {
             return;
-        }
-
-
-        // ENSURING GUILD USE ONLY IN GUILD
-        if (command.guildUse === false && message.channel.type === 'text') {
-
-            // DEFINING EMBED
-            let guildDisallowEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
-
-            // SENDING EMBED
-            return message.author.send( {embed: [guildDisallowEmbed]} )
-        }
-
-
-        // ENSURING DM USE ONLY IN DMS
-        if (command.dmUse === false && message.channel.type === 'dm') {
-
-            // DEFINING EMBED
-            let dmDisallowEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${guildPrefix} <something>\`\`.`)
-
-            // SENDING EMBED
-            return message.author.send( {embed: [dmDisallowEmbed]} )
         }
 
 
