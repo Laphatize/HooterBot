@@ -19,28 +19,9 @@ module.exports = {
         // SEND TO #introduce-yourself CHANNEL
         const message = await config.introductionsChannelId.send({embeds: [botJoinEmbed]})
 
-        // CREATE DATABASE ENTRY FOR GUILD
-        const result = await guildSchema.findOne({
-            // CONTENT USED TO FIND UNIQUE ENTRY
-            GUILD_NAME: message.guild.name,
-            GUILD_ID: message.guild.id
-        })
-        
 
-        if(!result.PREFIX == config.prefix){
-            await guildSchema.findOneAndUpdate({
-                // CONTENT USED TO FIND UNIQUE ENTRY
-                GUILD_NAME: message.guild.name,
-                GUILD_ID: message.guild.id
-            },{
-                // CONTENT TO BE UPDATED
-                PREFIX: config.prefix
-            },{ 
-                upsert: true
-            })
-        }
 
-        console.log(result)
-        console.log(`======================================\n\n`)
+
+        // console.log(`======================================\n\n`)
 	},
 };

@@ -27,13 +27,13 @@ const client = new discord.Client({
 })
 
 
+// BOT LOGGING IN
+client.login(process.env.HB_BOT_TOKEN);
+
+
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
-
-
-// MAPS
-client.configs = new Map();
 
 
 // EVENT HANDLER
@@ -63,52 +63,6 @@ for (const folder of cmdFolders) {
 		client.commands.set(command.name, command);
 	}
 }
-
-
-(async() => {
-
-    // BOT LOGGING IN
-    client.login(process.env.HB_BOT_TOKEN);
-
-
-    // PREP FOR PREFIX ASSIGNMENT AND CACHING
-    const guilds = client.guilds.cache.array();
-
-    console.log(guilds);
-
-    // SETTING PREFIX VALUE FROM DATABASE OR DEFAULT FOR EACH GUILD
-    for (const guild of guilds) {
-
-        // DB CHECK
-        const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
-        });
-
-        guildId = guild.id
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            client.configs.set(guild.id, dbData) 
-
-            console.log(`############# DATABASE ###############`);
-            console.log(`Guild config map set.`);
-            console.log(`######################################\n\n`);
-        }
-        else {
-            console.log(`############# DATABASE ###############`);
-            console.log(`ERROR: Guild config map not found.`);
-
-            console.log(`Creating config map.`);
-            client.configs.set(guildId, {
-                guildId,
-                prefix: config.prefix,
-            })
-
-
-            console.log(`######################################\n\n`);
-        }
-    }
-})();
 
 
 // UNKNOWN ERROR REPORTING
