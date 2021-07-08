@@ -11,7 +11,7 @@ module.exports = {
 
         const guildPrefix = guildPrefixes[message.guild.id] || defaultPrefix
 
-        console.log(guildPrefix)
+        console.log(`guildPrefix = ${guildPrefix}`)
 
 
         // MESSAGE IS NOT A COMMAND
@@ -63,7 +63,7 @@ module.exports = {
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
-        const args = message.content.slice(config.guildPrefix.length).trim().split(/ +/);
+        const args = message.content.slice(guildPrefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
 
         
