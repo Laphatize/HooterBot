@@ -38,7 +38,7 @@ module.exports = {
 
 
         // POSTING LINK
-        await message.channel.reply({content: `${linkName}: <${link}>`})
+        await message.reply({content: `${linkName}: <${link}>`})
         .catch(err => console.log(err))
         return;
     }
