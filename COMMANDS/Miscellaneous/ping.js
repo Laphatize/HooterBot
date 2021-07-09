@@ -46,10 +46,10 @@ module.exports = {
             if (botPing < 100) {
                 botLatEmj = config.emjGREENTICK
             }
-            if (botPing >= 100 && botPing < 150) {
+            if (botPing >= 100 && botPing < 250) {
                 botLatEmj = config.emjORANGETICK
             }
-            if (botPing >= 150) {
+            if (botPing >= 250) {
                 botLatEmj = config.emjREDTICK
             }
 
