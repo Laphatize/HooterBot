@@ -5,17 +5,17 @@ module.exports = {
     name: `link`,
     aliases: [`usefullink`],
     description: `Generates a link to a Temple resource.`,
-    expectedArgs: '<site_name>',
+    expectedArgs: '<title or site name>',
     cooldown: 5,
     minArgs: 1,
-    maxArgs: 1,
+    maxArgs: 5,
     guildUse: true,
     dmUse: false,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        let linkName = arguments[0].toLowerCase();
+        let linkName = arguments.join("").toLowerCase();
         let link;
 
         // TU PORTAL
@@ -36,6 +36,12 @@ module.exports = {
             link = `https://templeu.instructure.com/`
         }
 
+        // TUid
+        if(linkName === `tuid` || linkName === `idcard`){
+            linkName = `Canvas`
+            link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
+        }
+
         // COURSES
         if(linkName === `courses`){
             linkName = `Course Catalog`
@@ -43,13 +49,13 @@ module.exports = {
         }
 
         // ACADEMIC PLANS
-        if(linkName === `academicplan`){
+        if(linkName === `academicplan` || linkName === `academicplans` || linkname === `academictimeline`){
             linkName = `Academic Plans and Suggested Timelines`
             link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
         }
 
         // FINALS
-        if(linkName === `finals`){
+        if(linkName === `finals` || linkName === `finalschedule` || linkName === `finalsschedule`){
             linkName = `Final Exam Schedules`
             link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
         }
@@ -73,7 +79,7 @@ module.exports = {
         }
 
         // ATHLETICS
-        if(linkName === `athletics` || linkName === `tickets`){
+        if(linkName === `athletics` || linkName === `sports` || linkName === `tickets`){
             linkName = `Athleteics & Tickets`
             link = `https://owlsports.com/`
         }
@@ -90,10 +96,25 @@ module.exports = {
             link = `https://housing.temple.edu/`
         }
 
+        else {
+            let linkOptionsEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setTitle(`Sorry, I don't know that link yet!`)
+                .setDescription(`Here's a list of all the links I can generate for you:\n
+                \n\` TUportal \`,  \` DARS \`,  \` Canvas \`, \` TUid / ID card \`
+                \n\` Courses \`, \` academic plan / academic timeline \`, \` finals / final schedule / finals schedule \`
+                \n\` admissions \`, \` financialaid / sfs \`
+                \n\` clubs / orgs / organizations \`, \` athletics / sports / tickets \`
+                \n\` dining \`, \` housing \``)
+                .setFooter(`Don't worry, I'm not particular about capitalization or spaces between words :)`)
+
+            // SENDING TO CHANNEL
+            return message.channel.send({embeds: [linkOptionsEmbed]})
+        }
+
 
         // POSTING LINK
         await message.reply({content: `${linkName}: <${link}>`})
         .catch(err => console.log(err))
-        return;
     }
 }
