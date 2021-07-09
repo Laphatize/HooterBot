@@ -1,5 +1,6 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
+const loadCommands = require('../LoadCommands.js')
+const config = require ('../config.json')
 
 module.exports = {
     name: `help`,
@@ -18,24 +19,7 @@ module.exports = {
 
         let helptext = `Here is a list of my commands you can use:\n\n`;
 
-        const commands = []
-
-        // READING COMMANDS
-        const readCommands = (dir) => {
-            const files = fs.readdirSync(path.join(__dirname, dir))
-            
-            for (const file of files) {
-                const stat = fs.lstatSync(path.join(__dirname, dir, file))
-                
-                if (stat.isDirectory()) {
-                    readCommands(path.join(dir, file))
-                } else {
-                    const option = require(path.join(__dirname, dir, file))
-                    commands.push(option)
-                }
-            }
-        }
-
+        const commands = loadCommands()
 
         for(const command of commands) {
             // CHECK FOR USER PERMS TO AVOID SHARING INFO ABOUT COMMANDS THE USER CANNOT ACCESS
@@ -90,6 +74,6 @@ module.exports = {
         .setFooter(`(Crown = Need administrator permissions.)`)
         
         // RESPONDING TO USER WITH COMMAND LIST
-        message.channel.send({embed: [helpEmbed]})
+        message.channel.send(helpEmbed)
     }
 }
