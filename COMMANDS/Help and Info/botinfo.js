@@ -6,6 +6,7 @@ module.exports = {
     name: `botinfo`,
     aliases: [`info`],
     description: `Describes the details about ${config.botName}.`,
+    category: `Help and Info`,
     expectedArgs: '',
     cooldown: 60,
     minArgs: 0,

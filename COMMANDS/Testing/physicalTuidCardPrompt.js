@@ -6,6 +6,7 @@ module.exports = {
     name: `physicaltuidcardprompt`,
     aliases: [`verifprompt2`],
     description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
+    category: `Testing`,
     expectedArgs: '',
     cooldown: -1,
     minArgs: 0,

@@ -5,6 +5,7 @@ module.exports = {
     name: `rulesandstaff`,
     aliases: [``],
     description: `Generates a list of current server staff for the Temple University Discord server.`,
+    category: `Administrator`,
     expectedArgs: '',
     cooldown: 60,
     minArgs: 0,

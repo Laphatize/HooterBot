@@ -5,6 +5,7 @@ module.exports = {
     name: `verifyperksembed`,
     aliases: [`verifyperks`],
     description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
+    category: `Verification`,
     expectedArgs: '',
     cooldown: -1,
     minArgs: 0,

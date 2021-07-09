@@ -5,6 +5,7 @@ module.exports = {
     name: `link`,
     aliases: [`usefullink`],
     description: `Generates a link to a Temple resource.`,
+    category: `Miscellaneous`,
     expectedArgs: '<title or site name> (use "all" to generate available list)',
     cooldown: 5,
     minArgs: 0,

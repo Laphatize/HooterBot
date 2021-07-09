@@ -6,6 +6,7 @@ module.exports = {
     name: `help`,
     aliases: [`commands`],
     description: `Describes ${config.botName}'s commands. (🗺️📌 *You are here*)`,
+    category: `Help and Info`,
     expectedArgs: '',
     cooldown: 60,
     minArgs: 0,

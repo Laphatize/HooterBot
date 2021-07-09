@@ -5,6 +5,7 @@ module.exports = {
     name: `ping`,
     aliases: [`test`, `testing`],
     description: `A command to test if ${config.botName} is responding or suffering from latency issues.`,
+    category: `Miscellaneous`,
     expectedArgs: '',
     cooldown: 10,
     minArgs: 0,
