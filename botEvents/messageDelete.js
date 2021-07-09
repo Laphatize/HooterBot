@@ -6,10 +6,12 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        console.log(`A message has been deleted:\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
+        console.log(`A message has been deleted.`)
 
         // FILTER TO THE ROLES CHANNEL
         if (message.channel.id == config.rolesChannelId) {
+
+            console.log(`This message is within the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
 
             // CHECK THAT THERE IS ACTUALLY A DATABASE ENTRY FOR GUILD
             const dbData = await guildSchema.findOne({
