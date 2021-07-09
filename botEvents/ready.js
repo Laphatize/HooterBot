@@ -1,6 +1,6 @@
 const config = require ('../config.json')
 const db = require('../Utilities/mongo');
-const updateCache = require('./updateCache');
+const messageCreate = require('./messageCreate');
 
 module.exports = {
 	name: 'ready',
@@ -20,17 +20,17 @@ module.exports = {
 		console.log(`======================================\n\n`);
 
 
-		// LOADING PREFIXES FROM DB
-		console.log(`======== REGISTERING PREFIXES ========`);
-		updateCache.loadPrefixes(client);
-		console.log(`Prefixes registered.`);
-		console.log(`======================================\n\n`);
-
-
 		// CONNECTING TO MONGO DATABASE
 		await db()
 		console.log(`######## DATABASE CONNECTION #########`);
 		console.log(`Mongo DB connection made.`);
 		console.log(`######################################\n\n`);
+
+
+		// READY
+		console.log(`======================================`);
+		console.log(`======== HOOTERBOT IS ONLINE =========`);
+		console.log(`======================================\n\n`);
+
 	},
 };

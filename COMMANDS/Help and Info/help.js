@@ -10,7 +10,8 @@ module.exports = {
     cooldown: 60,
     minArgs: 0,
     maxArgs: 0,
-    guildOnly: false,
+    guildUse: true,
+    dmUse: false,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
@@ -19,14 +20,6 @@ module.exports = {
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id
         });
-
-
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
 
 
 		let offlineEmbed = new discord.MessageEmbed()

@@ -18,7 +18,8 @@ module.exports = {
     cooldown: -1,
     minArgs: 1,
     maxArgs: 1,
-    guildOnly: true,
+    guildUse: true,
+    dmUse: false,
     permissions: 'ADMINISTRATOR',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
@@ -35,20 +36,12 @@ module.exports = {
         });
 
 
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
-
-
         // IF NO VERIFICATION PROMPT, SEND MESSAGE IN CHANNEL
         if(!dbData.VERIF_PROMPT_MSG_ID) {
             let noCatEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You first need to create a verification prompt in the server using \`\`${serverPrefix}verifEmbed\`\` in <#${config.rolesChannelId}> before the verification prompt can be toggled in and out of maintenance mode.`)
+            .setDescription(`You first need to create a verification prompt in the server using \`\`${config.prefix}verifEmbed\`\` in <#${config.rolesChannelId}> before the verification prompt can be toggled in and out of maintenance mode.`)
 
             // SENDING TO CHANNEL
             message.channel.send(noCatEmbed)

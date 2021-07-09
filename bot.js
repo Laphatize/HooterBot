@@ -1,27 +1,11 @@
 require('dotenv').config();
 const discord = require('discord.js')
-const { Collection } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json')
+const guildSchema = require('./Database/guildSchema')
 
 
-
-
-// // VARIABLES FOR TEMPLE SERVER
-// let logActionsChannelId = 829726733712359476;
-// let TranscriptsId  = 834441201197252648;
-// let modRoleId = 835182957160300604;
-// let adminRoleId = 829416550867140608;
-
-// // VARIABLES FOR MMM TEST SERVER - SET IN CONFIG FILE
-// let logActionsChannelId = 857106515156140062;
-// let TranscriptsId  = 857106503438041108;
-// let modRoleId = 857105754280427521;
-// let adminRoleId = 588107993153929248;
-
-
-
-// INITIALIZATION - SETMAXLISTENERS NEEDED RIGHT NOW SINCE I MADE A MISTAKE IN THE COMMAND HANDLER :'( 
+// INITIALIZATION
 const client = new discord.Client({
     intents: [
         'GUILDS',
@@ -43,11 +27,13 @@ const client = new discord.Client({
 })
 
 
+// BOT LOGGING IN
+client.login(process.env.HB_BOT_TOKEN);
+
 
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
-
 
 
 // EVENT HANDLER
@@ -79,12 +65,6 @@ for (const folder of cmdFolders) {
 }
 
 
-
-// BOT LOGGING IN
-client.login(process.env.HB_BOT_TOKEN);
-
-
-
 // UNKNOWN ERROR REPORTING
 process.on('unhandledRejection', err =>{
     console.log(`******** UNKNOWN ERROR *********`);
@@ -97,6 +77,7 @@ process.on('unhandledRejection', err =>{
     .setColor(config.embedDarkGrey)
     .setTitle(`An Unknown Error Has Occurred`)
     .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
+    .setFooter('MMM, see the bot log for the full error stack.')
     .setTimestamp()
     
 

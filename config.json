@@ -1,10 +1,11 @@
 {
-    "buildDate": "7 July 2021",
+    "buildDate": "8 July 2021",
     "prefix": "$",
     "botName": "HooterBot",
     "botAuthor": "MrMusicMan789#0789",
     "botAuthorId": "472185023622152203",
     "embedBlue": "#008eaa",
+    "embedBlurple": "#5865F2",
     "embedDarkBlue": "#213448",
     "embedNavyBlue": "#081026",
     "embedRed": "#f04947",
@@ -18,6 +19,7 @@
     "emjREDTICK": "<:RedTick:719009809856462888>",
     "emjERROR": "<:Error:718938575122595932>",
     "emjAdmin": "<:Owner:858820017990926357>",
+    "emjModerator": "<:Moderator:862817036295733268>",
     "emjDiscordjs": "<:discordjs:859619199383109692>",
     "emjNodejs": "<:nodejs:859619199440781352>",
     "emjTempleT": "<:TempleT:857293539779018773>",
@@ -33,10 +35,11 @@
     "modRoleId": "857105754280427521",
     "adminRoleId": "588107993153929248",
     "serverAnnouncementsId": "861737097475653632",
+    "botchannelId": "829685931501027359",
 
     "joinsChannelId": "860610633417621504",
     "rolesChannelId": "829417860820238356",
-    "introductionsChannelId": "829445714815614976",
+    "introductionsChannelId": "839380781893419048",
     "questionsChannelId": "829629693929586729",
     "rulesChannelId": "829409161581821994",
     "ModMailId": "575252669443211264"
