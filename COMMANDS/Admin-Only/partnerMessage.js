@@ -23,8 +23,6 @@ module.exports = {
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
         const fullCommand = arguments.join(' ');
 
-        console.log(fullCommand)
-
 
         // REJECTING IF MESSAGE DOES NOT CONTAIN AT LEAST ONE SEPARATOR
         if (!fullCommand.includes("|")) {
