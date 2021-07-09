@@ -16,35 +16,32 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-
-        // IF NO ARGS ARE PROVIDED
         if(!arguments) {
-            let linkOptionsEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedBlurple)
-                    .setTitle(`Sorry, I need a link title!`)
-                    .setDescription(`Here's a list of all the links I can generate for you:\n
-                    \`TUportal\`
-                    \`DARS\`
-                    \`Canvas\`
-                    \`TUid\` or \`ID card\`
-                    \`Courses\`
-                    \`academic plan\` or \`academic timeline\`
-                    \`finals\` or \`final schedule\` or \`finals schedule\`
-                    \`admissions\`
-                    \`financialaid\` or \`sfs\`
-                    \`clubs\` or \`orgs\` or \`organizations\`
-                    \`athletics\` or \`sports\` or \`tickets\`
-                    \`dining\`
-                    \`housing\`
-                    \nNow type \`$link\` followed by one of these titles above.
-                    `)
-                    .setFooter(`Don't worry - I'm not particular about capitalization or spaces between words :)`)
-
-                // SENDING TO CHANNEL
-                return message.channel.send({embeds: [linkOptionsEmbed]})
+            let linkListEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setTitle(`Here is a list of links I know!`)
+                .setDescription(`\`TUportal\`
+                \`DARS\`
+                \`Canvas\`
+                \`TUid\` or \`ID card\`
+                \`Courses\`
+                \`academic plan\` or \`academic timeline\`
+                \`finals\` or \`final schedule\` or \`finals schedule\`
+                \`admissions\`
+                \`financialaid\` or \`sfs\`
+                \`clubs\` or \`orgs\` or \`organizations\`
+                \`athletics\` or \`sports\` or \`tickets\`
+                \`dining\`
+                \`housing\``)
+                .setFooter(`Don't worry - I'm not particular about capitalization or spaces between words :)`)
+    
+            // SENDING TO CHANNEL
+            return message.channel.send({embeds: [linkListEmbed]})
+                .catch(err => console.log(err))
         }
 
-        else {
+
+        if(arguments[0]) {
             let linkName = arguments.join("").toLowerCase();
             let link;
 
@@ -125,35 +122,35 @@ module.exports = {
                 linkName = `Housing`
                 link = `https://housing.temple.edu/`
             }
-
-            else {
-                let linkOptionsEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedBlurple)
-                    .setTitle(`Sorry, I don't know that link yet!`)
-                    .setDescription(`Here's a list of all the links I can generate for you:\n
-                    \`TUportal\`
-                    \`DARS\`
-                    \`Canvas\`
-                    \`TUid\` or \`ID card\`
-                    \`Courses\`
-                    \`academic plan\` or \`academic timeline\`
-                    \`finals\` or \`final schedule\` or \`finals schedule\`
-                    \`admissions\`
-                    \`financialaid\` or \`sfs\`
-                    \`clubs\` or \`orgs\` or \`organizations\`
-                    \`athletics\` or \`sports\` or \`tickets\`
-                    \`dining\`
-                    \`housing\``)
-                    .setFooter(`Don't worry - I'm not particular about capitalization or spaces between words :)`)
-
-                // SENDING TO CHANNEL
-                return message.channel.send({embeds: [linkOptionsEmbed]})
-            }
-
-
-            // POSTING LINK
+            
+            // POSTING LINK USING VALUES FROM ABOVE
             await message.reply({content: `${linkName}: <${link}>`})
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
+        }
+
+        else {
+            let linkOptionsEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setTitle(`Sorry, I don't know that link yet!`)
+                .setDescription(`Here's a list of all the links I can generate for you:\n
+                \`TUportal\`
+                \`DARS\`
+                \`Canvas\`
+                \`TUid\` or \`ID card\`
+                \`Courses\`
+                \`academic plan\` or \`academic timeline\`
+                \`finals\` or \`final schedule\` or \`finals schedule\`
+                \`admissions\`
+                \`financialaid\` or \`sfs\`
+                \`clubs\` or \`orgs\` or \`organizations\`
+                \`athletics\` or \`sports\` or \`tickets\`
+                \`dining\`
+                \`housing\``)
+                .setFooter(`Don't worry - I'm not particular about capitalization or spaces between words :)`)
+
+            // SENDING TO CHANNEL
+            return message.channel.send({embeds: [linkOptionsEmbed]})
+                .catch(err => console.log(err))
         }
     }
 }
