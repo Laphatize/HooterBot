@@ -3,7 +3,7 @@ const config = require('../../config.json')
 
 module.exports = {
     name: `link`,
-    aliases: [`usefullink`],
+    aliases: [`links`, `usefullink`],
     description: `Generates a link to a Temple resource.`,
     category: `Miscellaneous`,
     expectedArgs: '<title or site name> (use "all" to generate available list)',
@@ -39,93 +39,86 @@ module.exports = {
             return message.channel.send({embeds: [linkListEmbed]})
                 .catch(err => console.log(err))
         }
+    
+        let linkName = arguments.join("").toLowerCase();
+        let link;
 
-        // IF NO ARGUMENT PROVIDED
-        if(!arguments[0] || arguments[0] == 'undefined') {
-            let linkName = arguments.join("").toLowerCase();
-            let link;
+        // TU PORTAL
+        if(linkName === `tuportal`){
+            linkName = `TUPortal`
+            link = `https://tuportal5.temple.edu/`
+        }
 
-            // TU PORTAL
-            if(linkName === `tuportal`){
-                linkName = `TUPortal`
-                link = `https://tuportal5.temple.edu/`
-            }
+        // DARS
+        if(linkName === `dars`){
+            linkName = `DARS (Degree Audit Reporting System)`
+            link = `https://dars.temple.edu/`
+        }
 
-            // DARS
-            if(linkName === `dars`){
-                linkName = `DARS (Degree Audit Reporting System)`
-                link = `https://dars.temple.edu/`
-            }
+        // CANVAS
+        if(linkName === `canvas`){
+            linkName = `Canvas`
+            link = `https://templeu.instructure.com/`
+        }
 
-            // CANVAS
-            if(linkName === `canvas`){
-                linkName = `Canvas`
-                link = `https://templeu.instructure.com/`
-            }
+        // TUid
+        if(linkName === `tuid` || linkName === `idcard`){
+            linkName = `Canvas`
+            link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
+        }
 
-            // TUid
-            if(linkName === `tuid` || linkName === `idcard`){
-                linkName = `Canvas`
-                link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
-            }
+        // COURSES
+        if(linkName === `courses`){
+            linkName = `Course Catalog`
+            link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
+        }
 
-            // COURSES
-            if(linkName === `courses`){
-                linkName = `Course Catalog`
-                link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
-            }
+        // ACADEMIC PLANS
+        if(linkName === `academicplan` || linkName === `academicplans` || linkName === `academictimeline`){
+            linkName = `Academic Plans and Suggested Timelines`
+            link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
+        }
 
-            // ACADEMIC PLANS
-            if(linkName === `academicplan` || linkName === `academicplans` || linkName === `academictimeline`){
-                linkName = `Academic Plans and Suggested Timelines`
-                link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
-            }
+        // FINALS
+        if(linkName === `finals` || linkName === `finalschedule` || linkName === `finalsschedule`){
+            linkName = `Final Exam Schedules`
+            link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
+        }
 
-            // FINALS
-            if(linkName === `finals` || linkName === `finalschedule` || linkName === `finalsschedule`){
-                linkName = `Final Exam Schedules`
-                link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
-            }
+        // ADMISSIONS
+        if(linkName === `admissions`){
+            linkName = `Admissions`
+            link = `https://www.temple.edu/admissions`
+        }
 
-            // ADMISSIONS
-            if(linkName === `admissions`){
-                linkName = `Admissions`
-                link = `https://www.temple.edu/admissions`
-            }
+        // FINANCIAL AID
+        if(linkName === `financialaid` || linkName === `sfs`){
+            linkName = `Student Financial Services`
+            link = `https://sfs.temple.edu/about/appointments`
+        }
 
-            // FINANCIAL AID
-            if(linkName === `financialaid` || linkName === `sfs`){
-                linkName = `Student Financial Services`
-                link = `https://sfs.temple.edu/about/appointments`
-            }
+        // CLUBS AND ORGS
+        if(linkName === `clubs` || linkName === `orgs`|| linkName === `organizations`){
+            linkName = `Clubs & Organizations`
+            link = `https://temple.campuslabs.com/engage/`
+        }
 
-            // CLUBS AND ORGS
-            if(linkName === `clubs` || linkName === `orgs`|| linkName === `organizations`){
-                linkName = `Clubs & Organizations`
-                link = `https://temple.campuslabs.com/engage/`
-            }
+        // ATHLETICS
+        if(linkName === `athletics` || linkName === `sports` || linkName === `tickets`){
+            linkName = `Athleteics & Tickets`
+            link = `https://owlsports.com/`
+        }
 
-            // ATHLETICS
-            if(linkName === `athletics` || linkName === `sports` || linkName === `tickets`){
-                linkName = `Athleteics & Tickets`
-                link = `https://owlsports.com/`
-            }
+        // DINING
+        if(linkName === `dining`){
+            linkName = `Dining`
+            link = `https://temple.campusdish.com/`
+        }
 
-            // DINING
-            if(linkName === `dining`){
-                linkName = `Dining`
-                link = `https://temple.campusdish.com/`
-            }
-
-            // HOUSING
-            if(linkName === `housing`){
-                linkName = `Housing`
-                link = `https://housing.temple.edu/`
-            }
-            
-            // POSTING LINK USING VALUES FROM ABOVE
-            await message.reply({content: `${linkName}: <${link}>`})
-                .catch(err => console.log(err))
+        // HOUSING
+        if(linkName === `housing`){
+            linkName = `Housing`
+            link = `https://housing.temple.edu/`
         }
 
         else {
@@ -152,5 +145,9 @@ module.exports = {
             return message.channel.send({embeds: [linkOptionsEmbed]})
                 .catch(err => console.log(err))
         }
+      
+        // POSTING LINK USING VALUES FROM ABOVE
+        await message.reply({content: `${linkName}: <${link}>`})
+        .catch(err => console.log(err))
     }
 }
