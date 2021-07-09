@@ -12,10 +12,6 @@ module.exports = {
         if (!message.content.startsWith(prefix) || message.author.bot)   return;
 
 
-        // COMMENT TO ALLOW COMMANDS IN DMS
-        // if (message.channel.type === 'dm')   return;
-   
-
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();

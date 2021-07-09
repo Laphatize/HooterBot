@@ -12,7 +12,7 @@ module.exports = {
     minArgs: 0,
     maxArgs: 0,
     guildUse: true,
-    dmUse: false,
+    dmUse: true,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
