@@ -86,6 +86,19 @@ module.exports = {
                 // DELETE AFTER 10 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
+
+
+            // LOGGING MESSAGE CREATION
+            let logPartnerMsgEmbed = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`New Partner Message Submitted`)
+            .addField(`User:`, `${user}`)
+            .addField(`User ID:`, `${clickUserId}`)
+            .addField(`Contains image?`, `No`)
+            .setTimestamp()
+
+            // SENDING TO LOG CHANNEL
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logPartnerMsgEmbed] })
             return
         }
 
@@ -129,6 +142,19 @@ module.exports = {
                 // DELETE AFTER 10 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
+
+                
+            // LOGGING MESSAGE CREATION
+            let logPartnerMsgEmbed = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`New Partner Message Submitted`)
+            .addField(`User:`, `${user}`)
+            .addField(`User ID:`, `${clickUserId}`)
+            .addField(`Contains image?`, `Yes`)
+            .setTimestamp()
+
+            // SENDING TO LOG CHANNEL
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logPartnerMsgEmbed] })
             return
         }
     }

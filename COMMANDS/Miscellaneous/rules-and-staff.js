@@ -44,9 +44,19 @@ module.exports = {
             .setFooter(`Note: ModMail is intended for moderation related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail will result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
 
 
-        // POSTING EMBEDS
-        await message.channel.send({embeds: [rules, serverStaffList, ModmailHelp ] })
-            .catch(err => console.log(err))
-        return;
+        // IF MESSAGE ID DNE IN DATABASE, CREATE ENTRY THEN POST
+
+            // POSTING EMBEDS
+            await message.channel.send({embeds: [rules, serverStaffList, ModmailHelp ] })
+                .catch(err => console.log(err))
+            return;
+
+
+        // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
+
+
+
+
+
     }
 }
