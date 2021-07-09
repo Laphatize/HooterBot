@@ -74,6 +74,6 @@ module.exports = {
         .setFooter(`(Crown = Need administrator permissions.)`)
         
         // RESPONDING TO USER WITH COMMAND LIST
-        message.channel.send(helpEmbed)
+        message.channel.send({ embeds: [helpEmbed] })
     }
 }
