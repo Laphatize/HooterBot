@@ -49,6 +49,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`**Need help?**`)
             .setDescription(`If you need to speak with a member of the server staff about an issue, please create a ticket using <@${config.ModMailId}>:\n1. DM modmail \`\`=new\`\` followed by the message you wish to send.\n2. If you are in multiple servers that use Modmail, select the "Temple University" server to receive your message.\n3. Wait for a response back from the moderation team.`)
+            .setFooter(`Note: ModMail is intended for moderation related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail will result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
 
 
         // POSTING EMBEDS
