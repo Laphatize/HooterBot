@@ -16,9 +16,7 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        console.log(arguments[0])
-
-        if(arguments[0] = null) {
+        if(!arguments[0]) {
             let linkListEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`Here is a list of links I know!`)
@@ -42,8 +40,8 @@ module.exports = {
                 .catch(err => console.log(err))
         }
 
-
-        if(arguments[0]) {
+        // IF NO ARGUMENT PROVIDED
+        if(!arguments[0] || arguments[0] == 'undefined') {
             let linkName = arguments.join("").toLowerCase();
             let link;
 

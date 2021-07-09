@@ -16,6 +16,9 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
         // CREATING EMBEDS
         let rules = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
