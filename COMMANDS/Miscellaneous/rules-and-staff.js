@@ -16,14 +16,6 @@ module.exports = {
     execute: async (message, arguments, client) => {
 
         // CREATING EMBEDS
-
-
-
-
-
-
-
-
         let rules = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle('**Rules**')
