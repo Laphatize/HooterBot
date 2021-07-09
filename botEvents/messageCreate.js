@@ -28,7 +28,7 @@ module.exports = {
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (command.dmUse == false && command.guildUse == true && message.channel.type === 'dm') {
+        if (command.dmUse === false && command.guildUse === true && message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
@@ -46,7 +46,7 @@ module.exports = {
 
 
         // ENSURING DM USE ONLY IN DMS
-        if (command.dmUse == true && command.guildUse == false && !message.channel.type === 'dm') {
+        if (command.dmUse === true && command.guildUse === false && !message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let dmDisallowEmbed = new discord.MessageEmbed()
