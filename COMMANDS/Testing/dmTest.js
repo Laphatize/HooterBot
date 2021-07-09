@@ -2,8 +2,8 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    name: `dmTest`,
-    aliases: [`dmTesting`],
+    name: `dmtest`,
+    aliases: [`dmtesting`],
     description: `(${config.emjAdmin}) A demo command to prototype the embed initially sent to a user looking to verify.`,
     expectedArgs: '',
     cooldown: -1,

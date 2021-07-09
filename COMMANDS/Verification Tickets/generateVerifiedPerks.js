@@ -2,8 +2,8 @@ const discord = require('discord.js')
 const config = require('../../config.json')
 
 module.exports = {
-    name: `verifyPerksEmbed`,
-    aliases: [`verifyPerks`, `whyVerify`],
+    name: `verifyperksembed`,
+    aliases: [`verifyperks`],
     description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
     expectedArgs: '',
     cooldown: -1,

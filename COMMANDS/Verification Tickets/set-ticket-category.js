@@ -3,8 +3,8 @@ const guildSchema = require('../../Database/guildSchema')
 const config = require('../../config.json');
 
 module.exports = {
-    name: `setTicketCategory`,
-    aliases: [`setcategory`, `ticketCategory`, `ticketCat`],
+    name: `setticketcategory`,
+    aliases: [`setcategory`, `ticketcategory`, `ticketcat`],
     description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     expectedArgs: '<Category name>',
     cooldown: -1,
