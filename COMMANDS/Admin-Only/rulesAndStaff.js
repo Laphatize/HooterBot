@@ -11,7 +11,7 @@ module.exports = {
     maxArgs: 0,
     guildUse: true,
     dmUse: true,
-    permissions: '',
+    permissions: 'ADMINISTRATOR',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 

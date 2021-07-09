@@ -2,7 +2,6 @@ const discord = require('discord.js')
 var pjson = require('../../package.json');
 const config = require ('../../config.json')
 
-
 module.exports = {
     name: `botinfo`,
     aliases: [`info`],
