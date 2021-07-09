@@ -2,8 +2,6 @@ const discord = require('discord.js')
 const config = require('../config.json')
 const { prefix } = require('../config.json')
 
-
-
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {

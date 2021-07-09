@@ -8,8 +8,12 @@ module.exports = {
 
         console.log(`A message has been deleted.`)
 
+        // DELETING INVOCATION MESSAGE
+        client.setTimeout(() => message.delete(), 0 );
+
+        
         // FILTER TO THE ROLES CHANNEL
-        if (message.channel.id == config.rolesChannelId) {
+        if (message.channel.id == config.rulesChannelId) {
 
             console.log(`This message is within the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
 
