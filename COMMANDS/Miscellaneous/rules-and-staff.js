@@ -34,7 +34,7 @@ module.exports = {
             .addField(`5. No NSFW material or discussions that may cause hostility`, `Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion or anything that may cause hostility are prohibited.`)
             .addField(`6. No advertising`, `This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>. DM advertising is strictly prohibited and will result in an immediate ban.`)
             .addField(`7. No server raiding`, `Discussion of raids or participating in raids is not allowed.`)
-            .addField(`8. Abide by Discord's Terms of Service (ToS) and Community Guidelines`, `[Community Guidelines](https://discord.com/guidelines) & [Terms of Service](https://discord.com/terms)`)
+            .addField(`8. Abide by Discord's Community Guidelines and Terms of Service (ToS)`, `[Community Guidelines](https://discord.com/guidelines) & [Terms of Service](https://discord.com/terms)`)
             .addField(`9. Moderator and Admin descisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
             .addField(`10. Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`)
 
@@ -42,8 +42,8 @@ module.exports = {
         let serverStaffList = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`**Server Staff**`)
-            .addField(`${config.emjAdmin}Admins:`, `<@400071708947513355>   <@694391619868295241>   <@472185023622152203>`)
-            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>   <@338762061502873600>   <@446818962760531989>   <@270661345588936715>   <@418870468955602944>`)
+            .addField(`${config.emjAdmin} Admins:`, `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>`)
+            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@338762061502873600>, <@446818962760531989>, <@270661345588936715>, <@418870468955602944>`)
 
         let ModmailHelp = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
