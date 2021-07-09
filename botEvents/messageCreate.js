@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const guildSchema = require('../Database/guildSchema')
 const config = require('../config.json')
 const { prefix } = require('../config.json')
 
@@ -33,37 +32,44 @@ module.exports = {
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (command.guildUse === 'true' && message.channel.type === 'dm') {
+        if (command.dmUse == false && command.guildUse == true && message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
             .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
 
             // SENDING EMBED
             return message.author.send( {embeds: [guildDisallowEmbed]} )
-            // DELETE AFTER 5 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+            // DELETE AFTER 30 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 30000 )})
             .catch(err => console.log(err));
         }
 
 
         // ENSURING DM USE ONLY IN DMS
-        if (command.dmUse === 'true' && !message.channel.type === 'dm') {
+        if (command.dmUse == true && command.guildUse == false && !message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used outside of DMs.`)
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
 
             // SENDING EMBED
             return message.author.send( {embeds: [dmDisallowEmbed]} )
+            // DELETE AFTER 30 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 30000 )})
+            .catch(err => console.log(err));
         }
 
-
+        
+        // *******************
         // NON-DM RESTRICTIONS
+        // *******************
         if(!message.channel.type === 'dm') {
             // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
             if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
@@ -188,7 +194,9 @@ module.exports = {
                     return   
             }
         }
-
+        // ***************************
+        // END OF NON-DM RESTRICTIONS
+        // ***************************
 
         // COOLDOWN SETUP
         const { cooldowns } = client;
