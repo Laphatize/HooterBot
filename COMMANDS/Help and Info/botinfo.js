@@ -11,7 +11,7 @@ module.exports = {
     cooldown: 60,
     minArgs: 0,
     maxArgs: 0,
-    guildUse: false,
+    guildUse: true,
     dmUse: true,
     permissions: '',
     requiredRoles: [],
