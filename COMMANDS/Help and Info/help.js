@@ -1,5 +1,5 @@
 const discord = require('discord.js')
-const loadCommands = require('../LoadCommands.js')
+const loadCommands = require('../../LoadCommands')
 const config = require ('../config.json')
 
 module.exports = {
