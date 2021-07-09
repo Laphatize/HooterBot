@@ -14,7 +14,7 @@ module.exports = {
 
 
         // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
-        if (message.channel.type === 'dm')   return;
+        // if (message.channel.type === 'dm')   return;
    
 
         // GRABBING COMMAND NAME AND ARGUMENTS
