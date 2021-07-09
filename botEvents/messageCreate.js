@@ -28,13 +28,13 @@ module.exports = {
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (command.dmUse == false && message.channel.type === 'dm') {
+        if (command.dmUse == false && command.guildUse == true && message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: command cannot be used outside of DMs.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
             .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
 
             // SENDING EMBED
@@ -46,15 +46,14 @@ module.exports = {
 
 
         // ENSURING DM USE ONLY IN DMS
-        if (command.dmUse == true && !message.channel.type === 'dm') {
+        if (command.dmUse == true && command.guildUse == false && !message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let dmDisallowEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            .setTitle(`${config.emjREDTICK} Error: command cannot be used outside of DMs.`)
+            .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
             .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
-
 
             // SENDING EMBED
             return message.author.send( {embeds: [dmDisallowEmbed]} )
