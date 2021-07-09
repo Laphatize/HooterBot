@@ -101,11 +101,19 @@ module.exports = {
                 .setColor(config.embedBlurple)
                 .setTitle(`Sorry, I don't know that link yet!`)
                 .setDescription(`Here's a list of all the links I can generate for you:\n
-                \n\` TUportal \`,  \` DARS \`,  \` Canvas \`, \` TUid / ID card \`
-                \n\` Courses \`, \` academic plan / academic timeline \`, \` finals / final schedule / finals schedule \`
-                \n\` admissions \`, \` financialaid / sfs \`
-                \n\` clubs / orgs / organizations \`, \` athletics / sports / tickets \`
-                \n\` dining \`, \` housing \``)
+                \`TUportal\`
+                \`DARS\`
+                \`Canvas\`
+                \`TUid\` or \`ID card\`
+                \`Courses\`
+                \`academic plan\` or \`academic timeline\`
+                \`finals\` or \`final schedule\` or \`finals schedule\`
+                \`admissions\`
+                \`financialaid\` or \`sfs\`
+                \`clubs\` or \`orgs\` or \`organizations\`
+                \`athletics\` or \`sports\` or \`tickets\`
+                \`dining\`
+                \`housing\``)
                 .setFooter(`Don't worry, I'm not particular about capitalization or spaces between words :)`)
 
             // SENDING TO CHANNEL
