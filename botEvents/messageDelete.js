@@ -8,10 +8,13 @@ module.exports = {
 
         console.log(`A message has been deleted.`)
 
-        // FILTER TO THE ROLES CHANNEL
-        if (message.channel.id == config.rulesChannelId) {
+        // FILTER TO THE RULES OR ROLES CHANNELS
+        if (message.channel.id == config.rulesChannelId || message.channel.id == config.rolesChannelId) {
 
-            console.log(`This message is within the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
+            // LOGGING TEST
+            if(message.channel.id == config.rulesChannelId) console.log(`This message is within the rules channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
+            if(message.channel.id == config.rolesChannelId) console.log(`This message is within the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
+
 
             // CHECK THAT THERE IS ACTUALLY A DATABASE ENTRY FOR GUILD
             const dbData = await guildSchema.findOne({
@@ -39,13 +42,12 @@ module.exports = {
 
             // COMPARE DB MSG ID TO DELETED MESSAGE ID
             if(dbData.VERIF_PROMPT_MSG_ID === message.id ) {
-                //IF EQUAL, DELETE MESSAGE ID AND CHANNEL ID FROM DB
+                //IF EQUAL, OVERRIDE MESSAGE ID AND CHANNEL ID FROM DB
                 await guildSchema.findOneAndUpdate({
                     GUILD_ID: message.guild.id
                 },{
-                    // OVERRIDE VALUES SO THEY ARE NULL
-                    VERIF_PROMPT_CH_ID: null,
-                    VERIF_PROMPT_MSG_ID: null
+                    VERIF_PROMPT_CH_ID: '',
+                    VERIF_PROMPT_MSG_ID: ''
                 },{
                     upsert: true
                 })
