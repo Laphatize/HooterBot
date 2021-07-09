@@ -16,6 +16,8 @@ module.exports = {
     execute: async (message, arguments, client) => {
 
 
+        messageAuthor = message.author;
+
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
@@ -90,8 +92,7 @@ module.exports = {
             let logPartnerMsgEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`New Partner Message Submitted`)
-            .addField(`User:`, `${user}`)
-            .addField(`User ID:`, `${clickUserId}`)
+            .addField(`User:`, `${messageAuthor}`)
             .addField(`Contains image?`, `No`)
             .setTimestamp()
 
@@ -146,8 +147,7 @@ module.exports = {
             let logPartnerMsgEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`New Partner Message Submitted`)
-            .addField(`User:`, `${user}`)
-            .addField(`User ID:`, `${clickUserId}`)
+            .addField(`User:`, `${messageAuthor}`)
             .addField(`Contains image?`, `Yes`)
             .setTimestamp()
 
