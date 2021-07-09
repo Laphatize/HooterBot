@@ -16,7 +16,9 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        if(!arguments) {
+        console.log(arguments[0])
+
+        if(arguments[0] = null) {
             let linkListEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`Here is a list of links I know!`)
