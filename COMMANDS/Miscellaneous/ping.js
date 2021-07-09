@@ -18,7 +18,7 @@ module.exports = {
         
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()
-            .setColor(config.embedBlue)
+            .setColor(config.embedBlurple)
             .setTitle(`Ping...`)
             .setDescription(`Bot latency =\nAPI latency =`)
             .setTimestamp()
@@ -68,7 +68,7 @@ module.exports = {
 
             //DEFINING UPDAETE EMBED
             let updatedPingEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlue)
+                .setColor(config.embedBlurple)
                 .setTitle(`Ping... ...**Hoot!** 🦉`)
                 .setDescription(`Bot latency = **${botPing}ms** ${botLatEmj}\nAPI latency = **${apiPing}ms** ${apiLatEmj}`)
                 .setTimestamp()
