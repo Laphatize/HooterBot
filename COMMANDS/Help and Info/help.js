@@ -37,13 +37,6 @@ module.exports = {
         }
 
 
-        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
-        if(dbData.PREFIX) {
-            serverPrefix = dbData.PREFIX;
-        } else if(!dbData.PREFIX) {
-            serverPrefix = config.prefix;
-        }
-
         for(const command of commands) {
             // CHECK FOR USER PERMS TO AVOID SHARING INFO ABOUT COMMANDS THE USER CANNOT ACCESS
             let { permissions } = command
