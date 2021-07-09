@@ -27,7 +27,7 @@ module.exports = {
             .addField(`6. No advertising`, `This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>. DM advertising is strictly prohibited and will result in an immediate ban.`)
             .addField(`7. No server raiding`, `Discussion of raids or participating in raids is not allowed.`)
             .addField(`8. Abide by Discord's Community Guidelines and Terms of Service (ToS)`, `[Community Guidelines](https://discord.com/guidelines) & [Terms of Service](https://discord.com/terms)`)
-            .addField(`9. Moderator and Admin descisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
+            .addField(`9. Moderator and Admin decisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
             .addField(`10. Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`)
 
 

@@ -34,6 +34,7 @@ client.login(process.env.HB_BOT_TOKEN);
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
+client.categories = new Set();
 
 
 // EVENT HANDLER
@@ -51,13 +52,14 @@ for (const file of eventFiles) {
 	}
 }
 
-
 // COMMAND HANDLER
 const cmdFolders = fs.readdirSync('./COMMANDS');
 
 for (const folder of cmdFolders) {
     const cmdFiles = fs.readdirSync(`./COMMANDS/${folder}`).filter(file => file.endsWith('.js'));
 	
+    client.categories.add(folder.category);
+
     for (const file of cmdFiles) {
 		const command = require(`./COMMANDS/${folder}/${file}`);
 		client.commands.set(command.name, command);
@@ -75,7 +77,7 @@ process.on('unhandledRejection', err =>{
     // DEFINING LOG EMBED
     let logErrEmbed = new discord.MessageEmbed()
     .setColor(config.embedDarkGrey)
-    .setTitle(`An Unknown Error Has Occurred`)
+    .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
     .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
     .setFooter('MMM, see the bot log for the full error stack.')
     .setTimestamp()
