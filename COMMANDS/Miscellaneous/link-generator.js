@@ -5,7 +5,7 @@ module.exports = {
     name: `link`,
     aliases: [`usefullink`],
     description: `Generates a link to a Temple resource.`,
-    expectedArgs: '<title or site name>',
+    expectedArgs: '<title or site name> (use "all" to generate available list)',
     cooldown: 5,
     minArgs: 1,
     maxArgs: 5,
@@ -49,7 +49,7 @@ module.exports = {
         }
 
         // ACADEMIC PLANS
-        if(linkName === `academicplan` || linkName === `academicplans` || linkname === `academictimeline`){
+        if(linkName === `academicplan` || linkName === `academicplans` || linkName === `academictimeline`){
             linkName = `Academic Plans and Suggested Timelines`
             link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
         }
