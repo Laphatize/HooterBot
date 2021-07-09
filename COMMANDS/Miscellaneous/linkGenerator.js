@@ -44,79 +44,79 @@ module.exports = {
         let link;
 
         // TU PORTAL
-        if(linkName === `tuportal`){
+        if(linkName == `tuportal`){
             linkName = `TUPortal`
             link = `https://tuportal5.temple.edu/`
         }
 
         // DARS
-        if(linkName === `dars`){
+        else if(linkName == `dars`){
             linkName = `DARS (Degree Audit Reporting System)`
             link = `https://dars.temple.edu/`
         }
 
         // CANVAS
-        if(linkName === `canvas`){
+        else if(linkName == `canvas`){
             linkName = `Canvas`
             link = `https://templeu.instructure.com/`
         }
 
         // TUid
-        if(linkName === `tuid` || linkName === `idcard`){
+        else if(linkName == `tuid` || linkName == `idcard`){
             linkName = `Canvas`
             link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
         }
 
         // COURSES
-        if(linkName === `courses`){
+        else if(linkName == `courses`){
             linkName = `Course Catalog`
             link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
         }
 
         // ACADEMIC PLANS
-        if(linkName === `academicplan` || linkName === `academicplans` || linkName === `academictimeline`){
+        else if(linkName == `academicplan` || linkName == `academicplans` || linkName == `academictimeline`){
             linkName = `Academic Plans and Suggested Timelines`
             link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
         }
 
         // FINALS
-        if(linkName === `finals` || linkName === `finalschedule` || linkName === `finalsschedule`){
+        else if(linkName == `finals` || linkName == `finalschedule` || linkName == `finalsschedule`){
             linkName = `Final Exam Schedules`
             link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
         }
 
         // ADMISSIONS
-        if(linkName === `admissions`){
+        else if(linkName == `admissions`){
             linkName = `Admissions`
             link = `https://www.temple.edu/admissions`
         }
 
         // FINANCIAL AID
-        if(linkName === `financialaid` || linkName === `sfs`){
+        else if(linkName == `financialaid` || linkName == `sfs`){
             linkName = `Student Financial Services`
             link = `https://sfs.temple.edu/about/appointments`
         }
 
         // CLUBS AND ORGS
-        if(linkName === `clubs` || linkName === `orgs`|| linkName === `organizations`){
+        else if(linkName == `clubs` || linkName == `orgs`|| linkName == `organizations`){
             linkName = `Clubs & Organizations`
             link = `https://temple.campuslabs.com/engage/`
         }
 
         // ATHLETICS
-        if(linkName === `athletics` || linkName === `sports` || linkName === `tickets`){
+        else if(linkName == `athletics` || linkName == `sports` || linkName == `tickets`){
             linkName = `Athleteics & Tickets`
             link = `https://owlsports.com/`
         }
 
         // DINING
-        if(linkName === `dining`){
+        else if(linkName == `dining`){
             linkName = `Dining`
             link = `https://temple.campusdish.com/`
         }
 
         // HOUSING
-        if(linkName === `housing`){
+        else if(linkName == `housing`){
             linkName = `Housing`
             link = `https://housing.temple.edu/`
         }
