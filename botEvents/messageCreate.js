@@ -13,7 +13,7 @@ module.exports = {
         if (!message.content.startsWith(prefix) || message.author.bot)   return;
 
 
-        // TURNING OFF DM COMMANDS, AT LEAST FOR NOW
+        // COMMENT TO ALLOW COMMANDS IN DMS
         // if (message.channel.type === 'dm')   return;
    
 
@@ -63,102 +63,104 @@ module.exports = {
         }
 
 
-        // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
-        if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
+        // NON-DM RESTRICTIONS
+        if(!message.channel.type === 'dm') {
+            // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
+            if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) { 
 
-            console.log(`Bot cannot speak in the channel "${message.channel.name}" of the guild ${message.guild.name}.`)
+                console.log(`Bot cannot speak in the channel "${message.channel.name}" of the guild ${message.guild.name}.`)
 
-            // DEFINING LOG EMBED
-            let logTalkPermErrorEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: unable to send message in channel.`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`User:`, `${message.author}`)
-            .addField(`Message Content:`, `${message.content}`)
-            .setFooter(`This may be a permissions error either with my role or with the channel. Please take a moment to investigate.`)
+                // DEFINING LOG EMBED
+                let logTalkPermErrorEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error: unable to send message in channel.`)
+                .addField(`Channel:`, `${message.channel}`)
+                .addField(`User:`, `${message.author}`)
+                .addField(`Message Content:`, `${message.content}`)
+                .setFooter(`This may be a permissions error either with my role or with the channel. Please take a moment to investigate.`)
 
-            // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
-                .catch(err => console.log(err))
-
-
-            // DEFINING LOG EMBED FOR DM
-            let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
-            .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now. For your convenience, here's information about the command you ran below:`)
-            .addField(`Server:`, `${message.guild.name}`)
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`Message Content:`, `${message.content}`)
-            .setFooter(`You are receiving this because I do not have permission to speak in the channel listed. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
-
-            // DM USER WHO ISSUED COMMAND VIA CACHE
-            client.users.cache.get(message.author.id).send({embeds: [logTalkPermErrorDMEmbed]})
-                .catch(err => { console.log(err)
-
-                // IF NOT CACHED, ATTEMPT DM DIRECTLY
-                message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+                // LOG ENTRY
+                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
                     .catch(err => console.log(err))
-                })
-
-            return;
-        }
 
 
-        // CHECKING USER PERMISSION REQUIREMENT
-        if (command.permissions) {
-            const msgAuthorPerms = message.channel.permissionsFor(message.author);
+                // DEFINING LOG EMBED FOR DM
+                let logTalkPermErrorDMEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error: unable to send your command.`)
+                .setDescription(`Hey ${message.author.username}, sorry to DM you, but I wasn't able to send your message just now. For your convenience, here's information about the command you ran below:`)
+                .addField(`Server:`, `${message.guild.name}`)
+                .addField(`Channel:`, `${message.channel}`)
+                .addField(`Message Content:`, `${message.content}`)
+                .setFooter(`You are receiving this because I do not have permission to speak in the channel listed. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
 
-            if (!msgAuthorPerms || !msgAuthorPerms.has(command.permissions)) {
+                // DM USER WHO ISSUED COMMAND VIA CACHE
+                client.users.cache.get(message.author.id).send({embeds: [logTalkPermErrorDMEmbed]})
+                    .catch(err => { console.log(err)
 
-                // DELETING INVOCATION MESSAGE
-                client.setTimeout(() => message.delete(), 0 );
+                    // IF NOT CACHED, ATTEMPT DM DIRECTLY
+                    message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+                        .catch(err => console.log(err))
+                    })
 
-
-                // DEFINING EMBED TO SEND
-                let cmdUserPermErrEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`You must have the \`\`${permissions}\`\` permission to use this command.`)
-
-
-                message.channel.send({embeds: [cmdUserPermErrEmbed]})
-                // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-                .catch(err => console.log(err));
-                return
-
+                return;
             }
-        }
 
 
-        // CHECKING USER ROLE REQUIREMENT
-        if(command.requiredRoles) {
-            for (const requiredRole of command.requiredRoles) {
-                const role = message.guild.roles.cache.find((role) => role.name === requiredRole)
+            // CHECKING USER PERMISSION REQUIREMENT
+            if (command.permissions) {
+                const msgAuthorPerms = message.channel.permissionsFor(message.author);
 
-                // VALIDATING ROLE
-                if (!role || !message.member.roles.cache.has(role.id)) {
+                if (!msgAuthorPerms || !msgAuthorPerms.has(command.permissions)) {
+
+                    // DELETING INVOCATION MESSAGE
+                    client.setTimeout(() => message.delete(), 0 );
+
 
                     // DEFINING EMBED TO SEND
-                        let cmdRoleErrEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedOrange)
-                        .setTitle(`${config.emjORANGETICK} Sorry!`)
-                        .setDescription(`You must have the \`\`${role}\`\` role to use this command.`)
+                    let cmdUserPermErrEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Sorry!`)
+                    .setDescription(`You must have the \`\`${permissions}\`\` permission to use this command.`)
 
 
-                    // SENDING EMBED
-                    message.channel.send({embeds: [cmdRoleErrEmbed]})
-
-
+                    message.channel.send({embeds: [cmdUserPermErrEmbed]})
                     // DELETE AFTER 5 SECONDS
                     .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-                    .catch(err => console.log(err))
+                    .catch(err => console.log(err));
                     return
+
+                }
+            }
+
+
+            // CHECKING USER ROLE REQUIREMENT
+            if(command.requiredRoles) {
+                for (const requiredRole of command.requiredRoles) {
+                    const role = message.guild.roles.cache.find((role) => role.name === requiredRole)
+
+                    // VALIDATING ROLE
+                    if (!role || !message.member.roles.cache.has(role.id)) {
+
+                        // DEFINING EMBED TO SEND
+                            let cmdRoleErrEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedOrange)
+                            .setTitle(`${config.emjORANGETICK} Sorry!`)
+                            .setDescription(`You must have the \`\`${role}\`\` role to use this command.`)
+
+
+                        // SENDING EMBED
+                        message.channel.send({embeds: [cmdRoleErrEmbed]})
+
+
+                        // DELETE AFTER 5 SECONDS
+                        .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                        .catch(err => console.log(err))
+                        return
+                    }
                 }
             }
         }
-
 
         // ENSURE CORRECT NUMBER OF ARGS
         if (args.length < command.minArgs || (command.maxArgs !== null && args.legnth > command.maxArgs)) {
@@ -170,14 +172,21 @@ module.exports = {
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
                 .setDescription(`Incorrect syntax - use \`\`${prefix}${cmdName} ${command.expectedArgs}\`\` and try again.`)
 
-            // SENDING EMBED
-            message.channel.send({embeds: [cmdArgsErrEmbed]})
-            
 
-            // DELETE AFTER 5 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-            .catch(err => console.log(err))
-            return                   
+            // SENDING INCORRECT SYNTAX NOTICE
+            if(message.channel.type === 'dm') {
+                message.author.send({embeds: [cmdArgsErrEmbed]})
+                    // DELETE AFTER 5 SECONDS
+                    .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                    .catch(err => console.log(err))
+                    return
+            } else {
+                message.channel.send({embeds: [cmdArgsErrEmbed]})
+                    // DELETE AFTER 5 SECONDS
+                    .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                    .catch(err => console.log(err))
+                    return   
+            }
         }
 
 
@@ -209,14 +218,20 @@ module.exports = {
                     .setFooter(`(This message will disappear when the cooldown has ended.)`)
         
 
-                // SENDING EMBED
-                message.channel.send({embeds: [cooldownWaitEmbed]})
-                
-
-                // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
-                .catch(err => console.log(err))
-                return
+                // SENDING COOLDOWN WAIT NOTICE
+                if(message.channel.type === 'dm') {
+                    message.author.send({embeds: [cooldownWaitEmbed]})
+                        // DELETE AFTER 5 SECONDS
+                        .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
+                        .catch(err => console.log(err))
+                        return
+                } else {
+                    message.channel.send({embeds: [cooldownWaitEmbed]})
+                        // DELETE AFTER 5 SECONDS
+                        .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
+                        .catch(err => console.log(err))
+                        return
+                }
             }
         }
 
@@ -239,7 +254,12 @@ module.exports = {
 
 
             // SENDING EMBED
-            message.channel.send({embeds: [errorEmbed]})
+                // IF CHANNEL
+                if(message.channel.type === 'dm') {
+                    message.author.send({embeds: [errorEmbed]})
+                } else {
+                    message.channel.send({embeds: [errorEmbed]})
+                }
 
 
             // DEFINING LOG EMBED
