@@ -3,7 +3,7 @@ const config = require('../config.json')
 const guildSchema = require('../Database/guildSchema')
 
 module.exports = {
-	name: 'messageCreate',
+	name: 'messageDelete',
 	async execute(message, client) {
 
         console.log(`A message has been deleted.`)
