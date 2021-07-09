@@ -1,6 +1,5 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
-const ms = require('ms')
 
 module.exports = {
     name: `help`,
@@ -17,69 +16,87 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        if(!arguments.length) {
-            let commandListEmbed = new discord.MessageEmbed()
-            .setDescription(
-                `${[...client.categories]
-                    .map((value) =>
-                        `${value[0].toUpperCase() + value.slice(1).toLowerCase()}
-                        [${client.commands.filter((cmd) => 
-                            cmd.category == value.toLowerCase()).size}]
-                        \n${client.commands.filter((cmd) => cmd.category == value.toLowerCase())
-                            .map((value) => value.name)
-                            .join(", ")
-                    }`)
-                .join("\n\n")}`
-            );
+        let helptext = `Here is a list of my commands you can use:\n\n`;
+
+        const commands = []
+
+        // READING COMMANDS
+        const readCommands = (dir) => {
+            const files = fs.readdirSync(path.join(__dirname, dir))
             
-            message.channel.send({ embeds: [commandListEmbed] })
-        } else {
+            for (const file of files) {
+                const stat = fs.lstatSync(path.join(__dirname, dir, file))
+                
+                if (stat.isDirectory()) {
+                    readCommands(path.join(dir, file))
+                } else {
+                    const option = require(path.join(__dirname, dir, file))
+                    commands.push(option)
+                }
+            }
+        }
 
 
-            // GRABBING COMMANDS AND ALIASES
-            const cmd = client.commands.get(arguments[0].toLowerCase()) || client.commands.get(client.aliases.get(arguments[0].toLowerCase()))
+        // SETTING PREFIX VALUE USING DATABASE OR DEFAULT
+        if(dbData.PREFIX) {
+            serverPrefix = dbData.PREFIX;
+        } else if(!dbData.PREFIX) {
+            serverPrefix = config.prefix;
+        }
 
+        for(const command of commands) {
+            // CHECK FOR USER PERMS TO AVOID SHARING INFO ABOUT COMMANDS THE USER CANNOT ACCESS
+            let { permissions } = command
+        
+            if(permissions) {
+                let hasPerm = true
+                
+                // SETTING PERMS TO ARRAY JUST IN CASE
+                if (typeof permissions === 'string') {
+                    permissions = [permissions]
+                }
 
-            // IF NO COMMANDS OR ALIASES FOUND
-            if(!cmd) {
-                let helpCmdError = new discord.MessageEmbed()
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`No commands have been found. This is *prooobably* an error.`)
+                // IF USER LACKS PERMISSION
+                for (const permission of permissions) {
+                    if(!message.member.permissions.has(permission)) {
+                        hasPerm = false
+                        break 
+                    }
+                }
 
-                return message.channel.send(helpCmdError);
+                // CONTINUING WITH LOOP TO NEXT COMMAND IN ARRAY 
+                if (!hasPerm) {
+                    continue
+                }
             }
 
-            // DEFINING EMBED
-            const embed = new discord.MessageEmbed()
-            embed.setTitle(`${cmd.name[0].toUpperCase() + cmd.name.slice(1).toLowerCase()}`)
-            
+            // CHECKING IF STRING OR NOT
+            const mainCommand = typeof command.commands === 'string'
+                ? command.commands
+                : command.commands[0]
 
-            // GRABBING PROPERTIES OF COMMAND
-            const properties = Object.entries(cmd);
-            
+            // ACCESS ARGS
+            const args = command.expectedArgs
+             ? ` ${command.expectedArgs}` 
+             : '' 
 
-            // SETTING PROPERTIES IN DESCRIPTION
-            embed.setDescription(properties.filter((value) => typeof value[1] != "function").map((value) => {
-                const key = value[0][0].toUpperCase() + value[0].slice(1).toLowerCase();
-                
-                if(typeof value[1] == 'string') {
-                    return `\`${key}\`: ${value[1]}`
-                }
+            // ACCESS DESCRIPTION
+            const {description} = command
 
-                else if(typeof value[1] == 'number') {
-                    return `\`${key}\`: ${ms(value[1], { long: true })}`
-                }
 
-                else if(typeof value[1].map == 'function') {
-                    return `\`${key}\`: ${value[1].join(`, `)}`
-                }
-
-                else {
-                    return `\`${key}\`: ${value[1]}`
-                }
-            }))
-
-            return message.channel.send(embed)
+            // CONCATENATING COMMAND LIST - COMMAND NAME IN BOLD ON FIRST LINE, DESCRIPTION ON SECOND
+            helptext += `**${serverPrefix}${mainCommand}${args}**\n${description}\n\n`
         }
+
+        
+        // CREATING EMBED FOR RESPONSE        
+        let helpEmbed = new discord.MessageEmbed()
+        .setColor(config.embedBlue)
+        .setTitle(`**Help:**`)
+        .setDescription(`${helptext}`)
+        .setFooter(`(Crown = Need administrator permissions.)`)
+        
+        // RESPONDING TO USER WITH COMMAND LIST
+        message.channel.send(helpEmbed)
     }
 }

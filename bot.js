@@ -34,7 +34,6 @@ client.login(process.env.HB_BOT_TOKEN);
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
-client.categories = new Set();
 
 
 // EVENT HANDLER
@@ -57,8 +56,6 @@ const cmdFolders = fs.readdirSync('./COMMANDS');
 
 for (const folder of cmdFolders) {
     const cmdFiles = fs.readdirSync(`./COMMANDS/${folder}`).filter(file => file.endsWith('.js'));
-	
-    client.categories.add(folder.category);
 
     for (const file of cmdFiles) {
 		const command = require(`./COMMANDS/${folder}/${file}`);
