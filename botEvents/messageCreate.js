@@ -33,7 +33,7 @@ module.exports = {
 
 
         // ENSURING GUILD USE ONLY IN GUILD
-        if (command.guildUse === 'true' && !message.channel.type === 'text') {
+        if (command.guildUse === 'true' && message.channel.type === 'dm') {
 
             // DEFINING EMBED
             let guildDisallowEmbed = new discord.MessageEmbed()
@@ -42,7 +42,7 @@ module.exports = {
             .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             // SENDING EMBED
-            return message.channel.send( {embeds: [guildDisallowEmbed]} )
+            return message.author.send( {embeds: [guildDisallowEmbed]} )
             // DELETE AFTER 5 SECONDS
             .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
             .catch(err => console.log(err));
