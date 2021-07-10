@@ -11,14 +11,17 @@ module.exports = {
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
-            // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
+
+            /**************************************************/
+            /*      INITIAL VERIFICATION PROMPT (#ROLES)      */
+            /**************************************************/
             if(interaction.customId === 'begin_verification_button') {
 
                 // GRAB VERIFIED ROLE FROM GUILD
-                const verifiedRole = await interaction.guild.roles.cache.find((role) => role.name === 'verified')
+                const verifiedRole = await interaction.guild.roles.cache.find((role) => role.id === config.verifiedRoleID)
 
                 // CHECK IF USER HAS VERIFIED ROLE
-                if(interaction.member.roles.cache.has(verifiedRole)) {
+                if(interaction.member.roles.has(verifiedRole)) {
 
                     console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
 
@@ -46,7 +49,7 @@ module.exports = {
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
-                    .setFooter("If these buttons stop working, (?).")
+                    .setFooter("If these buttons stop working, please create a ModMail ticket and let us know.")
 
                 // INITIALIZING BUTTON
                 let TUidCardButton = new MessageButton()
@@ -79,22 +82,7 @@ module.exports = {
                 interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
 
-
-
             }
-
-            // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT SET
-
-
-
-
-
-
-
-
-
-
-
         }
 	},
 };
