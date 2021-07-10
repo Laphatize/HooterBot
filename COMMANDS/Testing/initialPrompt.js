@@ -63,6 +63,7 @@ module.exports = {
             );
         
         // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] });
+        await message.channel.send({embeds: [ticketEmbed], components: [buttonRow] })
+            .catch(err => console.log(err))
     }
 }

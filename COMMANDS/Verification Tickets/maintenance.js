@@ -68,18 +68,25 @@ module.exports = {
                     \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**`)
 
 
-                // // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
-                // let VerifButtonMaintenance = new MessageButton()
-                // .setLabel(`Begin Verification`)
-                // .setStyle(`grey`)
-                // .setID(`begin_verification_button_disabld`)
-                // .setDisabled(true)
+                // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
+                let VerifButtonMaintenance = new MessageButton()
+                .setLabel(`Begin Verification`)
+                .setStyle(`grey`)
+                .setCustomId(`begin_verification_button_disabld`)
+                .setDisabled(true)
+
+
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    VerifButtonMaintenance
+                );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                     .then(msg => {
-                        msg.edit({embeds: [ticketMaintenanceEmbed]})
+                        msg.edit({embeds: [ticketMaintenanceEmbed], components: [buttonRow]})
                     })
                     .catch(err => console.log(err))
                 
@@ -105,17 +112,24 @@ module.exports = {
                 .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
-                // // INITIALIZING BUTTON
-                // let beginVerifButton = new MessageButton()
-                //     .setLabel(`Begin Verification`)
-                //     .setStyle(`green`)
-                //     .setID(`begin_verification_button`)
+                // INITIALIZING MAINTENANCE BUTTON - ENABLED
+                let VerifButton = new MessageButton()
+                .setLabel(`Begin Verification`)
+                .setStyle(`green`)
+                .setCustomId(`begin_verification_button`)
+
+
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    VerifButton
+                );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
-                    msg.edit({embeds: [ticketEmbed]})
+                    msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
                 })
                 .catch(err => console.log(err))
 
