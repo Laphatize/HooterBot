@@ -12,10 +12,10 @@ module.exports = {
         if(interaction.isButton()) {
 
             // GETTING PERSON WHO CLICKED BUTTON (OBJECT)
-            let clickUser = await interaction.user.fetch();   // user = @MrMusicMan789 (OBJECT)
-            let clickUserTag = clickUser.tag;                    // clickUserTag = MrMusicMan789#0789
-            let clickUsername = clickUser.username;              // clickUsername = MrMusicMan789
-            let clickUserId = clickUser.id;                      // clickUserID = 472185023622152203
+            let clickUser = await interaction.user.fetch();     // user = @MrMusicMan789 (OBJECT)
+            let clickUserTag = clickUser.tag;                   // clickUserTag = MrMusicMan789#0789
+            let clickUsername = clickUser.username;             // clickUsername = MrMusicMan789
+            let clickUserId = clickUser.id;                     // clickUserID = 472185023622152203
 
             console.log(`clickUser = ${clickUser}`);
             console.log(`clickUserTag = ${clickUserTag}`);
@@ -32,7 +32,7 @@ module.exports = {
                 console.log(`interaction.user.fetch() = ${interaction.user.fetch()}`)   // [object Promise]
 
 
-                const verifiedRole = interaction.user.fetch().roles.cache.has((role) => role.name === 'verified')
+                const verifiedRole = interaction.user.fetch().roles.has((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
