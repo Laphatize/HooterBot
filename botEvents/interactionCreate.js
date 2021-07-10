@@ -12,7 +12,7 @@ module.exports = {
         if(interaction.isButton()) {
 
             // GETTING PERSON WHO CLICKED BUTTON (OBJECT)
-            let clickUser = await interaction.user.fetch();     // user = @MrMusicMan789 (OBJECT)
+            let clickUser = await interaction.member.fetch();     // user = @MrMusicMan789 (OBJECT)
             let clickUserTag = clickUser.tag;                   // clickUserTag = MrMusicMan789#0789
             let clickUsername = clickUser.username;             // clickUsername = MrMusicMan789
             let clickUserId = clickUser.id;                     // clickUserID = 472185023622152203
@@ -28,11 +28,11 @@ module.exports = {
 
                 // CHECK USER PERMS FOR VERIFIED ROLE
                 // GRAB ROLE FROM GUILD CACHE
-                console.log(`interaction.user = ${interaction.user}`)                   // <@472185023622152203>
-                console.log(`interaction.user.fetch() = ${interaction.user.fetch()}`)   // [object Promise]
+                console.log(`interaction.member = ${interaction.member}`)                   // <@472185023622152203>
+                console.log(`interaction.member.fetch() = ${interaction.member.fetch()}`)   // [object Promise]
 
 
-                const verifiedRole = await interaction.user.fetch().roles.has((role) => role.name === 'verified')
+                const verifiedRole = await interaction.member.fetch().roles.has((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
@@ -45,7 +45,7 @@ module.exports = {
                 }
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS TO LET USER KNOW TO CHECK THEIR DMS
-                interaction.reply({ content: '**Verification started!** Please check for a DM from HooterBot to complete your verification.', ephemeral: true })
+                interaction.member({ content: '**Verification started!** Please check for a DM from HooterBot to complete your verification.', ephemeral: true })
 
 
                 // CREATE TICKET CHANNEL
