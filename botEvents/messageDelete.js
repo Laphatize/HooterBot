@@ -11,11 +11,6 @@ module.exports = {
         // FILTER TO THE RULES OR ROLES CHANNELS
         if (message.channel.id == config.rulesChannelId || message.channel.id == config.rolesChannelId) {
 
-            // LOGGING TEST
-            if(message.channel.id == config.rulesChannelId) console.log(`This message is in the rules channel.\nMessage ID: ${message.id}`)
-            if(message.channel.id == config.rolesChannelId) console.log(`This message is in the roles channel.\nMessage ID: ${message.id}`)
-
-
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await guildSchema.findOne({
                 GUILD_ID: message.guild.id
@@ -23,7 +18,7 @@ module.exports = {
 
             // RULES CHANNEL FOR RULES EMBED
             if(message.channel.id == config.rulesChannelId) {
-                console.log(`The message's channel ID matches the Rules channel ID.`)
+                console.log(`The message's channel ID matches the Rules channel ID. Comparing message IDs...`)
 
                 // COMPARING DB MSG ID TO THE MSG ID OF THE DELETED
                 if(dbData.RULES_MSG_ID === message.id) {
@@ -57,7 +52,7 @@ module.exports = {
 
             // ROLES CHANNEL FOR VERIFICATION EMBED
             if(message.channel.id == config.rolesChannelId) {
-                console.log(`The message's channel ID matches the Roles channel ID.`)
+                console.log(`The message's channel ID matches the Roles channel ID. Comparing message IDs...`)
 
                 // COMPARE DB MSG ID TO DELETED MESSAGE ID
                 if(dbData.VERIF_PROMPT_MSG_ID === message.id) {

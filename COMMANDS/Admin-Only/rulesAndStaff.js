@@ -8,7 +8,7 @@ module.exports = {
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     category: `Administrator`,
     expectedArgs: '',
-    cooldown: 60,
+    cooldown: 10,
     minArgs: 0,
     maxArgs: 0,
     guildUse: true,
@@ -102,7 +102,7 @@ module.exports = {
             rulesEmbedId = dbData.RULES_MSG_ID
 
             // SENDING TO CHANNEL
-            rulesEmbedId.edit({ embeds: [rulesExistsAlreadyEmbed] })
+            rulesEmbedId.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
