@@ -83,10 +83,10 @@ module.exports = {
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
-            .addField(`RULES_MSG_ID`, `${dbData.RULES_MSG_ID}`)
-            .addField(`RULES_CH_ID`, `${dbData.RULES_CH_ID}`)
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
+                .addField(`RULES_MSG_ID`, `${dbData.RULES_MSG_ID}`)
+                .addField(`RULES_CH_ID`, `${dbData.RULES_CH_ID}`)
 
             // LOG ENTRY
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
@@ -99,17 +99,16 @@ module.exports = {
         if(dbData.RULES_MSG_ID) {
 
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            rulesEmbedId = dbData.RULES_MSG_ID
-
-            rulesEmbed = message.channel.messages.fetch(rulesEmbedId)
-
-            // SENDING TO CHANNEL
-            rulesEmbed.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
+            await message.channel.messages.fetch(dbData.RULES_MSG_ID)
+                .then(msg => {
+                    msg.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
+                })
+                .catch(err => console.log(err))
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
 
             // LOG ENTRY
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
