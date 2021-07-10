@@ -23,15 +23,13 @@ module.exports = {
         console.log(`clickUserId = ${clickUserId}`);
 
 
-        // // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
-        // const filter = i => i.customId === 'begin_verification_button'
-        // interaction.channel.awaitMessageComponent({ filter })
-        //     .then(i => { console.log(i)
-        //         interaction.channel.send(`${clickUser}, you have pressed the "Begin Verification" button.`)
-        //         console.log(`The "Begin Verification" button has been clicked by ${clickUser}.`) 
-        //     })
+        // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
+        if(interaction.customId === 'begin_verification_button') {
+            interaction.channel.send(`${clickUser}, you have pressed the "Begin Verification" button.`)
+            console.log(`The "Begin Verification" button has been clicked by ${clickUser}.`) 
+        }
 
-        // // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT SET
+        // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT SET
 
 	},
 };
