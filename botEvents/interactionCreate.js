@@ -32,7 +32,7 @@ module.exports = {
                 console.log(`interaction.user.fetch() = ${interaction.user.fetch()}`)   // [object Promise]
 
 
-                const verifiedRole = interaction.user.fetch().roles.has((role) => role.name === 'verified')
+                const verifiedRole = await interaction.user.fetch().roles.has((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
