@@ -47,6 +47,7 @@ module.exports = {
                     // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
                     return;
                 }
+                console.log(`Message ID's did not match, no action taken.`)
                 return;
             }
 
@@ -81,6 +82,7 @@ module.exports = {
                     // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
                     return;
                 }
+                console.log(`Message ID's did not match, no action taken.`)
                 return;
             }
         }

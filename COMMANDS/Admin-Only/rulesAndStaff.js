@@ -101,8 +101,10 @@ module.exports = {
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
             rulesEmbedId = dbData.RULES_MSG_ID
 
+            rulesEmbed = message.channel.messages.fetch(rulesEmbedId)
+
             // SENDING TO CHANNEL
-            rulesEmbedId.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
+            rulesEmbed.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
