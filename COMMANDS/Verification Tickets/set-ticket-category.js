@@ -4,7 +4,7 @@ const config = require('../../config.json');
 
 module.exports = {
     name: `setticketcategory`,
-    aliases: [`setcategory`, `ticketcategory`, `ticketcat`],
+    aliases: [`setcategory`, `ticketcategory`, `ticketcat`, `verifcategory`],
     description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     category: `Verification`,
     expectedArgs: '<Category name>',

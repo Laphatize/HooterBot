@@ -85,8 +85,6 @@ module.exports = {
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
-                .addField(`RULES_MSG_ID`, `${dbData.RULES_MSG_ID}`)
-                .addField(`RULES_CH_ID`, `${dbData.RULES_CH_ID}`)
 
             // LOG ENTRY
             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})

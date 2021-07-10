@@ -6,8 +6,6 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
-        console.log(`A message has been deleted.`)
-
         // FILTER TO THE RULES OR ROLES CHANNELS
         if (message.channel.id == config.rulesChannelId || message.channel.id == config.rolesChannelId) {
 
@@ -38,7 +36,7 @@ module.exports = {
                     let logRuleMsgIDRemoveEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} Rules message ID has been successfully erased from database.`)
-                    .setDescription(`A new rules embed can now be sent in any channel. This action is due to the original message's deletion.`)
+                    .setDescription(`A new rules embed can now be sent in any channel.`)
 
                     // LOG ENTRY
                     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRuleMsgIDRemoveEmbed]})
@@ -73,7 +71,7 @@ module.exports = {
                     let logVerifPromptMsgIDRemoveEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} The verification prompt message ID has been successfully erased from database.`)
-                    .setDescription(`A new rules embed can now be sent in any channel. This action is due to the original message's deletion.`)
+                    .setDescription(`A new rules embed can now be sent in any channel.`)
 
                     // LOG ENTRY
                     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
