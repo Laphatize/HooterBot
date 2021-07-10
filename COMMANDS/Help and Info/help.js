@@ -2,11 +2,11 @@ const discord = require('discord.js')
 const fs = require(`fs`)
 const config = require ('../../config.json')
 
-const AdminOnlyCmdsFolder = require('../Admin-Only')
-const FunCmdsFolder = require('../Fun')
-const HelpInfoCmdsFolder = require('../Help and Info')
-const MiscCmdsFolder = require('../Miscellaneous')
-const VerifCmdsFolder = require('../Verification Tickets')
+const AdminOnlyCmdsFolder = '../Admin-Only';
+const FunCmdsFolder = '../Fun';
+const HelpInfoCmdsFolder = '../Help and Info';
+const MiscCmdsFolder = '../Miscellaneous';
+const VerifCmdsFolder = '../Verification Tickets';
 
 module.exports = {
     name: `help`,
