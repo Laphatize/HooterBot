@@ -18,8 +18,6 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        const VerifCmds = require(`../Verification Tickets`)
-
         let helptext = `Here is a list of my commands you can use:\n\n`;
 
         // ADMIN COMMANDS
