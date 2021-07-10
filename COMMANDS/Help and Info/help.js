@@ -2,6 +2,11 @@ const discord = require('discord.js')
 const fs = require(`fs`)
 const config = require ('../../config.json')
 
+const AdminOnlyCmdsFolder = require('../Admin-Only')
+const FunCmdsFolder = require('../Fun')
+const HelpInfoCmdsFolder = require('../Help and Info')
+const MiscCmdsFolder = require('../Miscellaneous')
+const VerifCmdsFolder = require('../Verification Tickets')
 
 module.exports = {
     name: `help`,
@@ -21,23 +26,23 @@ module.exports = {
         let helptext = `Here is a list of my commands you can use:\n\n`;
 
         // ADMIN COMMANDS
-        let AdminCmds = fs.readdirSync(`../Admin-Only`)
+        let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder)
         console.log(`AdminCmds = ${AdminCmds}`)
 
         // FUN COMMANDS
-        let FunCmds = fs.readdirSync(`../Fun`)
+        let FunCmds = fs.readdirSync(FunCmdsFolder)
         console.log(`FunCmds = ${FunCmds}`)
 
         // HELP & INFO COMMANDS
-        let HelpCmds = fs.readdirSync(`../Help and Info`)
+        let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder)
         console.log(`HelpCmds = ${HelpCmds}`)
 
         // MISCELLANEOUS COMMANDS
-        let MiscCmds = fs.readdirSync(`../Miscellaneous`)
+        let MiscCmds = fs.readdirSync(MiscCmdsFolder)
         console.log(`MiscCmds = ${MiscCmds}`)
 
         // VERIFICATION COMMANDS
-        let VerifCmds = fs.readdirSync(`../Verification Tickets`)
+        let VerifCmds = fs.readdirSync(VerifCmdsFolder)
         console.log(`VerifCmds = ${VerifCmds}`)
 
 
