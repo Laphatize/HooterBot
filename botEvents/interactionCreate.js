@@ -28,11 +28,11 @@ module.exports = {
 
                 // CHECK USER PERMS FOR VERIFIED ROLE
                 // GRAB ROLE FROM GUILD CACHE
-                const verifiedRole = interaction.user.roles.find((role) => role.name === 'verified')
+                const verifiedRole = interaction.guild.roles.cache.find((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
-                if(clickUser.roles.has(verifiedRole)) {
+                if(clickUser.roles.cache.has(verifiedRole)) {
 
                     console.log(`${clickUsername} has started verification but already possesses the verified role!`)
 
