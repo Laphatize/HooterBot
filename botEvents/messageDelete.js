@@ -17,13 +17,9 @@ module.exports = {
 
 
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-            try {
-                const dbData = await guildSchema.findOne({
-                    GUILD_ID: message.guild.id
-                }).exec();
-            } catch (err) {
-                console.log(err);
-            }
+            const dbData = await guildSchema.findOne({
+                GUILD_ID: message.guild.id
+            }).exec();
 
             // RULES CHANNEL FOR RULES EMBED
             if(message.channel.id == config.rulesChannelId) {
