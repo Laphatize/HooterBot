@@ -18,6 +18,9 @@ module.exports = {
         let clickUserId = clickUser.id;                      // clickUserID = 472185023622152203
 
         console.log(`clickUser = ${clickUser}`);
+        console.log(`clickUserTag = ${clickUserTag}`);
+        console.log(`clickUsername = ${clickUsername}`);
+        console.log(`clickUserId = ${clickUserId}`);
 
 
         // // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
