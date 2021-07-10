@@ -39,7 +39,7 @@ module.exports = {
                 }
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
-                interaction.member({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification. Didn't receive a DM?`, ephemeral: true })
+                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification. Didn't receive a DM?`, ephemeral: true })
                     .catch(err => console.log(err));
 
 
