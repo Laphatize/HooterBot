@@ -28,7 +28,11 @@ module.exports = {
 
                 // CHECK USER PERMS FOR VERIFIED ROLE
                 // GRAB ROLE FROM GUILD CACHE
-                const verifiedRole = interaction.guild.roles.cache.find((role) => role.name === 'verified')
+                console.log(`interaction.user = ${interaction.user}`)
+                console.log(`interaction.user.roles = ${interaction.user.roles}`)
+
+
+                const verifiedRole = interaction.user.roles.cache.find((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
