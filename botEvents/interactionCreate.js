@@ -26,26 +26,21 @@ module.exports = {
             // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
             if(interaction.customId === 'begin_verification_button') {
 
-                // CHECK USER PERMS FOR VERIFIED ROLE
-                // GRAB ROLE FROM GUILD CACHE
-                console.log(`interaction.member = ${interaction.member}`)                   // <@472185023622152203>
-                console.log(`interaction.member.fetch() = ${interaction.member.fetch()}`)   // [object Promise]
-
-
+                // GRAB VERIFIED ROLE FROM GUILD
                 const verifiedRole = await interaction.guild.roles.cache.find((role) => role.name === 'verified')
-                console.log(`verifiedRole = ${verifiedRole}`)
 
-                // CHECK
-                if(clickUser.roles.has(verifiedRole)) {
+                // CHECK IF USER HAS VERIFIED ROLE
+                if(interaction.member.roles.cache.has(verifiedRole)) {
 
                     console.log(`${clickUsername} has started verification but already possesses the verified role!`)
 
-                    // IF VERIFIED, CANCEL AND RESPOND
-                    interaction.reply({ content: `Sorry, you're already verified!\n(If this is an error, please submit a ModMail ticket and let us know.)`, ephemeral: true })
+                    // CANCEL AND RESPOND WITH EPHEMERAL
+                    return interaction.reply({ content: `Sorry, you're already verified!\n(If this is an error, please submit a ModMail ticket and let us know.)`, ephemeral: true })
                 }
 
-                // EMPHEMERAL REPLY TO BUTTON PRESS TO LET USER KNOW TO CHECK THEIR DMS
-                interaction.member({ content: '**Verification started!** Please check for a DM from HooterBot to complete your verification.', ephemeral: true })
+                // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
+                interaction.member({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification. Didn't receive a DM?`, ephemeral: true })
+                    .catch(err => console.log(err));
 
 
                 // CREATE TICKET CHANNEL
