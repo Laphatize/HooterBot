@@ -71,7 +71,7 @@ module.exports = {
                     let logVerifPromptMsgIDRemoveEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} The verification prompt message ID has been successfully erased from database.`)
-                    .setDescription(`A new rules embed can now be sent in any channel.`)
+                    .setDescription(`A new verification embed can now be sent in any channel.`)
 
                     // LOG ENTRY
                     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
