@@ -27,7 +27,7 @@ module.exports = {
                 }
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
-                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification. Didn't receive a DM?`, ephemeral: true })
+                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** Make sure you allow DMs from server members in your privacy settings.`, ephemeral: true })
                     .catch(err => console.log(err));
 
 
