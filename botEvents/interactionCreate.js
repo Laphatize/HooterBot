@@ -28,15 +28,16 @@ module.exports = {
 
                 // CHECK USER PERMS FOR VERIFIED ROLE
                 // GRAB ROLE FROM GUILD CACHE
-                const verifiedRole = interaction.guild.roles.cache.find((role) => role.name === 'verified')
+                const verifiedRole = interaction.user.guild.roles.cache.find((role) => role.name === 'verified')
+                console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
-                if(clickUser.roles.cache.has(verifiedRole)) {
+                if(interaction.user.roles.cache.has(verifiedRole)) {
 
-                    console.log(`${clickUsername} has started verification but already possesses the verified role.`)
+                    console.log(`${clickUsername} has started verification but already possesses the verified role!`)
 
                     // IF VERIFIED, CANCEL AND RESPOND
-                    interaction.reply({ content: `Sorry, you're already verified! If this is an error, submit a ModMail ticket and let us know.`, ephemeral: true })
+                    interaction.reply({ content: `Sorry, you're already verified!\n(If this is an error, please submit a ModMail ticket and let us know.)`, ephemeral: true })
                 }
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS TO LET USER KNOW TO CHECK THEIR DMS
