@@ -2,11 +2,6 @@ const discord = require('discord.js')
 const fs = require(`fs`)
 const config = require ('../../config.json')
 
-const AdminOnlyCmdsFolder = '../Admin-Only';
-const FunCmdsFolder = '../Fun';
-const HelpInfoCmdsFolder = '../Help and Info';
-const MiscCmdsFolder = '../Miscellaneous';
-const VerifCmdsFolder = '../Verification Tickets';
 
 module.exports = {
     name: `help`,
@@ -23,42 +18,41 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        let helptext = `Here is a list of my commands you can use:\n\n`;
+        let helptext = `Here is a list of my commands you can use:\n\n**Sorry, this command is not working right now and is being reworked.**`;
 
         // ADMIN COMMANDS
-
-        console.log(`AdminCmds:`)
-        let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder).forEach(file => {
-            console.log(file)
-        })
-
-
-        // FUN COMMANDS
-        console.log(`FunCmds:`)
-        let FunCmds = fs.readdirSync(FunCmdsFolder).forEach(file => {
-            console.log(file)
-        })
+        // console.log(`AdminCmds:`)
+        // let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder).forEach(file => {
+        //     console.log(file)
+        // })
 
 
-        // HELP & INFO COMMANDS
-        console.log(`HelpCmds:`)
-        let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder).forEach(file => {
-            console.log(file)
-        })
+        // // FUN COMMANDS
+        // console.log(`FunCmds:`)
+        // let FunCmds = fs.readdirSync(FunCmdsFolder).forEach(file => {
+        //     console.log(file)
+        // })
 
 
-        // MISCELLANEOUS COMMANDS
-        console.log(`MiscCmds:`)
-        let MiscCmds = fs.readdirSync(MiscCmdsFolder).forEach(file => {
-            console.log(file)
-        })
+        // // HELP & INFO COMMANDS
+        // console.log(`HelpCmds:`)
+        // let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder).forEach(file => {
+        //     console.log(file)
+        // })
 
 
-        // VERIFICATION COMMANDS
-        console.log(`VerifCmds:`)
-        let VerifCmds = fs.readdirSync(VerifCmdsFolder).forEach(file => {
-            console.log(file)
-        })
+        // // MISCELLANEOUS COMMANDS
+        // console.log(`MiscCmds:`)
+        // let MiscCmds = fs.readdirSync(MiscCmdsFolder).forEach(file => {
+        //     console.log(file)
+        // })
+
+
+        // // VERIFICATION COMMANDS
+        // console.log(`VerifCmds:`)
+        // let VerifCmds = fs.readdirSync(VerifCmdsFolder).forEach(file => {
+        //     console.log(file)
+        // })
 
 
         // // CREATING EMBED FOR RESPONSE        
