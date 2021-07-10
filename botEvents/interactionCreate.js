@@ -11,18 +11,6 @@ module.exports = {
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
-            // GETTING PERSON WHO CLICKED BUTTON (OBJECT)
-            let clickUser = await interaction.member.fetch();     // user = @MrMusicMan789 (OBJECT)
-            let clickUserTag = clickUser.tag;                   // clickUserTag = MrMusicMan789#0789
-            let clickUsername = clickUser.username;             // clickUsername = MrMusicMan789
-            let clickUserId = clickUser.id;                     // clickUserID = 472185023622152203
-
-            console.log(`clickUser = ${clickUser}`);
-            console.log(`clickUserTag = ${clickUserTag}`);
-            console.log(`clickUsername = ${clickUsername}`);
-            console.log(`clickUserId = ${clickUserId}`);
-
-
             // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
             if(interaction.customId === 'begin_verification_button') {
 
@@ -32,7 +20,7 @@ module.exports = {
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.has(verifiedRole)) {
 
-                    console.log(`${clickUsername} has started verification but already possesses the verified role!`)
+                    console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
 
                     // CANCEL AND RESPOND WITH EPHEMERAL
                     return interaction.reply({ content: `Sorry, you're already verified!\n(If this is an error, please submit a ModMail ticket and let us know.)`, ephemeral: true })
