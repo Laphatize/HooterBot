@@ -26,24 +26,39 @@ module.exports = {
         let helptext = `Here is a list of my commands you can use:\n\n`;
 
         // ADMIN COMMANDS
-        let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder)
-        console.log(`AdminCmds = ${AdminCmds}`)
+
+        console.log(`AdminCmds:`)
+        let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder).forEach(file => {
+            console.log(file)
+        })
+
 
         // FUN COMMANDS
-        let FunCmds = fs.readdirSync(FunCmdsFolder)
-        console.log(`FunCmds = ${FunCmds}`)
+        console.log(`FunCmds:`)
+        let FunCmds = fs.readdirSync(FunCmdsFolder).forEach(file => {
+            console.log(file)
+        })
+
 
         // HELP & INFO COMMANDS
-        let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder)
-        console.log(`HelpCmds = ${HelpCmds}`)
+        console.log(`HelpCmds:`)
+        let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder).forEach(file => {
+            console.log(file)
+        })
+
 
         // MISCELLANEOUS COMMANDS
-        let MiscCmds = fs.readdirSync(MiscCmdsFolder)
-        console.log(`MiscCmds = ${MiscCmds}`)
+        console.log(`MiscCmds:`)
+        let MiscCmds = fs.readdirSync(MiscCmdsFolder).forEach(file => {
+            console.log(file)
+        })
+
 
         // VERIFICATION COMMANDS
-        let VerifCmds = fs.readdirSync(VerifCmdsFolder)
-        console.log(`VerifCmds = ${VerifCmds}`)
+        console.log(`VerifCmds:`)
+        let VerifCmds = fs.readdirSync(VerifCmdsFolder).forEach(file => {
+            console.log(file)
+        })
 
 
         // // CREATING EMBED FOR RESPONSE        
