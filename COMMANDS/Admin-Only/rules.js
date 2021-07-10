@@ -4,7 +4,7 @@ const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
     name: `rules`,
-    aliases: [`rulesembed`, `rulesandstaff`],
+    aliases: [`rulesembed`],
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     category: `Administrator`,
     expectedArgs: '',
