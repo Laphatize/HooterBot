@@ -16,10 +16,13 @@ module.exports = {
             if(message.channel.id == config.rolesChannelId) console.log(`This message is in the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}\nMessage ID: ${message.id}`)
 
 
-            // CHECK THAT THERE IS ACTUALLY A DATABASE ENTRY FOR GUILD
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await guildSchema.findOne({
                 GUILD_ID: message.guild.id
             });
+
+            
+            console.log(`dbData.VERIF_PROMPT_MSG_ID = ${dbData.VERIF_PROMPT_MSG_ID}`)
 
 
             // IF A MESSAGE ID CAN'T BE FETCHED
@@ -39,10 +42,8 @@ module.exports = {
                 return;
             }
 
-            console.log(`\"dbData.VERIF_PROMPT_MSG_ID === message.id\" yields: ${dbData.VERIF_PROMPT_MSG_ID === message.id}`)
-
             // COMPARE DB MSG ID TO DELETED MESSAGE ID
-            if(dbData.VERIF_PROMPT_MSG_ID === message.id) {
+            if(dbData.VERIF_PROMPT_MSG_ID) {
                 //IF EQUAL, OVERRIDE MESSAGE ID AND CHANNEL ID FROM DB
                 await guildSchema.findOneAndUpdate({
                     GUILD_ID: message.guild.id
