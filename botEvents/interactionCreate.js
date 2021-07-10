@@ -11,15 +11,13 @@ module.exports = {
         // IGNORNING NON-BUTTON INTERACTIONS
         if(!interaction.isButton()) return;
 
+        // GETTING PERSON WHO CLICKED BUTTON (OBJECT)
+        let clickUser = await interaction.user.fetch();   // user = @MrMusicMan789 (OBJECT)
+        let clickUserTag = clickUser.tag;                    // clickUserTag = MrMusicMan789#0789
+        let clickUsername = clickUser.username;              // clickUsername = MrMusicMan789
+        let clickUserId = clickUser.id;                      // clickUserID = 472185023622152203
 
-        console.log(interaction);
-        return;
-
-        // // GETTING PERSON WHO CLICKED BUTTON (OBJECT)
-        // let clickUser = await interaction.user.fetch();   // user = @MrMusicMan789 (OBJECT)
-        // let clickUserTag = clickUser.tag;                    // clickUserTag = MrMusicMan789#0789
-        // let clickUsername = clickUser.username;              // clickUsername = MrMusicMan789
-        // let clickUserId = clickUser.id;                      // clickUserID = 472185023622152203
+        console.log(`clickUser = ${clickUser}`);
 
 
         // // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
