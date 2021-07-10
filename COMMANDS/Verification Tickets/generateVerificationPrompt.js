@@ -26,7 +26,7 @@ module.exports = {
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
             GUILD_ID: message.guild.id
-        });
+        }).exec();
 
 
         // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
@@ -87,6 +87,7 @@ module.exports = {
 
         // POSTING EMBED MESSAGE AND BUTTON
         await message.channel.send({ embeds: [ticketEmbed], components: [buttonRow] })
+            .catch(err => console.log(err))
 
         // GETTING MESSAGE ID OF ticketEmbed
         .then(sentEmbed => {
@@ -104,6 +105,6 @@ module.exports = {
             VERIF_PROMPT_MSG_ID: ticketEmbedMsgId
         },{ 
             upsert: true
-        })
+        }).exec();
     }
 }

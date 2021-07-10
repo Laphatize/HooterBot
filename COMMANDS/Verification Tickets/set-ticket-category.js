@@ -46,7 +46,7 @@ module.exports = {
             TICKET_CAT_ID: category.id
         }, {
             upsert: true
-        })
+        }).exec();
 
 
         // DEFINING UPDATE EMBED

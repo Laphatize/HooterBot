@@ -1,5 +1,6 @@
 const discord = require('discord.js')
 const config = require('../../config.json')
+const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
     name: `rulesandstaff`,
@@ -19,7 +20,14 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
-        // CREATING EMBEDS
+
+        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        }).exec();
+
+
+        // MAIN RULES EMBED
         let rules = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle('**Rules**')
@@ -34,33 +42,78 @@ module.exports = {
             .addField(`9. Moderator and Admin decisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
             .addField(`10. Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`)
 
-
+        // SERVER STAFF EMBED
         let serverStaffList = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`**Server Staff**`)
             .addField(`${config.emjAdmin} Admins:`, `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>`)
             .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@338762061502873600>, <@446818962760531989>, <@270661345588936715>, <@418870468955602944>`)
 
+        // MODMAIL INSTRUCTIONS EMBED
         let ModmailHelp = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`**Need help?**`)
             .setDescription(`If you need to speak with a member of the server staff about an issue, please create a ticket using <@${config.ModMailId}>:\n**1.** DM modmail \`\`=new\`\` followed by the message you wish to send.\n**2.** If you are in multiple servers that use Modmail, select the "Temple University" server to receive your message.\n**3.** Wait for a response back from the moderation team.`)
-            .setFooter(`Note: ModMail is intended for moderation related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail will result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
+            .setFooter(`Note: ModMail is intended for moderation-related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail may result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
 
 
-        // IF MESSAGE ID DNE IN DATABASE, CREATE ENTRY THEN POST
-
+        // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
+        if(!dbData.RULES_MSG_ID) {
             // POSTING EMBEDS
             await message.channel.send({embeds: [rules, serverStaffList, ModmailHelp ] })
                 .catch(err => console.log(err))
-            return;
 
+                // GETTING MESSAGE ID OF ticketEmbed
+                .then(sentEmbed => {
+                    rulesEmbedMsgId = sentEmbed.id;
+                })
+
+            // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
+            await guildSchema.findOneAndUpdate({
+                // CONTENT USED TO FIND UNIQUE ENTRY
+                GUILD_NAME: message.guild.name,
+                GUILD_ID: message.guild.id
+            },{
+                // CONTENT TO BE UPDATED
+                RULES_CH_ID: message.channel.id,
+                RULES_MSG_ID: rulesEmbedMsgId
+            },{ 
+                upsert: true
+            })
+
+            // DEFINING LOG EMBED
+            let logRulesIDEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGreen)
+            .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
+            .addField(`RULES_MSG_ID`, `${dbData.RULES_MSG_ID}`)
+            .addField(`RULES_CH_ID`, `${dbData.RULES_CH_ID}`)
+
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+                .catch(err => console.log(err))
+
+            return;
+        }
 
         // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
+        if(dbData.RULES_MSG_ID) {
 
+            // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+            rulesEmbedId = dbData.RULES_MSG_ID
 
+            // SENDING TO CHANNEL
+            rulesEmbedId.edit({ embeds: [rulesExistsAlreadyEmbed] })
 
+            // DEFINING LOG EMBED
+            let logRulesIDEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGreen)
+            .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
 
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+                .catch(err => console.log(err))
 
+            return;
+        }
     }
 }
