@@ -32,7 +32,7 @@ module.exports = {
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
-                if(clickUser.roles.cache.has(verifiedRole)) {
+                if(clickUser.roles.has(verifiedRole)) {
 
                     console.log(`${clickUsername} has started verification but already possesses the verified role!`)
 
