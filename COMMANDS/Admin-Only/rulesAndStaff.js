@@ -3,8 +3,8 @@ const config = require('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
-    name: `rulesandstaff`,
-    aliases: [``],
+    name: `rules`,
+    aliases: [`rulesembed`, `rulesandstaff`],
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     category: `Administrator`,
     expectedArgs: '',
