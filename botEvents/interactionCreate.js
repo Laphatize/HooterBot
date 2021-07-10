@@ -22,7 +22,7 @@ module.exports = {
         const filter = i => i.customId === 'begin_verification_button'
         interaction.channel.awaitMessageComponent({ filter })
             .then(i => {
-                message.channel.send(`${clickUser}, you have pressed the "Begin Verification" button.`)
+                interaction.channel.send(`${clickUser}, you have pressed the "Begin Verification" button.`)
                 console.log(`The "Begin Verification" button has been clicked by ${clickUser}.`) 
             })
 
