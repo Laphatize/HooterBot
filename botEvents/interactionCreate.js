@@ -32,7 +32,7 @@ module.exports = {
                 console.log(`interaction.member.fetch() = ${interaction.member.fetch()}`)   // [object Promise]
 
 
-                const verifiedRole = await interaction.member.fetch().roles.has((role) => role.name === 'verified')
+                const verifiedRole = await interaction.guild.roles.cache.find((role) => role.name === 'verified')
                 console.log(`verifiedRole = ${verifiedRole}`)
 
                 // CHECK
