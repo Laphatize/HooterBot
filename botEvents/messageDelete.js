@@ -12,8 +12,8 @@ module.exports = {
         if (message.channel.id == config.rulesChannelId || message.channel.id == config.rolesChannelId) {
 
             // LOGGING TEST
-            if(message.channel.id == config.rulesChannelId) console.log(`This message is within the rules channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
-            if(message.channel.id == config.rolesChannelId) console.log(`This message is within the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}`)
+            if(message.channel.id == config.rulesChannelId) console.log(`This message is in the rules channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}\nMessage ID: ${message.id}`)
+            if(message.channel.id == config.rolesChannelId) console.log(`This message is in the roles channel.\nMessage: ${message.content}\nChannel: ${message.channel.name}\nMessage ID: ${message.id}`)
 
 
             // CHECK THAT THERE IS ACTUALLY A DATABASE ENTRY FOR GUILD
