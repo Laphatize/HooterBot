@@ -29,7 +29,7 @@
 //                     },{
 //                         // CONTENT TO BE PULLED
 //                         TICKET_CAT_ID:1
-//                     })
+//                     }).exec();
 
 //                 // SETTING TICKET CATEGORY ID FROM DATABASE SO IT CAN BE USED
 //                 ticketCategory = result.TICKET_CAT_ID;

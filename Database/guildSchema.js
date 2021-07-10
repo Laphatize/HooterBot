@@ -19,7 +19,13 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     VERIF_PROMPT_CH_ID: {type: String, required:true},
 
     // VERIFICATION PROMPT MESSAGE ID
-    VERIF_PROMPT_MSG_ID: {type: String, required:true}
+    VERIF_PROMPT_MSG_ID: {type: String, required:true},
+
+    // VERIFICATION PROMPT MESSAGE ID
+    RULES_CH_ID: {type: String, required:true},
+
+    // RULES EMBED MESSAGE ID
+    RULES_MSG_ID: {type: String, required:true}
 },{
     timestamps: true,
     versionKey: false,

@@ -4,8 +4,9 @@ const config = require('../../config.json');
 
 module.exports = {
     name: `setticketcategory`,
-    aliases: [`setcategory`, `ticketcategory`, `ticketcat`],
+    aliases: [`setcategory`, `ticketcategory`, `ticketcat`, `verifcategory`],
     description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
+    category: `Verification`,
     expectedArgs: '<Category name>',
     cooldown: -1,
     minArgs: 1,
@@ -45,7 +46,7 @@ module.exports = {
             TICKET_CAT_ID: category.id
         }, {
             upsert: true
-        })
+        }).exec();
 
 
         // DEFINING UPDATE EMBED

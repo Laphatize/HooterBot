@@ -5,6 +5,7 @@ module.exports = {
     name: `verifyperksembed`,
     aliases: [`verifyperks`],
     description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
+    category: `Verification`,
     expectedArgs: '',
     cooldown: -1,
     minArgs: 0,
@@ -21,7 +22,7 @@ module.exports = {
         
         // EMBED MESSAGE
         let ticketEmbed = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
+            .setColor(config.embedTempleRed)
             .setTitle(`**Why Verify?**`)
             .setDescription(`Students, alumni, and employee of Temple University gain access to additional channels and permissions in the server:`)
             .addField(`Image posting and GIF embed:`, "*Server-wide* - non-verified users can only post/embed in:\n• <#829409161581821999>\n• <#831152843166580777>\n• <#832649518079672340>")

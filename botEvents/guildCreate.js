@@ -23,7 +23,7 @@ module.exports = {
         console.log(`GUILD NAME: ${message.guild.name}`)
 
         // CREATE GUILD ENTRY - FOR NOW LEFT TO UPDATE SINCE DATABASE DELETION IS NOT CONFIGURED
-        dbData = await guildSchema.findOne({ GUILD_NAME: message.guild.name })
+        dbData = await guildSchema.findOne({ GUILD_NAME: message.guild.name }).exec();
 
         console.log(`\ndbData = ${dbData}\n`)
 

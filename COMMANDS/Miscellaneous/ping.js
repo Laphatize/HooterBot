@@ -5,6 +5,7 @@ module.exports = {
     name: `ping`,
     aliases: [`test`, `testing`],
     description: `A command to test if ${config.botName} is responding or suffering from latency issues.`,
+    category: `Miscellaneous`,
     expectedArgs: '',
     cooldown: 10,
     minArgs: 0,
@@ -17,7 +18,7 @@ module.exports = {
         
         //DEFINING INITIAL EMBED
         let initialPingEmbed = new discord.MessageEmbed()
-            .setColor(config.embedBlue)
+            .setColor(config.embedBlurple)
             .setTitle(`Ping...`)
             .setDescription(`Bot latency =\nAPI latency =`)
             .setTimestamp()
@@ -45,10 +46,10 @@ module.exports = {
             if (botPing < 100) {
                 botLatEmj = config.emjGREENTICK
             }
-            if (botPing >= 100 && botPing < 150) {
+            if (botPing >= 100 && botPing < 250) {
                 botLatEmj = config.emjORANGETICK
             }
-            if (botPing >= 150) {
+            if (botPing >= 250) {
                 botLatEmj = config.emjREDTICK
             }
 
@@ -67,7 +68,7 @@ module.exports = {
 
             //DEFINING UPDAETE EMBED
             let updatedPingEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlue)
+                .setColor(config.embedBlurple)
                 .setTitle(`Ping... ...**Hoot!** 🦉`)
                 .setDescription(`Bot latency = **${botPing}ms** ${botLatEmj}\nAPI latency = **${apiPing}ms** ${apiLatEmj}`)
                 .setTimestamp()
