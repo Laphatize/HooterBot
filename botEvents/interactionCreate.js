@@ -25,7 +25,7 @@ module.exports = {
 
         // INITIAL VERIFICATION PROMPT - SET VIA FILTER FOR CUSTOMID - NO TIMEOUT
         if(interaction.customId === 'begin_verification_button') {
-            interaction.channel.send(`${clickUser}, you have pressed the "Begin Verification" button.`)
+            interaction.reply(`${clickUser}, you have pressed the "Begin Verification" button.`)
             console.log(`The "Begin Verification" button has been clicked by ${clickUser}.`) 
         }
 
