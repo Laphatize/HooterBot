@@ -47,9 +47,49 @@ module.exports = {
 
                 // LOG DATABASE INFORMATION FOR TICKET
 
-                // DMING USER TEST
-                interaction.user.send(`${clickUser}, you have pressed the "Begin Verification" button.\nclickUserTag = ${clickUserTag}\nclickUsername = ${clickUsername}\nclickUserId = ${clickUserId}\nClick date = ${Date.now()}`)
-                console.log(`The "Begin Verification" button has been clicked by ${clickUser}.`)
+
+                // GENERATING INITIAL EMBED FOR DM
+                let ticketEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Verification - Ticket Opened**`)
+                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> Temple University server.
+                        \nThere are three ways you can verify you are a student or employee:
+                        \n${config.indent}**1.** Use a physical TUid card
+                        \n${config.indent}**2.** Use a virtual TUid card
+                        \n${config.indent}**3.** Using TUportal
+                        \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
+                    .setFooter("If these buttons stop working, (?).")
+
+                // INITIALIZING BUTTON
+                let TUidCardButton = new MessageButton()
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                let VirtualTUidCardButton = new MessageButton()
+                    .setLabel("Virtual TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("virtual_TUid_Card")
+                let TuPortalButton = new MessageButton()
+                    .setLabel("TUportal")
+                    .setStyle("SECONDARY")
+                    .setCustomId("TU_portal")
+                let CancelButton = new MessageButton()
+                    .setLabel("Quit Verification")
+                    .setStyle("DANGER")
+                    .setCustomId("quit")
+
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    TUidCardButton,
+                    VirtualTUidCardButton,
+                    TuPortalButton,
+                    CancelButton
+                );
+
+                // DMING USER THE INITIAL VERIFICATION PROMPT
+                interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
+                    .catch(err => console.log(err))
 
 
 
