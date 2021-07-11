@@ -41,12 +41,7 @@ module.exports = {
                 if(dbData.TICKET_CAT_ID) {
                     ticketCategory = dbData.TICKET_CAT_ID;
                 }
-
-
-                // GRABBING EVERYONE ROLE
-                const everyoneRole = interaction.guild.roles.cache.find((role) => {
-                    role.name === "@everyone"
-                })
+                
 
 
                 // CREATE TICKET CHANNEL
@@ -58,7 +53,7 @@ module.exports = {
                         permissionOverwrites: [
                             {
                                 // EVERYONE ROLE
-                                id: everyoneRole.id,
+                                id: interaction.guild.roles.everyone.id,
                                 deny: [`VIEW_CHANNEL`]
                             },{
                                 // ADMINS
