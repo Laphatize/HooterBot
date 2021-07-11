@@ -23,10 +23,8 @@ module.exports = {
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
 
-                    console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
-
-                    // CANCEL AND RESPOND WITH EPHEMERAL
-                    return interaction.reply({ content: `Sorry, you're already verified!\n(If this is an error, please submit a ModMail ticket and let us know.)`, ephemeral: true })
+                    // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER DOES NOT NEED TO VERIFY AGAIN
+                    return interaction.reply({ content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`, ephemeral: true })
                 }
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
@@ -60,17 +58,17 @@ module.exports = {
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("physical_TUid_Card")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let VirtualTUidCardButton = new MessageButton()
                     .setLabel("Virtual TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("virtual_TUid_Card")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let TuPortalButton = new MessageButton()
                     .setLabel("TUportal")
                     .setStyle("SECONDARY")
                     .setCustomId("TU_portal")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let CancelButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
