@@ -189,7 +189,7 @@ module.exports = {
                 
                 // LOGGING TICKET OPENING IN LOGS CHANNEL
                 let logErrorEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
+                    .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
