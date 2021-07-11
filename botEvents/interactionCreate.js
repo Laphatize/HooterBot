@@ -56,7 +56,7 @@ module.exports = {
                 }
 
                 // GRABBING BOT ROLE
-                let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot').id;
+                let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
                 console.log(`botRole = ${botRole}`)
 
 
@@ -70,19 +70,19 @@ module.exports = {
                             // EVERYONE ROLE - HIDE (EVEN FROM USER)
                             id: interaction.guild.roles.everyone.id,
                             deny: [`VIEW_CHANNEL`]
+                        },{
+                            // ADMINS - VIEW AND RESPOND
+                            id: config.adminRoleId,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        },{
+                            // MODERATORS - VIEW AND RESPOND
+                            id: config.modRoleId,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        },{
+                            // HOOTERBOT ROLE - VIEW AND RESPOND
+                            id: botRole.id,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                         }
-                        //     // ADMINS - VIEW AND RESPOND
-                        //     id: config.adminRoleId,
-                        //     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                        // },{
-                        //     // MODERATORS - VIEW AND RESPOND
-                        //     id: config.modRoleId,
-                        //     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                        // },{
-                        //     // HOOTERBOT ROLE - VIEW AND RESPOND
-                        //     id: botRole.id,
-                        //     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                        // }
                     ],
                     reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                 })
@@ -146,8 +146,6 @@ module.exports = {
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
-
-                interaction.deferUpdate()
 
 
 
