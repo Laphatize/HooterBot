@@ -21,7 +21,7 @@ module.exports = {
                 const verifiedRole = await interaction.guild.roles.cache.find((role) => role.id === config.verifiedRoleID)
 
                 // FETCHING GUILD MEMBER WHO PRESSED BUTTON
-                buttonPresser = interaction.members.fetch(interaction.member.id);
+                buttonPresser = interaction.member.fetch(interaction.member.id);
 
                 console.log(`buttonPresser = ${buttonPresser}`)
 
