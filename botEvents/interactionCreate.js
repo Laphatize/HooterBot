@@ -12,7 +12,7 @@ module.exports = {
         if(interaction.isButton()) {
 
             // INTERACTION COLLECTOR TURNED ON
-            const collector = interaction.channel.createMessageComponentCollector();
+            const collector = interaction.channel.awaitMessageComponent();
             collector.on('collect', async interaction => {
 
 
