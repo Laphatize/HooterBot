@@ -64,7 +64,7 @@ module.exports = {
                 // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
                 let VerifButtonMaintenance = new MessageButton()
                 .setLabel(`Begin Verification`)
-                .setStyle(`grey`)
+                .setStyle(`SECONDARY`)
                 .setCustomId(`begin_verification_button_disabld`)
                 .setDisabled(true)
 
@@ -108,7 +108,7 @@ module.exports = {
                 // INITIALIZING MAINTENANCE BUTTON - ENABLED
                 let VerifButton = new MessageButton()
                 .setLabel(`Begin Verification`)
-                .setStyle(`green`)
+                .setStyle(`SUCCESS`)
                 .setCustomId(`begin_verification_button`)
 
 
