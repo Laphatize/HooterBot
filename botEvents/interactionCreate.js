@@ -48,7 +48,7 @@ module.exports = {
 
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.username}`{
+                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.username}`, {
                     type: 'text',
                     parent: ticketCategory,
                     topic: 'The Admin/Moderator side of the ticket process. You can respond in this chat to message the user.',
@@ -73,6 +73,10 @@ module.exports = {
                     ]
                 })
 
+                // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+
+                    // *****NEED TO ADD*****
+
 
 
                 // LOG DATABASE INFORMATION FOR TICKET
@@ -81,7 +85,7 @@ module.exports = {
 
 
 
-                    
+
                 // GENERATING INITIAL EMBED FOR DM
                 let ticketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
