@@ -99,6 +99,7 @@ module.exports = {
                 .addField(`User:`, `${interaction.user}`, true)
                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                 .addField(`User ID:`, `${interaction.user.id}`, true)
+                .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
                 newTicketChannel.send({ embeds: [newTicketEmbed]})
                     
