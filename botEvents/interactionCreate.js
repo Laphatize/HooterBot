@@ -26,9 +26,22 @@ module.exports = {
                 }
 
 
+                // // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
+                // if() {
+                //     // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
+                //     return interaction.reply({
+                //         content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                //         ephemeral: true })
+                // }
+
+
+
+
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
                 interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** Make sure you allow DMs from server members in your privacy settings.`, ephemeral: true })
                     .catch(err => console.log(err));
+
+
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -48,14 +61,14 @@ module.exports = {
 
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.user.tag}`, {
+                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.user.username}`, {
                     type: 'text',
                     parent: ticketCategory,
                     topic: 'The Admin/Moderator side of the ticket process. You can respond in this chat to message the user.',
                     permissionOverwrites: [
                         {
                             // EVERYONE ROLE - HIDE (EVEN FROM USER)
-                            id: interaction.guild.roles.everyone,
+                            id: interaction.guild.roles.everyone.id,
                             deny: [`VIEW_CHANNEL`]
                         },{
                             // ADMINS - VIEW AND RESPOND
