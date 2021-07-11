@@ -9,3 +9,5 @@
 <img src="HooterBot_GitHubProfile.png" width="300" align="center" link="">
 
 A bot created for the [Temple University Discord server](https://discord.com/invite/vbtaBXt8dd) to assist with verifying students and employees, helping with tasks in the server, and more.
+
+If you have any questions about the bot, the information it stores in the database for ticket creation, or any other inquiries, please reach out anytime on Discord (`MrMusicMan789#0789`).
