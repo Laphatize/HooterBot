@@ -106,7 +106,7 @@ module.exports = {
                             CancelButton
                         );
 
-                    await interaction.update({embeds: [ticketEmbed], components: [buttonRow] })
+                    await interaction.editReply({embeds: [ticketEmbed], components: [buttonRow] })
 
                     // POST THE PHYSICAL TUID CARD EMBED
                             // IF 2ND MSG ID EXISTS, UPDATE EMBED
