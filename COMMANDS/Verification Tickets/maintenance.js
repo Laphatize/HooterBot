@@ -1,14 +1,7 @@
-const discord = require('discord.js')
-const config = require('../../config.json')
+const discord = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
+const config = require('../../config.json');
 const guildSchema = require('../../Database/guildSchema');
-
-/*********************************************/
-/*                  TO DO                    */
-/* 1. BRING BUTTONS BACK ONLINE              */
-/* 2.                                        */
-/* 3.                                        */
-/*********************************************/
-
 
 module.exports = {
     name: `maintenance`,

@@ -1,4 +1,4 @@
-const discord = require('discord.js')
+const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
@@ -16,9 +16,6 @@ module.exports = {
             /*      BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)      */
             /***********************************************************/
             if(interaction.customId === 'begin_verification_button') {
-
-                console.log(`interaction.member =${interaction.member}`)
-
                 
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
@@ -166,7 +163,9 @@ module.exports = {
 
 
 
-
+            /***********************************************************/
+            /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
+            /***********************************************************/
 
 
 
