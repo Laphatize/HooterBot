@@ -64,7 +64,7 @@ module.exports = {
                 let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.user.username}`, {
                     type: 'text',
                     parent: ticketCategory,
-                    topic: 'The Admin/Moderator side of the ticket process. You can respond in this chat to message the user.',
+                    topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
                     permissionOverwrites: [
                         {
                             // EVERYONE ROLE - HIDE (EVEN FROM USER)
@@ -88,9 +88,15 @@ module.exports = {
                 })
 
                 // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+                let newTicketEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`**Verification Ticket Opened**`)
+                .addField(`User:`, `${interaction.user}`, true)
+                .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                .addField(`User ID:`, `${interaction.user.id}`, true)
 
-                    // *****NEED TO ADD*****
-
+                newTicketChannel.send({ embeds: [newTicketEmbed]})
+                    
 
 
                 // LOG DATABASE INFORMATION FOR TICKET
