@@ -62,7 +62,7 @@ module.exports = {
 
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                let newTicketChannel = await interaction.guild.channels.create(`Verification-${ticketChannelName}`, {
+                let newTicketChannel = await interaction.guild.channels.create(`${ticketChannelName}`, {
                     type: 'text',
                     parent: ticketCategory,
                     topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
