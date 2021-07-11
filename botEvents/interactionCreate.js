@@ -29,7 +29,7 @@ module.exports = {
 
 
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
-                if ((interaction.guild.channels.cache.find(c => c.name === ticketChannelName))) {
+                if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())) {
                     // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
                     return interaction.reply({
                         content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
