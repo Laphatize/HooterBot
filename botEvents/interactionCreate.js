@@ -19,13 +19,9 @@ module.exports = {
 
                 console.log(`interaction.member =${interaction.member}`)
 
-                // GRAB VERIFIED ROLE FROM GUILD
-                const verifiedRole = await interaction.guild.roles.cache.find((role) => role.id === config.verifiedRoleID)
-
-
                 
                 // CHECK IF USER HAS VERIFIED ROLE
-                if(interaction.member.roles.cache.some(verifiedRole)) {
+                if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
 
                     console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
 
