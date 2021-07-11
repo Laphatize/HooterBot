@@ -12,16 +12,16 @@ module.exports = {
         if(interaction.isButton()) {
 
 
-            /**************************************************/
-            /*      INITIAL VERIFICATION PROMPT (#ROLES)      */
-            /**************************************************/
+            /***********************************************************/
+            /*      BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)      */
+            /***********************************************************/
             if(interaction.customId === 'begin_verification_button') {
 
                 // GRAB VERIFIED ROLE FROM GUILD
                 const verifiedRole = await interaction.guild.roles.cache.find((role) => role.id === config.verifiedRoleID)
 
                 // CHECK IF USER HAS VERIFIED ROLE
-                if(interaction.member.roles.has(verifiedRole)) {
+                if(interaction.member.roles.cache.has(verifiedRole)) {
 
                     console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
 
@@ -36,7 +36,12 @@ module.exports = {
 
                 // CREATE TICKET CHANNEL
 
+                    // *****NEED TO ADD*****
+
+
                 // LOG DATABASE INFORMATION FOR TICKET
+
+                    // *****NEED TO ADD*****
 
 
                 // GENERATING INITIAL EMBED FOR DM
@@ -81,8 +86,93 @@ module.exports = {
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
-
             }
+            // END OF "BEGIN VERIFICATION" PROMPT BUTTON
+
+
+            /***********************************************************/
+            /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
+            /***********************************************************/
+            if(interaction.customId === 'quit') {
+
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Close confirmation.**`)
+                    .setDescription(`Please confirm ticket cancellation.`)
+
+                // INITIALIZING BUTTON
+                let quitConfirmButton = new MessageButton()
+                    .setLabel("Yes, Quit")
+                    .setStyle("DANGER")
+                    .setCustomId("quit_confirmation")
+        
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    quitConfirmButton
+                );
+
+                // DMING USER THE INITIAL QUIT PROMPT
+                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                    .catch(err => console.log(err))
+            }
+            // END OF "QUIT" BUTTON
+
+
+            /***********************************************************/
+            /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
+            /***********************************************************/
+            if(interaction.customId === 'quit_confirmation') {
+
+                // DELETING DATABASE ENTRY
+
+                    // *****NEED TO ADD*****
+
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                    .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
+                    \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+
+                // DMING USER THE QUIT CONFIRMATION
+                interaction.user.send({embeds: [quitConfirmedEmbed] })
+                    .catch(err => console.log(err))
+            }
+            // END OF "QUIT CONFIRM" BUTTON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 	},
 };
