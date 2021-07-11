@@ -60,12 +60,12 @@ module.exports = {
                     .setLabel("Virtual TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("virtual_TUid_Card")
-                    .setDisabled(false)
+                    .setDisabled(true)
                 let TuPortalButton = new MessageButton()
                     .setLabel("TUportal")
                     .setStyle("SECONDARY")
                     .setCustomId("TU_portal")
-                    .setDisabled(false)
+                    .setDisabled(true)
                 let CancelButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
@@ -74,52 +74,91 @@ module.exports = {
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
-                .addComponents(
-                    TUidCardButton,
-                    VirtualTUidCardButton,
-                    TuPortalButton,
-                    CancelButton
-                );
+                    .addComponents(
+                        TUidCardButton,
+                        VirtualTUidCardButton,
+                        TuPortalButton,
+                        CancelButton
+                    );
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
+
+                
+                /***********************************************************/
+                /*      PHYSICAL TUID CARD                                 */
+                /***********************************************************/
+                if (interaction.customId === 'physical_TUid_Card') {
+                    // DISABLE THE TUID CARD
+                    let disabledTUidCardButton = new MessageButton()
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                    .setDisabled(true)
+
+                    // BUTTON ROW
+                    let buttonRow = new MessageActionRow()
+                        .addComponents(
+                            disabledTUidCardButton,
+                            VirtualTUidCardButton,
+                            TuPortalButton,
+                            CancelButton
+                        );
+
+                    await interaction.update({embeds: [ticketEmbed], components: [buttonRow] })
+
+                    // POST THE PHYSICAL TUID CARD EMBED
+                            // IF 2ND MSG ID EXISTS, UPDATE EMBED
+
+
+                            // 2ND MSG DNE, POST AND LOG DB INFO
+
+
+                }
+
+
+
+
+
+
+
             }
             // END OF "BEGIN VERIFICATION" PROMPT BUTTON
 
 
-            // /***********************************************************/
-            // /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
-            // /***********************************************************/
-            // if(interaction.customId === 'quit') {
+            /***********************************************************/
+            /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
+            /***********************************************************/
+            if(interaction.customId === 'quit') {
 
-            //     // GENERATING QUIT CONFIRMATION EMBED FOR DM
-            //     let quitConfirmEmbed = new discord.MessageEmbed()
-            //         .setColor(config.embedTempleRed)
-            //         .setTitle(`**Close confirmation.**`)
-            //         .setDescription(`Please confirm ticket cancellation.`)
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Close confirmation.**`)
+                    .setDescription(`Please confirm ticket cancellation.`)
 
-            //     // INITIALIZING BUTTON
-            //     let quitConfirmButton = new MessageButton()
-            //         .setLabel("Yes, Quit")
-            //         .setStyle("DANGER")
-            //         .setCustomId("quit_confirmation")
-            //     let cancelQuitButton = new MessageButton()
-            //         .setLabel("Cancel")
-            //         .setStyle("SECONDARY")
-            //         .setCustomId("cancel_quit")
+                // INITIALIZING BUTTON
+                let quitConfirmButton = new MessageButton()
+                    .setLabel("Yes, Quit")
+                    .setStyle("DANGER")
+                    .setCustomId("quit_confirmation")
+                let cancelQuitButton = new MessageButton()
+                    .setLabel("Cancel")
+                    .setStyle("SECONDARY")
+                    .setCustomId("cancel_quit")
         
-            //     // BUTTON ROW
-            //     let buttonRow = new MessageActionRow()
-            //     .addComponents(
-            //         quitConfirmButton
-            //     );
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    quitConfirmButton
+                );
 
-            //     // DMING USER THE INITIAL QUIT PROMPT
-            //     interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow, cancelQuitButton] })
-            //         .catch(err => console.log(err))
-            // }
-            // // END OF "QUIT" BUTTON
+                // DMING USER THE INITIAL QUIT PROMPT
+                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow, cancelQuitButton] })
+                    .catch(err => console.log(err))
+            }
+            // END OF "QUIT" BUTTON
 
 
             /***********************************************************/
