@@ -41,11 +41,14 @@ module.exports = {
                 if(dbData.TICKET_CAT_ID) {
                     ticketCategory = dbData.TICKET_CAT_ID;
                 }
-                
+
+                // GRABBING BOT ROLE
+                let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot').id;
+                console.log(`botRole = ${botRole}`)
 
 
                 // CREATE TICKET CHANNEL
-                await interaction.guild.channels.create(
+                let newTicketChannel = await interaction.guild.channels.create(
                     `${interaction.member.username}`, // CHANNEL NAME IS THE USERNAME OF PERSON SUBMITTING TICKET
                     {
                         type: 'text',
@@ -65,7 +68,7 @@ module.exports = {
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             },{
                                 // HOOTERBOT ROLE
-                                id: interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot').id,
+                                id: botRole.id,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             }
                         ]
