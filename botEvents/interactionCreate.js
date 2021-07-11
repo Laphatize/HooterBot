@@ -104,28 +104,25 @@ module.exports = {
                     
 
 
-                // LOG DATABASE INFORMATION FOR TICKET
-                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                    const dbTicketData = await ticketSchema.findOne({
-                        GUILD_ID: interaction.guild.id
-                    }).exec();
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbTicketData = await ticketSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
 
-                    // COMPARING DB MSG ID TO THE MSG ID OF THE DELETED
-                    if(!dbTicketData.STAFF_CH_ID === newTicketChannel.id) {
-                        //IF EQUAL, OVERRIDE MESSAGE ID AND CHANNEL ID FROM DB
-                        await ticketSchema.findOneAndUpdate({
-                            GUILD_ID: interaction.guild.id
-                        },{
-                            GUILD_ID: interaction.guild.id,
-                            GUILD_NAME: interaction.guild.name,
-                            CREATOR_NAME: interaction.user.username,
-                            CREATOR_ID: interaction.user.id,
-                            DM_INITIALMSG_ID: "",
-                            DM_2NDMSG_ID: "",
-                            STAFF_CH_ID: newTicketChannel.id,
-                        },{
-                            upsert: true
-                        }).exec();
+                // LOG DATABASE INFORMATION FOR TICKET
+                await ticketSchema.findOneAndUpdate({
+                    GUILD_ID: interaction.guild.id
+                },{
+                    GUILD_ID: interaction.guild.id,
+                    GUILD_NAME: interaction.guild.name,
+                    CREATOR_NAME: interaction.user.username,
+                    CREATOR_ID: interaction.user.id,
+                    DM_INITIALMSG_ID: "",
+                    DM_2NDMSG_ID: "",
+                    STAFF_CH_ID: newTicketChannel.id,
+                },{
+                    upsert: true
+                }).exec();
 
 
 
@@ -341,7 +338,6 @@ module.exports = {
 
 
 
-            }
         }
 	},
 };
