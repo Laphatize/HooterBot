@@ -46,6 +46,11 @@ module.exports = {
                 let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot').id;
                 console.log(`botRole = ${botRole}`)
 
+                console.log(`interaction.member = ${interaction.member}
+                \ninteraction.member.username = ${interaction.member.username}
+                \ninteraction.user = ${interaction.user}
+                \ninteraction.user.username = ${interaction.user.username}`)
+
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                 let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.username}`, {
