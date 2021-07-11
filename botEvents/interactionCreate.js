@@ -111,19 +111,21 @@ module.exports = {
                 }).exec();
 
                 // LOG DATABASE INFORMATION FOR TICKET
-                await ticketSchema.findOneAndUpdate({
-                    GUILD_ID: interaction.guild.id
-                },{
-                    GUILD_ID: interaction.guild.id,
-                    GUILD_NAME: interaction.guild.name,
-                    CREATOR_NAME: interaction.user.username,
-                    CREATOR_ID: interaction.user.id,
-                    DM_INITIALMSG_ID: "",
-                    DM_2NDMSG_ID: "",
-                    STAFF_CH_ID: newTicketChannel.id,
-                },{
-                    upsert: true
-                }).exec();
+                if(!dbTicketData) {
+                    await ticketSchema.findOneAndUpdate({
+                        GUILD_ID: interaction.guild.id
+                    },{
+                        GUILD_ID: interaction.guild.id,
+                        GUILD_NAME: interaction.guild.name,
+                        CREATOR_NAME: interaction.user.username,
+                        CREATOR_ID: interaction.user.id,
+                        DM_INITIALMSG_ID: "",
+                        DM_2NDMSG_ID: "",
+                        STAFF_CH_ID: newTicketChannel.id,
+                    },{
+                        upsert: true
+                    }).exec();
+                }
 
 
 
