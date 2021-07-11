@@ -176,16 +176,15 @@ module.exports = {
                     .catch(err => console.log(err))
 
 
-                // GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                    if(!dbTicketData.DM_INITIALMSG_ID) {
-                        await ticketSchema.findOneAndUpdate({
-                            GUILD_ID: interaction.guild.id
-                        },{
-                            DM_INITIALMSG_ID: firstDMmsg.id,
-                        },{
-                            upsert: true
-                        }).exec();
-                    }
+                // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
+                await ticketSchema.findOneAndUpdate({
+                    GUILD_ID: interaction.guild.id
+                },{
+                    DM_INITIALMSG_ID: firstDMmsg.id,
+                },{
+                    upsert: true
+                }).exec();
+
 
                 
                 // LOGGING TICKET OPENING IN LOGS CHANNEL
