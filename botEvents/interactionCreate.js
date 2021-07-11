@@ -47,27 +47,32 @@ module.exports = {
                 console.log(`botRole = ${botRole}`)
 
 
-                // CREATE TICKET CHANNEL USING CLICKER'S USERNAME + TAG
-                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.tag}`)
-                    await newTicketChannel.setParent(ticketCategory)
-                    await channel.updateOverwrite(interaction.guild.id,
-                            {
-                                // EVERYONE ROLE - HIDE (EVEN FROM USER)
-                                id: interaction.guild.roles.everyone.id,
-                                deny: [`VIEW_CHANNEL`]
-                            },{
-                                // ADMINS - VIEW AND RESPOND
-                                id: config.adminRoleId,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            },{
-                                // MODERATORS - VIEW AND RESPOND
-                                id: config.modRoleId,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            },{
-                                // HOOTERBOT ROLE - VIEW AND RESPOND
-                                id: botRole.id,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            })
+                // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
+                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.username}`{
+                    type: 'text',
+                    parent: ticketCategory,
+                    topic: 'The Admin/Moderator side of the ticket process. You can respond in this chat to message the user.',
+                    permissionOverwrites: [
+                        {
+                            // EVERYONE ROLE - HIDE (EVEN FROM USER)
+                            id: interaction.guild.roles.everyone.id,
+                            deny: [`VIEW_CHANNEL`]
+                        },{
+                            // ADMINS - VIEW AND RESPOND
+                            id: config.adminRoleId,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        },{
+                            // MODERATORS - VIEW AND RESPOND
+                            id: config.modRoleId,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        },{
+                            // HOOTERBOT ROLE - VIEW AND RESPOND
+                            id: botRole.id,
+                            allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        }
+                    ]
+                })
+
 
 
                 // LOG DATABASE INFORMATION FOR TICKET
@@ -75,6 +80,8 @@ module.exports = {
                     // *****NEED TO ADD*****
 
 
+
+                    
                 // GENERATING INITIAL EMBED FOR DM
                 let ticketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
