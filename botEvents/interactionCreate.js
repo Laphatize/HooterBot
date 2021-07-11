@@ -46,14 +46,9 @@ module.exports = {
                 let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot').id;
                 console.log(`botRole = ${botRole}`)
 
-                console.log(`interaction.member = ${interaction.member}
-                \ninteraction.member.username = ${interaction.member.username}
-                \ninteraction.user = ${interaction.user}
-                \ninteraction.user.username = ${interaction.user.username}`)
-
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.username}`, {
+                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.user.tag}`, {
                     type: 'text',
                     parent: ticketCategory,
                     topic: 'The Admin/Moderator side of the ticket process. You can respond in this chat to message the user.',
