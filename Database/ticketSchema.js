@@ -12,8 +12,11 @@ module.exports = mongoose.model("Tickets", new mongoose.Schema({
     CREATOR_NAME: {type: String},
     CREATOR_ID: {type: String},
 
-    // USER'S VERIFICATION STATUS
-    VERIFICATION_STATUS: {type: String, default: 'NO'}
+    // INITIAL PROMPT DM MSG ID
+    DM_INITIALMSG_ID: {type: String},
+
+    // THE 2ND DM MSG ID
+    DM_2NDMSG_ID: {type: String}
 },{
     timestamps: true,
     versionKey: false,

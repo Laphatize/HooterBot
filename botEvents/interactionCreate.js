@@ -85,12 +85,13 @@ module.exports = {
                 interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
 
-                
+
+
                 /***********************************************************/
                 /*      PHYSICAL TUID CARD                                 */
                 /***********************************************************/
-                if (interaction.customId === 'physical_TUid_Card') {
-                    // DISABLE THE TUID CARD
+                if(interaction.customId === 'physical_TUid_Card') {
+
                     let disabledTUidCardButton = new MessageButton()
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
@@ -106,13 +107,8 @@ module.exports = {
                             CancelButton
                         );
 
-                    await interaction.editReply({embeds: [ticketEmbed], components: [buttonRow] })
-
                     // POST THE PHYSICAL TUID CARD EMBED
-                            // IF 2ND MSG ID EXISTS, UPDATE EMBED
-
-
-                            // 2ND MSG DNE, POST AND LOG DB INFO
+                    await interaction.reply({embeds: [ticketEmbed], components: [buttonRow] })
 
 
                 }
@@ -130,35 +126,37 @@ module.exports = {
             /***********************************************************/
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
-            if(interaction.customId === 'quit') {
 
-                // GENERATING QUIT CONFIRMATION EMBED FOR DM
-                let quitConfirmEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`**Close confirmation.**`)
-                    .setDescription(`Please confirm ticket cancellation.`)
+                if(interaction.customId === 'quit') {
 
-                // INITIALIZING BUTTON
-                let quitConfirmButton = new MessageButton()
-                    .setLabel("Yes, Quit")
-                    .setStyle("DANGER")
-                    .setCustomId("quit_confirmation")
-                let cancelQuitButton = new MessageButton()
-                    .setLabel("Cancel")
-                    .setStyle("SECONDARY")
-                    .setCustomId("cancel_quit")
-        
-                // BUTTON ROW
-                let buttonRow = new MessageActionRow()
-                .addComponents(
-                    quitConfirmButton,
-                    cancelQuitButton
-                );
+                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                    let quitConfirmEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedTempleRed)
+                        .setTitle(`**Close confirmation.**`)
+                        .setDescription(`Please confirm ticket cancellation.`)
 
-                // DMING USER THE INITIAL QUIT PROMPT
-                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
-                    .catch(err => console.log(err))
-            }
+                    // INITIALIZING BUTTON
+                    let quitConfirmButton = new MessageButton()
+                        .setLabel("Yes, Quit")
+                        .setStyle("DANGER")
+                        .setCustomId("quit_confirmation")
+                    let cancelQuitButton = new MessageButton()
+                        .setLabel("Cancel")
+                        .setStyle("SECONDARY")
+                        .setCustomId("cancel_quit")
+            
+                    // BUTTON ROW
+                    let buttonRow = new MessageActionRow()
+                    .addComponents(
+                        quitConfirmButton,
+                        cancelQuitButton
+                    );
+
+                    // DMING USER THE INITIAL QUIT PROMPT
+                    interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                        .catch(err => console.log(err))
+
+                }
             // END OF "QUIT" BUTTON
 
 
