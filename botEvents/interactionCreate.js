@@ -8,6 +8,8 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
+        let ticketChannelName = `Verification-${interaction.user.username}`
+
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
@@ -26,13 +28,13 @@ module.exports = {
                 }
 
 
-                // // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
-                // if() {
-                //     // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
-                //     return interaction.reply({
-                //         content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
-                //         ephemeral: true })
-                // }
+                // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
+                if ((interaction.guild.channels.cache.find(c => c.name.toLowerCase() === ticketChannelName))){
+                    // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
+                    return interaction.reply({
+                        content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                        ephemeral: true })
+                }
 
 
 
@@ -57,11 +59,10 @@ module.exports = {
 
                 // GRABBING BOT ROLE
                 let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
-                console.log(`botRole = ${botRole}`)
 
 
                 // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.user.username}`, {
+                let newTicketChannel = await interaction.guild.channels.create(`Verification-${ticketChannelName}`, {
                     type: 'text',
                     parent: ticketCategory,
                     topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
