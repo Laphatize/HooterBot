@@ -111,7 +111,7 @@ module.exports = {
                     }).exec();
 
                     // COMPARING DB MSG ID TO THE MSG ID OF THE DELETED
-                    if(dbTicketData.RULES_MSG_ID === message.id) {
+                    if(!dbTicketData.STAFF_CH_ID === newTicketChannel.id) {
                         //IF EQUAL, OVERRIDE MESSAGE ID AND CHANNEL ID FROM DB
                         await ticketSchema.findOneAndUpdate({
                             GUILD_ID: interaction.guild.id
