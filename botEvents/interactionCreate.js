@@ -6,7 +6,7 @@ const ticketSchema = require('../Database/ticketSchema');
 
 module.exports = {
 	name: 'interactionCreate',
-	async execute(interaction) {
+	async execute(interaction, client) {
 
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
@@ -20,8 +20,13 @@ module.exports = {
                 // GRAB VERIFIED ROLE FROM GUILD
                 const verifiedRole = await interaction.guild.roles.cache.find((role) => role.id === config.verifiedRoleID)
 
+                // FETCHING GUILD MEMBER WHO PRESSED BUTTON
+                buttonPresser = client.guild.members.fetch(interaction.member.id);
+
+                console.log(`buttonPresser = ${buttonPresser}`)
+
                 // CHECK IF USER HAS VERIFIED ROLE
-                if(interaction.member.roles.cache.has(verifiedRole)) {
+                if(buttonPresser.roles.cache.has(verifiedRole)) {
 
                     console.log(`${interaction.member.fetch().username} has started verification but already possesses the verified role!`)
 
@@ -48,13 +53,12 @@ module.exports = {
                 let ticketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Verification - Ticket Opened**`)
-                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> Temple University server.
+                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
                         \nThere are three ways you can verify you are a student or employee:
                         \n${config.indent}**1.** Use a physical TUid card
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
-                    .setFooter("If these buttons stop working, please create a ModMail ticket and let us know.")
 
                 // INITIALIZING BUTTON
                 let TUidCardButton = new MessageButton()
@@ -110,6 +114,10 @@ module.exports = {
                     .setLabel("Yes, Quit")
                     .setStyle("DANGER")
                     .setCustomId("quit_confirmation")
+                let cancelQuitButton = new MessageButton()
+                    .setLabel("Cancel")
+                    .setStyle("SECONDARY")
+                    .setCustomId("cancel_quit")
         
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
@@ -118,7 +126,7 @@ module.exports = {
                 );
 
                 // DMING USER THE INITIAL QUIT PROMPT
-                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow, cancelQuitButton] })
                     .catch(err => console.log(err))
             }
             // END OF "QUIT" BUTTON
