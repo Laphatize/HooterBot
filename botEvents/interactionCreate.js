@@ -151,11 +151,12 @@ module.exports = {
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
                 .addComponents(
-                    quitConfirmButton
+                    quitConfirmButton,
+                    cancelQuitButton
                 );
 
                 // DMING USER THE INITIAL QUIT PROMPT
-                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow, cancelQuitButton] })
+                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
             }
             // END OF "QUIT" BUTTON
