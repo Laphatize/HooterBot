@@ -3,6 +3,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
+const moment = require('moment');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -19,6 +20,7 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'begin_verification_button') {
                 
+
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
                     // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER DOES NOT NEED TO VERIFY AGAIN
@@ -26,6 +28,7 @@ module.exports = {
                         content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
                         ephemeral: true })
                 }
+
 
 
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
@@ -38,24 +41,24 @@ module.exports = {
 
 
 
-
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
                 interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** Make sure you allow DMs from server members in your privacy settings.`, ephemeral: true })
                     .catch(err => console.log(err));
 
 
 
-
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                const dbData = await guildSchema.findOne({
+                const dbGuildData = await guildSchema.findOne({
                     GUILD_ID: interaction.guild.id
                 }).exec();
 
 
+
                 // FETCH TICKET CATEGORY FROM DATABASE
-                if(dbData.TICKET_CAT_ID) {
-                    ticketCategory = dbData.TICKET_CAT_ID;
+                if(dbGuildData.TICKET_CAT_ID) {
+                    ticketCategory = dbGuildData.TICKET_CAT_ID;
                 }
+
 
                 // GRABBING BOT ROLE
                 let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
@@ -88,6 +91,7 @@ module.exports = {
                     reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                 })
 
+
                 // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
                 let newTicketEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
@@ -101,9 +105,27 @@ module.exports = {
 
 
                 // LOG DATABASE INFORMATION FOR TICKET
+                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                    const dbTicketData = await ticketSchema.findOne({
+                        GUILD_ID: interaction.guild.id
+                    }).exec();
 
-                    // *****NEED TO ADD*****
-
+                    // COMPARING DB MSG ID TO THE MSG ID OF THE DELETED
+                    if(dbTicketData.RULES_MSG_ID === message.id) {
+                        //IF EQUAL, OVERRIDE MESSAGE ID AND CHANNEL ID FROM DB
+                        await ticketSchema.findOneAndUpdate({
+                            GUILD_ID: interaction.guild.id
+                        },{
+                            GUILD_ID: interaction.guild.id,
+                            GUILD_NAME: interaction.guild.name,
+                            CREATOR_NAME: interaction.user.username,
+                            CREATOR_ID: interaction.user.id,
+                            DM_INITIALMSG_ID: "",
+                            DM_2NDMSG_ID: "",
+                            STAFF_CH_ID: newTicketChannel.id,
+                        },{
+                            upsert: true
+                        }).exec();
 
 
 
@@ -150,9 +172,37 @@ module.exports = {
                         CancelButton
                     );
 
+
                 // DMING USER THE INITIAL VERIFICATION PROMPT
-                interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
+                let firstDMmsg = interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
                     .catch(err => console.log(err))
+
+
+                // GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
+                    if(!dbTicketData.DM_INITIALMSG_ID) {
+                        await ticketSchema.findOneAndUpdate({
+                            GUILD_ID: interaction.guild.id
+                        },{
+                            DM_INITIALMSG_ID: firstDMmsg.id,
+                        },{
+                            upsert: true
+                        }).exec();
+                    }
+
+                
+                // LOGGING TICKET OPENING IN LOGS CHANNEL
+                let logErrorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                    .addField(`User:`, `${interaction.user}`, true)
+                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                    .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
+                    .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                    .setTimestamp()
+                    
+
+                // LOG ENTRY
+                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
 
 
 
@@ -231,66 +281,67 @@ module.exports = {
                         .catch(err => console.log(err))
 
                 }
-            // END OF "QUIT" BUTTON
+                // END OF "QUIT" BUTTON
 
 
 
 
-            /***********************************************************/
-            /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
-            /***********************************************************/
-            if(interaction.customId === 'quit_confirmation') {
+                /***********************************************************/
+                /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
+                /***********************************************************/
+                if(interaction.customId === 'quit_confirmation') {
 
-                // DELETING DATABASE ENTRY
+                    // DELETING DATABASE ENTRY
 
-                    // *****NEED TO ADD*****
+                        // *****NEED TO ADD*****
 
-                // GENERATING QUIT CONFIRMATION EMBED FOR DM
-                let quitConfirmedEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
-                    .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
-                    \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                    let quitConfirmedEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                        .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
+                        \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
 
-                // DMING USER THE QUIT CONFIRMATION
-                interaction.user.send({embeds: [quitConfirmedEmbed] })
-                    .catch(err => console.log(err))
+                    // DMING USER THE QUIT CONFIRMATION
+                    interaction.user.send({embeds: [quitConfirmedEmbed] })
+                        .catch(err => console.log(err))
+                }
+                // END OF "QUIT CONFIRM" BUTTON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /***********************************************************/
+                /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
+                /***********************************************************/
+
+
+
+
+
+
+
+
+
             }
-            // END OF "QUIT CONFIRM" BUTTON
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /***********************************************************/
-            /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
-            /***********************************************************/
-
-
-
-
-
-
-
-
-
         }
 	},
 };

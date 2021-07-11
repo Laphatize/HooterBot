@@ -16,7 +16,11 @@ module.exports = mongoose.model("Tickets", new mongoose.Schema({
     DM_INITIALMSG_ID: {type: String},
 
     // THE 2ND DM MSG ID
-    DM_2NDMSG_ID: {type: String}
+    DM_2NDMSG_ID: {type: String},
+
+    // STAFF CHANNEL ID CREATED ON TICKET OPEN
+    STAFF_CH_ID: {type: String},
+
 },{
     timestamps: true,
     versionKey: false,
