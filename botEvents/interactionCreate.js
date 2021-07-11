@@ -55,7 +55,7 @@ module.exports = {
                     permissionOverwrites: [
                         {
                             // EVERYONE ROLE - HIDE (EVEN FROM USER)
-                            id: interaction.guild.roles.everyone.id,
+                            id: interaction.guild.roles.everyone,
                             deny: [`VIEW_CHANNEL`]
                         },{
                             // ADMINS - VIEW AND RESPOND
@@ -70,7 +70,8 @@ module.exports = {
                             id: botRole.id,
                             allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                         }
-                    ]
+                    ],
+                    reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                 })
 
                 // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
