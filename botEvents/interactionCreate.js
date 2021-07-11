@@ -47,33 +47,27 @@ module.exports = {
                 console.log(`botRole = ${botRole}`)
 
 
-                // CREATE TICKET CHANNEL
-                let newTicketChannel = await interaction.guild.channels.create(
-                    `${interaction.member.username}`, // CHANNEL NAME IS THE USERNAME OF PERSON SUBMITTING TICKET
-                    {
-                        type: 'text',
-                        parent: ticketCategory,
-                        permissionOverwrites: [
+                // CREATE TICKET CHANNEL USING CLICKER'S USERNAME + TAG
+                let newTicketChannel = await interaction.guild.channels.create(`VerifTicket-${interaction.member.tag}`)
+                    await newTicketChannel.setParent(ticketCategory)
+                    await channel.updateOverwrite(interaction.guild.id,
                             {
-                                // EVERYONE ROLE
+                                // EVERYONE ROLE - HIDE (EVEN FROM USER)
                                 id: interaction.guild.roles.everyone.id,
                                 deny: [`VIEW_CHANNEL`]
                             },{
-                                // ADMINS
+                                // ADMINS - VIEW AND RESPOND
                                 id: config.adminRoleId,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             },{
-                                // MODERATORS
+                                // MODERATORS - VIEW AND RESPOND
                                 id: config.modRoleId,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             },{
-                                // HOOTERBOT ROLE
+                                // HOOTERBOT ROLE - VIEW AND RESPOND
                                 id: botRole.id,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            }
-                        ]
-                    }
-                )
+                            })
 
 
                 // LOG DATABASE INFORMATION FOR TICKET
