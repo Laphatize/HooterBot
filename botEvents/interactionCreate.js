@@ -93,8 +93,8 @@ module.exports = {
             //     // DMING USER THE INITIAL VERIFICATION PROMPT
             //     interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
             //         .catch(err => console.log(err))
-            // }
-            // // END OF "BEGIN VERIFICATION" PROMPT BUTTON
+            }
+            // END OF "BEGIN VERIFICATION" PROMPT BUTTON
 
 
             // /***********************************************************/
