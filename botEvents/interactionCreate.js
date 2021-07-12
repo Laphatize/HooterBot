@@ -98,7 +98,7 @@ module.exports = {
 
 
             // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-            let dmAbility;
+            let dmAbility = true;
             
             console.log(`dmAbility pre-check =  ${dmAbility}`)
 
@@ -124,11 +124,11 @@ module.exports = {
                     try {
                         interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                     } catch(err) {
-                            console.log(err)
+                        console.log(err)
                     }
 
                     // SETTING THE DM ABILITY TO BE FALSE SO CODE STOPS
-                    return dmAbility = false;
+                    return dmAbility = undefined;
                 })
 
                 console.log(`dmAbility post-check = ${dmAbility}`)
