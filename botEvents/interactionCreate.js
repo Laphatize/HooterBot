@@ -100,6 +100,7 @@ module.exports = {
             // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
             let dmAbility;
             
+            console.log(`dmAbility pre-check =  ${dmAbility}`)
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
             let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
@@ -133,7 +134,7 @@ module.exports = {
                 console.log(`dmAbility post-check = ${dmAbility}`)
 
                 // USER IS NOT DM-AMBE, QUIT
-                if(!dmAbility === false) {
+                if(dmAbility === false) {
                     return
                 }
                 
