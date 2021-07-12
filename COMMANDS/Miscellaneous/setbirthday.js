@@ -21,6 +21,26 @@ module.exports = {
         // GRABBING FULL ARGS
         const combinedArgs = arguments.join(' ').trim()
 
+        // CHECK DATABASE FOR USER'S ENTRY
+        const dbTicketData = await birthdaySchema.findOne({
+            USER_ID: message.author.id
+        }).exec();
+
+
+        // IF A DB ENTRY EXISTS FOR THE USER ALREADY
+        if(dbTicketData) {
+            let birthdayExists = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`Sorry, **you've already set your birthday!** Use \`\`$forgetbirthday\`\` and try running this command again.`)
+
+            // SENDING TO CHANNEL
+            message.channel.send({embeds: [birthdayExists]})
+            return;
+        }
+
+
+
         // DOES NOT FOLLOW FORMATTING
         if(!combinedArgs.includes("/")) {
             let notFormattedEmbed = new discord.MessageEmbed()
@@ -111,17 +131,16 @@ module.exports = {
 
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
-        if(!dbTicketData) {
-            await birthdaySchema.findOneAndUpdate({
-                GUILD_ID: interaction.guild.id
-            },{
-                GUILD_ID: interaction.guild.id,
-                MONTH: month,
-                DAY: day
-            },{
-                upsert: true
-            }).exec();
-        }
+        await birthdaySchema.findOneAndUpdate({
+            USER_ID: message.author.id
+        },{
+            USER_ID: message.author.id,
+            MONTH: month,
+            DAY: day
+        },{
+            upsert: true
+        }).exec();
+
 
         
         // CHANNEL CONFIRMATION
