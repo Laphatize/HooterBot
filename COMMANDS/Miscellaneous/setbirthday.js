@@ -78,6 +78,21 @@ module.exports = {
         }
 
 
+        // STRIPPING ANY 0'S THAT START NUMBERS (e.g. "03" to "3")
+        if(date.startsWith('0')) {
+            removeZerosD = date.split('0')
+            date = removeZerosD[1];
+        }
+
+
+        // STRIPPING ANY 0'S THAT START NUMBERS (e.g. "03" to "3")
+        if(month.startsWith('0')) {
+            removeZerosM = month.split('0')
+            month = removeZerosM[1];
+        }
+
+
+
         // CHECKING ARGUMENTS ARE NUMBERS
         if(isNaN(day) || isNaN(month)) {
             let argNumCheckEmbed = new discord.MessageEmbed()
@@ -124,7 +139,7 @@ module.exports = {
                 .catch(err => console.log(err))
             return
         }
-        
+
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
         await birthdaySchema.findOneAndUpdate({
