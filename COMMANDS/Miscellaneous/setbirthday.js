@@ -79,9 +79,9 @@ module.exports = {
 
 
         // STRIPPING ANY 0'S THAT START NUMBERS (e.g. "03" to "3")
-        if(date.startsWith('0')) {
-            removeZerosD = date.split('0')
-            date = removeZerosD[1];
+        if(day.startsWith('0')) {
+            removeZerosD = day.split('0')
+            day = removeZerosD[1];
         }
 
 
