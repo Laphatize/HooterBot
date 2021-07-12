@@ -112,7 +112,7 @@ module.exports = {
                         .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
                         .addField(`User:`, `${interaction.user}`, true)
                         .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate ticket.\n\nIf this error continues to appear, **please reach out to the user.**`)
+                        .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate the verification process.\n\nIf this error continues to appear, **please reach out to the user.**`)
                         .setTimestamp()
                 
 
