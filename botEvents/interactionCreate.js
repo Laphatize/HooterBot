@@ -98,8 +98,7 @@ module.exports = {
 
 
             // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-            let dmAbility;
-            console.log(`dmAbility pre-check =  ${dmAbility}`)
+            let dmAbility = true;
             
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
@@ -133,8 +132,13 @@ module.exports = {
 
                 console.log(`dmAbility post-check = ${dmAbility}`)
 
-                // IF THE USER IS DM-ABLE, CONTINUE
-                if(!dmAbility === false) {
+                // USER IS NOT DM-AMBE, QUIT
+                if(dmAbility === false) {
+                    return
+                }
+                
+                // USER IS DM-ABLE, CONTINUE
+                else {
                     // FETCH TICKET CATEGORY FROM DATABASE
                     if(dbGuildData.TICKET_CAT_ID) {
                         ticketCategory = dbGuildData.TICKET_CAT_ID;
