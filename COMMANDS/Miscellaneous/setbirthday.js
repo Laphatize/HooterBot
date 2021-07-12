@@ -110,7 +110,7 @@ module.exports = {
 
 
         // CHECKING DAY HAS VALID RANGE
-        if(day < 1 || day > 31) {
+        if(day < 1 || day > 31 || day.length() > 2) {
             let dayRangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
@@ -126,7 +126,7 @@ module.exports = {
 
 
         // CHECKING DAY HAS VALID RANGE
-        if(month < 1 || month > 12) {
+        if(month < 1 || month > 12 || month.length() > 2) {
             let monthRangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
