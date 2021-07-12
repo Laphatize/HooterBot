@@ -100,12 +100,25 @@ module.exports = {
             // DMING USER THE INITIAL VERIFICATION PROMPT
             let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                 .catch(err => {
-                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
-                    console.log(err)
-
+                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
                     // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                    return interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                    interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                         .catch(err => {console.log(err)});
+
+                    // LOGGING TICKET OPEN ERROR
+                    let logVerifStartErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
+                        .addField(`User:`, `${interaction.user}`, true)
+                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                        .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate ticket.\n\nIf this error continues to appear, **please reach out to the user.**`)
+                        .setTimestamp()
+                
+
+                    // LOG ENTRY
+                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
+                        
+                    return
                 })
 
 
