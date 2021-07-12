@@ -98,7 +98,7 @@ module.exports = {
 
 
             // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-            let dmAbility = true;
+            let dmAbility;
             
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
@@ -121,7 +121,7 @@ module.exports = {
                         
                     // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
                     try {
-                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                     } catch(err) {
                             console.log(err)
                     }
@@ -133,7 +133,7 @@ module.exports = {
                 console.log(`dmAbility post-check = ${dmAbility}`)
 
                 // USER IS NOT DM-AMBE, QUIT
-                if(dmAbility === false) {
+                if(!dmAbility === false) {
                     return
                 }
                 
