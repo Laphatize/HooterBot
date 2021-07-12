@@ -9,7 +9,7 @@ module.exports = {
     description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     category: `Administrator`,
     expectedArgs: '<User_ID> ## / ##  [month / day]',
-    cooldown: 10,
+    cooldown: 30,
     minArgs: 1,
     maxArgs: 1,
     guildUse: true,
