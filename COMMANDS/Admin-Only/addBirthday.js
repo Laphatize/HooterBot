@@ -29,15 +29,12 @@ module.exports = {
         // GRABBING FULL ARGS
         const combinedArgs = arguments.join(' ')
 
-        
+
         // GRABBING BIRTHDAY VALUE
         let bdayValue = combinedArgs.substring(bdayUserId.length)
         console.log(`bdayValue = ${bdayValue}`)
 
         return;
-
-        // GRABBING FULL ARGS
-        const combinedArgs = arguments.join(' ')
 
 
         // CHECK DATABASE FOR ENTRY
