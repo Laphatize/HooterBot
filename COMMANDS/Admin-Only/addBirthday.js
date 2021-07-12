@@ -90,9 +90,6 @@ module.exports = {
         console.log(`month = ${month}`)
         console.log(`day = ${day}`)
 
-        return;
-
-
 
         // NO DAY VALUE PROVIDED
         if(!day) {
