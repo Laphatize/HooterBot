@@ -9,7 +9,7 @@ module.exports = {
     description: `A command to set your birthday so HooterBot can announce it in the server.`,
     category: `Miscellaneous`,
     expectedArgs: '## / ##  [month / day]',
-    cooldown: 60,
+    cooldown: 10,
     minArgs: 1,
     maxArgs: 1,
     guildUse: true,
@@ -124,11 +124,7 @@ module.exports = {
                 .catch(err => console.log(err))
             return
         }
-
-
-        month = parseInt(month)
-        day = parseInt(day)
-
+        
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
         await birthdaySchema.findOneAndUpdate({
