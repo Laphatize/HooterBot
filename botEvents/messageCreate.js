@@ -62,7 +62,6 @@ module.exports = {
                 message.author.send({embeds: [logTalkPermErrorDMEmbed]})
                     .catch(err => console.log(err))
                 })
-
             return;
         }
 
@@ -81,7 +80,7 @@ module.exports = {
                 let cmdUserPermErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Sorry!`)
-                .setDescription(`You must have the \`\`${permissions}\`\` permission to use this command.`)
+                .setDescription(`You must have the \`\`${command.permissions}\`\` permission to use this command.`)
 
 
                 message.channel.send({embeds: [cmdUserPermErrEmbed]})
@@ -89,7 +88,6 @@ module.exports = {
                 .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err));
                 return
-
             }
         }
 
@@ -148,7 +146,7 @@ module.exports = {
                     return   
             }
         }
-        
+
 
         // COOLDOWN SETUP
         const { cooldowns } = client;
