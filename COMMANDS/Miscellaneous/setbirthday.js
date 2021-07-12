@@ -155,7 +155,7 @@ module.exports = {
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Saved!**`)
             .setDescription(`${message.author}, I'll remember your birthday on ${moment(day).format('D')} ${moment(month).format('MMMM')}.`)
-            .setFooter(`If you ever wish for me to forget your birthday, use \`\`${config.prefix}forgetbirthday\`\`.`)
+            .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday"".`)
 
         // SENDING TO CHANNEL
         message.channel.send({embeds: [bdaySetEmbed]})
