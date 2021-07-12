@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json');
 const birthdaySchema = require('../../Database/birthdaySchema');
-const bdaySchema = require('../../Database/birthdaySchema');
 
 module.exports = {
     name: `setbirthday`,
@@ -19,7 +18,7 @@ module.exports = {
     execute: async (message, arguments, client) => {
 
         // GRABBING FULL ARGS
-        const combinedArgs = args.join(' ').trim()
+        const combinedArgs = arguments.join(' ').trim()
 
         // DOES NOT FOLLOW FORMATTING
         if(!combinedArgs.includes("/")) {
@@ -135,6 +134,5 @@ module.exports = {
         message.channel.send({embeds: [bdaySetEmbed]})
             .catch(err => console.log(err))
         return
-        
     },
 }
