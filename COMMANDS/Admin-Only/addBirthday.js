@@ -30,7 +30,7 @@ module.exports = {
 
 
         // GRABBING BIRTHDAY VALUE
-        let bdayValue = combinedArgs.substring(bdayUserId.length - 1).trim()
+        let bdayValue = combinedArgs.substring(bdayUserId.length + 1)
         console.log(`bdayValue = ${bdayValue}`)
 
         return;
@@ -57,7 +57,7 @@ module.exports = {
 
 
         // DOES NOT FOLLOW FORMATTING
-        if(!combinedArgs.includes("/")) {
+        if(!bdayValue.includes("/")) {
             let notFormattedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
@@ -73,8 +73,8 @@ module.exports = {
 
 
         // SPLITTING INTO MONTH AND DAY VALUE
-        let month = combinedArgs.substring(0, combinedArgs.indexOf('/'));
-        let day = combinedArgs.split(`/`).pop();
+        let month = bdayValue.substring(0, bdayValue.indexOf('/'));
+        let day = bdayValue.split(`/`).pop();
 
         
 
