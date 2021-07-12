@@ -45,12 +45,59 @@ module.exports = {
                 let ephemVerifStart = interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** You'll need to allow DMs from server members in the privacy settings for this server. Once enabled, please try again. Create a ModMail ticket if this issue persists.`, ephemeral: true })
                     .catch(err => {console.log(err)});
 
+                await ephemVerifStart.deferUpdate();
+		        await wait(4000);
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
                 const dbGuildData = await guildSchema.findOne({
                     GUILD_ID: interaction.guild.id
                 }).exec();
+
+
+
+                // INITIALIZING BUTTON
+                let TUidCardButton = new MessageButton()
+                .setLabel("Physical TUid Card")
+                .setStyle("SECONDARY")
+                .setCustomId("physical_TUid_Card")
+                .setDisabled(false)
+            let VirtualTUidCardButton = new MessageButton()
+                .setLabel("Virtual TUid Card")
+                .setStyle("SECONDARY")
+                .setCustomId("virtual_TUid_Card")
+                .setDisabled(true)
+            let TuPortalButton = new MessageButton()
+                .setLabel("TUportal")
+                .setStyle("SECONDARY")
+                .setCustomId("TU_portal")
+                .setDisabled(true)
+            let CancelButton = new MessageButton()
+                .setLabel("Quit Verification")
+                .setStyle("DANGER")
+                .setCustomId("quit")
+                .setDisabled(false)
+
+            // BUTTON ROW
+            let buttonRow = new MessageActionRow()
+                .addComponents(
+                    TUidCardButton,
+                    VirtualTUidCardButton,
+                    TuPortalButton,
+                    CancelButton
+                );
+
+
+            // DMING USER THE INITIAL VERIFICATION PROMPT
+            let firstDMmsg = interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
+                .catch(err => {
+                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
+                    console.log(err)
+
+                    // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
+                    return ephemVerifStart.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        .catch(err => {console.log(err)});
+                })
 
 
 
@@ -140,50 +187,6 @@ module.exports = {
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
 
-
-                // INITIALIZING BUTTON
-                let TUidCardButton = new MessageButton()
-                    .setLabel("Physical TUid Card")
-                    .setStyle("SECONDARY")
-                    .setCustomId("physical_TUid_Card")
-                    .setDisabled(false)
-                let VirtualTUidCardButton = new MessageButton()
-                    .setLabel("Virtual TUid Card")
-                    .setStyle("SECONDARY")
-                    .setCustomId("virtual_TUid_Card")
-                    .setDisabled(true)
-                let TuPortalButton = new MessageButton()
-                    .setLabel("TUportal")
-                    .setStyle("SECONDARY")
-                    .setCustomId("TU_portal")
-                    .setDisabled(true)
-                let CancelButton = new MessageButton()
-                    .setLabel("Quit Verification")
-                    .setStyle("DANGER")
-                    .setCustomId("quit")
-                    .setDisabled(false)
-
-                // BUTTON ROW
-                let buttonRow = new MessageActionRow()
-                    .addComponents(
-                        TUidCardButton,
-                        VirtualTUidCardButton,
-                        TuPortalButton,
-                        CancelButton
-                    );
-
-
-                // DMING USER THE INITIAL VERIFICATION PROMPT
-                let firstDMmsg = interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
-                    .catch(err => {
-                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
-                        console.log(err)
-
-                        // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                        ephemVerifStart.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                            .catch(err => {console.log(err)});
-                        return;
-                    })
 
 
                 // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
