@@ -19,7 +19,7 @@ module.exports = {
     execute: async (message, arguments, client) => {
 
         // GRABBING FULL ARGS - TRIMMING WHITESPACE, JOINING
-        const combinedArgs = arguments.trim().join('')
+        const combinedArgs = arguments.join('')
 
         console.log(`combinedArgs = ${combinedArgs}`)
 
@@ -118,7 +118,7 @@ module.exports = {
 
 
         // CHECKING DAY HAS VALID RANGE
-        if(day < 1 || day > 31 || day.length() > 2) {
+        if(day < 1 || day > 31) {
             let dayRangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
@@ -134,7 +134,7 @@ module.exports = {
 
 
         // CHECKING DAY HAS VALID RANGE
-        if(month < 1 || month > 12 || month.length() > 2) {
+        if(month < 1 || month > 12) {
             let monthRangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
