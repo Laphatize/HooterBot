@@ -135,7 +135,7 @@ module.exports = {
             return
         }
 
-        
+
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
         await birthdaySchema.findOneAndUpdate({
@@ -154,7 +154,7 @@ module.exports = {
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Saved!**`)
-            .setDescription(`${message.author}, I'll remember your birthday on ${moment(day).utcOffset(-5).format('D')} ${moment(month).utcOffset(-5).format('MMMM')}.`)
+            .setDescription(`${message.author}, I'll remember your birthday on ${moment(day).format('D')} ${moment(month).format('MMMM')}.`)
             .setFooter(`If you ever wish for me to forget your birthday, use \`\`${config.prefix}forgetbirthday\`\`.`)
 
         // SENDING TO CHANNEL
