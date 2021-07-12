@@ -24,42 +24,6 @@ module.exports = {
             return;
         }
 
-
-        // // ENSURING GUILD USE ONLY IN GUILD
-        // if (command.dmUse === false && message.channel.type === 'dm') {
-
-        //     // DEFINING EMBED
-        //     let guildDisallowEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedRed)
-        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
-        //     .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
-
-        //     // SENDING EMBED
-        //     return message.author.send( {embeds: [guildDisallowEmbed]} )
-        //     // DELETE AFTER 30 SECONDS
-        //     .then(msg => {client.setTimeout(() => msg.delete(), 30000 )})
-        //     .catch(err => console.log(err));
-        // }
-
-
-        // // ENSURING DM USE ONLY IN DMS
-        // if (command.guildUse === false && message.channel.type === 'text') {
-
-        //     // DEFINING EMBED
-        //     let dmDisallowEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedRed)
-        //     .setTitle(`${config.emjREDTICK} Error: command cannot be used outside of DMs.`)
-        //     .setDescription(`Hey ${message.author}, sorry, but the command you just used, \`\`${cmdName}\`\`, cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
-        //     .setFooter(`This message will self-destruct in 30 seconds. Beep, boop...`)
-
-        //     // SENDING EMBED
-        //     return message.author.send( {embeds: [dmDisallowEmbed]} )
-        //     // DELETE AFTER 30 SECONDS
-        //     .then(msg => {client.setTimeout(() => msg.delete(), 30000 )})
-        //     .catch(err => console.log(err));
-        // }
-
         
         // *******************
         // NON-DM RESTRICTIONS
@@ -109,9 +73,9 @@ module.exports = {
 
             // CHECKING USER PERMISSION REQUIREMENT
             if (command.permissions) {
-                const msgAuthorPerms = message.channel.permissionsFor(message.author);
+                const authorPerms = message.channel.permissionsFor(message.author);
 
-                if (!msgAuthorPerms || !msgAuthorPerms.has(command.permissions)) {
+                if (!authorPerms || !authorPerms.has(command.permissions)) {
 
                     // DELETING INVOCATION MESSAGE
                     client.setTimeout(() => message.delete(), 0 );
