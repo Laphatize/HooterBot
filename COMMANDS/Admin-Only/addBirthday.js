@@ -20,10 +20,16 @@ module.exports = {
 
         console.log(`arguments = ${arguments}`)
 
+
+        // GRABBING USER ID FROM ARGS
+        bdayUserId = arguments[0];
+
+        console.log(`bdayUserId = ${bdayUserId}`)
+
         return;
 
-        // GRABBING FULL ARGS - TRIMMING WHITESPACE, JOINING
-        const combinedArgs = arguments.join('')
+        // GRABBING FULL ARGS
+        const combinedArgs = arguments.join(' ')
 
 
         // CHECK DATABASE FOR ENTRY
