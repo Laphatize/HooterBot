@@ -23,7 +23,6 @@ module.exports = {
 
         // GRABBING USER ID FROM ARGS
         let bdayUserId = arguments[0];
-        console.log(`bdayUserId.length = ${bdayUserId.length}`)
 
 
         // GRABBING FULL ARGS
@@ -31,7 +30,7 @@ module.exports = {
 
 
         // GRABBING BIRTHDAY VALUE
-        let bdayValue = combinedArgs.substring(bdayUserId.length)
+        let bdayValue = combinedArgs.substring(bdayUserId.length - 1).trim()
         console.log(`bdayValue = ${bdayValue}`)
 
         return;
