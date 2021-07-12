@@ -42,7 +42,7 @@ module.exports = {
 
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
-                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** You'll need to allow DMs from server members in the privacy settings for this server. Once enabled, please try again. Create a ModMail ticket if this issue persists.`, ephemeral: true })
+                let ephemVerifStart = interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** You'll need to allow DMs from server members in the privacy settings for this server. Once enabled, please try again. Create a ModMail ticket if this issue persists.`, ephemeral: true })
                     .catch(err => {console.log(err)});
 
 
@@ -180,7 +180,7 @@ module.exports = {
                         console.log(err)
 
                         // SEND AN EPHEMERAL MESSAGE
-                        interaction.reply({ content: `**Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        ephemVerifStart.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                             .catch(err => {console.log(err)});
                         return;
                     })
