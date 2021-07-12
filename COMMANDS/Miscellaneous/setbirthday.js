@@ -26,7 +26,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).transform(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
@@ -47,7 +47,7 @@ module.exports = {
             let missingDayEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to provide a number for both the month and day. Use the following format:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).transform(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`You need to provide a number for both the month and day. Use the following format:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [missingDayEmbed]})
@@ -63,7 +63,7 @@ module.exports = {
             let argNumCheckEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`The value entered does not follow the date format needed. Please use:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).transform(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`The value entered does not follow the date format needed. Please use:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [argNumCheckEmbed]})
