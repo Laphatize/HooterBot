@@ -66,41 +66,42 @@ module.exports = {
 
 
                 // INITIALIZING BUTTON
-                let TUidCardButton = new MessageButton()
-                .setLabel("Physical TUid Card")
-                .setStyle("SECONDARY")
-                .setCustomId("physical_TUid_Card")
-                .setDisabled(false)
-            let VirtualTUidCardButton = new MessageButton()
-                .setLabel("Virtual TUid Card")
-                .setStyle("SECONDARY")
-                .setCustomId("virtual_TUid_Card")
-                .setDisabled(true)
-            let TuPortalButton = new MessageButton()
-                .setLabel("TUportal")
-                .setStyle("SECONDARY")
-                .setCustomId("TU_portal")
-                .setDisabled(true)
-            let CancelButton = new MessageButton()
-                .setLabel("Quit Verification")
-                .setStyle("DANGER")
-                .setCustomId("quit")
-                .setDisabled(false)
+                    let TUidCardButton = new MessageButton()
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                    .setDisabled(false)
+                let VirtualTUidCardButton = new MessageButton()
+                    .setLabel("Virtual TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("virtual_TUid_Card")
+                    .setDisabled(true)
+                let TuPortalButton = new MessageButton()
+                    .setLabel("TUportal")
+                    .setStyle("SECONDARY")
+                    .setCustomId("TU_portal")
+                    .setDisabled(true)
+                let CancelButton = new MessageButton()
+                    .setLabel("Quit Verification")
+                    .setStyle("DANGER")
+                    .setCustomId("quit")
+                    .setDisabled(false)
 
-            // BUTTON ROW
-            let initialButtonRow = new MessageActionRow()
-                .addComponents(
-                    TUidCardButton,
-                    VirtualTUidCardButton,
-                    TuPortalButton,
-                    CancelButton
-                );
+                // BUTTON ROW
+                let initialButtonRow = new MessageActionRow()
+                    .addComponents(
+                        TUidCardButton,
+                        VirtualTUidCardButton,
+                        TuPortalButton,
+                        CancelButton
+                    );
 
 
-            // DMING USER THE INITIAL VERIFICATION PROMPT
-            let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
-                .catch(err => {
-                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
+                // TRYING TO DM THE USER THE INITIAL VERIFICATION PROMPT
+                try{
+                    interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                } catch {
+                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
 
                         // LOGGING TICKET OPEN ERROR
                         let logVerifStartErrorEmbed = new discord.MessageEmbed()
@@ -116,11 +117,9 @@ module.exports = {
                         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
                             
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        return interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                             .catch(err => {console.log(err)});
-
-                        throw new Error(`User ${interaction.user.username} is attempting to begin verification but is unable to receive DMs from HooterBot.`)
-                })
+                }
 
 
 
