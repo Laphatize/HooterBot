@@ -177,7 +177,7 @@ module.exports = {
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
             .setDescription(`I'll remember **<@${bdayUserId}>**'s birthday on ${monthNames[month-1]} ${day}.`)
-            .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday".`)
+            .setFooter(`You have added this birthday for another user as the server administrator.`)
 
         // SENDING TO CHANNEL
         message.channel.send({embeds: [bdaySetEmbed]})

@@ -42,8 +42,8 @@ module.exports = {
 
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
-                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** Make sure you allow DMs from server members in your privacy settings.`, ephemeral: true })
-                    .catch(err => console.log(err));
+                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** You'll need to allow DMs from server members in the privacy settings for this server. Once enabled, please try again. Create a ModMail ticket if this issue persists.`, ephemeral: true })
+                    .catch(err => {console.log(err)});
 
 
 
@@ -175,7 +175,15 @@ module.exports = {
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 let firstDMmsg = interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
+                        console.log(err)
+
+                        // SEND AN EPHEMERAL MESSAGE
+                        interaction.reply({ content: `**Error!** I was not able to start verification because I am not able to DM you. You'll need to allow DMs from server members (until the verification process is over). You can enable this ability in the privacy settings of the server. Once enabled, please try again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                            .catch(err => {console.log(err)});
+                        return;
+                    })
 
 
                 // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
