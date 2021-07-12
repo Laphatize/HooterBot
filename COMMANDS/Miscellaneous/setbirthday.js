@@ -59,16 +59,17 @@ module.exports = {
             return
         }
 
-        return;
 
-        // SETTING MONTH AND DAY
-        month = combinedArgs[0]
-        day = combinedArgs[1]
+        // SPLITTING INTO MONTH AND DAY VALUE
 
+        let month = combinedArgs.substring(0, combinedArgs.indexOf('/'));
+        let day = combinedArgs.split(`/`).pop();
 
         console.log(`month = ${month}`)
         console.log(`day = ${day}`)
 
+
+        return;
 
         // NO DAY VALUE PROVIDED
         if(!day) {
