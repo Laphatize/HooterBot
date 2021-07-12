@@ -87,9 +87,6 @@ module.exports = {
         let month = bdayValue.substring(0, bdayValue.indexOf('/'));
         let day = bdayValue.split(`/`).pop();
 
-        console.log(`month = ${month}`)
-        console.log(`day = ${day}`)
-
 
         // NO DAY VALUE PROVIDED
         if(!day) {
