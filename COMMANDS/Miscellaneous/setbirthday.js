@@ -62,6 +62,10 @@ module.exports = {
         day = combinedArgs[1]
 
 
+        console.log(`month = ${month}`)
+        console.log(`day = ${day}`)
+
+
         // NO DAY VALUE PROVIDED
         if(!day) {
             let missingDayEmbed = new discord.MessageEmbed()
