@@ -97,30 +97,44 @@ module.exports = {
                 );
 
 
+            // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
+            let dmAbility = true;
+            
+
             // DMING USER THE INITIAL VERIFICATION PROMPT
             let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                 .catch(err => {
-                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
+                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
 
-                        // LOGGING TICKET OPEN ERROR
-                        let logVerifStartErrorEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedOrange)
-                            .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
-                            .addField(`User:`, `${interaction.user}`, true)
-                            .addField(`User ID:`, `${interaction.user.id}`, true)
-                            .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate ticket.\n\nIf this error continues to appear, **please reach out to the user.**`)
-                            .setTimestamp()
-                    
+                    // LOGGING TICKET OPEN ERROR
+                    let logVerifStartErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
+                        .addField(`User:`, `${interaction.user}`, true)
+                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                        .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate ticket.\n\nIf this error continues to appear, **please reach out to the user.**`)
+                        .setTimestamp()
+                
 
-                        // LOG ENTRY
-                        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
-                            
-                        // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
+                    // LOG ENTRY
+                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
+                        
+                    // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
+                    try {
                         interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                            .catch(err => {console.log(err)});
+                    } catch(err) {
+                            console.log(err)
+                    }
 
-                        return false;
+                    // SETTING THE DM ABILITY TO BE FALSE SO CODE STOPS
+                    return dmAbility = false;
                 })
+
+
+                // IF THE USER IS NOT DM-ABLE, STOP
+                if(dmAbility === false) {
+                    return
+                }
 
 
                 // FETCH TICKET CATEGORY FROM DATABASE
