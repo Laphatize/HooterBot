@@ -149,16 +149,15 @@ module.exports = {
         }).exec();
 
 
+        // FOR MONTH NUMBER TO NAME
         var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-
-
 
 
         // CHANNEL CONFIRMATION
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Saved!**`)
-            .setDescription(`${message.author}, I'll remember your birthday on ${monthNames[value[month]]} ${day}.`)
+            .setDescription(`${message.author}, I'll remember your birthday on ${monthNames(month)} ${day}.`)
             .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday".`)
 
         // SENDING TO CHANNEL
