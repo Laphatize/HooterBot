@@ -196,7 +196,7 @@ module.exports = {
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
                     .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-                    .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                    .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').format("dddd, MMMM DD YYYY, h:mm:ss a").utcOffset(-5)}`)
                     .setTimestamp()
                     
 

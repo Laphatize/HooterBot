@@ -46,7 +46,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`).utcOffset(-5)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
@@ -67,7 +67,7 @@ module.exports = {
             let missingDayEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to provide a number for both the month and day. Use the following format:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`You need to provide a number for both the month and day. Use the following format:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`).utcOffset(-5)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [missingDayEmbed]})
@@ -83,7 +83,7 @@ module.exports = {
             let argNumCheckEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`The value entered does not follow the date format needed. Please use:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`The value entered does not follow the date format needed. Please use:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).format(`MM / DD`).utcOffset(-5)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [argNumCheckEmbed]})
@@ -147,7 +147,7 @@ module.exports = {
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Saved!**`)
-            .setDescription(`${message.author}, I'll remember your birthday on ${moment(day).format('D')} ${moment(month).format('MMMM')}.`)
+            .setDescription(`${message.author}, I'll remember your birthday on ${moment(day).format('D').utcOffset(-5)} ${moment(month).format('MMMM').utcOffset(-5)}.`)
             .setFooter(`If you ever wish for me to forget your birthday, use \`\`${config.prefix}forgetbirthday\`\`.`)
 
         // SENDING TO CHANNEL
