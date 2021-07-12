@@ -53,6 +53,18 @@ module.exports = {
 
 
 
+                // GENERATING INITIAL EMBED FOR DM
+                let ticketOpenEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Verification - Ticket Opened**`)
+                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                        \nThere are three ways you can verify you are a student or employee:
+                        \n${config.indent}**1.** Use a physical TUid card
+                        \n${config.indent}**2.** Use a virtual TUid card
+                        \n${config.indent}**3.** Using TUportal
+                        \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
+
+
                 // INITIALIZING BUTTON
                 let TUidCardButton = new MessageButton()
                 .setLabel("Physical TUid Card")
@@ -76,7 +88,7 @@ module.exports = {
                 .setDisabled(false)
 
             // BUTTON ROW
-            let buttonRow = new MessageActionRow()
+            let initialButtonRow = new MessageActionRow()
                 .addComponents(
                     TUidCardButton,
                     VirtualTUidCardButton,
@@ -86,7 +98,7 @@ module.exports = {
 
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
-            let firstDMmsg = interaction.user.send({embeds: [ticketEmbed], components: [buttonRow] })
+            let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                 .catch(err => {
                     // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
                     console.log(err)
@@ -170,19 +182,6 @@ module.exports = {
                         upsert: true
                     }).exec();
                 }
-
-
-
-                // GENERATING INITIAL EMBED FOR DM
-                let ticketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`**Verification - Ticket Opened**`)
-                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
-                        \nThere are three ways you can verify you are a student or employee:
-                        \n${config.indent}**1.** Use a physical TUid card
-                        \n${config.indent}**2.** Use a virtual TUid card
-                        \n${config.indent}**3.** Using TUportal
-                        \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
 
 
 
