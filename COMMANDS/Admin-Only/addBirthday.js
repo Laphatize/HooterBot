@@ -37,7 +37,7 @@ module.exports = {
 
 
         // CHECK THAT THE USER EXISTS IN THE GUILD
-        let guild = client.guilds.get(message.guild.id);
+        let guild = client.guilds.cache.get(message.guild.id);
         
         if(guild.member(bdayUserId)) {
             let bdayUseDNEEmbed = new discord.MessageEmbed()
