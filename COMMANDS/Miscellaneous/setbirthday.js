@@ -21,17 +21,15 @@ module.exports = {
         // GRABBING FULL ARGS - TRIMMING WHITESPACE, JOINING
         const combinedArgs = arguments.join('')
 
-        console.log(`combinedArgs = ${combinedArgs}`)
-
 
         // CHECK DATABASE FOR ENTRY
-        const dbTicketData = await birthdaySchema.findOne({
+        const dbBirthdayData = await birthdaySchema.findOne({
             USER_ID: message.author.id
         }).exec();
 
 
         // IF A DB ENTRY EXISTS FOR THE USER ALREADY
-        if(dbTicketData) {
+        if(dbBirthdayData) {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
@@ -61,13 +59,10 @@ module.exports = {
 
 
         // SPLITTING INTO MONTH AND DAY VALUE
-
         let month = combinedArgs.substring(0, combinedArgs.indexOf('/'));
         let day = combinedArgs.split(`/`).pop();
 
-        console.log(`month = ${month}`)
-        console.log(`day = ${day}`)
-
+        
 
         // NO DAY VALUE PROVIDED
         if(!day) {
