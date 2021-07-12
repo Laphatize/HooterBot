@@ -22,9 +22,17 @@ module.exports = {
 
 
         // GRABBING USER ID FROM ARGS
-        bdayUserId = arguments[0];
+        let bdayUserId = arguments[0];
+        console.log(`bdayUserId.length = ${bdayUserId.length}`)
 
-        console.log(`bdayUserId = ${bdayUserId}`)
+
+        // GRABBING FULL ARGS
+        const combinedArgs = arguments.join(' ')
+
+        
+        // GRABBING BIRTHDAY VALUE
+        let bdayValue = combinedArgs.substring(bdayUserId.length)
+        console.log(`bdayValue = ${bdayValue}`)
 
         return;
 
@@ -34,7 +42,7 @@ module.exports = {
 
         // CHECK DATABASE FOR ENTRY
         const dbBirthdayData = await birthdaySchema.findOne({
-            USER_ID: message.author.id
+            USER_ID: bdayUserId
         }).exec();
 
 
