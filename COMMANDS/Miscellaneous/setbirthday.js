@@ -18,10 +18,13 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        // GRABBING FULL ARGS
-        const combinedArgs = arguments.join(' ').trim()
+        // GRABBING FULL ARGS - TRIMMING WHITESPACE, JOINING
+        const combinedArgs = arguments.trim().join('')
 
-        // CHECK DATABASE FOR USER'S ENTRY
+        console.log(`combinedArgs = ${combinedArgs}`)
+
+
+        // CHECK DATABASE FOR ENTRY
         const dbTicketData = await birthdaySchema.findOne({
             USER_ID: message.author.id
         }).exec();
@@ -32,7 +35,7 @@ module.exports = {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`Sorry, **you've already set your birthday!** Use \`\`$forgetbirthday\`\` and try running this command again.`)
+                .setDescription(`Sorry, **you've already set your birthday!** To change the date, use \`\`$forgetbirthday\`\` before running this command.`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [birthdayExists]})
@@ -56,6 +59,7 @@ module.exports = {
             return
         }
 
+        return;
 
         // SETTING MONTH AND DAY
         month = combinedArgs[0]
