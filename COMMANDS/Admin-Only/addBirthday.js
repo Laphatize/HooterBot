@@ -18,9 +18,6 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        console.log(`arguments = ${arguments}`)
-
-
         // GRABBING USER ID FROM ARGS
         let bdayUserId = arguments[0];
 
@@ -31,15 +28,31 @@ module.exports = {
 
         // GRABBING BIRTHDAY VALUE
         let bdayValue = combinedArgs.substring(bdayUserId.length + 1)
-        console.log(`bdayValue = ${bdayValue}`)
-
-        return;
 
 
         // CHECK DATABASE FOR ENTRY
         const dbBirthdayData = await birthdaySchema.findOne({
             USER_ID: bdayUserId
         }).exec();
+
+
+        // CHECK THAT THE USER EXISTS IN THE GUILD
+        let guild = client.guilds.get(message.guild.id);
+        
+        if(guild.member(bdayUserId)) {
+            let bdayUseDNEEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`That user does not exist in this server. Please try another user ID`)
+
+            // SENDING TO CHANNEL
+            message.channel.send({embeds: [bdayUseDNEEmbed]})
+                // DELETE AFTER 5 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                .catch(err => console.log(err))
+            return;
+        }
+        
 
 
         // IF A DB ENTRY EXISTS FOR THE USER ALREADY
@@ -61,7 +74,7 @@ module.exports = {
             let notFormattedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).utcOffset(-5).format(`MM / DD`)}\`\` for today.).`)
+                .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` <User_ID> ## / ##  (month / day) \`\`\n\n(e.g. \`\`472185023622152303 ${moment(Date.now()).utcOffset(-5).format(`MM / DD`)}\`\` to set MMM's birthday as today).`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
@@ -76,7 +89,12 @@ module.exports = {
         let month = bdayValue.substring(0, bdayValue.indexOf('/'));
         let day = bdayValue.split(`/`).pop();
 
-        
+        console.log(`month = ${month}`)
+        console.log(`day = ${day}`)
+
+        return;
+
+
 
         // NO DAY VALUE PROVIDED
         if(!day) {
@@ -162,11 +180,15 @@ module.exports = {
         var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
+        // FETCHING USERNAME VIA ID
+        let bdayUser = client.users.fetch(bdayUserId);
+
+
         // CHANNEL CONFIRMATION
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
-            .setDescription(`${message.author}, I'll remember your birthday on ${monthNames[month-1]} ${day}.`)
+            .setDescription(`I'll remember **${bdayUser.username}**'s birthday on ${monthNames[month-1]} ${day}.`)
             .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday".`)
 
         // SENDING TO CHANNEL
