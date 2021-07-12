@@ -183,7 +183,7 @@ module.exports = {
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
-            .setDescription(`I'll remember **${bdayUser.username}**'s birthday on ${monthNames[month-1]} ${day}.`)
+            .setDescription(`I'll remember **${bdayUser}**'s birthday on ${monthNames[month-1]} ${day}.`)
             .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday".`)
 
         // SENDING TO CHANNEL
