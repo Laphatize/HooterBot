@@ -119,7 +119,7 @@ module.exports = {
                         interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is over. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                             .catch(err => {console.log(err)});
 
-                        return new Error(`User ${interaction.user.username} is attempting to begin verification but is unable to receive DMs from HooterBot.`)
+                        throw new Error(`User ${interaction.user.username} is attempting to begin verification but is unable to receive DMs from HooterBot.`)
                 })
 
 
