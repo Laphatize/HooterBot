@@ -69,8 +69,6 @@ module.exports = {
         console.log(`day = ${day}`)
 
 
-        return;
-
         // NO DAY VALUE PROVIDED
         if(!day) {
             let missingDayEmbed = new discord.MessageEmbed()
@@ -84,20 +82,6 @@ module.exports = {
                 .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
-        }
-
-
-        // STRIPPING ANY 0'S THAT START NUMBERS (e.g. "03" to "3")
-        if(day.startsWith('0')) {
-            removeZerosD = day.split('0')
-            day = removeZerosD[1];
-        }
-
-
-        // STRIPPING ANY 0'S THAT START NUMBERS (e.g. "03" to "3")
-        if(month.startsWith('0')) {
-            removeZerosM = month.split('0')
-            month = removeZerosM[1];
         }
 
 
