@@ -102,21 +102,6 @@ module.exports = {
         }
 
 
-        // CHECKING DAY HAS VALID RANGE
-        if(day < 1 || day > 31) {
-            let dayRangeEmbed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
-                .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`The value for the day is outside possible values. Please make sure the day is between 1 and 31.`)
-
-            // SENDING TO CHANNEL
-            message.channel.send({embeds: [dayRangeEmbed]})
-                // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-                .catch(err => console.log(err))
-            return
-        }
-
 
         // CHECKING DAY HAS VALID RANGE
         if(month < 1 || month > 12) {
@@ -132,7 +117,25 @@ module.exports = {
                 .catch(err => console.log(err))
             return
         }
+        
+        
+        
+        // CHECKING DAY HAS VALID RANGE
+        if(day < 1 || day > 31) {
+            let dayRangeEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`The value for the day is outside possible values. Please make sure the day is between 1 and 31.`)
 
+            // SENDING TO CHANNEL
+            message.channel.send({embeds: [dayRangeEmbed]})
+                // DELETE AFTER 5 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                .catch(err => console.log(err))
+            return
+        }
+
+        
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
         await birthdaySchema.findOneAndUpdate({
