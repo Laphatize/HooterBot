@@ -97,8 +97,6 @@ module.exports = {
                 );
 
 
-            
-            console.log(`dmAbility pre-check =  ${dmAbility}`)
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
             let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
@@ -123,9 +121,6 @@ module.exports = {
                     } catch(err) {
                         console.log(err)
                     }
-
-                    // SETTING THE DM ABILITY TO BE FALSE SO CODE STOPS
-                    return dmAbility = undefined;
                 })
 
                 console.log(`firstDMmsg = ${firstDMmsg}`)
