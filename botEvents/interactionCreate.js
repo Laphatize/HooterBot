@@ -99,7 +99,7 @@ module.exports = {
 
 
             // DMING USER THE INITIAL VERIFICATION PROMPT
-            let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+            let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                 .catch(err => {
                     // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
                     // LOGGING TICKET OPEN ERROR
@@ -124,6 +124,7 @@ module.exports = {
                 })
 
                 console.log(`firstDMmsg = ${firstDMmsg}`)
+                console.log(`firstDMmsg.id = ${firstDMmsg.id}`)
 
                 // // USER IS NOT DM-AMBE, QUIT
                 // if(!firstDMmsg) {
