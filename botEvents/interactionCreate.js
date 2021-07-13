@@ -125,7 +125,6 @@ module.exports = {
 
                         return false;
                     })
-                    .then(console.log(`\npost-check = ${canDmUser}`))
 
 
                     // USER IS DM-ABLE, CONTINUE
