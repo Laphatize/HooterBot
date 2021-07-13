@@ -184,6 +184,7 @@ module.exports = {
                             GUILD_ID: interaction.guild.id
                         }).exec();
 
+                        
                         // LOG DATABASE INFORMATION FOR TICKET
                         if(!dbTicketData) {
                             await ticketSchema.findOneAndUpdate({
@@ -200,17 +201,6 @@ module.exports = {
                                 upsert: true
                             }).exec();
                         }
-
-
-
-                        // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                        await ticketSchema.findOneAndUpdate({
-                            GUILD_ID: interaction.guild.id
-                        },{
-                            DM_INITIALMSG_ID: firstDMmsg.id,
-                        },{
-                            upsert: true
-                        }).exec();
 
 
                         
@@ -230,7 +220,7 @@ module.exports = {
                     })
                     // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
-                    
+
 
                 /***********************************************************/
                 /*      PHYSICAL TUID CARD                                 */
