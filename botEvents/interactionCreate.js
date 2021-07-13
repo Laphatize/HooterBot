@@ -136,7 +136,7 @@ module.exports = {
 
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                    let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
+                    interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'text',
                         parent: ticketCategory,
                         topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
@@ -163,7 +163,7 @@ module.exports = {
                     })
 
 
-                    // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+                    // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`**Verification Ticket Opened**`)
@@ -172,9 +172,13 @@ module.exports = {
                     .addField(`User ID:`, `${interaction.user.id}`, true)
                     .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
+
+                    // FETCHING THE NEW TICKET TEXT CHANNEL TO SEND TICKET START EMBED
+                    newTicketChannel = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+
+                    // SENDING INTRO EMBED TO TICKET CHANNEL
                     newTicketChannel.send({ embeds: [newTicketEmbed]})
                         
-
 
                     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
                     const dbTicketData = await ticketSchema.findOne({
