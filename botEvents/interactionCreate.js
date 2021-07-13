@@ -116,11 +116,8 @@ module.exports = {
                         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
                             
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                        try {
-                            interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                        } catch(err) {
-                            console.log(err)
-                        }
+                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        .catch(err => console.log(err))
                     })
 
 
