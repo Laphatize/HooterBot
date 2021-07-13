@@ -42,7 +42,7 @@ module.exports = {
 
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
-                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n***Didn't receive a DM?*** You'll need to allow DMs from server members in the privacy settings for this server. Once enabled, please try again. Create a ModMail ticket if this issue persists.`, ephemeral: true })
+                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.`, ephemeral: true })
                     .catch(err => {console.log(err)});
 
 
@@ -67,175 +67,175 @@ module.exports = {
 
                 // INITIALIZING BUTTON
                 let TUidCardButton = new MessageButton()
-                .setLabel("Physical TUid Card")
-                .setStyle("SECONDARY")
-                .setCustomId("physical_TUid_Card")
-                .setDisabled(false)
-            let VirtualTUidCardButton = new MessageButton()
-                .setLabel("Virtual TUid Card")
-                .setStyle("SECONDARY")
-                .setCustomId("virtual_TUid_Card")
-                .setDisabled(true)
-            let TuPortalButton = new MessageButton()
-                .setLabel("TUportal")
-                .setStyle("SECONDARY")
-                .setCustomId("TU_portal")
-                .setDisabled(true)
-            let CancelButton = new MessageButton()
-                .setLabel("Quit Verification")
-                .setStyle("DANGER")
-                .setCustomId("quit")
-                .setDisabled(false)
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                    .setDisabled(false)
+                let VirtualTUidCardButton = new MessageButton()
+                    .setLabel("Virtual TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("virtual_TUid_Card")
+                    .setDisabled(true)
+                let TuPortalButton = new MessageButton()
+                    .setLabel("TUportal")
+                    .setStyle("SECONDARY")
+                    .setCustomId("TU_portal")
+                    .setDisabled(true)
+                let CancelButton = new MessageButton()
+                    .setLabel("Quit Verification")
+                    .setStyle("DANGER")
+                    .setCustomId("quit")
+                    .setDisabled(false)
 
-            // BUTTON ROW
-            let initialButtonRow = new MessageActionRow()
-                .addComponents(
-                    TUidCardButton,
-                    VirtualTUidCardButton,
-                    TuPortalButton,
-                    CancelButton
-                );
+                // BUTTON ROW
+                let initialButtonRow = new MessageActionRow()
+                    .addComponents(
+                        TUidCardButton,
+                        VirtualTUidCardButton,
+                        TuPortalButton,
+                        CancelButton
+                    );
 
 
 
-            // DMING USER THE INITIAL VERIFICATION PROMPT
-            let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
-                .catch(err => {
-                    // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
-                    // LOGGING TICKET OPEN ERROR
-                    let logVerifStartErrorEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedOrange)
-                        .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
-                        .addField(`User:`, `${interaction.user}`, true)
-                        .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate the verification process.\n\nIf this error continues to appear, **please reach out to the user.**`)
-                        .setTimestamp()
-                
+                // DMING USER THE INITIAL VERIFICATION PROMPT
+                let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                    .catch(err => {
+                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
+                        // LOGGING TICKET OPEN ERROR
+                        let logVerifStartErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedOrange)
+                            .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
+                            .addField(`User:`, `${interaction.user}`, true)
+                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate the verification process.\n\nIf this error continues to appear, **please reach out to the user.**`)
+                            .setTimestamp()
+                    
 
-                    // LOG ENTRY
-                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
-                        
-                    // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                    try {
-                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                    } catch(err) {
-                        console.log(err)
+                        // LOG ENTRY
+                        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
+                            
+                        // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
+                        try {
+                            interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                        } catch(err) {
+                            console.log(err)
+                        }
+                    })
+
+                    // GRABBING THE firstDMmsg ID, USER IS NOT DM-AMBE, QUIT
+                    if(firstDMmsg) {
+                        console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
                     }
-                })
-
-                // GRABBING THE firstDMmsg ID, USER IS NOT DM-AMBE, QUIT
-                if(firstDMmsg.id == undefined) {
-                    console.log(`the initial DM is INVALID, do not create a channel and end here.`)
-                }
-                
-                // USER IS DM-ABLE, CONTINUE
-                else {
-                    console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
-                }                
-
-                
-                    // // FETCH TICKET CATEGORY FROM DATABASE
-                    // if(dbGuildData.TICKET_CAT_ID) {
-                    //     ticketCategory = dbGuildData.TICKET_CAT_ID;
-                    // }
-
-
-
-                //     // GRABBING BOT ROLE
-                //     let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
-
-
-                //     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                //     let newTicketChannel = await interaction.guild.channels.create(`${ticketChannelName}`, {
-                //         type: 'text',
-                //         parent: ticketCategory,
-                //         topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
-                //         permissionOverwrites: [
-                //             {
-                //                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
-                //                 id: interaction.guild.roles.everyone.id,
-                //                 deny: [`VIEW_CHANNEL`]
-                //             },{
-                //                 // ADMINS - VIEW AND RESPOND
-                //                 id: config.adminRoleId,
-                //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                //             },{
-                //                 // MODERATORS - VIEW AND RESPOND
-                //                 id: config.modRoleId,
-                //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                //             },{
-                //                 // HOOTERBOT ROLE - VIEW AND RESPOND
-                //                 id: botRole.id,
-                //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                //             }
-                //         ],
-                //         reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
-                //     })
-
-
-                //     // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
-                //     let newTicketEmbed = new discord.MessageEmbed()
-                //     .setColor(config.embedGreen)
-                //     .setTitle(`**Verification Ticket Opened**`)
-                //     .addField(`User:`, `${interaction.user}`, true)
-                //     .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                //     .addField(`User ID:`, `${interaction.user.id}`, true)
-                //     .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
-
-                //     newTicketChannel.send({ embeds: [newTicketEmbed]})
-                        
-
-
-                //     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                //     const dbTicketData = await ticketSchema.findOne({
-                //         GUILD_ID: interaction.guild.id
-                //     }).exec();
-
-                //     // LOG DATABASE INFORMATION FOR TICKET
-                //     if(!dbTicketData) {
-                //         await ticketSchema.findOneAndUpdate({
-                //             GUILD_ID: interaction.guild.id
-                //         },{
-                //             GUILD_ID: interaction.guild.id,
-                //             GUILD_NAME: interaction.guild.name,
-                //             CREATOR_NAME: interaction.user.username,
-                //             CREATOR_ID: interaction.user.id,
-                //             DM_INITIALMSG_ID: "",
-                //             DM_2NDMSG_ID: "",
-                //             STAFF_CH_ID: newTicketChannel.id,
-                //         },{
-                //             upsert: true
-                //         }).exec();
-                //     }
-
-
-
-                //     // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                //     await ticketSchema.findOneAndUpdate({
-                //         GUILD_ID: interaction.guild.id
-                //     },{
-                //         DM_INITIALMSG_ID: firstDMmsg.id,
-                //     },{
-                //         upsert: true
-                //     }).exec();
-
+                    
+                    // USER IS DM-ABLE, CONTINUE
+                    else {
+                        console.log(`the initial DM is INVALID, do not create a channel and end here.`)
+                    }                
 
                     
-                //     // LOGGING TICKET OPENING IN LOGS CHANNEL
-                //     let logErrorEmbed = new discord.MessageEmbed()
-                //         .setColor(config.embedGreen)
-                //         .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
-                //         .addField(`User:`, `${interaction.user}`, true)
-                //         .addField(`User ID:`, `${interaction.user.id}`, true)
-                //         .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-                //         .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
-                //         .setTimestamp()
-                        
+                        // // FETCH TICKET CATEGORY FROM DATABASE
+                        // if(dbGuildData.TICKET_CAT_ID) {
+                        //     ticketCategory = dbGuildData.TICKET_CAT_ID;
+                        // }
 
-                //     // LOG ENTRY
-                //     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
-                // }
-                // // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
+
+
+                    //     // GRABBING BOT ROLE
+                    //     let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+
+
+                    //     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
+                    //     let newTicketChannel = await interaction.guild.channels.create(`${ticketChannelName}`, {
+                    //         type: 'text',
+                    //         parent: ticketCategory,
+                    //         topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
+                    //         permissionOverwrites: [
+                    //             {
+                    //                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
+                    //                 id: interaction.guild.roles.everyone.id,
+                    //                 deny: [`VIEW_CHANNEL`]
+                    //             },{
+                    //                 // ADMINS - VIEW AND RESPOND
+                    //                 id: config.adminRoleId,
+                    //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                    //             },{
+                    //                 // MODERATORS - VIEW AND RESPOND
+                    //                 id: config.modRoleId,
+                    //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                    //             },{
+                    //                 // HOOTERBOT ROLE - VIEW AND RESPOND
+                    //                 id: botRole.id,
+                    //                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                    //             }
+                    //         ],
+                    //         reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
+                    //     })
+
+
+                    //     // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+                    //     let newTicketEmbed = new discord.MessageEmbed()
+                    //     .setColor(config.embedGreen)
+                    //     .setTitle(`**Verification Ticket Opened**`)
+                    //     .addField(`User:`, `${interaction.user}`, true)
+                    //     .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                    //     .addField(`User ID:`, `${interaction.user.id}`, true)
+                    //     .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
+
+                    //     newTicketChannel.send({ embeds: [newTicketEmbed]})
+                            
+
+
+                    //     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                    //     const dbTicketData = await ticketSchema.findOne({
+                    //         GUILD_ID: interaction.guild.id
+                    //     }).exec();
+
+                    //     // LOG DATABASE INFORMATION FOR TICKET
+                    //     if(!dbTicketData) {
+                    //         await ticketSchema.findOneAndUpdate({
+                    //             GUILD_ID: interaction.guild.id
+                    //         },{
+                    //             GUILD_ID: interaction.guild.id,
+                    //             GUILD_NAME: interaction.guild.name,
+                    //             CREATOR_NAME: interaction.user.username,
+                    //             CREATOR_ID: interaction.user.id,
+                    //             DM_INITIALMSG_ID: "",
+                    //             DM_2NDMSG_ID: "",
+                    //             STAFF_CH_ID: newTicketChannel.id,
+                    //         },{
+                    //             upsert: true
+                    //         }).exec();
+                    //     }
+
+
+
+                    //     // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
+                    //     await ticketSchema.findOneAndUpdate({
+                    //         GUILD_ID: interaction.guild.id
+                    //     },{
+                    //         DM_INITIALMSG_ID: firstDMmsg.id,
+                    //     },{
+                    //         upsert: true
+                    //     }).exec();
+
+
+                        
+                    //     // LOGGING TICKET OPENING IN LOGS CHANNEL
+                    //     let logErrorEmbed = new discord.MessageEmbed()
+                    //         .setColor(config.embedGreen)
+                    //         .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                    //         .addField(`User:`, `${interaction.user}`, true)
+                    //         .addField(`User ID:`, `${interaction.user.id}`, true)
+                    //         .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
+                    //         .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                    //         .setTimestamp()
+                            
+
+                    //     // LOG ENTRY
+                    //     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                    // }
+                    // // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
 
 
