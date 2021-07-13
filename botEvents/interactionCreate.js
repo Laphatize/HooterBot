@@ -129,17 +129,16 @@ module.exports = {
                 }
                 
                 // USER IS DM-ABLE, CONTINUE
-                else if(!firstDMmsg.id == undefined ) {
-
+                else {
                     console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
-                
+                }                
 
                 
-                    // FETCH TICKET CATEGORY FROM DATABASE
-                    if(dbGuildData.TICKET_CAT_ID) {
-                        ticketCategory = dbGuildData.TICKET_CAT_ID;
-                    }
-                }
+                    // // FETCH TICKET CATEGORY FROM DATABASE
+                    // if(dbGuildData.TICKET_CAT_ID) {
+                    //     ticketCategory = dbGuildData.TICKET_CAT_ID;
+                    // }
+
 
 
                 //     // GRABBING BOT ROLE
