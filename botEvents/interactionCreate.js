@@ -97,9 +97,18 @@ module.exports = {
                     );
 
 
+               
 
-                    interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
-                    .catch(err => {
+                let interactionUser = interaction.user;
+                let canDmUser = true;
+
+                // CREATING FUNCTION TO DM USER AND DETERMINE IF SUCCESSFUL OR NOT
+                function dmUserOnTicketCreate(interactionUser) {
+                    // DMING USER THE INITIAL VERIFICATION PROMPT
+                    try {
+                        interactionUser.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                        return true;
+                    } catch(err) {
                         // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
                         // LOGGING TICKET OPEN ERROR
                         let logVerifStartErrorEmbed = new discord.MessageEmbed()
@@ -117,108 +126,111 @@ module.exports = {
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
                         try {
                             interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                        } catch(replyError) {
-                            console.log(replyError)
+                        } catch(err) {
+                            console.log(err)
                         }
 
-                        console.log(err);
-
                         return false;
-                    })
-                    .then(console.log(`\npost-check = ${canDmUser}`))
-
-
-                    // USER IS DM-ABLE, CONTINUE
-                    // FETCH TICKET CATEGORY FROM DATABASE
-                    if(dbGuildData.TICKET_CAT_ID) {
-                        ticketCategory = dbGuildData.TICKET_CAT_ID;
                     }
+                }
+
+                canDmUser = dmUserOnTicketCreate(interactionUser)
 
 
-                    // GRABBING BOT ROLE
-                    let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+                console.log(`\npost-check = ${canDmUser}`)
+
+                if (canDmUser === true) {                
+                        // USER IS DM-ABLE, CONTINUE
+                        // FETCH TICKET CATEGORY FROM DATABASE
+                        if(dbGuildData.TICKET_CAT_ID) {
+                            ticketCategory = dbGuildData.TICKET_CAT_ID;
+                        }
 
 
-                    // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                    let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
-                        type: 'text',
-                        parent: ticketCategory,
-                        topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
-                        permissionOverwrites: [
-                            {
-                                // EVERYONE ROLE - HIDE (EVEN FROM USER)
-                                id: interaction.guild.roles.everyone.id,
-                                deny: [`VIEW_CHANNEL`]
+                        // GRABBING BOT ROLE
+                        let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+
+
+                        // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
+                        let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
+                            type: 'text',
+                            parent: ticketCategory,
+                            topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
+                            permissionOverwrites: [
+                                {
+                                    // EVERYONE ROLE - HIDE (EVEN FROM USER)
+                                    id: interaction.guild.roles.everyone.id,
+                                    deny: [`VIEW_CHANNEL`]
+                                },{
+                                    // ADMINS - VIEW AND RESPOND
+                                    id: config.adminRoleId,
+                                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                                },{
+                                    // MODERATORS - VIEW AND RESPOND
+                                    id: config.modRoleId,
+                                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                                },{
+                                    // HOOTERBOT ROLE - VIEW AND RESPOND
+                                    id: botRole.id,
+                                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                                }
+                            ],
+                            reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
+                        })
+
+
+                        // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+                        let newTicketLogEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`**Verification Ticket Opened**`)
+                            .addField(`User:`, `${interaction.user}`, true)
+                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
+
+                        newTicketChannel.send({ embeds: [newTicketLogEmbed]})
+                            
+
+
+                        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                        const dbTicketData = ticketSchema.findOne({
+                            GUILD_ID: interaction.guild.id
+                        }).exec();
+
+
+                        // LOG DATABASE INFORMATION FOR TICKET
+                        if(!dbTicketData) {
+                            ticketSchema.findOneAndUpdate({
+                                GUILD_ID: interaction.guild.id
                             },{
-                                // ADMINS - VIEW AND RESPOND
-                                id: config.adminRoleId,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                                GUILD_ID: interaction.guild.id,
+                                GUILD_NAME: interaction.guild.name,
+                                CREATOR_NAME: interaction.user.username,
+                                CREATOR_ID: interaction.user.id,
+                                DM_INITIALMSG_ID: msg.id,
+                                DM_2NDMSG_ID: "",
+                                STAFF_CH_ID: newTicketChannel.id,
                             },{
-                                // MODERATORS - VIEW AND RESPOND
-                                id: config.modRoleId,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            },{
-                                // HOOTERBOT ROLE - VIEW AND RESPOND
-                                id: botRole.id,
-                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-                            }
-                        ],
-                        reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
-                    })
+                                upsert: true
+                            }).exec();
+                        }
 
 
-                    // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
-                    let newTicketLogEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`**Verification Ticket Opened**`)
-                        .addField(`User:`, `${interaction.user}`, true)
-                        .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                        .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
-
-                    // newTicketChannel.send({ embeds: [newTicketLogEmbed]})
                         
+                        // LOGGING TICKET OPENING IN LOGS CHANNEL
+                        let logErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                            .addField(`User:`, `${interaction.user}`, true)
+                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
+                            .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                            .setTimestamp()
+                            
 
-
-                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                    const dbTicketData = ticketSchema.findOne({
-                        GUILD_ID: interaction.guild.id
-                    }).exec();
-
-
-                    // // LOG DATABASE INFORMATION FOR TICKET
-                    // if(!dbTicketData) {
-                    //     ticketSchema.findOneAndUpdate({
-                    //         GUILD_ID: interaction.guild.id
-                    //     },{
-                    //         GUILD_ID: interaction.guild.id,
-                    //         GUILD_NAME: interaction.guild.name,
-                    //         CREATOR_NAME: interaction.user.username,
-                    //         CREATOR_ID: interaction.user.id,
-                    //         DM_INITIALMSG_ID: msg.id,
-                    //         DM_2NDMSG_ID: "",
-                    //         STAFF_CH_ID: newTicketChannel.id,
-                    //     },{
-                    //         upsert: true
-                    //     }).exec();
-                    // }
-
-
-                    
-                    // LOGGING TICKET OPENING IN LOGS CHANNEL
-                    let logErrorEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
-                        .addField(`User:`, `${interaction.user}`, true)
-                        .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-                        .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
-                        .setTimestamp()
-                        
-
-                    // LOG ENTRY
-                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
-                    
+                        // LOG ENTRY
+                        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                    }
                     // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
 
