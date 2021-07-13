@@ -99,7 +99,7 @@ module.exports = {
 
 
                 // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-                var dmAbility = false;
+                let dmAbility;
                 console.log(`dmAbility pre-check =  ${dmAbility}`)
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
@@ -128,7 +128,7 @@ module.exports = {
                         }
 
                         // SETTING THE DM ABILITY VALUE WHEN SENDING FAILS
-                        throw new Error(`This user cannot be DM'd`);
+                        return dmAbility = false;
                     })
 
                     console.log(`dmAbility post-check = ${dmAbility}`)
