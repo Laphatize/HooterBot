@@ -121,7 +121,7 @@ module.exports = {
 
                         console.log(err);
 
-                        break;
+                        return false;
                     })
 
 
