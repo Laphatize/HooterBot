@@ -30,6 +30,7 @@ module.exports = {
                 }
 
 
+
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
                 if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())) {
                     // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
@@ -37,6 +38,7 @@ module.exports = {
                         content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
                         ephemeral: true })
                 }
+
 
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
@@ -96,15 +98,15 @@ module.exports = {
 
 
 
-                let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                    interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                     .catch(err => {
                         // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
                         // LOGGING TICKET OPEN ERROR
                         let logVerifStartErrorEmbed = new discord.MessageEmbed()
                             .setColor(config.embedOrange)
                             .setTitle(`${config.emjORANGETICK} Verification Attempt Issue!`)
-                            .addField(`User:`, `${interaction.user}`, true)
-                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .addField(`User:`, `${interactionUser}`, true)
+                            .addField(`User ID:`, `${interactionUser.id}`, true)
                             .addField(`Problem:`, `The user does not allow DMs from server members. HooterBot is not able to initiate the verification process.\n\nIf this error continues to appear, **please reach out to the user.**`)
                             .setTimestamp()
                     
@@ -121,131 +123,129 @@ module.exports = {
 
                         console.log(err);
 
-                        break;
+                        return false;
                     })
 
 
-                    console.log(`firstDMmsg = ${firstDMmsg}`)
-
-            //         // USER IS DM-ABLE, CONTINUE
-            //         // FETCH TICKET CATEGORY FROM DATABASE
-            //         if(dbGuildData.TICKET_CAT_ID) {
-            //             ticketCategory = dbGuildData.TICKET_CAT_ID;
-            //         }
+                    // USER IS DM-ABLE, CONTINUE
+                    // FETCH TICKET CATEGORY FROM DATABASE
+                    if(dbGuildData.TICKET_CAT_ID) {
+                        ticketCategory = dbGuildData.TICKET_CAT_ID;
+                    }
 
 
-            //         // GRABBING BOT ROLE
-            //         let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+                    // GRABBING BOT ROLE
+                    let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
 
 
-            //         // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-            //         let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
-            //             type: 'text',
-            //             parent: ticketCategory,
-            //             topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
-            //             permissionOverwrites: [
-            //                 {
-            //                     // EVERYONE ROLE - HIDE (EVEN FROM USER)
-            //                     id: interaction.guild.roles.everyone.id,
-            //                     deny: [`VIEW_CHANNEL`]
-            //                 },{
-            //                     // ADMINS - VIEW AND RESPOND
-            //                     id: config.adminRoleId,
-            //                     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-            //                 },{
-            //                     // MODERATORS - VIEW AND RESPOND
-            //                     id: config.modRoleId,
-            //                     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-            //                 },{
-            //                     // HOOTERBOT ROLE - VIEW AND RESPOND
-            //                     id: botRole.id,
-            //                     allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
-            //                 }
-            //             ],
-            //             reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
-            //         })
+                    // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
+                    let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
+                        type: 'text',
+                        parent: ticketCategory,
+                        topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
+                        permissionOverwrites: [
+                            {
+                                // EVERYONE ROLE - HIDE (EVEN FROM USER)
+                                id: interaction.guild.roles.everyone.id,
+                                deny: [`VIEW_CHANNEL`]
+                            },{
+                                // ADMINS - VIEW AND RESPOND
+                                id: config.adminRoleId,
+                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                            },{
+                                // MODERATORS - VIEW AND RESPOND
+                                id: config.modRoleId,
+                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                            },{
+                                // HOOTERBOT ROLE - VIEW AND RESPOND
+                                id: botRole.id,
+                                allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                            }
+                        ],
+                        reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
+                    })
 
 
-            //         // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
-            //         let newTicketLogEmbed = new discord.MessageEmbed()
-            //             .setColor(config.embedGreen)
-            //             .setTitle(`**Verification Ticket Opened**`)
-            //             .addField(`User:`, `${interaction.user}`, true)
-            //             .addField(`User Tag:`, `${interaction.user.tag}`, true)
-            //             .addField(`User ID:`, `${interaction.user.id}`, true)
-            //             .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
+                    // CREATE INTRO MESSAGE TO SEND TO TICKET CHANNEL
+                    let newTicketLogEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`**Verification Ticket Opened**`)
+                        .addField(`User:`, `${interaction.user}`, true)
+                        .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                        .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
-            //         // newTicketChannel.send({ embeds: [newTicketLogEmbed]})
+                    // newTicketChannel.send({ embeds: [newTicketLogEmbed]})
                         
 
 
-            //         // // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-            //         // const dbTicketData = ticketSchema.findOne({
-            //         //     GUILD_ID: interaction.guild.id
-            //         // }).exec();
+                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                    const dbTicketData = ticketSchema.findOne({
+                        GUILD_ID: interaction.guild.id
+                    }).exec();
 
 
-            //         // // LOG DATABASE INFORMATION FOR TICKET
-            //         // if(!dbTicketData) {
-            //         //     ticketSchema.findOneAndUpdate({
-            //         //         GUILD_ID: interaction.guild.id
-            //         //     },{
-            //         //         GUILD_ID: interaction.guild.id,
-            //         //         GUILD_NAME: interaction.guild.name,
-            //         //         CREATOR_NAME: interaction.user.username,
-            //         //         CREATOR_ID: interaction.user.id,
-            //         //         DM_INITIALMSG_ID: msg.id,
-            //         //         DM_2NDMSG_ID: "",
-            //         //         STAFF_CH_ID: newTicketChannel.id,
-            //         //     },{
-            //         //         upsert: true
-            //         //     }).exec();
-            //         // }
+                    // // LOG DATABASE INFORMATION FOR TICKET
+                    // if(!dbTicketData) {
+                    //     ticketSchema.findOneAndUpdate({
+                    //         GUILD_ID: interaction.guild.id
+                    //     },{
+                    //         GUILD_ID: interaction.guild.id,
+                    //         GUILD_NAME: interaction.guild.name,
+                    //         CREATOR_NAME: interaction.user.username,
+                    //         CREATOR_ID: interaction.user.id,
+                    //         DM_INITIALMSG_ID: msg.id,
+                    //         DM_2NDMSG_ID: "",
+                    //         STAFF_CH_ID: newTicketChannel.id,
+                    //     },{
+                    //         upsert: true
+                    //     }).exec();
+                    // }
 
 
                     
-            //         // LOGGING TICKET OPENING IN LOGS CHANNEL
-            //         let logErrorEmbed = new discord.MessageEmbed()
-            //             .setColor(config.embedGreen)
-            //             .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
-            //             .addField(`User:`, `${interaction.user}`, true)
-            //             .addField(`User ID:`, `${interaction.user.id}`, true)
-            //             .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-            //             .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
-            //             .setTimestamp()
+                    // LOGGING TICKET OPENING IN LOGS CHANNEL
+                    let logErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                        .addField(`User:`, `${interaction.user}`, true)
+                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                        .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
+                        .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                        .setTimestamp()
                         
 
-            //         // LOG ENTRY
-            //         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                    // LOG ENTRY
+                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
                     
-            //         // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
+                    // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
 
 
-            //     /***********************************************************/
-            //     /*      PHYSICAL TUID CARD                                 */
-            //     /***********************************************************/
-            //     if(interaction.customId === 'physical_TUid_Card') {
-            //         await interaction.deferUpdate()
-            //         await wait(2000);
+                /***********************************************************/
+                /*      PHYSICAL TUID CARD                                 */
+                /***********************************************************/
+                if(interaction.customId === 'physical_TUid_Card') {
+                    await interaction.deferUpdate()
+                    await wait(2000);
 
-            //         let disabledTUidCardButton = new MessageButton()
-            //         .setLabel("Physical TUid Card")
-            //         .setStyle("SECONDARY")
-            //         .setCustomId("physical_TUid_Card")
-            //         .setDisabled(true)
+                    let disabledTUidCardButton = new MessageButton()
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                    .setDisabled(true)
 
-            //         // BUTTON ROW
-            //         let buttonRow = new MessageActionRow()
-            //             .addComponents(
-            //                 disabledTUidCardButton,
-            //                 VirtualTUidCardButton,
-            //                 TuPortalButton,
-            //                 CancelButton
-            //             );
+                    // BUTTON ROW
+                    let buttonRow = new MessageActionRow()
+                        .addComponents(
+                            disabledTUidCardButton,
+                            VirtualTUidCardButton,
+                            TuPortalButton,
+                            CancelButton
+                        );
 
-            //         // POST THE PHYSICAL TUID CARD EMBED
-            //         await interaction.reply({embeds: [ticketEmbed], components: [buttonRow] })
+                    // POST THE PHYSICAL TUID CARD EMBED
+                    await interaction.reply({embeds: [ticketEmbed], components: [buttonRow] })
 
 
                 }
@@ -256,72 +256,72 @@ module.exports = {
 
 
 
-            // }
-            // // END OF "BEGIN VERIFICATION" PROMPT BUTTON
+            }
+            // END OF "BEGIN VERIFICATION" PROMPT BUTTON
 
 
 
 
-            // /***********************************************************/
-            // /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
-            // /***********************************************************/
+            /***********************************************************/
+            /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
+            /***********************************************************/
 
-            //     if(interaction.customId === 'quit') {
+                if(interaction.customId === 'quit') {
 
-            //         // GENERATING QUIT CONFIRMATION EMBED FOR DM
-            //         let quitConfirmEmbed = new discord.MessageEmbed()
-            //             .setColor(config.embedTempleRed)
-            //             .setTitle(`**Close confirmation.**`)
-            //             .setDescription(`Please confirm ticket cancellation.`)
+                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                    let quitConfirmEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedTempleRed)
+                        .setTitle(`**Close confirmation.**`)
+                        .setDescription(`Please confirm ticket cancellation.`)
 
-            //         // INITIALIZING BUTTON
-            //         let quitConfirmButton = new MessageButton()
-            //             .setLabel("Yes, Quit")
-            //             .setStyle("DANGER")
-            //             .setCustomId("quit_confirmation")
-            //         let cancelQuitButton = new MessageButton()
-            //             .setLabel("Cancel")
-            //             .setStyle("SECONDARY")
-            //             .setCustomId("cancel_quit")
+                    // INITIALIZING BUTTON
+                    let quitConfirmButton = new MessageButton()
+                        .setLabel("Yes, Quit")
+                        .setStyle("DANGER")
+                        .setCustomId("quit_confirmation")
+                    let cancelQuitButton = new MessageButton()
+                        .setLabel("Cancel")
+                        .setStyle("SECONDARY")
+                        .setCustomId("cancel_quit")
             
-            //         // BUTTON ROW
-            //         let buttonRow = new MessageActionRow()
-            //         .addComponents(
-            //             quitConfirmButton,
-            //             cancelQuitButton
-            //         );
+                    // BUTTON ROW
+                    let buttonRow = new MessageActionRow()
+                    .addComponents(
+                        quitConfirmButton,
+                        cancelQuitButton
+                    );
 
-            //         // DMING USER THE INITIAL QUIT PROMPT
-            //         interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
-            //             .catch(err => console.log(err))
+                    // DMING USER THE INITIAL QUIT PROMPT
+                    interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                        .catch(err => console.log(err))
 
-            //     }
-            //     // END OF "QUIT" BUTTON
-
-
+                }
+                // END OF "QUIT" BUTTON
 
 
-            //     /***********************************************************/
-            //     /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
-            //     /***********************************************************/
-            //     if(interaction.customId === 'quit_confirmation') {
 
-            //         // DELETING DATABASE ENTRY
 
-            //             // *****NEED TO ADD*****
+                /***********************************************************/
+                /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
+                /***********************************************************/
+                if(interaction.customId === 'quit_confirmation') {
 
-            //         // GENERATING QUIT CONFIRMATION EMBED FOR DM
-            //         let quitConfirmedEmbed = new discord.MessageEmbed()
-            //             .setColor(config.embedGreen)
-            //             .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
-            //             .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
-            //             \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+                    // DELETING DATABASE ENTRY
 
-            //         // DMING USER THE QUIT CONFIRMATION
-            //         interaction.user.send({embeds: [quitConfirmedEmbed] })
-            //             .catch(err => console.log(err))
-            //     }
-            //     // END OF "QUIT CONFIRM" BUTTON
+                        // *****NEED TO ADD*****
+
+                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                    let quitConfirmedEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                        .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
+                        \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+
+                    // DMING USER THE QUIT CONFIRMATION
+                    interaction.user.send({embeds: [quitConfirmedEmbed] })
+                        .catch(err => console.log(err))
+                }
+                // END OF "QUIT CONFIRM" BUTTON
 
 
 
