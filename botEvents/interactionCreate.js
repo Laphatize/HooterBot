@@ -70,7 +70,7 @@ module.exports = {
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("physical_TUid_Card")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let VirtualTUidCardButton = new MessageButton()
                     .setLabel("Virtual TUid Card")
                     .setStyle("SECONDARY")
@@ -85,7 +85,7 @@ module.exports = {
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
                     .setCustomId("quit")
-                    .setDisabled(true)
+                    .setDisabled(false)
 
                 // BUTTON ROW
                 let initialButtonRow = new MessageActionRow()
