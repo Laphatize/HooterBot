@@ -65,11 +65,15 @@ for (const folder of cmdFolders) {
 
 
 // UNKNOWN ERROR REPORTING
-process.on('unhandledRejection', err =>{
-    console.log(`******** UNKNOWN ERROR *********`);
-    console.log(err);
-    console.log(`********************************\n`);
-
+process.on('unhandledRejection', err => {
+    if(err == `This user cannot be DM'd.`) {
+        return;
+    }
+    else {
+        console.log(`******** UNKNOWN ERROR *********`);
+        console.log(err);
+        console.log(`********************************\n`);
+    }
     
     // DEFINING LOG EMBED
     let logErrEmbed = new discord.MessageEmbed()
