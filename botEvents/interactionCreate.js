@@ -97,8 +97,6 @@ module.exports = {
                 );
 
 
-            // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-            let dmAbility = true;
             
             console.log(`dmAbility pre-check =  ${dmAbility}`)
 
@@ -106,8 +104,6 @@ module.exports = {
             let firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                 .catch(err => {
                     // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
-                    dmAbility === false;
-
                     // LOGGING TICKET OPEN ERROR
                     let logVerifStartErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
@@ -132,17 +128,18 @@ module.exports = {
                     return dmAbility = undefined;
                 })
 
-                console.log(`dmAbility post-check = ${dmAbility}`)
+                console.log(`firstDMmsg = ${firstDMmsg}`)
 
-                // USER IS NOT DM-AMBE, QUIT
-                if(dmAbility === false) {
-                    console.log(`dmAbility is FALSE and the bot will not DM the user and end here.`)
-                }
+                // // USER IS NOT DM-AMBE, QUIT
+                // if(!firstDMmsg) {
+                //     console.log(`the initial DM message is invalid, do not DM the user and end here.`)
+                // }
                 
-                // USER IS DM-ABLE, CONTINUE
-                else if(dmAbility === true) {
+                // // USER IS DM-ABLE, CONTINUE
+                // else if(firstDMmsg) {
 
-                    console.log(`dmAbilit is TRUE and the bot will DM and continue on.`)
+                //     console.log(`dmAbilit is TRUE and the bot will DM and continue on.`)
+                
 
                 
                 //     // FETCH TICKET CATEGORY FROM DATABASE
@@ -244,8 +241,8 @@ module.exports = {
 
                 //     // LOG ENTRY
                 //     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
-                }
-                // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
+                // }
+                // // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
 
 
