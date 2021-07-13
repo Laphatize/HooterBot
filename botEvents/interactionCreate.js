@@ -134,8 +134,8 @@ module.exports = {
                 console.log(`dmAbility post-check = ${dmAbility}`)
 
                 // USER IS NOT DM-AMBE, QUIT
-                if(dmAbility === false) {
-                    return
+                if(dmAbility === true) {
+                    console.log(`dmAbility is true and the code in here is executed.`)
                 }
                 
                 // USER IS DM-ABLE, CONTINUE
