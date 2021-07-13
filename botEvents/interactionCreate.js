@@ -102,7 +102,7 @@ module.exports = {
                 console.log(`dmAbility pre-check =  ${dmAbility}`)
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
-                await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                     .catch(err => {
                         // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
 
@@ -184,7 +184,7 @@ module.exports = {
                             GUILD_ID: interaction.guild.id
                         }).exec();
 
-                        
+
                         // LOG DATABASE INFORMATION FOR TICKET
                         if(!dbTicketData) {
                             await ticketSchema.findOneAndUpdate({
