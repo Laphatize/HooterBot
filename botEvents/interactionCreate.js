@@ -136,10 +136,6 @@ module.exports = {
                 if(dmAbility === true) {
                     console.log(`dmAbility is true and the code in here is executed.`)
                 }
-
-                else if(!dmAbility === true) {
-                    console.log(`dmAbility is not true and this code is run.`)
-                }
                 
                 // USER IS DM-ABLE, CONTINUE
                 // FETCH TICKET CATEGORY FROM DATABASE
