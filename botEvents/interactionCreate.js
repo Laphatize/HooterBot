@@ -139,7 +139,7 @@ module.exports = {
 
 
                         // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                        let newTicketChannel = await interaction.guild.channels.create(`${ticketChannelName}`, {
+                        let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
                             type: 'text',
                             parent: ticketCategory,
                             topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
@@ -180,14 +180,14 @@ module.exports = {
 
 
                         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                        const dbTicketData = await ticketSchema.findOne({
+                        const dbTicketData = ticketSchema.findOne({
                             GUILD_ID: interaction.guild.id
                         }).exec();
 
 
                         // LOG DATABASE INFORMATION FOR TICKET
                         if(!dbTicketData) {
-                            await ticketSchema.findOneAndUpdate({
+                            ticketSchema.findOneAndUpdate({
                                 GUILD_ID: interaction.guild.id
                             },{
                                 GUILD_ID: interaction.guild.id,
