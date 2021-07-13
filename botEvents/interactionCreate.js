@@ -124,8 +124,11 @@ module.exports = {
                         return false;
                     })
 
+                    .then(msg => {
+                        console.log(`This code is running in the '.then()'. If you're seeing this and the DM failed, that's not right.` )
+                    })
 
-                    console.log(`firstDMmsg = ${firstDMmsg}`)
+
 
             //         // USER IS DM-ABLE, CONTINUE
             //         // FETCH TICKET CATEGORY FROM DATABASE
