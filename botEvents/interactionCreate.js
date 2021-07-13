@@ -131,13 +131,12 @@ module.exports = {
                     }
 
 
-
                     // GRABBING BOT ROLE
                     let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
 
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                    let newTicketChannel = await interaction.guild.channels.create(`${ticketChannelName}`, {
+                    let newTicketChannel = interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'text',
                         parent: ticketCategory,
                         topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
