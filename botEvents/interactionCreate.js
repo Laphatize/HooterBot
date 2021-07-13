@@ -128,6 +128,8 @@ module.exports = {
                     return dmAbility = false;
                 }
 
+                console.log(`\npost-check = ${dmAbility}`)
+
                 if (dmAbility === true) {                
                         // USER IS DM-ABLE, CONTINUE
                         // FETCH TICKET CATEGORY FROM DATABASE
