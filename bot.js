@@ -66,7 +66,7 @@ for (const folder of cmdFolders) {
 
 // UNKNOWN ERROR REPORTING
 process.on('unhandledRejection', err => {
-    if(err == `This user cannot be DM'd.`) {
+    if(err == `Error: This user cannot be DM'd.`) {
         return;
     }
     else {
