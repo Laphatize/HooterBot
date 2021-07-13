@@ -97,11 +97,7 @@ module.exports = {
                     );
 
 
-                // VARIABLE TO CHECK DM ABILITY FOR BOT. ASSUMED TRUE AT FIRST
-                var dmAbility = true;
-                console.log(`dmAbility pre-check =  ${dmAbility}`)
-
-                
+               
 
                 let interactionUser = interaction.user;
                 let canDmUser = true;
@@ -111,7 +107,9 @@ module.exports = {
                     // DMING USER THE INITIAL VERIFICATION PROMPT
                     try {
                         interactionUser.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
-                    } catch(err) { // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
+                        return true;
+                    } catch(err) {
+                        // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS!
                         // LOGGING TICKET OPEN ERROR
                         let logVerifStartErrorEmbed = new discord.MessageEmbed()
                             .setColor(config.embedOrange)
@@ -132,7 +130,7 @@ module.exports = {
                             console.log(err)
                         }
 
-                        return dmAbility = false;
+                        return false;
                     }
                 }
 
