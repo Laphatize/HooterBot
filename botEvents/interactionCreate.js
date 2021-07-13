@@ -175,7 +175,7 @@ module.exports = {
 
 
                     // FETCHING THE NEW TICKET TEXT CHANNEL TO SEND TICKET START EMBED
-                    newTicketChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                    let newTicketChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
 
 
                     console.log(`newTicketChannel = ${newTicketChannel}`)
