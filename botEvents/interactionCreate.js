@@ -123,25 +123,23 @@ module.exports = {
                     }
                 })
 
-                console.log(`firstDMmsg = ${firstDMmsg}`)
-                console.log(`firstDMmsg.id = ${firstDMmsg.id}`)
-
-                // // USER IS NOT DM-AMBE, QUIT
-                // if(!firstDMmsg) {
-                //     console.log(`the initial DM message is invalid, do not DM the user and end here.`)
-                // }
+                // GRABBING THE firstDMmsg ID, USER IS NOT DM-AMBE, QUIT
+                if(firstDMmsg.id == undefined) {
+                    console.log(`the initial DM is INVALID, do not create a channel and end here.`)
+                }
                 
-                // // USER IS DM-ABLE, CONTINUE
-                // else if(firstDMmsg) {
+                // USER IS DM-ABLE, CONTINUE
+                else if(!firstDMmsg.id == undefined ) {
 
-                //     console.log(`dmAbilit is TRUE and the bot will DM and continue on.`)
+                    console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
                 
 
                 
-                //     // FETCH TICKET CATEGORY FROM DATABASE
-                //     if(dbGuildData.TICKET_CAT_ID) {
-                //         ticketCategory = dbGuildData.TICKET_CAT_ID;
-                //     }
+                    // FETCH TICKET CATEGORY FROM DATABASE
+                    if(dbGuildData.TICKET_CAT_ID) {
+                        ticketCategory = dbGuildData.TICKET_CAT_ID;
+                    }
+                }
 
 
                 //     // GRABBING BOT ROLE
