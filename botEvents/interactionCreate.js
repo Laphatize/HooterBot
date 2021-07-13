@@ -98,12 +98,13 @@ module.exports = {
                     );
 
 
-                var dmAbility = true; 
+                var dmAbility = false; 
 
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 try {
                     firstDMmsg = interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                    dmAbility = true;
                 } catch {
                     // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
 
@@ -124,7 +125,7 @@ module.exports = {
                     try {
                         interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in your **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
                     } catch(err) {
-                        throw new Error(`This user cannot be DM'd.`)
+                        console.log(err)
                     }
 
                     // SETTING THE DM ABILITY VALUE WHEN SENDING FAILS
