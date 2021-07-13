@@ -172,12 +172,16 @@ module.exports = {
                     .addField(`User ID:`, `${interaction.user.id}`, true)
                     .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
-                    console.log(`firstDMmsg = ${firstDMmsg}`)
 
-                    return;
 
                     // FETCHING THE NEW TICKET TEXT CHANNEL TO SEND TICKET START EMBED
                     newTicketChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+
+
+                    console.log(`newTicketChannel = ${newTicketChannel}`)
+
+                    return;
+
 
                     // SENDING INTRO EMBED TO TICKET CHANNEL
                     newTicketChannel.send({ embeds: [newTicketEmbed]})
