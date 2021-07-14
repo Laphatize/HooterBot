@@ -176,8 +176,10 @@ module.exports = {
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                         console.log(`interaction.guild = \n ${interaction.guild}`)
                         
-                        
-                        // .channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [newTicketEmbed] })
+
+                    // GET GUILD
+                    guild = client.guilds.cache.get(interaction.guildId)
+                    guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [newTicketEmbed] })
                     
 
 
