@@ -173,19 +173,9 @@ module.exports = {
                     .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
 
+                    // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
+                    await interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase()).send({ embeds: [newTicketEmbed]})
 
-                    // FETCHING THE NEW TICKET TEXT CHANNEL TO SEND TICKET START EMBED
-                    let newTicketChannel = interaction.guild.channels.cache.get(ch => ch.name === ticketChannelName)
-
-
-                    console.log(`newTicketChannel = ${newTicketChannel}`)
-
-                    return;
-
-
-                    // SENDING INTRO EMBED TO TICKET CHANNEL
-                    newTicketChannel.send({ embeds: [newTicketEmbed]})
-                        
 
                     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
                     const dbTicketData = await ticketSchema.findOne({
