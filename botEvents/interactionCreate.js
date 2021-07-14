@@ -136,7 +136,7 @@ module.exports = {
 
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-                    interaction.guild.channels.create(`${ticketChannelName}`, {
+                    await interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'text',
                         parent: ticketCategory,
                         topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
@@ -161,25 +161,20 @@ module.exports = {
                         ],
                         reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                     })
+                    .then(ch => {
+                        // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                        let newTicketEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`**Verification Ticket Opened**`)
+                            .addField(`User:`, `${interaction.user}`, true)
+                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
 
-                    // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-                    let newTicketEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`**Verification Ticket Opened**`)
-                        .addField(`User:`, `${interaction.user}`, true)
-                        .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                        .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
-
-
-                    // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                        console.log(`interaction.guild = \n ${interaction.guild}`)
-                        
-
-                    // GET GUILD
-                    guild = client.guilds.cache.get(interaction.guildId)
-                    guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [newTicketEmbed] })
+                        // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
+                        ch.send({ embeds: [newTicketEmbed] })
+                    })
                     
 
 
