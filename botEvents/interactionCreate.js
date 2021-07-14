@@ -125,6 +125,9 @@ module.exports = {
                 // SUCESSFUL
                 if(firstDMmsg) {
                     console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
+                    console.log(`firstDMmsg.id = ${firstDMmsg.id}`)
+
+
                     // FETCH TICKET CATEGORY FROM DATABASE
                     if(dbGuildData.TICKET_CAT_ID) {
                         ticketCategory = dbGuildData.TICKET_CAT_ID;
@@ -134,6 +137,9 @@ module.exports = {
                     // GRABBING BOT ROLE
                     let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
 
+
+                    // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE
+                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
@@ -161,78 +167,73 @@ module.exports = {
                         ],
                         reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                     })
-                    .then(ch => {
-                        // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-                        let newTicketEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedGreen)
-                            .setTitle(`**Verification Ticket Opened**`)
-                            .addField(`User:`, `${interaction.user}`, true)
-                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                            .addField(`User ID:`, `${interaction.user.id}`, true)
-                            .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
+                        .then(modAdminTicketCh => {
+                            // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                            let newTicketEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedGreen)
+                                .setTitle(`**Verification Ticket Opened**`)
+                                .addField(`User:`, `${interaction.user}`, true)
+                                .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                .addField(`User ID:`, `${interaction.user.id}`, true)
+                                .addField(`Ticket Auto-Close On:`, `${closeDate}`)
+                                .setFooter(`Please do not send a message in this channel unless it is in response to a user's question. (Note: feature not online yet)`)
 
 
-                        // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                        ch.send({ embeds: [newTicketEmbed] })
-                    })
-                    
-
-
-                //     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                //     const dbTicketData = await ticketSchema.findOne({
-                //         GUILD_ID: interaction.guild.id
-                //     }).exec();
-
-                //     // LOG DATABASE INFORMATION FOR TICKET
-                //     if(!dbTicketData) {
-                //         await ticketSchema.findOneAndUpdate({
-                //             GUILD_ID: interaction.guild.id
-                //         },{
-                //             GUILD_ID: interaction.guild.id,
-                //             GUILD_NAME: interaction.guild.name,
-                //             CREATOR_NAME: interaction.user.username,
-                //             CREATOR_ID: interaction.user.id,
-                //             DM_INITIALMSG_ID: "",
-                //             DM_2NDMSG_ID: "",
-                //             STAFF_CH_ID: newTicketChannel.id,
-                //         },{
-                //             upsert: true
-                //         }).exec();
-                //     }
-
-
-
-                //     // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                //     await ticketSchema.findOneAndUpdate({
-                //         GUILD_ID: interaction.guild.id
-                //     },{
-                //         DM_INITIALMSG_ID: firstDMmsg.id,
-                //     },{
-                //         upsert: true
-                //     }).exec();
-
-
-                    
-                //     // LOGGING TICKET OPENING IN LOGS CHANNEL
-                //     let logErrorEmbed = new discord.MessageEmbed()
-                //         .setColor(config.embedGreen)
-                //         .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
-                //         .addField(`User:`, `${interaction.user}`, true)
-                //         .addField(`User ID:`, `${interaction.user.id}`, true)
-                //         .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-                //         .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
-                //         .setTimestamp()
+                            // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
+                            modAdminTicketCh.send({ embeds: [newTicketEmbed] })
                         
 
-                //     // LOG ENTRY
-                //     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
-                // }
-                
-                // // USER IS DM-ABLE, CONTINUE
-                // else {
-                //     console.log(`the initial DM is INVALID, do not create a channel and end here.`)
-                //     return;
-                // }                
+                            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                            const dbTicketData = await ticketSchema.findOne({
+                                GUILD_ID: interaction.guild.id
+                            }).exec();
+
+
+                            // LOG DATABASE INFORMATION FOR TICKET
+                            if(!dbTicketData) {
+                                await ticketSchema.findOneAndUpdate({
+                                    GUILD_ID: interaction.guild.id
+                                },{
+                                    GUILD_ID: interaction.guild.id,
+                                    GUILD_NAME: interaction.guild.name,
+                                    CREATOR_NAME: interaction.user.username,
+                                    CREATOR_ID: interaction.user.id,
+                                    DM_INITIALMSG_ID: "",
+                                    DM_2NDMSG_ID: "",
+                                    STAFF_CH_ID: modAdminTicketCh.id,
+                                    TICKET_CLOSE: closeDate
+                                },{
+                                    upsert: true
+                                }).exec();
+                            }
+
+
+
+                            // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
+                            await ticketSchema.findOneAndUpdate({
+                                GUILD_ID: interaction.guild.id
+                            },{
+                                DM_INITIALMSG_ID: firstDMmsg.id,
+                            },{
+                                upsert: true
+                            }).exec();
+
+
+                            
+                            // LOGGING TICKET OPENING IN LOGS CHANNEL
+                            let logErrorEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedGreen)
+                                .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                                .addField(`User:`, `${interaction.user}`, true)
+                                .addField(`User ID:`, `${interaction.user.id}`, true)
+                                .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
+                                .addField(`Ticket Auto-Closing On:`, `${closeDate}`)
+                                .setTimestamp()
+                                
+
+                            // LOG ENTRY
+                            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                        })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 

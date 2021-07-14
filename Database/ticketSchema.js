@@ -21,6 +21,8 @@ module.exports = mongoose.model("Tickets", new mongoose.Schema({
     // STAFF CHANNEL ID CREATED ON TICKET OPEN
     STAFF_CH_ID: {type: String},
 
+    TICKET_CLOSE: {type: String}
+
 },{
     timestamps: true,
     versionKey: false,
