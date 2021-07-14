@@ -43,7 +43,7 @@ module.exports = {
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - IF ELIGIBLE TO APPLY
                 interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.`, ephemeral: true })
-                    .catch(err => {console.log(err)});
+                    .catch(err => console.log(err))
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -174,11 +174,12 @@ module.exports = {
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    adminModCh = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
-                        .then(console.log(adminModCh))
+                    adminModCh = interaction.guild.channels.cache.get(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+
+                    console.log(`adminModCh = ${adminModCh}`)
                     
                     
-                    // .send({ embeds: [newTicketEmbed]})
+                    // adminModCh.send({ embeds: [newTicketEmbed]})
                     
 
 
