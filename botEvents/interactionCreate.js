@@ -184,14 +184,14 @@ module.exports = {
                         
 
                             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                            const dbTicketData = await ticketSchema.findOne({
+                            const dbTicketData = ticketSchema.findOne({
                                 GUILD_ID: interaction.guild.id
                             }).exec();
 
 
                             // LOG DATABASE INFORMATION FOR TICKET
                             if(!dbTicketData) {
-                                await ticketSchema.findOneAndUpdate({
+                                ticketSchema.findOneAndUpdate({
                                     GUILD_ID: interaction.guild.id
                                 },{
                                     GUILD_ID: interaction.guild.id,
@@ -210,7 +210,7 @@ module.exports = {
 
 
                             // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                            await ticketSchema.findOneAndUpdate({
+                            ticketSchema.findOneAndUpdate({
                                 GUILD_ID: interaction.guild.id
                             },{
                                 DM_INITIALMSG_ID: firstDMmsg.id,
