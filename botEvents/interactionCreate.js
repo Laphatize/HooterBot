@@ -101,6 +101,10 @@ module.exports = {
                 // DMING USER THE INITIAL VERIFICATION PROMPT
                 let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
                     .catch(err => {
+
+                        // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
+                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
+                            .catch(err => console.log(err))
                         // THE USER DOES NOT ALLOW DMs FROM THE BOT B/C PRIVACY SETTINGS! - DO NOT LOG, WE KNOW THE CHANNEL DOESN'T EXIST
                         // LOGGING TICKET OPEN ERROR
                         let logVerifStartErrorEmbed = new discord.MessageEmbed()
@@ -114,10 +118,6 @@ module.exports = {
 
                         // LOG ENTRY
                         client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
-                            
-                        // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
-                        interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                            .catch(err => console.log(err))
                     })
 
 
