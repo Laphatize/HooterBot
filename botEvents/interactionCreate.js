@@ -23,7 +23,7 @@ module.exports = {
 
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
-                    // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER DOES NOT NEED TO VERIFY AGAIN
+                    // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
                         content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
                         ephemeral: true })
@@ -33,7 +33,7 @@ module.exports = {
 
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
                 if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())) {
-                    // CANCEL AND RESPOND WITH EPHEMERAL SINCE USER IS ALREADY IN THE PROCESS OF VERIFYING
+                    // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
                     return interaction.reply({
                         content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
                         ephemeral: true })
@@ -41,7 +41,7 @@ module.exports = {
 
 
 
-                // EMPHEMERAL REPLY TO BUTTON PRESS - LET USER KNOW TO CHECK THEIR DMS
+                // EMPHEMERAL REPLY TO BUTTON PRESS - IF ELIGIBLE TO APPLY
                 interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.`, ephemeral: true })
                     .catch(err => {console.log(err)});
 
@@ -117,7 +117,7 @@ module.exports = {
                             
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
                         interaction.editReply({ content: `${config.emjREDTICK} **Error!** I was not able to start verification because **I am not able to DM you!**\nYou'll need to allow DMs from server members until the verification process is completed. You can turn this on in the **privacy settings** for the server.\nOnce enabled, please try to begin verification again. Submit a ModMail ticket if this issue persists.`, ephemeral: true })
-                        .catch(err => console.log(err))
+                            .catch(err => console.log(err))
                     })
 
 
@@ -165,20 +165,21 @@ module.exports = {
 
                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`**Verification Ticket Opened**`)
-                    .addField(`User:`, `${interaction.user}`, true)
-                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                    .addField(`User ID:`, `${interaction.user.id}`, true)
-                    .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
+                        .setColor(config.embedGreen)
+                        .setTitle(`**Verification Ticket Opened**`)
+                        .addField(`User:`, `${interaction.user}`, true)
+                        .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                        .setFooter(`Please do not send a message in this channel unless it is in response to a user's question.`)
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                     adminModCh = await client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
-                    .then(console.log(adminModCh))
+                        .then(console.log(adminModCh))
                     
                     
                     // .send({ embeds: [newTicketEmbed]})
+                    
 
 
                 //     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -236,9 +237,7 @@ module.exports = {
                 //     console.log(`the initial DM is INVALID, do not create a channel and end here.`)
                 //     return;
                 // }                
-
-                
-                    
+                }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
 
 
