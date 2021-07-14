@@ -174,12 +174,9 @@ module.exports = {
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    adminModCh = interaction.guild.channels.fetch(ch => ch.name === ticketChannelName)
+                    modAdminChId = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName).id
 
-                    console.log(`adminModCh = ${adminModCh}`)
-                    
-                    
-                    // adminModCh.send({ embeds: [newTicketEmbed]})
+                    interaction.guild.channels.fetch(ch => ch.id === modAdminChId).send({ embeds: [newTicketEmbed]})
                     
 
 
