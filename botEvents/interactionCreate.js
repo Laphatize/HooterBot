@@ -174,7 +174,7 @@ module.exports = {
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    adminModCh = interaction.guild.channels.cache.get(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                    adminModCh = interaction.guild.channels.fetch(ch => ch.name === ticketChannelName)
 
                     console.log(`adminModCh = ${adminModCh}`)
                     
