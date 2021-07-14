@@ -174,7 +174,7 @@ module.exports = {
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    adminModCh = await client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                    adminModCh = await interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
                         .then(console.log(adminModCh))
                     
                     
