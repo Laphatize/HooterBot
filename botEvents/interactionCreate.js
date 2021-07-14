@@ -42,7 +42,7 @@ module.exports = {
 
 
                 // EMPHEMERAL REPLY TO BUTTON PRESS - IF ELIGIBLE TO APPLY
-                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.`, ephemeral: true })
+                interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n**Didn't receive a DM?** Please create a ModMail ticket and let us know!`, ephemeral: true })
                     .catch(err => console.log(err))
 
 
