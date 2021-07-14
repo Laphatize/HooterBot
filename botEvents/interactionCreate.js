@@ -174,64 +174,68 @@ module.exports = {
 
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    await interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase()).send({ embeds: [newTicketEmbed]})
+                    adminModCh = await client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                    .then(console.log(adminModCh))
+                    
+                    
+                    // .send({ embeds: [newTicketEmbed]})
 
 
-                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                    const dbTicketData = await ticketSchema.findOne({
-                        GUILD_ID: interaction.guild.id
-                    }).exec();
+                //     // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                //     const dbTicketData = await ticketSchema.findOne({
+                //         GUILD_ID: interaction.guild.id
+                //     }).exec();
 
-                    // LOG DATABASE INFORMATION FOR TICKET
-                    if(!dbTicketData) {
-                        await ticketSchema.findOneAndUpdate({
-                            GUILD_ID: interaction.guild.id
-                        },{
-                            GUILD_ID: interaction.guild.id,
-                            GUILD_NAME: interaction.guild.name,
-                            CREATOR_NAME: interaction.user.username,
-                            CREATOR_ID: interaction.user.id,
-                            DM_INITIALMSG_ID: "",
-                            DM_2NDMSG_ID: "",
-                            STAFF_CH_ID: newTicketChannel.id,
-                        },{
-                            upsert: true
-                        }).exec();
-                    }
+                //     // LOG DATABASE INFORMATION FOR TICKET
+                //     if(!dbTicketData) {
+                //         await ticketSchema.findOneAndUpdate({
+                //             GUILD_ID: interaction.guild.id
+                //         },{
+                //             GUILD_ID: interaction.guild.id,
+                //             GUILD_NAME: interaction.guild.name,
+                //             CREATOR_NAME: interaction.user.username,
+                //             CREATOR_ID: interaction.user.id,
+                //             DM_INITIALMSG_ID: "",
+                //             DM_2NDMSG_ID: "",
+                //             STAFF_CH_ID: newTicketChannel.id,
+                //         },{
+                //             upsert: true
+                //         }).exec();
+                //     }
 
 
 
-                    // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
-                    await ticketSchema.findOneAndUpdate({
-                        GUILD_ID: interaction.guild.id
-                    },{
-                        DM_INITIALMSG_ID: firstDMmsg.id,
-                    },{
-                        upsert: true
-                    }).exec();
+                //     // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
+                //     await ticketSchema.findOneAndUpdate({
+                //         GUILD_ID: interaction.guild.id
+                //     },{
+                //         DM_INITIALMSG_ID: firstDMmsg.id,
+                //     },{
+                //         upsert: true
+                //     }).exec();
 
 
                     
-                    // LOGGING TICKET OPENING IN LOGS CHANNEL
-                    let logErrorEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
-                        .addField(`User:`, `${interaction.user}`, true)
-                        .addField(`User ID:`, `${interaction.user.id}`, true)
-                        .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
-                        .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
-                        .setTimestamp()
+                //     // LOGGING TICKET OPENING IN LOGS CHANNEL
+                //     let logErrorEmbed = new discord.MessageEmbed()
+                //         .setColor(config.embedGreen)
+                //         .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                //         .addField(`User:`, `${interaction.user}`, true)
+                //         .addField(`User ID:`, `${interaction.user.id}`, true)
+                //         .addField(`Mod/Admin Channel:`, `${newTicketChannel}`, true)
+                //         .addField(`Ticket Closing Date:`, `${moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")}`)
+                //         .setTimestamp()
                         
 
-                    // LOG ENTRY
-                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
-                }
+                //     // LOG ENTRY
+                //     client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                // }
                 
-                // USER IS DM-ABLE, CONTINUE
-                else {
-                    console.log(`the initial DM is INVALID, do not create a channel and end here.`)
-                    return;
-                }                
+                // // USER IS DM-ABLE, CONTINUE
+                // else {
+                //     console.log(`the initial DM is INVALID, do not create a channel and end here.`)
+                //     return;
+                // }                
 
                 
                     
