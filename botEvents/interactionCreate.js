@@ -258,16 +258,11 @@ module.exports = {
                     .setLabel("Yes, Quit")
                     .setStyle("DANGER")
                     .setCustomId("quit_confirmation")
-                let cancelQuitButton = new MessageButton()
-                    .setLabel("Cancel")
-                    .setStyle("SECONDARY")
-                    .setCustomId("cancel_quit")
         
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
                 .addComponents(
-                    quitConfirmButton,
-                    cancelQuitButton
+                    quitConfirmButton
                 );
 
                 // DEFERRING BUTTON ACTION
@@ -329,19 +324,6 @@ module.exports = {
 
             }
             // END OF "QUIT CONFIRM" BUTTON
-
-
-
-
-            /***********************************************************/
-            /*      CANCEL QUIT (2nd QUIT IN DMS PROMPT)               */
-            /***********************************************************/
-            if(interaction.customId === 'cancel_quit') {
-
-                // DELETING THE CANCEL PROMPT
-                interaction.deleteReply()
-            }
-            // END OF "CANCEL QUIT" BUTTON
 
 
 
