@@ -364,8 +364,23 @@ module.exports = {
 
 
 
+                let adminModCh = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
                 // DELETE TICKET CHANNEL FROM GUILD BY NAME
-                interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase()).delete()
+                if (adminModCh) {
+                    adminModCh.delete()
+                        .catch(err => console.log(err))
+                }
+                else {
+                    // LOGGING CHANNEL NOT FOUND
+                    let logCloseTicketErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Could not locate verification channel`)
+                        .setDescription(`Was it deleted?\n**Channel:** ${adminModCh}`)
+                        .setTimestamp()
+
+                    // LOG ENTRY
+                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logCloseTicketErrorEmbed]})
+                }
                 
 
                 // LOGGING TICKET CLOSURE
@@ -378,7 +393,6 @@ module.exports = {
                     .addField(`Ticket closed early by:`, `${interaction.user}`)
                     .setTimestamp()
                 
-
                 // LOG ENTRY
                 client.channels.cache.get(config.logActionsChannelId).send({embeds: [logCloseTicketEmbed]})
 
