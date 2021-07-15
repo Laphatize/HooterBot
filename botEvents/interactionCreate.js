@@ -335,7 +335,7 @@ module.exports = {
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
                 await interaction.deferUpdate()
                 // DELETE THE INTERACTION MESSAGE
-                    .then(msg => {client.setTimeout(() => msg.delete(), 0 )})
+                    .then(interaction => {client.setTimeout(() => interaction.delete(), 0 )})
                     .catch(err => console.log(err))
             }
             // END OF "QUIT CONFIRM" BUTTON
