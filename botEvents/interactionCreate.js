@@ -269,14 +269,13 @@ module.exports = {
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
+                const dbTicketData = await guildSchema.findOne({
+                    CREATOR_ID: interaction.user.id
                 }).exec();
-                
 
-                // EDITING INITIAL PROMPT SO BUTTONS ARE ALL DISABLED
-                // FETCH INITIAL DM MESSAGE FROM DATABASE
-                let initialDmMsg = interaction.channel.messages.fetch(dbGuildData.DM_INITIALMSG_ID)
+
+                // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
+                let initialDmMsg = interaction.channel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
 
 
                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -314,9 +313,11 @@ module.exports = {
                 
 
 
-                // // EDITING 2ND PROMPT SO BUTTONS ARE DISABLED
-                // if(dbGuildData.DM_2NDMSG_ID) {
+                // // EDITING 2ND PROMPT IF IT EXISTS SO BUTTONS ARE DISABLED
+                // if(dbTicketData.DM_2NDMSG_ID) {
                 //     secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
+                //     // EDIT 2ND DM MSG SO BUTTONS ARE DISABLED
+                // 
                 // }
 
 
