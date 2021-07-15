@@ -326,7 +326,7 @@ module.exports = {
 
 
                         // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                        await initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                        initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
                     })
                     
 
