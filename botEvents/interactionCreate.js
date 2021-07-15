@@ -65,7 +65,7 @@ module.exports = {
                         \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
 
 
-                // INITIALIZING BUTTON
+                // INITIALIZING BUTTONS 
                 let TUidCardButton = new MessageButton()
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
@@ -125,10 +125,6 @@ module.exports = {
                 // GRABBING THE DM MESSAGE ATTEMPT
                 // SUCESSFUL
                 if(firstDMmsg) {
-                    console.log(`the initial DM is VALID and the bot will DM and create the channel.`)
-                    console.log(`firstDMmsg.id = ${firstDMmsg.id}`)
-
-
                     // FETCH TICKET CATEGORY FROM DATABASE
                     if(dbGuildData.TICKET_CAT_ID) {
                         ticketCategory = dbGuildData.TICKET_CAT_ID;
@@ -270,6 +266,53 @@ module.exports = {
 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
+
+
+                // EDITING INITIAL PROMPT SO BUTTONS ARE ALL DISABLED
+                // FETCH INITIAL DM MESSAGE FROM DATABASE
+                let initialDmMsg = interaction.channel.messages.fetch(dbGuildData.DM_INITIALMSG_ID)
+
+
+                // INITIALIZING BUTTONS - ALL DISABLED
+                let TUidCardButtonDisabled = new MessageButton()
+                    .setLabel("Physical TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("physical_TUid_Card")
+                    .setDisabled(true)
+                let VirtualTUidCardButtonDisabled = new MessageButton()
+                    .setLabel("Virtual TUid Card")
+                    .setStyle("SECONDARY")
+                    .setCustomId("virtual_TUid_Card")
+                    .setDisabled(true)
+                let TuPortalButtonDisabled = new MessageButton()
+                    .setLabel("TUportal")
+                    .setStyle("SECONDARY")
+                    .setCustomId("TU_portal")
+                    .setDisabled(true)
+                let QuitButtonDisabled = new MessageButton()
+                    .setLabel("Quit Verification")
+                    .setStyle("DANGER")
+                    .setCustomId("quit")
+                    .setDisabled(true)
+
+                // BUTTON ROW
+                let initialButtonRowDisabled = new MessageActionRow()
+                    .addComponents(
+                        TUidCardButtonDisabled,
+                        VirtualTUidCardButtonDisabled,
+                        TuPortalButtonDisabled,
+                        QuitButtonDisabled
+                    );
+
+                await initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                
+
+
+                // // EDITING 2ND PROMPT SO BUTTONS ARE DISABLED
+                // if(dbGuildData.DM_2NDMSG_ID) {
+                //     secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
+                // }
+
 
 
                 // DELETING DATABASE ENTRY
