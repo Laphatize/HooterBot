@@ -327,6 +327,23 @@ module.exports = {
 
 
 
+            /***********************************************************/
+            /*      CANCEL QUIT (2nd QUIT IN DMS PROMPT)               */
+            /***********************************************************/
+            if(interaction.customId === 'cancel_quit') {
+
+                // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
+                interaction.deferUpdate
+                    .catch(err => console.log(err))
+                // DELETE THE INTERACTION MESSAGE
+                    .then(msg => {client.setTimeout(() => msg.delete(), 0 )})
+                    .catch(err => console.log(err))
+            }
+            // END OF "QUIT CONFIRM" BUTTON
+
+
+
+
             // /***********************************************************/
             // /*      PHYSICAL TUID CARD                                 */
             // /***********************************************************/
