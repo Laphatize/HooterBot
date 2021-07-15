@@ -275,11 +275,8 @@ module.exports = {
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
-                interaction.user.createDM()
-                    .then(dmCh => {
-
-                        // FETCHING SPECIFIC FIRST MESSAGE FROM DATABASE FOR THIS USER
-                        let initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                let initialDmMsg = interaction.user.createDM().messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                    .then(msg => {
 
                         console.log(`initialDmMsg = ${initialDmMsg}`)
                         
@@ -328,7 +325,7 @@ module.exports = {
 
 
                         // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                        initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                        msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
                     })
                     
 
