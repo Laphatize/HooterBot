@@ -70,17 +70,17 @@ module.exports = {
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("physical_TUid_Card")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let VirtualTUidCardButton = new MessageButton()
                     .setLabel("Virtual TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("virtual_TUid_Card")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let TuPortalButton = new MessageButton()
                     .setLabel("TUportal")
                     .setStyle("SECONDARY")
                     .setCustomId("TU_portal")
-                    .setDisabled(true)
+                    .setDisabled(false)
                 let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
@@ -357,7 +357,15 @@ module.exports = {
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
 
 
+
+                // CREATE TRANSCRIPT OF CHAT
+
+                    // ** A BIG TO DO ITEM **
+
+
+
                 // DELETE TICKET CHANNEL FROM GUILD BY NAME
+                interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase()).delete()
                 
 
                 // LOGGING TICKET CLOSURE
@@ -366,8 +374,8 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
-                    .addField(`Ticket Closed by:`, `${interaction.user}`)
-                    .addField(`Verified?`, `**No**`)
+                    .addField(`Verified?`, `**No**`, true)
+                    .addField(`Ticket closed early by:`, `${interaction.user}`)
                     .setTimestamp()
                 
 
