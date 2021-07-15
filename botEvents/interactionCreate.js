@@ -140,7 +140,7 @@ module.exports = {
 
 
                     // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE
-                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY")
+                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD, YYYY")
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
