@@ -279,7 +279,7 @@ module.exports = {
                     .then(dmCh => {
 
                         // FETCHING SPECIFIC FIRST MESSAGE FROM DATABASE FOR THIS USER
-                        initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                        let initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
 
                         console.log(`initialDmMsg = ${initialDmMsg}`)
                         
