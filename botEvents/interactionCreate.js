@@ -275,10 +275,13 @@ module.exports = {
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
-                let initialDmMsg = interaction.user.createDM().messages.fetch(dbTicketData.DM_INITIALMSG_ID)
-                    .then(msg => {
+                interaction.user.createDM()
+                    .then(dmCh => {
+                        initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
 
-                        console.log(`initialDmMsg = ${initialDmMsg}`)
+                        console.log(`initialDmMsg                  = ${initialDmMsg}`)
+                        console.log(`initialDmMsg.id               = ${initialDmMsg.id}`)
+                        console.log(`dbTicketData.DM_INITIALMSG_ID = ${dbTicketData.DM_INITIALMSG_ID}`)
                         
                         // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
                         let ticketOpenEmbed = new discord.MessageEmbed()
