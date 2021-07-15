@@ -182,12 +182,6 @@ module.exports = {
 
                             // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                             modAdminTicketCh.send({ embeds: [newTicketEmbed] })
-                        
-
-                            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                            const dbTicketData = ticketSchema.findOne({
-                                GUILD_ID: interaction.guild.id
-                            }).exec();
 
 
                             // LOG DATABASE INFORMATION FOR TICKET
@@ -237,8 +231,8 @@ module.exports = {
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedOrange)
-                    .setTitle(`${config.emjORANGETICK} **Please confirm ticket cancellation.**`)
+                    .setColor(config.embedRed)
+                    .setTitle(`**Please confirm ticket cancellation.**`)
 
                 // INITIALIZING BUTTON
                 let quitConfirmButton = new MessageButton()
@@ -289,7 +283,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
                     .setDescription(`Your verification ticket has been closed and you have **not** been verified.\nAll the information for this ticket has been purged from the bot.
-                    \n\nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
                 // DMING USER THE QUIT CONFIRMATION             
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
