@@ -280,6 +280,8 @@ module.exports = {
 
                         // FETCHING SPECIFIC FIRST MESSAGE FROM DATABASE FOR THIS USER
                         initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+
+                        console.log(`initialDmMsg = ${initialDmMsg}`)
                         
                         // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
                         let ticketOpenEmbed = new discord.MessageEmbed()
