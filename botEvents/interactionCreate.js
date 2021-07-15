@@ -250,8 +250,8 @@ module.exports = {
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`**Please confirm ticket cancellation.**`)
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} **Please confirm ticket cancellation.**`)
 
                 // INITIALIZING BUTTON
                 let quitConfirmButton = new MessageButton()
