@@ -273,7 +273,7 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
-                
+
                 // SENDING THE QUIT CONFIRMATION                
                 interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
@@ -292,31 +292,35 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'quit_confirmation') {
 
-                // DELETING DATABASE ENTRY
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
 
-                    // *****NEED TO ADD*****
+
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
-                    .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
-                    \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+                    .setDescription(`Your verification ticket has been closed and you have **not** been verified.\nAll the information for this ticket has been purged from the bot.
+                    \n\nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
-                // DMING USER THE QUIT CONFIRMATION
-                interaction.reply({embeds: [quitConfirmedEmbed] })
+                // DMING USER THE QUIT CONFIRMATION             
+                interaction.channel.send({embeds: [quitConfirmedEmbed]})
                 
-                // EDIT ALL EMBEDS SO BUTTONS ARE DISABLED
-                console.log(`${interaction.user.username}'s ticket has been closed.`)
 
                 // LOGGING TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
-                    .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
-                    .addField(`Ticket Auto-Closing On:`, `${closeDate}`)
+                    .addField(`Ticket Closed by:`, `${interaction.user}`)
+                    .addField(`Verified?`, `**No**`)
                     .setTimestamp()
                 
 
@@ -334,9 +338,10 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'cancel_quit') {
 
-                console.log(`Quit confirmation pressed.`)
+                // DELETING THE CANCEL PROMPT
+                interaction.deleteReply()
             }
-            // END OF "QUIT CONFIRM" BUTTON
+            // END OF "CANCEL QUIT" BUTTON
 
 
 
