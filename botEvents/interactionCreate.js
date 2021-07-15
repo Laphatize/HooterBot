@@ -199,7 +199,7 @@ module.exports = {
                                     GUILD_NAME: interaction.guild.name,
                                     CREATOR_NAME: interaction.user.username,
                                     CREATOR_ID: interaction.user.id,
-                                    DM_INITIALMSG_ID: "",
+                                    DM_INITIALMSG_ID: firstDMmsg.id,
                                     DM_2NDMSG_ID: "",
                                     STAFF_CH_ID: modAdminTicketCh.id,
                                     TICKET_CLOSE: closeDate
