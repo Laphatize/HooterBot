@@ -334,7 +334,6 @@ module.exports = {
 
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
                 interaction.deferUpdate
-                    .catch(err => console.log(err))
                 // DELETE THE INTERACTION MESSAGE
                     .then(msg => {client.setTimeout(() => msg.delete(), 0 )})
                     .catch(err => console.log(err))
