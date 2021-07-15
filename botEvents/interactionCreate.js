@@ -276,6 +276,10 @@ module.exports = {
                 
                 // SENDING THE QUIT CONFIRMATION                
                 interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                    // DELETING AFTER 10 SECONDS IF NO ACTION
+                    .then(msg => {
+                        client.setTimeout(() => msg.delete(), 10000 );
+                    })
 
             }
             // END OF "QUIT" BUTTON
