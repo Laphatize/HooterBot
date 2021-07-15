@@ -270,18 +270,12 @@ module.exports = {
                     cancelQuitButton
                 );
 
-                // DMING USER THE QUIT PROMPT
-                interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
                 
-
-                const filter = i => i.customId === 'cancel_quit' 
-                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
-
-                // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
-                collector.on('collect', async i => {
-                    await i.deleteReply()
-                });
-                collector.on(`end`, collected => console.log(`The collection has ended with ${collected.size} items.`))
+                // SENDING THE QUIT CONFIRMATION                
+                interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
 
             }
             // END OF "QUIT" BUTTON
