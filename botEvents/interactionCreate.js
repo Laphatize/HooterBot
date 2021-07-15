@@ -276,7 +276,9 @@ module.exports = {
                 dmInitialMsgId = dbTicketData.DM_INITIALMSG_ID
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
-                let initialDmMsg = interaction.user.createDM().messages.fetch(dmInitialMsgId)
+                let initialDmMsg = interaction.user.createDM()
+
+                console.log(`initialDmMsg = ${initialDmMsg}`)
 
                 // INITIALIZING BUTTONS - ALL DISABLED
                 let TUidCardButtonDisabled = new MessageButton()
