@@ -269,7 +269,7 @@ module.exports = {
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                const dbTicketData = await guildSchema.findOne({
+                const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
