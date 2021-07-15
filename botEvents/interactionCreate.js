@@ -251,8 +251,7 @@ module.exports = {
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
-                    .setTitle(`**Close confirmation.**`)
-                    .setDescription(`Please confirm ticket cancellation.`)
+                    .setTitle(`**Please confirm ticket cancellation.**`)
 
                 // INITIALIZING BUTTON
                 let quitConfirmButton = new MessageButton()
@@ -273,6 +272,8 @@ module.exports = {
 
                 // DMING USER THE QUIT PROMPT
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                    // DELETE AFTER 10 SECONDS
+                    .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                     .catch(err => console.log(err))
 
             }
@@ -299,13 +300,9 @@ module.exports = {
 
                 // DMING USER THE QUIT CONFIRMATION
                 interaction.reply({embeds: [quitConfirmedEmbed] })
-                    .catch(err => console.log(err))
-                // DELETE AFTER 10 SECONDS
-                    .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-                    .catch(err => console.log(err))
                 
                 // EDIT ALL EMBEDS SO BUTTONS ARE DISABLED
-                    console.log(`${interaction.user.username}'s ticket has been closed.`)
+                console.log(`${interaction.user.username}'s ticket has been closed.`)
 
                 // LOGGING TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
