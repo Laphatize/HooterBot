@@ -273,51 +273,65 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                dmInitialMsgId = dbTicketData.DM_INITIALMSG_ID
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
                 let initialDmMsg = interaction.user.createDM()
+                    .then(dmCh => {
 
-                console.log(`initialDmMsg = ${initialDmMsg}`)
-
-                // INITIALIZING BUTTONS - ALL DISABLED
-                let TUidCardButtonDisabled = new MessageButton()
-                    .setLabel("Physical TUid Card")
-                    .setStyle("SECONDARY")
-                    .setCustomId("physical_TUid_Card")
-                    .setDisabled(true)
-                let VirtualTUidCardButtonDisabled = new MessageButton()
-                    .setLabel("Virtual TUid Card")
-                    .setStyle("SECONDARY")
-                    .setCustomId("virtual_TUid_Card")
-                    .setDisabled(true)
-                let TuPortalButtonDisabled = new MessageButton()
-                    .setLabel("TUportal")
-                    .setStyle("SECONDARY")
-                    .setCustomId("TU_portal")
-                    .setDisabled(true)
-                let QuitButtonDisabled = new MessageButton()
-                    .setLabel("Quit Verification")
-                    .setStyle("DANGER")
-                    .setCustomId("quit")
-                    .setDisabled(true)
-
-                // DISABLED BUTTON ROW
-                let initialButtonRowDisabled = new MessageActionRow()
-                    .addComponents(
-                        TUidCardButtonDisabled,
-                        VirtualTUidCardButtonDisabled,
-                        TuPortalButtonDisabled,
-                        QuitButtonDisabled
-                    );
+                        // FETCHING SPECIFIC FIRST MESSAGE
+                        dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                        
+                        // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
+                        let ticketOpenEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedTempleRed)
+                            .setTitle(`**Verification - Ticket Opened**`)
+                            .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                                \nThere are three ways you can verify you are a student or employee:
+                                \n${config.indent}**1.** Use a physical TUid card
+                                \n${config.indent}**2.** Use a virtual TUid card
+                                \n${config.indent}**3.** Using TUportal
+                                \n\nThis ticket has been **closed**. If you have not completed verification, you can open a new verification ticket in <#${config.rolesChannelId}>.`)
 
 
-                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                await initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
-                
+                        // INITIALIZING BUTTONS - ALL DISABLED
+                        let TUidCardButtonDisabled = new MessageButton()
+                            .setLabel("Physical TUid Card")
+                            .setStyle("SECONDARY")
+                            .setCustomId("physical_TUid_Card")
+                            .setDisabled(true)
+                        let VirtualTUidCardButtonDisabled = new MessageButton()
+                            .setLabel("Virtual TUid Card")
+                            .setStyle("SECONDARY")
+                            .setCustomId("virtual_TUid_Card")
+                            .setDisabled(true)
+                        let TuPortalButtonDisabled = new MessageButton()
+                            .setLabel("TUportal")
+                            .setStyle("SECONDARY")
+                            .setCustomId("TU_portal")
+                            .setDisabled(true)
+                        let QuitButtonDisabled = new MessageButton()
+                            .setLabel("Quit Verification")
+                            .setStyle("DANGER")
+                            .setCustomId("quit")
+                            .setDisabled(true)
+
+                        // DISABLED BUTTON ROW
+                        let initialButtonRowDisabled = new MessageActionRow()
+                            .addComponents(
+                                TUidCardButtonDisabled,
+                                VirtualTUidCardButtonDisabled,
+                                TuPortalButtonDisabled,
+                                QuitButtonDisabled
+                            );
 
 
-                // // EDITING 2ND PROMPT IF IT EXISTS SO BUTTONS ARE DISABLED
+                        // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                        await initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                    })
+                    
+
+
+                // // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
                 // if(dbTicketData.DM_2NDMSG_ID) {
                 //     secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
                 //     // EDIT 2ND DM MSG SO BUTTONS ARE DISABLED
