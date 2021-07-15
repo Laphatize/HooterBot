@@ -2,7 +2,6 @@ const discord = require('discord.js')
 const fs = require(`fs`)
 const config = require ('../../config.json')
 
-
 module.exports = {
     name: `help`,
     aliases: [`commands`],
@@ -12,8 +11,6 @@ module.exports = {
     cooldown: 60,
     minArgs: 0,
     maxArgs: 0,
-    guildUse: true,
-    dmUse: true,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {

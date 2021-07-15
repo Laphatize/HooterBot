@@ -1,5 +1,5 @@
 {
-    "buildDate": "9 July 2021",
+    "buildDate": "15 July 2021",
     "prefix": "$",
     "botName": "HooterBot",
     "botAuthor": "MrMusicMan789#0789",
@@ -32,15 +32,17 @@
 
     "logActionsChannelId": "857106515156140062",
     "logTranscriptsId": "857106503438041108",
-    "modRoleId": "857105754280427521",
-    "adminRoleId": "588107993153929248",
     "serverAnnouncementsId": "861737097475653632",
     "botchannelId": "829685931501027359",
-
     "joinsChannelId": "860610633417621504",
     "rolesChannelId": "861394354034704396",
     "introductionsChannelId": "860610633417621504",
     "questionsChannelId": "829629693929586729",
     "rulesChannelId": "862851733297561681",
+
+    "modRoleId": "863645415458865163",
+    "adminRoleId": "588107993153929248",
+    "verifiedRoleID": "863507579480703017",
+
     "ModMailId": "575252669443211264"
-}
+}    

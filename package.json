@@ -1,8 +1,8 @@
 {
     "name": "hooterbot",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "description": "A bot created for the Temple University Discord server to assist with verifying students and employees, helping with tasks in the server, and more.",
-    "main": "index.js",
+    "main": "bot.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -21,10 +21,11 @@
     },
     "homepage": "https://github.com/MrMusicMan789/HooterBot#readme",
     "dependencies": {
-        "discord.js": "^13.0.0-dev.676118a.1625486570",
+        "discord.js": "^13.0.0-dev.4206e35.1626307444",
         "dotenv": "^10.0.0",
         "leven": "^3.1.0",
         "moment": "^2.29.1",
-        "mongoose": "^5.12.14"
+        "mongoose": "^5.12.14",
+        "node-cron": "^3.0.0"
     }
 }
