@@ -222,7 +222,7 @@ module.exports = {
 
                             
                             // LOGGING TICKET OPENING IN LOGS CHANNEL
-                            let logErrorEmbed = new discord.MessageEmbed()
+                            let logTicketOpenEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGreen)
                                 .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
                                 .addField(`User:`, `${interaction.user}`, true)
@@ -233,7 +233,7 @@ module.exports = {
                                 
 
                             // LOG ENTRY
-                            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -300,10 +300,26 @@ module.exports = {
                 // DMING USER THE QUIT CONFIRMATION
                 interaction.reply({embeds: [quitConfirmedEmbed] })
                     .catch(err => console.log(err))
-
+                // DELETE AFTER 10 SECONDS
+                    .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                    .catch(err => console.log(err))
                 
                 // EDIT ALL EMBEDS SO BUTTONS ARE DISABLED
+                    console.log(`${interaction.user.username}'s ticket has been closed.`)
 
+                // LOGGING TICKET CLOSURE
+                let logCloseTicketEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} New Verification Ticket!`)
+                    .addField(`User:`, `${interaction.user}`, true)
+                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                    .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
+                    .addField(`Ticket Auto-Closing On:`, `${closeDate}`)
+                    .setTimestamp()
+                
+
+                // LOG ENTRY
+                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logCloseTicketEmbed]})
 
             }
             // END OF "QUIT CONFIRM" BUTTON
