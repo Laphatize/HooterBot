@@ -274,8 +274,7 @@ module.exports = {
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETE AFTER 10 SECONDS
                     .then(interaction => {
-                        wait(3000);
-                        interaction.delete();
+                        client.setTimeout(() => interaction.delete(), 3000);
                     })
                     .catch(err => console.log(err))
 
