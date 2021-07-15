@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json');
 const birthdaySchema = require('../../Database/birthdaySchema');
-const moment = require('moment');
 
 module.exports = {
     name: `forgetbirthday`,
@@ -12,8 +11,6 @@ module.exports = {
     cooldown: 60,
     minArgs: 0,
     maxArgs: 0,
-    guildUse: true,
-    dmUse: true,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {

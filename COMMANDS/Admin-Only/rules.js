@@ -11,8 +11,6 @@ module.exports = {
     cooldown: 10,
     minArgs: 0,
     maxArgs: 0,
-    guildUse: true,
-    dmUse: false,
     permissions: 'ADMINISTRATOR',    // ADMINISTRATOR - off for testing
     requiredRoles: [],
     execute: async (message, arguments, client) => {

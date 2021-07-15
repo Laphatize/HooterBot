@@ -10,8 +10,6 @@ module.exports = {
     cooldown: 10,
     minArgs: 0,
     maxArgs: 0,
-    guildUse: true,
-    dmUse: true,
     permissions: '',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
