@@ -267,6 +267,12 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
+                
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
+                
 
                 // EDITING INITIAL PROMPT SO BUTTONS ARE ALL DISABLED
                 // FETCH INITIAL DM MESSAGE FROM DATABASE
@@ -330,6 +336,9 @@ module.exports = {
 
                 // DMING USER THE QUIT CONFIRMATION             
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
+
+
+                // DELETE TICKET CHANNEL FROM GUILD BY NAME
                 
 
                 // LOGGING TICKET CLOSURE
