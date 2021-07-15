@@ -9,7 +9,7 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        let ticketChannelName = `Verification-${interaction.user.username}`
+        let ticketChannelName = `verify-${interaction.user.username}`
 
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
@@ -191,30 +191,17 @@ module.exports = {
 
 
                             // LOG DATABASE INFORMATION FOR TICKET
-                            if(!dbTicketData) {
-                                ticketSchema.findOneAndUpdate({
-                                    GUILD_ID: interaction.guild.id
-                                },{
-                                    GUILD_ID: interaction.guild.id,
-                                    GUILD_NAME: interaction.guild.name,
-                                    CREATOR_NAME: interaction.user.username,
-                                    CREATOR_ID: interaction.user.id,
-                                    DM_INITIALMSG_ID: firstDMmsg.id,
-                                    DM_2NDMSG_ID: "",
-                                    STAFF_CH_ID: modAdminTicketCh.id,
-                                    TICKET_CLOSE: closeDate
-                                },{
-                                    upsert: true
-                                }).exec();
-                            }
-
-
-
-                            // DB - GRABBING INITIAL VERIFICATION PROMPT MESSAGE ID
                             ticketSchema.findOneAndUpdate({
                                 GUILD_ID: interaction.guild.id
                             },{
+                                GUILD_ID: interaction.guild.id,
+                                GUILD_NAME: interaction.guild.name,
+                                CREATOR_NAME: interaction.user.username,
+                                CREATOR_ID: interaction.user.id,
                                 DM_INITIALMSG_ID: firstDMmsg.id,
+                                DM_2NDMSG_ID: "",
+                                STAFF_CH_ID: modAdminTicketCh.id,
+                                TICKET_CLOSE: closeDate
                             },{
                                 upsert: true
                             }).exec();
