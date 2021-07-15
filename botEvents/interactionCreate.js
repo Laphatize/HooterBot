@@ -272,11 +272,17 @@ module.exports = {
 
                 // DMING USER THE QUIT PROMPT
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
-                    // DELETE AFTER 10 SECONDS
-                    .then(interaction => {
-                        client.setTimeout(() => interaction.deleteReply(), 3000)
-                    })
-                    .catch(err => console.log(err))
+                
+
+                const filter = i => i.customId === 'quit' 
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
+
+                // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
+                collector.on('collect', async i => {
+                    await i.deleteReply()
+                });
+                collector.on(`end`, collected => console.log(`The collection has ended.`))
+
             }
             // END OF "QUIT" BUTTON
 
@@ -330,13 +336,7 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'cancel_quit') {
 
-                const filter = i => i.customId === 'cancel_quit' 
-                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
-
-                // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
-                collector.on('collect', async i => {
-                    await i.deleteReply()
-                });
+                console.log(`Quit confirmation pressed.`)
             }
             // END OF "QUIT CONFIRM" BUTTON
 
