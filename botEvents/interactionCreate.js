@@ -70,7 +70,7 @@ module.exports = {
                     .setLabel("Physical TUid Card")
                     .setStyle("SECONDARY")
                     .setCustomId("physical_TUid_Card")
-                    .setDisabled(false)
+                    .setDisabled(true)
                 let VirtualTUidCardButton = new MessageButton()
                     .setLabel("Virtual TUid Card")
                     .setStyle("SECONDARY")
@@ -121,6 +121,7 @@ module.exports = {
                     })
 
 
+
                 // GRABBING THE DM MESSAGE ATTEMPT
                 // SUCESSFUL
                 if(firstDMmsg) {
@@ -139,7 +140,7 @@ module.exports = {
 
 
                     // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE
-                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY, h:mm:ss a")
+                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD YYYY")
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
@@ -236,44 +237,6 @@ module.exports = {
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
-
-
-
-
-                // /***********************************************************/
-                // /*      PHYSICAL TUID CARD                                 */
-                // /***********************************************************/
-                // if(interaction.customId === 'physical_TUid_Card') {
-                //     await interaction.deferUpdate()
-                //     await wait(2000);
-
-                //     let disabledTUidCardButton = new MessageButton()
-                //     .setLabel("Physical TUid Card")
-                //     .setStyle("SECONDARY")
-                //     .setCustomId("physical_TUid_Card")
-                //     .setDisabled(true)
-
-                //     // BUTTON ROW
-                //     let buttonRow = new MessageActionRow()
-                //         .addComponents(
-                //             disabledTUidCardButton,
-                //             VirtualTUidCardButton,
-                //             TuPortalButton,
-                //             CancelButton
-                //         );
-
-                //     // POST THE PHYSICAL TUID CARD EMBED
-                //     await interaction.reply({embeds: [ticketEmbed], components: [buttonRow] })
-
-
-                // }
-
-
-
-
-
-
-
             }
             // END OF "BEGIN VERIFICATION" PROMPT BUTTON
 
@@ -283,97 +246,110 @@ module.exports = {
             /***********************************************************/
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
+            if(interaction.customId === 'quit') {
 
-                if(interaction.customId === 'quit') {
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Close confirmation.**`)
+                    .setDescription(`Please confirm ticket cancellation.`)
 
-                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
-                    let quitConfirmEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedTempleRed)
-                        .setTitle(`**Close confirmation.**`)
-                        .setDescription(`Please confirm ticket cancellation.`)
+                // INITIALIZING BUTTON
+                let quitConfirmButton = new MessageButton()
+                    .setLabel("Yes, Quit")
+                    .setStyle("DANGER")
+                    .setCustomId("quit_confirmation")
+                let cancelQuitButton = new MessageButton()
+                    .setLabel("Cancel")
+                    .setStyle("SECONDARY")
+                    .setCustomId("cancel_quit")
+        
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    quitConfirmButton,
+                    cancelQuitButton
+                );
 
-                    // INITIALIZING BUTTON
-                    let quitConfirmButton = new MessageButton()
-                        .setLabel("Yes, Quit")
-                        .setStyle("DANGER")
-                        .setCustomId("quit_confirmation")
-                    let cancelQuitButton = new MessageButton()
-                        .setLabel("Cancel")
-                        .setStyle("SECONDARY")
-                        .setCustomId("cancel_quit")
-            
-                    // BUTTON ROW
-                    let buttonRow = new MessageActionRow()
-                    .addComponents(
-                        quitConfirmButton,
-                        cancelQuitButton
-                    );
+                // DMING USER THE QUIT PROMPT
+                interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                    .catch(err => console.log(err))
 
-                    // DMING USER THE INITIAL QUIT PROMPT
-                    interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
-                        .catch(err => console.log(err))
-
-                }
-                // END OF "QUIT" BUTTON
-
-
-
-
-                /***********************************************************/
-                /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
-                /***********************************************************/
-                if(interaction.customId === 'quit_confirmation') {
-
-                    // DELETING DATABASE ENTRY
-
-                        // *****NEED TO ADD*****
-
-                    // GENERATING QUIT CONFIRMATION EMBED FOR DM
-                    let quitConfirmedEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
-                        .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
-                        \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
-
-                    // DMING USER THE QUIT CONFIRMATION
-                    interaction.user.send({embeds: [quitConfirmedEmbed] })
-                        .catch(err => console.log(err))
-                }
-                // END OF "QUIT CONFIRM" BUTTON
+            }
+            // END OF "QUIT" BUTTON
 
 
 
 
+            /***********************************************************/
+            /*      QUIT CONFIRM (2nd QUIT IN DMS PROMPT)              */
+            /***********************************************************/
+            if(interaction.customId === 'quit_confirmation') {
+
+                // DELETING DATABASE ENTRY
+
+                    // *****NEED TO ADD*****
+
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                    .setDescription(`Your verification ticket has been closed. The information in this DM has been purged from the bot.
+                    \n\nIf you wish to verify later, please open a new ticket using the verification prompt in <#${config.rolesChannelId}>.`)
+
+                // DMING USER THE QUIT CONFIRMATION
+                interaction.reply({embeds: [quitConfirmedEmbed] })
+                    .catch(err => console.log(err))
+
+                
+                // EDIT ALL EMBEDS SO BUTTONS ARE DISABLED
+
+
+            }
+            // END OF "QUIT CONFIRM" BUTTON
 
 
 
 
+            // /***********************************************************/
+            // /*      PHYSICAL TUID CARD                                 */
+            // /***********************************************************/
+            // if(interaction.customId === 'physical_TUid_Card') {
+            //     await interaction.deferUpdate()
+
+            //     let disabledTUidCardButton = new MessageButton()
+            //     .setLabel("Physical TUid Card")
+            //     .setStyle("SECONDARY")
+            //     .setCustomId("physical_TUid_Card")
+            //     .setDisabled(true)
 
 
+            //     // EMBED MESSAGE
+            //     let physicalTUidEmbed = new discord.MessageEmbed()
+            //         .setColor(config.embedTempleRed)
+            //         .setTitle(`**Physical TUid Card**`)
+            //         .setDescription(`To verify with a physical TUiD card:\n
+            //             ${config.indent}**1.** Hold your TUid card up next to your screen with Discord open.\n
+            //             ${config.indent}**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.\n
+            //             ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
+            //             ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
+            //             ${config.indent}**4.** Wait for a response from server staff. Responses may take up to 2 days.\n\n
+            //             When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.\n`)
 
 
+            //     // BUTTON ROW
+            //     let buttonRow = new MessageActionRow()
+            //         .addComponents(
+            //             disabledTUidCardButton,
+            //             VirtualTUidCardButton,
+            //             TuPortalButton,
+            //             CancelButton
+            //         );
 
-
-
-
-
-
-
-
-
-
-                /***********************************************************/
-                /*      QUIT CONFIRM (2nd QUIT IN DMS)                     */
-                /***********************************************************/
-
-
-
-
-
-
-
-
-
+            //     // POST THE PHYSICAL TUID CARD EMBED
+            //     await interaction.user.send({embeds: [physicalTUidEmbed], components: [buttonRow] })
+            // }
+            // // END OF "PHYSICAL TUID CARD"
         }
 	},
 };
