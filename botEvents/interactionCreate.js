@@ -330,13 +330,13 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'cancel_quit') {
 
+                const filter = i => i.customId === 'cancel_quit' 
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
+
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
-                await interaction.deferUpdate()
-                // DELETE THE INTERACTION MESSAGE
-                    .then(interaction => {
-                        client.setTimeout(() => interaction.deleteReply(), 0 )
-                    })
-                    .catch(err => console.log(err))
+                collector.on('collect', async i => {
+                    await i.deleteReply()
+                });
             }
             // END OF "QUIT CONFIRM" BUTTON
 
