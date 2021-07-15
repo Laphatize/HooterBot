@@ -274,10 +274,9 @@ module.exports = {
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETE AFTER 10 SECONDS
                     .then(interaction => {
-                        client.setTimeout(() => interaction.delete(), 3000);
+                        client.setTimeout(() => interaction.deleteReply(), 3000)
                     })
                     .catch(err => console.log(err))
-
             }
             // END OF "QUIT" BUTTON
 
@@ -334,7 +333,9 @@ module.exports = {
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
                 await interaction.deferUpdate()
                 // DELETE THE INTERACTION MESSAGE
-                    .then(interaction => {client.setTimeout(() => interaction.delete(), 0 )})
+                    .then(interaction => {
+                        client.setTimeout(() => interaction.deleteReply(), 0 )
+                    })
                     .catch(err => console.log(err))
             }
             // END OF "QUIT CONFIRM" BUTTON
