@@ -333,7 +333,7 @@ module.exports = {
             if(interaction.customId === 'cancel_quit') {
 
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
-                interaction.deferUpdate
+                await interaction.deferUpdate()
                 // DELETE THE INTERACTION MESSAGE
                     .then(msg => {client.setTimeout(() => msg.delete(), 0 )})
                     .catch(err => console.log(err))
