@@ -275,7 +275,7 @@ module.exports = {
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
-                let initialDmMsg = interaction.channel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                let initialDmChannel = interaction.user.createDM().fetch(dbTicketData.DM_INITIALMSG_ID)
 
 
                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -309,7 +309,7 @@ module.exports = {
                         QuitButtonDisabled
                     );
 
-                await initialDmMsg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                await initialDmChannel.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
                 
 
 
