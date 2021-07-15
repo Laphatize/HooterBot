@@ -81,7 +81,7 @@ module.exports = {
                     .setStyle("SECONDARY")
                     .setCustomId("TU_portal")
                     .setDisabled(true)
-                let CancelButton = new MessageButton()
+                let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
                     .setCustomId("quit")
@@ -93,7 +93,7 @@ module.exports = {
                         TUidCardButton,
                         VirtualTUidCardButton,
                         TuPortalButton,
-                        CancelButton
+                        QuitButton
                     );
 
 
@@ -274,14 +274,14 @@ module.exports = {
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
                 
 
-                const filter = i => i.customId === 'quit' 
+                const filter = i => i.customId === 'cancel_quit' 
                 const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
 
                 // DELETING THE MESSAGE OF THE QUIT CONFIRMATION
                 collector.on('collect', async i => {
                     await i.deleteReply()
                 });
-                collector.on(`end`, collected => console.log(`The collection has ended.`))
+                collector.on(`end`, collected => console.log(`The collection has ended with ${collected.size} items.`))
 
             }
             // END OF "QUIT" BUTTON
@@ -375,7 +375,7 @@ module.exports = {
             //             disabledTUidCardButton,
             //             VirtualTUidCardButton,
             //             TuPortalButton,
-            //             CancelButton
+            //             QuitButton
             //         );
 
             //     // POST THE PHYSICAL TUID CARD EMBED
