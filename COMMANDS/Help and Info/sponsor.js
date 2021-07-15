@@ -23,8 +23,7 @@ module.exports = {
         let infoEmbed = new discord.MessageEmbed()
         .setColor(config.embedBlurple)
         .setTitle(`**Support HooterBot!**`)
-        .setDescription(`${config.botName} is built by <@${config.botAuthorId}> in his free time to improve the server. HooterBot runs on the newest version of Discord.js (✨ ***v13***, *fancy...* ✨), uses brand new features from Discord like buttons, slash commands (*Soon™*), ephemeral messages, and more. The bot's code is also open source (\`\`$botinfo\`\` for link).
-        \nThis is not ${config.botAuthorUsername}'s first Discord bot, but it is his first to utilize and rely on a database connection for functionality. As ${config.botName} grows with new features, the costs to keep the bot online will increase.
+        .setDescription(`${config.botName} relies on a database connection for functionality. As ${config.botName} grows with new features, costs to keep the bot online will be incurred.
         \nIf you want to support ${config.botName}'s development and operations, check out ${config.botAuthorUsername}'s GitHub Sponsor page:`)
         .addField(`GitHub Sponsor Page`, `https://github.com/sponsors/MrMusicMan789`)
         .setThumbnail('https://avatars.githubusercontent.com/u/58273574?v=4')
