@@ -273,7 +273,10 @@ module.exports = {
                 // DMING USER THE QUIT PROMPT
                 interaction.reply({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETE AFTER 10 SECONDS
-                    .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                    .then(interaction => {
+                        await wait(3000);
+                        interaction.delete()
+                    })
                     .catch(err => console.log(err))
 
             }
