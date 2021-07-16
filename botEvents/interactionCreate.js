@@ -178,7 +178,7 @@ module.exports = {
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
                                 .setStyle("DANGER")
-                                .setCustomId("quitCh")
+                                .setCustomId("quitCH")
                                 .setDisabled(false)
             
                             // BUTTON ROW
@@ -262,6 +262,48 @@ module.exports = {
 
                 // SENDING THE QUIT CONFIRMATION                
                 interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                    // DELETING AFTER 10 SECONDS IF NO ACTION
+                    .then(msg => {
+                        client.setTimeout(() => msg.delete(), 10000 );
+                    })
+
+            }
+            // END OF "QUITDM" BUTTON
+
+
+
+
+            /***********************************************************/
+            /*      QUIT VERIFICATION (ANY PROMPT IN THE MOD/ADMIN CH) */
+            /***********************************************************/
+            if(interaction.customId === 'quitCH') {
+                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
+
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`**Please confirm ticket cancellation.**`)
+
+
+                // INITIALIZING BUTTON
+                let quitConfirmButton = new MessageButton()
+                    .setLabel("Yes, Quit")
+                    .setStyle("DANGER")
+                    .setCustomId("quit_confirmation")
+        
+
+                // BUTTON ROW
+                let buttonRow = new MessageActionRow()
+                .addComponents(
+                    quitConfirmButton
+                );
+
+
+                // SENDING THE QUIT CONFIRMATION                
+                message.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
