@@ -231,27 +231,27 @@ module.exports = {
                             const dmfilter = (m) => !m.author.bot;
                             const chfilter = (m) => !m.author.bot;
 
-                            // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmfilter);
-                            dmCollector.on('collect', msg => {
-                                modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
-                            });
-                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            dmCollector.on('end', async collected => {
-                                await modAdminTicketCh.delete();
-                                dmCollector.stop(`collector complete`);
-                            })
-
-                            // // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            // const modAdminChCollector = modAdminTicketCh.createMessageCollector(chfilter);
-                            // modAdminChCollector.on('collect', msg => {
-                            //     interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
+                            // // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
+                            // const dmCollector = interaction.user.dmChannel.createMessageCollector(dmfilter);
+                            // dmCollector.on('collect', msg => {
+                            //     modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
                             // });
                             // // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            // modAdminChCollector.on('end', async collected => {
+                            // dmCollector.on('end', async collected => {
                             //     await modAdminTicketCh.delete();
-                            //     modAdminChCollector.stop(`collector complete`);
+                            //     dmCollector.stop(`collector complete`);
                             // })
+
+                            // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector(chfilter);
+                            modAdminChCollector.on('collect', msg => {
+                                interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
+                            });
+                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            modAdminChCollector.on('end', async collected => {
+                                await modAdminTicketCh.delete();
+                                modAdminChCollector.stop(`collector complete`);
+                            })
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
