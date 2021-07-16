@@ -226,12 +226,17 @@ module.exports = {
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
 
+                            console.log(interaction.user.username)
 
-                            
+
+
+
+                            let ticketAuthor = interaction.user;
+
 
                             // DEFINING COLLECTOR FILTERS
-                            const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
-                            const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
+                            const dmFilter = (msg, user) => msg.author === ticketAuthor && user.id !== config.botId;
+                            const chFilter = (msg, user) => msg.channel.name === ticketChannelName && user.id !== config.botId;
 
                             // DEFINING COLLECTORS
                             const dmCollector = interaction.user.dmChannel.createMessageCollector(dmFilter);
