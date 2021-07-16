@@ -234,8 +234,9 @@ module.exports = {
                                 channel.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            dmCollector.on('end', collected => {
-                                await modAdminTicketCh.delete()
+                            dmCollector.on('end', async collected => {
+                                await modAdminTicketCh.delete();
+                                dmCollector.stop(`collector complete`);
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
@@ -244,8 +245,9 @@ module.exports = {
                                 interaction.user.send(`**Staff**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            modAdminChCollector.on('end', collected => {
-                                await modAdminTicketCh.delete()
+                            modAdminChCollector.on('end', async collected => {
+                                await modAdminTicketCh.delete();
+                                modAdminChCollector.stop(`collector complete`);
                             })
                         })
                 }
