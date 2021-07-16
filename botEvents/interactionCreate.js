@@ -175,9 +175,21 @@ module.exports = {
                                 .addField(`Ticket Auto-Close On:`, `${closeDate}`)
                                 .setFooter(`Please do not send a message in this channel unless it is in response to a user's question. (Note: feature not online yet)`)
 
+                            let QuitButton = new MessageButton()
+                                .setLabel("End Verification")
+                                .setStyle("DANGER")
+                                .setCustomId("quit")
+                                .setDisabled(false)
+            
+                            // BUTTON ROW
+                            let QuitButtonModBtn = new MessageActionRow()
+                                .addComponents(
+                                    QuitButton
+                                );
+
 
                             // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                            modAdminTicketCh.send({ embeds: [newTicketEmbed] })
+                            modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
 
 
                             // LOG DATABASE INFORMATION FOR TICKET
