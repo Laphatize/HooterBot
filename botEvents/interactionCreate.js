@@ -174,8 +174,8 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
-                                .addField(`Ticket Auto-Close On:`, `${closeDate}`)
-                                .setFooter(`Please do not send a message in this channel unless it is in response to a user's question. (Note: feature not online yet)`)
+                                .setDescription(`**Ticket Auto-Close On:** ${closeDate}`)
+                                .setFooter(`Any messages sent in this channel will be sent to the user's DMs. Please avoid sending any messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
@@ -218,7 +218,7 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
                                 .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
-                                .addField(`Ticket Auto-Closing On:`, `${closeDate}`)
+                                .setDescription(`**Ticket Auto-Closing On:** ${closeDate}`)
                                 .setTimestamp()
                                 
 
@@ -228,11 +228,11 @@ module.exports = {
 
 
                             // FILTER FOR COLLECTORS
-                            const dmfilter = m => m.author.id == interaction.user.id;
-                            const chfilter = m => m.author.id !== config.botId;
+                            const dmfilter = (m) => !m.author.bot;
+                            const chfilter = (m) => !m.author.bot;
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmfilter );
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmfilter);
                             dmCollector.on('collect', msg => {
                                 modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
                             });
@@ -242,19 +242,16 @@ module.exports = {
                                 dmCollector.stop(`collector complete`);
                             })
 
-                            // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector(chfilter);
-                            modAdminChCollector.on('collect', msg => {
-                                interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
-                            });
-                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            modAdminChCollector.on('end', async collected => {
-                                await modAdminTicketCh.delete();
-                                modAdminChCollector.stop(`collector complete`);
-                            })
-
-                            console.log(`client.user.id = ${client.user.id}`)
-                            console.log(`config.botId   = ${config.botId}`)
+                            // // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
+                            // const modAdminChCollector = modAdminTicketCh.createMessageCollector(chfilter);
+                            // modAdminChCollector.on('collect', msg => {
+                            //     interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
+                            // });
+                            // // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            // modAdminChCollector.on('end', async collected => {
+                            //     await modAdminTicketCh.delete();
+                            //     modAdminChCollector.stop(`collector complete`);
+                            // })
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
