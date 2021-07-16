@@ -535,6 +535,7 @@ function handleCollectors(channel, message) {
     // GRABBING TICKET CHANNEL
     let ticketChannelName = guild.channels.cache.find(ch => ch.name === ticketChannelName)
     
+
     // COLLECTING MESSAGES FROM DM CHANNEL
     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
     const dmCollector = message.channel.createMessageCollector(dmFilter);
@@ -543,6 +544,7 @@ function handleCollectors(channel, message) {
     const chCollector = channel.createMessageCollector(chFilter)
 
 
+    // THE COLLECTORS
     return new Promise((resolve, reject) => {
         // SENDING DM'S TO ADMIN/MOD CH
         dmCollector.on('collect', m => {
@@ -574,5 +576,4 @@ function getAttachments(attachments) {
     return attachments.array()
         .filter(attachment => validImage.test(attachment.url))
         .map(attachment => attachment.url)
-
 }
