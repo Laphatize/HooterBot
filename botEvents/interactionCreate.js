@@ -235,8 +235,8 @@ module.exports = {
 
 
                             // DEFINING COLLECTOR FILTERS
-                            const dmFilter = (msg, user) => msg.author === ticketAuthor && user.id !== config.botId;
-                            const chFilter = (msg, user) => msg.channel.name === ticketChannelName && user.id !== config.botId;
+                            const dmFilter = (msg) => msg.author === ticketAuthor && msg.author.id !== config.botId;
+                            const chFilter = (msg) => msg.channel.name === ticketChannelName && msg.author.id !== config.botId;
 
                             // DEFINING COLLECTORS
                             const dmCollector = interaction.user.dmChannel.createMessageCollector(dmFilter);
@@ -246,7 +246,7 @@ module.exports = {
                             // USING COLLECTORS TO RELAY MESSAGES
                             // DM -> CH
                             dmCollector.on('collect', msg => {
-                                modAdminTicketCh.send({ content: `**${msg.author.tag}:** ${msg.content}`})
+                                modAdminTicketCh.send({ content: `**${ticketAuthor.tag}:** ${msg.content}`})
                             })
                             
                             // CH -> DM
