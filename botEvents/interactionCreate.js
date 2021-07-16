@@ -229,7 +229,7 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => m.author.id !== config.botAuthorId);
                             dmCollector.on('collect', m => {
                                 modAdminTicketCh.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
@@ -240,9 +240,9 @@ module.exports = {
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => m.author.id !== config.botAuthorId);
                             modAdminChCollector.on('collect', m => {
-                                interaction.user.send(`**Staff**: ${m.content}`)
+                                interaction.user.send(`**Temple Server Staff**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
                             modAdminChCollector.on('end', async collected => {
@@ -476,7 +476,7 @@ module.exports = {
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
                     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
 
-                client.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
+                client.guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
 
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
