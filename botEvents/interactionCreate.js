@@ -229,9 +229,9 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => m.author.bot);
-                            dmCollector.on('collect', m => {
-                                modAdminTicketCh.send(`**${interaction.user.tag}**: ${m.content}`)
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !msg.author.bot);
+                            dmCollector.on('collect', msg => {
+                                modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
                             dmCollector.on('end', async collected => {
@@ -240,9 +240,9 @@ module.exports = {
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => m.author.bot);
-                            modAdminChCollector.on('collect', m => {
-                                interaction.user.send(`**Temple Server Staff**: ${m.content}`)
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((msg) => !msg.author.bot);
+                            modAdminChCollector.on('collect', msg => {
+                                interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
                             modAdminChCollector.on('end', async collected => {
