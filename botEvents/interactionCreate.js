@@ -240,7 +240,10 @@ module.exports = {
                             // USING COLLECTORS TO RELAY MESSAGES
                             // DM -> CH
                             dmCollector.on('collect', msg => {
-                                if(!msg.author.id === config.botId) {
+                                if(msg.author.id === config.botId) {
+                                    return;
+                                }
+                                else {
                                     modAdminTicketCh.send({ content: `**${interaction.user.username}:** ${msg.content}`})
 
                                     // APPEND VALUE TO DATABASE TRANSCRIPT
@@ -249,7 +252,10 @@ module.exports = {
                             
                             // CH -> DM
                             chCollector.on('collect', msg => {
-                                if(!msg.author.id === config.botId) {
+                                if(msg.author.id === config.botId) {
+                                    return;
+                                }
+                                else {
                                     interaction.user.send({ content: `**Server Staff**: ${msg.content}`})
 
                                     // APPEND VALUE TO DATABASE TRANSCRIPT
