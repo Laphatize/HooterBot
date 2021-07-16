@@ -242,7 +242,7 @@ module.exports = {
                             // DM -> CH
                             dmCollector.on('collect', msg => {
                                 const files = getAttachments(msg.attachments);
-                                channel.send({ content: `**${msg.author.tag}:** ${msg.content}`, files: [files] })
+                                modAdminTicketCh.send({ content: `**${msg.author.tag}:** ${msg.content}`, files: [files] })
                             })
                             
                             // CH -> DM
