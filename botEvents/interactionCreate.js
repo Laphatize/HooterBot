@@ -234,7 +234,9 @@ module.exports = {
                                 channel.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            dmCollector.on('end', await modAdminTicketCh.delete())
+                            dmCollector.on('end', collected => {
+                                await modAdminTicketCh.delete()
+                            })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
                             const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
@@ -242,7 +244,9 @@ module.exports = {
                                 interaction.user.send(`**Staff**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
-                            modAdminChCollector.on('end', await modAdminTicketCh.delete())
+                            modAdminChCollector.on('end', collected => {
+                                await modAdminTicketCh.delete()
+                            })
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
