@@ -525,11 +525,11 @@ module.exports = {
 function handleCollectors(channel, message) {
 
     // FETCH GUILD ID FROM DATABASE
-    const dbTicketData = await ticketSchema.findOne({
+    const dbTicketData = ticketSchema.findOne({
         CREATOR_ID: interaction.user.id
     }).exec();
 
-    guild = await client.guilds.fetch(dbTicketData.GUILD_ID);
+    guild = client.guilds.fetch(dbTicketData.GUILD_ID);
 
 
     // GRABBING TICKET CHANNEL
