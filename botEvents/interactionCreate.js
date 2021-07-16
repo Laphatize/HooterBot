@@ -251,10 +251,6 @@ module.exports = {
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
-
-                        if(interaction.customId === 'quit_confirmation') {
-                            client.setTimeout(() => msg.delete(), 0 );  
-                        }
                     })
 
             }
@@ -269,7 +265,7 @@ module.exports = {
             if(interaction.customId === 'quit_confirmation') {
 
                 // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
+                interaction.deleteReply()
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -371,7 +367,8 @@ module.exports = {
                 // DELETE TICKET CHANNEL FROM GUILD BY NAME
                 // FETCHING GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.guildId);
-                let adminModCh = client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                console.log(`guild (line 373) = ${guild}`)
+                // let adminModCh = client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
 
                 // DELETE IF CH EXISTS, OTHERWISE LOG THAT A CHANNEL COULDN'T BE FOUND
                 if (adminModCh) {
