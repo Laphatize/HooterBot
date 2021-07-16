@@ -227,8 +227,8 @@ module.exports = {
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
 
 
-                            // MESSAGE COLLECTORS INITIATED
-                            await handleCollectors(modAdminTicketCh, interaction.message)
+                            // // MESSAGE COLLECTORS INITIATED
+                            // await handleCollectors(modAdminTicketCh, interaction.message)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -457,7 +457,10 @@ module.exports = {
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
                     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
 
-                // client.guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
+
+                guild = client.guilds.fetch(dbTicketData.GUILD_ID);
+
+                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
 
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
@@ -521,59 +524,59 @@ module.exports = {
 
 
 
-// MESSAGE COLLECTORS
-function handleCollectors(channel, message) {
+// // MESSAGE COLLECTORS
+// function handleCollectors(channel, message) {
 
-    // FETCH GUILD ID FROM DATABASE
-    const dbTicketData = ticketSchema.findOne({
-        CREATOR_ID: interaction.user.id
-    }).exec();
+//     // FETCH GUILD ID FROM DATABASE
+//     const dbTicketData = ticketSchema.findOne({
+//         CREATOR_ID: interaction.user.id
+//     }).exec();
 
-    guild = client.guilds.fetch(dbTicketData.GUILD_ID);
+//     guild = client.guilds.fetch(dbTicketData.GUILD_ID);
 
 
-    // GRABBING TICKET CHANNEL
-    let ticketChannelName = guild.channels.cache.find(ch => ch.name === ticketChannelName)
+//     // GRABBING TICKET CHANNEL
+//     let ticketChannelName = guild.channels.cache.find(ch => ch.name === ticketChannelName)
     
 
-    // COLLECTING MESSAGES FROM DM CHANNEL
-    const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
-    const dmCollector = message.channel.createMessageCollector(dmFilter);
+//     // COLLECTING MESSAGES FROM DM CHANNEL
+//     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
+//     const dmCollector = message.channel.createMessageCollector(dmFilter);
 
-    const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
-    const chCollector = channel.createMessageCollector(chFilter)
+//     const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
+//     const chCollector = channel.createMessageCollector(chFilter)
 
 
-    // THE COLLECTORS
-    return new Promise((resolve, reject) => {
-        // SENDING DM'S TO ADMIN/MOD CH
-        dmCollector.on('collect', m => {
-            const files = getAttachments(m.attachments);
-            channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
-        })
+//     // THE COLLECTORS
+//     return new Promise((resolve, reject) => {
+//         // SENDING DM'S TO ADMIN/MOD CH
+//         dmCollector.on('collect', m => {
+//             const files = getAttachments(m.attachments);
+//             channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
+//         })
         
-        // SENDING CH MSGS TO USER DM'S
-        chCollector.on('collect', m => {
-            const files = getAttachments(m.attachments);
-            message.author.send({ content: `**Temple Server Staff:** ${m.content}`, files: [files] })
-        })
+//         // SENDING CH MSGS TO USER DM'S
+//         chCollector.on('collect', m => {
+//             const files = getAttachments(m.attachments);
+//             message.author.send({ content: `**Temple Server Staff:** ${m.content}`, files: [files] })
+//         })
 
-        // TURNING OFF WHEN THE TICKET CHANNEL IS DELETED
-        if(ticketChannelName.delete()) {
-            dmCollector.stop(``);
-            chCollector.stop(``);
-            resolve();
-        }
-    })
-}
+//         // TURNING OFF WHEN THE TICKET CHANNEL IS DELETED
+//         if(ticketChannelName.delete()) {
+//             dmCollector.stop(``);
+//             chCollector.stop(``);
+//             resolve();
+//         }
+//     })
+// }
 
 
-// FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
-function getAttachments(attachments) {
-    const validImage = /^.*(png|jpg|jpeg|)$/g
+// // FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
+// function getAttachments(attachments) {
+//     const validImage = /^.*(png|jpg|jpeg|)$/g
 
-    // VALIDATE IMAGE
-    return attachments.array()
-        .filter(attachment => validImage.test(attachment.url))
-        .map(attachment => attachment.url)
-}
+//     // VALIDATE IMAGE
+//     return attachments.array()
+//         .filter(attachment => validImage.test(attachment.url))
+//         .map(attachment => attachment.url)
+// }
