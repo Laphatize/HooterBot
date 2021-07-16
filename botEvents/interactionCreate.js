@@ -208,7 +208,6 @@ module.exports = {
                                 upsert: true
                             }).exec();
 
-
                             
                             // LOGGING TICKET OPENING IN LOGS CHANNEL
                             let logTicketOpenEmbed = new discord.MessageEmbed()
@@ -236,11 +235,16 @@ module.exports = {
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
             if(interaction.customId === 'quitDM') {
+                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`**Please confirm ticket cancellation.**`)
+
 
                 // INITIALIZING BUTTON
                 let quitConfirmButton = new MessageButton()
@@ -248,14 +252,12 @@ module.exports = {
                     .setStyle("DANGER")
                     .setCustomId("quit_confirmation")
         
+
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
                 .addComponents(
                     quitConfirmButton
                 );
-
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
 
 
                 // SENDING THE QUIT CONFIRMATION                
@@ -266,7 +268,7 @@ module.exports = {
                     })
 
             }
-            // END OF "QUIT" BUTTON
+            // END OF "QUITDM" BUTTON
 
 
 
@@ -277,7 +279,7 @@ module.exports = {
             if(interaction.customId === 'quit_confirmation') {
 
                 // DEFERRING BUTTON ACTION
-                interaction.deleteReply()
+                interaction.deferUpdate()
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -289,6 +291,15 @@ module.exports = {
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
                 interaction.user.createDM()
                     .then(dmCh => {
+
+                        // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION)
+                        dmCh.messages.fetch({ limit: 1 })
+                            .then(messages => {
+                                let lastMessage = messages.first();
+                                lastMessage.delete();
+                            })
+
+                        // GRABBING THE INITIAL DM MESSAGE FROM TICKET
                         initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
                             .then(msg => {
                                     
