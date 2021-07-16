@@ -365,18 +365,16 @@ module.exports = {
 
 
                 // DELETE TICKET CHANNEL FROM GUILD BY NAME
-                // FETCHING GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.guildId);
-                console.log(`guild (line 373) = ${guild}`)
-                // let adminModCh = client.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())
+                // FETCHING GUILD FROM DATABASE AND THEN THE USER'S ADMIN/MOD CHANNEL
+                let guild = client.guilds.cache.get(dbTicketData.guildId);
+                let adminModCh = guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase());
 
-                // DELETE IF CH EXISTS, OTHERWISE LOG THAT A CHANNEL COULDN'T BE FOUND
+                // DELETE IF CHANNEL EXISTS, OTHERWISE LOG THAT A CHANNEL COULDN'T BE FOUND
                 if (adminModCh) {
                     adminModCh.delete()
                         .catch(err => console.log(err))
                 }
                 else {
-                    // LOGGING CHANNEL NOT FOUND
                     let logCloseTicketErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Could not locate verification channel`)
