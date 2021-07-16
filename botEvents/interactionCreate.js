@@ -5,13 +5,13 @@ const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const moment = require('moment');
 
-// TICKET CHANNEL NAME
-let ticketChannelName = `verify-${interaction.user.username}`;
-
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
+
+        // TICKET CHANNEL NAME
+        let ticketChannelName = `verify-${interaction.user.username}`;
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -523,6 +523,8 @@ module.exports = {
 
 // MESSAGE COLLECTORS
 function handleCollectors(channel, message) {
+
+    let ticketChannelName = client.channels.cache.find(ch => ch.name === ticketChannelName)
     
     // COLLECTING MESSAGES FROM DM CHANNEL
     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
