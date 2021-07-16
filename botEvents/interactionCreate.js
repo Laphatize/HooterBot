@@ -167,7 +167,7 @@ module.exports = {
                         ],
                         reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
                     })
-                        .then(modAdminTicketCh => {
+                        .then(async modAdminTicketCh => {
                             // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                             let newTicketEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGreen)
