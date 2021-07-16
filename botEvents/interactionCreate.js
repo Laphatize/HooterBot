@@ -13,10 +13,6 @@ module.exports = {
         let ticketChannelName = `verify-${interaction.user.username}`;
 
 
-        // MESSAGE COLLECTORS
-        const modAdminChCollector, dmCollector 
-
-
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
@@ -230,17 +226,23 @@ module.exports = {
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
 
 
+
+
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
                             dmCollector.on('collect', m => {
                                 channel.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
+                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            dmCollector.on('end', await modAdminTicketCh.delete())
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
                             modAdminChCollector.on('collect', m => {
                                 interaction.user.send(`**Staff**: ${m.content}`)
                             });
+                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            modAdminChCollector.on('end', await modAdminTicketCh.delete())
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -340,11 +342,6 @@ module.exports = {
 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
-
-                
-                // TURNING OFF COLLECTORS
-                dmCollector.stop('Ticket closing...')
-                modAdminChCollector.stop('Ticket closing...')
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
