@@ -228,7 +228,7 @@ module.exports = {
 
 
                             // MESSAGE COLLECTORS INITIATED
-                            await handleCollectors(modAdminTicketCh, message)
+                            await handleCollectors(modAdminTicketCh, interaction.message)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
