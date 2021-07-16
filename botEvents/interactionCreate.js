@@ -229,7 +229,7 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !msg.author.bot);
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((msg) => msg.author.id != client.user.id);
                             dmCollector.on('collect', msg => {
                                 modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
                             });
@@ -240,7 +240,7 @@ module.exports = {
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((msg) => !msg.author.bot);
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((msg) => msg.author.id != client.user.id);
                             modAdminChCollector.on('collect', msg => {
                                 interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
                             });
