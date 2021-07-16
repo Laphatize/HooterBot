@@ -5,12 +5,13 @@ const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const moment = require('moment');
 
+// TICKET CHANNEL NAME
+let ticketChannelName = `verify-${interaction.user.username}`;
+
+
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
-
-        // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${interaction.user.username}`;
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -224,6 +225,10 @@ module.exports = {
 
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
+
+
+                            // MESSAGE COLLECTORS INITIATED
+                            await handleCollectors(modAdminTicketCh, message)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -513,3 +518,50 @@ module.exports = {
         }
 	},
 };
+
+
+
+// MESSAGE COLLECTORS
+function handleCollectors(channel, message) {
+    
+    // COLLECTING MESSAGES FROM DM CHANNEL
+    const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
+    const dmCollector = message.channel.createMessageCollector(dmFilter);
+
+    const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
+    const chCollector = channel.createMessageCollector(chFilter)
+
+
+    return new Promise((resolve, reject) => {
+        // SENDING DM'S TO ADMIN/MOD CH
+        dmCollector.on('collect', m => {
+            const files = getAttachments(m.attachments);
+            channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
+        })
+        
+        // SENDING CH MSGS TO USER DM'S
+        chCollector.on('collect', m => {
+            const files = getAttachments(m.attachments);
+            message.author.send({ content: `**Temple Server Staff:** ${m.content}`, files: [files] })
+        })
+
+        // TURNING OFF WHEN THE TICKET CHANNEL IS DELETED
+        if(ticketChannelName.delete()) {
+            dmCollector.stop(``);
+            chCollector.stop(``);
+            resolve();
+        }
+    })
+}
+
+
+// FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
+function getAttachments(attachments) {
+    const validImage = /^.*(png|jpg|jpeg|)$/g
+
+    // VALIDATE IMAGE
+    return attachments.array()
+        .filter(attachment => validImage.test(attachment.url))
+        .map(attachment => attachment.url)
+
+}

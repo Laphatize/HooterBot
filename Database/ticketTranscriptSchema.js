@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose')
 
-module.exports = mongoose.model("Tickets", new mongoose.Schema({
+module.exports = mongoose.model("Transcripts", new mongoose.Schema({
 
 
 },{
