@@ -84,7 +84,7 @@ module.exports = {
                 let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
-                    .setCustomId("quit")
+                    .setCustomId("quitDM")
                     .setDisabled(false)
 
                 // BUTTON ROW
@@ -178,7 +178,7 @@ module.exports = {
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
                                 .setStyle("DANGER")
-                                .setCustomId("quit")
+                                .setCustomId("quitCh")
                                 .setDisabled(false)
             
                             // BUTTON ROW
@@ -235,7 +235,7 @@ module.exports = {
             /***********************************************************/
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
-            if(interaction.customId === 'quit') {
+            if(interaction.customId === 'quitDM') {
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
