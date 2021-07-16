@@ -227,9 +227,12 @@ module.exports = {
 
 
 
+                            // FILTER FOR COLLECTORS
+                            const dmfilter = m => m.author.id == interaction.user.id;
+                            const chfilter = m => m.author.id !== config.botId;
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((msg) => msg.author.id != config.botId);
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmfilter );
                             dmCollector.on('collect', msg => {
                                 modAdminTicketCh.send(`**${interaction.user.tag}**: ${msg.content}`)
                             });
@@ -240,7 +243,7 @@ module.exports = {
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((msg) => msg.author.id != config.botId);
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector(chfilter);
                             modAdminChCollector.on('collect', msg => {
                                 interaction.user.send(`**Temple Server Staff**: ${msg.content}`)
                             });
