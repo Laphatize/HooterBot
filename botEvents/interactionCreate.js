@@ -229,7 +229,7 @@ module.exports = {
 
 
                             // DEFINING COLLECTOR FILTERS
-                            const dmFilter = (msg) => msg.author === ticketAuthor && msg.author.id !== config.botId;
+                            const dmFilter = (msg) => msg.author === interaction.user && msg.user.id !== config.botId;
                             const chFilter = (msg) => msg.channel.name === ticketChannelName && msg.author.id !== config.botId;
 
                             // DEFINING COLLECTORS
@@ -242,18 +242,22 @@ module.exports = {
                             dmCollector.on('collect', msg => {
                                 if(!msg.author.id === config.botId) {
                                     modAdminTicketCh.send({ content: `**${interaction.user.username}:** ${msg.content}`})
+
+                                    // APPEND VALUE TO DATABASE TRANSCRIPT
                                 }
                             })
                             
                             // CH -> DM
                             chCollector.on('collect', msg => {
                                 if(!msg.author.id === config.botId) {
-                                    interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`})
+                                    interaction.user.send({ content: `**Server Staff**: ${msg.content}`})
+
+                                    // APPEND VALUE TO DATABASE TRANSCRIPT
                                 }
                             });
 
 
-                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            // TURN OFF WHEN THE TICKET CHANNEL IS DELETED
                             dmCollector.on('end', async collected => {
                                 await modAdminTicketCh.delete();
                                 dmCollector.stop(`collector complete`);
