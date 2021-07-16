@@ -9,9 +9,13 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
+        // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.username}`;
-        const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
-        const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
+
+
+        // MESSAGE COLLECTORS
+        const modAdminChCollector, dmCollector 
+
 
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
@@ -86,7 +90,7 @@ module.exports = {
                 let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
-                    .setCustomId("quitDM")
+                    .setCustomId("quit_DM")
                     .setDisabled(false)
 
                 // BUTTON ROW
@@ -180,7 +184,7 @@ module.exports = {
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
                                 .setStyle("DANGER")
-                                .setCustomId("quitCH")
+                                .setCustomId("quit_CH")
                                 .setDisabled(false)
             
                             // BUTTON ROW
@@ -227,11 +231,13 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
+                            dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
                             dmCollector.on('collect', m => {
                                 channel.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
+                            modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
                             modAdminChCollector.on('collect', m => {
                                 interaction.user.send(`**Staff**: ${m.content}`)
                             });
@@ -246,7 +252,7 @@ module.exports = {
             /***********************************************************/
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
-            if(interaction.customId === 'quitDM') {
+            if(interaction.customId === 'quit_DM') {
                 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
@@ -262,7 +268,7 @@ module.exports = {
                 let quitConfirmButton = new MessageButton()
                     .setLabel("Yes, Quit")
                     .setStyle("DANGER")
-                    .setCustomId("quit_confirmation")
+                    .setCustomId("quit_confirmation_DM")
         
 
                 // BUTTON ROW
@@ -280,7 +286,7 @@ module.exports = {
                     })
 
             }
-            // END OF "QUITDM" BUTTON
+            // END OF "QUIT_DM" BUTTON
 
 
 
@@ -288,7 +294,7 @@ module.exports = {
             /***********************************************************/
             /*      QUIT VERIFICATION (ANY PROMPT IN THE MOD/ADMIN CH) */
             /***********************************************************/
-            if(interaction.customId === 'quitCH') {
+            if(interaction.customId === 'quit_CH') {
                 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
@@ -304,7 +310,7 @@ module.exports = {
                 let quitConfirmButton = new MessageButton()
                     .setLabel("Yes, Quit")
                     .setStyle("DANGER")
-                    .setCustomId("quit_confirmation")
+                    .setCustomId("quit_confirmation_CH")
         
 
                 // BUTTON ROW
@@ -322,7 +328,7 @@ module.exports = {
                     })
 
             }
-            // END OF "QUITCH" BUTTON
+            // END OF "QUIT_CH" BUTTON
 
 
 
@@ -330,7 +336,7 @@ module.exports = {
             /***********************************************************/
             /*      QUIT CONFIRM (2nd QUIT IN DMS PROMPT)              */
             /***********************************************************/
-            if(interaction.customId === 'quit_confirmation') {
+            if(interaction.customId === 'quit_confirmation_DM') {
 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
