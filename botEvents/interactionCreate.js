@@ -524,7 +524,16 @@ module.exports = {
 // MESSAGE COLLECTORS
 function handleCollectors(channel, message) {
 
-    let ticketChannelName = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+    // FETCH GUILD ID FROM DATABASE
+    const dbTicketData = await ticketSchema.findOne({
+        CREATOR_ID: interaction.user.id
+    }).exec();
+
+    guild = await client.guilds.fetch(dbTicketData.GUILD_ID);
+
+
+    // GRABBING TICKET CHANNEL
+    let ticketChannelName = guild.channels.cache.find(ch => ch.name === ticketChannelName)
     
     // COLLECTING MESSAGES FROM DM CHANNEL
     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
