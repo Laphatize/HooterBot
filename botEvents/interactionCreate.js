@@ -231,7 +231,7 @@ module.exports = {
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
                             const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
                             dmCollector.on('collect', m => {
-                                channel.send(`**${interaction.user.tag}**: ${m.content}`)
+                                modAdminTicketCh.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
                             // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
                             dmCollector.on('end', async collected => {
