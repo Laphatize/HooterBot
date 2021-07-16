@@ -227,8 +227,44 @@ module.exports = {
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
 
 
-                            // // MESSAGE COLLECTORS INITIATED
-                            // await handleCollectors(modAdminTicketCh, interaction.message)
+                            
+
+                            // DEFINING COLLECTOR FILTERS
+                            const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
+                            const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
+
+                            // DEFINING COLLECTORS
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmFilter);
+                            const chCollector = modAdminTicketCh.createMessageCollector(chFilter);
+
+
+                            // USING COLLECTORS TO RELAY MESSAGES
+                            // DM -> CH
+                            dmCollector.on('collect', m => {
+                                const files = getAttachments(m.attachments);
+                                channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
+                            })
+                            
+                            // CH -> DM
+                            chCollector.on('collect', msg => {
+                                const files = getAttachments(m.attachments);
+                                interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`, files: [files] })
+                            });
+
+
+                            // TURN OFF ONLY WHEN THE TICKET CHANNEL IS DELETED
+                            dmCollector.on('end', async collected => {
+                                await modAdminTicketCh.delete();
+                                dmCollector.stop(`collector complete`);
+                                console.log(`The DM message collector has turned off.`)
+                            })
+                            
+                            chCollector.on('end', async collected => {
+                                await modAdminTicketCh.delete();
+                                chCollector.stop(`collector complete`);
+                                console.log(`The channel message collector has turned off.`)
+                            })
+
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -458,10 +494,9 @@ module.exports = {
                     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
 
 
+                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
                 guild = client.guilds.fetch(dbTicketData.GUILD_ID);
-
-                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
-
+                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] });
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
@@ -524,59 +559,14 @@ module.exports = {
 
 
 
-// // MESSAGE COLLECTORS
-// function handleCollectors(channel, message) {
-
-//     // FETCH GUILD ID FROM DATABASE
-//     const dbTicketData = ticketSchema.findOne({
-//         CREATOR_ID: interaction.user.id
-//     }).exec();
-
-//     guild = client.guilds.fetch(dbTicketData.GUILD_ID);
 
 
-//     // GRABBING TICKET CHANNEL
-//     let ticketChannelName = guild.channels.cache.find(ch => ch.name === ticketChannelName)
-    
+// FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
+function getAttachments(attachments) {
+    const validImage = /^.*(png|jpg|jpeg|)$/g
 
-//     // COLLECTING MESSAGES FROM DM CHANNEL
-//     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
-//     const dmCollector = message.channel.createMessageCollector(dmFilter);
-
-//     const chFilter = m => m.channel.name === ticketChannelName && !m.author.bot;
-//     const chCollector = channel.createMessageCollector(chFilter)
-
-
-//     // THE COLLECTORS
-//     return new Promise((resolve, reject) => {
-//         // SENDING DM'S TO ADMIN/MOD CH
-//         dmCollector.on('collect', m => {
-//             const files = getAttachments(m.attachments);
-//             channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
-//         })
-        
-//         // SENDING CH MSGS TO USER DM'S
-//         chCollector.on('collect', m => {
-//             const files = getAttachments(m.attachments);
-//             message.author.send({ content: `**Temple Server Staff:** ${m.content}`, files: [files] })
-//         })
-
-//         // TURNING OFF WHEN THE TICKET CHANNEL IS DELETED
-//         if(ticketChannelName.delete()) {
-//             dmCollector.stop(``);
-//             chCollector.stop(``);
-//             resolve();
-//         }
-//     })
-// }
-
-
-// // FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
-// function getAttachments(attachments) {
-//     const validImage = /^.*(png|jpg|jpeg|)$/g
-
-//     // VALIDATE IMAGE
-//     return attachments.array()
-//         .filter(attachment => validImage.test(attachment.url))
-//         .map(attachment => attachment.url)
-// }
+    // VALIDATE IMAGE
+    return attachments.array()
+        .filter(attachment => validImage.test(attachment.url))
+        .map(attachment => attachment.url)
+}
