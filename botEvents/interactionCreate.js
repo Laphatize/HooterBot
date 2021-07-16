@@ -229,7 +229,7 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => m.author.id !== config.botAuthorId);
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => m.author.bot);
                             dmCollector.on('collect', m => {
                                 modAdminTicketCh.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
@@ -240,7 +240,7 @@ module.exports = {
                             })
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => m.author.id !== config.botAuthorId);
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => m.author.bot);
                             modAdminChCollector.on('collect', m => {
                                 interaction.user.send(`**Temple Server Staff**: ${m.content}`)
                             });
@@ -441,7 +441,8 @@ module.exports = {
                 let quitConfirmedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
-                    .setDescription(`Your verification ticket has been closed and you have **not** been verified.\nAll the information for this ticket has been purged from the bot.
+                    .setDescription(`You have closed this verification ticket and you have **not** been verified.
+                    \nAll the information for this ticket has been purged from the bot.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
                 // DMING USER THE QUIT CONFIRMATION             
@@ -476,7 +477,7 @@ module.exports = {
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
                     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
 
-                client.guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
+                // client.guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
 
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
