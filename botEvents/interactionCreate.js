@@ -241,14 +241,12 @@ module.exports = {
                             // USING COLLECTORS TO RELAY MESSAGES
                             // DM -> CH
                             dmCollector.on('collect', msg => {
-                                const files = getAttachments(msg.attachments);
-                                modAdminTicketCh.send({ content: `**${msg.author.tag}:** ${msg.content}`, files: [files] })
+                                modAdminTicketCh.send({ content: `**${msg.author.tag}:** ${msg.content}`})
                             })
                             
                             // CH -> DM
                             chCollector.on('collect', msg => {
-                                const files = getAttachments(msg.attachments);
-                                interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`, files: [files] })
+                                interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`})
                             });
 
 
@@ -556,17 +554,3 @@ module.exports = {
         }
 	},
 };
-
-
-
-
-
-// FOR CONVEYING ATTACHMENTS THROUGH TO ADMIN/MOD TICKET CHANNEL
-function getAttachments(attachments) {
-    const validImage = /^.*(png|jpg|jpeg|)$/g
-
-    // VALIDATE IMAGE
-    return attachments.array()
-        .filter(attachment => validImage.test(attachment.url))
-        .map(attachment => attachment.url)
-}
