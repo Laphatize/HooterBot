@@ -9,7 +9,8 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        let ticketChannelName = `verify-${interaction.user.username}`
+        let ticketChannelName = `verify-${interaction.user.username}`;
+
 
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
@@ -222,12 +223,24 @@ module.exports = {
 
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
+
+
+                            // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
+                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);  // IGNORE ITS OWN BOT MESSAGES
+                            dmCollector.on('collect', m => {
+                                channel.send(`**${interaction.user.tag}**: ${m.content}`)
+                            });
+
+                            // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
+                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);  // IGNORE ITS OWN BOT MESSAGES
+                            modAdminChCollector.on('collect', m => {
+                                interaction.user.send(`**Staff**: ${m.content}`)
+                            });
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
             }
             // END OF "BEGIN VERIFICATION" PROMPT BUTTON
-
 
 
 
@@ -310,7 +323,7 @@ module.exports = {
                     })
 
             }
-            // END OF "QUITDM" BUTTON
+            // END OF "QUITCH" BUTTON
 
 
 
@@ -322,6 +335,11 @@ module.exports = {
 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
+
+                
+                // TURNING OFF COLLECTORS
+                dmCollector.stop('Ticket closing...')
+                modAdminChCollector.stop('Ticket closing...')
 
                 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -428,44 +446,43 @@ module.exports = {
                     // ** A BIG TO DO ITEM **
 
 
-
-                // DELETE TICKET CHANNEL FROM GUILD BY NAME
-                // FETCHING GUILD FROM DATABASE AND THEN THE USER'S ADMIN/MOD CHANNEL
-                let guild = client.guilds.cache.get(dbTicketData.guildId);
-                let adminModCh = guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase());
-
-                // DELETE IF CHANNEL EXISTS, OTHERWISE LOG THAT A CHANNEL COULDN'T BE FOUND
-                if (adminModCh) {
-                    adminModCh.delete()
-                        .catch(err => console.log(err))
-                }
-                else {
-                    let logCloseTicketErrorEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedRed)
-                        .setTitle(`${config.emjREDTICK} Could not locate verification channel`)
-                        .setDescription(`Was it deleted?\n**Channel:** ${adminModCh}`)
-                        .setTimestamp()
-
-                    // LOG ENTRY
-                    client.channels.cache.get(config.logActionsChannelId).send({embeds: [logCloseTicketErrorEmbed]})
-                }
                 
 
-                // LOGGING TICKET CLOSURE
-                let logCloseTicketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
-                    .addField(`User:`, `${interaction.user}`, true)
-                    .addField(`User ID:`, `${interaction.user.id}`, true)
-                    .addField(`Verified?`, `**No**`, true)
-                    .addField(`Ticket closed early by:`, `${interaction.user}`)
-                    .setTimestamp()
+                // // LOGGING TICKET CLOSURE - THIS NEEDS TO HAPPEN AFTER THE MODS/ADMINS OK TICKET CLOSURE
+                // let logCloseTicketEmbed = new discord.MessageEmbed()
+                //     .setColor(config.embedRed)
+                //     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
+                //     .addField(`User:`, `${interaction.user}`, true)
+                //     .addField(`User ID:`, `${interaction.user.id}`, true)
+                //     .addField(`Verified?`, `**No**`, true)
+                //     .addField(`Ticket closed early by:`, `${interaction.user}`)
+                //     .setTimestamp()
                 
-                // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logCloseTicketEmbed]})
+                // // LOG ENTRY
+                // client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+
+                
+                // CLOSURE NOTICE TO CHANNEL
+                let closeNotice = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
+                    .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
+
+                client.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] })
 
             }
-            // END OF "QUIT CONFIRM" BUTTON
+            // END OF "QUIT CONFIRM DMS" BUTTON
+
+
+
+
+            /***********************************************************/
+            /*      QUIT CONFIRM (2nd QUIT IN MOD/ADMIN CHANNEL)       */
+            /***********************************************************/
+
+
+            // END OF "QUIT CONFIRM ADMIN/MOD CH" BUTTON
+
 
 
 
