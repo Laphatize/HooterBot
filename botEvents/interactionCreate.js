@@ -226,12 +226,6 @@ module.exports = {
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
 
-                            console.log(interaction.user.username)
-
-
-
-
-                            let ticketAuthor = interaction.user;
 
 
                             // DEFINING COLLECTOR FILTERS
@@ -246,12 +240,16 @@ module.exports = {
                             // USING COLLECTORS TO RELAY MESSAGES
                             // DM -> CH
                             dmCollector.on('collect', msg => {
-                                modAdminTicketCh.send({ content: `**${ticketAuthor.tag}:** ${msg.content}`})
+                                if(!msg.author.id === config.botId) {
+                                    modAdminTicketCh.send({ content: `**${interaction.user.username}:** ${msg.content}`})
+                                }
                             })
                             
                             // CH -> DM
                             chCollector.on('collect', msg => {
-                                interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`})
+                                if(!msg.author.id === config.botId) {
+                                    interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`})
+                                }
                             });
 
 
