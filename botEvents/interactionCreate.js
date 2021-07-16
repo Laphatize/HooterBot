@@ -37,7 +37,7 @@ module.exports = {
                 if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
                     return interaction.reply({
-                        content: `Sorry, you're **already in the process of verifying!** Check your DMs with HooterBot!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                        content: `Sorry, you're **already in the process of verifying!** Check your DMs with <#${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
                         ephemeral: true })
                 }
 
