@@ -175,7 +175,7 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
-                                .setDescription(`**Ticket Auto-Close On:** ${closeDate}`)
+                                .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
                                 .setFooter(`Any messages sent in this channel will be sent to the user's DMs. Please avoid sending any messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
@@ -219,7 +219,7 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
                                 .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
-                                .setDescription(`**Ticket Auto-Closing On:** ${closeDate}`)
+                                .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
                                 .setTimestamp()
                                 
 
@@ -524,7 +524,7 @@ module.exports = {
 // MESSAGE COLLECTORS
 function handleCollectors(channel, message) {
 
-    let ticketChannelName = client.channels.cache.find(ch => ch.name === ticketChannelName)
+    let ticketChannelName = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
     
     // COLLECTING MESSAGES FROM DM CHANNEL
     const dmFilter = m => m.author.id === interaction.user.id && !m.author.bot;
