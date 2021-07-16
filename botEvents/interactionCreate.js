@@ -10,7 +10,8 @@ module.exports = {
 	async execute(interaction, client) {
 
         let ticketChannelName = `verify-${interaction.user.username}`;
-
+        const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);
+        const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);
 
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
@@ -226,13 +227,11 @@ module.exports = {
 
 
                             // MESSAGE COLLECTOR:  USER DM MSGS -> TICKET CHANNEL
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector((m) => !m.author.bot);  // IGNORE ITS OWN BOT MESSAGES
                             dmCollector.on('collect', m => {
                                 channel.send(`**${interaction.user.tag}**: ${m.content}`)
                             });
 
                             // MESSAGE COLLECTOR:  TICKET CHANNEL -> DMs
-                            const modAdminChCollector = modAdminTicketCh.createMessageCollector((m) => !m.author.bot);  // IGNORE ITS OWN BOT MESSAGES
                             modAdminChCollector.on('collect', m => {
                                 interaction.user.send(`**Staff**: ${m.content}`)
                             });
