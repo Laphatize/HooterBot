@@ -2,7 +2,7 @@
     "buildDate": "15 July 2021",
     "prefix": "$",
     "botName": "HooterBot",
-    "botID": "857010679286595629",
+    "botId": "857010679286595629",
     "botAuthor": "MrMusicMan789#0789",
     "botAuthorUsername": "MrMusicMan789",
     "botAuthorId": "472185023622152203",
@@ -43,7 +43,7 @@
     "rulesChannelId": "862851733297561681",
 
     "modRoleId": "863645415458865163",
-    "adminRoleId": "588107993153929248",
+    "adminRoleId": "863650974513758259",
     "verifiedRoleID": "863507579480703017",
 
     "ModMailId": "575252669443211264"
