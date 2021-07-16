@@ -240,14 +240,14 @@ module.exports = {
 
                             // USING COLLECTORS TO RELAY MESSAGES
                             // DM -> CH
-                            dmCollector.on('collect', m => {
-                                const files = getAttachments(m.attachments);
-                                channel.send({ content: `**${m.author.tag}:** ${m.content}`, files: [files] })
+                            dmCollector.on('collect', msg => {
+                                const files = getAttachments(msg.attachments);
+                                channel.send({ content: `**${msg.author.tag}:** ${msg.content}`, files: [files] })
                             })
                             
                             // CH -> DM
                             chCollector.on('collect', msg => {
-                                const files = getAttachments(m.attachments);
+                                const files = getAttachments(msg.attachments);
                                 interaction.user.send({ content: `**Temple Server Staff**: ${msg.content}`, files: [files] })
                             });
 
