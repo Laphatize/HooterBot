@@ -249,6 +249,9 @@ module.exports = {
                                 await modAdminTicketCh.delete();
                                 modAdminChCollector.stop(`collector complete`);
                             })
+
+                            console.log(`client.user.id = ${client.user.id}`)
+                            console.log(`config.botId   = ${config.botId}`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
