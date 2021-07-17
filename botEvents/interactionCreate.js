@@ -65,7 +65,9 @@ module.exports = {
                         \n${config.indent}**1.** Use a physical TUid card
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
-                        \n\nSelect the method using the buttons below to receive instructions. You can quit verification at any time using the red "Quit Verification" button.\n`)
+                        \n\nSelect a method using the buttons below to receive instructions. You may quit verification at any time using the red "Quit Verification" button.
+                        \nTickets close after 1 week (${Date.now().add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")})
+                        \n\nIf you have any questions or need help, please send a message here in DMs with Hooterbot. A member of the server staff team will respond shortly.`)
 
 
                 // INITIALIZING BUTTONS 
@@ -139,13 +141,13 @@ module.exports = {
 
 
                     // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE
-                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-5).format("dddd, MMMM DD, YYYY")
+                    closeDate = moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'text',
                         parent: ticketCategory,
-                        topic: 'Admins/Moderators can reply in this channel to send messages to the user.',
+                        topic: `Admins/Moderators can track verification progress here and respond to help inquiries. Note: Any messages sent in this channel will be sent to the user's DMs. Please do not send messages unless in response to a user. Messages cannot be edited or deleted once sent in this channel`,
                         permissionOverwrites: [
                             {
                                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
@@ -176,7 +178,7 @@ module.exports = {
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
                                 .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
-                                .setFooter(`Any messages sent in this channel will be sent to the user's DMs. Please avoid sending any messages unless in response to a user.`)
+                                .setFooter(`**Any messages sent in this channel will be sent to the user's DMs.** Please do not send messages unless in response to a user. Messages cannot be edited or deleted once sent in this channel!`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
@@ -244,7 +246,13 @@ module.exports = {
                                     return;
                                 }
                                 else {
-                                    modAdminTicketCh.send({ content: `**${interaction.user.username}:** ${msg.content}`})
+                                    let userTicketMsg = new discord.MessageEmbed()
+                                        .setColor(config.embedGrey)
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setDescription(msg.content)
+                                        .setTimestamp()
+
+                                    modAdminTicketCh.send({ embeds: [userTicketMsg] })
 
                                     // APPEND VALUE TO DATABASE TRANSCRIPT
                                 }
