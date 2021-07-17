@@ -66,7 +66,7 @@ module.exports = {
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect a method using the buttons below to receive instructions. You may quit verification at any time using the red "Quit Verification" button.
-                        \nTickets close after 1 week (${Date.now().add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")})
+                        \nTickets close after 1 week (${moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")})
                         \n\nIf you have any questions or need help, please send a message here in DMs with Hooterbot. A member of the server staff team will respond shortly.`)
 
 
