@@ -70,7 +70,7 @@ module.exports = {
                 ticketUser = client.users.cache.get(ticketUserId);
 
 
-                console.log(`ticketuser.username = ${ticketuser.username}`)
+                console.log(`ticketUser.username = ${ticketUser.username}`)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
