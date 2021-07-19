@@ -55,7 +55,7 @@ module.exports = {
 
 
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if(message.channel.name.startsWith(`verify-`)) {
+        if(message.channel.name.startsWith(`verify-`) && message.channel.type !== 'DM') {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
@@ -85,6 +85,9 @@ module.exports = {
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
             return ticketUser.send({ embeds: [userTicketMsg] })
+                .catch(err => {
+                    message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+                })
         }
 
 
