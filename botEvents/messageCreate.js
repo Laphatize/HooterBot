@@ -18,7 +18,7 @@ module.exports = {
             console.log(`ticketChannelName will equal "${ticketChannelName}".`)
 
             // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-            if (message.channel.type === 'dm') {
+            if (message.channel.type == 'dm') {
 
                 // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
                 if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
@@ -51,12 +51,15 @@ module.exports = {
 
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
                 dmUsername = message.channel.name.split('-').pop()
+                
                 console.log(`dmUsername = ${dmUsername}`)
 
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
                 ticketUser = await message.guild.members.fetch()
-                    .then(members => members.filter(member => member.user.username == dmUsername))
+                    .filter(member => member.user.username.toLowerCase() === dmusername);
+                
+                    console.log(`ticketUser = ${ticketUser}`)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
@@ -237,7 +240,7 @@ module.exports = {
         
 
                 // SENDING COOLDOWN WAIT NOTICE
-                if(message.channel.type === 'dm') {
+                if(message.channel.type == 'dm') {
                     message.author.send({embeds: [cooldownWaitEmbed]})
                         // DELETE AFTER 5 SECONDS
                         .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
