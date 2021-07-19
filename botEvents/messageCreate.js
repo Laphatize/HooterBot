@@ -52,7 +52,7 @@ module.exports = {
 
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
-                ticketUser = await guild.members.fetch()
+                ticketUser = await message.guild.members.fetch()
                     .then(members => members.filter(member => member.user.username == dmUsername))
 
 
