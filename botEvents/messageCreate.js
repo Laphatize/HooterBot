@@ -6,6 +6,9 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
+        // NORMALLY I'D HAVE THE BOT IGNORE ITS OWN MESSAGES HERE, BUT THAT'S BEEN REMOVED FOR TESTING...
+
+
         // MESSAGE IS NOT A COMMAND - CHECK IF IT IS FOR A VERIFICATION TICKET
         if(!message.content.startsWith(config.prefix)) {
                             
@@ -58,11 +61,8 @@ module.exports = {
                 }).exec();
 
 
-                // FETCHING USER'S ID FROM DATABASE
+                // FETCHING USER'S ID FROM DATABASE, THEN USER
                 ticketUserId = dbTicketData.CREATOR_ID;
-
-
-                // FETCHING USER FROM THEIR ID IN THE DB
                 ticketUser = client.users.cache.get(ticketUserId);
 
 
