@@ -17,32 +17,32 @@ module.exports = {
         // IF PARTIAl, FETCH THE FULL THING
         if(message.partial) {
             message.fetch()
-            .then(fullMessage => {
+            .then(message => {
                 
 
                 // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-                if (fullMessage.channel.type === 'DM') {
+                if (message.channel.type === 'DM') {
 
                     // IGNORE HOOTERBOT'S OWN MESSAGES
-                    if(fullMessage.author.bot)   return;
+                    if(message.author.bot)   return;
 
 
                     // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-                    if (fullMessage.guild.channels.cache.find(ch => ch.name === `verify-${fullMessage.author.username}`)) {
+                    if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
 
                         // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                        console.log(`${fullMessage.author.username} has a ticket open. Rerouting DM message content to channel...`)
+                        console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
 
 
                         // GRABBING TICKET CHANNEL FOR THE USER
-                        modAdminTicketCh = fullMessage.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+                        modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
 
 
                         // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                         let userTicketMsg = new discord.MessageEmbed()
                             .setColor(config.embedGrey)
-                            .setAuthor(fullMessage.author.username, fullMessage.author.displayAvatarURL())
-                            .setDescription(fullMessage.content)
+                            .setAuthor(message.author.username, message.author.displayAvatarURL())
+                            .setDescription(message.content)
                             .setTimestamp()
 
                         // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
@@ -55,7 +55,7 @@ module.exports = {
 
 
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if (message.channel.type('GUILD_TEXT') && message.channel.name.startsWith(`verify`)) {
+        if (message.channel.type('GUILD_TEXT') && message.channel.name.startsWith(`verify-`)) {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
