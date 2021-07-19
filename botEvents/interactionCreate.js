@@ -60,14 +60,12 @@ module.exports = {
                 let ticketOpenEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Verification - Ticket Opened**`)
-                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**. This verification ticket will be open for 1 week, closing automatically on ${moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")}. 
                         \nThere are three ways you can verify you are a student or employee:
                         \n${config.indent}**1.** Use a physical TUid card
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
-                        \n\nSelect a method using the buttons below to receive instructions. You may quit verification at any time using the red "Quit Verification" button.
-                        \nTickets close after 1 week (${moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")})
-                        \n\nIf you have any questions or need help, please send a message here in DMs with Hooterbot. A member of the server staff team will respond shortly.`)
+                        \n\nSelect a method using the buttons below to receive further instructions. You may quit verification at any time using the red "Quit Verification" button. If you have questions or need help, please **send a message here in DMs** with Hooterbot. A member of the server staff will respond shortly.`)
 
 
                 // INITIALIZING BUTTONS 

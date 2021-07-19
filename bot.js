@@ -26,10 +26,10 @@ const client = new discord.Client({
     ],
     partials: [
         'CHANNEL',
-        'GUILD_MEMBER',
+        // 'GUILD_MEMBER',
         'MESSAGE',
-        'REACTION',
-        'USER'
+        // 'REACTION',
+        // 'USER'
     ]
 })
 

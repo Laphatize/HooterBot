@@ -5,57 +5,65 @@ const ticketSchema = require('../Database/ticketSchema');
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
-
-        // NORMALLY I'D HAVE THE BOT IGNORE ITS OWN MESSAGES HERE, BUT THAT'S BEEN REMOVED FOR TESTING...
-
                             
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
+        
 
-        console.log(`message.channel.type = ${message.channel.type}`)
-
-        // IF PARTIAl, FETCH THE FULL THING
+        // IF PARTIAL MESSAGE, FETCH
         if(message.partial) {
-            message.fetch()
-            .then(message => {
-                
+            try {
+                await message.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+             
+        // IF PARTIAL CHANNEL, FETCH
+        if(channel.partial) {
+            try {
+                await channel.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+        
 
-                // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-                if (message.channel.type === 'DM') {
+        // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
+        if (message.channel.type === 'DM') {
 
-                    // IGNORE HOOTERBOT'S OWN MESSAGES
-                    if(message.author.bot)   return;
-
-
-                    // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-                    if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
-
-                        // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                        console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
 
 
-                        // GRABBING TICKET CHANNEL FOR THE USER
-                        modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
+            if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
+
+                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
+                console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
 
 
-                        // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-                        let userTicketMsg = new discord.MessageEmbed()
-                            .setColor(config.embedGrey)
-                            .setAuthor(message.author.username, message.author.displayAvatarURL())
-                            .setDescription(message.content)
-                            .setTimestamp()
+                // GRABBING TICKET CHANNEL FOR THE USER
+                modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
 
-                        // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
-                        return modAdminTicketCh.send({ embeds: [userTicketMsg] })
-                    }
-                }
-            })
+
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let userTicketMsg = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setDescription(message.content)
+                    .setTimestamp()
+
+                // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
+                return modAdminTicketCh.send({ embeds: [userTicketMsg] })
+            }
         }
 
 
 
+
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if(message.channel.name.startsWith(`verify-`) && message.channel.type !== 'DM') {
+        if(/*message.channel.name.startsWith(`verify-`) && */ message.channel.type !== 'DM') {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
