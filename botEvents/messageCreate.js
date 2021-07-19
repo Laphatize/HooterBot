@@ -6,24 +6,53 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        // MESSAGE IS NOT A COMMAND OR IS A MESSAGE FROM THE BOT
-        if (!message.content.startsWith(prefix) || message.author.bot)   return;
+        // IGNORE BOT'S OWN MESSAGES
+        if (message.author.bot)   return;
 
 
-        // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${message.author.username}`;
+        // MESSAGE IS NOT A COMMAND - CHECK IF IT IS FOR A VERIFICATION TICKET
+        if(!message.content.startsWith(prefix)) {
+                
+            // TICKET CHANNEL NAME
+            let ticketChannelName = `verify-${message.author.username}`;
 
-        // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-        if (message.channel.type === 'dm') {
+            // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
+            if (message.channel.type === 'dm') {
 
-            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-            if (message.guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
-                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                console.log(`${message.author.username} has a ticket open, rerouting DM message content to channel.`)
+                // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
+                if (message.guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                    // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
+                    console.log(`${message.author.username} has a ticket open, rerouting DM message content to channel.`)
 
 
-                // GRABBING TICKET CHANNEL FOR THE USER
-                modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+                    // GRABBING TICKET CHANNEL FOR THE USER
+                    modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+
+
+                    // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                    let userTicketMsg = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setDescription(message.content)
+                        .setTimestamp()
+
+                    // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
+                    modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                }
+                else   return;    // THE USER DOES NOT HAVE A TICKET OPEN, DO NOTHING TO THIS MESSAGE
+            }
+
+            // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
+            if (message.channel.name.startsWith(`verify-`)) {
+
+
+                // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+                dmUsername = message.channel.name.startsWith(`verify-`).split('-').pop()
+
+
+                // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
+                ticketUser = await guild.members.fetch()
+                    .then(members => members.filter(member => member.user.username == dmUsername))
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
@@ -33,39 +62,17 @@ module.exports = {
                     .setDescription(message.content)
                     .setTimestamp()
 
-                // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
-                modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+                ticketUser.send({ embeds: [userTicketMsg] })
+                
             }
-            else return;    // THE USER DOES NOT HAVE A TICKET OPEN, DO NOTHING TO THIS MESSAGE
-        }
-
-        // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
-        if (message.channel.name.startsWith(`verify-`)) {
+        } else   return;
 
 
-            // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-            dmUsername = message.channel.name.startsWith(`verify-`).split('-').pop()
-
-
-            // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
-            ticketUser = await guild.members.fetch()
-                .then(members => members.filter(member => member.user.username == dmUsername))
-
-
-            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-            let userTicketMsg = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setDescription(message.content)
-                .setTimestamp()
-
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            ticketUser.send({ embeds: [userTicketMsg] })
-            
-        }
-
-
-
+        
+        // *****************
+        // START OF COMMANDS
+        // *****************
 
 
         // GRABBING COMMAND NAME AND ARGUMENTS
