@@ -76,6 +76,7 @@ module.exports = {
 
                 // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
                 ticketUser.send({ embeds: [userTicketMsg] })
+            }
         } else   return;
 
 
