@@ -14,15 +14,17 @@ module.exports = {
         if(!message.content.startsWith(prefix)) {
                 
             // TICKET CHANNEL NAME
-            let ticketChannelName = `verify-${message.author.username}`;
+            let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
+            console.log(`ticketChannelName will equal "${ticketChannelName}".`)
 
             // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
             if (message.channel.type === 'dm') {
 
                 // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-                if (message.guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
+
                     // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                    console.log(`${message.author.username} has a ticket open, rerouting DM message content to channel.`)
+                    console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
 
 
                     // GRABBING TICKET CHANNEL FOR THE USER
@@ -44,11 +46,12 @@ module.exports = {
 
             // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
             if (message.channel.name.startsWith(`verify-`)) {
-                console.log(`Identified message has come from within a verification channel.`)
+                console.log(`Identified message has come from within a verification channel...`)
 
 
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
                 dmUsername = message.channel.name.split('-').pop()
+                console.log(`dmUsername = ${dmUsername}`)
 
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM

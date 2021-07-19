@@ -11,7 +11,7 @@ module.exports = {
 	async execute(interaction, client) {
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${interaction.user.username}`;
+        let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
