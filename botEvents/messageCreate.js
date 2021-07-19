@@ -9,11 +9,6 @@ module.exports = {
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
         
-        // DB TICKET DATA
-        const dbTicketData = await ticketSchema.findOne({
-            GUILD_ID: message.guild.id
-        }).exec();
-        
 
         // IF PARTIAL MESSAGE, FETCH
         if(message.partial) {
@@ -39,6 +34,12 @@ module.exports = {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
+
+                    
+            // DB TICKET DATA
+            const dbTicketData = await ticketSchema.findOne({
+                CREATOR_ID: message.author.id
+            }).exec();
 
 
             // FETCH GUILD OF THE TICKET USING DB ENTRY
@@ -81,15 +82,14 @@ module.exports = {
             dmUsername = message.channel.name.split('-').pop()
 
 
-            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE USER
             const dbTicketData = await ticketSchema.findOne({
-                GUILD_ID: message.guild.id
+                CREATOR_NAME: dmUsername
             }).exec();
 
 
-            // FETCHING USER'S ID FROM DATABASE, THEN USER
-            ticketUserId = dbTicketData.CREATOR_ID;
-            ticketUser = client.users.cache.get(ticketUserId);
+            // FETCHING USER'S ID FROM DATABASE TO GET USER
+            ticketUser = client.users.cache.get(dbTicketData.CREATOR_ID);
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
