@@ -55,7 +55,7 @@ module.exports = {
 
 
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if (message.channel.name.startsWith(`verify-`)) {
+        if(message.channel.name.startsWith(`verify-`)) {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
