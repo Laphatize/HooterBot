@@ -13,8 +13,15 @@ module.exports = {
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
 
 
+        // IF PARTIAl, FETCH THE FULL THING
+        if(message.partial) {
+            message.fetch()
+            .then(fullMessage => {
+                console.log(fullMessage.content)
+            })
+        }
 
-        // THIS SECTION IS NOT WORKING FOR DMs... WHY!?!?
+
 
         // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
         if (message.channel.type === 'dm') {
