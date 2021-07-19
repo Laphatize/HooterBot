@@ -23,6 +23,13 @@ const client = new discord.Client({
         'DIRECT_MESSAGES',
         'DIRECT_MESSAGE_REACTIONS',
         // 'DIRECT_MESSAGE_TYPING',
+    ],
+    partials: [
+        'CHANNEL',
+        'GUILD_MEMBER',
+        'MESSAGE',
+        'REACTION',
+        'USER'
     ]
 })
 
