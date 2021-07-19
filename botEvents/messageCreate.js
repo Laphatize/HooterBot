@@ -21,7 +21,7 @@ module.exports = {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
-            
+
 
             // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
             if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
@@ -258,19 +258,11 @@ module.exports = {
             
 
                     // SENDING COOLDOWN WAIT NOTICE
-                    if(message.channel.type == 'dm') {
-                        message.author.send({embeds: [cooldownWaitEmbed]})
-                            // DELETE AFTER 5 SECONDS
-                            .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
-                            .catch(err => console.log(err))
-                        return
-                    } else {
-                        message.channel.send({embeds: [cooldownWaitEmbed]})
-                            // DELETE AFTER 5 SECONDS
-                            .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
-                            .catch(err => console.log(err))
-                        return
-                    }
+                    message.channel.send({embeds: [cooldownWaitEmbed]})
+                        // DELETE AFTER 5 SECONDS
+                        .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
+                        .catch(err => console.log(err))
+                    return
                 }
             }
 
@@ -293,12 +285,7 @@ module.exports = {
 
 
                 // SENDING EMBED
-                    // IF CHANNEL
-                    if(message.channel.type === 'dm') {
-                        message.author.send({embeds: [errorEmbed]})
-                    } else {
-                        message.channel.send({embeds: [errorEmbed]})
-                    }
+                message.channel.send({embeds: [errorEmbed]})
 
 
                 // DEFINING LOG EMBED
