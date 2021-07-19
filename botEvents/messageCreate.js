@@ -57,7 +57,7 @@ module.exports = {
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
                 ticketUser = await message.guild.members.fetch()
-                    .filter(member => member.user.username.toLowerCase() === dmusername);
+                    .then(ticketUser.filter(member => member.user.username.toLowerCase() === dmusername));
                 
                     console.log(`ticketUser = ${ticketUser}`)
 
