@@ -9,6 +9,11 @@ module.exports = {
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
         
+        // DB TICKET DATA
+        const dbTicketData = await ticketSchema.findOne({
+            GUILD_ID: message.guild.id
+        }).exec();
+        
 
         // IF PARTIAL MESSAGE, FETCH
         if(message.partial) {
@@ -36,15 +41,18 @@ module.exports = {
             if(message.author.bot)   return;
 
 
+            // FETCH GUILD OF THE TICKET USING DB ENTRY
+            guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
             // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-            if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
+            if (guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
 
                 // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
                 console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
 
 
                 // GRABBING TICKET CHANNEL FOR THE USER
-                modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+                modAdminTicketCh = guild.channels.cache.get(ch => ch.name === ticketChannelName)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
