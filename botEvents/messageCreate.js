@@ -16,7 +16,6 @@ module.exports = {
                 
             // TICKET CHANNEL NAME
             let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
-            console.log(`ticketChannelName will equal "${ticketChannelName}".`)
 
             // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
             if (message.channel.type == 'dm') {
@@ -77,8 +76,7 @@ module.exports = {
                 // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
                 ticketUser.send({ embeds: [userTicketMsg] })
             }
-        } else   return;
-
+        }
 
 
         // *****************
