@@ -21,7 +21,7 @@ module.exports = {
                 
 
                 // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-                if (fullMessage.channel.type === 'dm') {
+                if (fullMessage.channel.type === 'DM') {
 
                     // IGNORE HOOTERBOT'S OWN MESSAGES
                     if(fullMessage.author.bot)   return;
@@ -55,7 +55,7 @@ module.exports = {
 
 
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if (message.channel.name.startsWith(`verify`)) {
+        if (message.channel.type('GUILD_TEXT') && message.channel.name.startsWith(`verify`)) {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
