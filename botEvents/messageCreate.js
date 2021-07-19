@@ -56,10 +56,13 @@ module.exports = {
 
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
-                ticketUser = await message.guild.members.fetch()
+                ticketUser = await message.guild.members.fetch( {query: dmUsername})
                     .then(user => user.filter(member => member.user.username.toLowerCase() === dmUsername));
                 
-                    console.log(`ticketUser = ${ticketUser}`)
+                    console.log(`ticketUser = ${ticketUser}`)   // [object Map]
+
+
+                console.log(`ticketuser.user = ${ticketuser.user}`)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
