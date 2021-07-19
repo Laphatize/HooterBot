@@ -38,7 +38,7 @@ module.exports = {
                     .setTimestamp()
 
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
-                modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                return modAdminTicketCh.send({ embeds: [userTicketMsg] })
             }
         }
 
@@ -70,7 +70,7 @@ module.exports = {
                 .setTimestamp()
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            ticketUser.send({ embeds: [userTicketMsg] })
+            return ticketUser.send({ embeds: [userTicketMsg] })
         }
 
 
