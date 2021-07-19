@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const { prefix } = require('../config.json');
+const ticketSchema = require('../Database/ticketSchema');
 
 module.exports = {
 	name: 'messageCreate',
@@ -44,7 +45,7 @@ module.exports = {
                 else   return;    // THE USER DOES NOT HAVE A TICKET OPEN, DO NOTHING TO THIS MESSAGE
             }
 
-            // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
+            // IF IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
             if (message.channel.name.startsWith(`verify-`)) {
                 console.log(`Identified message has come from within a verification channel...`)
 
@@ -55,14 +56,21 @@ module.exports = {
                 console.log(`dmUsername = ${dmUsername}`)
 
 
-                // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
-                ticketUser = await message.guild.members.fetch( {query: dmUsername})
-                    .then(user => user.filter(member => member.user.username.toLowerCase() === dmUsername));
-                
-                    console.log(`ticketUser = ${ticketUser}`)   // [object Map]
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
 
 
-                console.log(`ticketuser.user = ${ticketuser.user}`)
+                // FETCHING USER'S ID FROM DATABASE
+                ticketUserId = dbGuildData.CREATOR_ID;
+
+
+                // FETCHING USER FROM THEIR ID IN THE DB
+                ticketUser = client.users.cache.get(ticketUserId);
+
+
+                console.log(`ticketuser.username = ${ticketuser.username}`)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
