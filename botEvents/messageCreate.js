@@ -10,6 +10,64 @@ module.exports = {
         if (!message.content.startsWith(prefix) || message.author.bot)   return;
 
 
+        // TICKET CHANNEL NAME
+        let ticketChannelName = `verify-${message.author.username}`;
+
+        // IF IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
+        if (message.channel.type === 'dm') {
+
+            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
+            if (message.guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
+                console.log(`${message.author.username} has a ticket open, rerouting DM message content to channel.`)
+
+
+                // GRABBING TICKET CHANNEL FOR THE USER
+                modAdminTicketCh = message.guild.channels.cache.get(ch => ch.name === ticketChannelName)
+
+
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let userTicketMsg = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setDescription(message.content)
+                    .setTimestamp()
+
+                // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
+                modAdminTicketCh.send({ embeds: [userTicketMsg] })
+            }
+            else return;    // THE USER DOES NOT HAVE A TICKET OPEN, DO NOTHING TO THIS MESSAGE
+        }
+
+        // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
+        if (message.channel.name.startsWith(`verify-`)) {
+
+
+            // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+            dmUsername = message.channel.name.startsWith(`verify-`).split('-').pop()
+
+
+            // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
+            ticketUser = await guild.members.fetch()
+                .then(members => members.filter(member => member.user.username == dmUsername))
+
+
+            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+            let userTicketMsg = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setDescription(message.content)
+                .setTimestamp()
+
+            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+            ticketUser.send({ embeds: [userTicketMsg] })
+            
+        }
+
+
+
+
+
         // GRABBING COMMAND NAME AND ARGUMENTS
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const cmdName = args.shift().toLowerCase();
@@ -132,19 +190,11 @@ module.exports = {
 
 
             // SENDING INCORRECT SYNTAX NOTICE
-            if(message.channel.type === 'dm') {
-                message.author.send({embeds: [cmdArgsErrEmbed]})
-                    // DELETE AFTER 5 SECONDS
-                    .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-                    .catch(err => console.log(err))
-                    return
-            } else {
-                message.channel.send({embeds: [cmdArgsErrEmbed]})
-                    // DELETE AFTER 5 SECONDS
-                    .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
-                    .catch(err => console.log(err))
-                    return   
-            }
+            message.channel.send({embeds: [cmdArgsErrEmbed]})
+                // DELETE AFTER 5 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                .catch(err => console.log(err))
+            return
         }
 
 

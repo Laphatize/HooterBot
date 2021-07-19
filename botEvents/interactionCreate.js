@@ -223,67 +223,10 @@ module.exports = {
                                 .addField(`Mod/Admin Channel:`, `${modAdminTicketCh}`, true)
                                 .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
                                 .setTimestamp()
-                                
+
 
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
-
-
-
-                            // DEFINING COLLECTOR FILTERS
-                            const dmFilter = (msg) => msg.author === interaction.user && msg.user.id !== config.botId;
-                            const chFilter = (msg) => msg.channel.name === ticketChannelName && msg.author.id !== config.botId;
-
-                            // DEFINING COLLECTORS
-                            const dmCollector = interaction.user.dmChannel.createMessageCollector(dmFilter);
-                            const chCollector = modAdminTicketCh.createMessageCollector(chFilter);
-
-
-                            // USING COLLECTORS TO RELAY MESSAGES
-                            // DM -> CH
-                            dmCollector.on('collect', msg => {
-                                if(msg.author.id === config.botId) {
-                                    return;
-                                }
-                                else {
-                                    let userTicketMsg = new discord.MessageEmbed()
-                                        .setColor(config.embedGrey)
-                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                        .setDescription(msg.content)
-                                        .setTimestamp()
-
-                                    modAdminTicketCh.send({ embeds: [userTicketMsg] })
-
-                                    // APPEND VALUE TO DATABASE TRANSCRIPT
-                                }
-                            })
-                            
-                            // CH -> DM
-                            chCollector.on('collect', msg => {
-                                if(msg.author.id === config.botId) {
-                                    return;
-                                }
-                                else {
-                                    interaction.user.send({ content: `**Server Staff**: ${msg.content}`})
-
-                                    // APPEND VALUE TO DATABASE TRANSCRIPT
-                                }
-                            });
-
-
-                            // TURN OFF WHEN THE TICKET CHANNEL IS DELETED
-                            dmCollector.on('end', async collected => {
-                                await modAdminTicketCh.delete();
-                                dmCollector.stop(`collector complete`);
-                                console.log(`The DM message collector has turned off.`)
-                            })
-                            
-                            chCollector.on('end', async collected => {
-                                await modAdminTicketCh.delete();
-                                chCollector.stop(`collector complete`);
-                                console.log(`The channel message collector has turned off.`)
-                            })
-
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -503,19 +446,19 @@ module.exports = {
                 //     .setTimestamp()
                 
                 // // LOG ENTRY
-                // client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                // interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
 
                 
-                // CLOSURE NOTICE TO CHANNEL
-                let closeNotice = new discord.MessageEmbed()
-                    .setColor(config.embedOrange)
-                    .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
+                // // CLOSURE NOTICE TO CHANNEL
+                // let closeNotice = new discord.MessageEmbed()
+                //     .setColor(config.embedOrange)
+                //     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
+                //     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
 
 
-                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                guild = client.guilds.fetch(dbTicketData.GUILD_ID);
-                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] });
+                // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                // guild = client.guilds.fetch(dbTicketData.GUILD_ID);
+                // guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] });
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
