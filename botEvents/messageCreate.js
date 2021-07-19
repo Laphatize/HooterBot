@@ -44,10 +44,11 @@ module.exports = {
 
             // IF IN TICKET CHANNEL, FETCH USER FROM THE CHANNEL NAME, 
             if (message.channel.name.startsWith(`verify-`)) {
+                console.log(`Identified message has come from within a verification channel.`)
 
 
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-                dmUsername = message.channel.name.startsWith(`verify-`).split('-').pop()
+                dmUsername = message.channel.name.split('-').pop()
 
 
                 // FETCH USER IN GUILD SO MESSAGE CAN BE SENT TO THEM
@@ -64,12 +65,11 @@ module.exports = {
 
                 // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
                 ticketUser.send({ embeds: [userTicketMsg] })
-                
             }
         } else   return;
 
 
-        
+
         // *****************
         // START OF COMMANDS
         // *****************
