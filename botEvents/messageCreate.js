@@ -47,13 +47,10 @@ module.exports = {
 
             // IF IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
             if (message.channel.name.startsWith(`verify-`)) {
-                console.log(`Identified message has come from within a verification channel...`)
 
 
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
                 dmUsername = message.channel.name.split('-').pop()
-                
-                console.log(`dmUsername = ${dmUsername}`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -68,9 +65,6 @@ module.exports = {
 
                 // FETCHING USER FROM THEIR ID IN THE DB
                 ticketUser = client.users.cache.get(ticketUserId);
-
-
-                console.log(`ticketUser.username = ${ticketUser.username}`)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
