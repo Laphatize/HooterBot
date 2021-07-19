@@ -46,7 +46,7 @@ module.exports = {
             }
 
             // IF IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-            if (message.channel.name.startsWith(`verify-`)) {
+            if (message.channel.type == 'text' && message.channel.name.startsWith(`verify-`)) {
 
 
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
@@ -76,7 +76,6 @@ module.exports = {
 
                 // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
                 ticketUser.send({ embeds: [userTicketMsg] })
-            }
         } else   return;
 
 
