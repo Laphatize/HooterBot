@@ -57,13 +57,13 @@ module.exports = {
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
+                const dbTicketData = await ticketSchema.findOne({
+                    GUILD_ID: message.guild.id
                 }).exec();
 
 
                 // FETCHING USER'S ID FROM DATABASE
-                ticketUserId = dbGuildData.CREATOR_ID;
+                ticketUserId = dbTicketData.CREATOR_ID;
 
 
                 // FETCHING USER FROM THEIR ID IN THE DB
