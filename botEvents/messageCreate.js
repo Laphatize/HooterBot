@@ -20,7 +20,7 @@ module.exports = {
         }
              
         // IF PARTIAL CHANNEL, FETCH
-        if(channel.partial) {
+        if(message.channel.partial) {
             try {
                 await channel.fetch()
             } catch (err) {
