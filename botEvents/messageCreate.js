@@ -19,6 +19,10 @@ module.exports = {
         // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
         if (message.channel.type === 'dm') {
 
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
+            
+
             // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
             if (message.guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
 
@@ -46,6 +50,10 @@ module.exports = {
 
         // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
         if (message.channel.name.startsWith(`verify-`)) {
+
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
+            
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
             dmUsername = message.channel.name.split('-').pop()
