@@ -82,9 +82,9 @@ module.exports = {
             dmUsername = message.channel.name.split('-').pop()
 
 
-            // CHECK IF DATABASE HAS AN ENTRY FOR THE USER
+            // DB GRAB
             const dbTicketData = await ticketSchema.findOne({
-                CREATOR_NAME: dmUsername
+                GUILD_NAME: message.guild.name
             }).exec();
 
             dmUserID = dbTicketData.CREATOR_ID
