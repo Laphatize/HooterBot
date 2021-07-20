@@ -13,7 +13,7 @@ module.exports = {
         // IF PARTIAL MESSAGE, FETCH
         if(message.partial) {
             try {
-                await message.fetch()
+                message = await message.fetch()
             } catch (err) {
                 return console.log(err);
             }
@@ -31,6 +31,7 @@ module.exports = {
 
         // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
         if (message.channel.type === 'DM') {
+            console.log(`The bot has received a DM.`)
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
