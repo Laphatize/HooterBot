@@ -87,9 +87,10 @@ module.exports = {
                 CREATOR_NAME: dmUsername
             }).exec();
 
+            dmUserID = dbTicketData.CREATOR_ID
 
             // FETCHING USER'S ID FROM DATABASE TO GET USER
-            ticketUser = client.users.cache.get(dbTicketData.CREATOR_ID);
+            ticketUser = client.users.cache.get(dmUserID);
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
