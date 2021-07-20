@@ -31,11 +31,11 @@ module.exports = {
 
         // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
         if (message.channel.type === 'DM') {
-            console.log(`The bot has received a DM.`)
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
+            console.log(`The bot has received a DM from a user.`)
                     
             // DB TICKET DATA
             const dbTicketData = await ticketSchema.findOne({
@@ -50,7 +50,7 @@ module.exports = {
             if (guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
 
                 // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                console.log(`${message.author.username} has a ticket open. Rerouting DM message content to channel...`)
+                console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
 
 
                 // GRABBING TICKET CHANNEL FOR THE USER
