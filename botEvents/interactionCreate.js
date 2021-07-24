@@ -176,7 +176,7 @@ module.exports = {
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
                                 .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
-                                .setFooter(`ALL messages sent in this channel are sent to the user's DMs. Messages cannot be edited or deleted once sent.\nPlease do not send messages unless in response to a user.`)
+                                .setFooter(`ALL messages sent in this channel are sent to the user's DMs. Messages cannot be edited or deleted once sent. Bot commands will not work. Please do not send messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
