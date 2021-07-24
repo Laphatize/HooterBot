@@ -70,43 +70,41 @@ module.exports = {
         }
 
 
+        // // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
+        // if(message.channel.name.startsWith(`verify-`) && !message.channel.type === 'dm') {
 
-
-        // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        if(guild.message.channel.name.startsWith(`verify-`)) {
-
-            // IGNORE HOOTERBOT'S OWN MESSAGES
-            if(message.author.bot)   return;
+        //     // IGNORE HOOTERBOT'S OWN MESSAGES
+        //     if(message.author.bot)   return;
             
 
-            // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-            dmUsername = message.channel.name.split('-').pop()
+        //     // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+        //     dmUsername = message.channel.name.split('-').pop()
 
 
-            // DB GRAB
-            const dbTicketData = await ticketSchema.findOne({
-                GUILD_NAME: message.guild.name
-            }).exec();
+        //     // DB GRAB
+        //     const dbTicketData = await ticketSchema.findOne({
+        //         GUILD_NAME: message.guild.name
+        //     }).exec();
 
-            dmUserID = dbTicketData.CREATOR_ID
+        //     dmUserID = dbTicketData.CREATOR_ID
 
-            // FETCHING USER'S ID FROM DATABASE TO GET USER
-            ticketUser = client.users.cache.get(dmUserID);
+        //     // FETCHING USER'S ID FROM DATABASE TO GET USER
+        //     ticketUser = client.users.cache.get(dmUserID);
 
 
-            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-            let userTicketMsg = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setDescription(message.content)
-                .setTimestamp()
+        //     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+        //     let userTicketMsg = new discord.MessageEmbed()
+        //         .setColor(config.embedGrey)
+        //         .setAuthor(message.author.username, message.author.displayAvatarURL())
+        //         .setDescription(message.content)
+        //         .setTimestamp()
 
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            return ticketUser.send({ embeds: [userTicketMsg] })
-                .catch(err => {
-                    message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
-                })
-        }
+        //     // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+        //     return ticketUser.send({ embeds: [userTicketMsg] })
+        //         .catch(err => {
+        //             message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+        //         })
+        // }
 
 
 
