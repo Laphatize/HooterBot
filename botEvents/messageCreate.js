@@ -13,7 +13,7 @@ module.exports = {
         // IF PARTIAL MESSAGE, FETCH
         if(message.partial) {
             try {
-                message = await message.fetch()
+                await message.fetch()
             } catch (err) {
                 return console.log(err);
             }
