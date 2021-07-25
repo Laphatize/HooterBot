@@ -104,14 +104,14 @@ module.exports = {
                         .setTimestamp()
 
 
-                // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-                ticketUser.send({ embeds: [userTicketMsg] })
-                    .catch(err => {
-                        message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
-                    })
+                    // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+                    user.send({ embeds: [userTicketMsg] })
+                        .catch(err => {
+                            message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
+                        })
 
-                // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                return message.react(client.emojis.cache.get('868910701295587368'))
+                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                    return message.react(client.emojis.cache.get('868910701295587368'))
                 })
                 .catch(err => console.log(err))
         }
