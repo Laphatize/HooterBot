@@ -94,27 +94,23 @@ module.exports = {
             console.log(`dmUsername = ${dmUsername}`)
                         
             
-            // // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-            // let userTicketMsg = new discord.MessageEmbed()
-            //     .setColor(config.embedGrey)
-            //     .setAuthor(message.author.username, message.author.displayAvatarURL())
-            //     .setDescription(message.content)
-            //     .setTimestamp()
+            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+            let userTicketMsg = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setDescription(message.content)
+                .setTimestamp()
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
-                .then(console.log)
-                .catch(console.error)
 
 
-
-            // // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            // await dmUser.user.send({ embeds: [userTicketMsg] })
-            //     .catch(
-            //         message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
-            //     )
+            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+            await dmUser.user.send({ embeds: [userTicketMsg] })
+                .catch(
+                    message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
+                )
 
             // ADD SUCCESS EMOJI TO THE ORIGINAL CHANNEL MESSAGE ONCE SENT
             return message.react(client.emojis.cache.get('868910701295587368'))
