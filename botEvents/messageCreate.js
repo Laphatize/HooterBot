@@ -69,7 +69,8 @@ module.exports = {
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
                 modAdminTicketCh.send({ embeds: [userTicketMsg] })
                     .catch(err => {
-                        message.channel.send(`This ticket is closed. Messages can not be sent to the ticket channel any more.`)
+                        message.channel.send(`Sorry, this ticket has been closed.`)
+                        message.react(client.emojis.cache.get('719009809856462888'))
                     })
 
                     
@@ -105,11 +106,13 @@ module.exports = {
 
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            return ticketUser.send({ embeds: [userTicketMsg] })
+            await ticketUser.send({ embeds: [userTicketMsg] })
                 .catch(err => {
                     message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
                 })
-                // .then ADD SUCCESS EMOJI TO THE ORIGINAL TICKET MESSAGE ONCE SENT
+
+            // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+            return message.react(client.emojis.cache.get('868910701295587368'))
         }
 
 
