@@ -82,7 +82,7 @@ module.exports = {
 
 
         // IF MESSAGE IS SENT IN A GUILD TICKET CHANNEL
-        if(message.channel.type !== 'DM' && message.channel.name.startsWith(`verify-`)) {
+        if(message.channel.type == 'GUILD_TEXT' && message.channel.name.startsWith(`verify-`)) {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
@@ -103,6 +103,8 @@ module.exports = {
             // FETCH THE USER FROM THE CHANNEL NAME
             // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             const user = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
+
+            console.log(`user = ${user}`)
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
             await user.send({ embeds: [userTicketMsg] })
@@ -142,7 +144,7 @@ module.exports = {
 
 
             // ENSURING GUILD USE ONLY IN GUILD
-            if (!command.guildUse === 'false' && message.channel.type === 'text') {
+            if (!command.guildUse === 'false' && message.channel.type === 'GUILD_TEXT') {
 
                 // DEFINING EMBED
                 let guildDisallowEmbed = new discord.MessageEmbed()
@@ -156,7 +158,7 @@ module.exports = {
 
 
             // ENSURING DM USE ONLY IN DMS
-            if (command.dmUse === 'false' && message.channel.type === 'dm') {
+            if (command.dmUse === 'false' && message.channel.type === 'DM') {
 
                 // DEFINING EMBED
                 let dmDisallowEmbed = new discord.MessageEmbed()

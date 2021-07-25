@@ -143,7 +143,7 @@ module.exports = {
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
-                        type: 'text',
+                        type: 'GUILD_TEXT',
                         parent: ticketCategory,
                         topic: `**Do not change this channel's name!** Messages sent here will go to the user's DMs and cannot be edited or deleted once sent!`,
                         permissionOverwrites: [
