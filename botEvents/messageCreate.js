@@ -74,7 +74,7 @@ module.exports = {
 
                     
                 // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                return message.react(`868910701295587368>`)
+                return message.react(client.emojis.cache.get('868910701295587368'))
             }
         }
 
