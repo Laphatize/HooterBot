@@ -46,8 +46,9 @@ module.exports = {
             // FETCH GUILD OF THE TICKET USING DB ENTRY
             guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER - 
-            if (guild.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
+
+            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER
+            if (client.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
 
                 // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
                 console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
