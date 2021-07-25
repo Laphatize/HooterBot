@@ -58,7 +58,7 @@ module.exports = {
 
                 // GRABBING TICKET CHANNEL FOR THE USER USING THE GUILD ID IN THE DATABASE
                 const dbTicketData = await ticketSchema.findOne({
-                    GUILD_NAME: message.guild.name
+                    CREATOR_ID: message.author.id
                 }).exec();
 
 
