@@ -49,13 +49,12 @@ module.exports = {
                 }).exec();
 
 
-                // FETCHING USER'S ID FROM DATABASE TO GET USER
+                // FETCHING THE GUILD FROM DATABASE
                 guildId = dbTicketData.GUILD_ID
                 guild = client.guilds.cache.get(guildId)
 
-                console.log(`guild.name = ${guild.name}`)
 
-                
+                // GRABBING TICKET CHANNEL IN GUILD
                 modAdminTicketCh = guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
@@ -78,15 +77,14 @@ module.exports = {
 
 
         // IF MESSAGE IS SENT IN A GUILD TICKET CHANNEL
-        if(message.channel.type === 'text' && message.channel.name.startsWith(`verify-`)) {
+        if(message.channel.type !== 'DM' && message.channel.name.startsWith(`verify-`)) {
 
-            
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
 
             console.log(`The message is happening in a ticket channel.`)
-            
+
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
             dmUsername = message.channel.name.split('-').pop()
