@@ -67,13 +67,14 @@ module.exports = {
 
 
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
-                return modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                modAdminTicketCh.send({ embeds: [userTicketMsg] })
                     .catch(err => {
                         message.channel.send(`This ticket is closed. Messages can not be sent to the ticket channel any more.`)
                     })
 
                     
-                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                return message.react(`868910701295587368>`)
             }
         }
 
@@ -92,7 +93,7 @@ module.exports = {
 
             // FETCH THE USER FROM THE CHANNEL NAME
             // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
-            const ticketUser = await message.guild.members.cache.find(member => member.username == dmUsername)
+            const ticketUser = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
