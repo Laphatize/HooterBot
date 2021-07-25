@@ -81,21 +81,15 @@ module.exports = {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
-
-
-            console.log(`The message is happening in a ticket channel.`)
-
+            
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
             dmUsername = message.channel.name.split('-').pop()
 
 
-            console.log(`dmUsername = ${dmUsername}`)
-
-
             // DB GRAB
             const dbTicketData = await ticketSchema.findOne({
-                GUILD_NAME: message.guild.name
+                CREATOR_NAME: dmUsername
             }).exec();
 
 
