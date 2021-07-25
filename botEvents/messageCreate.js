@@ -102,18 +102,20 @@ module.exports = {
 
             // FETCH THE USER FROM THE CHANNEL NAME
             // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
-            const user = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
+            const dmUser = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
+                .then(console.log)
+                .catch(console.error)
+            
 
-            console.log(`user = ${user}`)
 
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            await user.send({ embeds: [userTicketMsg] })
-                .catch(
-                    message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
-                )
+            // // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+            // await user.send({ embeds: [userTicketMsg] })
+            //     .catch(
+            //         message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
+            //     )
 
-            // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-            return message.react(client.emojis.cache.get('868910701295587368'))
+            // // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+            // return message.react(client.emojis.cache.get('868910701295587368'))
         }
 
 
