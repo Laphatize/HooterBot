@@ -91,21 +91,22 @@ module.exports = {
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            let ticketUser = message.guild.members.cache.find(user => user.name === dmUsername)
+            let ticketUser = message.guild.members.fetch({ query: dmUsername, limit: 1 })
+                .then(user => {
+
+                    // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                    let userTicketMsg = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setDescription(message.content)
+                        .setTimestamp()
 
 
-            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-            let userTicketMsg = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setDescription(message.content)
-                .setTimestamp()
-
-
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            return ticketUser.send({ embeds: [userTicketMsg] })
-                .catch(err => {
-                    message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+                    // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+                    return ticketUser.send({ embeds: [userTicketMsg] })
+                        .catch(err => {
+                            message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+                        })
                 })
         }
 
