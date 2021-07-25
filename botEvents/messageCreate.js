@@ -56,8 +56,20 @@ module.exports = {
                 console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
 
 
-                // GRABBING TICKET CHANNEL FOR THE USER
-                modAdminTicketCh = client.channels.cache.get(ch => ch.name === ticketChannelName)
+                // GRABBING TICKET CHANNEL FOR THE USER USING THE GUILD ID IN THE DATABASE
+                const dbTicketData = await ticketSchema.findOne({
+                    GUILD_NAME: message.guild.name
+                }).exec();
+
+
+                // FETCHING USER'S ID FROM DATABASE TO GET USER
+                guildId = dbTicketData.GUILD_ID
+                guild = client.guilds.cache.get(guildId)
+
+                console.log(`guild.name = ${guild.name}`)
+
+                
+                modAdminTicketCh = guild.channels.cache.get(ch => ch.name === ticketChannelName)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
@@ -78,7 +90,7 @@ module.exports = {
 
 
         // IF NOT IN DMs
-        if(!message.channel.type === 'DM') {
+        if(message.channel.type === 'text') {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
@@ -101,7 +113,7 @@ module.exports = {
                     GUILD_NAME: message.guild.name
                 }).exec();
 
-                
+
                 // FETCHING USER'S ID FROM DATABASE TO GET USER
                 dmUserID = dbTicketData.CREATOR_ID
                 ticketUser = client.users.cache.get(dmUserID);
