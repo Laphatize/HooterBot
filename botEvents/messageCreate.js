@@ -89,14 +89,13 @@ module.exports = {
 
             // DB GRAB
             const dbTicketData = await ticketSchema.findOne({
-                CREATOR_NAME: dmUsername
+                CREATOR_NAME: dmUsername,
             }).exec()
                 .catch(err => console.log(`You seem to be sending a message in a ticket channel for a user that does not exist or does not have a ticket open.`))
 
 
-            // FETCHING USER'S ID FROM DATABASE TO GET USER
-            dmUserID = dbTicketData.CREATOR_ID
-            ticketUser = client.users.cache.get(dmUserID);
+            // GETTING USER THROUGH THEIR ID FROM THE TICKET CHANNEL
+            ticketUser = client.users.cache.get(dbTicketData.CREATOR_ID);
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
