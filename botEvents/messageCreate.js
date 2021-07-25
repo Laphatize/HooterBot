@@ -90,7 +90,8 @@ module.exports = {
             // DB GRAB
             const dbTicketData = await ticketSchema.findOne({
                 CREATOR_NAME: dmUsername
-            }).exec();
+            }).exec()
+                .catch(err => console.log(`You seem to be sending a message in a ticket channel for a user that does not exist or does not have a ticket open.`))
 
 
             // FETCHING USER'S ID FROM DATABASE TO GET USER
