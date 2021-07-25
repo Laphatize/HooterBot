@@ -10,7 +10,7 @@ module.exports = {
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
         
 
-        // IF PARTIAL MESSAGE, FETCH
+        // PARTIAL MESSAGE
         if(message.partial) {
             try {
                 await message.fetch()
@@ -19,7 +19,7 @@ module.exports = {
             }
         }
 
-        // IF PARTIAL CHANNEL, FETCH
+        // PARTIAL CHANNEL
         if(message.channel.partial) {
             try {
                 await message.channel.fetch()
@@ -30,7 +30,7 @@ module.exports = {
         
 
         // IN DMS, CHECK IF USER HAS A TICKET OPEN BY MATCHING THEIR USERNAME TO CHANNEL
-        if (message.channel.type === 'dm') {
+        if (message.channel.type === 'DM') {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
@@ -71,7 +71,7 @@ module.exports = {
 
 
         // // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        // if(message.channel.name.startsWith(`verify-`) && !message.channel.type === 'dm') {
+        // if(message.channel.name.startsWith(`verify-`) && !message.channel.type === 'DM') {
 
         //     // IGNORE HOOTERBOT'S OWN MESSAGES
         //     if(message.author.bot)   return;
