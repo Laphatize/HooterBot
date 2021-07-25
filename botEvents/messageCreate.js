@@ -105,11 +105,12 @@ module.exports = {
             const dmUser = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
                 .then(console.log)
                 .catch(console.error)
-            
+
+                console.log(`\n\n\ndmUser.user = ${dmUser.user}`)
 
 
             // // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            // await user.send({ embeds: [userTicketMsg] })
+            // await dmUser.user.send({ embeds: [userTicketMsg] })
             //     .catch(
             //         message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
             //     )
