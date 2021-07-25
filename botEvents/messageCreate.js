@@ -36,25 +36,12 @@ module.exports = {
             if(message.author.bot)   return;
 
 
-            // LOGGING CHECKS
-            console.log(`The bot has received a DM from a user.\n`)            
-            console.log(`CREATOR_ID =        ${message.author.id}`)
-            console.log(`ticketChannelName = ${ticketChannelName}`)
-
-
-            console.log(`\nChecking if there is a ticket channel for this user...`)
-
-
             // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
             ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER
             if (ticketChannel) {
-
-                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
-
 
                 // GRABBING TICKET CHANNEL FOR THE USER USING THE GUILD ID IN THE DATABASE
                 const dbTicketData = await ticketSchema.findOne({
@@ -89,50 +76,49 @@ module.exports = {
         }
 
 
-        // IF NOT IN DMs
-        if(message.channel.type === 'text') {
 
+        // IF MESSAGE IS SENT IN A GUILD TICKET CHANNEL
+        if(message.channel.type === 'text' && message.channel.name.startsWith(`verify-`)) {
+
+            
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
 
-            // IF THE USER HAS AN OPEN TICKET
-            if(message.channel.name.startsWith(`verify-`)) {
+            console.log(`The message is happening in a ticket channel.`)
+            
 
-                console.log(`The message is happening in a ticket channel.`)
-
-                // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-                dmUsername = message.channel.name.split('-').pop()
+            // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+            dmUsername = message.channel.name.split('-').pop()
 
 
-                console.log(`dmUsername = ${dmUsername}`)
+            console.log(`dmUsername = ${dmUsername}`)
 
 
-                // DB GRAB
-                const dbTicketData = await ticketSchema.findOne({
-                    GUILD_NAME: message.guild.name
-                }).exec();
+            // DB GRAB
+            const dbTicketData = await ticketSchema.findOne({
+                GUILD_NAME: message.guild.name
+            }).exec();
 
 
-                // FETCHING USER'S ID FROM DATABASE TO GET USER
-                dmUserID = dbTicketData.CREATOR_ID
-                ticketUser = client.users.cache.get(dmUserID);
+            // FETCHING USER'S ID FROM DATABASE TO GET USER
+            dmUserID = dbTicketData.CREATOR_ID
+            ticketUser = client.users.cache.get(dmUserID);
 
 
-                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-                let userTicketMsg = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setDescription(message.content)
-                    .setTimestamp()
+            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+            let userTicketMsg = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setDescription(message.content)
+                .setTimestamp()
 
 
-                // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-                return ticketUser.send({ embeds: [userTicketMsg] })
-                    .catch(err => {
-                        message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
-                    })
-            }
+            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+            return ticketUser.send({ embeds: [userTicketMsg] })
+                .catch(err => {
+                    message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+                })
         }
 
 
