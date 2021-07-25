@@ -84,11 +84,12 @@ module.exports = {
             
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+            // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             dmUsername = message.channel.name.split('-').pop()
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            const ticketUser = client.users.cache.find(user => user.username == dmUsername)
+            const ticketUser = message.guild.users.cache.find(user => user.username == dmUsername)
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
