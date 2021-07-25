@@ -92,7 +92,7 @@ module.exports = {
 
             // FETCH THE USER FROM THE CHANNEL NAME
             // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
-            const ticketUser = await message.guild.users.cache.find(user => user.username == dmUsername)
+            const ticketUser = await message.guild.members.cache.find(member => member.username == dmUsername)
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
