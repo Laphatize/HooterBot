@@ -27,8 +27,8 @@ module.exports = {
         // IF NO CATEGORY PROVIDED
         if(!category) {
             let noCatEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.)`)
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.)`)
 
             return message.channel.send({embeds: [noCatEmbed]})
         }
@@ -59,10 +59,10 @@ module.exports = {
 
         // DEFINING LOG EMBED
         let logTicketCatUpdateEmbed = new discord.MessageEmbed()
-        .setColor(config.embedDarkGrey)
-        .setTitle(`Ticket Category Updated`)
-        .setDescription(`**New ticket category:** \`\`${category.name}\`\`\n**Changed by:** ${categoryChanger}`)
-        .setTimestamp()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`Ticket Category Updated`)
+            .setDescription(`**New ticket category:** \`\`${category.name}\`\`\n**Changed by:** ${categoryChanger}`)
+            .setTimestamp()
         
         
         // LOG ENTRY

@@ -30,15 +30,15 @@ module.exports = {
         // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
         if(!dbData.TICKET_CAT_ID) {
             let noCatEmbed = new discord.MessageEmbed()
-            .setColor(config.embedTempleRed)
-            .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`You need to set the ticket category using \`\`${config.prefix}ticketcategory\`\` or \`\`${config.prefix}setcategory\`\` before the verification prompt can be posted.`)
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`You need to set the ticket category using \`\`${config.prefix}ticketcategory\`\` or \`\`${config.prefix}setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
             message.channel.send({ embeds: [noCatEmbed] })
-            // DELETE AFTER 10 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-            .catch(err => console.log(err))
+                // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
             return
         }
 
@@ -51,15 +51,15 @@ module.exports = {
             verifPromptChannel = client.channels.cache.get(verifPromptExistsChId)
 
             let verifExistsAlreadyEmbed = new discord.MessageEmbed()
-            .setColor(config.embedTempleRed)
-            .setTitle(`${config.emjREDTICK} **Error!**`)
-            .setDescription(`A verification prompt already exists in ${verifPromptChannel}.`)
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`A verification prompt already exists in ${verifPromptChannel}.`)
 
             // SENDING TO CHANNEL
             message.channel.send({ embeds: [verifExistsAlreadyEmbed] })
-            // DELETE AFTER 10 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-            .catch(err => console.log(err))
+                // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
             return
         }
 
@@ -87,10 +87,10 @@ module.exports = {
         await message.channel.send({ embeds: [ticketEmbed], components: [buttonRow] })
             .catch(err => console.log(err))
 
-        // GETTING MESSAGE ID OF ticketEmbed
-        .then(sentEmbed => {
-            ticketEmbedMsgId = sentEmbed.id;
-        })
+            // GETTING MESSAGE ID OF ticketEmbed
+            .then(sentEmbed => {
+                ticketEmbedMsgId = sentEmbed.id;
+            })
 
         // STORING IN DATABASE THE VERIFICATION PROMPT'S MESSAGE ID AND CHANNEL ID
         await guildSchema.findOneAndUpdate({

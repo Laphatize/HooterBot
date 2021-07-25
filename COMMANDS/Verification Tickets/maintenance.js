@@ -61,17 +61,17 @@ module.exports = {
 
                 // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
                 let VerifButtonMaintenance = new MessageButton()
-                .setLabel(`Begin Verification`)
-                .setStyle(`SECONDARY`)
-                .setCustomId(`begin_verification_button_disabld`)
-                .setDisabled(true)
+                    .setLabel(`Begin Verification`)
+                    .setStyle(`SECONDARY`)
+                    .setCustomId(`begin_verification_button_disabld`)
+                    .setDisabled(true)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
-                .addComponents(
-                    VerifButtonMaintenance
-                );
+                    .addComponents(
+                        VerifButtonMaintenance
+                    );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
@@ -97,39 +97,39 @@ module.exports = {
             // MAINTENANCE MODE "OFF"
             if(verifStatus == "off") {
                 let ticketEmbed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
-                .setTitle(`**Get verified!**`)
-                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.`)
-                .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Get verified!**`)
+                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.`)
+                    .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
                 // INITIALIZING MAINTENANCE BUTTON - ENABLED
                 let VerifButton = new MessageButton()
-                .setLabel(`Begin Verification`)
-                .setStyle(`SUCCESS`)
-                .setCustomId(`begin_verification_button`)
+                    .setLabel(`Begin Verification`)
+                    .setStyle(`SUCCESS`)
+                    .setCustomId(`begin_verification_button`)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
-                .addComponents(
-                    VerifButton
-                );
+                    .addComponents(
+                        VerifButton
+                    );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
-                .then(msg => {
-                    msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
-                })
-                .catch(err => console.log(err))
+                    .then(msg => {
+                        msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
+                    })
+                    .catch(err => console.log(err))
 
                 // DEFINING LOG EMBED
                 let logTicketCatUpdateEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
-                .setTimestamp()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Verification Embed Update`)
+                    .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
+                    .setTimestamp()
                 
                 // LOG ENTRY
                 client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
