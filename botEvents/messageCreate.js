@@ -46,7 +46,7 @@ module.exports = {
 
 
             // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
-            ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)
+            ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER
@@ -87,8 +87,13 @@ module.exports = {
             // IF THE USER HAS AN OPEN TICKET
             if(message.channel.name.startsWith(`verify-`)) {
 
+                console.log(`The message is happening in a ticket channel.`)
+
                 // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
                 dmUsername = message.channel.name.split('-').pop()
+
+
+                console.log(`dmUsername = ${dmUsername}`)
 
 
                 // DB GRAB
@@ -96,9 +101,9 @@ module.exports = {
                     GUILD_NAME: message.guild.name
                 }).exec();
 
-                dmUserID = dbTicketData.CREATOR_ID
-
+                
                 // FETCHING USER'S ID FROM DATABASE TO GET USER
+                dmUserID = dbTicketData.CREATOR_ID
                 ticketUser = client.users.cache.get(dmUserID);
 
 
