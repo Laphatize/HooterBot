@@ -105,9 +105,11 @@ module.exports = {
             // FETCH THE USER FROM THE CHANNEL NAME
             const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
 
+            console.log(`\n\ndmUser = ${dmUser}\n\n`)
+
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            await dmUser.user.send({ embeds: [userTicketMsg] })
+            await dmUser.send({ embeds: [userTicketMsg] })
                 .catch(
                     message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
                 )
