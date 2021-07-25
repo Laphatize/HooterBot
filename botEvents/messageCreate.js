@@ -87,14 +87,14 @@ module.exports = {
             
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-            // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             dmUsername = message.channel.name.split('-').pop()
-
-            console.log(`message.guild.name = ${message.guild.name}`)
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
+            // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             const ticketUser = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
+
+            console.log(`ticketUser = ${ticketUser}`)
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
