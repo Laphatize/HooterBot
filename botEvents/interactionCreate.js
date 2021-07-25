@@ -145,7 +145,7 @@ module.exports = {
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'text',
                         parent: ticketCategory,
-                        topic: `Admins/Moderators can track verification progress here and respond to help inquiries. Note: Any messages sent in this channel will be sent to the user's DMs. Please do not send messages unless in response to a user. Messages cannot be edited or deleted once sent in this channel`,
+                        topic: `**Do not change this channel's name!** Messages sent here will go to the user's DMs and cannot be edited or deleted once sent!`,
                         permissionOverwrites: [
                             {
                                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
