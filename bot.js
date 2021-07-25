@@ -66,7 +66,7 @@ for (const folder of cmdFolders) {
 
 
 // UNKNOWN ERROR REPORTING
-process.on('unhandledRejection', err =>{
+process.on('unhandledRejection', err => {
     console.log(`******** UNKNOWN ERROR *********`);
     console.log(err);
     console.log(`********************************\n`);
@@ -74,11 +74,11 @@ process.on('unhandledRejection', err =>{
     
     // DEFINING LOG EMBED
     let logErrEmbed = new discord.MessageEmbed()
-    .setColor(config.embedDarkGrey)
-    .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
-    .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
-    .setFooter('MMM, see the bot log for the full error stack.')
-    .setTimestamp()
+        .setColor(config.embedDarkGrey)
+        .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
+        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
+        .setFooter('MMM, see the bot log for the full error stack.')
+        .setTimestamp()
     
 
     // LOG ENTRY

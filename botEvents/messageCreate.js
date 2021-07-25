@@ -87,9 +87,14 @@ module.exports = {
             // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
             dmUsername = message.channel.name.split('-').pop()
 
+            console.log(`message.guild.name = ${message.guild.name}`)
+
 
             // FETCH THE USER FROM THE CHANNEL NAME
             let ticketUser = message.guild.members.cache.find(user => user.username.toLowerCase() === dmUsername)
+
+            
+            console.log(`ticketUser = ${ticketUser}`)
 
 
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
