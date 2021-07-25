@@ -90,8 +90,6 @@ module.exports = {
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
             dmUsername = message.channel.name.split('-').pop()
-
-            console.log(`dmUsername = ${dmUsername}`)
                         
             
             // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
