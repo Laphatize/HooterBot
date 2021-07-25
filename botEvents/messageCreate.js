@@ -54,19 +54,10 @@ module.exports = {
 
                 // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
                 console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
-                    
-                // DB TICKET DATA
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: message.author.id
-                }).exec();
-
-
-                // FETCH GUILD OF THE TICKET USING DB ENTRY
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
 
                 // GRABBING TICKET CHANNEL FOR THE USER
-                modAdminTicketCh = guild.channels.cache.get(ch => ch.name === ticketChannelName)
+                modAdminTicketCh = client.channels.cache.get(ch => ch.name === ticketChannelName)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
@@ -82,11 +73,6 @@ module.exports = {
                     .catch(err => {
                         message.channel.send(`This ticket is closed. Messages can not be sent to the ticket channel any more.`)
                     })
-            }
-
-            else {
-                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
-                console.log(`${message.author.username} does not have an open ticket.`)
             }
         }
 
@@ -163,6 +149,36 @@ module.exports = {
             if(!command) {
                 return;
             }
+
+
+
+            // ENSURING GUILD USE ONLY IN GUILD
+            if (!command.guildUse === 'false' && message.channel.type === 'text') {
+
+                // DEFINING EMBED
+                let guildDisallowEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+                .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+
+                // SENDING EMBED
+                return message.author.send( {embeds: [guildDisallowEmbed]} )
+            }
+
+
+            // ENSURING DM USE ONLY IN DMS
+            if (command.dmUse === 'false' && message.channel.type === 'dm') {
+
+                // DEFINING EMBED
+                let dmDisallowEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+                .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+
+                // SENDING EMBED
+                return message.author.send( {embeds: [dmDisallowEmbed]} )
+            }
+
 
 
             // CHECKING IF BOT HAS PERMISSION TO SPEAK IN THE CHANNEL
