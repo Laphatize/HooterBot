@@ -102,11 +102,11 @@ module.exports = {
             //     .setTimestamp()
 
 
-            // // FETCH THE USER FROM THE CHANNEL NAME
-            // // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
-            // const dmUser = await message.guild.members.fetch({ query: dmUsername, limit: 1 })
-            //     .then(console.log)
-            //     .catch(console.error)
+            // FETCH THE USER FROM THE CHANNEL NAME
+            // THE USER HAS TO BE IN THIS GUILD SINCE THE TICKET IS IN THE GUILD
+            const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
+                .then(console.log)
+                .catch(console.error)
 
 
 
