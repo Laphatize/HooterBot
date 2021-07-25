@@ -91,7 +91,7 @@ module.exports = {
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            let ticketUser = message.guild.members.fetch({ query: dmUsername, limit: 1 })
+            message.guild.members.fetch({ query: dmUsername, limit: 1 })
                 .then(user => {
 
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
@@ -103,7 +103,7 @@ module.exports = {
 
 
                     // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-                    return ticketUser.send({ embeds: [userTicketMsg] })
+                    return user.send({ embeds: [userTicketMsg] })
                         .catch(err => {
                             message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
                         })
