@@ -104,7 +104,7 @@ module.exports = {
 
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            return ticketUser.user.send({ embeds: [userTicketMsg] })
+            return ticketUser.send({ embeds: [userTicketMsg] })
                 .catch(err => {
                     message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
                 })
