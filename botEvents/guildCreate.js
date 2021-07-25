@@ -22,13 +22,9 @@ module.exports = {
         const message = await client.channels.cache.get(config.introductionsChannelId).send({embeds: [botJoinEmbed]})
         console.log(`GUILD NAME: ${message.guild.name}`)
 
+
         // CREATE GUILD ENTRY - FOR NOW LEFT TO UPDATE SINCE DATABASE DELETION IS NOT CONFIGURED
-        dbData = await guildSchema.findOne({ GUILD_NAME: message.guild.name }).exec();
-
-        console.log(`\ndbData = ${dbData}\n`)
-
-
-
+        dbData = await guildSchema.findOneAndUpdate({ GUILD_NAME: message.guild.name }).exec();
         console.log(`======================================\n\n`)
 	},
 };

@@ -69,7 +69,7 @@ module.exports = {
                 console.log(`guild.name = ${guild.name}`)
 
                 
-                modAdminTicketCh = guild.channels.cache.get(ch => ch.name === ticketChannelName)
+                modAdminTicketCh = guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
