@@ -35,23 +35,34 @@ module.exports = {
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
-            console.log(`The bot has received a DM from a user.`)
-                    
-            // DB TICKET DATA
-            const dbTicketData = await ticketSchema.findOne({
-                CREATOR_ID: message.author.id
-            }).exec();
+
+            // LOGGING CHECKS
+            console.log(`The bot has received a DM from a user.\n`)            
+            console.log(`CREATOR_ID =        ${message.author.id}`)
+            console.log(`ticketChannelName = ${ticketChannelName}`)
 
 
-            // FETCH GUILD OF THE TICKET USING DB ENTRY
-            guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+            console.log(`\nChecking if there is a ticket channel for this user...`)
 
 
-            // CHECK IF A CHANNEL EXISTS BY THIS NAME FOR THE USER
-            if (client.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)) {
+            // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
+            ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${message.author.username}`)
+
+
+            // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER
+            if (ticketChannel) {
 
                 // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
                 console.log(`${message.author.username} has an open ticket. Rerouting DM message content to channel...`)
+                    
+                // DB TICKET DATA
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: message.author.id
+                }).exec();
+
+
+                // FETCH GUILD OF THE TICKET USING DB ENTRY
+                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
 
                 // GRABBING TICKET CHANNEL FOR THE USER
@@ -65,47 +76,61 @@ module.exports = {
                     .setDescription(message.content)
                     .setTimestamp()
 
+
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
                 return modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                    .catch(err => {
+                        message.channel.send(`This ticket is closed. Messages can not be sent to the ticket channel any more.`)
+                    })
+            }
+
+            else {
+                // THE USER HAS A TICKET OPEN, SEND MESSAGE CONTENT TO THIS CHANNEL
+                console.log(`${message.author.username} does not have an open ticket.`)
             }
         }
 
 
-        // // IN TICKET CHANNEL, FETCH USERNAME FROM THE CHANNEL NAME
-        // if(message.channel.name.startsWith(`verify-`) && !message.channel.type === 'DM') {
+        // IF NOT IN DMs
+        if(!message.channel.type === 'DM') {
 
-        //     // IGNORE HOOTERBOT'S OWN MESSAGES
-        //     if(message.author.bot)   return;
-            
-
-        //     // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-        //     dmUsername = message.channel.name.split('-').pop()
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
 
 
-        //     // DB GRAB
-        //     const dbTicketData = await ticketSchema.findOne({
-        //         GUILD_NAME: message.guild.name
-        //     }).exec();
+            // IF THE USER HAS AN OPEN TICKET
+            if(message.channel.name.startsWith(`verify-`)) {
 
-        //     dmUserID = dbTicketData.CREATOR_ID
-
-        //     // FETCHING USER'S ID FROM DATABASE TO GET USER
-        //     ticketUser = client.users.cache.get(dmUserID);
+                // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
+                dmUsername = message.channel.name.split('-').pop()
 
 
-        //     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-        //     let userTicketMsg = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setAuthor(message.author.username, message.author.displayAvatarURL())
-        //         .setDescription(message.content)
-        //         .setTimestamp()
+                // DB GRAB
+                const dbTicketData = await ticketSchema.findOne({
+                    GUILD_NAME: message.guild.name
+                }).exec();
 
-        //     // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-        //     return ticketUser.send({ embeds: [userTicketMsg] })
-        //         .catch(err => {
-        //             message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
-        //         })
-        // }
+                dmUserID = dbTicketData.CREATOR_ID
+
+                // FETCHING USER'S ID FROM DATABASE TO GET USER
+                ticketUser = client.users.cache.get(dmUserID);
+
+
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let userTicketMsg = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setDescription(message.content)
+                    .setTimestamp()
+
+
+                // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+                return ticketUser.send({ embeds: [userTicketMsg] })
+                    .catch(err => {
+                        message.channel.send(`This ticket is closed. Messages can not be sent to the user any more.`)
+                    })
+            }
+        }
 
 
 
