@@ -3,7 +3,7 @@ const discord = require('discord.js')
 const fs = require('fs');
 const config = require ('./config.json')
 const guildSchema = require('./Database/guildSchema')
-const CronJob = require('node-cron')
+var cron = require('node-cron');
 
 
 // INITIALIZATION
@@ -88,7 +88,6 @@ process.on('unhandledRejection', err => {
 
 
 // CRON JOB TESTING
-var job =  new CronJob('* * * * * *', function() {
+cron.schedule('* * * * * *', () => {
     console.log('This is a test cron job posting every second.');
-}, null, true, 'America/New_York');
-job.start();
+});
