@@ -16,7 +16,6 @@ module.exports = {
 
             // RULES CHANNEL FOR RULES EMBED
             if(message.channel.id == config.rulesChannelId) {
-                console.log(`The message's channel ID matches the Rules channel ID. Comparing message IDs...`)
 
                 // COMPARING DB MSG ID TO THE MSG ID OF THE DELETED
                 if(dbData.RULES_MSG_ID === message.id) {
