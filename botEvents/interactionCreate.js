@@ -500,10 +500,13 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
-                    // FETCH MESSAGE FROM THE MESSAGE ID
-                    dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
-                        .then(msg => {
-                            msg.edit({embeds: [physicalTUidEmbed] })
+                    interaction.user.createDM()
+                        .then(dmCh => {
+                            // FETCH MESSAGE FROM THE MESSAGE ID
+                            dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                })
                         })
                 }
 
@@ -568,10 +571,13 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
-                    // FETCH MESSAGE FROM THE MESSAGE ID
-                    dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
-                        .then(msg => {
-                            msg.edit({embeds: [virtualTUidEmbed] })
+                    interaction.user.createDM()
+                        .then(dmCh => {
+                            // FETCH MESSAGE FROM THE MESSAGE ID
+                            dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                })
                         })
                 }
 
@@ -636,10 +642,13 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
-                    // FETCH MESSAGE FROM THE MESSAGE ID
-                    dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
-                        .then(msg => {
-                            msg.edit({embeds: [virtualTUidEmbed] })
+                    interaction.user.createDM()
+                        .then(dmCh => {
+                            // FETCH MESSAGE FROM THE MESSAGE ID
+                            dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                })
                         })
                 }
 
