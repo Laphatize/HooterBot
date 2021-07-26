@@ -518,7 +518,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                    msg.edit({embeds: [physicalTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -526,7 +526,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed] })
+                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [] })
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -590,7 +590,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [virtualTUidEmbed] })
+                                    msg.edit({embeds: [virtualTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -598,7 +598,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed] })
+                    let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed], components: [] })
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -662,7 +662,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [tuPortalEmbed] })
+                                    msg.edit({embeds: [tuPortalEmbed], components: [] })
                                 })
                         })
                 }
@@ -670,7 +670,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed] })
+                    let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed], components: [] })
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
