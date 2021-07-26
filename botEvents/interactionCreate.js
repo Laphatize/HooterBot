@@ -503,14 +503,14 @@ module.exports = {
                     // FETCH MESSAGE FROM THE MESSAGE ID
                     secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                         .then(msg => {
-                            await msg.edit({embeds: [physicalTUidEmbed], components: [buttonRow] })
+                            msg.edit({embeds: [physicalTUidEmbed] })
                         })
                 }
 
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 if(!dbTicketData.DM_2NDMSG_ID) {
-                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [buttonRow] })
+                    let SecondDmMsg = interaction.user.send({embeds: [physicalTUidEmbed] })
                     
                     // LOG DATABASE INFORMATION FOR TICKET
                     ticketSchema.findOneAndUpdate({
