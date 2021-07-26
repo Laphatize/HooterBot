@@ -204,7 +204,7 @@ module.exports = {
 
                             // LOG DATABASE INFORMATION FOR TICKET
                             ticketSchema.findOneAndUpdate({
-                                GUILD_ID: interaction.guild.id
+                                CREATOR_ID: interaction.user.id
                             },{
                                 GUILD_ID: interaction.guild.id,
                                 GUILD_NAME: interaction.guild.name,
@@ -724,12 +724,17 @@ module.exports = {
                         .setLabel("Info Collected")
                         .setStyle("PRIMARY")
                         .setCustomId("Info_Collected")
+                    let CloseButton = new MessageButton()
+                        .setLabel("Close")
+                        .setStyle("SECONDARY")
+                        .setCustomId("Close")
 
 
                     // BUTTON ROW
                     let CollectedInfoButtonRow = new MessageActionRow()
                         .addComponents(
-                            CollectedInfoButton
+                            CollectedInfoButton,
+                            CloseButton
                         );
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -781,24 +786,28 @@ module.exports = {
                 let MoreInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Collected Data**`)
-                    .setDescription(`See the image below for an example entry in the database.`)
-                    .addField(`Server Info:`, `Guild ID = An 18-digit number representing the Temple server.\nGuild Name = the name of Temple server where you created the ticket.\nChannel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
-                    .addField(`User Info:`, `Your username = \`\`${interaction.user.username}\`\`\nYour User ID = \`\`${interaction.user.id}\`\``)
-                    .addField(`Bot Info:`, `DM Message IDs = the ID's of the individual messages ${config.botName} sends you in DMs.`)
-                    .addField(`Miscellaneous Info:`, `\_id = Created by the database, a randomly-generated identifier for this entry.\nTicket Close Date = The day/time the ticket is scheduled to automatically close\nCreation Date = The day/time you created the ticket.\nUpdated Date = When the database entry was last modified by the bot.\n\n`)
-                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .addField(`Server Info:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
+                    .addField(`User Info:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
+                    .addField(`Bot Info:`, ` • DM Message IDs = the ID's of the individual messages ${config.botName} sends you in DMs. (like this one!)`)
+                    .addField(`Miscellaneous Info:`, ` • \_id = Created by the database, a randomly-generated identifier for this entry. • \nTicket Close Date = The day/time the ticket is scheduled to automatically close • \nCreation Date = The day/time you created the ticket. • \nUpdated Date = When the database entry was last modified by the bot.\n\n`)
+                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.\n\nAn example entry in the database:`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
                     let BackDataPrivacyButton = new MessageButton()
                         .setLabel("Back")
                         .setStyle("PRIMARY")
                         .setCustomId("Data_Privacy")
+                    let CloseButton = new MessageButton()
+                        .setLabel("Close")
+                        .setStyle("SECONDARY")
+                        .setCustomId("Close")
 
 
                     // BUTTON ROW
                     let BackDataPrivacyButtonRow = new MessageActionRow()
                         .addComponents(
-                            BackDataPrivacyButton
+                            BackDataPrivacyButton,
+                            CloseButton
                         );
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -839,6 +848,30 @@ module.exports = {
 
 
 
+            /***********************************************************/
+            /*      CLOSE BUTTON                                       */
+            /***********************************************************/
+            if(interaction.customId === 'close') {
+                await interaction.deleteReply()
+
+
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+
+                    
+                // REMOVING 2ND MESSAGE ID FROM DATABASE
+                ticketSchema.findOneAndUpdate({
+                    CREATOR_NAME: interaction.user.username
+                },{
+                    DM_2NDMSG_ID: "",
+                },{
+                    upsert: true
+                }).exec();
+            }
+            // END OF "DATA & PRIVACY PROMPT"            
 
 
 
@@ -852,7 +885,6 @@ module.exports = {
 
 
 
-            
         }
 	},
 };
