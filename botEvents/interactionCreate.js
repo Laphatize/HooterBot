@@ -547,7 +547,7 @@ module.exports = {
             /***********************************************************/
             /*      VIRTUAL TUID CARD                                  */
             /***********************************************************/
-            if(interaction.customId === 'physical_TUid_Card') {
+            if(interaction.customId === 'virtual_TUid_Card') {
                 await interaction.deferUpdate()
 
 
@@ -618,7 +618,7 @@ module.exports = {
             /***********************************************************/
             /*      TUPORTAL STUDENT DASHBOARD                         */
             /***********************************************************/
-            if(interaction.customId === 'physical_TUid_Card') {
+            if(interaction.customId === 'TU_portal') {
                 await interaction.deferUpdate()
 
 
