@@ -4,6 +4,7 @@ const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const moment = require('moment');
+const pjson = require('../../package.json');
 
 
 module.exports = {
@@ -85,6 +86,11 @@ module.exports = {
                     .setStyle("SECONDARY")
                     .setCustomId("TU_portal")
                     .setDisabled(false)
+                let InfoButton = new MessageButton()
+                    .setLabel("More Info")
+                    .setStyle("PRIMARY")
+                    .setCustomId("More_Info")
+                    .setDisabled(false)
                 let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
                     .setStyle("DANGER")
@@ -97,6 +103,7 @@ module.exports = {
                         TUidCardButton,
                         VirtualTUidCardButton,
                         TuPortalButton,
+                        InfoButton,
                         QuitButton
                     );
 
@@ -370,6 +377,11 @@ module.exports = {
                                     .setStyle("SECONDARY")
                                     .setCustomId("TU_portal")
                                     .setDisabled(true)
+                                let InfoButtonDisabled = new MessageButton()
+                                    .setLabel("More Info")
+                                    .setStyle("PRIMARY")
+                                    .setCustomId("More_Info")
+                                    .setDisabled(true)
                                 let QuitButtonDisabled = new MessageButton()
                                     .setLabel("Quit Verification")
                                     .setStyle("DANGER")
@@ -382,6 +394,7 @@ module.exports = {
                                         TUidCardButtonDisabled,
                                         VirtualTUidCardButtonDisabled,
                                         TuPortalButtonDisabled,
+                                        InfoButtonDisabled,
                                         QuitButtonDisabled
                                     );
 
@@ -515,7 +528,7 @@ module.exports = {
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed] })
                     
-                    // LOG DATABASE INFORMATION FOR TICKET
+                    // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
                         CREATOR_NAME: interaction.user.username
                     },{
@@ -586,7 +599,7 @@ module.exports = {
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed] })
                     
-                    // LOG DATABASE INFORMATION FOR TICKET
+                    // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
                         CREATOR_NAME: interaction.user.username
                     },{
@@ -657,7 +670,7 @@ module.exports = {
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed] })
                     
-                    // LOG DATABASE INFORMATION FOR TICKET
+                    // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
                         CREATOR_NAME: interaction.user.username
                     },{
@@ -683,6 +696,85 @@ module.exports = {
                 ticketChannel.send({embeds: [quitConfirmedEmbed]})
             }
             // END OF "VIRTUAL TUID CARD"
+
+
+            /***********************************************************/
+            /*      MORE INFO PROMPT                                   */
+            /***********************************************************/
+            if(interaction.customId === 'More_Info') {
+                await interaction.deferUpdate()
+
+
+                // EMBED MESSAGE
+                let MoreInfoEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`**Information**`)
+                    .addField(`About`, `This bot was built by <@${config.botAuthorId}> to improve the user verification method and provide other features in the Temple University Discord server.`)
+                    .addField(`What information does this bot collect?`, `The bot temporarily collects the bare minimum information it needs to function. This includes things like your username and user ID, messages you send to the bot and the message IDs.`)
+                    .addField(`Where is the information stored?`, `In a remote and secured MongoDB database. HooterBot and MrMusicMan789 are the only users who can add information.`)
+                    .addField(`What information is stored?`, `The following information is stored when you verify with the bot:
+                            \n- Guild ID, a numerical identifier for the server (e.g. \`\`829409161581821992\`\`)
+                            \n- Guild name (e.g. \`\`Temple University\`\`)
+                            \n- Your username (e.g. \`\`${interaction.user.username}\`\`)
+                            \n- Your user ID (a numerican identifier, e.g. \`\`${interaction.user.id}\`\`)
+                            \n- The message ID's of the initial DM prompt HooterBot has sent. (e.g. \`\`869084302590222376\`\`)
+                            \n- The channel ID in the Temple University Discord server where your ticket progress is monitored by the moderators and admins. (e.g. \`\`869084159753216090\`\`)
+                            \n- The date you created this ticket, and date the database entry was last modified.
+                            \nSee the image below as an example database entry. The information stored by the bot is permanently deleted on Discord and in the database when a ticket is closed.`)
+                    .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} stores all the code for ${config.botName} in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) that you may browse through and explore at any time.`)
+                    .addField(`I still have questions.`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+
+
+
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+
+                // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
+                if(dbTicketData.DM_2NDMSG_ID) {
+                    interaction.user.createDM()
+                        .then(dmCh => {
+                            // FETCH MESSAGE FROM THE MESSAGE ID
+                            dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    msg.edit({embeds: [MoreInfoEmbed] })
+                                })
+                        })
+                }
+
+
+                // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
+                else {
+                    let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed] })
+                    
+                    // LOG DATABASE INFORMATION FOR 2ND MESSAGE
+                    ticketSchema.findOneAndUpdate({
+                        CREATOR_NAME: interaction.user.username
+                    },{
+                        DM_2NDMSG_ID: SecondDmMsg.id,
+                    },{
+                        upsert: true
+                    }).exec();
+                }
+
+
+
+                // FETCHING USER'S TICKET CHANNEL IN GUILD
+                let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName);
+
+
+                // GENERATE NOTICE EMBED
+                let quitConfirmedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setDescription(`**${interaction.user.username}** has selected the **"Physical TUid Card"** option.`)
+
+
+                // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+            }
+            // END OF "PHYSICAL TUID CARD"
         }
 	},
 };
