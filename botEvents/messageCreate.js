@@ -104,14 +104,33 @@ module.exports = {
             const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
 
 
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
-            await dmUser.send({ embeds: [userTicketMsg] })
-                .catch(err => {
-                    message.channel.send(`${config.emjREDTICK} This ticket has been closed. Messages can not be sent to the user.`)
-                })
 
-            // ADD SUCCESS EMOJI TO THE ORIGINAL CHANNEL MESSAGE ONCE SENT
-            return message.react(client.emojis.cache.get('868910701295587368'))
+
+            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+            // NO ATTACHMENT
+            if(message.attachments.size == 0) {
+                await dmUser.send({ embeds: [userTicketMsg] })
+                    .catch(err => {
+                        message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
+                    })
+
+                // ADD SUCCESS EMOJI TO THE ORIGINAL CHANNEL MESSAGE ONCE SENT
+                return message.react(client.emojis.cache.get('868910701295587368'))
+            }
+
+            // WITH AN ATTACHMENT
+            if(message.attachments.size !== 0) {
+
+                // GRAB ATTACHMENT
+
+                await dmUser.send({ embeds: [userTicketMsg] })
+                    .catch(err => {
+                        message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
+                    })
+
+                // ADD SUCCESS EMOJI TO THE ORIGINAL CHANNEL MESSAGE ONCE SENT
+                return message.react(client.emojis.cache.get('868910701295587368'))
+            }
         }
 
 
@@ -141,32 +160,32 @@ module.exports = {
 
 
 
-            // ENSURING GUILD USE ONLY IN GUILD
-            if (!command.guildUse === 'false' && message.channel.type === 'GUILD_TEXT') {
+            // // ENSURING GUILD USE ONLY IN GUILD
+            // if (!command.guildUse === 'false' && message.channel.type === 'GUILD_TEXT') {
 
-                // DEFINING EMBED
-                let guildDisallowEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
-                .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            //     // DEFINING EMBED
+            //     let guildDisallowEmbed = new discord.MessageEmbed()
+            //     .setColor(config.embedRed)
+            //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in servers.`)
+            //     .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
-                // SENDING EMBED
-                return message.author.send( {embeds: [guildDisallowEmbed]} )
-            }
+            //     // SENDING EMBED
+            //     return message.author.send( {embeds: [guildDisallowEmbed]} )
+            // }
 
 
-            // ENSURING DM USE ONLY IN DMS
-            if (command.dmUse === 'false' && message.channel.type === 'DM') {
+            // // ENSURING DM USE ONLY IN DMS
+            // if (command.dmUse === 'false' && message.channel.type === 'DM') {
 
-                // DEFINING EMBED
-                let dmDisallowEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
-                .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
+            //     // DEFINING EMBED
+            //     let dmDisallowEmbed = new discord.MessageEmbed()
+            //     .setColor(config.embedRed)
+            //     .setTitle(`${config.emjREDTICK} Error: command cannot be used in DMs.`)
+            //     .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
-                // SENDING EMBED
-                return message.author.send( {embeds: [dmDisallowEmbed]} )
-            }
+            //     // SENDING EMBED
+            //     return message.author.send( {embeds: [dmDisallowEmbed]} )
+            // }
 
 
 

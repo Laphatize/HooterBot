@@ -145,7 +145,7 @@ module.exports = {
                     await interaction.guild.channels.create(`${ticketChannelName}`, {
                         type: 'GUILD_TEXT',
                         parent: ticketCategory,
-                        topic: `**Do not change this channel's name!** Messages sent here will go to the user's DMs and cannot be edited or deleted once sent!`,
+                        topic: `**\*\*Do not change this channel's name!\*\*** Messages sent here will go to the user's DMs and **cannot be edited or deleted once sent!**`,
                         permissionOverwrites: [
                             {
                                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
@@ -175,8 +175,8 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
-                                .setDescription(`**Ticket Auto-Close:** ${closeDate}`)
-                                .setFooter(`ALL messages sent in this channel are sent to the user's DMs. Messages cannot be edited or deleted once sent. Bot commands will not work. Please do not send messages unless in response to a user.`)
+                                .setDescription(`**Ticket Auto-Close:** ${closeDate}
+                                \n**All messages** sent in this channel are sent to the user's DMs. Messages **cannot be edited or deleted** once sent. Bot commands will not work. Please do not send messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
