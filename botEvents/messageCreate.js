@@ -101,7 +101,9 @@ module.exports = {
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
+            if(client.users.cache.find(user => user.username.toLowerCase() === dmUsername)) {
+                const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
+            }
 
 
 

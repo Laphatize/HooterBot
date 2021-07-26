@@ -66,7 +66,7 @@ module.exports = {
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect a method using the buttons below to receive further instructions. You may quit verification at any time using the red "Quit Verification" button.
-                        \n**Have questions?** Please send a message here in DMs to Hooterbot and a member of the server staff will respond shortly.`)
+                        \n**Have questions?** Please send a message here in DMs to Hooterbot and a member of the server staff will respond shortly. If your message gets a green check reaction, it was sent successfully.`)
 
 
                 // INITIALIZING BUTTONS 
@@ -501,7 +501,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
                     // FETCH MESSAGE FROM THE MESSAGE ID
-                    secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                    dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                         .then(msg => {
                             msg.edit({embeds: [physicalTUidEmbed] })
                         })
@@ -509,8 +509,8 @@ module.exports = {
 
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
-                if(!dbTicketData.DM_2NDMSG_ID) {
-                    let SecondDmMsg = interaction.user.send({embeds: [physicalTUidEmbed] })
+                else {
+                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed] })
                     
                     // LOG DATABASE INFORMATION FOR TICKET
                     ticketSchema.findOneAndUpdate({
