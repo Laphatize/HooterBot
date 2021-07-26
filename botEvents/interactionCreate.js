@@ -714,7 +714,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setTitle(`**Data and Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects information to function. Please click the \`\`Info Collected\`\` button at the bottom for specifics.
-                                 \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
+                                 \n\n**Where is the information stored?**\nIn a remote and secured [MongoDB database](https://www.mongodb.com/). ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
                                  \n\n**How is the data used?**\n***No information is sold or shared,*** it is only collected and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
                                  \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist...), but I invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!`)
                     .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
@@ -788,8 +788,8 @@ module.exports = {
                     .setTitle(`**Collected Data**`)
                     .addField(`Server Info:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
                     .addField(`User Info:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
-                    .addField(`Bot Info:`, ` • DM Message IDs = the ID's of the individual messages ${config.botName} sends you in DMs. (like this one!)`)
-                    .addField(`Miscellaneous Info:`, ` • \_id = Created by the database, a randomly-generated identifier for this entry. • \nTicket Close Date = The day/time the ticket is scheduled to automatically close • \nCreation Date = The day/time you created the ticket. • \nUpdated Date = When the database entry was last modified by the bot.\n\n`)
+                    .addField(`Bot Info:`, ` • DM Message IDs = the ID's of the individual messages ${config.botName} sends to you in DMs. (like this one!)`)
+                    .addField(`Miscellaneous Info:`, ` • \_id = Created by the database, a randomly-generated identifier for this entry.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n`)
                     .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.\n\nAn example entry in the database:`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
