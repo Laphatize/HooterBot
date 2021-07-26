@@ -717,6 +717,7 @@ module.exports = {
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
                                  \n\n**How is the data used?**\n***No information is sold or shared,*** it is only collected and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
                                  \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist...), but I invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!`)
+                    .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
                     .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
 
                     let CollectedInfoButton = new MessageButton()
