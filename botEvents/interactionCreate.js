@@ -714,21 +714,21 @@ module.exports = {
                     .setTitle(`**Data and Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function. See below for specifics.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
-                                 \n\n**How do I know nothing malicious is going on?**\nAll the code for ${config.botName} is stored in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).
+                                 \n\n**How do I know nothing malicious is going on?**\nAll the code for ${config.botName} is stored in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}). Please check it out!
                                  \n\n**What information does the bot store?**\nThe following is stored when you verify with ${config.botName} (see the image below for an example screenshot from the database for a ticket entry):`)
 
-                    .addField(`Guild ID`, `An 18-digit number representing the server (e.g. \`\`829409161581821992\`\`)`, true)
-                    .addField(`Guild Name`, `The name of the server where you created the ticket (e.g. \`\`Temple University\`\`)`, true)
+                    .addField(`Guild ID`, `An 18-digit number representing the server`, true)
+                    .addField(`Guild Name`, `Name of the server where you created the ticket`, true)
                     .addField(`Username`, `Your username (e.g. \`\`${interaction.user.username}\`\`)`, true)
                     .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
-                    .addField(`Bot message IDs`, `These point to the messages to the bot sends you so the messages can be edited and checked if they were sent. (e.g. \`\`869084302590222376\`\`)`, true)
-                    .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
-                    .addField(`Ticket Close Date`, `Tickets are open for 1 week and this is the day the ticket is scheduled to close by`, true)
-                    .addField(`Creation Date`, `The date and time the ticket was opened`, true)
-                    .addField(`Updated Date`, `The date and time the database entry was last modified by the bot.`, true)
+                    .addField(`Bot message IDs`, `ID's of the messages ${config.botName} has sent you.`, true)
+                    .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee your ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
+                    .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close (1 week after starting)`, true)
+                    .addField(`Creation Date`, `When the ticket was created by you`, true)
+                    .addField(`Updated Date`, `When the database entry was last modified by the bot.`, true)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
-                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .addField(`\nStill have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
