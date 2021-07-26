@@ -4,7 +4,7 @@ const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const moment = require('moment');
-const pjson = require('../../package.json');
+const pjson = require('../package.json');
 
 
 module.exports = {
