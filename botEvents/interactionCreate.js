@@ -727,7 +727,7 @@ module.exports = {
                     let CloseButton = new MessageButton()
                         .setLabel("Close")
                         .setStyle("SECONDARY")
-                        .setCustomId("Close")
+                        .setCustomId("close_2nd_Prompt")
 
 
                     // BUTTON ROW
@@ -800,7 +800,7 @@ module.exports = {
                     let CloseButton = new MessageButton()
                         .setLabel("Close")
                         .setStyle("SECONDARY")
-                        .setCustomId("Close")
+                        .setCustomId("close_2nd_Prompt")
 
 
                     // BUTTON ROW
@@ -851,7 +851,7 @@ module.exports = {
             /***********************************************************/
             /*      CLOSE BUTTON                                       */
             /***********************************************************/
-            if(interaction.customId === 'close') {
+            if(interaction.customId === 'close_2nd_Prompt') {
                 await interaction.deferUpdate()
 
 
