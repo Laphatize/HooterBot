@@ -576,7 +576,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                    msg.edit({embeds: [virtualTUidEmbed] })
                                 })
                         })
                 }
@@ -623,7 +623,7 @@ module.exports = {
 
 
                 // EMBED MESSAGE
-                let virtualTUidEmbed = new discord.MessageEmbed()
+                let tuPortalEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`**TUportal**`)
                     .setDescription(`**1.** Open [TUportal](https://tuportal5.temple.edu/). From the \`\`Student Tools\`\` tab, look for the "Student Dashboard" section.
@@ -647,7 +647,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [physicalTUidEmbed] })
+                                    msg.edit({embeds: [tuPortalEmbed] })
                                 })
                         })
                 }
@@ -655,7 +655,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed] })
+                    let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed] })
                     
                     // LOG DATABASE INFORMATION FOR TICKET
                     ticketSchema.findOneAndUpdate({
