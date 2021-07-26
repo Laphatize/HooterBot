@@ -18,7 +18,6 @@ module.exports = {
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
-
             /***********************************************************/
             /*      BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)      */
             /***********************************************************/
@@ -238,6 +237,7 @@ module.exports = {
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
             }
             // END OF "BEGIN VERIFICATION" PROMPT BUTTON
+
 
 
 
@@ -485,7 +485,6 @@ module.exports = {
 
 
 
-
             /***********************************************************/
             /*      PHYSICAL TUID CARD                                 */
             /***********************************************************/
@@ -554,6 +553,7 @@ module.exports = {
                 ticketChannel.send({embeds: [quitConfirmedEmbed]})
             }
             // END OF "PHYSICAL TUID CARD"
+
 
 
 
@@ -628,6 +628,7 @@ module.exports = {
 
 
 
+
             /***********************************************************/
             /*      TUPORTAL STUDENT DASHBOARD                         */
             /***********************************************************/
@@ -698,6 +699,8 @@ module.exports = {
             // END OF "VIRTUAL TUID CARD"
 
 
+
+
             /***********************************************************/
             /*      MORE INFO PROMPT                                   */
             /***********************************************************/
@@ -713,17 +716,17 @@ module.exports = {
                     .addField(`What information does this bot collect?`, `The bot temporarily collects the bare minimum information it needs to function. This includes things like your username and user ID, messages you send to the bot and the message IDs.`)
                     .addField(`Where is the information stored?`, `In a remote and secured MongoDB database. HooterBot and MrMusicMan789 are the only users who can add information.`)
                     .addField(`What information is stored?`, `The following information is stored when you verify with the bot:
-                            \n- Guild ID, a numerical identifier for the server (e.g. \`\`829409161581821992\`\`)
+                            \n- Guild ID (e.g. \`\`829409161581821992\`\`)
                             \n- Guild name (e.g. \`\`Temple University\`\`)
                             \n- Your username (e.g. \`\`${interaction.user.username}\`\`)
                             \n- Your user ID (a numerican identifier, e.g. \`\`${interaction.user.id}\`\`)
-                            \n- The message ID's of the initial DM prompt HooterBot has sent. (e.g. \`\`869084302590222376\`\`)
-                            \n- The channel ID in the Temple University Discord server where your ticket progress is monitored by the moderators and admins. (e.g. \`\`869084159753216090\`\`)
-                            \n- The date you created this ticket, and date the database entry was last modified.
+                            \n- Message ID's of the DM prompts HooterBot sends you. (e.g. \`\`869084302590222376\`\`)
+                            \n- The Temple Discord channel ID where your ticket is monitored by the moderators and admins. (e.g. \`\`869084159753216090\`\`)
+                            \n- The date you started this ticket and when the database entry was last modified.
                             \nSee the image below as an example database entry. The information stored by the bot is permanently deleted on Discord and in the database when a ticket is closed.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} stores all the code for ${config.botName} in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) that you may browse through and explore at any time.`)
                     .addField(`I still have questions.`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
-
+                    .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
