@@ -715,7 +715,7 @@ module.exports = {
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function. See below for specifics.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
                                  \n\n**How do I know nothing malicious is going on?**\nAll the code for ${config.botName} is stored in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}). Please check it out!
-                                 \n\n**What information does the bot store?**\nThe following is stored when you verify with ${config.botName} (see the image below for an example screenshot from the database for a ticket entry):\n`)
+                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed (see the image below for an example screenshot from the database for a ticket entry):\n`)
 
                     .addField(`Guild ID`, `An 18-digit number representing the server`, true)
                     .addField(`Guild Name`, `Name of the server where you created the ticket`, true)
