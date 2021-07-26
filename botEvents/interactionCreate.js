@@ -715,13 +715,14 @@ module.exports = {
                     .setTitle(`**Data and Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
-                                 \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist if it was). You can also check out all the code for ${config.botName} in the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!
-                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed (*see the image below for an example database entry for a ticket*):\n`)
+                                 \n\n**How is the data used?**\n**No information is sold or shared,** it is only collected and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
+                                 \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist...), but I invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!
+                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed or completed (*see the image below for an example database entry for a ticket*):\n`)
 
-                    .addField(`Server Info:`, `__Guild ID__ = An 18-digit number representing the server\n__Guild Name__ = the name of the server where you created the ticket\n__Channel ID__ = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
+                    .addField(`Server Info:`, `__Guild ID__ = An 18-digit number representing the server.\n__Guild Name__ = the name of the server where you created the ticket.\n__Channel ID__ = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.`)
                     .addField(`User Info:`, `__Your username__ = \`\`${interaction.user.username}\`\`\n__Your User ID__ = \`\`${interaction.user.id}\`\``)
-                    .addField(`Bot Info:`, `__DM Message IDs__ = ID's of the messages ${config.botName} sends you.`)
-                    .addField(`Miscellaneous Info:`, `__Ticket Close Date__ = The day the ticket is scheduled to automatically close (1 week after starting)\n__Creation Date__ = Date the ticket was created by you\n__Updated Date__ = When the database entry was last modified by the bot.\n\n`)
+                    .addField(`Bot Info:`, `__DM Message IDs__ = ID's of the individual messages ${config.botName} sends you.`)
+                    .addField(`Miscellaneous Info:`, `__\_id__ = Created by the database, a random object identifier for this entry.\n__Ticket Close Date__ = The day/time the ticket is scheduled to automatically close\n__Creation Date__ = The day/time you created the ticket.\n__Updated Date__ = When the database entry was last modified by the bot.\n\n`)
 
                     .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
