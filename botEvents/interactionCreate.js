@@ -254,6 +254,7 @@ module.exports = {
                 let quitConfirmEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`**Please confirm ticket cancellation.**`)
+                    .setFooter(`This message will self-destruct in 10 seconds...`)
 
 
                 // INITIALIZING BUTTON
@@ -714,7 +715,7 @@ module.exports = {
                     .setTitle(`**Data and Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function. See below for specifics.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
-                                 \n\n**How do I know nothing malicious is going on?**\nAll the code for ${config.botName} is stored in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}). Please check it out!
+                                 \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist if it was). You can also check out all the code for ${config.botName} in the [public GitHub repository](${pjson.repository.url.split(`+`).pop()})!
                                  \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed (see the image below for an example screenshot from the database for a ticket entry):\n`)
 
                     .addField(`Guild ID`, `An 18-digit number representing the server`, true)
@@ -722,7 +723,7 @@ module.exports = {
                     .addField(`Username`, `Your username (e.g. \`\`${interaction.user.username}\`\`)`, true)
                     .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
                     .addField(`Bot message IDs`, `ID's of the DM messages ${config.botName} has sent you.`, true)
-                    .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee your ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
+                    .addField(`Channel ID`, `The Temple server channel ID where mods/admins oversee ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
                     .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close (1 week after starting)`, true)
                     .addField(`Creation Date`, `When the ticket was created by you`, true)
                     .addField(`Updated Date`, `When the database entry was last modified by the bot.`, true)
