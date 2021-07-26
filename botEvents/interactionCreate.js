@@ -86,9 +86,9 @@ module.exports = {
                     .setCustomId("TU_portal")
                     .setDisabled(false)
                 let InfoButton = new MessageButton()
-                    .setLabel("More Info")
+                    .setLabel("Data & Privacy Info")
                     .setStyle("PRIMARY")
-                    .setCustomId("More_Info")
+                    .setCustomId("Data_Privacy")
                     .setDisabled(false)
                 let QuitButton = new MessageButton()
                     .setLabel("Quit Verification")
@@ -378,9 +378,9 @@ module.exports = {
                                     .setCustomId("TU_portal")
                                     .setDisabled(true)
                                 let InfoButtonDisabled = new MessageButton()
-                                    .setLabel("More Info")
+                                    .setLabel("Data & Privacy Info")
                                     .setStyle("PRIMARY")
-                                    .setCustomId("More_Info")
+                                    .setCustomId("Data_Privacy")
                                     .setDisabled(true)
                                 let QuitButtonDisabled = new MessageButton()
                                     .setLabel("Quit Verification")
@@ -704,29 +704,30 @@ module.exports = {
             /***********************************************************/
             /*      MORE INFO PROMPT                                   */
             /***********************************************************/
-            if(interaction.customId === 'More_Info') {
+            if(interaction.customId === 'Data_Privacy') {
                 await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
                 let MoreInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setTitle(`**Information**`)
-                    .addField(`About`, `This bot was built by <@${config.botAuthorId}> to improve the user verification method and provide other features in the Temple University Discord server.`)
-                    .addField(`What information does this bot collect?`, `The bot temporarily collects the bare minimum information it needs to function. This includes things like your username and user ID, messages you send to the bot and the message IDs.`)
-                    .addField(`Where is the information stored?`, `In a remote and secured MongoDB database. HooterBot and MrMusicMan789 are the only users who can add information.`)
-                    .addField(`What information is stored?`, `The following information is stored when you verify with the bot:
-                            \n- Guild ID (e.g. \`\`829409161581821992\`\`)
-                            \n- Guild name (e.g. \`\`Temple University\`\`)
-                            \n- Your username (e.g. \`\`${interaction.user.username}\`\`)
-                            \n- Your user ID (a numerican identifier, e.g. \`\`${interaction.user.id}\`\`)
-                            \n- Message ID's of the DM prompts HooterBot sends you. (e.g. \`\`869084302590222376\`\`)
-                            \n- The Temple Discord channel ID where your ticket is monitored by the moderators and admins. (e.g. \`\`869084159753216090\`\`)
-                            \n- The date you started this ticket and when the database entry was last modified.
-                            \nSee the image below as an example database entry. The information stored by the bot is permanently deleted on Discord and in the database when a ticket is closed.`)
-                    .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} stores all the code for ${config.botName} in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) that you may browse through and explore at any time.`)
-                    .addField(`I still have questions.`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .setTitle(`**Data and Privacy**`)
+                    .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function. See below for specifics.
+                                 \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
+                                 \n\n**How do I know nothing malicious is going on?**\nAll the code for ${config.botName} is stored in a [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).
+                                 \n\n**What information does the bot store?**\nThe following is stored when you verify with ${config.botName} (see the image below for an example screenshot from the database for a ticket entry):`)
+
+                    .addField(`Guild ID`, `An 18-digit number representing the server (e.g. \`\`829409161581821992\`\`)`, true)
+                    .addField(`Guild Name`, `The name of the server where you created the ticket (e.g. \`\`Temple University\`\`)`, true)
+                    .addField(`Username`, `Your username (e.g. \`\`${interaction.user.username}\`\`)`, true)
+                    .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
+                    .addField(`Bot message IDs`, `These point to the messages to the bot sends you so the messages can be edited and checked if they were sent. (e.g. \`\`869084302590222376\`\`)`, true)
+                    .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
+                    .addField(`Creation Date`, `The date and time the ticket was opened`, true)
+                    .addField(`Updated Date`, `The date and time the database entry was last modified by the bot.`, true)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
+
+                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
