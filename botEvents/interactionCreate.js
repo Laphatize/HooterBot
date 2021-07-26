@@ -525,7 +525,7 @@ module.exports = {
 
 
                 // FETCHING USER'S TICKET CHANNEL IN GUILD
-                let ticketChannel = client.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName);
+                let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName);
 
 
                 // GENERATE NOTICE EMBED
