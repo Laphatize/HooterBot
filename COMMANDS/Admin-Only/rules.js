@@ -29,6 +29,7 @@ module.exports = {
         let rules = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle('**Rules**')
+            .setDescription(`By participating in this server, you agree to comply with these rules regardless if you have read them in their entirety. Admins and moderators reserve the right to punish without discretion anyone who does not comply with the above rules. They are not obligated to preface any moderation with a warning or lesser punishment.`)
             .addField(`1. Communicate in English`, `All communication within the server needs to be in English.`)
             .addField(`2. Be respectful of all members`, `We have zero tolerance for discriminatory rhetoric, racism, sexism, homophobia, transphobia, or any other kind of offensive language. The use of inappropriate language and profanity should be kept to a minimum. Derogatory language and slurs are prohibited. This includes usernames, nicknames, and statuses`)
             .addField(`3. No spam, mention spamming, or ghost pinging`, `This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.`)
@@ -40,6 +41,7 @@ module.exports = {
             .addField(`9. Moderator and Admin decisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
             .addField(`10. Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`)
 
+            
         // SERVER STAFF EMBED
         let serverStaffList = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
