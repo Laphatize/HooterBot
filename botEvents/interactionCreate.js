@@ -713,23 +713,18 @@ module.exports = {
                 let MoreInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`**Data and Privacy**`)
-                    .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function. See below for specifics.
+                    .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
-                                 \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist if it was). You can also check out all the code for ${config.botName} in the [public GitHub repository](${pjson.repository.url.split(`+`).pop()})!
-                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed (see the image below for an example screenshot from the database for a ticket entry):\n`)
+                                 \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist if it was). You can also check out all the code for ${config.botName} in the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!
+                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed (*see the image below for an example database entry for a ticket*):\n`)
 
-                    .addField(`Guild ID`, `An 18-digit number representing the server`, true)
-                    .addField(`Guild Name`, `Name of the server where you created the ticket`, true)
-                    .addField(`Username`, `Your username (e.g. \`\`${interaction.user.username}\`\`)`, true)
-                    .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
-                    .addField(`Bot message IDs`, `ID's of the DM messages ${config.botName} has sent you.`, true)
-                    .addField(`Channel ID`, `The Temple server channel ID where mods/admins oversee ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
-                    .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close (1 week after starting)`, true)
-                    .addField(`Creation Date`, `When the ticket was created by you`, true)
-                    .addField(`Updated Date`, `When the database entry was last modified by the bot.`, true)
+                    .addField(`Server Info:`, `__Guild ID__ = An 18-digit number representing the server\n__Guild Name__ = the name of the server where you created the ticket\n__Channel ID__ = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
+                    .addField(`User Info:`, `__Your username__ = \`\`${interaction.user.username}\`\`\n__Your User ID__ = \`\`${interaction.user.id}\`\``)
+                    .addField(`Bot Info:`, `__DM Message IDs__ = ID's of the messages ${config.botName} sends you.`)
+                    .addField(`Miscellaneous Info:`, `__Ticket Close Date__ = The day the ticket is scheduled to automatically close (1 week after starting)\n__Creation Date__ = Date the ticket was created by you\n__Updated Date__ = When the database entry was last modified by the bot.\n\n`)
+
+                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
-
-                    .addField(`\nStill have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
