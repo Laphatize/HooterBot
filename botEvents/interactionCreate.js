@@ -852,7 +852,7 @@ module.exports = {
             /*      CLOSE BUTTON                                       */
             /***********************************************************/
             if(interaction.customId === 'close') {
-                await interaction.deleteReply()
+                await interaction.deferUpdate()
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -861,7 +861,17 @@ module.exports = {
                 }).exec();
 
 
-                    
+                // FETCH THE 2ND MESSAGE ID AND DELETE THE MESSAGE
+                interaction.user.createDM()
+                .then(dmCh => {
+                    // FETCH MESSAGE FROM THE MESSAGE ID
+                    dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                        .then(msg => {
+                            client.setTimeout(() => msg.delete(), 0 );
+                        })
+                })
+
+
                 // REMOVING 2ND MESSAGE ID FROM DATABASE
                 ticketSchema.findOneAndUpdate({
                     CREATOR_NAME: interaction.user.username
@@ -871,7 +881,7 @@ module.exports = {
                     upsert: true
                 }).exec();
             }
-            // END OF "DATA & PRIVACY PROMPT"            
+            // END OF "CLOSE" BUTTON            
 
 
 
