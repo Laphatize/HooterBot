@@ -721,7 +721,7 @@ module.exports = {
                     .addField(`Guild Name`, `Name of the server where you created the ticket`, true)
                     .addField(`Username`, `Your username (e.g. \`\`${interaction.user.username}\`\`)`, true)
                     .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
-                    .addField(`Bot message IDs`, `ID's of the messages ${config.botName} has sent you.`, true)
+                    .addField(`Bot message IDs`, `ID's of the DM messages ${config.botName} has sent you.`, true)
                     .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee your ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
                     .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close (1 week after starting)`, true)
                     .addField(`Creation Date`, `When the ticket was created by you`, true)
