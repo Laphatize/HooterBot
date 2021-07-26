@@ -763,23 +763,8 @@ module.exports = {
                         upsert: true
                     }).exec();
                 }
-
-
-
-                // FETCHING USER'S TICKET CHANNEL IN GUILD
-                let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName);
-
-
-                // GENERATE NOTICE EMBED
-                let quitConfirmedEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
-                    .setDescription(`**${interaction.user.username}** has selected the **"Physical TUid Card"** option.`)
-
-
-                // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
             }
-            // END OF "PHYSICAL TUID CARD"
+            // END OF "MORE INFO PROMPT"
         }
 	},
 };
