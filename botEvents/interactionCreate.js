@@ -60,12 +60,13 @@ module.exports = {
                 let ticketOpenEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Verification - Ticket Opened**`)
-                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**. This verification ticket will be open for 1 week, closing automatically on ${moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")}. 
+                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**. This verification ticket will be open for 1 week, closing automatically on ${moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD")}. When this ticket is completed or closed, its contents are permanently deleted.
                         \nThere are three ways you can verify you are a student or employee:
                         \n${config.indent}**1.** Use a physical TUid card
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
-                        \n\nSelect a method using the buttons below to receive further instructions. You may quit verification at any time using the red "Quit Verification" button. If you have questions or need help, please **send a message here in DMs** with Hooterbot. A member of the server staff will respond shortly.`)
+                        \n\nSelect a method using the buttons below to receive further instructions. You may quit verification at any time using the red "Quit Verification" button.
+                        \n**Have questions?** Please send a message here in DMs to Hooterbot and a member of the server staff will respond shortly.`)
 
 
                 // INITIALIZING BUTTONS 
@@ -288,6 +289,7 @@ module.exports = {
                 let quitConfirmEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`**Please confirm ticket cancellation.**`)
+                    .setFooter(`This message will self-destruct in 10 seconds...`)
 
 
                 // INITIALIZING BUTTON
@@ -310,7 +312,6 @@ module.exports = {
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
                     })
-                    .catch(err => console.log('A ticket has been closed.'))
 
             }
             // END OF "QUIT_CH" BUTTON
@@ -336,13 +337,6 @@ module.exports = {
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
                 interaction.user.createDM()
                     .then(dmCh => {
-
-                        // // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION) TO DELETE IT
-                        // dmCh.messages.fetch({ limit: 1 })
-                        //     .then(messages => {
-                        //         let lastMessage = messages.first();
-                        //         lastMessage.delete();
-                        //     })
 
                         // GRABBING THE INITIAL DM MESSAGE FROM TICKET
                         initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
@@ -395,19 +389,19 @@ module.exports = {
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
                             })
+                    
+
+
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        if(dbTicketData.DM_2NDMSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    client.setTimeout(() => msg.delete(), 0 );
+                                })
+                        }
                     })
-                    
-
-
-                // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
-                if(dbTicketData.DM_2NDMSG_ID) {
-                    secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
-                    
-                    // FETCH MESSAGE BY ID
-
-                    // DELETE THE MESSAGE
-                
-                }
 
 
 
@@ -422,7 +416,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
                     .setDescription(`You have closed this verification ticket and you have **not** been verified.
-                    \nAll the information for this ticket has been purged from the bot.
+                    \nAll the information for this ticket has been purged.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
                 // DMING USER THE QUIT CONFIRMATION             
@@ -437,18 +431,18 @@ module.exports = {
 
                 
 
-                // // LOGGING TICKET CLOSURE - THIS NEEDS TO HAPPEN AFTER THE MODS/ADMINS OK TICKET CLOSURE
-                // let logCloseTicketEmbed = new discord.MessageEmbed()
-                //     .setColor(config.embedRed)
-                //     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
-                //     .addField(`User:`, `${interaction.user}`, true)
-                //     .addField(`User ID:`, `${interaction.user.id}`, true)
-                //     .addField(`Verified?`, `**No**`, true)
-                //     .addField(`Ticket closed early by:`, `${interaction.user}`)
-                //     .setTimestamp()
+                // LOGGING TICKET CLOSURE - THIS NEEDS TO HAPPEN AFTER THE MODS/ADMINS OK TICKET CLOSURE
+                let logCloseTicketEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
+                    .addField(`User:`, `${interaction.user}`, true)
+                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                    .addField(`Verified?`, `**No**`, true)
+                    .addField(`Ticket closed early by:`, `${interaction.user}`)
+                    .setTimestamp()
                 
-                // // LOG ENTRY
-                // interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                // LOG ENTRY
+                interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
 
                 
                 // // CLOSURE NOTICE TO CHANNEL
@@ -470,7 +464,8 @@ module.exports = {
             /***********************************************************/
             /*      QUIT CONFIRM (2nd QUIT IN MOD/ADMIN CHANNEL)       */
             /***********************************************************/
-
+                
+                // COPY THE QUIT CONFIRM ABOVE ONCE FINALIZED
 
             // END OF "QUIT CONFIRM ADMIN/MOD CH" BUTTON
 
@@ -481,42 +476,68 @@ module.exports = {
             // /***********************************************************/
             // /*      PHYSICAL TUID CARD                                 */
             // /***********************************************************/
-            // if(interaction.customId === 'physical_TUid_Card') {
-            //     await interaction.deferUpdate()
-
-            //     let disabledTUidCardButton = new MessageButton()
-            //     .setLabel("Physical TUid Card")
-            //     .setStyle("SECONDARY")
-            //     .setCustomId("physical_TUid_Card")
-            //     .setDisabled(true)
+            if(interaction.customId === 'physical_TUid_Card') {
+                await interaction.deferUpdate()
 
 
-            //     // EMBED MESSAGE
-            //     let physicalTUidEmbed = new discord.MessageEmbed()
-            //         .setColor(config.embedTempleRed)
-            //         .setTitle(`**Physical TUid Card**`)
-            //         .setDescription(`To verify with a physical TUiD card:\n
-            //             ${config.indent}**1.** Hold your TUid card up next to your screen with Discord open.\n
-            //             ${config.indent}**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.\n
-            //             ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
-            //             ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
-            //             ${config.indent}**4.** Wait for a response from server staff. Responses may take up to 2 days.\n\n
-            //             When this ticket is complete, its contents are permanently deleted. If you have any questions, please send them in the chat below. If you wish to change verification methods, select a different button in the message above.\n`)
+                // EMBED MESSAGE
+                let physicalTUidEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Physical TUid Card**`)
+                    .setDescription(`${config.indent}**1.** Hold your TUid card up next to your screen with Discord open.\n
+                        ${config.indent}**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.\n
+                        ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
+                        ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
+                        ${config.indent}**4.** Wait for a response from server staff. Responses may take up to 2 days.\n\n
+                        When you're ready, attach your image and send it here in DMs, or select a different button using the initial prompt above.`)
 
 
-            //     // BUTTON ROW
-            //     let buttonRow = new MessageActionRow()
-            //         .addComponents(
-            //             disabledTUidCardButton,
-            //             VirtualTUidCardButton,
-            //             TuPortalButton,
-            //             QuitButton
-            //         );
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
 
-            //     // POST THE PHYSICAL TUID CARD EMBED
-            //     await interaction.user.send({embeds: [physicalTUidEmbed], components: [buttonRow] })
-            // }
-            // // END OF "PHYSICAL TUID CARD"
+
+                // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
+                if(dbTicketData.DM_2NDMSG_ID) {
+                    // FETCH MESSAGE FROM THE MESSAGE ID
+                    secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                        .then(msg => {
+                            await msg.edit({embeds: [physicalTUidEmbed], components: [buttonRow] })
+                        })
+                }
+
+
+                // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
+                if(!dbTicketData.DM_2NDMSG_ID) {
+                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [buttonRow] })
+                    
+                    // LOG DATABASE INFORMATION FOR TICKET
+                    ticketSchema.findOneAndUpdate({
+                        CREATOR_NAME: interaction.user.username
+                    },{
+                        DM_2NDMSG_ID: SecondDmMsg.id,
+                    },{
+                        upsert: true
+                    }).exec();
+                }
+
+
+
+                // FETCHING USER'S TICKET CHANNEL IN GUILD
+                let ticketChannel = client.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase());
+
+
+                // GENERATE NOTICE EMBED
+                let quitConfirmedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setDescription(`${interaction.user.username} has selected the "Physical TUid Card" option.`)
+
+
+                // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+            }
+            // END OF "PHYSICAL TUID CARD"
         }
 	},
 };
