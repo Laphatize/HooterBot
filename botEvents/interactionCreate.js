@@ -35,7 +35,7 @@ module.exports = {
 
 
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
-                if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase())) {
+                if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
                     return interaction.reply({
                         content: `Sorry, you're **already in the process of verifying!** Check your DMs with <@${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
@@ -482,14 +482,14 @@ module.exports = {
 
                 // EMBED MESSAGE
                 let physicalTUidEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
+                    .setColor(config.embedGrey)
                     .setTitle(`**Physical TUid Card**`)
-                    .setDescription(`${config.indent}**1.** Hold your TUid card up next to your screen with Discord open.\n
-                        ${config.indent}**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.\n
-                        ${config.indent}***Note:** If you have a custom status set, you'll need to hover your mouse over the section so your tag is visible.*\n
-                        ${config.indent}**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**\n
-                        ${config.indent}**4.** Wait for a response from server staff. Responses may take up to 2 days.\n\n
-                        When you're ready, attach your image and send it here in DMs, or select a different button using the initial prompt above.`)
+                    .setDescription(`**1.** Hold your TUid card up next to your screen with Discord open.
+                        \n**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.
+                        ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
+                        \n**3.** Reply to this message below with the picture as an attachment. **Please obscure any personally identifiable information (pictures, names) you wish to not share before sending.**
+                        \n**4.** Wait for a response from server staff. Responses may take up to 2 days.
+                        \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -525,7 +525,7 @@ module.exports = {
 
 
                 // FETCHING USER'S TICKET CHANNEL IN GUILD
-                let ticketChannel = client.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName.toLowerCase());
+                let ticketChannel = client.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName);
 
 
                 // GENERATE NOTICE EMBED
