@@ -723,6 +723,7 @@ module.exports = {
                     .addField(`UserID`, `Your unique 18-digit identifier on Discord (e.g. \`\`${interaction.user.id}\`\`)`, true)
                     .addField(`Bot message IDs`, `These point to the messages to the bot sends you so the messages can be edited and checked if they were sent. (e.g. \`\`869084302590222376\`\`)`, true)
                     .addField(`Channel ID`, `The channel ID for mods and admins in the Temple server to oversee ticket progress (e.g. \`\`869084159753216090\`\`)`, true)
+                    .addField(`Ticket Close Date`, `Tickets are open for 1 week and this is the day the ticket is scheduled to close by`, true)
                     .addField(`Creation Date`, `The date and time the ticket was opened`, true)
                     .addField(`Updated Date`, `The date and time the database entry was last modified by the bot.`, true)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
