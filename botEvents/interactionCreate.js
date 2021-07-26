@@ -337,12 +337,12 @@ module.exports = {
                 interaction.user.createDM()
                     .then(dmCh => {
 
-                        // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION) TO DELETE IT
-                        dmCh.messages.fetch({ limit: 1 })
-                            .then(messages => {
-                                let lastMessage = messages.first();
-                                lastMessage.delete();
-                            })
+                        // // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION) TO DELETE IT
+                        // dmCh.messages.fetch({ limit: 1 })
+                        //     .then(messages => {
+                        //         let lastMessage = messages.first();
+                        //         lastMessage.delete();
+                        //     })
 
                         // GRABBING THE INITIAL DM MESSAGE FROM TICKET
                         initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
