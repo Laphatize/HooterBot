@@ -703,30 +703,34 @@ module.exports = {
 
 
             /***********************************************************/
-            /*      MORE INFO PROMPT                                   */
+            /*      DATA & PRIVACY PROMPT                              */
             /***********************************************************/
             if(interaction.customId === 'Data_Privacy') {
                 await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
-                let MoreInfoEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
+                let DataPrivacyEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
                     .setTitle(`**Data and Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects the minimum information it needs to function.
                                  \n\n**Where is the information stored?**\nIn a remote and secured MongoDB database. ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
                                  \n\n**How is the data used?**\n**No information is sold or shared,** it is only collected and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
                                  \n\n**How do I know nothing malicious is going on?**\nWell, it'd be against Discord's Developer Policy (so ${config.botName} wouldn't exist...), but I invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}) at any time!
-                                 \n\n**What information does the bot store?**\nThe following is stored while you verify with ${config.botName} and is deleted when the ticket is closed or completed (*see the image below for an example database entry for a ticket*):\n`)
-
-                    .addField(`Server Info:`, `__Guild ID__ = An 18-digit number representing the server.\n__Guild Name__ = the name of the server where you created the ticket.\n__Channel ID__ = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.`)
-                    .addField(`User Info:`, `__Your username__ = \`\`${interaction.user.username}\`\`\n__Your User ID__ = \`\`${interaction.user.id}\`\``)
-                    .addField(`Bot Info:`, `__DM Message IDs__ = ID's of the individual messages ${config.botName} sends you.`)
-                    .addField(`Miscellaneous Info:`, `__\_id__ = Created by the database, a random object identifier for this entry.\n__Ticket Close Date__ = The day/time the ticket is scheduled to automatically close\n__Creation Date__ = The day/time you created the ticket.\n__Updated Date__ = When the database entry was last modified by the bot.\n\n`)
-
+                                 \n\n**What information does the bot store?**\nPlease click the button below for specifics.\n\n`)
                     .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
-                    .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
+                    let CollectedInfoButton = new MessageButton()
+                        .setLabel("Info Collected")
+                        .setStyle("PRIMARY")
+                        .setCustomId("Info_Collected")
+
+
+                    // BUTTON ROW
+                    let CollectedInfoButtonRow = new MessageActionRow()
+                        .addComponents(
+                            CollectedInfoButton
+                        );
 
                 // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
                 const dbTicketData = await ticketSchema.findOne({
@@ -741,7 +745,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [MoreInfoEmbed] })
+                                    msg.edit({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                                 })
                         })
                 }
@@ -749,7 +753,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed] })
+                    let SecondDmMsg = await interaction.user.send({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -761,7 +765,94 @@ module.exports = {
                     }).exec();
                 }
             }
-            // END OF "MORE INFO PROMPT"
+            // END OF "DATA & PRIVACY PROMPT"
+
+            
+
+
+            /***********************************************************/
+            /*      COLLECTED DATA PROMPT                              */
+            /***********************************************************/
+            if(interaction.customId === 'Info_Collected') {
+                await interaction.deferUpdate()
+
+
+                // EMBED MESSAGE
+                let MoreInfoEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`**Collected Data**`)
+                    .setDescription(`See the image below for an example entry in the database.`)
+                    .addField(`Server Info:`, `Guild ID = An 18-digit number representing the Temple server.\nGuild Name = the name of Temple server where you created the ticket.\nChannel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
+                    .addField(`User Info:`, `Your username = \`\`${interaction.user.username}\`\`\nYour User ID = \`\`${interaction.user.id}\`\``)
+                    .addField(`Bot Info:`, `DM Message IDs = the ID's of the individual messages ${config.botName} sends you in DMs.`)
+                    .addField(`Miscellaneous Info:`, `\_id = Created by the database, a randomly-generated identifier for this entry.\nTicket Close Date = The day/time the ticket is scheduled to automatically close\nCreation Date = The day/time you created the ticket.\nUpdated Date = When the database entry was last modified by the bot.\n\n`)
+                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
+
+                    let BackDataPrivacyButton = new MessageButton()
+                        .setLabel("Back")
+                        .setStyle("PRIMARY")
+                        .setCustomId("Data_Privacy")
+
+
+                    // BUTTON ROW
+                    let BackDataPrivacyButtonRow = new MessageActionRow()
+                        .addComponents(
+                            BackDataPrivacyButton
+                        );
+
+                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+
+                // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
+                if(dbTicketData.DM_2NDMSG_ID) {
+                    interaction.user.createDM()
+                        .then(dmCh => {
+                            // FETCH MESSAGE FROM THE MESSAGE ID
+                            dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    msg.edit({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                                })
+                        })
+                }
+
+
+                // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
+                else {
+                    let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                    
+                    // LOG DATABASE INFORMATION FOR 2ND MESSAGE
+                    ticketSchema.findOneAndUpdate({
+                        CREATOR_NAME: interaction.user.username
+                    },{
+                        DM_2NDMSG_ID: SecondDmMsg.id,
+                    },{
+                        upsert: true
+                    }).exec();
+                }
+            }
+            // END OF "DATA & PRIVACY PROMPT"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
         }
 	},
 };
