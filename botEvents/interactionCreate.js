@@ -310,6 +310,7 @@ module.exports = {
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
                     })
+                    .catch(err => console.log('A ticket has been closed.'))
 
             }
             // END OF "QUIT_CH" BUTTON
@@ -336,7 +337,7 @@ module.exports = {
                 interaction.user.createDM()
                     .then(dmCh => {
 
-                        // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION)
+                        // FETCH THE LAST MESSAGE (THE DELETION CONFIRMATION) TO DELETE IT
                         dmCh.messages.fetch({ limit: 1 })
                             .then(messages => {
                                 let lastMessage = messages.first();
@@ -398,12 +399,15 @@ module.exports = {
                     
 
 
-                // // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
-                // if(dbTicketData.DM_2NDMSG_ID) {
-                //     secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
-                //     // EDIT 2ND DM MSG SO BUTTONS ARE DISABLED
-                // 
-                // }
+                // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                if(dbTicketData.DM_2NDMSG_ID) {
+                    secondDmMsgId = dbGuildData.DM_2NDMSG_ID;
+                    
+                    // FETCH MESSAGE BY ID
+
+                    // DELETE THE MESSAGE
+                
+                }
 
 
 
