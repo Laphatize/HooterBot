@@ -101,12 +101,8 @@ module.exports = {
 
 
             // FETCH THE USER FROM THE CHANNEL NAME
-            if(client.users.cache.find(user => user.username.toLowerCase() === dmUsername)) {
-                const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
-            }
-
-
-
+            const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
+            
 
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
             // NO ATTACHMENT
