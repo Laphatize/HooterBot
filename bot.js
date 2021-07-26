@@ -87,7 +87,7 @@ process.on('unhandledRejection', err => {
 })
 
 
-// CRON JOB TESTING
-cron.schedule('* * * * * *', () => {
-    console.log('This is a test cron job posting every second.');
-});
+// // CRON JOB TESTING
+// cron.schedule('* * * * * *', () => {
+//     console.log('This is a test cron job posting every second.');
+// });
