@@ -894,8 +894,7 @@ module.exports = {
             /*      ROLES CHANNEL DATA PRIVACY BUTTON                  */
             /***********************************************************/
             if(interaction.customId === 'dataPrivacy_Roles') {
-                await interaction.deferUpdate()
-
+                
                 // EMBED FOR EPHEMERAL REPLY
                 let DataPrivacyEphemeralEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
@@ -917,11 +916,13 @@ module.exports = {
                     .addComponents(
                         DataPrivacyEphemeralButton
                     );
-
-                return interaction.reply({
+                
+                
+                await interaction.reply({
                     embeds: [DataPrivacyEphemeralEmbed],
                     components: BackDataPrivacyButtonRow,
-                    ephemeral: true })
+                    ephemeral: true
+                })
             }
             // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON  
 
