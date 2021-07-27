@@ -504,6 +504,12 @@ module.exports = {
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUsername = interaction.channel.name.split('-').pop()
+      
+                
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
 
 
                 // FETCHING THE GUILD FROM DATABASE
@@ -512,12 +518,6 @@ module.exports = {
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
-                
-                
-                // GRAB DATABASE ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: dmUser.id
-                }).exec();
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
