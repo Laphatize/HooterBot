@@ -72,6 +72,8 @@ module.exports = {
                         
                     await modAdminTicketCh.send({ embeds: [userTicketMsg] })
                         .catch(err => {
+                            console.log(err)
+                            message.reaction.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`Sorry, this ticket has been closed.`)
                         })
@@ -97,6 +99,8 @@ module.exports = {
                     // SEND EMBED
                     await modAdminTicketCh.send({ embeds: [userTicketMsgImage] })
                         .catch(err => {
+                            console.log(err)
+                            message.reaction.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`Sorry, this ticket has been closed.`)
                         })
