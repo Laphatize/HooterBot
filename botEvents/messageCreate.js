@@ -124,15 +124,11 @@ module.exports = {
                 CREATOR_NAME: dmUsername
             }).exec();
 
-            console.log(`dbTicketData.GUILD_ID = ${dbTicketData.GUILD_ID}`)
-
             // FETCHING THE GUILD FROM DATABASE
             guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
             // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
             const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
-            
-            console.log(`dmUser = ${dmUser}`)
 
             
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs

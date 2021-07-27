@@ -436,17 +436,10 @@ module.exports = {
                     \nAll the information for this ticket has been purged.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
+
                 // DMING USER THE QUIT CONFIRMATION             
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
 
-
-
-                // CREATE TRANSCRIPT OF CHAT
-
-                    // ** A BIG TO DO ITEM **
-
-
-                
 
                 // LOGGING TICKET CLOSURE - THIS NEEDS TO HAPPEN AFTER THE MODS/ADMINS OK TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
@@ -458,21 +451,42 @@ module.exports = {
                     .addField(`Ticket closed early by:`, `${interaction.user}`)
                     .setTimestamp()
                 
-                // LOG ENTRY
-                // NEED TO FETCH GUILD ID FROM DATABASE, THEN FETCH GUILD, SO THEN THIS LINE CAN BE RUN
-                // interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+
+                // FETCHING THE GUILD FROM DATABASE
+                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+                guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
 
                 
-                // // CLOSURE NOTICE TO CHANNEL
-                // let closeNotice = new discord.MessageEmbed()
-                //     .setColor(config.embedOrange)
-                //     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                //     .setDescription(`${interaction.user.username} has closed this ticket on their end. If the contents of this ticket do not need to be archived for any moderation actions, press the button below to permanently delete this channel.`)
+                // CLOSURE NOTICE TO CHANNEL
+                let closeNotice = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
+                    .setDescription(`${interaction.user.username} has requested to close this ticket. If the contents of this ticket do not need to be archived for any moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**. If this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setFooter(`At this time, these buttons DO NOT WORK.`)
 
+                // BUTTONS
+                let InfoButtonDisabled = new MessageButton()
+                    .setLabel("Confirm Ticket Close")
+                    .setStyle("PRIMARY")
+                    .setCustomId("Confirm_Ticket_Close")
+                let QuitButtonDisabled = new MessageButton()
+                    .setLabel("Do Not Close")
+                    .setStyle("DANGER")
+                    .setCustomId("Ticket_DoNotClose")
 
-                // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                // guild = client.guilds.fetch(dbTicketData.GUILD_ID);
-                // guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice] });
+                // DISABLED BUTTON ROW
+                let dmQuitNoticeButtonRow = new MessageActionRow()
+                .addComponents(
+                    TUidCardButtonDisabled,
+                    VirtualTUidCardButtonDisabled,
+                    TuPortalButtonDisabled,
+                    InfoButtonDisabled,
+                    QuitButtonDisabled
+                );
+
+                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                guild = client.guilds.fetch(dbTicketData.GUILD_ID);
+                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] });
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
@@ -901,7 +915,7 @@ module.exports = {
                     .setTitle(`**Collected Data**`)
                     .setDescription(`The bot temporarily collects the following information to function:`)
                     .addField(`Guild ID`, `An 18-digit number identifying the Temple server on Discord`)
-                    .addField(`Guild Name`, `The name of the Temple server (where you created the ticket`)
+                    .addField(`Guild Name`, `The name of the Temple server (where you created the ticket)`)
                     .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
                     .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
