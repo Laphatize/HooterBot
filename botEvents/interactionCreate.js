@@ -624,7 +624,7 @@ module.exports = {
                     .addField(`User:`, `${dmUser}`, true)
                     .addField(`User ID:`, `${dmUser.id}`, true)
                     .addField(`Verified?`, `**No**`, true)
-                    .addField(`Ticket closed early by:`, `${interaction.user}`)
+                    .addField(`Ticket closed early by:`, `${interaction.user} (Server Staff)`)
                     .setTimestamp()
                 
 
@@ -1103,14 +1103,6 @@ module.exports = {
                 })
             }
             // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON  
-
-
-
-
-
-
-
-
 
 
         }

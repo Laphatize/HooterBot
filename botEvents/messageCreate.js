@@ -58,17 +58,18 @@ module.exports = {
                 modAdminTicketCh = guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
-                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-                let userTicketMsg = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setDescription(message.content)
-                    .setTimestamp()
-
 
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
                 // NO ATTACHMENT
                 if(message.attachments.size == 0) {
+
+                    // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                    let userTicketMsg = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setDescription(message.content)
+                        .setTimestamp()
+                        
                     await modAdminTicketCh.send({ embeds: [userTicketMsg] })
                         .catch(err => {
                             message.react(client.emojis.cache.get('719009809856462888'))
@@ -85,8 +86,16 @@ module.exports = {
                     // GRAB ATTACHMENT
                     dmMsgAttachment = await message.attachments.first().url
 
+                    // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                    let userTicketMsgImage = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setDescription(message.content)
+                        .attachFiles([dmMsgAttachment])
+                        .setTimestamp()
+
                     // SEND EMBED
-                    await modAdminTicketCh.send({ embeds: [userTicketMsg], files: [dmMsgAttachment] })
+                    await modAdminTicketCh.send({ embeds: [userTicketMsgImage] })
                         .catch(err => {
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`Sorry, this ticket has been closed.`)
@@ -111,14 +120,6 @@ module.exports = {
             dmUsername = message.channel.name.split('-').pop()
                         
             
-            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-            let userTicketMsg = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setDescription(message.content)
-                .setTimestamp()
-
-
             // GRAB USER ID FROM DATABASE USING THE CHANNEL NAME
             const dbTicketData = await ticketSchema.findOne({
                 CREATOR_NAME: dmUsername
@@ -136,6 +137,14 @@ module.exports = {
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
             // NO ATTACHMENT
             if(message.attachments.size == 0) {
+
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let userTicketMsg = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setDescription(message.content)
+                    .setTimestamp()
+
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
                         message.react(client.emojis.cache.get('719009809856462888'))
@@ -151,8 +160,16 @@ module.exports = {
                 // GRAB ATTACHMENT
                 chMsgAttachment = await message.attachments.first().url
 
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let userTicketMsg = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setDescription(message.content)
+                    .attachFiles([dmMsgAttachment])
+                    .setTimestamp()
+
                 // SEND EMBED
-                await dmUser.send({ embeds: [userTicketMsg], files: [chMsgAttachment] })
+                await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
                         message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
