@@ -135,7 +135,7 @@ module.exports = {
                         .setTimestamp()
                     
                     // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                    message.react(client.emojis.cache.get('868910701295587368')))
+                    message.react(client.emojis.cache.get('868910701295587368'))
 
                     // SEND CONFIRMATION MESSAGE
                     message.channel.send({ embeds: [proofAcknowledgement] })
