@@ -441,7 +441,7 @@ module.exports = {
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
 
 
-                // LOGGING TICKET CLOSURE - THIS NEEDS TO HAPPEN AFTER THE MODS/ADMINS OK TICKET CLOSURE
+                // LOGGING TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
@@ -482,8 +482,7 @@ module.exports = {
                 );
 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                guild = client.guilds.fetch(dbTicketData.GUILD_ID);
-                guild.channels.cache.get(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] });
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] });
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
@@ -552,7 +551,6 @@ module.exports = {
                         upsert: true
                     }).exec();
                 }
-
 
 
                 // FETCHING USER'S TICKET CHANNEL IN GUILD
@@ -626,7 +624,6 @@ module.exports = {
                 }
 
 
-
                 // FETCHING USER'S TICKET CHANNEL IN GUILD
                 let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName);
 
@@ -696,7 +693,6 @@ module.exports = {
                         upsert: true
                     }).exec();
                 }
-
 
 
                 // FETCHING USER'S TICKET CHANNEL IN GUILD
