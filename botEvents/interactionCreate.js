@@ -608,7 +608,7 @@ module.exports = {
                 let quitConfirmedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
-                    .setDescription(`A member of the Temple University server has closed this ticket and you have **not** been verified.
+                    .setDescription(`A staff member of the Temple University server has closed this ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
 
@@ -1232,7 +1232,7 @@ module.exports = {
                         }
                     })
 
-                    
+
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
                     CREATOR_ID: dmUser.id
@@ -1310,7 +1310,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
-                interaction.channel.reply({embeds: [proofRejectedModEmbed], components: [] })
+                interaction.reply({embeds: [proofRejectedModEmbed], components: [] })
 
 
                 // LOG ENTRY
@@ -1353,9 +1353,7 @@ module.exports = {
                                 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
-                
 
-                interaction.update
             }
             // END OF "DO NOT CLOSE" BUTTON
         }
