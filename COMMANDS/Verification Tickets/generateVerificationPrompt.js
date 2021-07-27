@@ -124,7 +124,7 @@ module.exports = {
             // DEFINING LOG EMBED
             let logVerifPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Verified Perks embed updated.`)
+                .setTitle(`${config.emjGREENTICK} Verification prompt embed updated.`)
                 .setTimestamp()
 
 
