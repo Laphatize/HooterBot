@@ -211,7 +211,7 @@ module.exports = {
                             },{
                                 GUILD_ID: interaction.guild.id,
                                 GUILD_NAME: interaction.guild.name,
-                                CREATOR_NAME: interaction.user.username,
+                                CREATOR_NAME: interaction.user.username.toLowerCase(),
                                 CREATOR_ID: interaction.user.id,
                                 DM_INITIALMSG_ID: firstDMmsg.id,
                                 DM_2NDMSG_ID: "",
@@ -534,7 +534,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username
+                        CREATOR_NAME: interaction.user.username.toLowerCase()
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -889,6 +889,41 @@ module.exports = {
 
 
 
+
+            /***********************************************************/
+            /*      ROLES CHANNEL DATA PRIVACY BUTTON                  */
+            /***********************************************************/
+            if(interaction.customId === 'dataPrivacy_Roles') {
+                await interaction.deferUpdate()
+
+                // EMBED FOR EPHEMERAL REPLY
+                let DataPrivacyEphemeralEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`**Data and Privacy**`)
+                    .setDescription(`**What info is collected?** The bot temporarily collects information to function. Please click the \`\`Info Collected\`\` button at the bottom for specifics.
+                                 \n**Where is the information stored?** In a remote and secured [MongoDB database](https://www.mongodb.com/). ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
+                                 \n**How is the data used?** __No information is sold or shared,__ it is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
+                                 \n**How do I know nothing malicious is going on?** I follow Discord's Developer Policies or the bot is taken down, but I also invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
+                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+
+                let DataPrivacyEphemeralButton = new MessageButton()
+                    .setLabel("Close")
+                    .setStyle("SECONDARY")
+                    .setCustomId("Data & Privacy")
+
+
+                // BUTTON ROW
+                let BackDataPrivacyButtonRow = new MessageActionRow()
+                    .addComponents(
+                        DataPrivacyEphemeralButton
+                    );
+
+                return interaction.reply({
+                    embeds: [DataPrivacyEphemeralEmbed],
+                    components: BackDataPrivacyButtonRow,
+                    ephemeral: true })
+            }
+            // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON  
 
 
 

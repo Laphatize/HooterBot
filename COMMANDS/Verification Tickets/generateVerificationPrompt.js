@@ -75,11 +75,16 @@ module.exports = {
         // BUTTON ROW
         const buttonRow = new MessageActionRow()
             .addComponents(
-                // BUTTON
+                // BEGIN BUTTON
                 new MessageButton()
                     .setLabel("Begin Verification")
                     .setStyle("SUCCESS")
-                    .setCustomId("begin_verification_button")
+                    .setCustomId("begin_verification_button"),
+                // DATA & PRIVACY BUTTON
+                new MessageButton()
+                    .setLabel(`Data & Privacy`)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`dataPrivacy_Roles`)
             );
 
 
