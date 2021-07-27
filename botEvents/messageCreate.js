@@ -124,9 +124,11 @@ module.exports = {
                 CREATOR_NAME: dmUsername
             }).exec();
 
+
             // FETCHING THE GUILD FROM DATABASE
             guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
+            
             // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
             const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
 

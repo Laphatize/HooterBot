@@ -132,7 +132,7 @@ module.exports = {
                 // SUCESSFUL
                 if(firstDMmsg) {
                     
-                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                    // CHECK IF DATABASE HAS AN ENTRY
                     const dbGuildData = await guildSchema.findOne({
                         GUILD_ID: interaction.guild.id
                     }).exec();
@@ -339,7 +339,7 @@ module.exports = {
                 interaction.deferUpdate()
 
                 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -496,9 +496,172 @@ module.exports = {
             /***********************************************************/
             /*      QUIT CONFIRM (2nd QUIT IN MOD/ADMIN CHANNEL)       */
             /***********************************************************/
-                
-                // COPY THE QUIT CONFIRM ABOVE ONCE FINALIZED
+            if(interaction.customId === 'quit_confirmation_CH') {   
 
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
+
+                // FETCH THE TICKET USER VIA CHANNEL NAME
+                dmUsername = interaction.channel.name.split('-').pop()
+
+
+                // FETCHING THE GUILD FROM DATABASE
+                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+
+                // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
+                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+                
+                
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
+
+
+                // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
+                dmUser.createDM()
+                    .then(dmCh => {
+
+                        // GRABBING THE INITIAL DM MESSAGE FROM TICKET
+                        initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                            .then(msg => {
+                                    
+                                // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
+                                let ticketOpenEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedTempleRed)
+                                    .setTitle(`**Verification - Ticket Opened**`)
+                                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                                        \nThere are three ways you can verify you are a student or employee:
+                                        \n${config.indent}**1.** Use a physical TUid card
+                                        \n${config.indent}**2.** Use a virtual TUid card
+                                        \n${config.indent}**3.** Using TUportal
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#${config.rolesChannelId}>.`)
+
+
+                                // INITIALIZING BUTTONS - ALL DISABLED
+                                let TUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Physical TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("physical_TUid_Card")
+                                    .setDisabled(true)
+                                let VirtualTUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Virtual TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("virtual_TUid_Card")
+                                    .setDisabled(true)
+                                let TuPortalButtonDisabled = new MessageButton()
+                                    .setLabel("TUportal")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("TU_portal")
+                                    .setDisabled(true)
+                                let InfoButtonDisabled = new MessageButton()
+                                    .setLabel("Data & Privacy Info")
+                                    .setStyle("PRIMARY")
+                                    .setCustomId("Data_Privacy")
+                                    .setDisabled(true)
+                                let QuitButtonDisabled = new MessageButton()
+                                    .setLabel("Quit Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit")
+                                    .setDisabled(true)
+
+                                // DISABLED BUTTON ROW
+                                let initialButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
+                                        TUidCardButtonDisabled,
+                                        VirtualTUidCardButtonDisabled,
+                                        TuPortalButtonDisabled,
+                                        InfoButtonDisabled,
+                                        QuitButtonDisabled
+                                    );
+
+
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                            })
+                    
+
+
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        if(dbTicketData.DM_2NDMSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    client.setTimeout(() => msg.delete(), 0 );
+                                })
+                        }
+                    })
+
+
+
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
+
+
+                // GENERATING QUIT CONFIRMATION EMBED FOR DM
+                let quitConfirmedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                    .setDescription(`A member of the Temple University server has closed this ticket and you have **not** been verified.
+                    \nAll the information for this ticket has been purged.
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
+
+
+                // DMING USER THE QUIT CONFIRMATION             
+                dmUser.send({embeds: [quitConfirmedEmbed]})
+
+
+                // LOGGING TICKET CLOSURE
+                let logCloseTicketEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
+                    .addField(`User:`, `${dmUser}`, true)
+                    .addField(`User ID:`, `${dmUser.id}`, true)
+                    .addField(`Verified?`, `**No**`, true)
+                    .addField(`Ticket closed early by:`, `${interaction.user}`)
+                    .setTimestamp()
+                
+
+                // FETCHING THE LOG CHANNEL FROM DATABASE
+                guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+
+
+                // CLOSURE NOTICE TO CHANNEL
+                let closeNotice = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
+                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setFooter(`At this time, these buttons DO NOT WORK.`)
+
+                // BUTTONS
+                let InfoButtonDisabled = new MessageButton()
+                    .setLabel("Confirm Ticket Close")
+                    .setStyle("SUCCESS")
+                    .setCustomId("Confirm_Ticket_Close")
+                let QuitButtonDisabled = new MessageButton()
+                    .setLabel("Do Not Close")
+                    .setStyle("DANGER")
+                    .setCustomId("Ticket_DoNotClose")
+
+                // DISABLED BUTTON ROW
+                let dmQuitNoticeButtonRow = new MessageActionRow()
+                .addComponents(
+                    InfoButtonDisabled,
+                    QuitButtonDisabled
+                );
+
+                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                    })
+            }
             // END OF "QUIT CONFIRM ADMIN/MOD CH" BUTTON
 
 
@@ -523,7 +686,7 @@ module.exports = {
                         \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -594,7 +757,7 @@ module.exports = {
                         \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -665,7 +828,7 @@ module.exports = {
                         \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -752,7 +915,7 @@ module.exports = {
                             CloseButton
                         );
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -825,7 +988,7 @@ module.exports = {
                             CloseButton
                         );
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
@@ -870,7 +1033,7 @@ module.exports = {
                 await interaction.deferUpdate()
 
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                // CHECK IF DATABASE HAS AN ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
