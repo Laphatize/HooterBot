@@ -91,7 +91,7 @@ module.exports = {
                         .setColor(config.embedGrey)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setDescription(message.content)
-                        .attachFiles([dmMsgAttachment])
+                        .setImage([dmMsgAttachment])
                         .setTimestamp()
 
                     // SEND EMBED
@@ -165,7 +165,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
                     .setDescription(message.content)
-                    .attachFiles([dmMsgAttachment])
+                    .setImage([dmMsgAttachment])
                     .setTimestamp()
 
                 // SEND EMBED
