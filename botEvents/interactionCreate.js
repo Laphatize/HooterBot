@@ -430,8 +430,8 @@ module.exports = {
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmedEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                    .setColor(config.embedOrange)
+                    .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`You have closed this verification ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
@@ -443,8 +443,8 @@ module.exports = {
 
                 // LOGGING TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Verification Ticket Closed`)
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
                     .addField(`Verified?`, `\`\` NO \`\``, true)
@@ -606,8 +606,8 @@ module.exports = {
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmedEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`**${config.emjGREENTICK} Ticket Closed.**`)
+                    .setColor(config.embedOrange)
+                    .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`A member of the Temple University server has closed this ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
@@ -619,8 +619,8 @@ module.exports = {
 
                 // LOGGING TICKET CLOSURE
                 let logCloseTicketEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Verification Ticket Closed`)
                     .addField(`User:`, `${dmUser}`, true)
                     .addField(`User ID:`, `${dmUser.id}`, true)
                     .addField(`Verified?`, `\`\` NO \`\``, true)
@@ -1140,7 +1140,7 @@ module.exports = {
 
                 // MESSAGE THE USER
                 let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
+                    .setColor(config.embedGreen)
                     .setTitle(`${config.emjVerified} You're Verified!`)
                     .setDescription(`**You have been given the Verified role in the Temple University server.** Enjoy the following new features:
                         \nImage posting and GIF embedding *Server-wide*
@@ -1232,8 +1232,7 @@ module.exports = {
                         }
                     })
 
-
-
+                    
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
                     CREATOR_ID: dmUser.id
@@ -1241,10 +1240,8 @@ module.exports = {
 
 
                 // FETCH AND DELETE MOD/ADMIN TICKET CHANNEL
-                client.channels.cache.find(ch => ch.name === ticketChannelName)
-                    .then(ch => {
-                        client.setTimeout(() => ch.delete())
-                    })
+                let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                        client.setTimeout(() => ticketChannel.delete())
 
 
                 // LOG ENTRY
@@ -1296,9 +1293,8 @@ module.exports = {
                 // GENERATE EMBED FOR USER
                 let userProofRejectedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjVerified} You're Verified!`)
-
-
+                    .setTitle(`${config.emjREDTICK} You have not been verified.`)
+                    .setDescription(`A member of the server staff will reply with more information.`)
                     .setTimestamp()
 
                 // SEND EMBED TO USER
@@ -1332,6 +1328,36 @@ module.exports = {
                 client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofRejectedLogEmbed] })
             }
             // END OF "PROOF REJECTED" BUTTON
+
+
+
+
+            /***********************************************************/
+            /*      CONFIRM TICKET CLOSE BUTTON                        */
+            /***********************************************************/
+            if(interaction.customId === 'Confirm_Ticket_Close') {
+                                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
+            }
+            // END OF "CONFIRM TICKET CLOSE" BUTTON
+
+
+
+            /***********************************************************/
+            /*      DO NOT CLOSE BUTTON                        */
+            /***********************************************************/
+            if(interaction.customId === 'Ticket_DoNotClose') {
+
+                                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+                
+
+                interaction.update
+            }
+            // END OF "DO NOT CLOSE" BUTTON
         }
 	},
 };
