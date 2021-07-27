@@ -11,17 +11,14 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     // CATEGORY FOR NEW TICKETS
     TICKET_CAT_ID: {type: String, required:true},
 
-    // VERIFICATION PROMPT MESSAGE ID
-    VERIF_PROMPT_MSG_ID: {type: String, required:true},
-
     // RULES EMBED MESSAGE ID
     RULES_MSG_ID: {type: String, required:true},
 
-    // VERIF PERKS MESSAGE ID
+    // VERIFICATION PERKS MESSAGE ID
     VERIF_PERKS_MSG_ID: {type: String, required:true},
     
-    // VERIF EMBED MESSAGE ID
-    VERIF_EMBED_MSG_ID: {type: String, required:true}
+    // VERIFICATION PROMPT MESSAGE ID
+    VERIF_PROMPT_MSG_ID: {type: String, required:true}
 },{
     timestamps: true,
     versionKey: false,

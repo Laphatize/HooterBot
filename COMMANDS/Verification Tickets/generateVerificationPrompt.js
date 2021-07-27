@@ -69,7 +69,7 @@ module.exports = {
 
 
         // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
-        if(!dbData.VERIF_EMBED_MSG_ID) {
+        if(!dbData.VERIF_PROMPT_MSG_ID) {
 
             // POSTING EMBED AND BUTTON ROW
             await message.channel.send({ embeds: [verifEmbed], components: [buttonRow] })
@@ -88,7 +88,7 @@ module.exports = {
                 GUILD_ID: message.guild.id
             },{
                 // CONTENT TO BE UPDATED
-                VERIF_EMBED_MSG_ID: verifEmbedMsgId
+                VERIF_PROMPT_MSG_ID: verifEmbedMsgId
             },{ 
                 upsert: true
             }).exec();
@@ -110,10 +110,10 @@ module.exports = {
 
 
         // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
-        if(dbData.VERIF_EMBED_MSG_ID) {
+        if(dbData.VERIF_PROMPT_MSG_ID) {
 
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            await message.channel.messages.fetch(dbData.VERIF_EMBED_MSG_ID)
+            await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [verifEmbed], components: [buttonRow] })
                 })
