@@ -8,7 +8,7 @@ module.exports = {
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     category: `Administrator`,
     expectedArgs: '',
-    cooldown: 10,
+    cooldown: 15,
     minArgs: 0,
     maxArgs: 0,
     permissions: 'ADMINISTRATOR',    // ADMINISTRATOR - off for testing

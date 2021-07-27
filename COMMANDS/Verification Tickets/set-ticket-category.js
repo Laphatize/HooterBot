@@ -8,7 +8,7 @@ module.exports = {
     description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     category: `Verification`,
     expectedArgs: '<Category name>',
-    cooldown: -1,
+    cooldown: 30,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',

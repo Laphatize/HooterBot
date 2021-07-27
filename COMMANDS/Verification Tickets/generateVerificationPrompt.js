@@ -10,7 +10,7 @@ module.exports = {
     description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     category: `Verification`,
     expectedArgs: '',
-    cooldown: -1,
+    cooldown: 30,
     minArgs: 0,
     maxArgs: 0,
     permissions: 'ADMINISTRATOR',

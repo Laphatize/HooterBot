@@ -614,7 +614,7 @@ module.exports = {
 
 
                 // DMING USER THE QUIT CONFIRMATION             
-                dmUser.send({embeds: [quitConfirmedEmbed]})
+                await dmUser.send({embeds: [quitConfirmedEmbed]})
 
 
                 // LOGGING TICKET CLOSURE
@@ -1132,18 +1132,119 @@ module.exports = {
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
 
-
-                // FETCH USER
                 
                 // GRANT THE USER THE VERIFIED ROLE
+                let verifRole = guild.roles.cache.find(role => role.id === config.verifiedRoleID)
+                dmUser.roles.add(verifRole)
+
 
                 // MESSAGE THE USER
+                let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjVerified} You're Verified!`)
+                    .setDescription(`**You have been given the Verified role in the Temple University server.** Enjoy the following new features:
+                        \nImage posting and GIF embedding *Server-wide*
+                        \nAccess to:
+                        \n${config.indent}• <#829445602868854804>  - find roommates for the upcoming term
+                        \n${config.indent}• <#831527136438255626> - connect with other owls on social media
+                        \n${config.indent}• <#832976391985168445> - discuss scheduling and classes
+                        \n${config.indent}• <#829629393629872159> - talk about IRL events happening on/near campus
+                        \nPosting abilities in <#829732282079903775>
+                        \nScreen sharing in voice channels.
+                        \n\nThis ticket is now closed.`)
+                    .setFooter(`Have feedback about this process (good or bad)? Please consider sharing it with the server staff by creating a ModMail ticket and sharing your thoughts. We'd appreciate it!`)
+                // SEND CONFIRMATION EMBED
+                await dmUser.send({ embeds: [userVerifiedSuccessfullyEmbed] })
+
+
+                // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
+                dmUser.createDM()
+                    .then(dmCh => {
+
+                        // GRABBING THE INITIAL DM MESSAGE FROM TICKET
+                        initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                            .then(msg => {
+                                    
+                                // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
+                                let ticketOpenEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedTempleRed)
+                                    .setTitle(`**Verification - Ticket Opened**`)
+                                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                                        \nThere are three ways you can verify you are a student or employee:
+                                        \n${config.indent}**1.** Use a physical TUid card
+                                        \n${config.indent}**2.** Use a virtual TUid card
+                                        \n${config.indent}**3.** Using TUportal
+                                        \n\nThis ticket has been **closed**. Thank you for verifying!`)
+
+
+                                // INITIALIZING BUTTONS - ALL DISABLED
+                                let TUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Physical TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("physical_TUid_Card")
+                                    .setDisabled(true)
+                                let VirtualTUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Virtual TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("virtual_TUid_Card")
+                                    .setDisabled(true)
+                                let TuPortalButtonDisabled = new MessageButton()
+                                    .setLabel("TUportal")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("TU_portal")
+                                    .setDisabled(true)
+                                let InfoButtonDisabled = new MessageButton()
+                                    .setLabel("Data & Privacy Info")
+                                    .setStyle("PRIMARY")
+                                    .setCustomId("Data_Privacy")
+                                    .setDisabled(true)
+                                let QuitButtonDisabled = new MessageButton()
+                                    .setLabel("Quit Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit")
+                                    .setDisabled(true)
+
+                                // DISABLED BUTTON ROW
+                                let initialButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
+                                        TUidCardButtonDisabled,
+                                        VirtualTUidCardButtonDisabled,
+                                        TuPortalButtonDisabled,
+                                        InfoButtonDisabled,
+                                        QuitButtonDisabled
+                                    );
+
+
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                            })
+                    
+
+
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        if(dbTicketData.DM_2NDMSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
+                                .then(msg => {
+                                    client.setTimeout(() => msg.delete(), 0 );
+                                })
+                        }
+                    })
 
 
 
-                // DELETE THE TICKET CHANNEL
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
 
-                // DELETE THE DATABASE ENTRY
+
+                // FETCH AND DELETE MOD/ADMIN TICKET CHANNEL
+                client.channels.cache.find(ch => ch.name === ticketChannelName)
+                    .then(ch => {
+                        client.setTimeout(() => ch.delete())
+                    })
 
 
                 // LOG ENTRY
@@ -1156,10 +1257,11 @@ module.exports = {
                     .addField(`Verified?`, `\`\` YES \`\``, true)
                     .addField(`Staff Member Responsible:`, `${interaction.user}`)
                     .setTimestamp()
+
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [proofApprovedLogEmbed] })
+                client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofApprovedLogEmbed] })
             }
-            // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON 
+            // END OF "PROOF APPROVED" BUTTON 
             
 
 
@@ -1190,20 +1292,34 @@ module.exports = {
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
                 
+
                 // GENERATE EMBED FOR USER
+                let userProofRejectedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjVerified} You're Verified!`)
+
+
+                    .setTimestamp()
 
                 // SEND EMBED TO USER
+                await dmUser.send({ embeds: [userProofRejectedEmbed] })
 
 
                 // GENERATE EMBED FOR MOD/ADMIN CHANNEL
+                let proofRejectedModEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Verification Proof Rejected`)
+                    .setDescription(`${interaction.user.username}, you have rejected this user's verification proof.\n\nPlease send a message below to provide the user with a short explanation on why and/or what they can do to improve their proof so they may resubmit.`)
+                    .setTimestamp()
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
+                interaction.channel.reply({embeds: [proofRejectedModEmbed], components: [] })
 
 
                 // LOG ENTRY
                 // GENERATE NOTICE EMBED
-                let proofApprovedLogEmbed = new discord.MessageEmbed()
+                let proofRejectedLogEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Verification Proof Rejected`)
                     .addField(`User:`, `${dmUser}`)
@@ -1213,9 +1329,9 @@ module.exports = {
                     .setTimestamp()
                 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [proofApprovedLogEmbed] })
+                client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofRejectedLogEmbed] })
             }
-            // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON
+            // END OF "PROOF REJECTED" BUTTON
         }
 	},
 };

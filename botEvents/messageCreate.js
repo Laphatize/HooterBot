@@ -107,7 +107,7 @@ module.exports = {
                     let RejectProofButton = new MessageButton()
                         .setLabel("Reject")
                         .setStyle("DANGER")
-                        .setCustomId("Proof_Reject")
+                        .setCustomId("Proof_Rejected")
 
 
                     // BUTTON ROW
