@@ -88,6 +88,7 @@ module.exports = {
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
+                .setTimestamp()
 
 
             // LOG ENTRY
@@ -113,6 +114,7 @@ module.exports = {
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
+                .setTimestamp()
 
 
             // LOG ENTRY

@@ -67,6 +67,7 @@ module.exports = {
             let logVerifPerksPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} New Verified Perks embed posted - details saved to database for updating.`)
+                .setTimestamp()
 
 
             // LOG ENTRY
@@ -93,6 +94,7 @@ module.exports = {
             let logPerksEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Verified Perks embed updated.`)
+                .setTimestamp()
 
 
             // LOG ENTRY
