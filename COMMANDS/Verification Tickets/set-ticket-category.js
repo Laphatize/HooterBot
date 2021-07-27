@@ -28,7 +28,7 @@ module.exports = {
         if(!category) {
             let noCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.)`)
+                .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.`)
 
             return message.channel.send({embeds: [noCatEmbed]})
         }
