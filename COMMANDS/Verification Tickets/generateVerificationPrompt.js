@@ -48,7 +48,7 @@ module.exports = {
             .setColor(config.embedTempleRed)
             .setTitle(`**Get verified!**`)
             .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
-            .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
+            .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
 
 
         // BUTTON ROW
@@ -61,7 +61,7 @@ module.exports = {
                     .setCustomId("begin_verification_button"),
                 // DATA & PRIVACY BUTTON
                 new MessageButton()
-                    .setLabel(`Data & Privacy`)
+                    .setLabel(`Data & Privacy Info`)
                     .setStyle("PRIMARY")
                     .setCustomId(`dataPrivacy_Roles`)
             );
