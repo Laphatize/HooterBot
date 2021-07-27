@@ -794,7 +794,7 @@ module.exports = {
                     .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of the Temple server (where you created the ticket).\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
                     .addField(`USER INFO:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
                     .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual DM messages ${config.botName} sends during verification *(like this one!)*`)
-                    .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
+                    .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
                     let BackDataPrivacyButton = new MessageButton()
@@ -906,8 +906,7 @@ module.exports = {
                     .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
                     .addField(`DM Message IDs`, `Identifiers of the DM messages ${config.botName} sends during verification`)
-                    .addField(`Database id`, `A randomly-generated identifier created and controlled by the database.`)
-                    .addField(`Ticket Close Date`, `The day/time the ticket is scheduled to automatically close`)
+                    .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close`)
                     .addField(`Creation Date`, `The day/time you created the ticket.`)
                     .addField(`Updated Date`, `When the database entry was last modified by the bot.`)
 
@@ -916,7 +915,7 @@ module.exports = {
                     .setTitle(`**Data & Privacy**`)
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
                     .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.`)
-                    .addField(`*No information is sold or shared.* How is the data used?`, `Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
+                    .addField(`How is the data used?`, `*No information is sold or shared.* Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
                     .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically. Nothing is saved by the bot.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
                     .addField(`What if I do not want to share this information with the bot?`, `While the information ${config.botName} stores is basic and public information, if you wish to not share this information **do not create a verification ticket** as there is no way for the bot to function without this information.`)
