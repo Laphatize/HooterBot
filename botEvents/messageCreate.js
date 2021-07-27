@@ -73,7 +73,6 @@ module.exports = {
                     await modAdminTicketCh.send({ embeds: [userTicketMsg] })
                         .catch(err => {
                             console.log(err)
-                            message.reactions.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
@@ -100,7 +99,6 @@ module.exports = {
                     await modAdminTicketCh.send({ embeds: [userTicketMsgImage] })
                         .catch(err => {
                             console.log(err)
-                            message.reactions.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
@@ -151,7 +149,6 @@ module.exports = {
 
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
-                        message.reactions.removeAll()
                         message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
@@ -176,7 +173,6 @@ module.exports = {
                 // SEND EMBED
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
-                        message.reactions.removeAll()
                         message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
