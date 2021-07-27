@@ -91,7 +91,7 @@ module.exports = {
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                     let userTicketMsgImage = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
-                        .setTitle(`${message.author.username.toUpperCase()}'S VERIFICATION PROOF`)
+                        .setTitle(`${message.author.username} has submitted the following verification proof:`)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
@@ -107,7 +107,7 @@ module.exports = {
                     let RejectProofButton = new MessageButton()
                         .setLabel("Reject")
                         .setStyle("DANGER")
-                        .setCustomId("Proof_Reject")
+                        .setCustomId("Proof_Rejected")
 
 
                     // BUTTON ROW
@@ -131,7 +131,7 @@ module.exports = {
                     let proofAcknowledgement = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setTitle(`Verification Proof Received`)
-                        .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the <:verified:856359139205447711> Verified role. If not accepted, you will receive more information.`)
+                        .setDescription(`The Temple University server staff has received your verification proof.\n\nIf accepted, you will be given the <:verified:856359139205447711> Verified role and this ticket will be closed upon approval.\nIf the image you have sent is not accepted, you will receive more information.`)
                         .setTimestamp()
                     
                     // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT

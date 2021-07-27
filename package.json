@@ -21,11 +21,11 @@
     },
     "homepage": "https://github.com/MrMusicMan789/HooterBot#readme",
     "dependencies": {
-        "discord.js": "^13.0.0-dev.4206e35.1626307444",
+        "discord.js": "^13.0.0-dev.fe6cc0c.1625227356",
         "dotenv": "^10.0.0",
         "leven": "^3.1.0",
         "moment": "^2.29.1",
-        "mongoose": "^5.12.14",
+        "mongoose": "^5.13.3",
         "node-cron": "^3.0.0"
     }
 }
