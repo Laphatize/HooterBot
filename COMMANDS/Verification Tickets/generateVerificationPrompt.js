@@ -47,7 +47,7 @@ module.exports = {
         let verifEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`**Get verified!**`)
-            .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.`)
+            .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
             .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 

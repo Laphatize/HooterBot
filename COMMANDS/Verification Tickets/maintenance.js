@@ -55,7 +55,7 @@ module.exports = {
                 let ticketMaintenanceEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Get verified!**`)
-                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.
+                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.
                     \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**`)
 
 
@@ -65,12 +65,18 @@ module.exports = {
                     .setStyle(`SECONDARY`)
                     .setCustomId(`begin_verification_button_disabld`)
                     .setDisabled(true)
+                let DataPrivacyButton = new MessageButton()
+                    .setLabel(`Data & Privacy`)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`dataPrivacy_Roles`)
+                    .setDisabled(false)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
                     .addComponents(
-                        VerifButtonMaintenance
+                        VerifButtonMaintenance,
+                        DataPrivacyButton
                     );
 
 
@@ -99,7 +105,7 @@ module.exports = {
                 let ticketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Get verified!**`)
-                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.`)
+                    .setDescription(`A ticket will open in your DMs when youclick the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
                     .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
 
 
@@ -108,12 +114,17 @@ module.exports = {
                     .setLabel(`Begin Verification`)
                     .setStyle(`SUCCESS`)
                     .setCustomId(`begin_verification_button`)
+                let DataPrivacyButton = new MessageButton()
+                    .setLabel(`Data & Privacy`)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`dataPrivacy_Roles`)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
                     .addComponents(
-                        VerifButton
+                        VerifButton,
+                        DataPrivacyButton
                     );
 
 
