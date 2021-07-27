@@ -4,6 +4,10 @@ const config = require('../config.json');
 module.exports = {
 	name: 'guildMemberAdd',
 	async execute(member, client) {
+
+            // IGNORE BOT
+            if(member.id == config.botId)   return;
+            
       
             rolesChannel = config.rolesChannelId;
             questionsChannel = config.questionsChannelId;
