@@ -791,7 +791,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setTitle(`**Collected Data**`)
                     .setDescription(`The following information is collected by the bot when you create a ticket:`)
-                    .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
+                    .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of the Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
                     .addField(`USER INFO:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
                     .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual DM messages ${config.botName} sends during verification *(like this one!)*`)
                     .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
@@ -899,28 +899,24 @@ module.exports = {
                 let DataPrivacyEphemeralEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Data and Privacy**`)
-                    .setDescription(`**What info is collected?** The bot temporarily collects information to function. Please click the \`\`Info Collected\`\` button at the bottom for specifics.
-                                 \n**Where is the information stored?** In a remote and secured [MongoDB database](https://www.mongodb.com/). ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
-                                 \n**How is the data used?** __No information is sold or shared,__ it is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
-                                 \n**How do I know nothing malicious is going on?** I follow Discord's Developer Policies or the bot is taken down, but I also invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
-                    .addField(`Still have questions?`, `Please send them in the chat below or create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .setDescription(`**What info is collected?** The bot temporarily collects the following information to function:`)
+                    .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of the Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
+                    .addField(`USER INFO:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
+                    .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual DM messages ${config.botName} sends during verification *(like this one!)*`)
+                    .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
+                    .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
-                let DataPrivacyEphemeralButton = new MessageButton()
-                    .setLabel("Close")
-                    .setStyle("SECONDARY")
-                    .setCustomId("Data & Privacy")
-
-
-                // BUTTON ROW
-                let BackDataPrivacyButtonRow = new MessageActionRow()
-                    .addComponents(
-                        DataPrivacyEphemeralButton
-                    );
+                let DataCollectedEphemeralEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`**Collected Data**`)
+                    .setDescription(`**Where is the information stored?**\nIn a remote and secured [MongoDB database](https://www.mongodb.com/). ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
+                                    \n\n**How is the data used?**\n __No information is sold or shared,__ it is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
+                                    \n\n**How do I know nothing malicious is going on?**\n I follow Discord's Developer Policies or the bot is taken down, but I also invite you to check out all the code on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
+                    .addField(`Still have questions?`, `Please create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                 
                 
                 await interaction.reply({
-                    embeds: [DataPrivacyEphemeralEmbed],
-                    components: BackDataPrivacyButtonRow,
+                    embeds: [DataPrivacyEphemeralEmbed, DataCollectedEphemeralEmbed],
                     ephemeral: true
                 })
             }
