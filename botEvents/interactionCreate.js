@@ -899,7 +899,7 @@ module.exports = {
                 let DataPrivacyEphemeralEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Collected Data**`)
-                    .setDescription(`**What info is collected?** The bot temporarily collects the following information to function:`)
+                    .setDescription(`The bot temporarily collects the following information to function:`)
                     .addField(`Guild ID`, `An 18-digit number identifying the Temple server on Discord`)
                     .addField(`Guild Name`, `The name of the Temple server (where you created the ticket`)
                     .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
@@ -916,11 +916,11 @@ module.exports = {
                     .setTitle(`**Data & Privacy**`)
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
                     .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.`)
-                    .addField(`How is the data used?`, `***No information is sold or shared,*** it is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
-                    .addField(`What happens when my ticket is closed/completed?`, `All the data the bot store in the database is purged, nothing is saved by the bot.`)
-                    .addField(`How do I know nothing malicious is going on?`, `${config.botAuthor} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
+                    .addField(`*No information is sold or shared.* How is the data used?`, `Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
+                    .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically. Nothing is saved by the bot.`)
+                    .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
                     .addField(`What if I do not want to share this information with the bot?`, `While the information ${config.botName} stores is basic and public information, if you wish to not share this information **do not create a verification ticket** as there is no way for the bot to function without this information.`)
-                    .addField(`Still have questions?`, `Please create a ModMail ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                 
                 
                 await interaction.reply({
