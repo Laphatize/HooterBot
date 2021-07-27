@@ -67,15 +67,34 @@ module.exports = {
 
 
                 // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
-                modAdminTicketCh.send({ embeds: [userTicketMsg] })
-                    .catch(err => {
-                        message.channel.send(`Sorry, this ticket has been closed.`)
-                        message.react(client.emojis.cache.get('719009809856462888'))
-                    })
+                // NO ATTACHMENT
+                if(message.attachments.size == 0) {
+                    await modAdminTicketCh.send({ embeds: [userTicketMsg] })
+                        .catch(err => {
+                            message.react(client.emojis.cache.get('719009809856462888'))
+                            message.channel.send(`Sorry, this ticket has been closed.`)
+                        })
+                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                    return message.react(client.emojis.cache.get('868910701295587368'))
+                }
 
-                    
-                // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                return message.react(client.emojis.cache.get('868910701295587368'))
+
+                // WITH AN ATTACHMENT
+                if(message.attachments.size !== 0) {
+
+                    // GRAB ATTACHMENT
+                    dmMsgAttachment = await message.attachments.first().url
+
+                    // SEND EMBED
+                    await modAdminTicketCh.send({ embeds: [userTicketMsg], files: [dmMsgAttachment] })
+                        .catch(err => {
+                            message.react(client.emojis.cache.get('719009809856462888'))
+                            message.channel.send(`Sorry, this ticket has been closed.`)
+                        })
+                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                    return message.react(client.emojis.cache.get('868910701295587368'))
+
+                }
             }
         }
 
@@ -100,18 +119,26 @@ module.exports = {
                 .setTimestamp()
 
 
-            // FETCH THE USER FROM THE CHANNEL NAME
-            const dmUser = await client.users.cache.find(user => user.username.toLowerCase() === dmUsername)
-            
+            // GRAB USER ID FROM DATABASE USING THE CHANNEL NAME
+            const dbTicketData = await ticketSchema.findOne({
+                CREATOR_NAME: dmUsername
+            }).exec();
 
+
+            // FETCH THE USER FROM THE CHANNEL NAME
+            const dmUser = await client.guild.members.fetch(dbTicketData.CREATOR_ID)
+            
+            console.log(`dmUser = ${dmUser}`)
+
+            
             // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
             // NO ATTACHMENT
             if(message.attachments.size == 0) {
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
+                        message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
-
                 // ADD SUCCESS EMOJI TO THE ORIGINAL CHANNEL MESSAGE ONCE SENT
                 return message.react(client.emojis.cache.get('868910701295587368'))
             }
@@ -120,9 +147,12 @@ module.exports = {
             if(message.attachments.size !== 0) {
 
                 // GRAB ATTACHMENT
+                chMsgAttachment = await message.attachments.first().url
 
-                await dmUser.send({ embeds: [userTicketMsg] })
+                // SEND EMBED
+                await dmUser.send({ embeds: [userTicketMsg], files: [chMsgAttachment] })
                     .catch(err => {
+                        message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
 

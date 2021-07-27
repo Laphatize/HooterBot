@@ -24,7 +24,19 @@ module.exports = {
 
 
         // CREATE GUILD ENTRY - FOR NOW LEFT TO UPDATE SINCE DATABASE DELETION IS NOT CONFIGURED
-        dbData = await guildSchema.findOneAndUpdate({ GUILD_NAME: message.guild.name }).exec();
+        dbData = await guildSchema.findOneAndUpdate({
+            GUILD_NAME: message.guild.name
+        },{
+            GUILD_NAME: message.guild.name,
+            GUILD_ID: message.guild.id,
+            TICKET_CAT_ID: "",
+            VERIF_PROMPT_CH_ID: "",
+            VERIF_PROMPT_MSG_ID: "",
+            RULES_CH_ID: "",
+            RULES_MSG_ID: ""
+        },{
+            upsert: true
+        }).exec();
         console.log(`======================================\n\n`)
 	},
 };

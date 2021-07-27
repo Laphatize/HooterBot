@@ -49,12 +49,6 @@ module.exports = {
                     .catch(err => console.log(err))
 
 
-                // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
-                }).exec();
-
-
 
                 // GENERATING INITIAL EMBED FOR DM
                 let ticketOpenEmbed = new discord.MessageEmbed()
@@ -131,10 +125,19 @@ module.exports = {
                     })
 
 
+                    
+
 
                 // GRABBING THE DM MESSAGE ATTEMPT
                 // SUCESSFUL
                 if(firstDMmsg) {
+                    
+                    // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+                    const dbGuildData = await guildSchema.findOne({
+                        GUILD_ID: interaction.guild.id
+                    }).exec();
+
+
                     // FETCH TICKET CATEGORY FROM DATABASE
                     if(dbGuildData.TICKET_CAT_ID) {
                         ticketCategory = dbGuildData.TICKET_CAT_ID;
@@ -456,7 +459,8 @@ module.exports = {
                     .setTimestamp()
                 
                 // LOG ENTRY
-                interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                // NEED TO FETCH GUILD ID FROM DATABASE, THEN FETCH GUILD, SO THEN THIS LINE CAN BE RUN
+                // interaction.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
 
                 
                 // // CLOSURE NOTICE TO CHANNEL
@@ -602,7 +606,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username
+                        CREATOR_ID: interaction.user.id
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -674,7 +678,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username
+                        CREATOR_ID: interaction.user.id
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -762,7 +766,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username
+                        CREATOR_ID: interaction.user.id
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -835,7 +839,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username
+                        CREATOR_ID: interaction.user.id
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -874,7 +878,7 @@ module.exports = {
 
                 // REMOVING 2ND MESSAGE ID FROM DATABASE
                 ticketSchema.findOneAndUpdate({
-                    CREATOR_NAME: interaction.user.username
+                    CREATOR_ID: interaction.user.id
                 },{
                     DM_2NDMSG_ID: "",
                 },{
