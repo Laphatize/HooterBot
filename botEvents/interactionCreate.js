@@ -447,7 +447,7 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
                     .addField(`User:`, `${interaction.user}`, true)
                     .addField(`User ID:`, `${interaction.user.id}`, true)
-                    .addField(`Verified?`, `\`\` NO \`\``, true)
+                    .addField(`Verified?`, `**No**`, true)
                     .addField(`Ticket closed early by:`, `${interaction.user}`)
                     .setTimestamp()
                 
@@ -623,7 +623,7 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Verification Ticket Closed`)
                     .addField(`User:`, `${dmUser}`, true)
                     .addField(`User ID:`, `${dmUser.id}`, true)
-                    .addField(`Verified?`, `\`\` NO \`\``, true)
+                    .addField(`Verified?`, `**No**`, true)
                     .addField(`Ticket closed early by:`, `${interaction.user} (Server Staff)`)
                     .setTimestamp()
                 
@@ -684,7 +684,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -755,7 +755,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -826,7 +826,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM response below. Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -1102,118 +1102,9 @@ module.exports = {
                     ephemeral: true
                 })
             }
-            // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON
-
-
-            /***********************************************************/
-            /*      PROOF APPROVED BUTTON                              */
-            /***********************************************************/
-            if(interaction.customId === 'Proof_Approved') {
-
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
-
-                // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUsername = interaction.channel.name.split('-').pop()
-        
-                
-                // GRAB DATABASE ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
-                    CREATOR_NAME: dmUsername
-                }).exec();
-
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
-
-
-                // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
-                
-                // GRANT THE USER THE VERIFIED ROLE
-
-                // FETCH USER
-
-                // MESSAGE THE USER
-
-                // DELETE THE TICKET CHANNEL
-
-                // DELETE THE DATABASE ENTRY
-
-                // LOG ENTRY
-                // GENERATE NOTICE EMBED
-                let proofApprovedLogEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`${config.emjVerified} Verification Complete`)
-                    .addField(`User:`, `${dmUser}`)
-                    .addField(`User ID:`, `${dmUser.id}`, true)
-                    .addField(`Verified?`, `\`\` YES \`\``, true)
-                    .addField(`Staff Member Responsible:`, `${interaction.user}`)
-                    .setTimestamp()
-
-                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [proofApprovedLogEmbed] })
-
-            }
             // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON  
 
 
-
-            /***********************************************************/
-            /*      PROOF REJECTED BUTTON                              */
-            /***********************************************************/
-            if(interaction.customId === 'Proof_Rejected') {
-
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
-
-                // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUsername = interaction.channel.name.split('-').pop()
-      
-                
-                // GRAB DATABASE ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
-                    CREATOR_NAME: dmUsername
-                }).exec();
-
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
-
-
-                // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
-
-                
-                // GENERATE EMBED FOR USER
-
-                // FETCH USER
-
-                // SEND EMBED TO USER
-
-                // GENERATE EMBED FOR MOD/ADMIN CHANNEL
-
-                // SEND EMBED TO MOD/ADMIN CHANNEL
-
-                // LOG ENTRY
-                // GENERATE NOTICE EMBED
-                let proofApprovedLogEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Verification Proof Rejected`)
-                    .addField(`User:`, `${dmUser}`)
-                    .addField(`User ID:`, `${dmUser.id}`, true)
-                    .addField(`Verified?`, `\`\` NO \`\``, true)
-                    .addField(`Staff Member Responsible:`, `${interaction.user}`)
-                    .setTimestamp()
-
-                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [proofApprovedLogEmbed] })
-            }
-            // END OF "ROLES CHANNEL DATA PRIVACY" BUTTON 
         }
 	},
 };
