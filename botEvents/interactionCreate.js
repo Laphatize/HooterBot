@@ -474,7 +474,7 @@ module.exports = {
                     .setStyle("DANGER")
                     .setCustomId("Ticket_DoNotClose")
 
-                // DISABLED BUTTON ROW
+                // BUTTON ROW
                 let dmQuitNoticeButtonRow = new MessageActionRow()
                 .addComponents(
                     InfoButtonDisabled,
@@ -649,7 +649,7 @@ module.exports = {
                     .setStyle("DANGER")
                     .setCustomId("Ticket_DoNotClose")
 
-                // DISABLED BUTTON ROW
+                // BUTTON ROW
                 let dmQuitNoticeButtonRow = new MessageActionRow()
                 .addComponents(
                     InfoButtonDisabled,

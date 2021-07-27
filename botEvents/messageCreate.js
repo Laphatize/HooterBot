@@ -1,4 +1,5 @@
 const discord = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
 
@@ -59,7 +60,7 @@ module.exports = {
 
 
 
-                // SENDING MESSAGE FROM DMs TO MOD/ADMIN TICKET CHANNEL
+            // USER'S DMs -> MOD/ADMIN TICKET CHANNEL
                 // NO ATTACHMENT
                 if(message.attachments.size == 0) {
 
@@ -90,13 +91,35 @@ module.exports = {
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                     let userTicketMsgImage = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
+                        .setTitle(`VERIFICATION PROOF`)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
                         .setTimestamp()
 
+
+                    // BUTTONS FOR APPROVE/DENY VERIFICATION PROOF
+                    let ApproveProofButton = new MessageButton()
+                        .setLabel("Approve")
+                        .setStyle("SUCCESS")
+                        .setCustomId("Proof_Approved")
+                    let RejectProofButton = new MessageButton()
+                        .setLabel("Reject")
+                        .setStyle("DANGER")
+                        .setCustomId("Proof_Reject")
+
+
+                    // BUTTON ROW
+                    let VerifProofButtonRow = new MessageActionRow()
+                        .addComponents(
+                            ApproveProofButton,
+                            RejectProofButton
+                        );
+
+
+
                     // SEND EMBED
-                    await modAdminTicketCh.send({ embeds: [userTicketMsgImage] })
+                    await modAdminTicketCh.send({ embeds: [userTicketMsgImage], components: [VerifProofButtonRow] })
                         .catch(err => {
                             console.log(err)
                             message.react(client.emojis.cache.get('719009809856462888'))
@@ -136,7 +159,7 @@ module.exports = {
             const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
 
             
-            // SENDING MESSAGE FROM MOD/ADMIN TICKET CHANNEL TO USER IN DMs
+        // MOD/ADMIN TICKET CHANNEL -> USER'S DMs
             // NO ATTACHMENT
             if(message.attachments.size == 0) {
 
