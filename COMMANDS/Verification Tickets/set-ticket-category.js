@@ -21,7 +21,7 @@ module.exports = {
         
         let categoryChanger = message.author;
 
-        const category = message.guild.channels.cache.find(ch => ch.type == "category" && ch.name.toLowerCase() == arguments[0].toLowerCase());
+        const category = message.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.name.toLowerCase() == arguments[0].toLowerCase());
         
 
         // IF NO CATEGORY PROVIDED
