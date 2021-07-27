@@ -73,9 +73,9 @@ module.exports = {
                     await modAdminTicketCh.send({ embeds: [userTicketMsg] })
                         .catch(err => {
                             console.log(err)
-                            message.reaction.removeAll()
+                            message.reactions.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
-                            message.channel.send(`Sorry, this ticket has been closed.`)
+                            message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
                     // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
                     return message.react(client.emojis.cache.get('868910701295587368'))
@@ -93,16 +93,16 @@ module.exports = {
                         .setColor(config.embedGrey)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setDescription(message.content)
-                        .setImage([dmMsgAttachment])
+                        .setImage(dmMsgAttachment)
                         .setTimestamp()
 
                     // SEND EMBED
                     await modAdminTicketCh.send({ embeds: [userTicketMsgImage] })
                         .catch(err => {
                             console.log(err)
-                            message.reaction.removeAll()
+                            message.reactions.removeAll()
                             message.react(client.emojis.cache.get('719009809856462888'))
-                            message.channel.send(`Sorry, this ticket has been closed.`)
+                            message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
                     // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
                     return message.react(client.emojis.cache.get('868910701295587368'))
@@ -151,6 +151,7 @@ module.exports = {
 
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
+                        message.reactions.removeAll()
                         message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
@@ -169,12 +170,13 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
                     .setDescription(message.content)
-                    .setImage([dmMsgAttachment])
+                    .setImage(dmMsgAttachment)
                     .setTimestamp()
 
                 // SEND EMBED
                 await dmUser.send({ embeds: [userTicketMsg] })
                     .catch(err => {
+                        message.reactions.removeAll()
                         message.react(client.emojis.cache.get('719009809856462888'))
                         message.channel.send(`${config.emjREDTICK} There was an error sending this message.`)
                     })
