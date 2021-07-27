@@ -8,9 +8,6 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     // GUILD ID:
     GUILD_ID: {type: String, required:true},
 
-    // DATE BOT JOINS SERVER:
-    REGISTERED: {type: String, default: Date.now(), required:true},
-
     // CATEGORY FOR NEW TICKETS
     TICKET_CAT_ID: {type: String, required:true},
 
