@@ -461,7 +461,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`${interaction.user.username} has requested to close this ticket. If the contents of this ticket do not need to be archived for any moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**. If this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
                     .setFooter(`At this time, these buttons DO NOT WORK.`)
 
                 // BUTTONS
@@ -482,7 +482,11 @@ module.exports = {
                 );
 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] });
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                    })
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
