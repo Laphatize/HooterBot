@@ -508,7 +508,8 @@ module.exports = {
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: dmUser.id
+                    // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
+                    CREATOR_NAME: dmUsername
                 }).exec();
 
 
