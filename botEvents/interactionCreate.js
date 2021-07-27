@@ -467,7 +467,7 @@ module.exports = {
                 // BUTTONS
                 let InfoButtonDisabled = new MessageButton()
                     .setLabel("Confirm Ticket Close")
-                    .setStyle("PRIMARY")
+                    .setStyle("SUCCESS")
                     .setCustomId("Confirm_Ticket_Close")
                 let QuitButtonDisabled = new MessageButton()
                     .setLabel("Do Not Close")
