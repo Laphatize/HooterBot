@@ -91,7 +91,7 @@ module.exports = {
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                     let userTicketMsgImage = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
-                        .setTitle(`VERIFICATION PROOF`)
+                        .setTitle(`${message.author.username.toUpperCase()}'S VERIFICATION PROOF`)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
@@ -125,8 +125,18 @@ module.exports = {
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
-                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                    return message.react(client.emojis.cache.get('868910701295587368'))
+                        // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                        .then(msg => msg.react(client.emojis.cache.get('868910701295587368')))
+                        .then(msg => {
+                            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                            let proofAcknowledgement = new discord.MessageEmbed()
+                                .setColor(config.embedGrey)
+                                .setTitle(`Verification Proof Received`)
+                                .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the role. If not accepted, you will receive more information.`)
+                                .setTimestamp()
+
+                            msg.channel.send({ embeds: [proofAcknowledgement] })
+                        })
 
                 }
             }
