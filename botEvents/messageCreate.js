@@ -202,7 +202,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
                     .setDescription(message.content)
-                    .setImage(dmMsgAttachment)
+                    .setImage(chMsgAttachment)
                     .setTimestamp()
 
                 // SEND EMBED
