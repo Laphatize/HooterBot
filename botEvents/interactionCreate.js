@@ -477,9 +477,6 @@ module.exports = {
                 // DISABLED BUTTON ROW
                 let dmQuitNoticeButtonRow = new MessageActionRow()
                 .addComponents(
-                    TUidCardButtonDisabled,
-                    VirtualTUidCardButtonDisabled,
-                    TuPortalButtonDisabled,
                     InfoButtonDisabled,
                     QuitButtonDisabled
                 );
