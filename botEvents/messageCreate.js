@@ -96,6 +96,7 @@ module.exports = {
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
                         .setTimestamp()
+                        .setFooter(`If the image is too small, click to open a larger view.`)
 
 
                     // BUTTONS FOR APPROVE/DENY VERIFICATION PROOF
@@ -125,18 +126,19 @@ module.exports = {
                             message.react(client.emojis.cache.get('719009809856462888'))
                             message.channel.send(`${config.emjREDTICK} Sorry, there was an error sending this message.`)
                         })
-                        // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
-                        .then(msg => msg.react(client.emojis.cache.get('868910701295587368')))
 
+                    // PROOF CONFIRMED MESSAGE
+                    let proofAcknowledgement = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`Verification Proof Received`)
+                        .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the <:verified:856359139205447711> Verified role. If not accepted, you will receive more information.`)
+                        .setTimestamp()
+                    
+                    // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
+                    message.react(client.emojis.cache.get('868910701295587368')))
 
-                        // PROOF CONFIRMED MESSAGE
-                        let proofAcknowledgement = new discord.MessageEmbed()
-                            .setColor(config.embedGrey)
-                            .setTitle(`Verification Proof Received`)
-                            .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the <:verified:856359139205447711> Verified role. If not accepted, you will receive more information.`)
-                            .setTimestamp()
-
-                        message.channel.send({ embeds: [proofAcknowledgement] })
+                    // SEND CONFIRMATION MESSAGE
+                    message.channel.send({ embeds: [proofAcknowledgement] })
 
                 }
             }
