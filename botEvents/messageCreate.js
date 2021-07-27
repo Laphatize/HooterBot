@@ -127,16 +127,16 @@ module.exports = {
                         })
                         // ADD SUCCESS EMOJI TO THE ORIGINAL DM MESSAGE ONCE SENT
                         .then(msg => msg.react(client.emojis.cache.get('868910701295587368')))
-                        .then(msg => {
-                            // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
-                            let proofAcknowledgement = new discord.MessageEmbed()
-                                .setColor(config.embedGrey)
-                                .setTitle(`Verification Proof Received`)
-                                .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the role. If not accepted, you will receive more information.`)
-                                .setTimestamp()
 
-                            msg.channel.send({ embeds: [proofAcknowledgement] })
-                        })
+
+                        // PROOF CONFIRMED MESSAGE
+                        let proofAcknowledgement = new discord.MessageEmbed()
+                            .setColor(config.embedGrey)
+                            .setTitle(`Verification Proof Received`)
+                            .setDescription(`The Temple University server staff has received your verification proof. If accepted, this ticket will be closed and you'll be given the <:verified:856359139205447711> Verified role. If not accepted, you will receive more information.`)
+                            .setTimestamp()
+
+                        message.channel.send({ embeds: [proofAcknowledgement] })
 
                 }
             }
