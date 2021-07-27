@@ -789,8 +789,8 @@ module.exports = {
                     .setDescription(`The following information is collected by the bot when you create a ticket:`)
                     .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of Temple server where you created the ticket.\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
                     .addField(`USER INFO:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
-                    .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual messages ${config.botName} sends to you in DMs. (like this one!)`)
-                    .addField(`MISCELLANEOUS:`, ` • \_id = Created by the database, a randomly-generated identifier for this entry.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\n*This is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
+                    .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual DM messages ${config.botName} sends during verification *(like this one!)*`)
+                    .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day/time the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
                     .setImage(`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/Testing/ExampleDbInfo.png`)
 
                     let BackDataPrivacyButton = new MessageButton()
