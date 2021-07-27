@@ -30,10 +30,10 @@ module.exports = {
             GUILD_NAME: message.guild.name,
             GUILD_ID: message.guild.id,
             TICKET_CAT_ID: "",
-            VERIF_PROMPT_CH_ID: "",
             VERIF_PROMPT_MSG_ID: "",
-            RULES_CH_ID: "",
-            RULES_MSG_ID: ""
+            RULES_MSG_ID: "",
+            VERIF_PERKS_MSG_ID: "",
+            VERIF_EMBED_MSG_ID: ""
         },{
             upsert: true
         }).exec();

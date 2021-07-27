@@ -60,14 +60,16 @@ module.exports = {
 
         // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
         if(!dbData.RULES_MSG_ID) {
+            
             // POSTING EMBEDS
-            await message.channel.send({embeds: [rules, serverStaffList, ModmailHelp ] })
+            await message.channel.send({ embeds: [rules, serverStaffList, ModmailHelp] })
                 .catch(err => console.log(err))
 
                 // GETTING MESSAGE ID OF ticketEmbed
                 .then(sentEmbed => {
                     rulesEmbedMsgId = sentEmbed.id;
                 })
+
 
             // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
@@ -76,23 +78,25 @@ module.exports = {
                 GUILD_ID: message.guild.id
             },{
                 // CONTENT TO BE UPDATED
-                RULES_CH_ID: message.channel.id,
                 RULES_MSG_ID: rulesEmbedMsgId
             },{ 
                 upsert: true
-            })
+            }).exec();
+
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
 
+
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;
         }
+
 
         // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
         if(dbData.RULES_MSG_ID) {
@@ -100,17 +104,19 @@ module.exports = {
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
             await message.channel.messages.fetch(dbData.RULES_MSG_ID)
                 .then(msg => {
-                    msg.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
+                    msg.edit({ embeds: [rules, serverStaffList, ModmailHelp] })
                 })
                 .catch(err => console.log(err))
+
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
 
+
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;

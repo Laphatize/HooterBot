@@ -16,10 +16,16 @@ module.exports = {
 
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
+
+
+        // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+        const dbData = await guildSchema.findOne({
+            GUILD_ID: message.guild.id
+        }).exec();
         
         
         // EMBED MESSAGE
-        let ticketEmbed = new discord.MessageEmbed()
+        let verifPerksEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`**Why Verify?**`)
             .setDescription(`Students, alumni, and employee of Temple University gain access to additional channels and permissions in the server:`)
@@ -28,7 +34,71 @@ module.exports = {
             .addField(`Posting abilities:`, `• <#829732282079903775>`)
             .addField(`Voice chat features:`, `• Screen sharing`)
 
-        // POSTING EMBED MESSAGE AND BUTTON
-        await message.channel.send({embeds: [ticketEmbed]});
+
+
+        // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
+        if(!dbData.VERIF_PERKS_MSG_ID) {
+
+            // POSTING EMBED
+            await message.channel.send({ embeds: [verifPerksEmbed] })
+                .catch(err => console.log(err))
+
+                // GETTING MESSAGE ID OF verifPerksEmbed
+                .then(sentEmbed => {
+                    verifPerksEmbedMsgId = sentEmbed.id;
+                })
+
+
+            // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
+            await guildSchema.findOneAndUpdate({
+                // CONTENT USED TO FIND UNIQUE ENTRY
+                GUILD_NAME: message.guild.name,
+                GUILD_ID: message.guild.id
+            },{
+                // CONTENT TO BE UPDATED
+                VERIF_PERKS_MSG_ID: verifPerksEmbedMsgId
+            },{ 
+                upsert: true
+            }).exec();
+
+
+            // DEFINING LOG EMBED
+            let logVerifPerksPromptEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} New Verified Perks embed posted - details saved to database for updating.`)
+
+
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logVerifPerksPromptEmbed] })
+                .catch(err => console.log(err))
+
+            return;
+        }
+
+
+        
+        // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
+        if(dbData.VERIF_PERKS_MSG_ID) {
+
+            // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+            await message.channel.messages.fetch(dbData.VERIF_PERKS_MSG_ID)
+                .then(msg => {
+                    msg.edit({ embeds: [verifPerksEmbed] })
+                })
+                .catch(err => console.log(err))
+
+
+            // DEFINING LOG EMBED
+            let logPerksEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Verified Perks embed updated.`)
+
+
+            // LOG ENTRY
+            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logPerksEmbed] })
+                .catch(err => console.log(err))
+
+            return;
+        }
     }
 }
