@@ -1,5 +1,4 @@
 const discord = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../../config.json');
 const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
@@ -22,6 +21,8 @@ module.exports = {
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await ticketBlacklistSchema.findOne({
             GUILD_ID: message.guild.id
+        },{ 
+            upsert: true
         }).exec();
 
 
