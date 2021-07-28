@@ -17,7 +17,7 @@ module.exports = {
 
         // GRABBING USER ID FROM MSG, FETCHING USER
         let userId = arguments[0];
-        const blacklistUser = await guild.members.fetch(userId)
+        const blacklistUser = await message.guild.members.fetch(userId)
         
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
