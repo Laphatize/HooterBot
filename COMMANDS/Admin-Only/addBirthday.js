@@ -36,13 +36,13 @@ module.exports = {
 
         // CHECK THAT THE USER EXISTS IN THE GUILD
         if(!message.guild.members.fetch(bdayUserId)) {
-            let bdayUseDNEEmbed = new discord.MessageEmbed()
+            let bdayUserDNEEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
                 .setDescription(`That user does not exist in this server. Please try another user ID`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [bdayUseDNEEmbed]})
+            message.channel.send({embeds: [bdayUserDNEEmbed]})
                 // DELETE AFTER 5 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
@@ -155,10 +155,10 @@ module.exports = {
 
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
-        await birthdaySchema.findOneAndUpdate({
-            USER_ID: message.author.id
+        await birthdaySchema.insert({
+            USER_ID: bdayUserId
         },{
-            USER_ID: message.author.id,
+            USER_ID: bdayUserId,
             MONTH: month,
             DAY: day
         },{
