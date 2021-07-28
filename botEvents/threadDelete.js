@@ -5,8 +5,6 @@ module.exports = {
 	name: 'threadDelete',
 	async execute(channel, client) {
 
-        console.log('A thread was deleted.')
-
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()

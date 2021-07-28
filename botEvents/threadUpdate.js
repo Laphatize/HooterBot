@@ -5,8 +5,6 @@ module.exports = {
 	name: 'threadUpdate',
 	async execute(channel, threadmember, client) {
 
-        console.log('A thread was updated.')
-
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()

@@ -5,8 +5,6 @@ module.exports = {
 	name: 'threadCreate',
 	async execute(channel, client) {
 
-        console.log('A thread was created.')
-
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
