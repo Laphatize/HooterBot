@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
-const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
+const ticketBlacklistSchema = require('../Database/ticketBlacklistSchema');
 const moment = require('moment');
 const pjson = require('../package.json');
 
