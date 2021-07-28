@@ -127,11 +127,12 @@ cron.schedule('00 22 19 * * *', async () => {
         console.log(`There is at least one birthday today.`)
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
        
+        userId = dbBirthdayData.USER_ID;
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach( bday => {
-            
-            console.log(`Index of doc is ${bday.index}.`)
+        dbBirthdayData.forEach( function(user) {
+        
+            console.log(`The user ID is ${user.USER_ID}.`)
         
         })
 
