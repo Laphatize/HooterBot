@@ -474,7 +474,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
 
 
                 // BUTTONS
@@ -651,7 +651,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
 
 
                 // BUTTONS
@@ -1261,7 +1261,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Close Verification?`)
-                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
+                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
 
 
                 // BUTTONS
@@ -1391,8 +1391,8 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
-                interaction.channel.send(`This ticket will be deleted...\n.......once MMM puts in the code in this section to do all the stuff that happens with this button. :)`)
-
+                // DELETING TICKET CHANNEL
+                interaction.channel.delete()
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
