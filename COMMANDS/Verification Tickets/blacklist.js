@@ -74,9 +74,9 @@ module.exports = {
             .setColor(config.embedDarkGrey)
             .setTitle(`User added to verification blacklist`)
             .setDescription(`This user is now unable to open or use the verification system.\nPlease inform ${config.botAuthor} if this needs to be reversed.`)
-            .addField(`User:`, blacklistUser, true)
-            .addField(`Username:`, blacklistUser.username, true)
-            .addField(`User ID:`, userId, true)
+            .addField(`User:`, `${blacklistUser}`, true)
+            .addField(`Username:`, `${blacklistUser.username}`, true)
+            .addField(`User ID:`, `${userId}`, true)
             .setTimestamp()
     
         // LOG ENTRY
