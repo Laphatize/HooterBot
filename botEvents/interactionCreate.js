@@ -684,7 +684,7 @@ module.exports = {
                 interaction.channel.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                        msg.channel.setName(`closed-${dmUsername.toLowerCase()}`)
                     })
                     .catch(err => console.log(err))
             }
