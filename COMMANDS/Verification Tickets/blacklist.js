@@ -58,14 +58,14 @@ module.exports = {
         // CONFIRMATION EMBED
         let confirmationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`Successfully added to blacklist`)
-            .setDescription(`${blacklistUser} (ID: ${userId}) has been successfully blacklisted from using the verification system.`)
+            .setTitle(`${blacklistUser} (ID: ${userId}) has been successfully blacklisted from using the verification system.`)
+            .setDescription(`If this is not the user you intended, please inform <@${config.botAuthorId}>.`)
 
         // SENDING CONFIRMATION
         message.channel.send({ embeds: [confirmationEmbed] })
             .catch(err => console.log(err))
             .then(msg => {
-                client.setTimeout(() => msg.delete(), 1000 );
+                client.setTimeout(() => msg.delete(), 10000 );
             })
 
 
@@ -73,7 +73,7 @@ module.exports = {
         let blacklistLogEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`User added to verification blacklist`)
-            .setDescription(`This user is now unable to open or use the verification system.\nPlease inform ${config.botAuthor} if this needs to be reversed.`)
+            .setDescription(`This user is now unable to open or use the verification system.\nPlease inform <@${config.botAuthorId}> if this needs to be reversed.`)
             .addField(`User:`, `${blacklistUser}`, true)
             .addField(`Username:`, `${blacklistUser.username}`, true)
             .addField(`User ID:`, `${userId}`, true)
