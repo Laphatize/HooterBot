@@ -94,7 +94,7 @@ process.on('unhandledRejection', err => {
 // CRON JOBS
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('* 29 12 * * *', async () => {
+cron.schedule('00 31 12 * * *', async () => {
     console.log('Checking for birthdays today.');
     
     // TODAY'S DATE
@@ -119,7 +119,7 @@ cron.schedule('* 29 12 * * *', async () => {
 });
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('* 59 7 * * *', async () => {
+cron.schedule('00 59 07 * * *', async () => {
     console.log('Removing birthday roles.');
     
     // TODAY'S DATE
