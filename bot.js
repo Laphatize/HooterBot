@@ -125,33 +125,36 @@ cron.schedule('00 20 16 * * *', async () => {
 
     if(dbBirthdayData) {
         console.log(`There is at least one birthday today.`)
-        console.log(`\ndbBirthdayData = ${dbBirthdayData}\n`)
+        console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
+       
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach(USER_ID => {
-
-            // FETCH BDAY USER BY THEIR ID
-            bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
-                .catch(err => console.log(err))
-
-
-            // FUNCTION PICKS RANDOM MESSAGE
-            function bdayMessage(bdayUser) {
-                const channelMsgStart = [
-                    `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
-                    `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-                    `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
-                    `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
-                    `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-                    `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
-                    ];      
-                return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
-            }
+        dbBirthdayData.forEach( bday => {
             
-            // FETCH BOT CHANNEL
-            client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
-                .catch(err => console.log(err))
+            console.log(`Index of doc is ${bday.index}.`)
+        
         })
+
+    //         // FETCH BDAY USER BY THEIR IDS
+    //         let bdayUser = guild.members.fetch(bdayUserId)
+
+    //         // FUNCTION PICKS RANDOM MESSAGE
+    //         function bdayMessage(bdayUser) {
+    //             const channelMsgStart = [
+    //                 `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
+    //                 `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+    //                 `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
+    //                 `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
+    //                 `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+    //                 `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
+    //                 ];      
+    //             return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
+    //         }
+            
+    //         // FETCH BOT CHANNEL
+    //         client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
+    //             .catch(err => console.log(err))
+    //     })
     }
 }, {
     scheduled: true,
