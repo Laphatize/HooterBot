@@ -1143,15 +1143,15 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjVerified} You're Verified!`)
                     .setDescription(`**You have been given the Verified role in the Temple University server.** Enjoy the following new features:
-                        \nImage posting and GIF embedding *Server-wide*
-                        \nAccess to:
-                        \n${config.indent}• <#829445602868854804>  - find roommates for the upcoming term
-                        \n${config.indent}• <#831527136438255626> - connect with other owls on social media
-                        \n${config.indent}• <#832976391985168445> - discuss scheduling and classes
-                        \n${config.indent}• <#829629393629872159> - talk about IRL events happening on/near campus
-                        \nPosting abilities in <#829732282079903775>
-                        \nScreen sharing in voice channels.
-                        \n\nThis ticket is now closed.`)
+                        - Image posting and GIF embedding *server-wide!*
+                        - Access to:\n${config.indent}• <#829445602868854804> - find roommates for the upcoming term
+                        ${config.indent}• <#831527136438255626> - connect with other owls on social media
+                        ${config.indent}• <#832976391985168445> - discuss scheduling and classes
+                        ${config.indent}• <#829629393629872159> - talk about IRL events happening on/near campus
+                        - Posting abilities in <#829732282079903775>
+                        - Screen sharing in voice channels.
+                        \nEnjoy!
+                        \n\`\`This ticket is now closed; all the information the bot has stored for this ticket is deleted.\`\``)
                     .setFooter(`Have feedback about this process (good or bad)? Please consider sharing it with the server staff by creating a ModMail ticket and sharing your thoughts. We'd appreciate it!`)
                 // SEND CONFIRMATION EMBED
                 await dmUser.send({ embeds: [userVerifiedSuccessfullyEmbed] })
@@ -1239,9 +1239,9 @@ module.exports = {
                 }).exec();
 
 
-                // FETCH AND DELETE MOD/ADMIN TICKET CHANNEL
-                let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                        client.setTimeout(() => ticketChannel.delete())
+                // // FETCH AND DELETE MOD/ADMIN TICKET CHANNEL
+                // let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                //         client.setTimeout(() => ticketChannel.delete())
 
 
                 // LOG ENTRY
