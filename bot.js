@@ -101,7 +101,7 @@ process.on('unhandledRejection', err => {
 // CRON JOBS
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 07 13 * * *', async () => {
+cron.schedule('00 11 13 * * *', async () => {
     
     console.log('Checking for birthdays today.');
 
@@ -124,12 +124,14 @@ cron.schedule('00 07 13 * * *', async () => {
     }
 
     if(dbBirthdayData) {
-        console.log(`There is at least one birthday today:`)
+        console.log(`There is at least one birthday today.`)
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach(bdayUser => {
+        dbBirthdayData.forEach(dbBirthdayData => {
 
-            // FETCH USER BY THEIR ID
+            console.log(`User = ${dbBirthdayData.USER_ID}`)
+
+            // FETCH BDAY USER BY THEIR ID
             bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
                 .catch(err => console.log(err))
 
