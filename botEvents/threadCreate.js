@@ -7,7 +7,7 @@ module.exports = {
 
         console.log('A thread was created.')
 
-        parentChannel = client.channels.cache.get(channel.parent_id)
+        parentChannel = client.channels.cache.get(channel.parent.id)
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
@@ -15,7 +15,7 @@ module.exports = {
             .setColor(config.embedGrey)
             .setTitle(`Thread Created`)
             .addField(`Thread:`, `${channel}`, true)
-            .addField(`Parent Channel:`, `<#${channel.parent_id}>`, true)
+            .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
