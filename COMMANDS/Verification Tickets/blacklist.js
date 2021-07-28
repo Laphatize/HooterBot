@@ -46,9 +46,12 @@ module.exports = {
 
 
         // STORING IN DATABASE THE USER ID
-        await ticketBlacklistSchema.insert({
-            // CONTENT USED TO FIND UNIQUE ENTRY
+        await ticketBlacklistSchema.findOneAndUpdate({
             USER_ID: userId
+        },{
+            USER_ID: userId
+        },{
+            upsert: true
         }).exec();
         
             
