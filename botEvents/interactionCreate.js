@@ -922,7 +922,7 @@ module.exports = {
                 // EMBED MESSAGE
                 let DataPrivacyEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
-                    .setTitle(`**Data and Privacy**`)
+                    .setTitle(`**Data & Privacy**`)
                     .setDescription(`**What info is collected?**\nThe bot temporarily collects information to function. Please click the \`\`Info Collected\`\` button at the bottom for specifics.
                                  \n\n**Where is the information stored?**\nIn a remote and secured [MongoDB database](https://www.mongodb.com/). ${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.
                                  \n\n**How is the data used?**\n***No information is sold or shared,*** it is only collected and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket. When a ticket is completed or closed, all the data is purged.
