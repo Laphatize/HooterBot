@@ -1322,7 +1322,7 @@ module.exports = {
                 interaction.channel.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                        msg.channel.setName(`closed-${dmUsername.toLowerCase()}`)
                     })
                     .catch(err => console.log(err))
             }
@@ -1424,7 +1424,7 @@ module.exports = {
             if(interaction.customId === 'Ticket_DoNotClose') {
 
                 // CHANGING TICKET CHANNEL NAME TO "archived-(username)" SINCE THE TICKET IS NOW ARCHIVED
-                interaction.channel.setName(`archived-${interaction.user.username.toLowerCase()}`)
+                interaction.channel.setName(`archived-${dmUsername.toLowerCase()}`)
                     .catch(err => console.log(err))
 
                 // CLOSURE NOTICE TO CHANNEL
