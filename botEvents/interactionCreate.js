@@ -1361,6 +1361,7 @@ module.exports = {
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
                 interaction.channel.send({embeds: [proofRejectedModEmbed], components: [] })
+                
 
 
                 // LOG ENTRY
@@ -1402,6 +1403,10 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'Ticket_DoNotClose') {
 
+                // CHANGING TICKET CHANNEL NAME TO "archived-(username)" SINCE THE TICKET IS NOW ARCHIVED
+                interaction.channel.setName(`archived-${interaction.user.username.toLowerCase()}`)
+                    .catch(err => console.log(err))
+
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNoticeDisabled = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
@@ -1430,10 +1435,6 @@ module.exports = {
                 );
 
                 await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] })
-                    .then(msg => {
-                        // CHANGING TICKET CHANNEL NAME TO "archived-(username)" SINCE THE TICKET IS NOW ARCHIVED
-                        msg.channel.setName(`archived-${interaction.user.username.toLowerCase()}`)
-                    })
             }
             // END OF "DO NOT CLOSE" BUTTON
         }
