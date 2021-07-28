@@ -1147,7 +1147,7 @@ module.exports = {
 
                 
                 // GRANT THE USER THE VERIFIED ROLE
-                let verifRole = guild.roles.cache.find(role => role.name.toLowerCase === 'verified')
+                let verifRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
 
                 console.log(`verified role successfully found`)
 
@@ -1158,7 +1158,7 @@ module.exports = {
                 let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjVerified} You're Verified!`)
-                    .setDescription(`**You have been given the Verified role in the Temple University server.** Enjoy the following new features:
+                    .setDescription(`**You have been given the Verified role in the Temple University server.**\nYou now have access to the following new features:
                         - Image posting and GIF embedding *server-wide!*
                         - Access to:\n${config.indent}• <#829445602868854804> - find roommates for the upcoming term
                         ${config.indent}• <#831527136438255626> - connect with other owls on social media
@@ -1167,8 +1167,8 @@ module.exports = {
                         - Posting abilities in <#829732282079903775>
                         - Screen sharing in voice channels.
                         \nEnjoy!
-                        \n\`\`This ticket is now closed; all the information the bot has stored for this ticket is deleted.\`\``)
-                    .setFooter(`Have feedback about this process (good or bad)? Please consider sharing it with the server staff by creating a ModMail ticket and sharing your thoughts. We'd appreciate it!`)
+                        \n***This ticket is now closed; all the information the bot has stored for this ticket is deleted.***`)
+                    .setFooter(`Have feedback about this process (good or bad)? Please consider sharing your thoughts with the server staff in a a ModMail ticket. We'd appreciate it!`)
                 // SEND CONFIRMATION EMBED
                 await dmUser.send({ embeds: [userVerifiedSuccessfullyEmbed] })
 
