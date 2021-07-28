@@ -701,7 +701,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -772,7 +772,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -843,7 +843,7 @@ module.exports = {
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
                         \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
-                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message needed). Want to use a different method? Select a button in the initial prompt above.`)
+                        \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
 
                 // CHECK IF DATABASE HAS AN ENTRY
@@ -1359,7 +1359,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
-                interaction.reply({embeds: [proofRejectedModEmbed], components: [] })
+                interaction.channel.send({embeds: [proofRejectedModEmbed], components: [] })
 
 
                 // LOG ENTRY
@@ -1397,7 +1397,7 @@ module.exports = {
 
 
             /***********************************************************/
-            /*      DO NOT CLOSE BUTTON                        */
+            /*      DO NOT CLOSE BUTTON                                */
             /***********************************************************/
             if(interaction.customId === 'Ticket_DoNotClose') {
 
