@@ -19,7 +19,7 @@ module.exports = {
         let userId = arguments[0];
         const blacklistUser = await message.guild.members.fetch(userId)
         let combinedArgs = arguments.join('')
-        let reason = combinedArgs.substring(0, userId.length + 1 );
+        let reason = combinedArgs.substring(userId.length+1);
 
         console.log(`reason = "${reason}"`)
 
@@ -66,8 +66,8 @@ module.exports = {
         // CONFIRMATION EMBED
         let confirmationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`Blacklisted: ${blacklistUser.username} (ID: ${userId})`)
-            .setDescription(`This user has been successfully blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}>.`)
+            .setTitle(`User Successfully Blacklisted`)
+            .setDescription(`${blacklistUser} (ID: ${userId}) is now blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}> immediately.`)
 
         // SENDING CONFIRMATION
         message.channel.send({ embeds: [confirmationEmbed] })
@@ -79,7 +79,6 @@ module.exports = {
             .setTitle(`Blacklisted User Added`)
             .setDescription(`This user is now prevented from opening or using the verification system:`)
             .addField(`User:`, `${blacklistUser}`, true)
-            .addField(`Username:`, `${blacklistUser.name}`, true)
             .addField(`User ID:`, `${userId}`, true)
             .addField(`Reason:`, `${reason}`)
             .setTimestamp()
