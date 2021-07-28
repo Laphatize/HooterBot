@@ -216,6 +216,7 @@ module.exports = {
 
                             // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                             modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
+                                .catch(err => console.log(err))
 
 
                             // LOG DATABASE INFORMATION FOR TICKET
@@ -248,6 +249,7 @@ module.exports = {
 
                             // LOG ENTRY
                             client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
+                                .catch(err => console.log(err))
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -293,7 +295,7 @@ module.exports = {
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
                     })
-
+                    .catch(err => console.log(err))
             }
             // END OF "QUIT_DM" BUTTON
 
@@ -336,7 +338,7 @@ module.exports = {
                     .then(msg => {
                         client.setTimeout(() => msg.delete(), 10000 );
                     })
-
+                    .catch(err => console.log(err))
             }
             // END OF "QUIT_CH" BUTTON
 
@@ -452,6 +454,7 @@ module.exports = {
 
                 // DMING USER THE QUIT CONFIRMATION             
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
+                    .catch(err => console.log(err))
 
 
                 // LOGGING TICKET CLOSURE
@@ -468,6 +471,7 @@ module.exports = {
                 // FETCHING THE GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
                 guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                    .catch(err => console.log(err))
 
                 
                 // CLOSURE NOTICE TO CHANNEL
@@ -502,6 +506,7 @@ module.exports = {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
                     })
+                    .catch(err => console.log(err))
             }
             // END OF "QUIT CONFIRM DMS" BUTTON
 
@@ -630,6 +635,7 @@ module.exports = {
 
                 // DMING USER THE QUIT CONFIRMATION             
                 await dmUser.send({embeds: [quitConfirmedEmbed]})
+                    .catch(err => console.log(err))
 
 
                 // LOGGING TICKET CLOSURE
@@ -645,6 +651,7 @@ module.exports = {
 
                 // FETCHING THE LOG CHANNEL FROM DATABASE
                 guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                    .catch(err => console.log(err))
 
 
                 // CLOSURE NOTICE TO CHANNEL
@@ -679,6 +686,7 @@ module.exports = {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
                     })
+                    .catch(err => console.log(err))
             }
             // END OF "QUIT CONFIRM ADMIN/MOD CH" BUTTON
 
@@ -726,6 +734,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [] })
+                        .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -750,6 +759,7 @@ module.exports = {
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
                 ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                    .catch(err => console.log(err))
             }
             // END OF "PHYSICAL TUID CARD"
 
@@ -797,6 +807,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed], components: [] })
+                        .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -821,6 +832,7 @@ module.exports = {
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
                 ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                    .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
 
@@ -868,6 +880,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed], components: [] })
+                        .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -892,6 +905,7 @@ module.exports = {
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
                 ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                    .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
 
@@ -955,6 +969,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
+                        .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -1028,6 +1043,7 @@ module.exports = {
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
                     let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                        .catch(err => console.log(err))                    
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
@@ -1173,6 +1189,7 @@ module.exports = {
                 
                     // SEND CONFIRMATION EMBED
                 await dmUser.send({ embeds: [userVerifiedSuccessfullyEmbed] })
+                    .catch(err => console.log(err))
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
@@ -1247,6 +1264,7 @@ module.exports = {
                                 .then(msg => {
                                     client.setTimeout(() => msg.delete(), 0 );
                                 })
+                                .catch(err => console.log(err))
                         }
                     })
 
@@ -1296,12 +1314,12 @@ module.exports = {
 
                 // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
                 client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofApprovedLogEmbed] })
-
+                    .catch(err => console.log(err))
 
 
 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
@@ -1361,6 +1379,7 @@ module.exports = {
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
                 interaction.channel.send({embeds: [proofRejectedModEmbed], components: [] })
+                    .catch(err => console.log(err))
                 
 
 
@@ -1377,6 +1396,7 @@ module.exports = {
                 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
                 client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofRejectedLogEmbed] })
+                    .catch(err => console.log(err))
             }
             // END OF "PROOF REJECTED" BUTTON
 
