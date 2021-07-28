@@ -3,7 +3,10 @@ const discord = require('discord.js')
 const fs = require('fs');
 const config = require ('./config.json')
 const guildSchema = require('./Database/guildSchema')
+const birthdaySchema = require('./Database/birthdaySchema')
+const ticketSchema = require('./Database/ticketSchema')
 var cron = require('node-cron');
+const moment = require('moment');
 
 
 // INITIALIZATION
@@ -87,7 +90,53 @@ process.on('unhandledRejection', err => {
 })
 
 
-// // CRON JOB TESTING
-// cron.schedule('* * * * * *', () => {
-//     console.log('This is a test cron job posting every second.');
-// });
+
+// CRON JOBS
+// BIRTHDAY CHECKS
+cron.schedule('* * 25 12 * * *', () => {
+    console.log('Checking for birthdays today.');
+    
+    // TODAY'S DATE
+    todayDay = moment(Date.now()).utcOffset(-4).format("DD")
+    todayMonth = moment(Date.now()).utcOffset(-4).format("MM")
+
+    // CHECK DATABASE FOR ENTRY
+    const dbBirthdayData = await birthdaySchema.find({
+        MONTH: todayMonth,
+        DAY: todayDay
+    }).exec();
+
+    if(!dbBirthdayData) {
+        console.log(`No birthdays today.`)
+    }
+
+    console.log(`\ndbBirthdayData = ${dbBirthdayData}\n`)
+
+}, {
+    scheduled: true,
+    timezone: "America/New_York"
+});
+
+// BIRTHDAY ROLE REMOVAL
+cron.schedule('* * * 7 59 * *', () => {
+    console.log('Checking for birthdays today.');
+    
+    // TODAY'S DATE
+    todayDate = moment(Date.now()).utcOffset(-4).format("dddd, MMMM DD, YYYY")
+
+
+
+}, {
+    scheduled: true,
+    timezone: "America/New_York"
+});
+
+
+
+
+
+
+
+
+
+todayDate = moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
