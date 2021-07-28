@@ -94,12 +94,15 @@ process.on('unhandledRejection', err => {
 // CRON JOBS
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 35 12 * * *', async () => {
+cron.schedule('00 01 13 * * *', async () => {
+    
     console.log('Checking for birthdays today.');
+
     
     // TODAY'S DATE
     todayDay = moment(Date.now()).utcOffset(-4).format("DD")
     todayMonth = moment(Date.now()).utcOffset(-4).format("MM")
+
 
     // CHECK DATABASE FOR ENTRY
     const dbBirthdayData = await birthdaySchema.find({
@@ -107,9 +110,40 @@ cron.schedule('00 35 12 * * *', async () => {
         DAY: todayDay
     }).exec();
 
+
+    // IF NO BIRTHDAYS, DO NOTHING
     if(!dbBirthdayData) {
         console.log(`No birthdays today.`)
     }
+
+
+    // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
+    dbBirthdayData.forEach(dbBirthdayData => {
+        
+        // FETCH USER BY THEIR ID
+        const bdayUser = await guild.members.fetch(dbBirthdayData.USER_ID)
+
+
+        // FUNCTION THAT GENERATES THE RANDOM START OF THE WELCOME MESSAGE
+        function bdayMessage(bdayUser) {
+            const channelMsgStart = [
+                `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
+                `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+                `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
+                `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
+                `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+                `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
+                ];      
+            return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
+        }
+        
+        // FETCH BOT CHANNEL
+        client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
+            .catch(err => console.log(err))
+    })
+
+
+    
 
     console.log(`\ndbBirthdayData = ${dbBirthdayData}\n`)
 
