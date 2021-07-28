@@ -1400,10 +1400,6 @@ module.exports = {
             /*      DO NOT CLOSE BUTTON                        */
             /***********************************************************/
             if(interaction.customId === 'Ticket_DoNotClose') {
-         
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
 
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNoticeDisabled = new discord.MessageEmbed()
