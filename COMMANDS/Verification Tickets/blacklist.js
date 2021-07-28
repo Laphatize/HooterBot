@@ -18,7 +18,7 @@ module.exports = {
         // GRABBING USER ID FROM MSG, FETCHING USER
         let userId = arguments[0];
         const blacklistUser = await message.guild.members.fetch(userId)
-        let combinedArgs = arguments.join('')
+        let combinedArgs = arguments.join(' ')
         let reason = combinedArgs.substring(userId.length+1);
 
         console.log(`reason = "${reason}"`)
