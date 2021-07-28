@@ -475,27 +475,29 @@ module.exports = {
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
                     .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
-                    .setFooter(`At this time, these buttons DO NOT WORK.`)
+
 
                 // BUTTONS
-                let InfoButtonDisabled = new MessageButton()
+                let InfoButton = new MessageButton()
                     .setLabel("Confirm Ticket Close")
                     .setStyle("SUCCESS")
                     .setCustomId("Confirm_Ticket_Close")
-                let QuitButtonDisabled = new MessageButton()
+                let QuitButton = new MessageButton()
                     .setLabel("Do Not Close")
                     .setStyle("DANGER")
                     .setCustomId("Ticket_DoNotClose")
 
+
                 // BUTTON ROW
-                let dmQuitNoticeButtonRow = new MessageActionRow()
+                let TicketCloseReviewButtonRow = new MessageActionRow()
                 .addComponents(
-                    InfoButtonDisabled,
-                    QuitButtonDisabled
+                    InfoButton,
+                    QuitButton
                 );
 
+
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] })
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
@@ -650,27 +652,29 @@ module.exports = {
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
                     .setDescription(`${interaction.user.username} has requested to close this ticket.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
-                    .setFooter(`At this time, these buttons DO NOT WORK.`)
+
 
                 // BUTTONS
-                let InfoButtonDisabled = new MessageButton()
+                let InfoButton = new MessageButton()
                     .setLabel("Confirm Ticket Close")
                     .setStyle("SUCCESS")
                     .setCustomId("Confirm_Ticket_Close")
-                let QuitButtonDisabled = new MessageButton()
+                let QuitButton = new MessageButton()
                     .setLabel("Do Not Close")
                     .setStyle("DANGER")
                     .setCustomId("Ticket_DoNotClose")
 
+
                 // BUTTON ROW
-                let dmQuitNoticeButtonRow = new MessageActionRow()
+                let TicketCloseReviewButtonRow = new MessageActionRow()
                 .addComponents(
-                    InfoButtonDisabled,
-                    QuitButtonDisabled
+                    InfoButton,
+                    QuitButton
                 );
 
+
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [dmQuitNoticeButtonRow] })
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
@@ -1254,10 +1258,39 @@ module.exports = {
                     CREATOR_ID: dmUser.id
                 }).exec();
 
+                
+                // CLOSURE NOTICE TO CHANNEL
+                let closeNotice = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Close Verification?`)
+                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
 
-                // // FETCH AND DELETE MOD/ADMIN TICKET CHANNEL
-                // let ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                //         client.setTimeout(() => ticketChannel.delete())
+
+                // BUTTONS
+                let InfoButton = new MessageButton()
+                    .setLabel("Confirm Ticket Close")
+                    .setStyle("SUCCESS")
+                    .setCustomId("Confirm_Ticket_Close")
+                let QuitButton = new MessageButton()
+                    .setLabel("Do Not Close")
+                    .setStyle("DANGER")
+                    .setCustomId("Ticket_DoNotClose")
+
+
+                // BUTTON ROW
+                let TicketCloseReviewButtonRow = new MessageActionRow()
+                .addComponents(
+                    InfoButton,
+                    QuitButton
+                );
+
+
+                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                    })
 
 
                 // LOG ENTRY
@@ -1356,6 +1389,8 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
+                message.channel.send(`This ticket will be deleted in 10 seconds...`)
+
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
@@ -1365,11 +1400,39 @@ module.exports = {
             /*      DO NOT CLOSE BUTTON                        */
             /***********************************************************/
             if(interaction.customId === 'Ticket_DoNotClose') {
-
-                                
+         
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
+
+                // CLOSURE NOTICE TO CHANNEL
+                let closeNoticeDisabled = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Close Verification?`)
+                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nThis ticket has not been deleted and is kept for archival reasons. **DO NOT DELETE.**`)
+
+
+                // BUTTONS
+                let InfoButtonDisabled = new MessageButton()
+                    .setLabel("Confirm Ticket Close")
+                    .setStyle("SUCCESS")
+                    .setCustomId("Confirm_Ticket_Close")
+                    .setDisabled(true)
+                let QuitButtonDisabled = new MessageButton()
+                    .setLabel("Do Not Close")
+                    .setStyle("DANGER")
+                    .setCustomId("Ticket_DoNotClose")
+                    .setDisabled(true)
+
+
+                // BUTTON ROW
+                let TicketCloseReviewButtonRow = new MessageActionRow()
+                .addComponents(
+                    InfoButtonDisabled,
+                    QuitButtonDisabled
+                );
+
+                await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] });
             }
             // END OF "DO NOT CLOSE" BUTTON
         }
