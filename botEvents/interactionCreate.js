@@ -1152,9 +1152,6 @@ module.exports = {
                 
                 // GRANT THE USER THE VERIFIED ROLE
                 let verifRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
-
-                console.log(`verified role successfully found`)
-
                 dmUser.roles.add(verifRole)
 
 
@@ -1171,9 +1168,10 @@ module.exports = {
                         - Posting abilities in <#829732282079903775>
                         - Screen sharing in voice channels.
                         \nEnjoy!
-                        \n***This ticket is now closed; all the information the bot has stored for this ticket is deleted.***`)
+                        \n***This ticket is now closed; all the information the bot has stored for this ticket has been deleted.***`)
                     .setFooter(`Have feedback about this process (good or bad)? Please consider sharing your thoughts with the server staff in a a ModMail ticket. We'd appreciate it!`)
-                // SEND CONFIRMATION EMBED
+                
+                    // SEND CONFIRMATION EMBED
                 await dmUser.send({ embeds: [userVerifiedSuccessfullyEmbed] })
 
 
@@ -1283,15 +1281,7 @@ module.exports = {
                     InfoButton,
                     QuitButton
                 );
-
-
-                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
-                    .then(msg => {
-                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
-                    })
-
+    
 
                 // LOG ENTRY
                 // GENERATE NOTICE EMBED
@@ -1304,8 +1294,19 @@ module.exports = {
                     .addField(`Staff Member Responsible:`, `${interaction.user}`)
                     .setTimestamp()
 
-                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
                 client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofApprovedLogEmbed] })
+
+
+
+
+                // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
+                    })
+                    .catch(err => console.log(err))
             }
             // END OF "PROOF APPROVED" BUTTON 
             
@@ -1428,7 +1429,11 @@ module.exports = {
                     QuitButtonDisabled
                 );
 
-                await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] });
+                await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "archived-(username)" SINCE THE TICKET IS NOW ARCHIVED
+                        msg.channel.setName(`archived-${interaction.user.username.toLowerCase()}`)
+                    })
             }
             // END OF "DO NOT CLOSE" BUTTON
         }
