@@ -9,6 +9,7 @@ var cron = require('node-cron');
 const moment = require('moment');
 
 
+
 // INITIALIZATION
 const client = new discord.Client({
     intents: [
@@ -32,13 +33,16 @@ const client = new discord.Client({
 })
 
 
+
 // BOT LOGGING IN
 client.login(process.env.HB_BOT_TOKEN);
+
 
 
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.cooldowns = new discord.Collection();
+
 
 
 // EVENT HANDLER
@@ -56,6 +60,8 @@ for (const file of eventFiles) {
 	}
 }
 
+
+
 // COMMAND HANDLER
 const cmdFolders = fs.readdirSync('./COMMANDS');
 
@@ -67,6 +73,7 @@ for (const folder of cmdFolders) {
 		client.commands.set(command.name, command);
 	}
 }
+
 
 
 // UNKNOWN ERROR REPORTING
@@ -121,7 +128,7 @@ cron.schedule('00 01 13 * * *', async () => {
     dbBirthdayData.forEach(dbBirthdayData => {
         
         // FETCH USER BY THEIR ID
-        const bdayUser = await guild.members.fetch(dbBirthdayData.USER_ID)
+        const bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
 
 
         // FUNCTION THAT GENERATES THE RANDOM START OF THE WELCOME MESSAGE
@@ -141,12 +148,6 @@ cron.schedule('00 01 13 * * *', async () => {
         client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
             .catch(err => console.log(err))
     })
-
-
-    
-
-    console.log(`\ndbBirthdayData = ${dbBirthdayData}\n`)
-
 }, {
     scheduled: true,
     timezone: "America/New_York"
