@@ -7,7 +7,7 @@ module.exports = {
     aliases: [`ticketblacklist`],
     description: `Blacklists a user from being able to create verification tickets.`,
     category: `Verification`,
-    expectedArgs: '<USER_ID>',
+    expectedArgs: '<USER_ID> (reason - optional)',
     cooldown: 5,
     minArgs: 1,
     maxArgs: 1,
@@ -18,7 +18,15 @@ module.exports = {
         // GRABBING USER ID FROM MSG, FETCHING USER
         let userId = arguments[0];
         const blacklistUser = await message.guild.members.fetch(userId)
-        
+        let combinedArgs = arguments.join('')
+        let reason = combinedArgs.substring(0, userId.length + 1 );
+
+        console.log(`reason = "${reason}"`)
+
+        if (!reason) {
+            reason = "(No reason provided)"
+        }
+
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await ticketBlacklistSchema.findOne({
@@ -72,11 +80,12 @@ module.exports = {
         // LOG EMBED
         let blacklistLogEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`User added to verification blacklist`)
-            .setDescription(`This user is now unable to open or use the verification system.\nPlease inform <@${config.botAuthorId}> if this needs to be reversed.`)
+            .setTitle(`Blacklisted User Added`)
+            .setDescription(`This user is now prevented from opening or using the verification system:`)
             .addField(`User:`, `${blacklistUser}`, true)
-            .addField(`Username:`, `${blacklistUser.username}`, true)
+            .addField(`Username:`, `${blacklistUser.name}`, true)
             .addField(`User ID:`, `${userId}`, true)
+            .addField(`Reason:`, `${reason}`)
             .setTimestamp()
     
         // LOG ENTRY
