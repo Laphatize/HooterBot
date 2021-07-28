@@ -7,8 +7,6 @@ module.exports = {
 
         console.log('A thread was created.')
 
-        parentChannel = client.channels.cache.get(channel.parent.id)
-
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()

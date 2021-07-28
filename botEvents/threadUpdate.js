@@ -13,7 +13,7 @@ module.exports = {
             .setColor(config.embedGrey)
             .setTitle(`Thread Updated`)
             .addField(`Thread:`, `${channel}`, true)
-            .addField(`Parent Channel:`, `<#${channel.parent_id}>`, true)
+            .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE

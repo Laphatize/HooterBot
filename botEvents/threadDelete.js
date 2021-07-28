@@ -12,7 +12,8 @@ module.exports = {
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
             .setTitle(`Thread Deleted`)
-            .addField(`Thread Name:`, `${channel.name}`, true)
+            .addField(`Thread:`, `${channel.name}`, true)
+            .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
