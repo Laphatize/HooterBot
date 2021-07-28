@@ -7,7 +7,7 @@ module.exports = {
 
         console.log('A thread was deleted.')
 
-        parentChannel = client.guilds.channels.cache.get(channel.parent_id)
+        parentChannel = client.channels.cache.get(channel.parent_id)
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
