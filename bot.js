@@ -101,7 +101,7 @@ process.on('unhandledRejection', err => {
 // CRON JOBS
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 06 13 * * *', async () => {
+cron.schedule('00 07 13 * * *', async () => {
     
     console.log('Checking for birthdays today.');
 
@@ -130,11 +130,11 @@ cron.schedule('00 06 13 * * *', async () => {
         dbBirthdayData.forEach(bdayUser => {
 
             // FETCH USER BY THEIR ID
-            const bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
+            bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
                 .catch(err => console.log(err))
 
 
-            // FUNCTION THAT GENERATES THE RANDOM START OF THE WELCOME MESSAGE
+            // FUNCTION PICKS RANDOM MESSAGE
             function bdayMessage(bdayUser) {
                 const channelMsgStart = [
                     `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
