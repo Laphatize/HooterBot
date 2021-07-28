@@ -1147,7 +1147,10 @@ module.exports = {
 
                 
                 // GRANT THE USER THE VERIFIED ROLE
-                let verifRole = guild.roles.cache.find(role => role.id === config.verifiedRoleID)
+                let verifRole = guild.roles.cache.find(role => role.name.toLowerCase === 'verified')
+
+                console.log(`verified role successfully found`)
+
                 dmUser.roles.add(verifRole)
 
 
