@@ -1389,7 +1389,7 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
-                message.channel.send(`This ticket will be deleted in 10 seconds...`)
+                message.channel.send(`This ticket will be deleted...\n.......once MMM puts in the code in this section to do all the stuff that happens with this button. :)`)
 
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
@@ -1404,8 +1404,8 @@ module.exports = {
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNoticeDisabled = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
-                    .setTitle(`${config.emjORANGETICK} Close Verification?`)
-                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nThis ticket has not been deleted and is kept for archival reasons. **DO NOT DELETE.**`)
+                    .setTitle(`${config.emjORANGETICK} Verification Archived 🔒`)
+                    .setDescription(`This ticket is completed but has not been deleted at the decision of ${interaction.user.username} for archival reasons. This message constitutes as the last message of the transcript.\n\n***DO NOT DELETE.***`)
 
 
                 // BUTTONS
