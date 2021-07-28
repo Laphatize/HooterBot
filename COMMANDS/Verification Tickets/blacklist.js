@@ -76,7 +76,7 @@ module.exports = {
         // LOG EMBED
         let blacklistLogEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`Blacklisted User Added`)
+            .setTitle(`User Blacklisted`)
             .setDescription(`This user is now prevented from opening or using the verification system:`)
             .addField(`User:`, `${blacklistUser}`, true)
             .addField(`User ID:`, `${userId}`, true)

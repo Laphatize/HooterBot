@@ -3,6 +3,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require ('../config.json');
 const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
+const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 const moment = require('moment');
 const pjson = require('../package.json');
 
@@ -24,14 +25,14 @@ module.exports = {
             if(interaction.customId === 'begin_verification_button') {
                 
                 // CHECK IF THE USER IS BLACKLISTED
-                const dbBlacklistData = await guildSchema.findOne({
+                const dbBlacklistData = await ticketBlacklistSchema.findOne({
                     USER_ID: interaction.user.id
                 }).exec();
 
                 if(dbBlacklistData) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
-                        content: `Sorry, you are no longer eligible to create a verification ticket.**\n*(If this is an error, please submit a ModMail ticket.)*`,
+                        content: `Sorry, you are not eligible to create a verification ticket.\n*(If this is an error, please submit a ModMail ticket.)*`,
                         ephemeral: true })
                 }
 
