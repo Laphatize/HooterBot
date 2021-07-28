@@ -7,6 +7,8 @@ module.exports = {
 
         console.log('A thread was created.')
 
+        parentChannel = client.channels.cache.get(channel.parent_id)
+
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
@@ -15,7 +17,7 @@ module.exports = {
             .addField(`threadmember:`, `${threadmember}`, true)
             .addField(`threadmember.id:`, `${threadmember.id}`, true)
             .addField(`channel`, `${channel}`, true)
-            .addField(`parent_id`, `${parent_id}`, true)
+            .addField(`channel.parent_id`, `${channel.parent_id}`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE

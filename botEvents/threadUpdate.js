@@ -7,18 +7,21 @@ module.exports = {
 
         console.log('A thread was updated.')
 
-        // // LOG ENTRY
-        // // GENERATE NOTICE EMBED
-        // let threadLogEntry = new discord.MessageEmbed()
-        //     .setColor(config.embedGrey)
-        //     .setTitle(`Thread Created`)
-        //     .addField(`Creator:`, `${threadmember}`)
-        //     .addField(`User ID:`, `${threadmember.id}`, true)
-        //     .addField(`Thread:`, `${channel}`)
-        //     .setTimestamp()
+        parentChannel = client.channels.cache.get(channel.parent_id)
 
-        // // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-        // client.channels.cache.get(config.logActionsChannelId).send({ embeds: [threadLogEntry] })
-        //     .catch(err => console.log(err))
+        // LOG ENTRY
+        // GENERATE NOTICE EMBED
+        let threadLogEntry = new discord.MessageEmbed()
+            .setColor(config.embedGrey)
+            .setTitle(`Thread Created`)
+            .addField(`Creator:`, `${threadmember}`, true)
+            .addField(`User ID:`, `${threadmember.id}`, true)
+            .addField(`Parent Channel:`, `${parentChannel}`, true)
+            .addField(`Thread:`, `${channel}`, true)
+            .setTimestamp()
+
+        // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
+        client.channels.cache.get(config.logActionsChannelId).send({ embeds: [threadLogEntry] })
+            .catch(err => console.log(err))
 	},
 };
