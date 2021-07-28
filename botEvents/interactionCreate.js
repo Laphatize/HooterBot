@@ -1263,7 +1263,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Close Verification?`)
-                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel**.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
 
 
                 // BUTTONS
