@@ -21,8 +21,7 @@ module.exports = {
         let combinedArgs = arguments.join(' ')
         let reason = combinedArgs.substring(userId.length+1);
 
-        console.log(`reason = "${reason}"`)
-
+        // OVERRIDE REASON IF NOT PROVIDED
         if (!reason) {
             reason = "(No reason provided)"
         }
