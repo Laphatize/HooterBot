@@ -23,6 +23,18 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'begin_verification_button') {
                 
+                // CHECK IF THE USER IS BLACKLISTED
+                const dbBlacklistData = await guildSchema.findOne({
+                    USER_ID: interaction.user.id
+                }).exec();
+
+                if(dbBlacklistData) {
+                    // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+                    return interaction.reply({
+                        content: `Sorry, you are no longer eligible to create a verification ticket.**\n*(If this is an error, please submit a ModMail ticket.)*`,
+                        ephemeral: true })
+                }
+
 
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {

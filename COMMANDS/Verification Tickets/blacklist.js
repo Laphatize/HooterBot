@@ -66,15 +66,11 @@ module.exports = {
         // CONFIRMATION EMBED
         let confirmationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`${blacklistUser} (ID: ${userId}) has been successfully blacklisted from using the verification system.`)
-            .setDescription(`If this is not the user you intended, please inform <@${config.botAuthorId}>.`)
+            .setTitle(`Blacklisted: ${blacklistUser.username} (ID: ${userId})`)
+            .setDescription(`This user has been successfully blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}>.`)
 
         // SENDING CONFIRMATION
         message.channel.send({ embeds: [confirmationEmbed] })
-            .catch(err => console.log(err))
-            .then(msg => {
-                client.setTimeout(() => msg.delete(), 10000 );
-            })
 
 
         // LOG EMBED
