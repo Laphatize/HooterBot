@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose')
 
-module.exports = mongoose.model("Tickets", new mongoose.Schema({
+module.exports = mongoose.model("Ticket Blacklist", new mongoose.Schema({
 
     // GUILD ID
     GUILD_ID: {type: String},
