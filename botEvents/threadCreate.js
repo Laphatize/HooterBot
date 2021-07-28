@@ -7,7 +7,7 @@ module.exports = {
 
         console.log('A thread was created.')
 
-        parentChannel = client.channels.cache.get(channel.parent_id)
+        parentChannel = client.guild.channels.cache.get(channel.parent_id)
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
