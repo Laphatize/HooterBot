@@ -681,7 +681,7 @@ module.exports = {
 
 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                interaction.channel.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${interaction.user.username.toLowerCase()}`)
