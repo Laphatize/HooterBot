@@ -118,7 +118,7 @@ cron.schedule('* * 25 12 * * *', async () => {
 });
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('* * * 7 59 * *', async () => {
+cron.schedule('* * * 59 7 * *', async () => {
     console.log('Removing birthday roles.');
     
     // TODAY'S DATE
