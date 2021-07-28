@@ -3,7 +3,7 @@ const config = require('../config.json');
 
 module.exports = {
 	name: 'threadCreate',
-	async execute(channel, threadmember, client) {
+	async execute(channel, client) {
 
         console.log('A thread was created.')
 
@@ -14,10 +14,8 @@ module.exports = {
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
             .setTitle(`Thread Created`)
-            .addField(`threadmember:`, `${threadmember}`, true)
-            .addField(`threadmember.id:`, `${threadmember.id}`, true)
-            .addField(`channel`, `${channel}`, true)
-            .addField(`channel.parent_id`, `${channel.parent_id}`, true)
+            .addField(`Thread:`, `${channel}`, true)
+            .addField(`Parent Channel:`, `<#${channel.parent_id}>`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE

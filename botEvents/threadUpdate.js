@@ -7,17 +7,13 @@ module.exports = {
 
         console.log('A thread was updated.')
 
-        parentChannel = client.channels.cache.get(channel.parent_id)
-
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
-            .setTitle(`Thread Created`)
-            .addField(`Creator:`, `${threadmember}`, true)
-            .addField(`User ID:`, `${threadmember.id}`, true)
-            .addField(`Parent Channel:`, `${parentChannel}`, true)
+            .setTitle(`Thread Updated`)
             .addField(`Thread:`, `${channel}`, true)
+            .addField(`Parent Channel:`, `<#${channel.parent_id}>`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
