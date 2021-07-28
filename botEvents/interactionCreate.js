@@ -1405,7 +1405,7 @@ module.exports = {
                 let closeNoticeDisabled = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`🔒 Verification Transcript Archived`)
-                    .setDescription(`This ticket is completed but has not been deleted at the decision of ${interaction.user.username} for archival reasons. This message constitutes as the last message of the transcript.\n\n***DO NOT DELETE.***`)
+                    .setDescription(`This ticket is completed but has not been deleted at the decision of ${interaction.user.username} for archival/moderation reasons. This message constitutes as the last message of the transcript.\n\n***DO NOT DELETE.***`)
 
 
                 // BUTTONS
