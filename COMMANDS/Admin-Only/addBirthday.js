@@ -155,7 +155,7 @@ module.exports = {
 
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
-        await birthdaySchema.insert({
+        await birthdaySchema.findOneAndUpdate({
             USER_ID: bdayUserId
         },{
             USER_ID: bdayUserId,
