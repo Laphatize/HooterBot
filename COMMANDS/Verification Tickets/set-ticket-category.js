@@ -57,7 +57,7 @@ module.exports = {
         // DEFINING UPDATE EMBED
         let catUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
+            .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name.toUpperCase()}\`\`.`)
 
 
         // SENDING EMBED
