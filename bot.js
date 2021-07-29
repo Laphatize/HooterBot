@@ -127,34 +127,37 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`There is at least one birthday today.`)
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
+
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach( dbBirthdayData => {
+        for(i in dbBirthdayData) {
+            console.log(`The user ID is ${i.USER_ID}`)
+        }
         
-            console.log(`The user ID is ${dbBirthdayData.USER_ID}.`)
+        //     console.log(`The user ID is ${userId}.`)
         
-            // FETCH BDAY USER BY THEIR IDS
-            let bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
+        //     // FETCH BDAY USER BY THEIR IDS
+        //     let bdayUser = guild.members.fetch(userId)
 
-            // FUNCTION PICKS RANDOM MESSAGE
-            function bdayMessage(bdayUser) {
-                const channelMsgStart = [
-                    `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
-                    `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-                    `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
-                    `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
-                    `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-                    `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
-                    ];      
-                return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
-            }
+        //     // FUNCTION PICKS RANDOM MESSAGE
+        //     function bdayMessage(bdayUser) {
+        //         const channelMsgStart = [
+        //             `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
+        //             `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+        //             `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
+        //             `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
+        //             `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
+        //             `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
+        //             ];      
+        //         return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
+        //     }
 
-            bdayMessage = bdayMessage(bdayUser)
-            console.log(`The birthday message is: "${bdayMessage}"`)
+        //     bdayMessage = bdayMessage(bdayUser)
+        //     console.log(`The birthday message is: "${bdayMessage}"`)
             
-            // FETCH BOT CHANNEL
-            client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
-                .catch(err => console.log(err))
-        })
+        //     // FETCH BOT CHANNEL
+        //     client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
+        //         .catch(err => console.log(err))
+        // })
     }
 }, {
     scheduled: true,
