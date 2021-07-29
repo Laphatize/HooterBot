@@ -296,18 +296,21 @@ cron.schedule('00 * * * * *', async () => {
                     );
 
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
-                    
+
 
                     guild.members.fetch({ user })
                         .then(user => {
+
+                            console.log(`user = ${user}`)
+                            
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.name.toLowerCase()}`);
 
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
-                                .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
+                                .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
 
 
                             // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
