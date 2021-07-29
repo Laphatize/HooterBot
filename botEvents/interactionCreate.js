@@ -1438,15 +1438,11 @@ module.exports = {
                         .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
                         client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
-                            .catch(err => console.log(err))
                     })
                     
                     // 0 SECONDS REMAINING - DELETE CHANNEL
                     .then(client.setTimeout(() => interaction.channel.delete(), 10000 ))
-                        .catch(err => console.log(err))
-
-
-                    
+                        .catch(err => console.log(err))                    
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
