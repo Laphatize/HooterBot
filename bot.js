@@ -298,12 +298,12 @@ cron.schedule('00 * * * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    guild.members.fetch({ user })
+                    guild.members.fetch( user.id )
                         .then(user => {
                             
-                            console.log(`user.name = ${user.name}`)
-                            console.log(`user.username = ${user.username}`)
-                            console.log(`user.id = ${user.id}`)
+                            consol.log(`user = ${user}`)
+                            consol.log(`user.id = ${user.id}`)
+
                             
 
                             // // FETCHING USER'S TICKET CHANNEL IN GUILD
