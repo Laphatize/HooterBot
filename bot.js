@@ -275,14 +275,10 @@ cron.schedule('00 * * * * *', async () => {
             client.users.fetch(id)
                 .then(user => {
 
-                    console.log(`user = ${user}`)
-                    console.log(`user.username = ${user.username}`)
-                    console.log(`user.id = ${user.id}`)
-
                     // GENERATE AND SEND REMINDER EMBED
                     let reminderEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
-                        .setDescription(`Hi **${user}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
+                        .setDescription(`Hi **${user.username}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
                             \nYou are receiving this reminder because your ticket will close automatically on **${twoDaysOld}**.
                             \nPlease let us know if you have any questions about verifying by sending a message here in DMs to the bot. If you are no longer interested in the verified role, please click the red **"Quit Verification"** button and confirm you want to close the ticket.\nThank you!`)
                         .setTimestamp()
@@ -304,26 +300,19 @@ cron.schedule('00 * * * * *', async () => {
 
                     client.users.fetch( user.id )
                         .then(user => {
-                            
-                            console.log(`user = ${user}`)
-                            console.log(`user.username = ${user.username}`)
-                            console.log(`user.id = ${user.id}`)
-
-                            
-
-                            // // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            // let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+                            // FETCHING USER'S TICKET CHANNEL IN GUILD
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
 
-                            // // GENERATE NOTICE EMBED
-                            // let firstReminderTicketChEmbed = new discord.MessageEmbed()
-                            //     .setColor(config.embedGrey)
-                            //     .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
+                            // GENERATE NOTICE EMBED
+                            let firstReminderTicketChEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedGrey)
+                                .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
 
 
-                            // // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                            // ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
-                            //     .catch(err => console.log(err))
+                            // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                            ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
+                                .catch(err => console.log(err))
                         })
                 })
         })
