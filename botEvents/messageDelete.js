@@ -47,7 +47,7 @@ module.exports = {
 
 
         // ROLES CHANNEL FOR VERIFICATION EMBED
-        if(message.channel.id == romessage.guild.channels.cache.find(ch => ch.name === `roles`).id) {
+        if(message.channel.id == message.guild.channels.cache.find(ch => ch.name === `roles`).id) {
             
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await guildSchema.findOne({
@@ -75,7 +75,7 @@ module.exports = {
                 // LOG ENTRY
                 message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
-            } 
+            }
             
             // VERIFIED PERKS MESSAGE
             else if(dbData.VERIF_PERKS_MSG_ID === message.id) {

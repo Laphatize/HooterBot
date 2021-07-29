@@ -1423,7 +1423,7 @@ module.exports = {
                 let initialDeletionEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`This channel will be deleted in 10s...`)
-                    .setDescription(`Why is this being used? To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
+                    .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL - 10 SECONDS REMAIN
@@ -1435,15 +1435,18 @@ module.exports = {
                         let halfwayDeletionEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`This channel will be deleted in 5s...`)
-                        .setDescription(`Why is this being used? To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
+                        .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
                         client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
+                            .catch(err => console.log(err))
                     })
-
-
+                    
                     // 0 SECONDS REMAINING - DELETE CHANNEL
-                    .then(client.setTimeout(() => interaction.channel.delete(), 5000 ))
-                    .catch(err => console.log(err))
+                    .then(client.setTimeout(() => interaction.channel.delete(), 10000 ))
+                        .catch(err => console.log(err))
+
+
+                    
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
