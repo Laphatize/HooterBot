@@ -125,36 +125,42 @@ cron.schedule('0 * * * * *', async () => {
 
     if(dbBirthdayData) {
         console.log(`The bot has determined there is at least one birthday today.`)
-        console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
+
 
         // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
         var result = []
         
-        // FOR LOOP
+
+        // FOR LOOP TO GRAB ID'S OF TODAY'S BIRTHDAYS FROM DATABASE
         for(let i in dbBirthdayData) {
             console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
 
             result.push(dbBirthdayData[i].USER_ID)
         }
 
-        console.log(`The final array result = ${result}`)
-        
-        //     // FETCH BDAY USER BY THEIR IDS
-        //     const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+        // THE "result" ARRAY NOW HAS ALL THE DAY'S BIRTHDAYS
 
-        //     bdayArray[i] = bdayUser;
+        result.forEach( bdayUserId => {
 
-        //     // console.log(`bdayUser.username = ${bdayUser.username}`)
+            // FETCH BDAY USER BY THEIR IDS
+            const bdayUser = guild.members.fetch(bdayUserId)
 
-        //     // // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
-        //     // bdayMessage = createBdayMessage(bdayUser);
-        //     // console.log(`The birthday message is: "${bdayMessage}"`)
-            
-        //     // // FETCH BOT CHANNEL
-        //     // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
-        //     //     .catch(err => console.log(err))
-        // }
 
+            // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+            bdayMessage = createBdayMessage(bdayUser);
+            console.log(`The birthday message is: "${bdayMessage}"`)
+
+
+            // FETCH BOT CHANNEL
+            client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+                .catch(err => console.log(err))
+
+
+            // FETCH BIRTHDAY ROLE AND GIVE EACH USER THE ROLE
+
+
+
+        })
     }
 }, {
     scheduled: true,
