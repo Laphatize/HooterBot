@@ -45,7 +45,9 @@ client.cooldowns = new discord.Collection();
 
 
 
-// EVENT HANDLER
+/***********************************************************/
+/*      EVENT HANDLER                                      */
+/***********************************************************/
 const eventFiles = fs.readdirSync('./botEvents').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
@@ -62,7 +64,9 @@ for (const file of eventFiles) {
 
 
 
-// COMMAND HANDLER
+/***********************************************************/
+/*      COMMAND HANDLER                                    */
+/***********************************************************/
 const cmdFolders = fs.readdirSync('./COMMANDS');
 
 for (const folder of cmdFolders) {
@@ -76,7 +80,9 @@ for (const folder of cmdFolders) {
 
 
 
-// UNKNOWN ERROR REPORTING
+/***********************************************************/
+/*      UNKNOWN ERROR REPORTING                            */
+/***********************************************************/
 process.on('unhandledRejection', err => {
     console.log(`******** UNKNOWN ERROR *********`);
     console.log(err);
@@ -97,11 +103,12 @@ process.on('unhandledRejection', err => {
 })
 
 
-
-// CRON JOBS
+/***********************************************************/
+/*      CRON JOBS                                          */
+/***********************************************************/
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 5 15 * * *', async () => {
+cron.schedule('00 20 15 * * *', async () => {
     
     console.log('Checking for birthdays today.');
 
@@ -138,22 +145,23 @@ cron.schedule('00 5 15 * * *', async () => {
             result.push(dbBirthdayData[i].USER_ID)
         }
 
+        // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+        guild = client.guilds.cache.find(gld => gld.name === 'MMM789 Test Server')
+        let birthdayRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
+
         // THE "result" ARRAY NOW HAS ALL THE DAY'S BIRTHDAYS
         result.forEach( id => {
             
             // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
             bdayMessage = createBdayMessage(id);
 
-            // DEFINE GUILD SO BDAY MESSAGES ARE POSTED ONCE IN THE RIGHT SERVER
-            guild = client.guilds.cache.find(gld => gld.name === 'MMM789 Test Server')
-
-            // FETCH BOT CHANNEL
+            // FETCH BOT CHANNEL AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
 
-            // FETCH BIRTHDAY ROLE, USER, AND GIVE EACH USER THEIR ROLE
-            let birthdayRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
-            dmUser.roles.add(birthdayRole)
+            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+            bdayUser = guild.members.fetch(id)
+            bdayUser.roles.add(birthdayRole)
         })
     }
 }, {
@@ -162,21 +170,24 @@ cron.schedule('00 5 15 * * *', async () => {
 });
 
 
-// FUNCTION PICKS RANDOM BIRTHDAY MESSAGE
-function createBdayMessage(bdayUser) {
+
+// FUNCTION TO PICK RANDOM BDAY MESSAGE
+function createBdayMessage(bdayUserId) {
     const bdayMessagePicker = [
-        `🥳 **Happy birthday, <@${bdayUser}>!** 🎂`,
-        `🥳 **Please wish <@${bdayUser}> a happy birthday!** 🎁`,
-        `🥳 **It's <@${bdayUser}>'s birthday today!** 🎉`,
-        `🎂 **Happy birthday, <@${bdayUser}>!** 🎉`,
-        `🎉 **Please wish <@${bdayUser}> a happy birthday!** 🎁`,
-        `🎂 **It's <@${bdayUser}>'s birthday today!** 🎉`,
+        `🥳 **Happy birthday, <@${bdayUserId}>!** 🎂`,
+        `🥳 **Please wish <@${bdayUserId}> a happy birthday!** 🎁`,
+        `🥳 **It's <@${bdayUserId}>'s birthday today!** 🎉`,
+        `🎂 **Happy birthday, <@${bdayUserId}>!** 🎉`,
+        `🎉 **Please wish <@${bdayUserId}> a happy birthday!** 🎁`,
+        `🎂 **It's <@${bdayUserId}>'s birthday today!** 🎉`,
         ];      
     return bdayMessagePicker[Math.floor(Math.random() * bdayMessagePicker.length)];
 }
 
-// BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('00 59 07 * * *', async () => {
+
+
+// BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:58AM EST
+cron.schedule('00 58 07 * * *', async () => {
     console.log('Removing birthday roles.');
     
     // TODAY'S DATE
@@ -188,13 +199,3 @@ cron.schedule('00 59 07 * * *', async () => {
     scheduled: true,
     timezone: "America/New_York"
 });
-
-
-
-
-
-
-
-
-
-// todayDate = moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
