@@ -12,7 +12,6 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        const rolesChannel = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
         const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
         const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
 
@@ -181,7 +180,7 @@ module.exports = {
                             {
                                 // EVERYONE ROLE - HIDE (EVEN FROM USER)
                                 id: interaction.guild.roles.everyone.id,
-                                deny: [`VIEW_CHANNEL`]
+                                deny: [`VIEW_CHANNEL`, `USE_PUBLIC_THREADS`, `USE_PRIVATE_THREADS`]
                             },{
                                 // ADMINS - VIEW AND RESPOND
                                 id: adminRole.id,
@@ -385,7 +384,7 @@ module.exports = {
                                         \n${config.indent}**1.** Use a physical TUid card
                                         \n${config.indent}**2.** Use a virtual TUid card
                                         \n${config.indent}**3.** Using TUportal
-                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in ${rolesChannel}.`)
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#829417860820238356>.`)
 
 
                                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -457,7 +456,7 @@ module.exports = {
                     .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`You have closed this verification ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
-                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in ${rolesChannel}.`)
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
 
 
                 // DMING USER THE QUIT CONFIRMATION             
@@ -566,7 +565,7 @@ module.exports = {
                                         \n${config.indent}**1.** Use a physical TUid card
                                         \n${config.indent}**2.** Use a virtual TUid card
                                         \n${config.indent}**3.** Using TUportal
-                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in ${rolesChannel}.`)
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#829417860820238356>.`)
 
 
                                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -638,7 +637,7 @@ module.exports = {
                     .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`A staff member of the Temple University server has closed this ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
-                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in ${rolesChannel}.`)
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
 
 
                 // DMING USER THE QUIT CONFIRMATION             
