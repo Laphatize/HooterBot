@@ -124,31 +124,33 @@ cron.schedule('0 * * * * *', async () => {
     }
 
     if(dbBirthdayData) {
-        console.log(`There is at least one birthday today.`)
+        console.log(`The bot has determined there is at least one birthday today.`)
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
         // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var bdayArray = new Array();
+        var bdayArray = dbBirthdayData.keys(USER_ID);
 
-        // GRABBING 
-        for(let i in dbBirthdayData) {
-            console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
+        console.log(`bdayArray = ${bdayArray}`)
+
+        // // GRABBING 
+        // for(let i in dbBirthdayData) {
+        //     console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
         
-            // FETCH BDAY USER BY THEIR IDS
-            const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+        //     // FETCH BDAY USER BY THEIR IDS
+        //     const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
 
-            bdayArray[i] = bdayUser;
+        //     bdayArray[i] = bdayUser;
 
-            // console.log(`bdayUser.username = ${bdayUser.username}`)
+        //     // console.log(`bdayUser.username = ${bdayUser.username}`)
 
-            // // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
-            // bdayMessage = createBdayMessage(bdayUser);
-            // console.log(`The birthday message is: "${bdayMessage}"`)
+        //     // // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+        //     // bdayMessage = createBdayMessage(bdayUser);
+        //     // console.log(`The birthday message is: "${bdayMessage}"`)
             
-            // // FETCH BOT CHANNEL
-            // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
-            //     .catch(err => console.log(err))
-        }
+        //     // // FETCH BOT CHANNEL
+        //     // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+        //     //     .catch(err => console.log(err))
+        // }
 
         console.log(`\n\n\nThe for loop has finished.`)
         console.log(`\nbdayArray = ${bdayArray}`)
