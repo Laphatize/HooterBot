@@ -272,8 +272,12 @@ cron.schedule('00 * * * * *', async () => {
 
 
             // FETCH USER BY ID
-            guild.members.fetch(id)
+            client.users.fetch(id)
                 .then(user => {
+
+                    console.log(`user = ${user}`)
+                    console.log(`user.username = ${user.username}`)
+                    console.log(`user.id = ${user.id}`)
 
                     // GENERATE AND SEND REMINDER EMBED
                     let reminderEmbed = new discord.MessageEmbed()
@@ -298,10 +302,11 @@ cron.schedule('00 * * * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    guild.members.fetch( user.id )
+                    client.users.fetch( user.id )
                         .then(user => {
                             
                             console.log(`user = ${user}`)
+                            console.log(`user.username = ${user.username}`)
                             console.log(`user.id = ${user.id}`)
 
                             
