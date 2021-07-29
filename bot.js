@@ -296,28 +296,24 @@ cron.schedule('00 * * * * *', async () => {
                     );
 
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
+                    
 
-                    console.log(`user = ${user}`)
-
-                    const userObject = guild.members.fetch({ user })
-
-                        console.log(`userObject =  ${userObject}`)
-
-                    return;
-
-                    // FETCHING USER'S TICKET CHANNEL IN GUILD
-                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+                    guild.members.fetch({ user })
+                        .then(user => {
+                            // FETCHING USER'S TICKET CHANNEL IN GUILD
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
 
-                    // GENERATE NOTICE EMBED
-                    let firstReminderTicketChEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGrey)
-                        .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
+                            // GENERATE NOTICE EMBED
+                            let firstReminderTicketChEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedGrey)
+                                .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
 
 
-                    // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                    ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
-                        .catch(err => console.log(err))
+                            // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                            ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
+                                .catch(err => console.log(err))
+                        })
                 })
         })
     }
