@@ -40,7 +40,7 @@ module.exports = {
             let alreadyBlacklistedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Error!`)
-                .setDescription(`${blacklistUser} has already been added to the blacklist.`)
+                .setDescription(`${blacklistUser} is already on the blacklist.`)
                 .setTimestamp()
             
             // SENDING MESSAGE
