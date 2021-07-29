@@ -274,6 +274,7 @@ cron.schedule('00 * * * * *', async () => {
             // FETCH USER BY ID
             guild.members.fetch(id)
                 .then(user => {
+
                     // GENERATE REMINDER EMBED
                     let reminderEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -283,7 +284,23 @@ cron.schedule('00 * * * * *', async () => {
                         .setTimestamp()
 
                     user.send({embeds: [reminderEmbed] })
-            })
+                })
+                .then(user => {
+
+                    // FETCHING USER'S TICKET CHANNEL IN GUILD
+                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.name.toLowerCase()}`);
+
+
+                    // GENERATE NOTICE EMBED
+                    let firstReminderTicketChEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
+
+
+                    // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                    ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
+                        .catch(err => console.log(err))
+                })
         })
     }
 }, {
