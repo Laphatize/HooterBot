@@ -103,13 +103,17 @@ process.on('unhandledRejection', err => {
 })
 
 
+
 /***********************************************************/
 /*      CRON JOBS                                          */
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
-// BIRTHDAY CHECKS - EVERY DAY AT 7:00AM EST
-cron.schedule('00 04 16 * * *', async () => {
+// DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+bdayGuild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')s
+
+// BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
+cron.schedule('00 41 16 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -137,10 +141,6 @@ cron.schedule('00 04 16 * * *', async () => {
         }
 
 
-        // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-        guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
-
-
         // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
         result.forEach( id => {
             
@@ -148,14 +148,14 @@ cron.schedule('00 04 16 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
-            guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+            bdayGuild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
-
+ 
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
+            bdayUser = bdayGuild.members.fetch(id)
                 .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+                    bdayRole = bdayGuild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
                 
                     user.roles.add(bdayRole)
                 })
@@ -165,7 +165,6 @@ cron.schedule('00 04 16 * * *', async () => {
     scheduled: true,
     timezone: "America/New_York"
 });
-
 
 
 // FUNCTION TO PICK RANDOM BDAY MESSAGE
@@ -183,15 +182,19 @@ function createBdayMessage(bdayUserId) {
 
 
 
-// BIRTHDAY ROLE REMOVAL - EVERY DAY AT 6:59AM EST
-cron.schedule('00 58 07 * * *', async () => {
+
+// BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
+cron.schedule('00 42 16 * * *', async () => {
     console.log('Removing birthday roles.');
 
     
-    // FINDING ALL USERS WITH THE BIRTHDAY ROLE
+    // FINDING ALL USERS WITH THE BIRTHDAY ROLE AND REMOVING ROLE
+    bdayGuild.members.forEach(member => {
 
+        bdayRole = bdayGuild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
 
-
+        member.roles.remove(role)
+    })
 }, {
     scheduled: true,
     timezone: "America/New_York"
