@@ -132,10 +132,10 @@ cron.schedule('0 * * * * *', async () => {
         for(let i in dbBirthdayData) {
             console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
         
-            // FETCH BDAY USER BY THEIR IDS
-            const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+            // // FETCH BDAY USER BY THEIR IDS
+            // const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
 
-            console.log(`bdayUser.username = ${bdayUser.username}`)
+            // console.log(`bdayUser.username = ${bdayUser.username}`)
 
             // // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
             // bdayMessage = createBdayMessage(bdayUser);
