@@ -244,7 +244,7 @@ cron.schedule('00 * * * * *', async () => {
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
     twoDaysOld = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
-    
+
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
@@ -263,8 +263,6 @@ cron.schedule('00 * * * * *', async () => {
             result.push(dbTicketData[i].CREATOR_ID)
         }
 
-        console.log(`result = ${result}`)
-
 
         // THE "result" ARRAY HAS ALL THE IDs FOR USERS RECEIVING DAY 2 REMINDER
         result.forEach( id => {
@@ -276,6 +274,8 @@ cron.schedule('00 * * * * *', async () => {
             // FETCH USER BY ID
             const dmUser = guild.members.fetch(id)
 
+            
+            console.log(`dmUser = ${dmUser}`)
 
 
             let reminderEmbed = new discord.MessageEmbed()
