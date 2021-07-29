@@ -244,16 +244,12 @@ cron.schedule('00 * * * * *', async () => {
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
     twoDaysOld = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
-
-    console.log(`twoDaysOld = ${twoDaysOld}`)
+    
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
         TICKET_CLOSE: twoDaysOld
     }).exec();
-
-
-    console.log(`dbTicketData = ${dbTicketData}`)
 
 
     if(dbTicketData) {
@@ -266,6 +262,8 @@ cron.schedule('00 * * * * *', async () => {
         for(let i in dbTicketData) {
             result.push(dbTicketData[i].CREATOR_ID)
         }
+
+        console.log(`result = ${result}`)
 
 
         // THE "result" ARRAY HAS ALL THE IDs FOR USERS RECEIVING DAY 2 REMINDER
