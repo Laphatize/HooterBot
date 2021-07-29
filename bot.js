@@ -243,7 +243,7 @@ cron.schedule('00 * * * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
-    twoDaysOld = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD")
+    twoDaysOld = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
 
     console.log(`twoDaysOld = ${twoDaysOld}`)
 
@@ -285,6 +285,7 @@ cron.schedule('00 * * * * *', async () => {
                 .setDescription(`Hi **${dmUser.username}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
                 \nYou are receiving this reminder because your ticket will close automatically on **${twoDaysOld}**.
                 \nPlease let us know if you have any questions about verifying by sending a message here in DMs to the bot. If you are no longer interested in the verified role, please click the red **"Quit Verification"** button and confirm you want to close the ticket.\nThank you!`)
+                .setFooter(``)
 
 
             dmUser.send({embeds: [reminderEmbed] })
