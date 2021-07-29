@@ -135,7 +135,8 @@ cron.schedule('0 * * * * *', async () => {
             // FETCH BDAY USER BY THEIR IDS
             let bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
 
-            bdayMessage = bdayMessage(bdayUser)
+            // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+            bdayMessage = createBdayMessage(bdayUser);
             console.log(`The birthday message is: "${bdayMessage}"`)
             
             // FETCH BOT CHANNEL
@@ -150,8 +151,8 @@ cron.schedule('0 * * * * *', async () => {
 
 
 // FUNCTION PICKS RANDOM BIRTHDAY MESSAGE
-function bdayMessage(bdayUser) {
-    const channelMsgStart = [
+function createBdayMessage(bdayUser) {
+    const bdayMessagePicker = [
         `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
         `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
         `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
@@ -159,7 +160,7 @@ function bdayMessage(bdayUser) {
         `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
         `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
         ];      
-    return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
+    return bdayMessagePicker[Math.floor(Math.random() * bdayMessagePicker.length)];
 }
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
