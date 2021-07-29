@@ -109,7 +109,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // BIRTHDAY CHECKS - EVERY DAY AT 7:00AM EST
-cron.schedule('00 48 15 * * *', async () => {
+cron.schedule('00 52 15 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -153,11 +153,14 @@ cron.schedule('00 48 15 * * *', async () => {
             guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
 
-            console.log(`Message sent, now adding role...`)
+            console.log(`Message sent, now fetching user...`)
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
             bdayUser = guild.members.fetch(id)
-            bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith(`birthday`))
+
+            console.log(`bdayUser fetched:\n${bdayUser}\n\nNow giving role...`)
+
+            bdayRole = guild.roles.cache.find(role => role.id === 870118399383064607)
             
             bdayUser.roles.add(bdayRole)
             console.log(`The birthday role (ID: ${bdayRole.id}) should have been added to the user.`)
