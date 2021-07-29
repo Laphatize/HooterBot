@@ -476,8 +476,8 @@ module.exports = {
                 
 
                 // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
-                modLogChannel.send({ embeds: [logCloseTicketEmbed] })
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logCloseTicketEmbed] })
                     .catch(err => console.log(err))
 
                 
@@ -1425,7 +1425,7 @@ module.exports = {
                 let initialDeletionEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`This channel will be deleted in 10s...`)
-                    .setFooter(`Why is this being used? To prevent issues with the database and the API. ✨The more you know... ✨`)
+                    .setDescription(`Why is this being used? To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL - 10 SECONDS REMAIN
@@ -1437,7 +1437,7 @@ module.exports = {
                         let halfwayDeletionEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`This channel will be deleted in 5s...`)
-                        .setFooter(`Why is this being used? To prevent issues with the database and the API. ✨The more you know... ✨`)
+                        .setDescription(`Why is this being used? To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
                         client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
                     })
