@@ -31,6 +31,9 @@ module.exports = {
                 .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.`)
 
             return message.channel.send({embeds: [noCatEmbed]})
+            // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
         }
 
 
@@ -51,6 +54,9 @@ module.exports = {
         let catUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
+            // DELETE AFTER 10 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+            .catch(err => console.log(err))
 
 
         // SENDING EMBED

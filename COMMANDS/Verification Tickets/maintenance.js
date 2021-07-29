@@ -40,7 +40,7 @@ module.exports = {
             // DELETE AFTER 10 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
-                return
+            return
         }
 
         // IF VERIFICATION PROMPT EXISTS
