@@ -2,7 +2,6 @@ require('dotenv').config();
 const discord = require('discord.js')
 const fs = require('fs');
 const config = require ('./config.json')
-const guildSchema = require('./Database/guildSchema')
 const birthdaySchema = require('./Database/birthdaySchema')
 const ticketSchema = require('./Database/ticketSchema')
 var cron = require('node-cron');
@@ -288,13 +287,13 @@ cron.schedule('00 * * * * *', async () => {
                 .then(user => {
 
                     // FETCHING USER'S TICKET CHANNEL IN GUILD
-                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.name.toLowerCase()}`);
+                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
 
                     // GENERATE NOTICE EMBED
                     let firstReminderTicketChEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
-                        .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
+                        .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
 
 
                     // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
