@@ -272,7 +272,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
             // FETCH USER BY ID
-            await guild.members.fetch(id)
+            guild.members.fetch(id)
                 .then(user => {
 
                     // GENERATE AND SEND REMINDER EMBED
@@ -298,7 +298,7 @@ cron.schedule('00 * * * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    await guild.members.fetch({ user })
+                    guild.members.fetch({ user })
                         .then(user => {
 
                             userId = user.slice(2, -1); 
