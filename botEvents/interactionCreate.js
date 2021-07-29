@@ -12,8 +12,6 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
-
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
 
@@ -38,6 +36,7 @@ module.exports = {
                         ephemeral: true })
                 }
 
+                const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
 
                 // CHECK IF USER HAS VERIFIED ROLE
                 if(interaction.member.roles.cache.some((role) => role.id === verifiedRole.id)) {
