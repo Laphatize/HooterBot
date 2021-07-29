@@ -104,20 +104,24 @@ module.exports = {
                     .setCustomId("quit_DM")
                     .setDisabled(false)
 
-                // BUTTON ROW
+                // BUTTON ROWS
                 let initialButtonRow = new MessageActionRow()
                     .addComponents(
                         TUidCardButton,
                         VirtualTUidCardButton,
                         TuPortalButton,
-                        InfoButton,
-                        QuitButton
                     );
+
+                let secondButtonRow = new MessageActionRow()
+                .addComponents(
+                    InfoButton,
+                    QuitButton
+                );
 
 
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
-                let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow] })
+                let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow, secondButtonRow] })
                     .catch(err => {
 
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
@@ -416,19 +420,23 @@ module.exports = {
                                     .setCustomId("quit")
                                     .setDisabled(true)
 
-                                // DISABLED BUTTON ROW
+                                // DISABLED BUTTON ROWS
                                 let initialButtonRowDisabled = new MessageActionRow()
                                     .addComponents(
                                         TUidCardButtonDisabled,
                                         VirtualTUidCardButtonDisabled,
-                                        TuPortalButtonDisabled,
+                                        TuPortalButtonDisabled
+                                    );
+
+                                let secondButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
                                         InfoButtonDisabled,
                                         QuitButtonDisabled
                                     );
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -597,19 +605,23 @@ module.exports = {
                                     .setCustomId("quit")
                                     .setDisabled(true)
 
-                                // DISABLED BUTTON ROW
+                                // DISABLED BUTTON ROWS
                                 let initialButtonRowDisabled = new MessageActionRow()
                                     .addComponents(
                                         TUidCardButtonDisabled,
                                         VirtualTUidCardButtonDisabled,
-                                        TuPortalButtonDisabled,
+                                        TuPortalButtonDisabled
+                                    );
+
+                                let secondButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
                                         InfoButtonDisabled,
                                         QuitButtonDisabled
                                     );
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -1255,14 +1267,18 @@ module.exports = {
                                     .addComponents(
                                         TUidCardButtonDisabled,
                                         VirtualTUidCardButtonDisabled,
-                                        TuPortalButtonDisabled,
+                                        TuPortalButtonDisabled
+                                    );
+
+                                let secondButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
                                         InfoButtonDisabled,
                                         QuitButtonDisabled
                                     );
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled] })
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -1290,7 +1306,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Close Verification?`)
-                    .setDescription(`This user has been granted the verified role and this ticket is completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
+                    .setDescription(`This user has been granted the ${config.emjVerified} **verified role** and this ticket is now completed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
 
 
                 // BUTTONS
