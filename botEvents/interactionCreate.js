@@ -12,8 +12,8 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        const rolesChannel = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
-        const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const rolesChannel = interaction.channels.cache.find(ch => ch.name === `roles`)
+        const modLogChannel = interaction.channels.cache.find(ch => ch.name === `mod-log`)
         const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
 
         // TICKET CHANNEL NAME
