@@ -6,6 +6,10 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
+        // IGNORE NON-GUILD CHANNELS
+        if(!message.channel.type == 'GUILD_TEXT') return;
+
+
         // RULES CHANNEL FOR RULES EMBED
         if(message.channel.id == message.guild.channels.cache.find(ch => ch.name === `rules`).id) {
 
