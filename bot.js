@@ -282,9 +282,26 @@ cron.schedule('00 * * * * *', async () => {
                             \nPlease let us know if you have any questions about verifying by sending a message here in DMs to the bot. If you are no longer interested in the verified role, please click the red **"Quit Verification"** button and confirm you want to close the ticket.\nThank you!`)
                         .setTimestamp()
 
-                    user.send({embeds: [reminderEmbed] })
+                    let QuitButton = new MessageButton()
+                        .setLabel("Quit Verification")
+                        .setStyle("DANGER")
+                        .setCustomId("quit_DM")
+                        .setDisabled(false)
+
+                    // BUTTON ROWS
+                    let quitButtonRow = new MessageActionRow()
+                    .addComponents(
+                        QuitButton
+                    );
+
+                    user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
                     console.log(`user = ${user}`)
+
+                    const userObject = guild.members.fetch({ user })
+
+                        console.log(`userObject =  ${userObject}`)
+
                     return;
 
                     // FETCHING USER'S TICKET CHANNEL IN GUILD
