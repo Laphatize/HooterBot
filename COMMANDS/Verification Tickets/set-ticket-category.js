@@ -58,13 +58,13 @@ module.exports = {
         let catUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
-            // DELETE AFTER 10 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-            .catch(err => console.log(err))
 
 
         // SENDING EMBED
         message.channel.send({embeds: [catUpdateEmbed]})
+            // DELETE AFTER 10 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+            .catch(err => console.log(err))
 
 
         // DEFINING LOG EMBED
