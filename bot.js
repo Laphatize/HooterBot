@@ -277,7 +277,7 @@ cron.schedule('00 * * * * *', async () => {
                     // GENERATE REMINDER EMBED
                     let reminderEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
-                        .setDescription(`Hi **${user.username}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
+                        .setDescription(`Hi **${user.name}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
                             \nYou are receiving this reminder because your ticket will close automatically on **${twoDaysOld}**.
                             \nPlease let us know if you have any questions about verifying by sending a message here in DMs to the bot. If you are no longer interested in the verified role, please click the red **"Quit Verification"** button and confirm you want to close the ticket.\nThank you!`)
                         .setTimestamp()
