@@ -1432,7 +1432,7 @@ module.exports = {
                 interaction.channel.send({embeds: [initialDeletionEmbed], components: [] })
                     .catch(err => console.log(err))
                     
-                    // EDIT EMBED - 5 SECONDS REMAINING
+                    // 5 SECONDS REMAIN - EDIT EMBED
                     .then(msg => {
                         let halfwayDeletionEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
@@ -1442,11 +1442,19 @@ module.exports = {
                         client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
                     })
 
-                    // DELETING THE WHOLE CHANNEL - 0 SECONDS REMAINING
+
+                    // 0 SECONDS REMAINING
                     .then(msg => { 
-                        client.setTimeout(() => msg.channel.delete(), 5000 )
+                        client.setTimeout(() => msg.delete, 5000 )
+                        
+                        // DELETING THE CHANNEL
+                        msg.channel.delete()
                     })
                     .catch(err => console.log(err))
+
+
+                // // DELETING THE CHANNEL
+                // interaction.channel.delete()
                             
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
