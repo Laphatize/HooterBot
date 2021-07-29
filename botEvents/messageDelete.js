@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IGNORE NON-GUILD CHANNELS
-        if(!message.channel.type == 'GUILD_TEXT') return;
+        if(message.channel.type === 'DM') return;
 
 
         // RULES CHANNEL FOR RULES EMBED
