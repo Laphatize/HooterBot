@@ -93,7 +93,7 @@ process.on('unhandledRejection', err => {
     
 
     // LOG ENTRY
-    client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logErrEmbed]})
+    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({embeds: [logErrEmbed]})
 })
 
 
