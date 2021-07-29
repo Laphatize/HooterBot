@@ -130,7 +130,7 @@ cron.schedule('0 * * * * *', async () => {
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
         for(i in dbBirthdayData) {
-            console.log(`The user ID is ${i.USER_ID}`)
+            console.log(`The user ID is ${dbBirthdayData.USER_ID}`)
         }
         
         //     console.log(`The user ID is ${userId}.`)
