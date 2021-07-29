@@ -109,11 +109,8 @@ process.on('unhandledRejection', err => {
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
-// DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-bdayGuild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
-
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 41 16 * * *', async () => {
+cron.schedule('00 45 16 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -147,15 +144,18 @@ cron.schedule('00 41 16 * * *', async () => {
             // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
             bdayMessage = createBdayMessage(id);
 
+            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
-            bdayGuild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+            guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
  
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = bdayGuild.members.fetch(id)
+            bdayUser = guild.members.fetch(id)
                 .then(user => {
-                    bdayRole = bdayGuild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
                 
                     user.roles.add(bdayRole)
                 })
@@ -184,14 +184,16 @@ function createBdayMessage(bdayUserId) {
 
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('00 42 16 * * *', async () => {
+cron.schedule('00 44 16 * * *', async () => {
     console.log('Removing birthday roles.');
 
+    // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+    guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
     
     // FINDING ALL USERS WITH THE BIRTHDAY ROLE AND REMOVING ROLE
-    bdayGuild.members.forEach(member => {
+    guild.members.forEach(member => {
 
-        bdayRole = bdayGuild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+        bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
 
         member.roles.remove(role)
     })
