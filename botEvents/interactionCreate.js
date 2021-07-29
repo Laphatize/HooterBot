@@ -12,7 +12,6 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
         const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
 
         // TICKET CHANNEL NAME
@@ -137,7 +136,7 @@ module.exports = {
                     
 
                         // LOG ENTRY
-                        modLogChannel.send({embeds: [logVerifStartErrorEmbed]})
+                        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifStartErrorEmbed]})
                     })
 
 
@@ -255,7 +254,7 @@ module.exports = {
 
 
                             // LOG ENTRY
-                            modLogChannel.send({embeds: [logTicketOpenEmbed]})
+                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketOpenEmbed]})
                                 .catch(err => console.log(err))
                         })
                 }
@@ -657,7 +656,7 @@ module.exports = {
                 
 
                 // FETCHING THE LOG CHANNEL FROM DATABASE
-                modLogChannel.send({ embeds: [logCloseTicketEmbed] })
+                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logCloseTicketEmbed] })
                     .catch(err => console.log(err))
 
 
@@ -1322,7 +1321,7 @@ module.exports = {
                     .setTimestamp()
 
                 // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-                modLogChannel.send({ embeds: [proofApprovedLogEmbed] })
+                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [proofApprovedLogEmbed] })
                     .catch(err => console.log(err))
 
 
@@ -1405,7 +1404,7 @@ module.exports = {
                     .setTimestamp()
                 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                modLogChannel.send({ embeds: [proofRejectedLogEmbed] })
+                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [proofRejectedLogEmbed] })
                     .catch(err => console.log(err))
             }
             // END OF "PROOF REJECTED" BUTTON
