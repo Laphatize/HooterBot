@@ -133,15 +133,17 @@ cron.schedule('0 * * * * *', async () => {
             console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
         
             // FETCH BDAY USER BY THEIR IDS
-            let bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+            const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
 
-            // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
-            bdayMessage = createBdayMessage(bdayUser);
-            console.log(`The birthday message is: "${bdayMessage}"`)
+            console.log(`bdayUser.username = ${bdayUser.username}`)
+
+            // // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+            // bdayMessage = createBdayMessage(bdayUser);
+            // console.log(`The birthday message is: "${bdayMessage}"`)
             
-            // FETCH BOT CHANNEL
-            client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
-                .catch(err => console.log(err))
+            // // FETCH BOT CHANNEL
+            // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+            //     .catch(err => console.log(err))
         }
     }
 }, {
