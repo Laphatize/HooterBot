@@ -51,8 +51,7 @@ module.exports = {
 
 
                 // FETCHING THE GUILD FROM DATABASE
-                guildId = dbTicketData.GUILD_ID
-                guild = client.guilds.cache.get(guildId)
+                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
 
                 // GRABBING TICKET CHANNEL IN GUILD

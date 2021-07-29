@@ -5,10 +5,7 @@ module.exports = {
 	name: 'threadDelete',
 	async execute(channel, client) {
 
-        // FETCH GUILD USING RETURNED "guild.id"
-        guild = client.guilds.cache.get(guild.id)
-
-        const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = channel.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED

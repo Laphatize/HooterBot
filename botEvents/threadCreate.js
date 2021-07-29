@@ -5,9 +5,8 @@ module.exports = {
 	name: 'threadCreate',
 	async execute(channel, client) {
 
-
-        const modLogChannel = client.guilds.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
-
+        const modLogChannel = channel.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
+ 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
