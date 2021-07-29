@@ -128,12 +128,14 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
 
-        // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
+        // GRABBING 
         for(let i in dbBirthdayData) {
             console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
         
-            // // FETCH BDAY USER BY THEIR IDS
-            // const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+            // FETCH BDAY USER BY THEIR IDS
+            const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
+
+            console.log(`bdayUser = ${bdayUser}`)
 
             // console.log(`bdayUser.username = ${bdayUser.username}`)
 
