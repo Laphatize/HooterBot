@@ -19,6 +19,7 @@ module.exports = {
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
+            
             /***********************************************************/
             /*      BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)      */
             /***********************************************************/
@@ -141,7 +142,6 @@ module.exports = {
                         // LOG ENTRY
                         interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifStartErrorEmbed]})
                     })
-
 
                     
 
