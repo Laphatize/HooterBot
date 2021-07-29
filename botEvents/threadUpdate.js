@@ -5,6 +5,8 @@ module.exports = {
 	name: 'threadUpdate',
 	async execute(channel, threadmember, client) {
 
+        const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
+
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
@@ -12,10 +14,11 @@ module.exports = {
             .setTitle(`Thread Updated`)
             .addField(`Thread:`, `${channel}`, true)
             .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
+            .setDescription(`This could mean the thread has been renamed or the thread has been archived. The API makes no distinction.`)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-        client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [threadLogEntry] })
+        modLogChannel.send({ embeds: [threadLogEntry] })
             .catch(err => console.log(err))
 	},
 };
