@@ -110,7 +110,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-bdayGuild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')s
+bdayGuild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
 cron.schedule('00 41 16 * * *', async () => {
