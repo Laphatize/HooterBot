@@ -127,6 +127,8 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`There is at least one birthday today.`)
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
+        // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
+        var bdayArray = new Array();
 
         // GRABBING 
         for(let i in dbBirthdayData) {
@@ -135,7 +137,7 @@ cron.schedule('0 * * * * *', async () => {
             // FETCH BDAY USER BY THEIR IDS
             const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
 
-            console.log(`bdayUser = ${bdayUser}`)
+            bdayArray[i] = bdayUser;
 
             // console.log(`bdayUser.username = ${bdayUser.username}`)
 
@@ -147,6 +149,10 @@ cron.schedule('0 * * * * *', async () => {
             // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
             //     .catch(err => console.log(err))
         }
+
+        console.log(`\n\n\nThe for loop has finished.`)
+        console.log(`\nbdayArray = ${bdayArray}`)
+
     }
 }, {
     scheduled: true,
