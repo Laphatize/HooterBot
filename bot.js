@@ -110,7 +110,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 48 16 * * *', async () => {
+cron.schedule('00 00 08 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -184,20 +184,18 @@ function createBdayMessage(bdayUserId) {
 
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('00 58 16 * * *', async () => {
+cron.schedule('00 59 07 * * *', async () => {
     console.log('Removing birthday roles.');
 
     // TODAY'S DATE
-    todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
-    todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
-
-    console.log(`todayMonth / todayDay = ${todayMonth} / ${todayDay}`)
+    yesterdayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
+    yesterdayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
 
 
     // CHECK DATABASE FOR ENTRY
     const dbBirthdayData = await birthdaySchema.find({
-        MONTH: todayMonth,
-        DAY: todayDay
+        MONTH: yesterdayMonth,
+        DAY: yesterdayDay
     }).exec();
 
 
