@@ -307,7 +307,7 @@ cron.schedule('00 * * * * *', async () => {
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
-                                .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
+                                .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
 
 
                             // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
