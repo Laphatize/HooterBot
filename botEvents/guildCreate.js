@@ -52,7 +52,7 @@ module.exports = {
             .setTitle(`${config.botName} has joined the server!`)
             .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\``)
             .addField(`PERMISSIONS`, `${config.emjGREENTICK} Manage Channels\n${config.emjGREENTICK} Read Messages\n${config.emjGREENTICK} Send Messages\n${config.emjGREENTICK} Manage Messages\n${config.emjGREENTICK} Embed Links\n${config.emjGREENTICK} Attach Files\n${config.emjGREENTICK} Add Reactions\n${config.emjGREENTICK} Use External Emojis\n${config.emjGREENTICK} Use Slash Commands`, true)
-            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} GUILD_MESSAGE_REACTIONS\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGE_REACTIONS\n\n**PARTIALS:**\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
+            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} GUILD_MESSAGE_REACTIONS\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGE_REACTIONS\n**PARTIALS:**\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
             .setTimestamp()
 
         // LOG ENTRY
