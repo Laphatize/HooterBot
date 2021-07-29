@@ -5,8 +5,8 @@ const guildSchema = require('../../Database/guildSchema');
 
 
 module.exports = {
-    name: `verifembed`,
-    aliases: [`verificationprompt`, `verifprompt`],
+    name: `verificationprompt`,
+    aliases: [`verifembed`, `verifprompt`],
     description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
     category: `Verification`,
     expectedArgs: '',

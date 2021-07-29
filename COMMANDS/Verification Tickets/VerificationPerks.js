@@ -3,8 +3,8 @@ const config = require('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
-    name: `verifyperksembed`,
-    aliases: [`verifyperks`],
+    name: `verificationperks`,
+    aliases: [`verifperks`],
     description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
     category: `Verification`,
     expectedArgs: '',

@@ -71,7 +71,7 @@ module.exports = {
         let logTicketCatUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`Ticket Category Updated`)
-            .setDescription(`**New ticket category:** \`\`${category.name}\`\`\n**Changed by:** ${categoryChanger}`)
+            .setDescription(`**New ticket category:** \`\`${category.name.toUpperCase()}\`\`\n**Changed by:** ${categoryChanger}`)
             .setTimestamp()
         
         
