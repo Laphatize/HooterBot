@@ -109,7 +109,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // BIRTHDAY CHECKS - EVERY DAY AT 7:00AM EST
-cron.schedule('00 59 15 * * *', async () => {
+cron.schedule('00 04 16 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -133,8 +133,6 @@ cron.schedule('00 59 15 * * *', async () => {
 
         // FOR LOOP TO GRAB ID'S OF TODAY'S BIRTHDAYS FROM DATABASE
         for(let i in dbBirthdayData) {
-            console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
-
             result.push(dbBirthdayData[i].USER_ID)
         }
 
@@ -153,7 +151,6 @@ cron.schedule('00 59 15 * * *', async () => {
             guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
 
-            console.log(`Message sent, now fetching user...`)
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
             bdayUser = guild.members.fetch(id)
@@ -161,7 +158,6 @@ cron.schedule('00 59 15 * * *', async () => {
                     bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
                 
                     user.roles.add(bdayRole)
-                    console.log(`The birthday role should have been added to the user.`)
                 })
         })
     }
