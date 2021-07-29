@@ -140,15 +140,10 @@ cron.schedule('0 * * * * *', async () => {
 
         // THE "result" ARRAY NOW HAS ALL THE DAY'S BIRTHDAYS
 
-        result.forEach( bdayUserId => {
-
-            // FETCH BDAY USER BY THEIR IDS
-            const bdayUser = guild.members.fetch(bdayUserId)
-
-
+        result.forEach( id => {
+            
             // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
-            bdayMessage = createBdayMessage(bdayUser);
-            console.log(`The birthday message is: "${bdayMessage}"`)
+            bdayMessage = createBdayMessage(id);
 
 
             // FETCH BOT CHANNEL
@@ -171,12 +166,12 @@ cron.schedule('0 * * * * *', async () => {
 // FUNCTION PICKS RANDOM BIRTHDAY MESSAGE
 function createBdayMessage(bdayUser) {
     const bdayMessagePicker = [
-        `🥳 **Happy birthday, ${bdayUser}!** 🎂`,
-        `🥳 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-        `🥳 **It's ${bdayUser}'s birthday today!** 🎉`,
-        `🎂 **Happy birthday, ${bdayUser}!** 🎉`,
-        `🎉 **Please wish ${bdayUser} a happy birthday!** 🎁`,
-        `🎂 **It's ${bdayUser}'s birthday today!** 🎉`,
+        `🥳 **Happy birthday, <@${bdayUser}>!** 🎂`,
+        `🥳 **Please wish <@${bdayUser}> a happy birthday!** 🎁`,
+        `🥳 **It's <@${bdayUser}>'s birthday today!** 🎉`,
+        `🎂 **Happy birthday, <@${bdayUser}>!** 🎉`,
+        `🎉 **Please wish <@${bdayUser}> a happy birthday!** 🎁`,
+        `🎂 **It's <@${bdayUser}>'s birthday today!** 🎉`,
         ];      
     return bdayMessagePicker[Math.floor(Math.random() * bdayMessagePicker.length)];
 }
