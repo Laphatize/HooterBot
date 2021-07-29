@@ -284,6 +284,9 @@ cron.schedule('00 * * * * *', async () => {
 
                     user.send({embeds: [reminderEmbed] })
 
+                    console.log(`user = ${user}`)
+                    return;
+
                     // FETCHING USER'S TICKET CHANNEL IN GUILD
                     let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
