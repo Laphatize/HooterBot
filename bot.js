@@ -126,16 +126,14 @@ cron.schedule('0 * * * * *', async () => {
     if(dbBirthdayData) {
         console.log(`There is at least one birthday today.`)
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
-       
-        userId = dbBirthdayData.USER_ID;
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach( userId => {
+        dbBirthdayData.forEach( USER_ID => {
         
-            console.log(`The user ID is ${userId}.`)
+            console.log(`The user ID is ${USER_ID}.`)
         
             // FETCH BDAY USER BY THEIR IDS
-            let bdayUser = guild.members.fetch(userId)
+            let bdayUser = guild.members.fetch(USER_ID)
 
             // FUNCTION PICKS RANDOM MESSAGE
             function bdayMessage(bdayUser) {
@@ -149,6 +147,9 @@ cron.schedule('0 * * * * *', async () => {
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
+
+            bdayMessage = bdayMessage(bdayUser)
+            console.log(`The birthday message is: "${bdayMessage}"`)
             
             // FETCH BOT CHANNEL
             client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: bdayMessage(bdayUser) })
