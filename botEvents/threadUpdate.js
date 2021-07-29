@@ -10,10 +10,16 @@ module.exports = {
         console.log(`channel.guild.id = ${channel.guild.id}`) // GUILD ID
 
 
-        // FETCHING GUILD BY NAME.
-        let guild = client.guilds.cache.find(ch => ch.name === channel.guild)
+        // HARD-CODING GUILD IDs IN (BECAUSE IT'S FRUSTRATING ME OTHERWISE)
+        if(channel.guild === `MMM789 Test Server`) {
+            guild = client.guilds.cache.get(`530503548937699340`)
+        }
+        if(channel.guild === `Temple University`) {
+            guild = client.guilds.cache.get(`829409161581821992`)
+        }
 
-        console.log(`guild = ${guild}`)
+
+        console.log(`CHECKING: guild.name = ${guild.name}`)
 
         
         // // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
