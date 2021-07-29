@@ -9,7 +9,7 @@ module.exports = {
     description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     category: `Verification`,
     expectedArgs: '<"on" = maintenance | "off" = regular use>',
-    cooldown: 30,
+    cooldown: 10,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',

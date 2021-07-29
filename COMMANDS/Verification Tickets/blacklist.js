@@ -8,7 +8,7 @@ module.exports = {
     description: `Blacklists a user from being able to create verification tickets.`,
     category: `Verification`,
     expectedArgs: '<USER_ID> (reason - optional)',
-    cooldown: 5,
+    cooldown: 10,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',
