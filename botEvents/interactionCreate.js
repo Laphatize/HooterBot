@@ -1443,19 +1443,9 @@ module.exports = {
                     })
 
 
-                    // 0 SECONDS REMAINING
-                    .then(msg => { 
-                        client.setTimeout(() => msg.delete, 5000 )
-                        
-                        // DELETING THE CHANNEL
-                        msg.channel.delete()
-                    })
+                    // 0 SECONDS REMAINING - DELETE CHANNEL
+                    .then(client.setTimeout(() => interaction.channel.delete(), 5000 ))
                     .catch(err => console.log(err))
-
-
-                // // DELETING THE CHANNEL
-                // interaction.channel.delete()
-                            
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
