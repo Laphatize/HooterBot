@@ -109,7 +109,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // BIRTHDAY CHECKS - EVERY DAY AT 7:00AM EST
-cron.schedule('00 55 15 * * *', async () => {
+cron.schedule('00 59 15 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -157,12 +157,12 @@ cron.schedule('00 55 15 * * *', async () => {
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
             bdayUser = guild.members.fetch(id)
-            .then(user => {
-                bdayRole = guild.roles.cache.find(role => role.id === 870118399383064607)
-            
-                user.roles.add(bdayRole)
-                console.log(`The birthday role should have been added to the user.`)
-            })
+                .then(user => {
+                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+                
+                    user.roles.add(bdayRole)
+                    console.log(`The birthday role should have been added to the user.`)
+                })
         })
     }
 }, {
