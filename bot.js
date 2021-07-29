@@ -101,7 +101,7 @@ process.on('unhandledRejection', err => {
 // CRON JOBS
 // SCHEDULER FORMAT: (Second) (Minute) (Hour) (Day of Month) (Month) (Day of Week)
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('0 * * * * *', async () => {
+cron.schedule('0 0 9 * * *', async () => {
     
     console.log('Checking for birthdays today.');
 
