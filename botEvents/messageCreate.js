@@ -288,7 +288,7 @@ module.exports = {
                     .setFooter(`This may be a permissions error either with my role or with the channel. Please take a moment to investigate.`)
 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTalkPermErrorEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTalkPermErrorEmbed]})
                     .catch(err => console.log(err))
 
 
@@ -458,7 +458,7 @@ module.exports = {
                 
 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logErrorEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logErrorEmbed]})
             }
         }
     }

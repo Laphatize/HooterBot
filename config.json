@@ -32,19 +32,5 @@
     "emjVerified": "<:verified:856359139205447711>",
     "indent": "<:indent_space:862214213749440523>",
 
-    "logActionsChannelId": "857106515156140062",
-    "serverAnnouncementsId": "861737097475653632",
-    "botchannelId": "869986342468202496",
-    "joinsChannelId": "860610633417621504",
-    "rolesChannelId": "861394354034704396",
-    "introductionsChannelId": "869726161608015952",
-                        
-    "questionsChannelId": "829629693929586729",
-    "rulesChannelId": "862851733297561681",
-
-    "modRoleId": "863645415458865163",
-    "adminRoleId": "863650974513758259",
-    "verifiedRoleID": "863507579480703017",
-
     "ModMailId": "575252669443211264"
 }    

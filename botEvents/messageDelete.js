@@ -6,8 +6,12 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
+        const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const rolesChannel = message.guild.channels.cache.find(ch => ch.name === `roles`)
+        const rulesChannel = message.channels.cache.find(ch => ch.name === `rules`)
+
         // RULES CHANNEL FOR RULES EMBED
-        if(message.channel.id == config.rulesChannelId) {
+        if(message.channel.id == rulesChannel.id) {
 
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await guildSchema.findOne({
@@ -35,7 +39,7 @@ module.exports = {
 
 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRuleMsgIDRemoveEmbed]})
+                modLogChannel.send({embeds: [logRuleMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
             } else {
                 // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
@@ -45,8 +49,9 @@ module.exports = {
         }
 
 
+
         // ROLES CHANNEL FOR VERIFICATION EMBED
-        if(message.channel.id == config.rolesChannelId) {
+        if(message.channel.id == rolesChannel.id) {
             
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await guildSchema.findOne({
@@ -72,7 +77,7 @@ module.exports = {
                 .setDescription(`A new verification embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                modLogChannel.send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
             } 
             
@@ -94,7 +99,7 @@ module.exports = {
                 .setDescription(`A new verified perks embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                modLogChannel.send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
 
             } else {

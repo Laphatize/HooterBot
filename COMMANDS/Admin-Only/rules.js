@@ -92,7 +92,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logRulesIDEmbed] })
+            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;
@@ -118,7 +118,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logRulesIDEmbed] })
+            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;

@@ -66,6 +66,6 @@ module.exports = {
         
         
         // LOG ENTRY
-        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+        client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
     }
 }

@@ -59,7 +59,7 @@ module.exports = {
             .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
             
             // POSTING EMBED MESSAGE AND BUTTON
-            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbed]})
+            await client.channels.cache.find(ch => ch.name === `server-announcements`).send({embeds: [partnerEmbed]})
                 .catch(err => {
                     // LOGGING
                     console.log(err)
@@ -79,7 +79,7 @@ module.exports = {
             let msgSendSuccessEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Success!`)
-                .setDescription(`Your partner message has been successfully submitted to <#${config.serverAnnouncementsId}>.`)
+                .setDescription(`Your partner message has been successfully submitted.`)
                 .setTimestamp()
             message.channel.send({embeds: [msgSendSuccessEmbed]})
                 // DELETE AFTER 10 SECONDS
@@ -100,7 +100,7 @@ module.exports = {
 
 
             // POSTING EMBED MESSAGE AND BUTTON
-            await client.channels.cache.get(config.serverAnnouncementsId).send({embeds: [partnerEmbedImage]})
+            await client.channels.cache.find(ch => ch.name === `server-announcements`).send({embeds: [partnerEmbedImage]})
             .catch(err => {
                 // LOGGING
                 console.log(err)
@@ -121,7 +121,7 @@ module.exports = {
             let msgSendSuccessEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Success!`)
-                .setDescription(`Your partner message (with an image) has been successfully submitted to <#${config.serverAnnouncementsId}>.`)
+                .setDescription(`Your partner message (with an image) has been successfully submitted.`)
                 .setTimestamp()
             message.channel.send({embeds: [msgSendSuccessEmbed]})
                 // DELETE AFTER 10 SECONDS
@@ -135,11 +135,11 @@ module.exports = {
             .setColor(config.embedDarkGrey)
             .setTitle(`New Partner Message Submitted`)
             .addField(`User:`, `${messageAuthor}`)
-            .addField(`Channel:`, `${config.serverAnnouncementsId}`)
+            .addField(`Channel:`, `${client.channels.cache.find(ch => ch.name === `server-announcements`)}`)
             .setTimestamp()
 
             // SENDING TO LOG CHANNEL
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logPartnerMsgEmbed] })
+            client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logPartnerMsgEmbed] })
             return
     }
 }

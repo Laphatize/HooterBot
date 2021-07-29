@@ -83,6 +83,6 @@ module.exports = {
             .setTimestamp()
     
         // LOG ENTRY
-        return client.channels.cache.get(config.logActionsChannelId).send({embeds: [blacklistLogEmbed]})
+        client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [blacklistLogEmbed]})
     }
 }

@@ -7,35 +7,32 @@ module.exports = {
 
             // IGNORE BOT
             if(member.id == config.botId)   return;
-            
       
-            rolesChannel = config.rolesChannelId;
-            questionsChannel = config.questionsChannelId;
-            rulesChannel = config.rulesChannelId;
-            introduceYourselfChannel = config.introductionsChannelId;
-            ModMailId = config.ModMailId;
-
-            
-            const joinsChannel = client.channels.cache.get(config.joinsChannelId)
+            const rolesChannel = client.channels.cache.find(ch => ch.name === `roles`)
+            const questionsChannel = client.channels.cache.find(ch => ch.name === `📬｜temple-questions`)
+            const rulesChannel = client.channels.cache.find(ch => ch.name === `rules`)
+            const introduceYourselfChannel = client.channels.cache.find(ch => ch.name === `📢｜introduce-yourself`)
+            const joinsChannel = client.channels.cache.find(ch => ch.name === `joins`)
+            const ModMailId = config.ModMailId;
 
             // DM EMBED MESSAGE
 		const welcomeDMEmbed = new discord.MessageEmbed()
                   .setColor(config.embedTempleRed)
                   .setTitle(`**Welcome!** ${config.emjTempleT}`)
                   .setDescription(`Hey **${member.user.username}**, welcome to the **Temple University server**. 👋`)
-                  .addField(`Say Hi`, `Consider saying hi by posting a welcome message to fellow Owls in <#${introduceYourselfChannel}>.`)
-                  .addField(`Roles`, `Grab roles in <#${rolesChannel}> to describe yourself and to denote your college or school.\nWe have a ${config.emjVerified} **verified role** for students and staff of Temple University that grants additional features in the server (access to more channels, image sharing abilities, and more!`)
-                  .addField(`Ask Questions`, `Get answers from current students to the questions you have about Temple University in <#${questionsChannel}>`)
-                  .addField(`Rules`, `Take a minute to look over the server's <#${rulesChannel}>`)
+                  .addField(`Say Hi`, `Consider saying hi by posting a welcome message to fellow Owls in ${introduceYourselfChannel}.`)
+                  .addField(`Roles`, `Grab roles in ${rolesChannel} to describe yourself and to denote your college or school.\nWe have a ${config.emjVerified} **verified role** for students and staff of Temple University that grants additional features in the server (access to more channels, image sharing abilities, and more!`)
+                  .addField(`Ask Questions`, `Get answers from current students to the questions you have about Temple University in ${questionsChannel}`)
+                  .addField(`Rules`, `Take a minute to look over the server's ${rulesChannel}`)
                   .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - DM <@${ModMailId}> to get started.`)
 
             // SENDING DM EMBED
             await member.send({embeds: [welcomeDMEmbed]})
-            .catch(err => console.log(err))
+                  .catch(err => console.log(err))
 
             
             // DEFINING STRINGS FOR WELCOME MESSAGES IN #joins
-            const channelMsgEnding = ` Grab some roles in <#${rolesChannel}> and say hi to your fellow Owls in <#${introduceYourselfChannel}>`;
+            const channelMsgEnding = ` Grab some roles in ${rolesChannel} and say hi to your fellow Owls in ${introduceYourselfChannel}`;
             
             
             // CREATING RANDOM START TO THE STRING
@@ -46,7 +43,7 @@ module.exports = {
             
             // SEND TO #joins CHANNEL
             await joinsChannel.send({content: fullWelcomeMessage})
-            .catch(err => console.log(err))
+                  .catch(err => console.log(err))
 	},
 };
 

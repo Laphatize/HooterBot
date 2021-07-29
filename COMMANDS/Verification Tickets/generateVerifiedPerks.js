@@ -71,7 +71,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logVerifPerksPromptEmbed] })
+            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPerksPromptEmbed] })
                 .catch(err => console.log(err))
 
             return;
@@ -98,7 +98,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({ embeds: [logPerksEmbed] })
+            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logPerksEmbed] })
                 .catch(err => console.log(err))
 
             return;

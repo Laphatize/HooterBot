@@ -15,7 +15,7 @@ module.exports = {
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-        client.channels.cache.get(config.logActionsChannelId).send({ embeds: [threadLogEntry] })
+        client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [threadLogEntry] })
             .catch(err => console.log(err))
 	},
 };

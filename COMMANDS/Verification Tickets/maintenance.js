@@ -95,7 +95,7 @@ module.exports = {
                     .setTimestamp()
                     
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
                     .catch(err => console.log(err))
             }
 
@@ -143,7 +143,7 @@ module.exports = {
                     .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
             }
         }
     }

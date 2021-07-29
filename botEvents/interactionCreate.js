@@ -12,6 +12,10 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
+        const rolesChannel = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
+        const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
+
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
 
@@ -38,7 +42,7 @@ module.exports = {
 
 
                 // CHECK IF USER HAS VERIFIED ROLE
-                if(interaction.member.roles.cache.some((role) => role.id === config.verifiedRoleID)) {
+                if(interaction.member.roles.cache.some((role) => role.id === verifiedRole.id)) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
                         content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
@@ -134,7 +138,7 @@ module.exports = {
                     
 
                         // LOG ENTRY
-                        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logVerifStartErrorEmbed]})
+                        modLogChannel.send({embeds: [logVerifStartErrorEmbed]})
                     })
 
 
@@ -160,6 +164,10 @@ module.exports = {
                     // GRABBING BOT ROLE
                     let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
 
+                    // GRABBING MOD AND ADMIN ROLES
+                    let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
+                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+
 
                     // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE
                     closeDate = moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
@@ -176,11 +184,11 @@ module.exports = {
                                 deny: [`VIEW_CHANNEL`]
                             },{
                                 // ADMINS - VIEW AND RESPOND
-                                id: config.adminRoleId,
+                                id: adminRole.id,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             },{
                                 // MODERATORS - VIEW AND RESPOND
-                                id: config.modRoleId,
+                                id: modRole.id,
                                 allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
                             },{
                                 // HOOTERBOT ROLE - VIEW AND RESPOND
@@ -248,7 +256,7 @@ module.exports = {
 
 
                             // LOG ENTRY
-                            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketOpenEmbed]})
+                            modLogChannel.send({embeds: [logTicketOpenEmbed]})
                                 .catch(err => console.log(err))
                         })
                 }
@@ -377,7 +385,7 @@ module.exports = {
                                         \n${config.indent}**1.** Use a physical TUid card
                                         \n${config.indent}**2.** Use a virtual TUid card
                                         \n${config.indent}**3.** Using TUportal
-                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#${config.rolesChannelId}>.`)
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in ${rolesChannel}.`)
 
 
                                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -449,7 +457,7 @@ module.exports = {
                     .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`You have closed this verification ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
-                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in ${rolesChannel}.`)
 
 
                 // DMING USER THE QUIT CONFIRMATION             
@@ -470,7 +478,7 @@ module.exports = {
 
                 // FETCHING THE GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
-                guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                modLogChannel.send({ embeds: [logCloseTicketEmbed] })
                     .catch(err => console.log(err))
 
                 
@@ -558,7 +566,7 @@ module.exports = {
                                         \n${config.indent}**1.** Use a physical TUid card
                                         \n${config.indent}**2.** Use a virtual TUid card
                                         \n${config.indent}**3.** Using TUportal
-                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#${config.rolesChannelId}>.`)
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in ${rolesChannel}.`)
 
 
                                 // INITIALIZING BUTTONS - ALL DISABLED
@@ -630,7 +638,7 @@ module.exports = {
                     .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
                     .setDescription(`A staff member of the Temple University server has closed this ticket and you have **not** been verified.
                     \nAll the information for this ticket has been purged.
-                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#${config.rolesChannelId}>.`)
+                    \nIf you wish to verify at a later time, please open a new ticket using the prompt in ${rolesChannel}.`)
 
 
                 // DMING USER THE QUIT CONFIRMATION             
@@ -650,7 +658,7 @@ module.exports = {
                 
 
                 // FETCHING THE LOG CHANNEL FROM DATABASE
-                guild.channels.cache.get(config.logActionsChannelId).send({ embeds: [logCloseTicketEmbed] })
+                modLogChannel.send({ embeds: [logCloseTicketEmbed] })
                     .catch(err => console.log(err))
 
 
@@ -1313,7 +1321,7 @@ module.exports = {
                     .setTimestamp()
 
                 // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofApprovedLogEmbed] })
+                modLogChannel.send({ embeds: [proofApprovedLogEmbed] })
                     .catch(err => console.log(err))
 
 
@@ -1395,7 +1403,7 @@ module.exports = {
                     .setTimestamp()
                 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                client.channels.cache.get(config.logActionsChannelId).send({ embeds: [proofRejectedLogEmbed] })
+                modLogChannel.send({ embeds: [proofRejectedLogEmbed] })
                     .catch(err => console.log(err))
             }
             // END OF "PROOF REJECTED" BUTTON
