@@ -11,7 +11,7 @@ module.exports = {
 
         const botChannel = guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`)
         const introduceYourselfChannel = guild.channels.cache.find(ch => ch.name === `📢｜introduce-yourself`)
-        const modLogChannel = interaction.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // DM EMBED MESSAGE
         const botJoinEmbed = new discord.MessageEmbed()

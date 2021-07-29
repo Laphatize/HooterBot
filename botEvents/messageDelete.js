@@ -8,7 +8,7 @@ module.exports = {
 
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
         const rolesChannel = message.guild.channels.cache.find(ch => ch.name === `roles`)
-        const rulesChannel = message.channels.cache.find(ch => ch.name === `rules`)
+        const rulesChannel = message.guild.channels.cache.find(ch => ch.name === `rules`)
 
         // RULES CHANNEL FOR RULES EMBED
         if(message.channel.id == rulesChannel.id) {
