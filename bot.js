@@ -128,13 +128,16 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
         // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var result = Object.keys(dbBirthdayData).map((key) => [Number(key), obj[key]]);
+        var result = []
+        
+        // FOR LOOP
+        for(let i in dbBirthdayData) {
+            console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
 
-        console.log(`result = ${result}`)
+            result.push(dbBirthdayData[i].USER_ID)
+        }
 
-        // // GRABBING 
-        // for(let i in dbBirthdayData) {
-        //     console.log(`The user ID is ${dbBirthdayData[i].USER_ID}`)
+        console.log(`The final array result = ${result}`)
         
         //     // FETCH BDAY USER BY THEIR IDS
         //     const bdayUser = guild.members.fetch(dbBirthdayData[i].USER_ID)
