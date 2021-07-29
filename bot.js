@@ -128,12 +128,12 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
         // HANDLING BIRTHDAYS - THERE COULD BE MULTIPLE ON THE SAME DAY, SO FOREACH
-        dbBirthdayData.forEach( USER_ID => {
+        dbBirthdayData.forEach( dbBirthdayData => {
         
-            console.log(`The user ID is ${USER_ID}.`)
+            console.log(`The user ID is ${dbBirthdayData.USER_ID}.`)
         
             // FETCH BDAY USER BY THEIR IDS
-            let bdayUser = guild.members.fetch(USER_ID)
+            let bdayUser = guild.members.fetch(dbBirthdayData.USER_ID)
 
             // FUNCTION PICKS RANDOM MESSAGE
             function bdayMessage(bdayUser) {
