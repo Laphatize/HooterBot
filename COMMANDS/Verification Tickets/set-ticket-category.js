@@ -66,6 +66,6 @@ module.exports = {
         
         
         // LOG ENTRY
-        client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
+        message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
     }
 }

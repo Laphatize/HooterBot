@@ -102,7 +102,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
+            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
                 .catch(err => console.log(err))
 
             return;
@@ -129,7 +129,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
+            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
                 .catch(err => console.log(err))
 
             return;

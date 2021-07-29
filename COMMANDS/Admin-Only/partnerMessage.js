@@ -59,7 +59,7 @@ module.exports = {
             .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
             
             // POSTING EMBED MESSAGE AND BUTTON
-            await client.channels.cache.find(ch => ch.name === `server-announcements`).send({embeds: [partnerEmbed]})
+            await message.guild.channels.cache.find(ch => ch.name === `server-announcements`).send({embeds: [partnerEmbed]})
                 .catch(err => {
                     // LOGGING
                     console.log(err)
@@ -139,7 +139,7 @@ module.exports = {
             .setTimestamp()
 
             // SENDING TO LOG CHANNEL
-            client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logPartnerMsgEmbed] })
+            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logPartnerMsgEmbed] })
             return
     }
 }
