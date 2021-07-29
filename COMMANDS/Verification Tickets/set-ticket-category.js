@@ -18,10 +18,14 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
+
+        // GRABBING FULL ARGS
+        const combinedArgs = arguments.join(' ')
+
         
         let categoryChanger = message.author;
 
-        const category = message.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.name.toLowerCase() == arguments[0].toLowerCase());
+        const category = message.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.name.toLowerCase() == combinedArgs.toLowerCase());
         
 
         // IF NO CATEGORY PROVIDED
