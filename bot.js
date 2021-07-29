@@ -184,19 +184,58 @@ function createBdayMessage(bdayUserId) {
 
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('00 47 16 * * *', async () => {
+cron.schedule('00 58 16 * * *', async () => {
     console.log('Removing birthday roles.');
 
-    // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-    guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
-    
-    // FINDING ALL USERS WITH THE BIRTHDAY ROLE AND REMOVING ROLE
-    guild.members.forEach(member => {
+    // TODAY'S DATE
+    todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
+    todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
 
-        bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+    console.log(`todayMonth / todayDay = ${todayMonth} / ${todayDay}`)
 
-        member.roles.remove(role)
-    })
+
+    // CHECK DATABASE FOR ENTRY
+    const dbBirthdayData = await birthdaySchema.find({
+        MONTH: todayMonth,
+        DAY: todayDay
+    }).exec();
+
+
+    if(dbBirthdayData) {
+
+        // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
+        var result = []
+
+
+        // FOR LOOP TO GRAB ID'S OF YESTERDAY'S BIRTHDAYS FROM DATABASE
+        for(let i in dbBirthdayData) {
+            result.push(dbBirthdayData[i].USER_ID)
+        }
+
+
+        // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
+        result.forEach( id => {
+            
+            // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+            bdayMessage = createBdayMessage(id);
+
+            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+
+            // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
+            guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+                .catch(err => console.log(err))
+ 
+
+            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+            bdayUser = guild.members.fetch(id)
+                .then(user => {
+                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
+                
+                    user.roles.remove(bdayRole)
+                })
+        })
+    }
 }, {
     scheduled: true,
     timezone: "America/New_York"
