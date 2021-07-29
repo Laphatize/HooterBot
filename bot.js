@@ -110,7 +110,7 @@ process.on('unhandledRejection', err => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // BIRTHDAY CHECKS - EVERY DAY AT 8:00AM EST
-cron.schedule('00 45 16 * * *', async () => {
+cron.schedule('00 48 16 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -184,7 +184,7 @@ function createBdayMessage(bdayUserId) {
 
 
 // BIRTHDAY ROLE REMOVAL - EVERY DAY AT 7:59AM EST
-cron.schedule('00 44 16 * * *', async () => {
+cron.schedule('00 47 16 * * *', async () => {
     console.log('Removing birthday roles.');
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
