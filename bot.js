@@ -300,10 +300,6 @@ cron.schedule('00 * * * * *', async () => {
 
                     guild.members.fetch({ user })
                         .then(user => {
-
-                            userId = user.slice(2, -1); 
-                            console.log(`userId = ${userId}`)
-
                             
                             console.log(`user.name = ${user.name}`)
                             console.log(`user.username = ${user.username}`)
