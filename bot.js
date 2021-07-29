@@ -128,9 +128,9 @@ cron.schedule('0 * * * * *', async () => {
         console.log(`\ndbBirthdayData:\n${dbBirthdayData}\n`)
 
         // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var bdayArray = dbBirthdayData.keys(USER_ID);
+        var result = Object.keys(dbBirthdayData).map((key) => [Number(key), obj[key]]);
 
-        console.log(`bdayArray = ${bdayArray}`)
+        console.log(`result = ${result}`)
 
         // // GRABBING 
         // for(let i in dbBirthdayData) {
@@ -151,9 +151,6 @@ cron.schedule('0 * * * * *', async () => {
         //     // client.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
         //     //     .catch(err => console.log(err))
         // }
-
-        console.log(`\n\n\nThe for loop has finished.`)
-        console.log(`\nbdayArray = ${bdayArray}`)
 
     }
 }, {
