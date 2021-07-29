@@ -11,8 +11,7 @@ module.exports = {
 
 
         // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
-        guild = client.guilds.cache.get(channel.guild.id)
-        const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = client.guilds.cache.get(channel.guild.id).channels.cache.find(ch => ch.name === `mod-log`)
 
         
         // LOG ENTRY
