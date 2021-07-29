@@ -272,7 +272,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
             // FETCH USER BY ID
-            guild.members.fetch(id)
+            await guild.members.fetch(id)
                 .then(user => {
 
                     // GENERATE AND SEND REMINDER EMBED
@@ -298,24 +298,31 @@ cron.schedule('00 * * * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    guild.members.fetch({ user })
+                    await guild.members.fetch({ user })
                         .then(user => {
 
-                            console.log(`user = ${user}`)
+                            userId = user.slice(2, -1); 
+                            console.log(`userId = ${userId}`)
+
                             
-                            // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.name.toLowerCase()}`);
+                            console.log(`user.name = ${user.name}`)
+                            console.log(`user.username = ${user.username}`)
+                            console.log(`user.id = ${user.id}`)
+                            
+
+                            // // FETCHING USER'S TICKET CHANNEL IN GUILD
+                            // let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
 
-                            // GENERATE NOTICE EMBED
-                            let firstReminderTicketChEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedGrey)
-                                .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
+                            // // GENERATE NOTICE EMBED
+                            // let firstReminderTicketChEmbed = new discord.MessageEmbed()
+                            //     .setColor(config.embedGrey)
+                            //     .setDescription(`${config.botName} has sent **${user.name}** the reminder message.`)
 
 
-                            // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                            ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
-                                .catch(err => console.log(err))
+                            // // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                            // ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
+                            //     .catch(err => console.log(err))
                         })
                 })
         })
