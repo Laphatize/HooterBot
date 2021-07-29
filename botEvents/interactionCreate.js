@@ -1421,8 +1421,33 @@ module.exports = {
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
 
-                // DELETING TICKET CHANNEL
-                interaction.channel.delete()
+                // GENERATE EMBED TO NOTE PENDING DELETION
+                let initialDeletionEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`This channel will be deleted in 10s...`)
+                    .setFooter(`Why is this being used? To prevent issues with the database and the API. ✨The more you know... ✨`)
+
+
+                // SEND EMBED TO MOD/ADMIN CHANNEL - 10 SECONDS REMAIN
+                interaction.channel.send({embeds: [initialDeletionEmbed], components: [] })
+                    .catch(err => console.log(err))
+                    
+                    .then(msg => {
+                        // EDIT EMBED - 5 SECONDS REMAINING
+                        let halfwayDeletionEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`This channel will be deleted in 5s...`)
+                        .setFooter(`Why is this being used? To prevent issues with the database and the API. ✨The more you know... ✨`)
+
+                        client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
+
+                            // DELETING THE WHOLE CHANNEL - 0 SECONDS REMAINING
+                            .then( msg =>
+                                client.setTimeout(() => msg.channel.delete(), 5000 )
+                            )
+                            .catch(err => console.log(err))
+                            
+                    })
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
 
