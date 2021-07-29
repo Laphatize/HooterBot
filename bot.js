@@ -274,7 +274,7 @@ cron.schedule('00 * * * * *', async () => {
             guild.members.fetch(id)
                 .then(user => {
 
-                    // GENERATE REMINDER EMBED
+                    // GENERATE AND SEND REMINDER EMBED
                     let reminderEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setDescription(`Hi **${user}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
@@ -283,24 +283,20 @@ cron.schedule('00 * * * * *', async () => {
                         .setTimestamp()
 
                     user.send({embeds: [reminderEmbed] })
-                })
-                .then(user => {
 
-                    console.log(`user = ${user}`)
-
-                    // // FETCHING USER'S TICKET CHANNEL IN GUILD
-                    // let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+                    // FETCHING USER'S TICKET CHANNEL IN GUILD
+                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
 
 
-                    // // GENERATE NOTICE EMBED
-                    // let firstReminderTicketChEmbed = new discord.MessageEmbed()
-                    //     .setColor(config.embedGrey)
-                    //     .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
+                    // GENERATE NOTICE EMBED
+                    let firstReminderTicketChEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setDescription(`${config.botName} has sent **${user.username}** the reminder message.`)
 
 
-                    // // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                    // ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
-                    //     .catch(err => console.log(err))
+                    // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
+                    ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
+                        .catch(err => console.log(err))
                 })
         })
     }
