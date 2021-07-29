@@ -237,51 +237,59 @@ cron.schedule('00 59 07 * * *', async () => {
 
 
 
-// VERIFICATION TICKETS - FIRST REMINDER (3 DAYS AFTER STARTING)
+// VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
 // EVERY DAY AT 10:00AM EST
-cron.schedule('00 45 17 * * *', async () => {
-    console.log('Finding verification tickets that are 3 days old to send first reminder.');
+cron.schedule('00 * * * * *', async () => {
+    console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
-    // TODAY'S DATE
-    threeDaysAgo = moment(Date.now()).subtract(3, 'days').utcOffset(-4).format("dddd, MMMM DD")
+    // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
+    twoDaysOld = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD")
 
-    console.log(`threeDaysAgo = ${threeDaysAgo}`)
+    console.log(`twoDaysOld = ${twoDaysOld}`)
 
     // CHECK DATABASE FOR ENTRY
-    const dbBirthdayData = await birthdaySchema.find({
-        MONTH: yesterdayMonth,
-        DAY: yesterdayDay
+    const dbTicketData = await ticketSchema.find({
+        TICKET_CLOSE: twoDaysOld
     }).exec();
 
 
-    // if(dbBirthdayData) {
-
-    //     // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-    //     var result = []
+    console.log(`dbTicketData = ${dbTicketData}`)
 
 
-    //     // FOR LOOP TO GRAB ID'S OF YESTERDAY'S BIRTHDAYS FROM DATABASE
-    //     for(let i in dbBirthdayData) {
-    //         result.push(dbBirthdayData[i].USER_ID)
-    //     }
+    if(dbTicketData) {
+
+        // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
+        var result = []
 
 
-    //     // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
-    //     result.forEach( id => {
+        // FOR LOOP TO GRAB ID'S OF THE USERS WHO ARE GETTING DAY 2 REMINDERS
+        for(let i in dbTicketData) {
+            result.push(dbTicketData[i].CREATOR_ID)
+        }
 
-    //         // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-    //         guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
- 
 
-    //         // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-    //         bdayUser = guild.members.fetch(id)
-    //             .then(user => {
-    //                 bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
-                
-    //                 user.roles.remove(bdayRole)
-    //             })
-    //     })
-    // }
+        // THE "result" ARRAY HAS ALL THE IDs FOR USERS RECEIVING DAY 2 REMINDER
+        result.forEach( id => {
+
+            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+
+
+            // FETCH USER BY ID
+            const dmUser = guild.members.fetch(id)
+
+
+
+            let reminderEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setDescription(`Hi **${dmUser.username}**, this is an automated reminder message. If you have already submitted your verification proof and are awaiting a response, please disregard this message.
+                \nYou are receiving this reminder because your ticket will close automatically on **${twoDaysOld}**.
+                \nPlease let us know if you have any questions about verifying by sending a message here in DMs to the bot. If you are no longer interested in the verified role, please click the red **"Quit Verification"** button and confirm you want to close the ticket.\nThank you!`)
+
+
+            dmUser.send({embeds: [reminderEmbed] })
+        })
+    }
 }, {
     scheduled: true,
     timezone: "America/New_York"

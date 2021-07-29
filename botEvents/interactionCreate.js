@@ -172,7 +172,7 @@ module.exports = {
 
                     // GRABBING CURRENT DATE+TIME TO GENERATE CLOSE DATE AND REMINDER DATES
                     closeDate = moment(Date.now()).add(7, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
-                    FirstReminder = moment(Date.now()).add(3, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+                    FirstReminder = moment(Date.now()).add(2, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
                     SecondReminder = moment(Date.now()).add(6, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
 
                     // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
@@ -209,10 +209,10 @@ module.exports = {
                                 .addField(`User:`, `${interaction.user}`, true)
                                 .addField(`User Tag:`, `${interaction.user.tag}`, true)
                                 .addField(`User ID:`, `${interaction.user.id}`, true)
-                                .addField(`First Reminder:`, `${FirstReminder}`, true)
-                                .addField(`Second Reminder:`, `${SecondReminder}`, true)
+                                .addField(`Check-in Reminder:`, `${FirstReminder}`, true)
+                                .addField(`Close Notice Reminder:`, `${SecondReminder}`, true)
                                 .addField(`Ticket Auto-Close:`, `${closeDate}`, true)
-                                .setDescription(`**All messages** sent in this channel are sent to the user's DMs. Messages **cannot be edited or deleted** once sent. Bot commands will not work. Please do not send messages unless in response to a user.`)
+                                .setDescription(`**All messages** sent in this channel are sent to the user's DMs. **Messages cannot be edited or deleted once sent.** Bot commands will not work. Please do not send messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
