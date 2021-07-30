@@ -23,6 +23,7 @@
     "dependencies": {
         "discord.js": "^13.0.0-dev.4206e35.1626307444",
         "dotenv": "^10.0.0",
+        "glob": "^7.1.7",
         "leven": "^3.1.0",
         "moment": "^2.29.1",
         "mongoose": "^5.12.14",
