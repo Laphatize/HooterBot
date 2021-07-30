@@ -470,7 +470,7 @@ module.exports = {
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
 
 
-                // DMING USER THE QUIT CONFIRMATION             
+                // DMING USER THE TICKET CLOSE CONFIRMATION             
                 interaction.channel.send({embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
@@ -496,7 +496,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`**${interaction.user.username}** has closed this ticket early. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`**${interaction.user.username}** has closed this ticket early. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
 
 
                 // BUTTONS
@@ -655,7 +655,7 @@ module.exports = {
                     \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
 
 
-                // DMING USER THE QUIT CONFIRMATION             
+                // DMING USER THE TICKET CLOSE CONFIRMATION             
                 await dmUser.send({embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
@@ -680,7 +680,7 @@ module.exports = {
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`${config.emjORANGETICK} Verification Close Notice`)
-                    .setDescription(`**${interaction.user.username}** has closed this ticket early. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press "Do Not Close" to keep this channel.`)
+                    .setDescription(`**${interaction.user.username}** has closed this ticket early. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
 
 
                 // BUTTONS
