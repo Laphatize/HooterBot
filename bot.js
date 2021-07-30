@@ -438,21 +438,15 @@ cron.schedule('00 * * * * *', async () => {
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
             guildUser = guild.members.fetch(dbTicketData[i].CREATOR_ID)
+                .then(dmUser => {
 
-            console.log(`guildUser = ${guildUser}`)
+                    console.log(`dmUser = ${dmUser}`)
+
+                    let dmChannel = dmUser.createDM()
+
+                    console.log(`dmChannel = ${dmChannel}`)
         }
     
-            
-            // FETCHING USER
-            // guild.members.fetch(id)
-            //     .then(dmUser => {
-
-            //         console.log(`dmUser = ${dmUser}`)
-
-            //         let dmChannel = dmUser.createDM()
-
-            //         console.log(`dmChannel = ${dmc}`)
-
             //         dmChannel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
             //             .then(msg => {
                             
