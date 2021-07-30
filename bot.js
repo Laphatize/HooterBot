@@ -450,7 +450,11 @@ cron.schedule('00 * * * * *', async () => {
             guild.members.fetch(id)
                 .then(dmUser => {
 
+                    console.log(`dmUser = ${dmUser}`)
+
                     let dmChannel = dmUser.createDM()
+
+                    console.log(`dmChannel = ${dmChannel}`)
 
                     // dmChannel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
                     //     .then(msg => {
