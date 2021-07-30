@@ -9,6 +9,8 @@ const fs = require(`fs`)
 const pjson = require('../package.json');
 
 
+const helpFolder = require(`../COMMANDS/Fun`)
+
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
@@ -1528,11 +1530,11 @@ module.exports = {
             if(interaction.customId === 'help_fun') {
 
                 // GRABBING ALL "FUN" COMMANDS
-                fs.readdirSync(`../COMMANDS/Fun`).forEach(file => {
-                    const funCommands = fs.readdirSync(`../COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
+                fs.readdirSync(`./COMMANDS/Fun`).forEach(file => {
+                    const funCommands = fs.readdirSync(`./COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
 
                     const cmds = funCommands.map(command => {
-                        let file = require(`../COMMANDS/Fun/${command}`);
+                        let file = require(`./COMMANDS/Fun/${command}`);
 
                         // IF NO "FUN" COMMANDS FOUND
                         if(!file.name) {

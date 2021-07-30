@@ -12,7 +12,7 @@ module.exports = {
         
 
         // PARTIAL MESSAGE
-        if(message.partial) {
+        if (message.partial) {
             try {
                 await message.fetch()
             } catch (err) {
@@ -21,7 +21,7 @@ module.exports = {
         }
 
         // PARTIAL CHANNEL
-        if(message.channel.partial) {
+        if (message.channel.partial) {
             try {
                 await message.channel.fetch()
             } catch (err) {
@@ -146,7 +146,7 @@ module.exports = {
 
 
         // IF MESSAGE IS SENT IN A GUILD TICKET CHANNEL
-        if(message.channel.type == 'GUILD_TEXT' && message.channel.name.startsWith(`verify-`)) {
+        if (message.channel.type == 'GUILD_TEXT' && message.channel.name.startsWith(`verify-`)) {
 
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
@@ -218,6 +218,23 @@ module.exports = {
 
 
 
+        /****************************************************/
+        /*      SLASH COMMAND                               */
+        /****************************************************/
+
+        if (!client.application?.owner) await client.application?.fetch();
+
+        if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner.id) {
+            const data = {
+                name: 'ping',
+                description: 'Replies with Pong!',
+            };
+    
+            const command = await client.guilds.cache.get('530503548937699340')?.commands.create(data);
+            console.log(command);
+        }
+
+
 
 
 
@@ -225,7 +242,7 @@ module.exports = {
 
 
         // MESSAGE IS A COMMAND
-        if(message.content.startsWith(config.prefix)) {
+        if (message.content.startsWith(config.prefix)) {
 
             // GRABBING COMMAND NAME AND ARGUMENTS
             const args = message.content.slice(config.prefix.length).trim().split(/ +/);
@@ -240,6 +257,7 @@ module.exports = {
             if(!command) {
                 return;
             }
+            
 
 
 
@@ -340,7 +358,7 @@ module.exports = {
 
 
             // CHECKING USER ROLE REQUIREMENT
-            if(command.requiredRoles) {
+            if (command.requiredRoles) {
                 for (const requiredRole of command.requiredRoles) {
                     const role = message.guild.roles.cache.find((role) => role.name === requiredRole)
 
