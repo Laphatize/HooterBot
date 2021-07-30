@@ -15,7 +15,16 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        let helptext = `Here is a list of my commands you can use:\n\n**Sorry, this command is not working right now and is being reworked.**`;
+        let helpEmbed = new discord.MessageEmbed()
+            .setColor(config.embedBlurple)
+            .setTitle(`**Help:**`)
+            .setDescription(`Select a button below for the commands in that category.`)
+            // .setFooter(`(Crown = Need administrator permissions.)`)
+
+
+        return interaction.reply({
+            embeds: [helpembed],
+            ephemeral: true })
 
         // ADMIN COMMANDS
         // console.log(`AdminCmds:`)
