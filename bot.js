@@ -583,18 +583,19 @@ cron.schedule('00 * * * * *', async () => {
 
 
                     dmUser = client.users.fetch(dmUser.id)
+                        .then(dmUser => {
+                            console.log(`dmUser = ${dmUser}`)
+                            console.log(`dmUser.name = ${dmUser.name}`)
+                            console.log(`dmUser.username = ${dmUser.username}`)
 
-                    console.log(`dmUser = ${dmUser}`)
-                    console.log(`dmUser.name = ${dmUser.name}`)
-                    console.log(`dmUser.username = ${dmUser.username}`)
-
-                    // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                    // client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
-                    //     .then(msg => {
-                    //         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                    //         msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
-                    //     })
-                    //     .catch(err => console.log(err))                    
+                        // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+                        // client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                        //     .then(msg => {
+                        //         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        //         msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
+                        //     })
+                        //     .catch(err => console.log(err))
+                        })
                 })
         }
     }
