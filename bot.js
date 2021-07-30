@@ -517,7 +517,7 @@ cron.schedule('00 * * * * *', async () => {
                         //                 .catch(err => console.log(err))
                         //         })
                         //         .catch(err => console.log(err))
-                        // })
+                        })
                 })
 
 
