@@ -531,6 +531,8 @@ cron.schedule('00 * * * * *', async () => {
                         .setDescription(`${config.botName} has automatically closed this verification ticket since this ticket has been open for one full week.
                         \nAll the information for this ticket has been purged.
                         \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
+                        .setTimestamp()
+                        .setFooter(`This is an automated message.`)
 
 
                     // DMING USER THE TICKET CLOSE CONFIRMATION             
@@ -560,7 +562,6 @@ cron.schedule('00 * * * * *', async () => {
                         .setTitle(`${config.emjORANGETICK} Verification Window Expired`)
                         .setDescription(`**<@${config.botId}>** has automatically closed this ticket since it has been open for one full week. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
                         .setTimestamp()
-                        .setFooter(`This is an automated message.`)
 
 
                     // BUTTONS
