@@ -61,14 +61,14 @@ module.exports = {
         // })
 
 
-        // CREATING EMBED FOR RESPONSE        
-        let helpEmbed = new discord.MessageEmbed()
-            .setColor(config.embedBlurple)
-            .setTitle(`**Help:**`)
-            .setDescription(`${helptext}`)
-            .setFooter(`(Crown = Need administrator permissions.)`)
+        // // CREATING EMBED FOR RESPONSE        
+        // let helpEmbed = new discord.MessageEmbed()
+        //     .setColor(config.embedBlurple)
+        //     .setTitle(`**Help:**`)
+        //     .setDescription(`${helptext}`)
+        //     .setFooter(`(Crown = Need administrator permissions.)`)
         
-        // RESPONDING TO USER WITH COMMAND LIST
-        message.channel.send({ embeds: [helpEmbed] })
+        // // RESPONDING TO USER WITH COMMAND LIST
+        // message.channel.send({ embeds: [helpEmbed] })
     }
 }
