@@ -235,7 +235,7 @@ cron.schedule('00 59 07 * * *', async () => {
 
 // VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
 // EVERY DAY AT 10:00:00AM EST
-cron.schedule('00 * * * * *', async () => {
+cron.schedule('00 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
@@ -325,7 +325,7 @@ cron.schedule('00 * * * * *', async () => {
 
 // VERIFICATION TICKETS - CLOSE NOTICE TICKET 
 // EVERY DAY AT 10:00:30AM EST
-cron.schedule('30 * * * * *', async () => {
+cron.schedule('30 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
