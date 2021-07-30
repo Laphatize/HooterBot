@@ -1526,95 +1526,95 @@ module.exports = {
 
 
 
-            // HELP - FUN 
-            if(interaction.customId === 'help_fun') {
+            // // HELP - FUN 
+            // if(interaction.customId === 'help_fun') {
 
-                // GRABBING ALL "FUN" COMMANDS
-                fs.readdirSync(`./COMMANDS/Fun`).forEach(file => {
-                    const funCommands = fs.readdirSync(`./COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`./COMMANDS/Fun`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`./COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
 
-                    const cmds = funCommands.map(command => {
-                        let file = require(`./COMMANDS/Fun/${command}`);
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`./COMMANDS/Fun/${command}`);
 
-                        // IF NO "FUN" COMMANDS FOUND
-                        if(!file.name) {
-                            // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-                            return interaction.reply({
-                                content: `Sorry, ${config.botName} does not have any "Fun" commands built yet. Suggest some in <#829629595367374918>!`,
-                                ephemeral: true
-                            })
-                        }
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Fun" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
 
-                        let name = file.name.replace(`.js`, ``)
+            //             let name = file.name.replace(`.js`, ``)
 
-                        return `\`${name}\``;
-                    })
+            //             return `\`${name}\``;
+            //         })
 
-                    console.log(`cmds = ${cmds}`)
-                })
-
-
-
-                // await interaction.update({ embeds: [closeNoticeDisabled], ephemeral: true })
-            }
+            //         console.log(`cmds = ${cmds}`)
+            //     })
 
 
-            // HELP - HELP & INFO 
-            if(interaction.customId === 'help_helpinfo') {
 
-                // GRABBING ALL "FUN" COMMANDS
-                fs.readdirSync(`../COMMANDS/Help and Info`).forEach(file => {
-                    const funCommands = fs.readdirSync(`../COMMANDS/Help and Info/${file}`).filter(file => file.endsWith('.js'));
-
-                    const cmds = funCommands.map(command => {
-                        let file = require(`../COMMANDS/Help and Info/${command}`);
-
-                        // IF NO "FUN" COMMANDS FOUND
-                        if(!file.name) {
-                            // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-                            return interaction.reply({
-                                content: `Sorry, ${config.botName} does not have any "Help and Info" commands built yet. Suggest some in <#829629595367374918>!`,
-                                ephemeral: true
-                            })
-                        }
-
-                        let name = file.name.replace(`.js`, ``)
-
-                        return `\`${name}\``;
-                    })
-
-                    console.log(`cmds = ${cmds}`)
-                })
-            }
+            //     // await interaction.update({ embeds: [closeNoticeDisabled], ephemeral: true })
+            // }
 
 
-            // HELP - HELP & INFO 
-            if(interaction.customId === 'help_Misc') {
+            // // HELP - HELP & INFO 
+            // if(interaction.customId === 'help_helpinfo') {
 
-                // GRABBING ALL "FUN" COMMANDS
-                fs.readdirSync(`../COMMANDS/Miscellaneous`).forEach(file => {
-                    const funCommands = fs.readdirSync(`../COMMANDS/Miscellaneous/${file}`).filter(file => file.endsWith('.js'));
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`../COMMANDS/Help and Info`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`../COMMANDS/Help and Info/${file}`).filter(file => file.endsWith('.js'));
 
-                    const cmds = funCommands.map(command => {
-                        let file = require(`../COMMANDS/Miscellaneous/${command}`);
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`../COMMANDS/Help and Info/${command}`);
 
-                        // IF NO "FUN" COMMANDS FOUND
-                        if(!file.name) {
-                            // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-                            return interaction.reply({
-                                content: `Sorry, ${config.botName} does not have any "Miscellaneous" commands built yet. Suggest some in <#829629595367374918>!`,
-                                ephemeral: true
-                            })
-                        }
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Help and Info" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
 
-                        let name = file.name.replace(`.js`, ``)
+            //             let name = file.name.replace(`.js`, ``)
 
-                        return `\`${name}\``;
-                    })
+            //             return `\`${name}\``;
+            //         })
 
-                    console.log(`cmds = ${cmds}`)
-                })
-            }
+            //         console.log(`cmds = ${cmds}`)
+            //     })
+            // }
+
+
+            // // HELP - HELP & INFO 
+            // if(interaction.customId === 'help_Misc') {
+
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`../COMMANDS/Miscellaneous`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`../COMMANDS/Miscellaneous/${file}`).filter(file => file.endsWith('.js'));
+
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`../COMMANDS/Miscellaneous/${command}`);
+
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Miscellaneous" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
+
+            //             let name = file.name.replace(`.js`, ``)
+
+            //             return `\`${name}\``;
+            //         })
+
+            //         console.log(`cmds = ${cmds}`)
+            //     })
+            // }
 
 
 
