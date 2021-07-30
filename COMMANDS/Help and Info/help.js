@@ -1,4 +1,5 @@
 const discord = require('discord.js')
+const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require(`fs`)
 const config = require ('../../config.json')
 
@@ -18,57 +19,31 @@ module.exports = {
         let helpEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`**Help:**`)
-            .setDescription(`Select a button below for the commands in that category.`)
-            // .setFooter(`(Crown = Need administrator permissions.)`)
+            .setDescription(`Select a button below for information on commands in that category.`)
+
+        let FunButton = new MessageButton()
+            .setLabel("Fun")
+            .setStyle(`SECONDARY`)
+            .setCustomId("help_fun")
+        let HelpInfoButton = new MessageButton()
+            .setLabel("Help & Info")
+            .setStyle(`SECONDARY`)
+            .setCustomId("help_helpinfo")
+        let MiscButton = new MessageButton()
+            .setLabel("Miscellaneous")
+            .setStyle(`SECONDARY`)
+            .setCustomId("help_Misc")
 
 
-        return message.reply({
-            embeds: [helpEmbed],
-            ephemeral: true })
-
-        // ADMIN COMMANDS
-        // console.log(`AdminCmds:`)
-        // let AdminCmds = fs.readdirSync(AdminOnlyCmdsFolder).forEach(file => {
-        //     console.log(file)
-        // })
-
-
-        // // FUN COMMANDS
-        // console.log(`FunCmds:`)
-        // let FunCmds = fs.readdirSync(FunCmdsFolder).forEach(file => {
-        //     console.log(file)
-        // })
-
-
-        // // HELP & INFO COMMANDS
-        // console.log(`HelpCmds:`)
-        // let HelpCmds = fs.readdirSync(HelpInfoCmdsFolder).forEach(file => {
-        //     console.log(file)
-        // })
-
-
-        // // MISCELLANEOUS COMMANDS
-        // console.log(`MiscCmds:`)
-        // let MiscCmds = fs.readdirSync(MiscCmdsFolder).forEach(file => {
-        //     console.log(file)
-        // })
-
-
-        // // VERIFICATION COMMANDS
-        // console.log(`VerifCmds:`)
-        // let VerifCmds = fs.readdirSync(VerifCmdsFolder).forEach(file => {
-        //     console.log(file)
-        // })
-
-
-        // // CREATING EMBED FOR RESPONSE        
-        // let helpEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedBlurple)
-        //     .setTitle(`**Help:**`)
-        //     .setDescription(`${helptext}`)
-        //     .setFooter(`(Crown = Need administrator permissions.)`)
+        // BUTTON ROWS BASED ON ADMIN OR NOT
         
-        // // RESPONDING TO USER WITH COMMAND LIST
-        // message.channel.send({ embeds: [helpEmbed] })
+        let mainHelpRow = new MessageActionRow()
+            .addComponents(
+                FunButton,
+                HelpInfoButton,
+                MiscButton,
+            );
+
+        return message.reply({ embeds: [helpEmbed], components: [mainHelpRow] })
     }
 }
