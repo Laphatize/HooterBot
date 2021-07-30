@@ -448,7 +448,7 @@ cron.schedule('00 * * * * *', async () => {
             
             
             const dmUser = guild.members.fetch(id)
-
+            console.log(`dmUser = ${dmUser}`)
 
             dmUser.createDM()
                 .then(dmCh => {
