@@ -23,7 +23,7 @@ module.exports = {
 
 
         return message.reply({
-            embeds: [helpembed],
+            embeds: [helpEmbed],
             ephemeral: true })
 
         // ADMIN COMMANDS
