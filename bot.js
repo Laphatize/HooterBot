@@ -581,7 +581,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
                     // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                    client.channels.cache.find(ch => ch.name === ticketChannelName).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                    client.channels.cache.find(ch => ch.name === `verify-${dmUser.name.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                         .then(msg => {
                             // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                             msg.channel.setName(`closed-${dmUser.name.toLowerCase()}`)
