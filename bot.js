@@ -446,12 +446,13 @@ cron.schedule('00 * * * * *', async () => {
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
             
-            
+            // FETCHING USER
             const dmUser = guild.members.fetch(id)
-            console.log(`dmUser = ${dmUser}`)
 
             dmUser.createDM()
                 .then(dmCh => {
+
+                    console.log(`dmCh = ${dmCh}`)
 
                     // FETCH USER BY ID
                     initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
