@@ -22,7 +22,7 @@ module.exports = {
             // .setFooter(`(Crown = Need administrator permissions.)`)
 
 
-        return interaction.reply({
+        return message.reply({
             embeds: [helpembed],
             ephemeral: true })
 
