@@ -519,7 +519,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
                         // GRAB DATABASE ENTRY
-                        const dbAutoCloseTicketData = await ticketSchema.findOne({
+                        const dbAutoCloseTicketData = ticketSchema.findOne({
                             // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
                             CREATOR_ID: user.id
                         }).exec();
@@ -538,7 +538,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
                     // DELETING DATABASE ENTRY FOR USER
-                    await ticketSchema.deleteOne({
+                    ticketSchema.deleteOne({
                         CREATOR_ID: user.id
                     }).exec();
 
@@ -608,7 +608,6 @@ cron.schedule('00 * * * * *', async () => {
                             msg.channel.setName(`closed-${dmUsername.toLowerCase()}`)
                         })
                         .catch(err => console.log(err))
-
                 })
         })
     }
