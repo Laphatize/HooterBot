@@ -9,8 +9,6 @@ const fs = require(`fs`)
 const pjson = require('../package.json');
 
 
-const helpFolder = require(`../COMMANDS/Fun`)
-
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
