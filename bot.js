@@ -234,7 +234,7 @@ cron.schedule('00 59 07 * * *', async () => {
 
 
 // VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
-// EVERY DAY AT 10:00AM EST
+// EVERY DAY AT 10:00:00AM EST
 cron.schedule('00 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
@@ -306,7 +306,7 @@ cron.schedule('00 00 10 * * *', async () => {
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
-                                .setDescription(`${config.botName} has automatically sent **${user.username}** the initial reminder message in their DMs.`)
+                                .setDescription(`${config.botName} has automatically sent **${user.username}** the initial reminder message in their DMs because this ticket closes in 5 days.`)
 
 
                             // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
@@ -323,8 +323,8 @@ cron.schedule('00 00 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - CLOSE NOTICE TICKET 
-// EVERY DAY AT 10:00AM EST
-cron.schedule('00 * * * * *', async () => {
+// EVERY DAY AT 10:00:30AM EST
+cron.schedule('30 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
@@ -395,7 +395,7 @@ cron.schedule('00 * * * * *', async () => {
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
-                                .setDescription(`${config.botName} has automatically sent **${user.username}** the pending close notice in their DMs.`)
+                                .setDescription(`${config.botName} has automatically sent **${user.username}** the pending close notice in their DMs because this ticket closes **tomorrow**.`)
 
 
                             // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
