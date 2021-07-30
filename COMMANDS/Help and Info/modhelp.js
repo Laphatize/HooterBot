@@ -12,14 +12,15 @@ module.exports = {
     cooldown: 60,
     minArgs: 0,
     maxArgs: 0,
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_CHANNELS',
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
         let helpEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setTitle(`**Admin Help:**`)
+            .setTitle(`**Moderator Help:**`)
             .setDescription(`Select a button below for information on commands in that category.`)
+            .setFooter(`These buttons will not work right now.`)
 
         let ModOnlyButton = new MessageButton()
             .setLabel("Moderator")

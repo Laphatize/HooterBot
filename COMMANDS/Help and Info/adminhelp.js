@@ -20,6 +20,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`**Admin Help:**`)
             .setDescription(`Select a button below for information on commands in that category.`)
+            .setFooter(`These buttons will not work right now.`)
 
         let AdminOnlyButton = new MessageButton()
             .setLabel("Admin")
