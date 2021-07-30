@@ -4,11 +4,11 @@ const config = require('../../config.json');
 
 module.exports = {
     name: `setticketcategory`,
-    aliases: [`setcategory`, `ticketcategory`, `ticketcat`, `verifcategory`],
+    aliases: [`setcategory`],
     description: `(${config.emjAdmin}) Manually set the category where verification tickets are created.`,
     category: `Verification`,
     expectedArgs: '<Category name>',
-    cooldown: -1,
+    cooldown: 15,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',
@@ -18,19 +18,26 @@ module.exports = {
         // DELETING INVOCATION MESSAGE
         client.setTimeout(() => message.delete(), 0 );
 
+
+        // GRABBING FULL ARGS
+        const combinedArgs = arguments.join(' ')
+
         
         let categoryChanger = message.author;
 
-        const category = message.guild.channels.cache.find(ch => ch.type == "category" && ch.name.toLowerCase() == arguments[0].toLowerCase());
+        const category = message.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.name.toLowerCase() == combinedArgs.toLowerCase());
         
 
         // IF NO CATEGORY PROVIDED
         if(!category) {
             let noCatEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.)`)
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Please make sure the name provided is a category that exists.`)
 
             return message.channel.send({embeds: [noCatEmbed]})
+            // DELETE AFTER 10 SECONDS
+                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .catch(err => console.log(err))
         }
 
 
@@ -50,22 +57,25 @@ module.exports = {
         // DEFINING UPDATE EMBED
         let catUpdateEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name}\`\`.`)
+            .setTitle(`${config.emjGREENTICK} The category has been set to \`\`${category.name.toUpperCase()}\`\`.`)
 
 
         // SENDING EMBED
         message.channel.send({embeds: [catUpdateEmbed]})
+            // DELETE AFTER 10 SECONDS
+            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+            .catch(err => console.log(err))
 
 
         // DEFINING LOG EMBED
         let logTicketCatUpdateEmbed = new discord.MessageEmbed()
-        .setColor(config.embedDarkGrey)
-        .setTitle(`Ticket Category Updated`)
-        .setDescription(`**New ticket category:** \`\`${category.name}\`\`\n**Changed by:** ${categoryChanger}`)
-        .setTimestamp()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`Ticket Category Updated`)
+            .setDescription(`**New ticket category:** \`\`${category.name.toUpperCase()}\`\`\n**Changed by:** ${categoryChanger}`)
+            .setTimestamp()
         
         
         // LOG ENTRY
-        client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+        message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
     }
 }

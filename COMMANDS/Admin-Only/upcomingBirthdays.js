@@ -16,7 +16,7 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        message.channe.send(`This command is not operational at this time.`)
+        message.channe.send(`This command is not operational at this time. Poke MMM about it.`)
 
         // // GRABBING USER ID FROM ARGS
         // let bdayUserId = arguments[0];

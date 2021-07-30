@@ -8,7 +8,7 @@ module.exports = {
     description: `Generates a list of current server staff for the Temple University Discord server.`,
     category: `Administrator`,
     expectedArgs: '',
-    cooldown: 10,
+    cooldown: 15,
     minArgs: 0,
     maxArgs: 0,
     permissions: 'ADMINISTRATOR',    // ADMINISTRATOR - off for testing
@@ -29,17 +29,20 @@ module.exports = {
         let rules = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle('**Rules**')
-            .addField(`1. Communicate in English`, `All communication within the server needs to be in English.`)
-            .addField(`2. Be respectful of all members`, `We have zero tolerance for discriminatory rhetoric, racism, sexism, homophobia, transphobia, or any other kind of offensive language. The use of inappropriate language and profanity should be kept to a minimum. Derogatory language and slurs are prohibited. This includes usernames, nicknames, and statuses`)
-            .addField(`3. No spam, mention spamming, or ghost pinging`, `This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.`)
-            .addField(`4. Keep channels on-topic`, `If discussion is not relevant to the channel, consider taking it to <#829409161581821997> or <#829409161581822000>. All memes must go in <#829409161581821999>. Mods reserve the right to delete messages that do not fit the channel subject.`)
-            .addField(`5. No NSFW material or discussions that may cause hostility`, `Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion or anything that may cause hostility are prohibited.`)
-            .addField(`6. No advertising`, `This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>. DM advertising is strictly prohibited and will result in an immediate ban.`)
-            .addField(`7. No server raiding`, `Discussion of raids or participating in raids is not allowed.`)
-            .addField(`8. Abide by Discord's Community Guidelines and Terms of Service (ToS)`, `[Community Guidelines](https://discord.com/guidelines) & [Terms of Service](https://discord.com/terms)`)
-            .addField(`9. Moderator and Admin decisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`)
-            .addField(`10. Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`)
+            .setDescription(`By participating in this server, you agree to comply with these rules regardless if you have read them in their entirety.
+            \n**1. Communicate in English**\n > All communication within the server needs to be in English. 
+            \n**2. Be respectful of all members**\n > We have zero tolerance for discriminatory rhetoric, racism, sexism, homophobia, transphobia, or any other kind of offensive language. The use of inappropriate language and profanity should be kept to a minimum. Derogatory language and slurs are prohibited. This includes usernames, nicknames, and statuses
+            \n**3. No spam, mention spamming, or ghost pinging**\n > This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.
+            \n**4. Keep channels on-topic**\n > If discussion is not relevant to the channel, consider taking it to <#829409161581821997> or <#829409161581822000>. All memes must go in <#829409161581821999>. Mods reserve the right to delete messages that do not fit the channel subject.
+            \n**5. No NSFW material or discussions that may cause hostility**\n > Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion or anything that may cause hostility are prohibited.
+            \n**6. No advertising**\n > This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>, though these are still subject to moderator discretion. DM advertising is strictly prohibited and will result in an immediate ban.
+            \n**7. No server raiding**\n > Discussion of raids or participating in raids is not allowed.
+            \n**8. Abide by Discord's Community Guidelines and Terms of Service (ToS)**\n > • [Community Guidelines](https://discord.com/guidelines)\n > • [Terms of Service](https://discord.com/terms)
+            \n**9. Moderator and Admin decisions are final**\n > Decisions are made at the moderation team's discretion based on evidence and context of a situation.
+            \n**10. Multiple warnings will result in mutes and eventual bans**\n > The admins and moderators reserve discretion in expediting this process based on the severity of a situation.
+            `)
 
+            
         // SERVER STAFF EMBED
         let serverStaffList = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
@@ -57,14 +60,16 @@ module.exports = {
 
         // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
         if(!dbData.RULES_MSG_ID) {
+            
             // POSTING EMBEDS
-            await message.channel.send({embeds: [rules, serverStaffList, ModmailHelp ] })
+            await message.channel.send({ embeds: [rules, serverStaffList, ModmailHelp] })
                 .catch(err => console.log(err))
 
                 // GETTING MESSAGE ID OF ticketEmbed
                 .then(sentEmbed => {
                     rulesEmbedMsgId = sentEmbed.id;
                 })
+
 
             // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
@@ -73,23 +78,26 @@ module.exports = {
                 GUILD_ID: message.guild.id
             },{
                 // CONTENT TO BE UPDATED
-                RULES_CH_ID: message.channel.id,
                 RULES_MSG_ID: rulesEmbedMsgId
             },{ 
                 upsert: true
-            })
+            }).exec();
+
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} New Rules posted - details saved to database for updating.`)
+                .setTimestamp()
+
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;
         }
+
 
         // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
         if(dbData.RULES_MSG_ID) {
@@ -97,17 +105,20 @@ module.exports = {
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
             await message.channel.messages.fetch(dbData.RULES_MSG_ID)
                 .then(msg => {
-                    msg.edit({embeds: [rules, serverStaffList, ModmailHelp ] })
+                    msg.edit({ embeds: [rules, serverStaffList, ModmailHelp] })
                 })
                 .catch(err => console.log(err))
+
 
             // DEFINING LOG EMBED
             let logRulesIDEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Rules embed updated.`)
+                .setTimestamp()
+
 
             // LOG ENTRY
-            client.channels.cache.get(config.logActionsChannelId).send({embeds: [logRulesIDEmbed]})
+            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
 
             return;

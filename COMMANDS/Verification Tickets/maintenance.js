@@ -9,7 +9,7 @@ module.exports = {
     description: `(Normally ${config.emjAdmin}, but not for testing) Toggles the verification prompt on or off for maintenance mode.`,
     category: `Verification`,
     expectedArgs: '<"on" = maintenance | "off" = regular use>',
-    cooldown: -1,
+    cooldown: 10,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',
@@ -40,7 +40,7 @@ module.exports = {
             // DELETE AFTER 10 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
-                return
+            return
         }
 
         // IF VERIFICATION PROMPT EXISTS
@@ -55,23 +55,29 @@ module.exports = {
                 let ticketMaintenanceEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Get verified!**`)
-                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.
+                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.
                     \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**`)
 
 
                 // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
                 let VerifButtonMaintenance = new MessageButton()
-                .setLabel(`Begin Verification`)
-                .setStyle(`SECONDARY`)
-                .setCustomId(`begin_verification_button_disabld`)
-                .setDisabled(true)
+                    .setLabel(`Begin Verification`)
+                    .setStyle(`SECONDARY`)
+                    .setCustomId(`begin_verification_button_disabld`)
+                    .setDisabled(true)
+                let DataPrivacyButton = new MessageButton()
+                    .setLabel(`Data & Privacy Info`)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`dataPrivacy_Roles`)
+                    .setDisabled(false)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
-                .addComponents(
-                    VerifButtonMaintenance
-                );
+                    .addComponents(
+                        VerifButtonMaintenance,
+                        DataPrivacyButton
+                    );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
@@ -83,13 +89,13 @@ module.exports = {
                 
                 // DEFINING LOG EMBED
                 let logTicketCatUpdateEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedDarkGrey)
+                    .setColor(config.embedOrange)
                     .setTitle(`Verification Embed Update`)
                     .setDescription(`**Maintenance mode:** \`\` ON \`\`\n**Ticket status:** Tickets **cannot** be created until maintenance mode is turned off.\n**Changed by:** ${verifChanger}`)
                     .setTimestamp()
                     
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
                     .catch(err => console.log(err))
             }
 
@@ -97,42 +103,47 @@ module.exports = {
             // MAINTENANCE MODE "OFF"
             if(verifStatus == "off") {
                 let ticketEmbed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
-                .setTitle(`**Get verified!**`)
-                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. Make sure you allow DMs from members of the server.`)
-                .setFooter(`Note: The contents of tickets are permanently deleted when tickets are closed. Please submit a ModMail ticket if you have any questions.`)
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`**Get verified!**`)
+                    .setDescription(`A ticket will open in your DMs when youclick the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
+                    .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
 
 
                 // INITIALIZING MAINTENANCE BUTTON - ENABLED
                 let VerifButton = new MessageButton()
-                .setLabel(`Begin Verification`)
-                .setStyle(`SUCCESS`)
-                .setCustomId(`begin_verification_button`)
+                    .setLabel(`Begin Verification`)
+                    .setStyle(`SUCCESS`)
+                    .setCustomId(`begin_verification_button`)
+                let DataPrivacyButton = new MessageButton()
+                    .setLabel(`Data & Privacy Info`)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`dataPrivacy_Roles`)
 
 
                 // BUTTON ROW
                 let buttonRow = new MessageActionRow()
-                .addComponents(
-                    VerifButton
-                );
+                    .addComponents(
+                        VerifButton,
+                        DataPrivacyButton
+                    );
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
-                .then(msg => {
-                    msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
-                })
-                .catch(err => console.log(err))
+                    .then(msg => {
+                        msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
+                    })
+                    .catch(err => console.log(err))
 
                 // DEFINING LOG EMBED
                 let logTicketCatUpdateEmbed = new discord.MessageEmbed()
-                .setColor(config.embedDarkGrey)
-                .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
-                .setTimestamp()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Verification Embed Update`)
+                    .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
+                    .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.get(config.logActionsChannelId).send({embeds: [logTicketCatUpdateEmbed]})
+                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed]})
             }
         }
     }

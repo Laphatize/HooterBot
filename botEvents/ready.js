@@ -1,6 +1,5 @@
 const config = require ('../config.json');
 const db = require('../Utilities/mongo');
-const messageCreate = require('./messageCreate');
 
 module.exports = {
 	name: 'ready',

@@ -3,7 +3,7 @@ const config = require('../../config.json')
 
 module.exports = {
     name: `link`,
-    aliases: [`links`, `usefullink`],
+    aliases: [`links`, `usefullink`, `usefullinks`],
     description: `Generates a link to a Temple resource.`,
     category: `Miscellaneous`,
     expectedArgs: '<title or site name> (use "all" to generate available list)',

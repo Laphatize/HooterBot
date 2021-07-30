@@ -1,8 +1,10 @@
 {
-    "buildDate": "15 July 2021",
+    "buildDate": "30 July 2021",
     "prefix": "$",
     "botName": "HooterBot",
+    "botId": "857010679286595629",
     "botAuthor": "MrMusicMan789#0789",
+    "botAuthorUsername": "MrMusicMan789",
     "botAuthorId": "472185023622152203",
     "embedBlue": "#008eaa",
     "embedBlurple": "#5865F2",
@@ -29,20 +31,6 @@
     "emjHooter2": "<:Hooter2:860765991939211285>",
     "emjVerified": "<:verified:856359139205447711>",
     "indent": "<:indent_space:862214213749440523>",
-
-    "logActionsChannelId": "857106515156140062",
-    "logTranscriptsId": "857106503438041108",
-    "serverAnnouncementsId": "861737097475653632",
-    "botchannelId": "829685931501027359",
-    "joinsChannelId": "860610633417621504",
-    "rolesChannelId": "861394354034704396",
-    "introductionsChannelId": "860610633417621504",
-    "questionsChannelId": "829629693929586729",
-    "rulesChannelId": "862851733297561681",
-
-    "modRoleId": "863645415458865163",
-    "adminRoleId": "588107993153929248",
-    "verifiedRoleID": "863507579480703017",
 
     "ModMailId": "575252669443211264"
 }    

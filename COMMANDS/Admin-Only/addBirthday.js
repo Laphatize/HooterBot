@@ -9,7 +9,7 @@ module.exports = {
     description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     category: `Administrator`,
     expectedArgs: '<User_ID> ## / ##  [month / day]',
-    cooldown: 30,
+    cooldown: 10,
     minArgs: 1,
     maxArgs: 1,
     permissions: 'ADMINISTRATOR',
@@ -35,14 +35,14 @@ module.exports = {
 
 
         // CHECK THAT THE USER EXISTS IN THE GUILD
-        if(!message.guild.members.cache.get(bdayUserId)) {
-            let bdayUseDNEEmbed = new discord.MessageEmbed()
+        if(!message.guild.members.fetch(bdayUserId)) {
+            let bdayUserDNEEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
                 .setDescription(`That user does not exist in this server. Please try another user ID`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [bdayUseDNEEmbed]})
+            message.channel.send({embeds: [bdayUserDNEEmbed]})
                 // DELETE AFTER 5 SECONDS
                 .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
@@ -156,9 +156,9 @@ module.exports = {
 
         // LOG DATABASE INFORMATION FOR BIRTHDAY
         await birthdaySchema.findOneAndUpdate({
-            USER_ID: message.author.id
+            USER_ID: bdayUserId
         },{
-            USER_ID: message.author.id,
+            USER_ID: bdayUserId,
             MONTH: month,
             DAY: day
         },{

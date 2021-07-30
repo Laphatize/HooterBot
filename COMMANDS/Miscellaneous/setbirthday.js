@@ -9,7 +9,7 @@ module.exports = {
     description: `A command to set your birthday so HooterBot can announce it in the server.`,
     category: `Miscellaneous`,
     expectedArgs: '## / ##  [month / day]',
-    cooldown: 10,
+    cooldown: 60,
     minArgs: 1,
     maxArgs: 1,
     permissions: '',
