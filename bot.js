@@ -445,6 +445,7 @@ cron.schedule('00 * * * * *', async () => {
                     let dmChannel = dmUser.createDM()
 
                     console.log(`dmChannel = ${dmChannel}`)
+                })
         }
     
             //         dmChannel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
