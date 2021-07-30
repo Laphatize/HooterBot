@@ -729,7 +729,7 @@ module.exports = {
                     .setDescription(`**1.** Hold your TUid card up next to your screen with Discord open.
                         \n**2.** Take a picture of your card and Discord screen. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
-                        \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
+                        \n**3.** Reply to this message below with the picture as an attachment <:AttachmentIcon:870727871646289970>. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
@@ -802,7 +802,7 @@ module.exports = {
                     .setDescription(`**1.** Open [TUportal](https://tuportal5.temple.edu/). From the \`\`Home\`\` tab, look in the "TUAPPLICATIONS" section for the "Get My TUid" link.
                         \n**2.** Put the window showing your virtual TUid next to Discord and take a screenshot or picture. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
-                        \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
+                        \n**3.** Reply to this message below with the picture as an attachment <:AttachmentIcon:870727871646289970>. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
@@ -875,7 +875,7 @@ module.exports = {
                     .setDescription(`**1.** Open [TUportal](https://tuportal5.temple.edu/). From the \`\`Student Tools\`\` tab, look for the "Student Dashboard" section.
                         \n**2.** Put the window showing the student dashbaord next to Discord and take a screenshot or picture. Make sure the bottom-left corner of Discord is visible so your avatar, username, and tag are visible.
                         ***Note:** If you have a custom status, you'll need to hover your mouse over the area so your tag is visible.*
-                        \n**3.** Reply to this message below with the picture as an attachment. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
+                        \n**3.** Reply to this message below with the picture as an attachment <:AttachmentIcon:870727871646289970>. **Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
