@@ -510,11 +510,12 @@ cron.schedule('00 * * * * *', async () => {
 
 
                         // FETCH USER BY ID
-                        initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
-                                .then(msg => {            
-                                    // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                    msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
-                                })
+                        dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                            .then(msg => {            
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                            })
+                            .catch(err => console.log(err))
                     })
             })
 
