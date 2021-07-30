@@ -437,6 +437,7 @@ module.exports = {
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                    .catch(err => console.log(err))
                             })
                     
 

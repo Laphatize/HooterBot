@@ -453,67 +453,67 @@ cron.schedule('00 * * * * *', async () => {
                     dmUser.createDM()
                         .then(dmCh => {
 
-                            // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
-                            let ticketOpenEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedTempleRed)
-                            .setTitle(`**Verification - Ticket Opened**`)
-                            .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
-                                \nThere are three ways you can verify you are a student or employee:
-                                \n${config.indent}**1.** Use a physical TUid card
-                                \n${config.indent}**2.** Use a virtual TUid card
-                                \n${config.indent}**3.** Using TUportal
-                                \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#829417860820238356>.`)
+                            initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                                .then(msg => {
+
+                                    // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
+                                    let ticketOpenEmbed = new discord.MessageEmbed()
+                                        .setColor(config.embedTempleRed)
+                                        .setTitle(`**Verification - Ticket Opened**`)
+                                        .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                                            \nThere are three ways you can verify you are a student or employee:
+                                            \n${config.indent}**1.** Use a physical TUid card
+                                            \n${config.indent}**2.** Use a virtual TUid card
+                                            \n${config.indent}**3.** Using TUportal
+                                            \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#829417860820238356>.`)
 
 
-                            // INITIALIZING BUTTONS - ALL DISABLED
-                            let TUidCardButtonDisabled = new MessageButton()
-                                .setLabel("Physical TUid Card")
-                                .setStyle("SECONDARY")
-                                .setCustomId("physical_TUid_Card")
-                                .setDisabled(true)
-                            let VirtualTUidCardButtonDisabled = new MessageButton()
-                                .setLabel("Virtual TUid Card")
-                                .setStyle("SECONDARY")
-                                .setCustomId("virtual_TUid_Card")
-                                .setDisabled(true)
-                            let TuPortalButtonDisabled = new MessageButton()
-                                .setLabel("TUportal")
-                                .setStyle("SECONDARY")
-                                .setCustomId("TU_portal")
-                                .setDisabled(true)
-                            let InfoButtonDisabled = new MessageButton()
-                                .setLabel("Data & Privacy Info")
-                                .setStyle("PRIMARY")
-                                .setCustomId("Data_Privacy")
-                                .setDisabled(true)
-                            let QuitButtonDisabled = new MessageButton()
-                                .setLabel("Quit Verification")
-                                .setStyle("DANGER")
-                                .setCustomId("quit")
-                                .setDisabled(true)
+                                    // INITIALIZING BUTTONS - ALL DISABLED
+                                    let TUidCardButtonDisabled = new MessageButton()
+                                        .setLabel("Physical TUid Card")
+                                        .setStyle("SECONDARY")
+                                        .setCustomId("physical_TUid_Card")
+                                        .setDisabled(true)
+                                    let VirtualTUidCardButtonDisabled = new MessageButton()
+                                        .setLabel("Virtual TUid Card")
+                                        .setStyle("SECONDARY")
+                                        .setCustomId("virtual_TUid_Card")
+                                        .setDisabled(true)
+                                    let TuPortalButtonDisabled = new MessageButton()
+                                        .setLabel("TUportal")
+                                        .setStyle("SECONDARY")
+                                        .setCustomId("TU_portal")
+                                        .setDisabled(true)
+                                    let InfoButtonDisabled = new MessageButton()
+                                        .setLabel("Data & Privacy Info")
+                                        .setStyle("PRIMARY")
+                                        .setCustomId("Data_Privacy")
+                                        .setDisabled(true)
+                                    let QuitButtonDisabled = new MessageButton()
+                                        .setLabel("Quit Verification")
+                                        .setStyle("DANGER")
+                                        .setCustomId("quit")
+                                        .setDisabled(true)
 
-                            // DISABLED BUTTON ROWS
-                            let initialButtonRowDisabled = new MessageActionRow()
-                                .addComponents(
-                                    TUidCardButtonDisabled,
-                                    VirtualTUidCardButtonDisabled,
-                                    TuPortalButtonDisabled
-                                );
+                                    // DISABLED BUTTON ROWS
+                                    let initialButtonRowDisabled = new MessageActionRow()
+                                        .addComponents(
+                                            TUidCardButtonDisabled,
+                                            VirtualTUidCardButtonDisabled,
+                                            TuPortalButtonDisabled
+                                        );
 
-                            let secondButtonRowDisabled = new MessageActionRow()
-                                .addComponents(
-                                    InfoButtonDisabled,
-                                    QuitButtonDisabled
-                                );
+                                    let secondButtonRowDisabled = new MessageActionRow()
+                                        .addComponents(
+                                            InfoButtonDisabled,
+                                            QuitButtonDisabled
+                                        );
 
 
-                            // FETCH INITIAL DM MESSAGE FROM BOT
-                            dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
-                                .then((message) => {
                                     // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                    return message.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                    msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                        .catch(err => console.log(err))
                                 })
-                                .catch(err => console.log(err))
                         })
                 })
 
