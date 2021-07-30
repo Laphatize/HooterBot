@@ -445,27 +445,105 @@ cron.schedule('00 * * * * *', async () => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            
+            
+            const dmUser = await guild.members.fetch(id)
 
 
-            // FETCH USER BY ID
-            client.users.fetch(id)
-                .then(user => {
-                    // FETCHING USER'S TICKET CHANNEL IN GUILD
-                    let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+            dmUser.createDM()
+                .then(dmCh => {
+
+                    // FETCH USER BY ID
+                    initialDmMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                            .then(msg => {
+                                            
+                                // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
+                                let ticketOpenEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedTempleRed)
+                                    .setTitle(`**Verification - Ticket Opened**`)
+                                    .setDescription(`Thanks for wanting to verify in the <:TempleT:857293539779018773> **Temple University server**.
+                                        \nThere are three ways you can verify you are a student or employee:
+                                        \n${config.indent}**1.** Use a physical TUid card
+                                        \n${config.indent}**2.** Use a virtual TUid card
+                                        \n${config.indent}**3.** Using TUportal
+                                        \n\nThis ticket has been **closed**. If you have not completed verification, you may open a new verification ticket in <#829417860820238356>.`)
 
 
-                    // GENERATE NOTICE EMBED
-                    let ticketClosedNoticeEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGrey)
-                        .setTitle(`This ticket is 1 week old and needs to be closed.`)
-                        .setDescription(`${config.botName} has determined this channel should be closed today if the user has not started verification.
-                        \n\nPlease use this special quit button to close this ticket.`)
+                                // INITIALIZING BUTTONS - ALL DISABLED
+                                let TUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Physical TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("physical_TUid_Card")
+                                    .setDisabled(true)
+                                let VirtualTUidCardButtonDisabled = new MessageButton()
+                                    .setLabel("Virtual TUid Card")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("virtual_TUid_Card")
+                                    .setDisabled(true)
+                                let TuPortalButtonDisabled = new MessageButton()
+                                    .setLabel("TUportal")
+                                    .setStyle("SECONDARY")
+                                    .setCustomId("TU_portal")
+                                    .setDisabled(true)
+                                let InfoButtonDisabled = new MessageButton()
+                                    .setLabel("Data & Privacy Info")
+                                    .setStyle("PRIMARY")
+                                    .setCustomId("Data_Privacy")
+                                    .setDisabled(true)
+                                let QuitButtonDisabled = new MessageButton()
+                                    .setLabel("Quit Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit")
+                                    .setDisabled(true)
+
+                                // DISABLED BUTTON ROWS
+                                let initialButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
+                                        TUidCardButtonDisabled,
+                                        VirtualTUidCardButtonDisabled,
+                                        TuPortalButtonDisabled
+                                    );
+
+                                let secondButtonRowDisabled = new MessageActionRow()
+                                    .addComponents(
+                                        InfoButtonDisabled,
+                                        QuitButtonDisabled
+                                    );
 
 
-                    // SEND MESSAGE IN TICKET CHANNEL
-                    ticketChannel.send({embeds: [ticketClosedNoticeEmbed]})
-                        .catch(err => console.log(err))
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                            })
+
                 })
+
+
+
+
+
+
+
+
+
+
+
+
+                //     // FETCHING USER'S TICKET CHANNEL IN GUILD
+                //     let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
+
+
+                //     // GENERATE NOTICE EMBED
+                //     let ticketClosedNoticeEmbed = new discord.MessageEmbed()
+                //         .setColor(config.embedGrey)
+                //         .setTitle(`This ticket is 1 week old and needs to be closed.`)
+                //         .setDescription(`${config.botName} has determined this channel should be closed today if the user has not started verification.
+                //         \n\nPlease use this special quit button to close this ticket.`)
+
+
+                //     // SEND MESSAGE IN TICKET CHANNEL
+                //     ticketChannel.send({embeds: [ticketClosedNoticeEmbed]})
+                //         .catch(err => console.log(err))
+                // })
         })
     }
 }, {
