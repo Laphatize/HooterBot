@@ -1614,13 +1614,5 @@ module.exports = {
             //     })
             // }
         }
-
-
-    
-        if (!interaction.isCommand()) return;
-
-        if (interaction.commandName === 'ping') {
-            await interaction.reply('Pong! HEY LOOK, MY FIRST SLASH COMMAND! YIPEEEEE');
-        }
 	},
 };

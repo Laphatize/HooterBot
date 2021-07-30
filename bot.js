@@ -41,6 +41,7 @@ client.login(process.env.HB_BOT_TOKEN);
 
 // COLLECTIONS
 client.commands = new discord.Collection();
+client.slashcommands = new discord.Collection();
 client.cooldowns = new discord.Collection();
 
 
@@ -81,7 +82,7 @@ for (const folder of cmdFolders) {
 
 
 /***********************************************************/
-/*      INTERACTION HANDLER                                    */
+/*      INTERACTION HANDLER                                */
 /***********************************************************/
 
 
