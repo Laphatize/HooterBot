@@ -450,9 +450,7 @@ cron.schedule('00 * * * * *', async () => {
             guild.members.fetch(id)
                 .then(dmUser => {
 
-                    dmChannel = dmUser.createDM()
-
-                    initialDmMsg = dmChannel.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+                    initialDmMsg = dmUser.createDM().messages.fetch(dbTicketData.DM_INITIALMSG_ID)
 
                         // COPY OF THE INITIAL EMBED MESSAGE SO BUTTONS CAN BE DISABLED
                         let ticketOpenEmbed = new discord.MessageEmbed()
