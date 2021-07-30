@@ -582,8 +582,11 @@ cron.schedule('00 * * * * *', async () => {
                     );
 
 
+                    dmUser = client.users.fetch(dmUser.id)
+
                     console.log(`dmUser = ${dmUser}`)
-                    console.log(`dmUser.id = ${dmUser.id}`)
+                    console.log(`dmUser.name = ${dmUser.name}`)
+                    console.log(`dmUser.username = ${dmUser.username}`)
 
                     // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
                     // client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
