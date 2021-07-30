@@ -240,6 +240,7 @@ cron.schedule('00 * * * * *', async () => {
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
     fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    console.log(`5 days from today: ${moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")}`)
 
 
     // CHECK DATABASE FOR ENTRY
@@ -329,6 +330,7 @@ cron.schedule('30 * * * * *', async () => {
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
     oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    console.log(`1 day from today: ${moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")}`)
 
 
     // CHECK DATABASE FOR ENTRY
