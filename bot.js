@@ -518,7 +518,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
                     // DELETING DATABASE ENTRY
-                    await ticketSchema.deleteOne({
+                    ticketSchema.deleteOne({
                         CREATOR_ID: dmUser.id
                     }).exec();
 
@@ -534,7 +534,7 @@ cron.schedule('00 * * * * *', async () => {
 
 
                     // DMING USER THE TICKET CLOSE CONFIRMATION             
-                    await dmUser.send({embeds: [ticketClosedConfirmEmbed]})
+                    dmUser.send({embeds: [ticketClosedConfirmEmbed]})
                         .catch(err => console.log(err))
 
 
