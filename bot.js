@@ -447,7 +447,7 @@ cron.schedule('00 * * * * *', async () => {
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
             
             
-            const dmUser = await guild.members.fetch(id)
+            const dmUser = guild.members.fetch(id)
 
 
             dmUser.createDM()
