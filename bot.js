@@ -508,14 +508,16 @@ cron.schedule('00 * * * * *', async () => {
 
 
                             // FETCH INITIAL DM MESSAGE FROM BOT
-                            dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
-                                .then( message => {
-                                    // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                    return message.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
-                                        .catch(err => console.log(err))
-                                })
-                                .catch(err => console.log(err))
-                        })
+                            let initialMsg = dmCh.messages.fetch(dbTicketData.DM_INITIALMSG_ID)
+
+                            console.log(`initialMsg = ${initialMsg}`)
+                        //         .then( message => {
+                        //             // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                        //             return message.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                        //                 .catch(err => console.log(err))
+                        //         })
+                        //         .catch(err => console.log(err))
+                        // })
                 })
 
 
