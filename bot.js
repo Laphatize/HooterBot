@@ -528,7 +528,7 @@ cron.schedule('00 * * * * *', async () => {
                     let ticketClosedConfirmEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`**${config.emjORANGETICK} Ticket Closed.**`)
-                        .setDescription(`${config.botName} has automatically closed this verification ticket as this ticket has been opened for one week.
+                        .setDescription(`${config.botName} has automatically closed this verification ticket since this ticket has been open for one full week.
                         \nAll the information for this ticket has been purged.
                         \nIf you wish to verify at a later time, please open a new ticket using the prompt in <#829417860820238356>.`)
 
@@ -545,7 +545,7 @@ cron.schedule('00 * * * * *', async () => {
                         .addField(`User:`, `${dmUser}`, true)
                         .addField(`User ID:`, `${dmUser.id}`, true)
                         .addField(`Verified?`, `\`\` NO \`\``, true)
-                        .addField(`Ticket closed by:`, `${config.botName} *(automatically)*`)
+                        .addField(`Ticket closed by:`, `<@${config.botId}> *(automatically)*`)
                         .setTimestamp()
                     
 
@@ -558,7 +558,7 @@ cron.schedule('00 * * * * *', async () => {
                     let closeNotice = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`${config.emjORANGETICK} Verification Window Expired`)
-                        .setDescription(`**${config.botName}** has automatically closed this ticket since it has been open for one full week. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
+                        .setDescription(`**<@${config.botId}>** has automatically closed this ticket since it has been open for one full week. This message constitutes as the last message of the transcript; the DM-channel communications with the user have been severed.\n\nIf the contents of this ticket do not need to be archived for moderation actions, press \`\`Confirm Ticket Close\`\` to **permanently delete this channel *immediately***.\n\nIf this channel needs to be archived for moderation actions, press \`\`Do Not Close\`\` to keep this channel.`)
                         .setTimestamp()
                         .setFooter(`This is an automated message.`)
 
