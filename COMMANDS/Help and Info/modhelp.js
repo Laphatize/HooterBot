@@ -1,6 +1,4 @@
 const discord = require('discord.js')
-const { MessageActionRow, MessageButton } = require('discord.js');
-const fs = require(`fs`)
 const config = require ('../../config.json')
 
 module.exports = {
@@ -16,6 +14,12 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-
+        let helpEmbed = new discord.MessageEmbed()
+            .setColor(config.embedBlurple)
+            .setTitle(`Moderator Commands:`)
+            .setDescription(`These are the unique commands you can use as moderator:`)
+            .addField(`ping`, `*A command to test if ${config.botName} is responding or suffering from latency issues.*\n${config.indent}Cooldown: \`\`10s\`\``)
+            
+        return message.reply({ embeds: [helpEmbed] })        
     }
 }

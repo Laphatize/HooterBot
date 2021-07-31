@@ -1,6 +1,4 @@
 const discord = require('discord.js')
-const { MessageActionRow, MessageButton } = require('discord.js');
-const fs = require(`fs`)
 const config = require ('../../config.json')
 
 module.exports = {
@@ -20,9 +18,9 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`Admin Commands:`)
             .setDescription(`These are the unique commands you can use as administrator:`)
-            .addField(`addbirthday`, `*A command for admins to migrate MEE6's birthdays over to HooterBot.*\nUsage: \`\`<User_ID> ## / ##  [month / day]\`\`\nCooldown: \`\`10s\`\``)
-            .addField(`partnermessage`, `*Generate an embed in \#server-announcements to promote messages from partner servers.*\nUsage: \`\`<partner name> | <message> | <(optional) direct image URL>\`\`\nCooldown: \`\`none\`\``)
-            .addField(`rules`, `*Generates/updates rules, server staff, and ModMail ticket instruction embeds.*\nCooldown: \`\`10s\`\``)
+            .addField(`addbirthday`, `*A command for admins to migrate MEE6's birthdays over to HooterBot.*\n${config.indent}Usage: \`\`<User_ID> ## / ##  [month / day]\`\`\n${config.indent}Cooldown: \`\`10s\`\``)
+            .addField(`partnermessage`, `*Generate an embed in \#server-announcements to promote messages from partner servers.*\n${config.indent}Usage: \`\`<partner name> | <message> | <(optional) direct image URL>\`\`\n${config.indent}Cooldown: \`\`none\`\``)
+            .addField(`rules`, `*Generates/updates rules, server staff, and ModMail ticket instruction embeds.*\n${config.indent}Cooldown: \`\`10s\`\``)
             
         return message.reply({ embeds: [helpEmbed] })        
     }
