@@ -26,9 +26,9 @@ module.exports = {
 
         console.log(args)
 
-        const partnerName = interaction.options.get('partner_name').value;
-        const partnerMsg = interaction.options.get('message').value;
-        const imageUrl = interaction.options.get('image_url').value;
+        const partnerName = args[0];
+        const partnerMsg = args[1];
+        const imageUrl = args[2];
 
         interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\n\npartnerName = ${partnerName}\npartnerMsg = ${partnerMsg}\nimageUrl = ${imageUrl}`, ephemeral: true })
     }
