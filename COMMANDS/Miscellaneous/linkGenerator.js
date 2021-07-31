@@ -61,7 +61,7 @@ module.exports = {
 
         // TUid
         else if(linkName == `tuid` || linkName == `idcard`){
-            linkName = `Canvas`
+            linkName = `Get Your TUid`
             link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
         }
 
