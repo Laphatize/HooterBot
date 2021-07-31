@@ -1,9 +1,6 @@
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
-// GRABBING MOD AND ADMIN ROLES
-let modRoleId = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator').id;
-let adminRoleId = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin').id;
 
 module.exports = {
     name: 'addbirthday',
@@ -27,7 +24,7 @@ module.exports = {
         },
     ],
     permissions: [{
-        id: adminRoleId,
+        id: interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin').id,
         type: "ROLE",
         permission: true,
     }],
