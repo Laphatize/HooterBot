@@ -15,7 +15,7 @@ module.exports = {
 
         // SLASH COMMANDS
         if(interaction.isCommand()) {
-            await interaction.defer().catch(err => console.log(err));
+            // await interaction.defer().catch(err => console.log(err));
 
             const slashCmd = client.slashCommands.get(interaction.commandName)
             

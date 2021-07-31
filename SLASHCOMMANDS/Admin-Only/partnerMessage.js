@@ -8,6 +8,6 @@ module.exports = {
 
 
 
-        interaction.editReply({ content: 'This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.', ephemeral: true})
+        interaction.reply({ content: 'This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.', ephemeral: true })
     }
 }
