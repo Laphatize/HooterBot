@@ -65,24 +65,24 @@ module.exports = {
         }
     ],
     defaultPermission: true,
-    run: async(client, interaction, args) => {
+    run: async(client, interaction, inputs) => {
 
         
-        let linkName;
-        let link;
+        var linkName;
+        var link;
 
         // FETCHING NAME AND LINK
-        switch(args) {
+        switch(inputs[0]) {
             // ACADEMIC PLANS
             case 'academic_plan':
-                linkName = `Academic Plans and Suggested Timelines`
-                link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
+                linkName = `Academic Plans and Suggested Timelines`;
+                link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`;
                 break;
 
             // ADMISSIONS
             case 'admissions':
-                linkName = `Admissions`
-                link = `https://www.temple.edu/admissions`
+                linkName = `Admissions`;
+                link = `https://www.temple.edu/admissions`;
                 break;
     
             // ATHLETICS / SPORTS / TICKETS
