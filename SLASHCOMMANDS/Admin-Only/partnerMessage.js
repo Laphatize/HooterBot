@@ -8,26 +8,26 @@ module.exports = {
         {
             name: `partner_name`,
             description: `The name of the partner server`,
-            type: `STRING`,
+            type: `string`,
             required: true
         },{
             name: `message`,
             description: `The main body of the announcement message`,
-            type: `STRING`,
+            type: `string`,
             required: true
         },{
             name: `image_url`,
             description: `Optional URL to an image to be attached`,
-            type: `STRING`,
+            type: `string`,
             required: false
         },
     ],
     run: async(client, interaction, args) => {
 
-        const partnerName = interaction.options.get('parner_name');
+        const partnerName = interaction.options.get('partner_name');
         const partnerMsg = interaction.options.get('message');
         const imageUrl = interaction.options.get('image_url');
 
-        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\partnerName = ${partnerName}\npartnerMsg = ${partnerMsg}\nimageUrl = ${imageUrl}`, ephemeral: true })
+        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\n\npartnerName = ${partnerName}\npartnerMsg = ${partnerMsg}\nimageUrl = ${imageUrl}`, ephemeral: true })
     }
 }
