@@ -89,20 +89,29 @@ for (const folder of cmdFolders) {
 /*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
 const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
+const arrayOfSlashCmds = [];
 
 for (const folder of slashCommands) {
     const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
-
-    const arrayOfSlashCmds = [];
 
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
 		client.slashCommands.set(slashCmd.name, slashCmd);
         arrayOfSlashCmds.push(slashCmd)
 	}
-
-    export { arrayOfSlashCmds };
 }
+
+// REGISTERING SLASH COMMANDS
+client.on('ready', () => {
+    // SLASH COMMANDS
+    console.log(`======================================`);
+    console.log(`===== REGISTERING SLASH COMMANDS =====`);
+
+    // GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
+    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)
+
+    console.log(`======================================\n\n`);
+})
 
 
 
