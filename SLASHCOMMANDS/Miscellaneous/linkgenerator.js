@@ -67,11 +67,8 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        
         var linkName;
         var link;
-
-        console.log(`inputs[0] = ${inputs[0]}`)
 
         // FETCHING NAME AND LINK
         switch(inputs[0]) {
