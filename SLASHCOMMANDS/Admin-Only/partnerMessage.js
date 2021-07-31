@@ -6,28 +6,28 @@ module.exports = {
     description: `(ADMIN) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     options: [
         {
-            name: `partner name`,
+            name: `partner_name`,
             description: `The name of the partner server`,
-            type: `String`,
+            type: `STRING`,
             required: true
         },{
             name: `message`,
             description: `The main body of the announcement message`,
-            type: `String`,
+            type: `STRING`,
             required: true
         },{
-            name: `image url`,
+            name: `image_url`,
             description: `Optional URL to an image to be attached`,
-            type: `String`,
+            type: `STRING`,
             required: false
         },
     ],
     run: async(client, interaction, args) => {
 
-        const { value: partnername } = interaction.options.get('parner name');
-        const { value: messagevalue } = interaction.options.get('message');
-        const { value: imageurl } = interaction.options.get('image url');
+        const partnerName = interaction.options.get('parner_name');
+        const partnerMsg = interaction.options.get('message');
+        const imageUrl = interaction.options.get('image_url');
 
-        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\nPartnerName = ${partnername}\nMessageValue = ${messagevalue}\nimageUrl = ${imageurl}`, ephemeral: true })
+        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\partnerName = ${partnerName}\npartnerMsg = ${partnerMsg}\nimageUrl = ${imageUrl}`, ephemeral: true })
     }
 }
