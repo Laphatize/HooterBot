@@ -67,88 +67,89 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, args) => {
 
-        let linkName = args;
+        
+        let linkName;
         let link;
 
         // FETCHING NAME AND LINK
         switch(args) {
             // ACADEMIC PLANS
-            case academic_plan:
+            case 'academic_plan':
                 linkName = `Academic Plans and Suggested Timelines`
                 link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`
                 break;
 
             // ADMISSIONS
-            case admissions:
+            case 'admissions':
                 linkName = `Admissions`
                 link = `https://www.temple.edu/admissions`
                 break;
     
             // ATHLETICS / SPORTS / TICKETS
-            case athletics:
-            case sports:
-            case sports_tickets:
+            case 'athletics':
+            case 'sports':
+            case 'sports_tickets':
                 linkName = `Athleteics & Tickets`
                 link = `https://owlsports.com/`
                 break;
       
             // CANVAS
-            case canvas:
+            case 'canvas':
                 linkName = `Canvas`
                 link = `https://templeu.instructure.com/`
                 break;
 
             // CLUBS AND ORGS
-            case clubs_orgs:
+            case 'clubs_orgs':
                 linkName = `Clubs & Organizations`
                 link = `https://temple.campuslabs.com/engage/`
                 break;
 
             // COURSES
-            case course_catalog:
+            case 'course_catalog':
                 linkName = `Course Catalog`
                 link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
                 break;
 
             // DARS
-            case dars:
+            case 'dars':
                 linkName = `DARS (Degree Audit Reporting System)`
                 link = `https://dars.temple.edu/`
                 break;
 
             // DINING
-            case dining:
+            case 'dining':
                 linkName = `Dining`
                 link = `https://temple.campusdish.com/`
                 break;
 
             // FINALS
-            case finals:
+            case 'finals':
                 linkName = `Final Exam Schedules`
                 link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
                 break;
 
             // FINANCIAL AID / SFS
-            case financial_aid:
-            case sfs:
+            case 'financial_aid':
+            case 'sfs':
                 linkName = `Student Financial Services`
                 link = `https://sfs.temple.edu/about/appointments`
                 break;
     
             // HOUSING
-            case housing:
+            case 'housing':
                 linkName = `Housing`
                 link = `https://housing.temple.edu/`
                 break;
 
             // TUID
-            case tuid:
+            case 'tuid':
                 linkName = `Get Your TUid`
                 link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
                 break;
 
             // TUPORTAL
-            case tuportal:
+            case 'tuportal':
                 linkName = `TUPortal`
                 link = `https://tuportal5.temple.edu/`
                 break;
