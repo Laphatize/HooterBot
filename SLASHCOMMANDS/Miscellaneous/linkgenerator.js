@@ -5,6 +5,8 @@ const config = require ('../../config.json')
 module.exports = {
     name: 'link',
     description: `Generates a link to a Temple University resource.`,
+    permissions: 'MANAGE_MESSAGES',
+    requiredRoles: [],
     options: [
         {
             name: `title`,
