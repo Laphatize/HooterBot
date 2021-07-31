@@ -72,8 +72,6 @@ module.exports = {
         }
 
 
-
-
         // EMBED MESSAGE WITH IMAGE URL
         if(imageUrl) {
             let partnerEmbedImage = new discord.MessageEmbed()
