@@ -253,7 +253,7 @@ module.exports = {
             //     .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in server channels, only here in DMs. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             //     // SENDING EMBED
-            //     return message.author.send( {embeds: [guildDisallowEmbed]} )
+            //     return message.author.send({ embeds: [guildDisallowEmbed] })
             // }
 
 
@@ -267,7 +267,7 @@ module.exports = {
             //     .setDescription(`Hey ${message.author}, sorry, but the command \`\`${cmdName}\`\` cannot be run in DMs, only in the Temple University server. To see which commands can be run in channels, type \`\`${prefix} <something>\`\`.`)
 
             //     // SENDING EMBED
-            //     return message.author.send( {embeds: [dmDisallowEmbed]} )
+            //     return message.author.send({ embeds: [dmDisallowEmbed] })
             // }
 
 
@@ -287,7 +287,7 @@ module.exports = {
                     .setFooter(`This may be a permissions error either with my role or with the channel. Please take a moment to investigate.`)
 
                 // LOG ENTRY
-                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTalkPermErrorEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTalkPermErrorEmbed] })
                     .catch(err => console.log(err))
 
 
@@ -302,11 +302,11 @@ module.exports = {
                     .setFooter(`You are receiving this because I do not have permission to speak in the channel listed. If I should be able to speak in this channel, please let the server owner know so they can investigate the channel and my role permissions.`)
 
                 // DM USER WHO ISSUED COMMAND VIA CACHE
-                client.users.cache.get(message.author.id).send({embeds: [logTalkPermErrorDMEmbed]})
+                client.users.cache.get(message.author.id).send({ embeds: [logTalkPermErrorDMEmbed] })
                     .catch(err => { console.log(err)
 
                     // IF NOT CACHED, ATTEMPT DM DIRECTLY
-                    message.author.send({embeds: [logTalkPermErrorDMEmbed]})
+                    message.author.send({ embeds: [logTalkPermErrorDMEmbed] })
                         .catch(err => console.log(err))
                     })
                 return;
@@ -330,7 +330,7 @@ module.exports = {
                         .setDescription(`You must have the \`\`${command.permissions}\`\` permission to use this command.`)
 
 
-                    message.channel.send({embeds: [cmdUserPermErrEmbed]})
+                    message.channel.send({ embeds: [cmdUserPermErrEmbed] })
                     // DELETE AFTER 5 SECONDS
                         .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                         .catch(err => console.log(err));
@@ -355,7 +355,7 @@ module.exports = {
 
 
                         // SENDING EMBED
-                        message.channel.send({embeds: [cmdRoleErrEmbed]})
+                        message.channel.send({ embeds: [cmdRoleErrEmbed] })
 
 
                         // DELETE AFTER 5 SECONDS
@@ -379,7 +379,7 @@ module.exports = {
 
 
                 // SENDING INCORRECT SYNTAX NOTICE
-                message.channel.send({embeds: [cmdArgsErrEmbed]})
+                message.channel.send({ embeds: [cmdArgsErrEmbed] })
                     // DELETE AFTER 5 SECONDS
                     .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                     .catch(err => console.log(err))
@@ -416,7 +416,7 @@ module.exports = {
             
 
                     // SENDING COOLDOWN WAIT NOTICE
-                    message.channel.send({embeds: [cooldownWaitEmbed]})
+                    message.channel.send({ embeds: [cooldownWaitEmbed] })
                         // DELETE AFTER 5 SECONDS
                         .then(msg => {setTimeout(() => msg.delete(), (timeLeft)*1000 )})
                         .catch(err => console.log(err))
@@ -443,7 +443,7 @@ module.exports = {
 
 
                 // SENDING EMBED
-                message.channel.send({embeds: [errorEmbed]})
+                message.channel.send({ embeds: [errorEmbed] })
 
 
                 // DEFINING LOG EMBED
@@ -457,7 +457,7 @@ module.exports = {
                 
 
                 // LOG ENTRY
-                client.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logErrorEmbed]})
+                client.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logErrorEmbed] })
             }
         }
     }

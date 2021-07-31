@@ -27,7 +27,52 @@ module.exports = {
 
 
                 // SENDING EMBED
-                return message.channel.send({embeds: [errorEmbed], ephemeral: true })
+                return message.channel.send({ embeds: [errorEmbed], ephemeral: true })
+            }
+
+
+            // CHECKING USER PERMISSION REQUIREMENT
+            if (slashCmd.permissions) {
+                const authorPerms = interaction.channel.permissionsFor(interaction.user);
+
+                if (!authorPerms || !authorPerms.has(slashCmd.permissions)) {
+
+                    // DEFINING EMBED TO SEND
+                    let cmdUserPermErrEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`${config.emjORANGETICK} Sorry!`)
+                        .setDescription(`You must have the \`\`${slashCmd.permissions}\`\` permission to use this slash command.`)
+
+
+                    return interaction.reply({ embeds: [cmdUserPermErrEmbed], ephemeral: true })
+                }
+            }
+
+            // CHECKING USER ROLE REQUIREMENT
+            if (slashCmd.requiredRoles) {
+                for (const requiredRole of slashCmd.requiredRoles) {
+                    const role = interaction.guild.roles.cache.find((role) => role.name === requiredRole)
+
+                    // VALIDATING ROLE
+                    if (!role || !interaction.user.roles.cache.has(role.id)) {
+
+                        // DEFINING EMBED TO SEND
+                            let cmdRoleErrEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedOrange)
+                                .setTitle(`${config.emjORANGETICK} Sorry!`)
+                                .setDescription(`You must have the \`\`${role}\`\` role to use this command.`)
+
+
+                        // SENDING EMBED
+                        interaction.reply({ embeds: [cmdRoleErrEmbed] })
+
+
+                        // DELETE AFTER 5 SECONDS
+                            .then(msg => {setTimeout(() => msg.delete(), 5000 )})
+                            .catch(err => console.log(err))
+                        return
+                    }
+                }
             }
 
             // ARGUMENTS
@@ -35,6 +80,7 @@ module.exports = {
             interaction.options.data.map((x) => {
                 args.push(x.value)
             })
+
 
             // RUN INTERACTION
             slashCmd.run(client, interaction, args)
@@ -158,7 +204,7 @@ module.exports = {
 
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
-                let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow, secondButtonRow] })
+                let firstDMmsg = await interaction.user.send({ embeds: [ticketOpenEmbed], components: [initialButtonRow, secondButtonRow] })
                     .catch(err => {
 
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
@@ -176,7 +222,7 @@ module.exports = {
                     
 
                         // LOG ENTRY
-                        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifStartErrorEmbed]})
+                        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifStartErrorEmbed] })
                     })
 
                     
@@ -297,7 +343,7 @@ module.exports = {
 
 
                             // LOG ENTRY
-                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketOpenEmbed]})
+                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                                 .catch(err => console.log(err))
                         })
                 }
@@ -339,7 +385,7 @@ module.exports = {
 
 
                 // SENDING THE QUIT CONFIRMATION                
-                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                interaction.user.send({ embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
                         setTimeout(() => msg.delete(), 10000 );
@@ -382,7 +428,7 @@ module.exports = {
 
 
                 // SENDING THE QUIT CONFIRMATION                
-                interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                interaction.channel.send({ embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
                         setTimeout(() => msg.delete(), 10000 );
@@ -472,7 +518,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                                     .catch(err => console.log(err))
                             })
                     
@@ -507,7 +553,7 @@ module.exports = {
 
 
                 // DMING USER THE TICKET CLOSE CONFIRMATION             
-                interaction.channel.send({embeds: [quitConfirmedEmbed]})
+                interaction.channel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
 
@@ -658,7 +704,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -692,7 +738,7 @@ module.exports = {
 
 
                 // DMING USER THE TICKET CLOSE CONFIRMATION             
-                await dmUser.send({embeds: [quitConfirmedEmbed]})
+                await dmUser.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
 
@@ -784,7 +830,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [physicalTUidEmbed], components: [] })
+                                    msg.edit({ embeds: [physicalTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -792,7 +838,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [physicalTUidEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -817,7 +863,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "PHYSICAL TUID CARD"
@@ -858,7 +904,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [virtualTUidEmbed], components: [] })
+                                    msg.edit({ embeds: [virtualTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -866,7 +912,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [virtualTUidEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -891,7 +937,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
@@ -932,7 +978,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [tuPortalEmbed], components: [] })
+                                    msg.edit({ embeds: [tuPortalEmbed], components: [] })
                                 })
                         })
                 }
@@ -940,7 +986,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [tuPortalEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -965,7 +1011,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
@@ -1021,7 +1067,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
+                                    msg.edit({ embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                                 })
                         })
                 }
@@ -1029,7 +1075,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -1095,7 +1141,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                                    msg.edit({ embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
                                 })
                         })
                 }
@@ -1103,7 +1149,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
                         .catch(err => console.log(err))                    
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -1318,7 +1364,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -1446,7 +1492,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
-                interaction.channel.send({embeds: [proofRejectedModEmbed], components: [] })
+                interaction.channel.send({ embeds: [proofRejectedModEmbed], components: [] })
                     .catch(err => console.log(err))
                 
 
@@ -1487,7 +1533,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL - 10 SECONDS REMAIN
-                interaction.channel.send({embeds: [initialDeletionEmbed], components: [] })
+                interaction.channel.send({ embeds: [initialDeletionEmbed], components: [] })
                     .catch(err => console.log(err))
                     
                     // 5 SECONDS REMAIN - EDIT EMBED
@@ -1497,7 +1543,7 @@ module.exports = {
                         .setTitle(`This channel will be deleted in 5s...`)
                         .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
-                        setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
+                        setTimeout(() => msg.edit({ embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
                     })
                     
                     // 0 SECONDS REMAINING - DELETE CHANNEL
