@@ -26,11 +26,11 @@ module.exports = {
                 let errorEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`There was an error trying to execute that slash command.`)
+                    .setDescription(`There was an error trying to execute that slash command. Please inform <@${config.botAuthorId}>.`)
 
 
                 // SENDING EMBED
-                return message.channel.send({embeds: [errorEmbed]})
+                return message.channel.send({embeds: [errorEmbed], ephemeral: true })
             }
 
             // ARGUMENTS

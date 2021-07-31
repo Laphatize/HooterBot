@@ -16,25 +16,6 @@ module.exports = {
     requiredRoles: [],
     execute: async (message, arguments, client) => {
 
-        let helpEmbed = new discord.MessageEmbed()
-            .setColor(config.embedBlurple)
-            .setTitle(`**Moderator Help:**`)
-            .setDescription(`Select a button below for information on commands in that category.`)
-            .setFooter(`These buttons will not work right now.`)
 
-        let ModOnlyButton = new MessageButton()
-            .setLabel("Moderator")
-            .setStyle(`SECONDARY`)
-            .setCustomId("help_admin")
-        
-
-        // BUTTON ROWS BASED ON ADMIN OR NOT
-        
-        let mainHelpRow = new MessageActionRow()
-            .addComponents(
-                ModOnlyButton,
-            );
-
-        return message.reply({ embeds: [helpEmbed], components: [mainHelpRow] })
     }
 }

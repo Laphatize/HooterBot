@@ -46,6 +46,7 @@ client.login(process.env.HB_BOT_TOKEN);
 // COLLECTIONS
 client.commands = new discord.Collection();
 client.slashCommands = new discord.Collection();
+client.buttons = new discord.Collection();
 client.cooldowns = new discord.Collection();
 
 
@@ -110,8 +111,17 @@ client.on('ready', async () => {
     // GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
     await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)
 
-    console.log(`======================================\n\n`);
+    console.log(`======================================\n`);
 })
+
+
+
+/***********************************************************/
+/*      BUTTON HANDLER                                     */
+/***********************************************************/
+
+
+
 
 
 
