@@ -23,8 +23,9 @@ module.exports = {
             required: false
         },
     ],
+    defaultPermission: false,
     permissions: [{
-        id: interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin').id,
+        id: '863650974513758259',
         type: "ROLE",
         permission: true,
     }],
