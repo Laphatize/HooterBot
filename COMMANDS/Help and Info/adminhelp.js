@@ -20,15 +20,10 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`Admin Commands:`)
             .setDescription(`These are the unique commands you can use as administrator:`)
-            .addField(`addbirthday`, `*A command for admins to migrate MEE6's birthdays over to HooterBot.*\nUsage: \`\`<User_ID> ## / ##  [month / day]\`\`\nCooldown: 10s`, true)
-            .addField(`partnermessage`, `*Generate an embed in \#server-announcements to promote messages from partner servers.*\nUsage: \`\`<partner name> | <message> | <(optional) direct image URL>\`\`\nCooldown: none`, true)
-            .addField(`rules`, `*Generates/updates rules, server staff, andModMail ticket instruction embeds.*\nCooldown: 10s`, true)
-
-
+            .addField(`addbirthday`, `*A command for admins to migrate MEE6's birthdays over to HooterBot.*\nUsage: \`\`<User_ID> ## / ##  [month / day]\`\` Cooldown: 10s`)
+            .addField(`partnermessage`, `*Generate an embed in \#server-announcements to promote messages from partner servers.*\nUsage: \`\`<partner name> | <message> | <(optional) direct image URL>\`\` Cooldown: none`)
+            .addField(`rules`, `*Generates/updates rules, server staff, andModMail ticket instruction embeds.*\nCooldown: 10s`)
             
-        return message.reply({ embeds: [helpEmbed], ephemeral: true })
-
-
-        
+        return message.reply({ embeds: [helpEmbed] })        
     }
 }
