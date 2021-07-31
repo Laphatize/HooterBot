@@ -8,17 +8,17 @@ module.exports = {
         {
             name: `partner_name`,
             description: `The name of the partner server`,
-            type: `string`,
+            type: `String`,
             required: true
         },{
             name: `message`,
             description: `The main body of the announcement message`,
-            type: `string`,
+            type: `String`,
             required: true
         },{
             name: `image_url`,
             description: `Optional URL to an image to be attached`,
-            type: `string`,
+            type: `String`,
             required: false
         },
     ],

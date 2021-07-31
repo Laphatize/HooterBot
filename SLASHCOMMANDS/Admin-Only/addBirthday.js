@@ -7,7 +7,6 @@ module.exports = {
     run: async(client, interaction, args) => {
 
 
-
         interaction.reply({ content: 'This command will eventually allow you to add birthdays. For now, this slash command is offline. Consider using the \`\`$addbirthday\`\` command instead.', ephemeral: true })
     }
 }
