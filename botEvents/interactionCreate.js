@@ -93,7 +93,7 @@ module.exports = {
                     let cooldownWaitEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`${config.emjORANGETICK} Not so fast!`)
-                        .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${cmdName}\`\` again.`)
+                        .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${slashCmd.name}\`\` again.`)
             
 
                     // SENDING COOLDOWN WAIT NOTICE
