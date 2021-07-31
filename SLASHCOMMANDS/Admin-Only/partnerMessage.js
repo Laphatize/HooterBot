@@ -24,10 +24,10 @@ module.exports = {
     ],
     run: async(client, interaction, args) => {
 
-        const { value: PartnerName } = interaction.options.get('parner name');
-        const { value: MessageValue } = interaction.options.get('message');
-        const { value: imageUrl } = interaction.options.get('image url');
+        const { value: partnername } = interaction.options.get('parner name');
+        const { value: messagevalue } = interaction.options.get('message');
+        const { value: imageurl } = interaction.options.get('image url');
 
-        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\nPartnerName = ${PartnerName}\nMessageValue = ${MessageValue}\nimageUrl = ${imageUrl}`, ephemeral: true })
+        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\nPartnerName = ${partnername}\nMessageValue = ${messagevalue}\nimageUrl = ${imageurl}`, ephemeral: true })
     }
 }
