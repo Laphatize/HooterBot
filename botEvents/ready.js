@@ -1,5 +1,7 @@
 const config = require ('../config.json');
 const db = require('../Utilities/mongo');
+import { arrayOfSlashCmds } from './bot.js'
+
 
 module.exports = {
 	name: 'ready',
@@ -17,7 +19,7 @@ module.exports = {
 		console.log(`===== REGISTERING SLASH COMMANDS =====`);
 
 		// GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
-		await client.guilds.cache.get('530503548937699340').commands.set(slashCmdsArray)
+		await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)
 
 		console.log(`======================================\n\n`);
 

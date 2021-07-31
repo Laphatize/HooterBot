@@ -89,16 +89,19 @@ for (const folder of cmdFolders) {
 /*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
 const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
-client.slashCmdsArray = [];
 
 for (const folder of slashCommands) {
     const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
 
+    const arrayOfSlashCmds = [];
+
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
 		client.slashCommands.set(slashCmd.name, slashCmd);
-        slashCmdsArray.push(slashCmd)
+        arrayOfSlashCmds.push(slashCmd)
 	}
+
+    export { arrayOfSlashCmds };
 }
 
 
