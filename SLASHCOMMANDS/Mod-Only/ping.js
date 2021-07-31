@@ -5,6 +5,9 @@ module.exports = {
     name: 'ping',
     description: `${config.botName}'s first slash command.`,
     options: [],
+    permissions: '',
+    requiredRoles: [],
+    cooldown: 60,
     defaultPermission: false,
     run: async(client, interaction, args) => {
         interaction.reply({ content: 'Hello World! This is my first (legit) slash command!', ephemeral: true })

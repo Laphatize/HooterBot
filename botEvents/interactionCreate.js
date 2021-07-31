@@ -25,13 +25,12 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Error!`)
                     .setDescription(`There was an error trying to execute that slash command. Please inform <@${config.botAuthorId}>.`)
 
-
                 // SENDING EMBED
-                return message.channel.send({ embeds: [errorEmbed], ephemeral: true })
+                return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
             }
 
 
-            // CHECKING USER PERMISSION REQUIREMENT
+            // USER PERMISSION REQUIREMENT
             if (slashCmd.permissions) {
                 const authorPerms = interaction.channel.permissionsFor(interaction.user);
 
@@ -48,13 +47,14 @@ module.exports = {
                 }
             }
 
-            // CHECKING USER ROLE REQUIREMENT
+
+            // USER ROLE REQUIREMENT
             if (slashCmd.requiredRoles) {
                 for (const requiredRole of slashCmd.requiredRoles) {
                     const role = interaction.guild.roles.cache.find((role) => role.name === requiredRole)
 
                     // VALIDATING ROLE
-                    if (!role || !interaction.user.roles.cache.has(role.id)) {
+                    if (!role || !interaction.user.roles.has(role.id)) {
 
                         // DEFINING EMBED TO SEND
                             let cmdRoleErrEmbed = new discord.MessageEmbed()
@@ -62,18 +62,48 @@ module.exports = {
                                 .setTitle(`${config.emjORANGETICK} Sorry!`)
                                 .setDescription(`You must have the \`\`${role}\`\` role to use this command.`)
 
-
                         // SENDING EMBED
-                        interaction.reply({ embeds: [cmdRoleErrEmbed] })
-
-
-                        // DELETE AFTER 5 SECONDS
-                            .then(msg => {setTimeout(() => msg.delete(), 5000 )})
-                            .catch(err => console.log(err))
-                        return
+                        return interaction.reply({ embeds: [cmdRoleErrEmbed] })
                     }
                 }
             }
+
+
+            // COOLDOWN SETUP
+            const { cooldowns } = client;
+
+            if (!cooldowns.has(slashCmd.name)) {
+                cooldowns.set(slashCmd.name, new discord.Collection());
+            }
+
+            const now = Date.now();
+            const timestamps = cooldowns.get(slashCmd.name);
+            const cooldownTime = (slashCmd.cooldown || 0) * 1000;
+
+
+            // COOLDOWN 
+            if (timestamps.has(interaction.user.id)) {
+                const expireTime = timestamps.get(interaction.user.id) + cooldownTime;
+        
+                if (now < expireTime) {
+
+                    const timeLeft = ((expireTime - now) / 1000).toFixed(0);
+
+                    // DEFINING EMBED TO SEND
+                    let cooldownWaitEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`${config.emjORANGETICK} Not so fast!`)
+                        .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${cmdName}\`\` again.`)
+            
+
+                    // SENDING COOLDOWN WAIT NOTICE
+                    return interaction.reply({ embeds: [cooldownWaitEmbed], ephemeral: true })
+                }
+            }
+
+            // SETTING COOLDOWN TIMEOUT
+            timestamps.set(interaction.user.id, now);
+            setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
 
             // ARGUMENTS
             const args = [];
