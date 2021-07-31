@@ -102,7 +102,7 @@ for (const folder of slashCommands) {
 }
 
 // REGISTERING SLASH COMMANDS
-client.on('ready', () => {
+client.on('ready', async () => {
     // SLASH COMMANDS
     console.log(`======================================`);
     console.log(`===== REGISTERING SLASH COMMANDS =====`);

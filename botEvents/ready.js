@@ -1,6 +1,5 @@
 const config = require ('../config.json');
 const db = require('../Utilities/mongo');
-import { arrayOfSlashCmds } from './bot.js'
 
 
 module.exports = {
