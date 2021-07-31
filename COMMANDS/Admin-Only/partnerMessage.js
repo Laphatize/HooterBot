@@ -95,8 +95,8 @@ module.exports = {
                 .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
                 .setDescription(`${partnerMsg}`)
                 .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
-                .setImage(`${imageURL}`)
                 .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+                .setImage(`${imageURL}`)
 
 
             // POSTING EMBED MESSAGE AND BUTTON
@@ -121,7 +121,7 @@ module.exports = {
             let msgSendSuccessEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Success!`)
-                .setDescription(`Your partner message (with an image) has been successfully submitted.`)
+                .setDescription(`Your partner message with an image has been successfully submitted.`)
                 .setTimestamp()
             message.channel.send({embeds: [msgSendSuccessEmbed]})
                 // DELETE AFTER 10 SECONDS
