@@ -11,7 +11,17 @@ module.exports = {
 		console.log(`${config.botName} has logged in successfully.`);
 		console.log(`======================================\n\n`);
 
-	
+
+		// READY
+		console.log(`======================================`);
+		console.log(`===== REGISTERING SLASH COMMANDS =====`);
+
+		// GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
+		await client.guilds.cache.get('530503548937699340').commands.set(slashCmdsArray)
+
+		console.log(`======================================\n\n`);
+
+
 		// SETTING ACTIVITY STATUS
 		console.log(`========== ACTIVITY STATUS ===========`);
 		client.user.setActivity(`verification requests | $help`, {type: "WATCHING"});

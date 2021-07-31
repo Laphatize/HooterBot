@@ -13,6 +13,44 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
+        // SLASH COMMANDS
+        if(interaction.isCommand()) {
+            await interaction.defer().catch(err => console.log(err));
+
+            const slashCmd = client.slashCommands.get(interaction.commandName)
+            
+
+            // IF NOT SLASH COMMAND
+            if(!slashCmd) {
+                // DEFINING EMBED TO SEND IN CHANNEL
+                let errorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`There was an error trying to execute that slash command.`)
+
+
+                // SENDING EMBED
+                return message.channel.send({embeds: [errorEmbed]})
+            }
+
+            // ARGUMENTS
+            const args = [];
+            interaction.options.array().map((x) => {
+                args.push(x.value)
+            })
+
+            // RUN INTERACTION
+            slashCmd.run(client, interaction, args)
+        }
+
+
+
+
+        
+        /***********************************************************/
+        /*      VERIFICATION TICKET INTERACTIONS                   */
+        /***********************************************************/
+
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
 

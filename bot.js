@@ -7,6 +7,10 @@ const birthdaySchema = require('./Database/birthdaySchema')
 const ticketSchema = require('./Database/ticketSchema')
 var cron = require('node-cron');
 const moment = require('moment');
+const { promisify } = require('util');
+const { glob } = require(`glob`);
+const globPromise = promisify(glob);
+
 
 
 
@@ -41,7 +45,7 @@ client.login(process.env.HB_BOT_TOKEN);
 
 // COLLECTIONS
 client.commands = new discord.Collection();
-client.slashcommands = new discord.Collection();
+client.slashCommands = new discord.Collection();
 client.cooldowns = new discord.Collection();
 
 
@@ -82,9 +86,20 @@ for (const folder of cmdFolders) {
 
 
 /***********************************************************/
-/*      INTERACTION HANDLER                                */
+/*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
+const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
+const slashCmdsArray = [];
 
+for (const folder of slashCommands) {
+    const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+
+    for (const file of slashFiles) {
+		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
+		client.slashCommands.set(slashCmd.name, slashCmd);
+        slashCmdsArray.push(slashCmd)
+	}
+}
 
 
 
