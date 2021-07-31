@@ -67,7 +67,7 @@ module.exports = {
                     .setDescription(`Your partner message has been successfully submitted.`)
                     .setTimestamp()
 
-                return interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
+                interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
             }
         }
 
@@ -110,7 +110,7 @@ module.exports = {
                 .setDescription(`Your partner message with an image has been successfully submitted.`)
                 .setTimestamp()
 
-            return interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
+            interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
         }
 
 
