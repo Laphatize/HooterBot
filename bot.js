@@ -89,7 +89,7 @@ for (const folder of cmdFolders) {
 /*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
 const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
-const slashCmdsArray = [];
+client.slashCmdsArray = [];
 
 for (const folder of slashCommands) {
     const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));

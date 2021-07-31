@@ -35,7 +35,7 @@ module.exports = {
 
             // ARGUMENTS
             const args = [];
-            interaction.options.array().map((x) => {
+            interaction.options.data().map((x) => {
                 args.push(x.value)
             })
 
