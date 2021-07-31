@@ -5,7 +5,7 @@ const guildSchema = require('../../Database/guildSchema');
 module.exports = {
     name: `rules`,
     aliases: [`rulesembed`],
-    description: `Generates the current list of rules, server staff, and instructions on submitting ModMail tickets.`,
+    description: `Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
     category: `Administrator`,
     expectedArgs: '',
     cooldown: 15,
