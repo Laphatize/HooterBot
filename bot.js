@@ -97,7 +97,7 @@ for (const folder of slashCommands) {
 
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
-		client.slashCommands.set(slashCmd.name, slashCmd, slashCmd.permissions);
+		client.slashCommands.set(slashCmd.name, slashCmd);
         arrayOfSlashCmds.push(slashCmd)
 	}
 }
@@ -192,10 +192,10 @@ cron.schedule('00 00 08 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
-            guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+            guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
  
 
@@ -261,7 +261,7 @@ cron.schedule('00 59 07 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
  
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
@@ -399,7 +399,7 @@ cron.schedule('30 00 10 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
@@ -479,7 +479,7 @@ cron.schedule('30 00 10 * * *', async () => {
         for(let i in dbTicketData) {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {

@@ -22,6 +22,7 @@ module.exports = {
             required: false
         },
     ],
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
         // GRABBING SLASH COMMAND INPUT VALUES

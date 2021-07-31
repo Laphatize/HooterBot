@@ -1,7 +1,6 @@
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
-
 module.exports = {
     name: 'addbirthday',
     description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,

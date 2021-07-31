@@ -6,6 +6,8 @@ const config = require ('../../config.json')
 module.exports = {
     name: 'botinfo',
     description: `Describes details about ${config.botName}.`,
+    options: [],
+    defaultPermission: true,
     run: async(client, interaction, args) => {
 
         
