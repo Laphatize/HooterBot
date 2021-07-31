@@ -71,6 +71,8 @@ module.exports = {
         var linkName;
         var link;
 
+        console.log(`inputs[0] = ${inputs[0]}`)
+
         // FETCHING NAME AND LINK
         switch(inputs[0]) {
             // ACADEMIC PLANS
@@ -79,13 +81,11 @@ module.exports = {
                 link = `https://bulletin.temple.edu/undergraduate/schools-colleges/`;
                 break;
 
-            // ADMISSIONS
             case 'admissions':
                 linkName = `Admissions`;
                 link = `https://www.temple.edu/admissions`;
                 break;
     
-            // ATHLETICS / SPORTS / TICKETS
             case 'athletics':
             case 'sports':
             case 'sports_tickets':
@@ -93,62 +93,52 @@ module.exports = {
                 link = `https://owlsports.com/`
                 break;
       
-            // CANVAS
             case 'canvas':
                 linkName = `Canvas`
                 link = `https://templeu.instructure.com/`
                 break;
 
-            // CLUBS AND ORGS
             case 'clubs_orgs':
                 linkName = `Clubs & Organizations`
                 link = `https://temple.campuslabs.com/engage/`
                 break;
 
-            // COURSES
             case 'course_catalog':
                 linkName = `Course Catalog`
                 link = `https://prd-xereg.temple.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=courseSearch`
                 break;
 
-            // DARS
             case 'dars':
                 linkName = `DARS (Degree Audit Reporting System)`
                 link = `https://dars.temple.edu/`
                 break;
 
-            // DINING
             case 'dining':
                 linkName = `Dining`
                 link = `https://temple.campusdish.com/`
                 break;
 
-            // FINALS
             case 'finals':
                 linkName = `Final Exam Schedules`
                 link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
                 break;
 
-            // FINANCIAL AID / SFS
             case 'financial_aid':
             case 'sfs':
                 linkName = `Student Financial Services`
                 link = `https://sfs.temple.edu/about/appointments`
                 break;
     
-            // HOUSING
             case 'housing':
                 linkName = `Housing`
                 link = `https://housing.temple.edu/`
                 break;
 
-            // TUID
             case 'tuid':
                 linkName = `Get Your TUid`
                 link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
                 break;
 
-            // TUPORTAL
             case 'tuportal':
                 linkName = `TUPortal`
                 link = `https://tuportal5.temple.edu/`
