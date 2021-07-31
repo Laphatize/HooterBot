@@ -50,7 +50,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
         }
@@ -72,7 +72,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [missingDayEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
         }
@@ -89,7 +89,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [argNumCheckEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
         }
@@ -106,7 +106,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [monthRangeEmbed]})
                 // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
             return
         }
@@ -123,7 +123,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [dayRangeEmbed]})
                 // DELETE AFTER 5 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
             return
         }

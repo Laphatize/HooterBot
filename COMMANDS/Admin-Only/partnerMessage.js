@@ -18,7 +18,7 @@ module.exports = {
         messageAuthor = message.author;
 
         // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
+        setTimeout(() => message.delete(), 0 );
 
         
         // COMBINING ARGS INTO STRING SO FULL MESSAGE CAN BE POSTED
@@ -36,7 +36,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send({embeds: [notFormattedEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
         }
@@ -83,7 +83,7 @@ module.exports = {
                 .setTimestamp()
             message.channel.send({embeds: [msgSendSuccessEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
         }
 
@@ -125,7 +125,7 @@ module.exports = {
                 .setTimestamp()
             message.channel.send({embeds: [msgSendSuccessEmbed]})
                 // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
         }
         

@@ -16,7 +16,7 @@ module.exports = {
     execute: async (message, arguments, client) => {
         
         // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
+        setTimeout(() => message.delete(), 0 );
 
 
         // GRABBING FULL ARGS
@@ -36,7 +36,7 @@ module.exports = {
 
             return message.channel.send({embeds: [noCatEmbed]})
             // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
         }
 
@@ -63,7 +63,7 @@ module.exports = {
         // SENDING EMBED
         message.channel.send({embeds: [catUpdateEmbed]})
             // DELETE AFTER 10 SECONDS
-            .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+            .then(msg => {setTimeout(() => msg.delete(), 10000 )})
             .catch(err => console.log(err))
 
 

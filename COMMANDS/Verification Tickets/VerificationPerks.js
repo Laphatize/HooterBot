@@ -16,7 +16,7 @@ module.exports = {
     execute: async (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
+        setTimeout(() => message.delete(), 0 );
 
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD

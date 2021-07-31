@@ -320,7 +320,7 @@ module.exports = {
                 if (!authorPerms || !authorPerms.has(command.permissions)) {
 
                     // DELETING INVOCATION MESSAGE
-                    client.setTimeout(() => message.delete(), 0 );
+                    setTimeout(() => message.delete(), 0 );
 
 
                     // DEFINING EMBED TO SEND
@@ -332,7 +332,7 @@ module.exports = {
 
                     message.channel.send({embeds: [cmdUserPermErrEmbed]})
                     // DELETE AFTER 5 SECONDS
-                        .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                        .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                         .catch(err => console.log(err));
                     return
                 }
@@ -359,7 +359,7 @@ module.exports = {
 
 
                         // DELETE AFTER 5 SECONDS
-                            .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                            .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                             .catch(err => console.log(err))
                         return
                     }
@@ -381,7 +381,7 @@ module.exports = {
                 // SENDING INCORRECT SYNTAX NOTICE
                 message.channel.send({embeds: [cmdArgsErrEmbed]})
                     // DELETE AFTER 5 SECONDS
-                    .then(msg => {client.setTimeout(() => msg.delete(), 5000 )})
+                    .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                     .catch(err => console.log(err))
                 return
             }
@@ -418,7 +418,7 @@ module.exports = {
                     // SENDING COOLDOWN WAIT NOTICE
                     message.channel.send({embeds: [cooldownWaitEmbed]})
                         // DELETE AFTER 5 SECONDS
-                        .then(msg => {client.setTimeout(() => msg.delete(), (timeLeft)*1000 )})
+                        .then(msg => {setTimeout(() => msg.delete(), (timeLeft)*1000 )})
                         .catch(err => console.log(err))
                     return
                 }

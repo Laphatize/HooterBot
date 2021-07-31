@@ -47,7 +47,7 @@ module.exports = {
             return message.channel.send({ embeds: [alreadyBlacklistedEmbed] })
                 .catch(err => console.log(err))
                 .then(msg => {
-                    client.setTimeout(() => msg.delete(), 5000 );
+                    setTimeout(() => msg.delete(), 5000 );
                 })
         }
 

@@ -16,7 +16,7 @@ module.exports = {
     execute: (message, arguments, client) => {
 
         // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
+        setTimeout(() => message.delete(), 0 );
 
 
         // CREATING EMBED FOR RESPONSE        

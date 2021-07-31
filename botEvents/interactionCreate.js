@@ -307,7 +307,7 @@ module.exports = {
                 interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
-                        client.setTimeout(() => msg.delete(), 10000 );
+                        setTimeout(() => msg.delete(), 10000 );
                     })
                     .catch(err => console.log(err))
             }
@@ -350,7 +350,7 @@ module.exports = {
                 interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
-                        client.setTimeout(() => msg.delete(), 10000 );
+                        setTimeout(() => msg.delete(), 10000 );
                     })
                     .catch(err => console.log(err))
             }
@@ -449,7 +449,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                         }
                     })
@@ -634,7 +634,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                         }
                     })
@@ -1105,7 +1105,7 @@ module.exports = {
                     // FETCH MESSAGE FROM THE MESSAGE ID
                     dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                         .then(msg => {
-                            client.setTimeout(() => msg.delete(), 0 );
+                            setTimeout(() => msg.delete(), 0 );
                         })
                 })
 
@@ -1294,7 +1294,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                                 .catch(err => console.log(err))
                         }
@@ -1462,11 +1462,11 @@ module.exports = {
                         .setTitle(`This channel will be deleted in 5s...`)
                         .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
-                        client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
+                        setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
                     })
                     
                     // 0 SECONDS REMAINING - DELETE CHANNEL
-                    .then(client.setTimeout(() => interaction.channel.delete(), 10000 ))
+                    .then(setTimeout(() => interaction.channel.delete(), 10000 ))
                         .catch(err => console.log(err))                    
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON

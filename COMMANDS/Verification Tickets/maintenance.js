@@ -19,7 +19,7 @@ module.exports = {
         let verifChanger = message.author;
 
         // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
+        setTimeout(() => message.delete(), 0 );
 
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -38,7 +38,7 @@ module.exports = {
             // SENDING TO CHANNEL
             message.channel.send(noCatEmbed)
             // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
+                .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
             return
         }

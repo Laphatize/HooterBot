@@ -518,7 +518,7 @@ cron.schedule('30 00 10 * * *', async () => {
                                 // FETCH MESSAGE BY ID
                                 secondDmMsg = dmCh.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
                                     .then(msg => {
-                                        client.setTimeout(() => msg.delete(), 0 );
+                                        setTimeout(() => msg.delete(), 0 );
                                     })
                             }
                         })
