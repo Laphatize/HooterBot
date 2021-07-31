@@ -17,19 +17,68 @@ module.exports = {
             required: true
         },{
             name: `image_url`,
-            description: `Optional URL to an image to be attached`,
+            description: `Image URL to be attached to message`,
             type: `STRING`,
             required: false
         },
     ],
-    run: async(client, interaction, args) => {
+    run: async(client, interaction, inputs) => {
 
-        console.log(args)
+        // GRABBING SLASH COMMAND INPUT VALUES
+        const partnerName = inputs[0];
+        const partnerMsg = inputs[1];
+        const imageUrl = inputs[2];
 
-        const partnerName = args[0];
-        const partnerMsg = args[1];
-        const imageUrl = args[2];
 
-        interaction.reply({ content: `This command will eventually allow you to post partner messages. For now, this slash command is offline. Consider using the \`\`$partnermessage\`\` command instead.\n\npartnerName = ${partnerName}\npartnerMsg = ${partnerMsg}\nimageUrl = ${imageUrl}`, ephemeral: true })
+        // EMBED MESSAGE WITHOUT IMAGE
+        if(!imageUrl) {
+            let partnerEmbed = new discord.MessageEmbed()
+                .setColor(config.embedDarkGrey)
+                .setTitle(`**Announcement from our partnered server:\n${partnerName}**`)
+                .setDescription(`${partnerMsg}`)
+                .addField('\u200B', '\u200B') // BLANK FIELD FOR SEPARATION
+                .addField(`Want to join this partnered server?`, `Head to <#832684556598640691> for the invite link!`)
+                
+                // POSTING EMBED MESSAGE AND BUTTON
+                await interaction.guild.channels.cache.find(ch => ch.name === `server-announcements`).send({embeds: [partnerEmbed]})
+                    .catch(err => {
+                        // LOGGING
+                        console.log(err)
+    
+                        // INFORMING USER
+                        let msgSendErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Error!`)
+                            .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered the message:`)
+                            .addField(`partnerName`, `\`\`${partnerName}\`\``)
+                            .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
+                            .setTimestamp()
+                        return interaction.user.send({embeds: [msgSendErrorEmbed]})
+                    })
+                
+                // REPLYING TO INTERACTION AS EPHEMERAL
+                let msgSendSuccessEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Success!`)
+                    .setDescription(`Your partner message has been successfully submitted.`)
+                    .setTimestamp()
+
+                interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
 }
