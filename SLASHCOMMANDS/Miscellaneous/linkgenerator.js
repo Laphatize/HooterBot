@@ -54,25 +54,15 @@ module.exports = {
                 },{
                     name: `Housing`,
                     value: `housing`,
-                },{
-                    name: `DARS`,
-                    value: `dars`,
-                },{
-                    name: `DARS`,
-                    value: `dars`,
-                },{
-                    name: `DARS`,
-                    value: `dars`,
                 }
             ]
         }
     ],
     defaultPermission: true,
     run: async(client, interaction, args) => {
+        console.log(`args = ${args}`)
 
-
-
-        interaction.reply({ content: 'This command will eventually allow you to post or update the rules embed. For now, this slash command is offline. Consider using the \`\`$rules\`\` command instead.', ephemeral: true })
+        interaction.reply({ content: 'This command will eventually generate a Temple Link. Consider using the \`\`$link\`\` command instead.' })
     }
 }
 
