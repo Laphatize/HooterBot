@@ -1,4 +1,4 @@
-const { CommandInteraction } = require('discord.js')
+const discord = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
