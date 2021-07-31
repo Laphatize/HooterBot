@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'rules',
-    description: `(Admin) Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
+    description: `(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
     run: async(client, interaction, args) => {
 
         // TESTING PERMISSIONS

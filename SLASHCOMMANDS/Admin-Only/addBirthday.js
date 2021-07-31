@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'addbirthday',
-    description: `(Admin) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
+    description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     run: async(client, interaction, args) => {
 
 
