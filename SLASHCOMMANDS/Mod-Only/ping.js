@@ -8,7 +8,7 @@ module.exports = {
     permissions: '',
     requiredRoles: [],
     cooldown: 60,
-    defaultPermission: false,
+    defaultPermission: true,
     run: async(client, interaction, args) => {
         interaction.reply({ content: 'Hello World! This is my first (legit) slash command!', ephemeral: true })
     }

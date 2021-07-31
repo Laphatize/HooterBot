@@ -7,6 +7,7 @@ module.exports = {
     name: 'botinfo',
     description: `Describes details about ${config.botName}.`,
     options: [],
+    cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, args) => {
 
