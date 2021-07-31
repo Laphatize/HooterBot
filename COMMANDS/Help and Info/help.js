@@ -17,33 +17,9 @@ module.exports = {
 
         let helpEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setTitle(`**Help:**`)
-            .setDescription(`Select a button below for information on commands in that category.`)
-            .setFooter(`These buttons will not work right now.`)
+            .setDescription(`Instead of showing a list of available commands, ${config.botName}'s commands can all be found as slash commands! Type \`\`/\`\` in chat and Discord will generate the list of Slash Commands you can use for HooterBot!
+            \nFor information on Slash Commands and what they are, check out [this Discord Blog post](https://blog.discord.com/slash-commands-are-here-8db0a385d9e6).`)
 
-        let FunButton = new MessageButton()
-            .setLabel("Fun")
-            .setStyle(`SECONDARY`)
-            .setCustomId("help_fun")
-        let HelpInfoButton = new MessageButton()
-            .setLabel("Help & Info")
-            .setStyle(`SECONDARY`)
-            .setCustomId("help_helpinfo")
-        let MiscButton = new MessageButton()
-            .setLabel("Miscellaneous")
-            .setStyle(`SECONDARY`)
-            .setCustomId("help_Misc")
-
-
-        // BUTTON ROWS BASED ON ADMIN OR NOT
-        
-        let mainHelpRow = new MessageActionRow()
-            .addComponents(
-                FunButton,
-                HelpInfoButton,
-                MiscButton,
-            );
-
-        return message.reply({ embeds: [helpEmbed], components: [mainHelpRow] })
+        return message.reply({ embeds: [helpEmbed], ephemeral: true })
     }
 }

@@ -6,7 +6,7 @@ module.exports = {
     aliases: [`partnerannouncement`, `partnermsg`],
     description: `(${config.emjAdmin}) Generate an embed in \#server-announcements to promote messages from partner servers.`,
     category: `Administrator`,
-    expectedArgs: ' <partner name> | <message> | <(optional) direct image URL>',
+    expectedArgs: '<partner name> | <message> | <(optional) direct image URL>',
     cooldown: -1,
     minArgs: 0,
     maxArgs: 0,

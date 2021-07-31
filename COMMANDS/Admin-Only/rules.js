@@ -8,7 +8,7 @@ module.exports = {
     description: `Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
     category: `Administrator`,
     expectedArgs: '',
-    cooldown: 15,
+    cooldown: 10,
     minArgs: 0,
     maxArgs: 0,
     permissions: 'ADMINISTRATOR',    // ADMINISTRATOR - off for testing
