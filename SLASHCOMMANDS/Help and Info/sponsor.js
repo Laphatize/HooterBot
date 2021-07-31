@@ -3,8 +3,8 @@ const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'link',
-    description: `Generates a link to a Temple University resource.`,
+    name: 'sponsor',
+    description: `Describes information on how you can help support the development and operations of ${config.botName}.`,
     options: [],
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
