@@ -25,6 +25,8 @@ module.exports = {
         // FETCH GUILD MEMBER
         interaction.guild.members.fetch(userId)
             .then(async user => {
+                let member = client.users.cache.find(user => user.id === userId)
+                
                 const flags = await interaction.user.fetchFlags()
                 const userFlags = flags.toArray()
 
