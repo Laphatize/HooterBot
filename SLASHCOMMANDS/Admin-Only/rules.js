@@ -5,7 +5,6 @@ const guildSchema = require('../../Database/guildSchema');
 
 
 module.exports = {
-    type: 'SUB_COMMAND',
     name: 'rules',
     description: '(ADMIN) Generates/updates rules, server staff, and ModMail ticket instruction embeds.',
     options: [],
