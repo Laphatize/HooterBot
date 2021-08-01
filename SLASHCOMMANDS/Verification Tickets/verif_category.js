@@ -24,8 +24,6 @@ module.exports = {
         // FETCHING CATEGORY
         const category = interaction.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.id == categoryId);
 
-        console.log(`category = ${category}`)
-
         // CHECKING INPUT IS A CATEGORY
         if(!category) {
             // DEFINING EMBED
@@ -52,7 +50,7 @@ module.exports = {
             let noCatChangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} A category is already set!`)
-                .setDescription(`It is not possible to change the ticket category once set, otherwise, the current verification tickets will become invalid.`)
+                .setDescription(`It is not possible to change the ticket category once set, otherwise, the current verification tickets will become invalid.\nIf the current category is reaching capacity, **enable maintenance mode** (\`\`/maintenance\`\`).`)
                 .setTimestamp()
             
             // SENDING MESSAGE
