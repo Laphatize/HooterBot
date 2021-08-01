@@ -2,6 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
+    type: 'SUB_COMMAND',
     name: 'partner_message',
     description: 'Generate an embed in \#server-announcements to promote messages from partner servers.',
     options: [
