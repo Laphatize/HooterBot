@@ -131,7 +131,7 @@ module.exports = {
             .setDescription(`**${interaction.user.username}**, I'll remember your birthday on ${monthNames[month-1]} ${day}.
             \n\nIf you ever wish for me to forget your birthday, use \`\`/forgetbirthday\`\`.`)
         
-        return interaction.followUp({ embeds: [bdaySetEmbed] });
+        return interaction.reply({ embeds: [bdaySetEmbed] });
 
     }
 }
