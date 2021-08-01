@@ -24,16 +24,16 @@ module.exports = {
 
         // FETCH GUILD MEMBER
         interaction.guild.members.fetch(userId)
-            .then(user => {
-                let member = client.users.cache.find(user => user.id === userId)
-                client.users.fetch(userId)
-                    .then( user => {
-                        let flagsArray = user.fetchFlags.toArray()
-                        console.log(`flagsArray = ${flagsArray}`)
-                    })
+            .then(async user => {
+                const flags = await interaction.user.fetchFlags()
+                const userFlags = flags.toArray()
 
-                var nickname = member.username
-                if(!member.username) {
+                console.log(`flags = ${flags}`)
+                console.log(`userFlags = ${userFlags}`)
+
+                // GRABBING NICKNAME IF SET
+                var nickname = member.displayName
+                if(!member.displayName) {
                     nickname = `*(None)`;
                 }
 
@@ -46,10 +46,6 @@ module.exports = {
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                // const flags = user.flags;
-                // const flagsArray = flags.toArray()
-                // console.log(`flags = ${flags}`)
-                // console.log(`flagsArray = ${flagsArray}`)
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
