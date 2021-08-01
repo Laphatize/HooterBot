@@ -6,7 +6,7 @@ module.exports = {
     description: `A series of administrator commands.`,
     options: [
         {
-            type: 'SUB_COMMAND_GROUP',
+            type: 'SUB_COMMAND',
             name: 'partner_message',
             description: 'Generate an embed in \#server-announcements to promote messages from partner servers.',
             options: [

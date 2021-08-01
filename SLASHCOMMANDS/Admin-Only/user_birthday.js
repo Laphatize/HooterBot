@@ -7,8 +7,8 @@ module.exports = {
     description: `A series of administrator commands.`,
     options: [
         {
-            type: 'SUB_COMMAND_GROUP',
-            name: 'userbirthday',
+            type: 'SUB_COMMAND',
+            name: 'user_birthday',
             description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
             options: [
                 {

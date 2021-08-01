@@ -4,7 +4,7 @@ var pjson = require('../../package.json');
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'botinfo',
+    name: 'bot_info',
     description: `Describes details about ${config.botName}.`,
     options: [],
     permissions: '',

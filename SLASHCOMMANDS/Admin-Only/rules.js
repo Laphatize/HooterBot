@@ -7,7 +7,7 @@ module.exports = {
     description: `A series of administrator commands.`,
     options: [
         {
-            type: 'SUB_COMMAND_GROUP',
+            type: 'SUB_COMMAND',
             name: 'rules',
             description: '(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.',
             options: []
