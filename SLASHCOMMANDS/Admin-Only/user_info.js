@@ -36,12 +36,12 @@ module.exports = {
                     booster =  `*(N/A)*`
                 }
 
-                const userRoles = member1.roles.cache
+                const userRoles = user.roles.cache
                     .sort((a, b) => b.position - a.position)
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                const userFlags = member1.user.flags.toArray();
+                const userFlags = user.flags.toArray();
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
