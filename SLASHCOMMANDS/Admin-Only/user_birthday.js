@@ -5,7 +5,7 @@ const config = require ('../../config.json')
 module.exports = {
     type: 'SUB_COMMAND',
     name: 'user_birthday',
-    description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
+    description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     options: [
         {
             name: `user_id`,

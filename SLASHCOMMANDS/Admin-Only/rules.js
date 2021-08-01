@@ -5,7 +5,7 @@ const config = require ('../../config.json')
 module.exports = {
     type: 'SUB_COMMAND',
     name: 'rules',
-    description: 'Generates/updates rules, server staff, andModMail ticket instruction embeds.',
+    description: '(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.',
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
