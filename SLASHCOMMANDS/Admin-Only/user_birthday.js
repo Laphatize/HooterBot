@@ -44,7 +44,7 @@ module.exports = {
 
 
         // CHECK THAT THE USER EXISTS IN THE GUILD
-        if(!message.guild.members.fetch(userId)) {
+        if(!interaction.guild.members.fetch(userId)) {
             let bdayUserDNEEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
