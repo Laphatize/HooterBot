@@ -43,7 +43,7 @@ module.exports = {
                     nickname = `*(None)*`;
                 }
 
-                var booster = member.premiumSince
+                var booster = member.premiumSince()
                 if(!booster) {
                     booster =  `*(N/A)*`
                 }
@@ -60,12 +60,13 @@ module.exports = {
                     .addField(`ID:`, `${member.id}`, true)
                     .addField(`Nickname:`, `${nickname}`, true)
                     .addField(`Bot?`, `${member.bot}`, true)
-                    .addField(`Server Boosting:`, `${member.premiumSince}`, true)
+                    .addField(`Server Boosting:`, `${booster}`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
                     .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`, true)
                     .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
-                    .addField(`Server Roles:`, `${userRoles.join('\n')}`)
-                    .addField(`Flags:`, `${userFlags}`)
+                    .addField(`\u200B`,`\u200B`)      // BLANK FIELD, NOT USED
+                    .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
+                    .addField(`Flags:`, `\`\`${userFlags}\`\``, true)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
             })
