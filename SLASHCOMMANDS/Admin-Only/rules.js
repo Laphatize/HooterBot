@@ -11,7 +11,7 @@ module.exports = {
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
-    defaultPermission: false,
+    defaultPermission: true,
     run: async(client, interaction, args) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
