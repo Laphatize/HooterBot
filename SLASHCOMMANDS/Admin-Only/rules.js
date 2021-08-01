@@ -9,7 +9,7 @@ module.exports = {
         {
             type: 'SUB_COMMAND',
             name: 'rules',
-            description: '(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.',
+            description: 'Generates/updates rules, server staff, andModMail ticket instruction embeds.',
             options: []
         },
     ],
