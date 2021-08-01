@@ -97,7 +97,8 @@ for (const folder of slashCommands) {
 
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
-		client.slashCommands.set(slashCmd.name, slashCmd);
+		// client.slashCommands.set(slashCmd.name, slashCmd);
+        client.slashCommands.set([]);
         arrayOfSlashCmds.push(slashCmd)
 	}
 }
