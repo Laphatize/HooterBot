@@ -102,6 +102,7 @@ client.on('ready', async () => {
     // SLASH COMMANDS
     console.log(`======================================`);
     console.log(`===== REGISTERING SLASH COMMANDS =====`);
+    console.log(`======================================\n`);
 
     // GUILD SLASH COMMANDS - MMM789 TEST
     await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
@@ -111,8 +112,6 @@ client.on('ready', async () => {
 
     // // GUILD SLASH COMMANDS - TU SERVER ID
     // await client.guilds.cache.get('829409161581821992').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
-
-    console.log(`======================================\n`);
 })
 
 
