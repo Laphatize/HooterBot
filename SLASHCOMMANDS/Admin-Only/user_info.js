@@ -29,16 +29,15 @@ module.exports = {
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
-                    .setTitle(`User Information:`)
-                    .setAuthor(`${member.tag}`, `${member.displayAvatarURL()}`)
-                    .addField(`Username:`, `${user.username}`, true)
-                    .addField(`ID:`, `${user.id}`, true)
-                    .addField(`Nickname:`, `${user.nickname}` || `*(None)*`, true)
-                    .addField(`Bot?`, `${user.bot}`, true)
-                    .addField(`Server Boosting:`, `${user.premiumSince}` || `*(N/A)*`, true)
-                    .addField(`\u200B`,`\u200B`) // BLANK FIELD FOR SPACING
-                    .addField(`Server Join Date:`, `${moment(Date(user.joinedTimestamp)).utcOffset(0).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
-                    .addField(`Discord Join Date:`, `${moment(Date(member.createdTimestamp)).utcOffset(0).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
+                    .setAuthor(`${member.tag} Information`, `${member.displayAvatarURL()}`)
+                    .addField(`Username:`, `${member.username}`, true)
+                    .addField(`ID:`, `${member.id}`, true)
+                    .addField(`Nickname:`, `${member.nickname}` || `*(None)*`, true)
+                    .addField(`Bot?`, `${member.bot}`, true)
+                    .addField(`Server Boosting:`, `${member.premiumSince}` || `*(N/A)*`, true)
+                    .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD FOR SPACING
+                    .addField(`Server Join Date:`, `${moment(Date(member.joinedTimestamp)).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
+                    .addField(`Discord Join Date:`, `${moment(Date(user.createdTimestamp)).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
                     .addField(`Server Roles:`, `*(still working on this part)*`)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
