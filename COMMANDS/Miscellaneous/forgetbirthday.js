@@ -33,6 +33,7 @@ module.exports = {
             return;
         }
 
+        // DELETING DATABASE ENTRY
         await birthdaySchema.deleteOne({
             USER_ID: message.author.id
         }).exec();
