@@ -3,7 +3,7 @@ const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'admin',
+    name: 'admin2',
     description: `A series of administrator commands.`,
     options: [
         {

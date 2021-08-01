@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'admin',
+    name: 'admin1',
     description: `A series of administrator commands.`,
     options: [
         {
