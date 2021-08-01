@@ -42,18 +42,6 @@ module.exports = {
         }).exec();
 
 
-        // CHECK THAT THE USER EXISTS IN THE GUILD
-        if(!interaction.guild.members.fetch(userId)) {
-            let bdayUserDNEEmbed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
-                .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`That user does not exist in this server. Please try another user ID`)
-
-            // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [bdayUserDNEEmbed], ephemeral: true })
-        }
-
-
         // IF A DB ENTRY EXISTS FOR THE USER ALREADY
         if(dbBirthdayData) {
             let birthdayExists = new discord.MessageEmbed()
