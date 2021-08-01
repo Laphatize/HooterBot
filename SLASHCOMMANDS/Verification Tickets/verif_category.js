@@ -82,7 +82,7 @@ module.exports = {
 
 
         // DEFINING LOG EMBED
-        let logTicketCatUpdateEmbed = new discord.MessageEmbed()
+        let logMaintenanceEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`Ticket Category Updated`)
             .setDescription(`**New ticket category:** \`\`${category.name.toUpperCase()}\`\`\n**Changed by:** ${categoryChanger}`)
@@ -90,6 +90,6 @@ module.exports = {
         
         
         // LOG ENTRY
-        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketCatUpdateEmbed] })
+        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logMaintenanceEmbed] })
     }
 }
