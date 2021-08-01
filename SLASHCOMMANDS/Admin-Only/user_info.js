@@ -28,7 +28,7 @@ module.exports = {
                 let member = client.users.cache.find(user => user.id === userId)
                 
                 const flags = await member.fetchFlags()
-                const userFlags = flags.toArray()
+                var userFlags = flags.toArray()
 
                 if(!userFlags) {
                     userFlags = `*(None)*`
