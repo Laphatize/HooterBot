@@ -43,7 +43,7 @@ module.exports = {
             let noCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!** Missing Verification Prompt`)
-                .setDescription(`You first need to create a verification prompt in the server using \`\`${config.prefix}verifEmbed\`\` in **#roles** before the verification prompt can be toggled in and out of maintenance mode.`)
+                .setDescription(`You first need to create a verification prompt in the server using \`\`/verif_promptembed\`\` in **#roles** before the verification prompt can be toggled in and out of maintenance mode.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
@@ -154,7 +154,7 @@ module.exports = {
             let logMaintenanceEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${interaction.user}`)
+                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in **#roles**.\n**Changed by:** ${interaction.user}`)
                 .setTimestamp()
             
             // LOG ENTRY
