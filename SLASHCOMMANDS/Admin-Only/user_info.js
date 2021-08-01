@@ -35,8 +35,8 @@ module.exports = {
                     .addField(`Bot?`, `${member.bot}`, true)
                     .addField(`Server Boosting:`, `${member.premiumSince}` || `*(N/A)*`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD FOR SPACING
-                    .addField(`Server Join Date:`, `${Date(member.joinedTimestamp).toLocaleDateString()}`)
-                    .addField(`Discord Join Date:`, `${Date(user.createdTimestamp).toLocaleDateString()}`)
+                    .addField(`Server Join Date:`, `${Date(member.joinedTimestamp)}`)
+                    .addField(`Discord Join Date:`, `${Date(user.createdTimestamp)}`)
                     .addField(`Server Roles:`, `*(still working on this part)*`)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
