@@ -96,7 +96,7 @@ module.exports = {
             let dayRangeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjORANGETICK} A leap year!`)
-                .setDescription(`Because <@${userId} birthday *technically* happens once every 4 years, I'm going to remind everyone of your birthday on February 28 instead so we can celebrate every year!`)
+                .setDescription(`Because <@${userId}> birthday *technically* happens once every 4 years, I'm going to remind everyone of your birthday on February 28 instead so we can celebrate every year!`)
 
             // SENDING NOTICE TO CHANNEL
             interaction.reply({ embeds: [dayRangeEmbed], ephemeral: true })
@@ -121,7 +121,7 @@ module.exports = {
             let bdaySetEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
-                .setDescription(`I'll remember <@${userId}'s birthday on ${monthNames[month-1]} ${day-1}, even though their birthday is actually on February 29.
+                .setDescription(`I'll remember <@${userId}>'s birthday on ${monthNames[month-1]} ${day-1}, even though their birthday is actually on February 29.
                 \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
 
             return interaction.followUp({ embeds: [bdaySetEmbed] });
@@ -148,7 +148,7 @@ module.exports = {
         let bdaySetEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
-            .setDescription(`I'll remember <@${userId}'s birthday on ${monthNames[month-1]} ${day}.
+            .setDescription(`I'll remember <@${userId}>'s birthday on ${monthNames[month-1]} ${day}.
             \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
         
         return interaction.reply({ embeds: [bdaySetEmbed] });
