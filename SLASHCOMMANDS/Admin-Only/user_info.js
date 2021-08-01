@@ -24,47 +24,47 @@ module.exports = {
 
         // FETCH GUILD MEMBER
         interaction.guild.members.fetch(userId)
-            .then(async member => {
-                let member = client.users.cache.find(member => member.id === memberId)
+            .then(async user => {
+                let member = client.users.cache.find(user => user.id === userId)
                 
                 const flags = await member.fetchFlags()
-                var memberFlags = flags.toArray()
+                var userFlags = flags.toArray()
 
-                if(!memberFlags) {
-                    memberFlags = `*(None)*`
+                if(!userFlags) {
+                    userFlags = `*(None)*`
                 }
-                if(memberFlags) {
-                    memberFlags = `\`\`${userFlags.join(`\n`)}\`\``
+                if(userFlags) {
+                    userFlags = `\`\`${userFlags.join(`\n`)}\`\``
                 }
 
                 // GRABBING NICKNAME IF SET
-                var nickname = member.displayName
-                if(member.displayName == member.username) {
+                var nickname = user.displayName
+                if(user.displayName == user.username) {
                     nickname = `*(None)*`;
                 }
 
-                var booster = user.premiumSince
+                var booster = member.premiumSince
                 if(!booster) {
                     booster =  `*(N/A)*`
                 }
 
-                const memberRoles = member.roles.cache
+                const userRoles = user.roles.cache
                     .map(role => role.toString())
                     .slice(0, -1)
 
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
-                    .setAuthor(`${user.tag}'s Information`, `${user.displayAvatarURL()}`)
-                    .addField(`Username:`, `${user.username}`, true)
-                    .addField(`ID:`, `${user.id}`, true)
+                    .setAuthor(`${member.tag} Information`, `${member.displayAvatarURL()}`)
+                    .addField(`Username:`, `${member.username}`, true)
+                    .addField(`ID:`, `${member.id}`, true)
                     .addField(`Nickname:`, `${nickname}`, true)
                     .addField(`Server Boosting:`, `${booster}`, true)
-                    .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LLL`)}`, true)
-                    .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
-                    .addField(`Server Roles:`, `${memberRoles.join('\n')}`, true)
-                    .addField(`Flags:`, `${memberFlags}`, true)
-                    .addField(`Bot?`, `${user.bot}`, true)
+                    .addField(`Server Join Date:`, `${moment(user.joinedAt).format(`LLL`)}`, true)
+                    .addField(`Discord Join Date:`, `${moment(member.createdTimestamp).format(`LL`)}`, true)
+                    .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
+                    .addField(`Flags:`, `${userFlags}`, true)
+                    .addField(`Bot?`, `${member.bot}`, true)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
             })
