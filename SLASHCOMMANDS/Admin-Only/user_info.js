@@ -41,7 +41,7 @@ module.exports = {
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                const userFlags = (await member.fetchFlags()).toArray();
+                const userFlags = (await user.fetchFlags()).toArray();
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
