@@ -19,16 +19,19 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
         // GRABBING SLASH COMMAND INPUT VALUES
-        const category = inputs[0];
+        const categoryId = inputs[0];     // THIS IS THE CHANNEL ID
+
+        // FETCHING CATEGORY
+        const category = client.channels.cache.fetch(categoryId)
 
         console.log(`category = ${category}`)
 
         // CHECKING INPUT IS A CATEGORY
-        if(category.type !== "GUILD_CATEGORY") {
+        if(category.type == "GUILD_TEXT") {
             // DEFINING EMBED
             let notCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} You selected a channel, not a category!`)
+                .setTitle(`${config.emjREDTICK} You selected a text channel, not a category!`)
                 .setDescription(`It is not possible to filter out text channels at this time. Be sure the icon of the channel you pick is a folder!`)
                 .setTimestamp()
             
