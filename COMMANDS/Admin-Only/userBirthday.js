@@ -56,7 +56,7 @@ module.exports = {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`That user's birthday already exists in the database.`)
+                .setDescription(`<@${dbBirthdayData.USER_ID}>'s birthday already exists in the database.`)
 
             // SENDING TO CHANNEL
             message.channel.send({embeds: [birthdayExists]})

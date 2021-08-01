@@ -12,7 +12,7 @@ module.exports = {
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
     defaultPermission: true,
-    run: async(client, interaction, args) => {
+    run: async(client, interaction, inputs) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({

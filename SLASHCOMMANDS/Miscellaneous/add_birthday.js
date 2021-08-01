@@ -40,7 +40,7 @@ module.exports = {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} Sorry, you've already set your birthday!`)
-                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`$forgetbirthday\`\` before running this command again.`)
+                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`$forget_birthday\`\` before running this command again.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [birthdayExists], ephemeral: true })
@@ -102,7 +102,7 @@ module.exports = {
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
                 .setDescription(`**${interaction.user.username}**, I'll remember your birthday on ${monthNames[month-1]} ${day-1}, even though your birthday is actually on February 29.
-                \n\nIf you ever wish for me to forget your birthday, use \`\`/forgetbirthday\`\`.`)
+                \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
 
             return interaction.followUp({ embeds: [bdaySetEmbed] });
         }
@@ -129,7 +129,7 @@ module.exports = {
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
             .setDescription(`**${interaction.user.username}**, I'll remember your birthday on ${monthNames[month-1]} ${day}.
-            \n\nIf you ever wish for me to forget your birthday, use \`\`/forgetbirthday\`\`.`)
+            \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
         
         return interaction.reply({ embeds: [bdaySetEmbed] });
 
