@@ -2,26 +2,32 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    type: 'SUB_COMMAND',
-    name: 'partner_message',
-    description: 'Generate an embed in \#server-announcements to promote messages from partner servers.',
+    name: 'admin',
+    description: `A series of administrator commands.`,
     options: [
         {
-            name: `partner_name`,
-            description: `The name of the partner server`,
-            type: `STRING`,
-            required: true
-            },{
-            name: `text`,
-            description: `The main body of the announcement message`,
-            type: `STRING`,
-            required: true
-            },{
-            name: `image_url`,
-            description: `Image URL to be attached to message`,
-            type: `STRING`,
-            required: false
-        }
+            type: 'SUB_COMMAND',
+            name: 'partner_message',
+            description: 'Generate an embed in \#server-announcements to promote messages from partner servers.',
+            options: [
+                {
+                    name: `partner_name`,
+                    description: `The name of the partner server`,
+                    type: `STRING`,
+                    required: true
+                    },{
+                    name: `message`,
+                    description: `The main body of the announcement message`,
+                    type: `STRING`,
+                    required: true
+                    },{
+                    name: `image_url`,
+                    description: `Image URL to be attached to message`,
+                    type: `STRING`,
+                    required: false
+                }
+            ]
+        },
     ],
     permissions: 'ADMINISTRATOR',
     cooldown: 10,

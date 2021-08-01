@@ -3,9 +3,16 @@ const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'rules',
-    description: 'Generates/updates rules, server staff, andModMail ticket instruction embeds.',
-    options: [],
+    name: 'admin',
+    description: `A series of administrator commands.`,
+    options: [
+        {
+            type: 'SUB_COMMAND',
+            name: 'rules',
+            description: 'Generates/updates rules, server staff, andModMail ticket instruction embeds.',
+            options: []
+        },
+    ],
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
     defaultPermission: false,
