@@ -33,10 +33,14 @@ module.exports = {
                 console.log(`flags = ${flags}`)
                 console.log(`userFlags = ${userFlags}`)
 
+                if(!userFlags) {
+                    userFlags = `*(None)*`
+                }
+
                 // GRABBING NICKNAME IF SET
                 var nickname = member.displayName
                 if(!member.displayName) {
-                    nickname = `*(None)`;
+                    nickname = `*(None)*`;
                 }
 
                 var booster = member.premiumSince
@@ -61,7 +65,7 @@ module.exports = {
                     .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`, true)
                     .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`)
-                    // .addField(`Flags:`, `${flagsArray.length ? flagsArray.map(flag => flags[flag]).join(', ') : 'None'}`)
+                    .addField(`Flags:`, `${userFlags}`)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
             })
