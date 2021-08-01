@@ -41,10 +41,10 @@ module.exports = {
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                const flags = user.flags;
-                const flagsArray = flags.toArray()
-                console.log(`flags = ${flags}`)
-                console.log(`flagsArray = ${flagsArray}`)
+                // const flags = user.flags;
+                // const flagsArray = flags.toArray()
+                // console.log(`flags = ${flags}`)
+                // console.log(`flagsArray = ${flagsArray}`)
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
@@ -58,7 +58,7 @@ module.exports = {
                     .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`)
                     .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`)
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`)
-                    .addField(`Flags:`, `${flagsArray.length ? flagsArray.map(flag => flags[flag]).join(', ') : 'None'}`)
+                    // .addField(`Flags:`, `${flagsArray.length ? flagsArray.map(flag => flags[flag]).join(', ') : 'None'}`)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
             })
