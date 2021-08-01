@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
-const moment = require('moment');
 
 module.exports = {
     name: 'user_info',
@@ -36,8 +35,8 @@ module.exports = {
                     .addField(`Bot?`, `${member.bot}`, true)
                     .addField(`Server Boosting:`, `${member.premiumSince}` || `*(N/A)*`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD FOR SPACING
-                    .addField(`Server Join Date:`, `${moment(Date(member.joinedTimestamp)).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
-                    .addField(`Discord Join Date:`, `${moment(Date(user.createdTimestamp)).format("MMMM DD YYYY, h:mm:ss a")} (UTC)`)
+                    .addField(`Server Join Date:`, `${Date(member.joinedTimestamp).toLocaleDateString()}`)
+                    .addField(`Discord Join Date:`, `${Date(user.createdTimestamp).toLocaleDateString()}`)
                     .addField(`Server Roles:`, `*(still working on this part)*`)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
