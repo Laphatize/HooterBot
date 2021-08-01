@@ -30,9 +30,6 @@ module.exports = {
                 const flags = await member.fetchFlags()
                 const userFlags = flags.toArray()
 
-                console.log(`flags = ${flags}`)
-                console.log(`userFlags = ${userFlags}`)
-
                 if(!userFlags) {
                     userFlags = `*(None)*`
                 }
@@ -64,7 +61,7 @@ module.exports = {
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
                     .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`, true)
                     .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
-                    .addField(`\u200B`,`\u200B`)      // BLANK FIELD, NOT USED
+                    .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
                     .addField(`Flags:`, `\`\`${userFlags}\`\``, true)
 
