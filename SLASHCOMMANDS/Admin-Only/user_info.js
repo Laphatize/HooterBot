@@ -30,7 +30,7 @@ module.exports = {
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
                     .setTitle(`User Information:`)
-                    .setAuthor(`${user.tag}`, `${user.displayAvatarURL()}`)
+                    .setAuthor(`${member.tag}`, `${member.displayAvatarURL()}`)
                     .addField(`Username:`, `${user.username}`, true)
                     .addField(`ID:`, `${user.id}`, true)
                     .addField(`Nickname:`, `${user.nickname}` || `*(None)*`, true)
