@@ -4,7 +4,7 @@ const guildSchema = require('../../Database/guildSchema')
 
 module.exports = {
     name: 'verif_category',
-    description: `(ADMIN) Set the category for ticket channels to be created. Cannot be used to modify the category.`,
+    description: `(ADMIN) Set the category for ticket channels to be created. Cannot be used to modify the category once set.`,
     options: [
         {
             name: `channel`,
@@ -22,17 +22,17 @@ module.exports = {
         const categoryId = inputs[0];     // THIS IS THE CHANNEL ID
 
         // FETCHING CATEGORY
-        const category = client.channels.cache.fetch(categoryId)
+        const category = interaction.guild.channels.cache.find(ch => ch.type == "GUILD_CATEGORY" && ch.id == categoryId);
 
         console.log(`category = ${category}`)
 
         // CHECKING INPUT IS A CATEGORY
-        if(category.type == "GUILD_TEXT") {
+        if(!category) {
             // DEFINING EMBED
             let notCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} You selected a text channel, not a category!`)
-                .setDescription(`It is not possible to filter out text channels at this time. Be sure the icon of the channel you pick is a folder!`)
+                .setDescription(`Sorry, I can't list only category in your selection (yell at Discord, not me). Be sure the icon of the channel you pick is a folder!`)
                 .setTimestamp()
             
             // SENDING MESSAGE
