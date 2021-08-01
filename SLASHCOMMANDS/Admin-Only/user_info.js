@@ -41,7 +41,7 @@ module.exports = {
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                const flags = user.flags || await user.fetchFlags();
+                const flags = user.flags || user.fetchFlags();
                 const flagsArray = flags.toArray()
                 console.log(`flags = ${flags}`)
                 console.log(`flagsArray = ${flagsArray}`)
