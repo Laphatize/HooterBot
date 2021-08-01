@@ -52,7 +52,19 @@ module.exports = {
             .setTitle(`${config.botName} has joined the server!`)
             .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\``)
             .addField(`PERMISSIONS`, `${config.emjGREENTICK} Manage Channels\n${config.emjGREENTICK} Read Messages\n${config.emjGREENTICK} Send Messages\n${config.emjGREENTICK} Manage Messages\n${config.emjGREENTICK} Embed Links\n${config.emjGREENTICK} Attach Files\n${config.emjGREENTICK} Add Reactions\n${config.emjGREENTICK} Use External Emojis\n${config.emjGREENTICK} Use Slash Commands`, true)
-            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} GUILD_MESSAGE_REACTIONS\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGE_REACTIONS\n**PARTIALS:**\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
+            .setTimestamp()
+
+        // LOG ENTRY
+        modLogChannel.send({embeds: [logJoinGuild]})
+
+
+        // LOGGING BOT JOINING GUILD
+        let logJoinGuild = new discord.MessageEmbed()
+            .setColor(config.embedBlurple)
+            .setDescription(`**Here is the list of my enabled intents:**`)
+            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjREDTICK} GUILD_BANS\n${config.emjREDTICK} GUILD_EMOJIS\n${config.emjREDTICK} GUILD_INTEGRATIONS\n${config.emjREDTICK} GUILD_WEBHOOKS\n${config.emjREDTICK} GUILD_INVITES\n${config.emjREDTICK} GUILD_VOICE_STATES\n${config.emjREDTICK} GUILD_PRESENCES\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjREDTICK} GUILD_MESSAGE_REACTIONS\n${config.emjREDTICK} GUILD_MESSAGE_TYPING\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjREDTICK} DIRECT_MESSAGE_REACTIONS\n${config.emjREDTICK} DIRECT_MESSAGE_TYPING`)
+            .addField(`PARTIALS:\n${config.emjGREENTICK} CHANNEL\n${config.emjREDTICK} GUILD_MEMBER\n${config.emjGREENTICK} MESSAGE\n${config.emjREDTICK} REACTION\n${config.emjREDTICK} USER`, true)
+            .setFooter(`(In the event this is needed for potential debugging)`)
             .setTimestamp()
 
         // LOG ENTRY

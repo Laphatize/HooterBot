@@ -9,8 +9,8 @@ module.exports = {
     description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     options: [
         {
-            name: `user_id`,
-            description: `The user's ID`,
+            name: `user`,
+            description: `The user who's birthday you're migrating.`,
             type: `USER`,
             required: true
         },{
