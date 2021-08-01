@@ -3,32 +3,25 @@ const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'admin',
-    description: `A series of administrator commands.`,
+    name: 'user_birthday',
+    description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     options: [
         {
-            type: 'SUB_COMMAND',
-            name: 'user_birthday',
-            description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
-            options: [
-                {
-                    name: `user_ID`,
-                    description: `The user's ID`,
-                    type: `USER`,
-                    required: true
-                },{
-                    name: `month`,
-                    description: `The two-digit month value.`,
-                    type: `INTEGER`,
-                    required: true
-                },{
-                    name: `day`,
-                    description: `The two-digit day value.`,
-                    type: `INTEGER`,
-                    required: true
-                },
-            ],
-        }
+            name: `user_ID`,
+            description: `The user's ID`,
+            type: `USER`,
+            required: true
+        },{
+            name: `month`,
+            description: `The two-digit month value.`,
+            type: `INTEGER`,
+            required: true
+        },{
+            name: `day`,
+            description: `The two-digit day value.`,
+            type: `INTEGER`,
+            required: true
+        },
     ],
     permissions: 'ADMINISTRATOR',
     cooldown: 10,
