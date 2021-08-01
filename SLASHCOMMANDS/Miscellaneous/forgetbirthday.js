@@ -31,7 +31,7 @@ module.exports = {
 
         // DELETING DATABASE ENTRY
         await birthdaySchema.deleteOne({
-            USER_ID: message.author.id
+            USER_ID: interaction.user.id
         }).exec();
 
         // CHANNEL CONFIRMATION
