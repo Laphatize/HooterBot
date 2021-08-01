@@ -21,6 +21,8 @@ module.exports = {
         // GRABBING SLASH COMMAND INPUT VALUES
         const category = inputs[0];
 
+        console.log(`category = ${category}`)
+
         // CHECKING INPUT IS A CATEGORY
         if(category.type !== "GUILD_CATEGORY") {
             // DEFINING EMBED

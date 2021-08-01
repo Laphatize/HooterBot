@@ -63,7 +63,7 @@ module.exports = {
         let confirmationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`User Successfully Blacklisted`)
-            .setDescription(`<@${userId}> (ID: ${userId}) is now blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}> immediately.`)
+            .setDescription(`<@${userId}> (ID: ${userId}) is now blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}> immediately and provide the user ID listed in this message.`)
 
         // SENDING CONFIRMATION
         interaction.reply({ embeds: [confirmationEmbed], ephemeral: true })
