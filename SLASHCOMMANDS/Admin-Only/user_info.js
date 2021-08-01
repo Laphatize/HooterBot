@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
+const moment = require('moment');
 
 module.exports = {
     name: 'user_info',
