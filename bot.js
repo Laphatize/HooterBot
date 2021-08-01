@@ -7,11 +7,6 @@ const birthdaySchema = require('./Database/birthdaySchema')
 const ticketSchema = require('./Database/ticketSchema')
 var cron = require('node-cron');
 const moment = require('moment');
-const { promisify } = require('util');
-const { glob } = require(`glob`);
-const globPromise = promisify(glob);
-
-
 
 
 // INITIALIZATION
@@ -108,11 +103,14 @@ client.on('ready', async () => {
     console.log(`======================================`);
     console.log(`===== REGISTERING SLASH COMMANDS =====`);
 
-    // GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
+    // GUILD SLASH COMMANDS - MMM789 TEST
     await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
 
-    // GUILD SLASH COMMANDS - MMM789 2ND TEST SERVER ID = 859798908841230367
+    // GUILD SLASH COMMANDS - MMM789 2ND TEST
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
+
+    // GUILD SLASH COMMANDS - TU SERVER ID
+    await client.guilds.cache.get('829409161581821992').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
 
     console.log(`======================================\n`);
 })
