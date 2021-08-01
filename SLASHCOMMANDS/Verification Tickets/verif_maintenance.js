@@ -95,7 +95,7 @@ module.exports = {
             let logTicketCatUpdateEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` ON \`\`\n**Ticket status:** Tickets **cannot** be created until maintenance mode is turned off.\n**Changed by:** ${verifChanger}`)
+                .setDescription(`**Maintenance mode:** \`\` ON \`\`\n**Ticket status:** Tickets **cannot** be created until maintenance mode is turned off.\n**Changed by:** ${interaction.user}`)
                 .setTimestamp()
                 
             // LOG ENTRY
@@ -154,7 +154,7 @@ module.exports = {
             let logMaintenanceEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Verification Embed Update`)
-                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${verifChanger}`)
+                .setDescription(`**Maintenance mode:** \`\` OFF \`\`\n**Ticket status:** Tickets **can** be be created using the embed in <#${config.rolesChannelId}>.\n**Changed by:** ${interaction.user}`)
                 .setTimestamp()
             
             // LOG ENTRY
