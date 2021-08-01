@@ -4,7 +4,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
 module.exports = {
     name: 'verif_blacklist',
-    description: `(ADMIN) Blacklist a user from the verification system.`,
+    description: `(ADMIN) Blacklist a user from the verification system. [CD: 15s]`,
     options: [
         {
             name: `user`,

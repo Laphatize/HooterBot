@@ -4,7 +4,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'ping',
-    description: `${config.botName}'s first slash command.`,
+    description: `${config.botName}'s first slash command. [CD: 60s]`,
     options: [],
     permissions: '',
     cooldown: 60,

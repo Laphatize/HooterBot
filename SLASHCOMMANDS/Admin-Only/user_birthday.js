@@ -6,7 +6,7 @@ const moment = require('moment');
 
 module.exports = {
     name: 'user_birthday',
-    description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
+    description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot. [CD: 10s]`,
     options: [
         {
             name: `user`,

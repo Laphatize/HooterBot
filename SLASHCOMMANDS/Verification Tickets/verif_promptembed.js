@@ -4,7 +4,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
 module.exports = {
     name: 'verif_promptembed',
-    description: `(ADMIN) Generate/update the verification prompt containing the buttons.`,
+    description: `(ADMIN) Generate/update the verification prompt containing the buttons. [CD: 15s]`,
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 15,

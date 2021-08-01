@@ -4,7 +4,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
 module.exports = {
     name: 'verif_perksembed',
-    description: `(ADMIN) Generate/update the verification perks embed message.`,
+    description: `(ADMIN) Generate/update the verification perks embed message. [CD: 15s]`,
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 15,

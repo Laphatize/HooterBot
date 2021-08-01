@@ -5,7 +5,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'bot_info',
-    description: `Describes details about ${config.botName}.`,
+    description: `Describes details about ${config.botName}. [CD: 60s]`,
     options: [],
     permissions: '',
     cooldown: 60,

@@ -5,7 +5,7 @@ const moment = require('moment');
 
 module.exports = {
     name: 'add_birthday',
-    description: `Adds your birthday for HooterBot to remember and announce in the server.`,
+    description: `Adds your birthday for HooterBot to remember and announce in the server. [CD: 15s]`,
     options: [
         {
             name: `month`,
