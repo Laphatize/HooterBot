@@ -37,7 +37,6 @@ module.exports = {
                 }
 
                 const userRoles = user.roles.cache
-                    .sort((a, b) => b.position - a.position)
                     .map(role => role.toString())
                     .slice(0, -1)
 
