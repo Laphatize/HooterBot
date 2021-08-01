@@ -33,7 +33,7 @@ module.exports = {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
+            GUILD_ID: interaction.guild.id
         }).exec();
 
 
@@ -148,7 +148,7 @@ module.exports = {
                 })
                 .catch(err => console.log(err))
 
-                
+
             // DEFINING LOG EMBED
             let logMaintenanceEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
