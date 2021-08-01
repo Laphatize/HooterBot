@@ -62,8 +62,8 @@ module.exports = {
                     .addField(`Bot?`, `${member.bot}`, true)
                     .addField(`Server Boosting:`, `${booster}`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
-                    .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`, true)
-                    .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
+                    .addField(`Server Join Date:`, `${moment(member.joinedAt)}`, true)
+                    .addField(`Discord Join Date:`, `${moment(user.createdTimestamp)}`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
                     .addField(`Flags:`, `${userFlags}`, true)
