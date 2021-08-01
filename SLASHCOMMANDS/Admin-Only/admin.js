@@ -4,19 +4,25 @@ const config = require ('../../config.json')
 module.exports = {
     name: 'admin',
     description: `A series of administrator commands.`,
-    options: [],
+    options: [
+        {
+            name: `partner_message`,
+            type: `SUB_COMMAND`,
+            description: `Generate an embed in \#server-announcements to promote messages from partner servers.`,
+        },{
+            name: `rules`,
+            type: `SUB_COMMAND`,
+            description: `Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
+        },{
+            name: `user_birthday`,
+            type: `SUB_COMMAND`,
+            description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
+        },
+    ],
     permissions: 'ADMINISTRATOR',
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
-
-        let partnerEmbed = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
-            .setTitle(`**Admin Commands:**`)
-            .addField(`\`\`/partner_message\`\``, `Generate an embed in \#server-announcements to promote messages from partner servers.`)
-            .addField(`\`\`/rules\`\``, `Generates/updates rules, server staff, andModMail ticket instruction embeds.`)
-            .addField(`\`\`/user_birthday\`\``, `A command for admins to migrate MEE6's birthdays over to HooterBot.`)
-            
-        interaction.reply({embeds: [msgSendSuccessEmbed], ephemeral: true})
+        
     }
 }
