@@ -26,6 +26,10 @@ module.exports = {
         interaction.guild.members.fetch(userId)
             .then(user => {
                 let member = client.users.cache.find(user => user.id === userId)
+                let flagsUser = client.users.fetch(userId)
+                let flagsArray = flagsUser.fetch.toArray()
+
+                console.log(`flagsUser = ${flagsUser}\nflagsArray = ${flagsArray}`)
 
                 var nickname = member.username
                 if(!member.username) {
@@ -55,8 +59,8 @@ module.exports = {
                     .addField(`Bot?`, `${member.bot}`, true)
                     .addField(`Server Boosting:`, `${member.premiumSince}`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
-                    .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`)
-                    .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`)
+                    .addField(`Server Join Date:`, `${moment(member.joinedAt).format(`LL LTS`)}`, true)
+                    .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`)
                     // .addField(`Flags:`, `${flagsArray.length ? flagsArray.map(flag => flags[flag]).join(', ') : 'None'}`)
 
