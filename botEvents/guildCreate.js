@@ -47,7 +47,7 @@ module.exports = {
 
 
         // LOGGING BOT JOINING GUILD
-        let logJoinGuild = new discord.MessageEmbed()
+        let logPermissionsJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`${config.botName} has joined the server!`)
             .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\``)
@@ -55,11 +55,11 @@ module.exports = {
             .setTimestamp()
 
         // LOG ENTRY
-        modLogChannel.send({embeds: [logJoinGuild]})
+        modLogChannel.send({embeds: [logPermissionsJoinGuild]})
 
 
         // LOGGING BOT JOINING GUILD
-        let logJoinGuild = new discord.MessageEmbed()
+        let logIntentsJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setDescription(`**Here is the list of my enabled intents:**`)
             .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjREDTICK} GUILD_BANS\n${config.emjREDTICK} GUILD_EMOJIS\n${config.emjREDTICK} GUILD_INTEGRATIONS\n${config.emjREDTICK} GUILD_WEBHOOKS\n${config.emjREDTICK} GUILD_INVITES\n${config.emjREDTICK} GUILD_VOICE_STATES\n${config.emjREDTICK} GUILD_PRESENCES\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjREDTICK} GUILD_MESSAGE_REACTIONS\n${config.emjREDTICK} GUILD_MESSAGE_TYPING\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjREDTICK} DIRECT_MESSAGE_REACTIONS\n${config.emjREDTICK} DIRECT_MESSAGE_TYPING`)
@@ -68,6 +68,6 @@ module.exports = {
             .setTimestamp()
 
         // LOG ENTRY
-        modLogChannel.send({embeds: [logJoinGuild]})
+        modLogChannel.send({embeds: [logIntentsJoinGuild]})
 	},
 };
