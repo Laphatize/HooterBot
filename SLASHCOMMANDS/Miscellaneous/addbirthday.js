@@ -67,7 +67,7 @@ module.exports = {
                 .setDescription(`The value for the day is outside possible values. Please make sure the day is between 01 and 31.`)
 
             // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [dayRangeEmbed] })
+            return interaction.reply({ embeds: [dayRangeEmbed], ephemeral: true  })
         }
 
 
@@ -79,7 +79,7 @@ module.exports = {
                 .setDescription(`Because your birthday *technically* happens once every 4 years, I'm going to remind everyone of your birthday on February 28 instead so we can celebrate every year!`)
 
             // SENDING NOTICE TO CHANNEL
-            interaction.reply({ embeds: [dayRangeEmbed] })
+            interaction.reply({ embeds: [dayRangeEmbed], ephemeral: true })
 
 
             // LOG DATABASE INFORMATION FOR BIRTHDAY
