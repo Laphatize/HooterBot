@@ -5,10 +5,10 @@ const moment = require('moment');
 
 module.exports = {
     name: 'forget_birthday',
-    description: `Remove your birthday from HooterBot's memory. [CD: 60s]`,
+    description: `Remove your birthday from HooterBot's memory. [CD: 10s]`,
     options: [],
     permissions: '',
-    cooldown: 60,
+    cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 

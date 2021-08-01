@@ -5,7 +5,7 @@ const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
     name: 'verif_maintenance',
-    description: `(ADMIN) Toggle verification prompt to enter/exit maintenance mode. [CD: 15s]`,
+    description: `(ADMIN) Toggle verification prompt to enter/exit maintenance mode. [CD: 10s]`,
     options: [
         {
             name: `status`,
@@ -24,7 +24,7 @@ module.exports = {
         },
     ],
     permissions: 'ADMINISTRATOR',
-    cooldown: 15,
+    cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
