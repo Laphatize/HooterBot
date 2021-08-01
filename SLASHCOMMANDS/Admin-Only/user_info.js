@@ -27,9 +27,12 @@ module.exports = {
             .then(user => {
                 let member = client.users.cache.find(user => user.id === userId)
                 let flagsUser = client.users.fetch(userId)
+                
+                console.log(`flagsUser = ${flagsUser}`)
+
                 let flagsArray = flagsUser.fetch.toArray()
 
-                console.log(`flagsUser = ${flagsUser}\nflagsArray = ${flagsArray}`)
+                console.log(`\nflagsArray = ${flagsArray}`)
 
                 var nickname = member.username
                 if(!member.username) {
