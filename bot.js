@@ -97,8 +97,7 @@ for (const folder of slashCommands) {
 
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
-		// client.slashCommands.set(slashCmd.name, slashCmd);
-        client.slashCommands.set([]);
+		client.slashCommands.set(slashCmd.name, slashCmd);
         arrayOfSlashCmds.push(slashCmd)
 	}
 }
@@ -110,7 +109,7 @@ client.on('ready', async () => {
     console.log(`===== REGISTERING SLASH COMMANDS =====`);
 
     // GUILD SLASH COMMANDS - MMM789 TEST SERVER ID = 530503548937699340
-    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)
+    await client.guilds.cache.get('530503548937699340').commands.set(/*arrayOfSlashCmds*/ [] )          //  .commands.set([]) to empty
 
     console.log(`======================================\n`);
 })
