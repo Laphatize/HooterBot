@@ -27,7 +27,7 @@ module.exports = {
             .then(async user => {
                 let member = client.users.cache.find(user => user.id === userId)
                 
-                const flags = await interaction.user.fetchFlags()
+                const flags = await member.fetchFlags()
                 const userFlags = flags.toArray()
 
                 console.log(`flags = ${flags}`)
