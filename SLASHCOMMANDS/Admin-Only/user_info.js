@@ -38,8 +38,8 @@ module.exports = {
                 }
 
                 // GRABBING NICKNAME IF SET
-                var nickname = member.displayName
-                if(member.displayName == member.username) {
+                var nickname = user.displayName
+                if(user.displayName == user.username) {
                     nickname = `*(None)*`;
                 }
 
