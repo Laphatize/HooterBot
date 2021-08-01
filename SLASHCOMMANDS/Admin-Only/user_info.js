@@ -33,6 +33,9 @@ module.exports = {
                 if(!userFlags) {
                     userFlags = `*(None)*`
                 }
+                if(userFlags) {
+                    userFlags = `\`\`${userFlags.join(`\n`)}\`\``
+                }
 
                 // GRABBING NICKNAME IF SET
                 var nickname = member.displayName
@@ -63,7 +66,7 @@ module.exports = {
                     .addField(`Discord Join Date:`, `${moment(user.createdTimestamp).format(`LL`)}`, true)
                     .addField(`\u200B`,`\u200B`, true)      // BLANK FIELD, NOT USED
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
-                    .addField(`Flags:`, `\`\`${userFlags}\`\``, true)
+                    .addField(`Flags:`, `${userFlags}`, true)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
             })
