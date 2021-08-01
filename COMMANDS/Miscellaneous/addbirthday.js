@@ -34,7 +34,7 @@ module.exports = {
                 .setDescription(`Sorry, **you've already set your birthday!** To change the date, use \`\`$forgetbirthday\`\` before running this command.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [birthdayExists]})
+            message.channel.send({ embeds: [birthdayExists] })
             return;
         }
 
@@ -48,7 +48,7 @@ module.exports = {
                 .setDescription(`You need to use a \`\` / \`\` in your command to separate the month and day. Use the following format:\n\n \`\` ## / ##  (month / day) \`\`\n\n(e.g. \`\`${moment(Date.now()).utcOffset(-5).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [notFormattedEmbed]})
+            message.channel.send({ embeds: [notFormattedEmbed] })
                 // DELETE AFTER 10 SECONDS
                 .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
@@ -70,7 +70,7 @@ module.exports = {
                 .setDescription(`You need to provide a number for both the month and day. Use the following format:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).utcOffset(-5).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [missingDayEmbed]})
+            message.channel.send({ embeds: [missingDayEmbed]})
                 // DELETE AFTER 10 SECONDS
                 .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
@@ -87,7 +87,7 @@ module.exports = {
                 .setDescription(`The value entered does not follow the date format needed. Please use:\n\n \`\` ## / ##  (month / day)\`\`\n\n(e.g. \`\`${moment(Date.now()).utcOffset(-5).format(`MM / DD`)}\`\` for today.).`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [argNumCheckEmbed]})
+            message.channel.send({ embeds: [argNumCheckEmbed] })
                 // DELETE AFTER 10 SECONDS
                 .then(msg => {setTimeout(() => msg.delete(), 10000 )})
                 .catch(err => console.log(err))
@@ -104,7 +104,7 @@ module.exports = {
                 .setDescription(`The value for the month is outside possible values. Please make sure the month is between 1 and 12.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [monthRangeEmbed]})
+            message.channel.send({ embeds: [monthRangeEmbed] })
                 // DELETE AFTER 5 SECONDS
                 .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
@@ -121,7 +121,7 @@ module.exports = {
                 .setDescription(`The value for the day is outside possible values. Please make sure the day is between 1 and 31.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({embeds: [dayRangeEmbed]})
+            message.channel.send({ embeds: [dayRangeEmbed] })
                 // DELETE AFTER 5 SECONDS
                 .then(msg => {setTimeout(() => msg.delete(), 5000 )})
                 .catch(err => console.log(err))
@@ -154,7 +154,7 @@ module.exports = {
             .setFooter(`If you ever wish for me to forget your birthday, use "${config.prefix}forgetbirthday".`)
 
         // SENDING TO CHANNEL
-        message.channel.send({embeds: [bdaySetEmbed]})
+        message.channel.send({ embeds: [bdaySetEmbed] })
             .catch(err => console.log(err))
         return
     },
