@@ -40,7 +40,7 @@ module.exports = {
                     .map(role => role.toString())
                     .slice(0, -1)
 
-                const userFlags = user.flags.toArray();
+                const userFlags = member.flags.toArray();
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
