@@ -12,7 +12,7 @@ module.exports = {
         },{
             name: `rules`,
             type: `SUB_COMMAND`,
-            description: `(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
+            description: `(ADMIN) Generates/updates rules, server staff, and ModMail ticket instruction embeds.`,
         },{
             name: `user_birthday`,
             type: `SUB_COMMAND`,
