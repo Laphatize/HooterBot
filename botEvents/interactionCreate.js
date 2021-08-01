@@ -30,7 +30,7 @@ module.exports = {
             }
 
 
-            // USER PERMISSION REQUIREMENT
+            // SLASH COMMAND USER PERMISSION REQUIREMENT
             if (slashCmd.permissions) {
                 const authorPerms = interaction.channel.permissionsFor(interaction.user);
 
@@ -48,28 +48,7 @@ module.exports = {
             }
 
 
-            // USER ROLE REQUIREMENT
-            if (slashCmd.requiredRoles) {
-                for (const requiredRole of slashCmd.requiredRoles) {
-                    const role = interaction.guild.roles.cache.find((role) => role.name === requiredRole)
-
-                    // VALIDATING ROLE
-                    if (!role || !interaction.user.roles.has(role.id)) {
-
-                        // DEFINING EMBED TO SEND
-                            let cmdRoleErrEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedOrange)
-                                .setTitle(`${config.emjORANGETICK} Sorry!`)
-                                .setDescription(`You must have the \`\`${role}\`\` role to use this command.`)
-
-                        // SENDING EMBED
-                        return interaction.reply({ embeds: [cmdRoleErrEmbed] })
-                    }
-                }
-            }
-
-
-            // COOLDOWN SETUP
+            // SLASH COMMAND COOLDOWN SETUP
             const { cooldowns } = client;
 
             if (!cooldowns.has(slashCmd.name)) {
@@ -81,7 +60,7 @@ module.exports = {
             const cooldownTime = (slashCmd.cooldown || 0) * 1000;
 
 
-            // COOLDOWN 
+            // SLASH COMMAND COOLDOWN
             if (timestamps.has(interaction.user.id)) {
                 const expireTime = timestamps.get(interaction.user.id) + cooldownTime;
         

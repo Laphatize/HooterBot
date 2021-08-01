@@ -7,11 +7,11 @@ module.exports = {
     name: 'botinfo',
     description: `Describes details about ${config.botName}.`,
     options: [],
+    permissions: '',
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, args) => {
 
-        
         // UPTIME CALCULATION
         let totalSeconds = (client.uptime / 1000);
         let days = Math.floor(totalSeconds / 86400);

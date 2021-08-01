@@ -1,8 +1,9 @@
+const discord = require('discord.js')
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: 'addbirthday',
+    name: 'userbirthday',
     description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     options: [
         {
@@ -22,12 +23,9 @@ module.exports = {
             required: false
         },
     ],
+    permissions: '',
+    cooldown: 10,
     defaultPermission: false,
-    permissions: [{
-        id: '863650974513758259',
-        type: "ROLE",
-        permission: true,
-    }],
     run: async(client, interaction, args) => {
         // GRABBING SLASH COMMAND INPUT VALUES
         const partnerName = inputs[0];

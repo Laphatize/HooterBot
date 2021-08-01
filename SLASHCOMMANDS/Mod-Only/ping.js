@@ -1,3 +1,4 @@
+const discord = require('discord.js')
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
@@ -6,7 +7,6 @@ module.exports = {
     description: `${config.botName}'s first slash command.`,
     options: [],
     permissions: '',
-    requiredRoles: [],
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, args) => {

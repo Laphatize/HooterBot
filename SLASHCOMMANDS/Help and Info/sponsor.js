@@ -6,6 +6,8 @@ module.exports = {
     name: 'sponsor',
     description: `Describes information on how you can help support the development and operations of ${config.botName}.`,
     options: [],
+    permissions: '',
+    cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 

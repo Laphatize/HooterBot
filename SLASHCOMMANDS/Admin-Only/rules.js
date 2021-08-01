@@ -1,3 +1,4 @@
+const discord = require('discord.js')
 const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
@@ -5,6 +6,8 @@ module.exports = {
     name: 'rules',
     description: `(ADMIN) Generates/updates rules, server staff, andModMail ticket instruction embeds.`,
     options: [],
+    permissions: 'ADMINISTRATOR',
+    cooldown: 60,
     defaultPermission: false,
     run: async(client, interaction, args) => {
 

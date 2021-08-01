@@ -4,8 +4,8 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 const moment = require('moment');
 
 module.exports = {
-    name: `addbirthday`,
-    aliases: [`addbday`],
+    name: `userbirthday`,
+    aliases: [`userbday`],
     description: `A command for admins to migrate MEE6's birthdays over to HooterBot.`,
     category: `Administrator`,
     expectedArgs: '<User_ID> ## / ##  [month / day]',

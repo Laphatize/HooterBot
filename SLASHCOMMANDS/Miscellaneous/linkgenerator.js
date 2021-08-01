@@ -6,7 +6,8 @@ module.exports = {
     name: 'link',
     description: `Generates a link to a Temple University resource.`,
     permissions: '',
-    requiredRoles: ['moderator'],
+    cooldown: 10,
+    defaultPermission: true,
     options: [
         {
             name: `title`,

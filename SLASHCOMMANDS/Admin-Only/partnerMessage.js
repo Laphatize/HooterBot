@@ -22,7 +22,9 @@ module.exports = {
             required: false
         },
     ],
-    defaultPermission: false,
+    permissions: '',
+    cooldown: 10,
+    defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         // GRABBING SLASH COMMAND INPUT VALUES

@@ -7,6 +7,10 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
                             
+        /***********************************************************/
+        /*      VERIFICATION TICKETS                               */
+        /***********************************************************/
+
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
         
@@ -219,9 +223,9 @@ module.exports = {
 
 
 
-
-
-
+        /***********************************************************/
+        /*      TEXT-BASED COMMANDS                                */
+        /***********************************************************/
 
         // MESSAGE IS A COMMAND
         if (message.content.startsWith(config.prefix)) {
