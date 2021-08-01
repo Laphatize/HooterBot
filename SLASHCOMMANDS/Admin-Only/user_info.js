@@ -26,13 +26,11 @@ module.exports = {
         interaction.guild.members.fetch(userId)
             .then(user => {
                 let member = client.users.cache.find(user => user.id === userId)
-                let flagsUser = client.users.fetch(userId)
-                
-                console.log(`flagsUser = ${flagsUser}`)
-
-                let flagsArray = flagsUser.fetch.toArray()
-
-                console.log(`\nflagsArray = ${flagsArray}`)
+                client.users.fetch(userId)
+                    .then( user => {
+                        let flagsArray = user.fetchFlags.toArray()
+                        console.log(`flagsArray = ${flagsArray}`)
+                    })
 
                 var nickname = member.username
                 if(!member.username) {
