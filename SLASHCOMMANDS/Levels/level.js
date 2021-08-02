@@ -21,6 +21,8 @@ module.exports = {
         // GRABBING SLASH COMMAND INPUT VALUES
         const user = inputs[0];
 
+        console.log(`inputs[0] = ${inputs[0]}`)
+
 
         // INFO FOR USER ISSUING COMMAND
         if(!user) {
