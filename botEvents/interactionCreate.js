@@ -869,7 +869,11 @@ module.exports = {
                     let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
                     console.log(`\nuserTicketch = ${userTicketCh}\nnuserTicketch.id = ${userTicketCh.id}\n`)
+                    
+                    
+                    let fetchedTicketChannel = interaction.guilds.channels.cache.fetch(userTicketch.id)
 
+                    console.log(`fetchedTicketChannel = ${fetchedTicketChannel}`)
                     
 
                     userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
