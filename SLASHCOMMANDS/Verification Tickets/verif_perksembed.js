@@ -3,8 +3,8 @@ const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
-    name: 'verif_promptembed',
-    description: `(ADMIN) Generate/update the verification prompt containing the buttons. [CD: 60s]`,
+    name: 'verif_perksembed',
+    description: `(ADMIN) Generate/update the verification perks embed message. [CD: 60s]`,
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
@@ -80,7 +80,7 @@ module.exports = {
         // MESSAGE ID EXISTS IN DATABASE, EDIT EMBED WITHOUT TOUCHING MESSAGE ID
         if(dbData.VERIF_PERKS_MSG_ID) {
 
-            // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+            // GETTING THE VERIFICATION PERKS CHANNEL ID FROM DATABASE
             await interaction.channel.messages.fetch(dbData.VERIF_PERKS_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [verifPerksEmbed] })

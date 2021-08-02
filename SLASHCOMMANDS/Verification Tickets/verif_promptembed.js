@@ -4,8 +4,8 @@ const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
-    name: 'verif_perksembed',
-    description: `(ADMIN) Generate/update the verification perks embed message. [CD: 60s]`,
+    name: 'verif_promptembed',
+    description: `(ADMIN) Generate/update the verification prompt containing the buttons. [CD: 60s]`,
     options: [],
     permissions: 'ADMINISTRATOR',
     cooldown: 60,
@@ -127,7 +127,7 @@ module.exports = {
             // DEFINING LOG EMBED
             let logVerifPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Verified perks embed updated.`)
+                .setTitle(`${config.emjGREENTICK} Verified prompt embed updated.`)
                 .setTimestamp()
 
 
