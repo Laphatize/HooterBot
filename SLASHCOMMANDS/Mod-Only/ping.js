@@ -5,7 +5,7 @@ module.exports = {
     name: 'ping',
     description: `${config.botName}'s first slash command. [CD: 60s]`,
     options: [],
-    permissions: '',
+    permissions: 'MANAGE_MESSAGES',
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, args) => {

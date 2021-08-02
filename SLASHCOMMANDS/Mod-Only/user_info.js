@@ -4,7 +4,7 @@ const moment = require('moment');
 
 module.exports = {
     name: 'user_info',
-    description: `(ADMIN) A command for generating information about a specific user in the server.`,
+    description: `(MODERATOR) A command for generating information about a specific user in the server.`,
     options: [
         {
             name: `user`,
@@ -13,7 +13,7 @@ module.exports = {
             required: true
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES',
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
