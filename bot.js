@@ -328,7 +328,7 @@ cron.schedule('00 00 10 * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    client.users.fetch( user.id )
+                    client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
                             let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
@@ -480,8 +480,6 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
     if(dbTicketData) {
-
-
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO'S TICKETS ARE CLOSING
         for(let i in dbTicketData) {
             
@@ -591,6 +589,22 @@ cron.schedule('30 00 10 * * *', async () => {
                             }
                         })
 
+                    // UPDATE TICKET CATEGORY COUNTER
+                    // GRAB TICKET CATEGORY USING ID
+                    let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                    // COUNT OF TICKETS IN DB
+                    ticketCount = await ticketSchema.find({
+                        GUILD_ID: interaction.guild.id
+                    }).countDocuments()
+                    .exec();
+                    
+                    console.log(`The number of open tickets in the test server is ${ticketCount-1}.`)
+
+                    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
+
+                    
 
                     // DELETING DATABASE ENTRY
                     ticketSchema.deleteOne({

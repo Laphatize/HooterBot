@@ -377,7 +377,7 @@ module.exports = {
                             
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount})`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) []`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -853,34 +853,37 @@ module.exports = {
 
 
                         // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
-                        // GRAB TICKET CHANNEL
-                        client.channels.cache.find(ch => ch.name === ticketChannelName).messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
-                            .then( msg => {
+                        // GRAB TICKET CHANNEL, THEN MESSAGE
+                        client.channels.cache.find(ch => ch.name === ticketChannelName)
+                            .then(ch => {
+                                ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                                .then(msg => {
 
-                                // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-                                let newTicketEditedEmbed = new discord.MessageEmbed()
-                                    .setColor(config.embedGreen)
-                                    .setTitle(`**Verification Ticket Closed**`)
-                                    .addField(`User:`, `${interaction.user}`, true)
-                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                                    .addField(`User ID:`, `${interaction.user.id}`, true)
-                                    .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+                                    // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                    let newTicketEditedEmbed = new discord.MessageEmbed()
+                                        .setColor(config.embedGreen)
+                                        .setTitle(`**Verification Ticket Closed**`)
+                                        .addField(`User:`, `${interaction.user}`, true)
+                                        .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                        .addField(`User ID:`, `${interaction.user.id}`, true)
+                                        .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
 
-                                let QuitButton = new MessageButton()
-                                    .setLabel("End Verification")
-                                    .setStyle("DANGER")
-                                    .setCustomId("quit_CH")
-                                    .setDisabled(true)
-                
-                                // BUTTON ROW
-                                let QuitButtonModBtn = new MessageActionRow()
-                                    .addComponents(
-                                        QuitButton
-                                    );
+                                    let QuitButton = new MessageButton()
+                                        .setLabel("End Verification")
+                                        .setStyle("DANGER")
+                                        .setCustomId("quit_CH")
+                                        .setDisabled(true)
+                    
+                                    // BUTTON ROW
+                                    let QuitButtonModBtn = new MessageActionRow()
+                                        .addComponents(
+                                            QuitButton
+                                        );
 
-                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
-                                    .catch(err => console.log(err))
+                                    // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                    msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                        .catch(err => console.log(err))
+                                })
                             })
                     })
 
@@ -903,7 +906,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
 
 
 
@@ -1637,7 +1640,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
 
 
 
