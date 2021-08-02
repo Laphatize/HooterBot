@@ -84,6 +84,7 @@ module.exports = {
             timestamps.set(interaction.user.id, now);
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
 
+
             // ARGUMENTS
             const args = [];
             interaction.options.data.map((x) => {

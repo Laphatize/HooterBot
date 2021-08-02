@@ -1,5 +1,6 @@
 const config = require ('../config.json');
 const db = require('../Utilities/mongo');
+const levels = require('../Utilities/levels')
 
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
 		// LOGGING IN
 		console.log(`\n\n============ GOING ONLINE ============`);
 		console.log(`${config.botName} has logged in successfully.`);
+		levels(client)
 		console.log(`======================================\n`);
 		
 
@@ -27,7 +29,7 @@ module.exports = {
 		console.log(`######################################\n`);
 
 
-		// READY
+		// BOT IS FULLY READY
 		console.log(`======================================`);
 		console.log(`======== HOOTERBOT IS ONLINE =========`);
 		console.log(`======================================\n\n`);
