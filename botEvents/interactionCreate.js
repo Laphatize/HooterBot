@@ -840,10 +840,7 @@ module.exports = {
 
                         // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                         // GRAB TICKET CHANNEL
-                        initialChMsg = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                            .then(ch => {
-                                // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
-                                msg = ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                        msg = client.channels.cache.find(ch => ch.name === ticketChannelName).messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
 
                                 // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                                 let newTicketEditedEmbed = new discord.MessageEmbed()
@@ -869,7 +866,6 @@ module.exports = {
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
                                     .catch(err => console.log(err))
-                            })
                     })
 
 
