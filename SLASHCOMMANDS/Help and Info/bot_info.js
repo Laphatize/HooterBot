@@ -29,10 +29,12 @@ module.exports = {
         if(pjson.dependencies['discord.js'].split(`^`).pop().includes('dev')) {
             devVer = pjson.dependencies['discord.js'].split(`-`).pop()
             DJSversion = DJSv.concat(`\n*(${devVer})*`)
+            DJSemoji = config.emjDJSdev
         }
         // OTHERWISE, JUST DJS
         else {
             DJSversion = DJSv;
+            DJSemoji = config.emjDJS
         }
 
 
@@ -41,7 +43,7 @@ module.exports = {
             .setColor(config.embedTempleRed)
             .setTitle(`**Information:**`)
             .addField(`Developer:`, `<@${config.botAuthorId}>`, true)
-            .addField(`Bot Version:`, `${pjson.version}`, true)
+            .addField(`Bot Version:`, `**${pjson.version}**`, true)
             .addField(`Build Date:`, `${config.buildDate}`, true)
             .addField(`${config.emjNodejs} NodeJS:`, `${process.version.split(`v`).pop()}`, true)
             .addField(`${config.emjDJSdev} Discord.js:`, `${DJSversion}`, true)
