@@ -369,11 +369,10 @@ module.exports = {
 
 
                             // COUNT OF TICKETS IN DB
-                            const ticketCount = await ticketSchema.count({
+                            await ticketSchema.find({
                                 GUILD_ID: interaction.guild.id
-                            },{
-                                maxTimeMS: 2000
-                            }).exec();
+                            }).count()
+                            .exec();
                             
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
