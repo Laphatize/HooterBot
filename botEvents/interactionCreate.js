@@ -372,7 +372,6 @@ module.exports = {
                             const ticketCount = await ticketSchema.count({
                                 GUILD_ID: interaction.guild.id
                             },{
-                                readConcern: majority,
                                 maxTimeMS: 2000
                             }).exec();
                             
@@ -1593,7 +1592,7 @@ module.exports = {
                     })
 
 
-                    
+
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
                     CREATOR_ID: dmUser.id
