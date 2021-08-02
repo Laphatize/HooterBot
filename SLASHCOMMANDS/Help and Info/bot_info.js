@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const { CommandInteraction } = require('discord.js')
 var pjson = require('../../package.json');
 const config = require ('../../config.json')
 
@@ -24,7 +23,7 @@ module.exports = {
 
         let botUptime = `${days}D, ${hours}H, ${minutes}M and ${seconds}S`;
         let DJSv = pjson.dependencies['discord.js'].split(`^`).pop().split('-', 1)[0]
-        var DJSemoji;
+        let DJSemoji;
 
         // IF DEV BRANCH OF DJS
         if(pjson.dependencies['discord.js'].split(`^`).pop().includes('dev')) {

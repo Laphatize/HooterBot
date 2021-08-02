@@ -23,7 +23,7 @@ module.exports = {
             let noCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to set the ticket category using \`\`${config.prefix}ticketcategory\`\` or \`\`${config.prefix}setcategory\`\` before the verification prompt can be posted.`)
+                .setDescription(`You need to set the ticket category using \`\`/ticketcategory\`\` or \`\`/setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
