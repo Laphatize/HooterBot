@@ -595,7 +595,7 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
                     // COUNT OF TICKETS IN DB
-                    ticketCount = await ticketSchema.find({
+                    ticketCount = ticketSchema.find({
                         GUILD_ID: interaction.guild.id
                     }).countDocuments()
                     .exec();
