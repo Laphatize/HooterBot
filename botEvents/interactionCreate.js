@@ -629,7 +629,7 @@ module.exports = {
                 // FETCH GUILD ID THROUGH TICKET DB VALUE
                 let ticketGuildId = dbTicketData.GUILD_ID
 
-                
+
                 // CHECK IF DATABASE HAS AN ENTRY
                 const dbGuildData = await guildSchema.findOne({
                     GUILD_ID: ticketGuildId
@@ -643,7 +643,7 @@ module.exports = {
 
                 // COUNT OF TICKETS IN DB
                 var ticketCount = await ticketSchema.find({
-                    GUILD_ID: interaction.guild.id
+                    GUILD_ID: ticketGuildId
                 }).countDocuments()
                 .exec();
                 
