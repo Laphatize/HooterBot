@@ -89,19 +89,21 @@ module.exports = {
                     return interaction.reply({ embeds: [levelUserNotFoundEmbed], ephemeral: true })
                 }
 
-                // FETCH GUILD MEMBER
-                interaction.guild.members.fetch(user)
-                .then(user => {
-                    // CREATING EMBED FOR RESPONSE        
-                    let infoEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGrey)
-                        .setAuthor(user.username, interaction.user.displayAvatarURL())
-                        .addField(`LEVEL:`, `${targetUser.level}`, true)
-                        .addField(`TOTAL XP`, `${targetUser.xp}`, true)
-        
-                    // POST EMBED
-                    return interaction.reply({ embeds: [infoEmbed], ephemeral: true })
-                })  
+                console.log(`user = ${user}`)
+
+                // // FETCH GUILD MEMBER
+                // interaction.guild.members.fetch(user)
+                //     .then(user => {
+                //         // CREATING EMBED FOR RESPONSE        
+                //         let infoEmbed = new discord.MessageEmbed()
+                //             .setColor(config.embedGrey)
+                //             .setAuthor(user.username, user.displayAvatarURL())
+                //             .addField(`LEVEL:`, `${targetUser.level}`, true)
+                //             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
+            
+                //         // POST EMBED
+                //         return interaction.reply({ embeds: [infoEmbed], ephemeral: true })
+                //     })  
             } catch (err) {
                 interaction.reply({ content: `I've encountered an error running this command. Please inform <@${config.botAuthorId}>.` })
                 console.log(err);
