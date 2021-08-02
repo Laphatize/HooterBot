@@ -325,6 +325,7 @@ module.exports = {
                             initialTicketMsg = modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
                                 .catch(err => console.log(err))
 
+                            console.log(`initialTicketMsg = ${initialTicketMsg}`)
 
                             // LOG DATABASE INFORMATION FOR TICKET
                             ticketSchema.findOneAndUpdate({
@@ -376,7 +377,7 @@ module.exports = {
                             
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                            
+                            ticketCategory.setName(`VERIFICATION (${ticketCount})`)
 
                         })
                 }
@@ -635,6 +636,23 @@ module.exports = {
                 }).exec();
 
 
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                ticketCount = await ticketSchema.find({
+                    GUILD_ID: interaction.guild.id
+                }).countDocuments()
+                .exec();
+                
+                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+
+                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+
+
+
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
@@ -875,6 +893,23 @@ module.exports = {
                 await ticketSchema.deleteOne({
                     CREATOR_ID: dmUser.id
                 }).exec();
+                
+
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                ticketCount = await ticketSchema.find({
+                    GUILD_ID: interaction.guild.id
+                }).countDocuments()
+                .exec();
+                
+                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+
+                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -1595,6 +1630,23 @@ module.exports = {
                     CREATOR_ID: dmUser.id
                 }).exec();
 
+
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                ticketCount = await ticketSchema.find({
+                    GUILD_ID: interaction.guild.id
+                }).countDocuments()
+                .exec();
+                
+                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+
+                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+
+                
                 
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNotice = new discord.MessageEmbed()
