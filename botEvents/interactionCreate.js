@@ -827,7 +827,6 @@ module.exports = {
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
-                        console.log(`\nUser's initial DM message has been edited.\n`)
 
 
                         // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS
@@ -840,7 +839,6 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
-                        console.log(`\nUser's 2nd DM prompt has been deleted.\n`)
 
                         // DELETE 1ST REMINDER IF EXISTS
                         if(dbTicketData.REMINDER1_MSG_ID) {
@@ -852,7 +850,6 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
-                        console.log(`\nUser's 1st DM reminder has been deleted.\n`)
 
                         // DELETE 2ND REMINDER IF EXISTS
                         if(dbTicketData.REMINDER2_MSG_ID) {
@@ -864,13 +861,14 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
-                        console.log(`\nUser's 2nd DM reminder has been deleted.\n`)
                     })
 
 
                     // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                     // GRAB TICKET CHANNEL, THEN MESSAGE
                     let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+
+                    console.log(`\nuserTicketch = ${userTicketCh}\n`)
 
                     userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                         .then(msg => {
