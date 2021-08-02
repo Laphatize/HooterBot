@@ -377,7 +377,7 @@ module.exports = {
                             
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                            ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount})`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -639,7 +639,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
                 
-                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
 
 
 
@@ -903,7 +903,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
 
 
 
@@ -1637,7 +1637,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
 
 
 
