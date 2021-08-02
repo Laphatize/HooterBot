@@ -375,9 +375,9 @@ module.exports = {
                             }).countDocuments()
                             .exec();
                             
-                            console.log(`The number of open tickets in the test server is ${ticketCount+1}.`)
+                            console.log(`The number of open tickets in the test server is ${ticketCount + 1}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [#]`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount + 1}) [#]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -485,12 +485,6 @@ module.exports = {
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
-                }).exec();
-
-
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
                 }).exec();
 
 
@@ -631,6 +625,15 @@ module.exports = {
                                     .catch(err => console.log(err))
                             })
                     })        
+
+                // FETCH GUILD ID THROUGH TICKET DB VALUE
+                let ticketGuildId = dbTicketData.GUILD_ID
+
+                
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: ticketGuildId
+                }).exec();
 
 
                 // UPDATE TICKET CATEGORY COUNTER
