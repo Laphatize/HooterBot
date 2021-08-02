@@ -245,8 +245,20 @@ module.exports = {
             const user = await levels.fetch(message.author.id, message.guild.id);
 
             // BOT-CHANNEL MESSAGE
-            message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `*Look hoot's talking!* ${config.emjOwl} Congrats **${message.author.username}**, you've reached ***Level ${user.level}***!` })
+            message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
         }
 
     }
+}
+
+
+// FUNCTION THAT GENERATES THE RANDOM LEVEL UP MESSAGE
+function createLevelMsg(username, level) {
+    const channelMsgStart = [
+        `${config.emjOwl} GG **${message.author.username}**, you've reached: \`\` Level ${user.level} \`\``,
+        `**${message.author.username}**'s reached \`\` Level ${user.level} \`\` ${config.emjOwl}`,
+        `Congrats on leveling up, **${message.author.username}**! ${config.emjOwl} You've reached \`\` Level ${user.level} \`\``,
+        `**${message.author.username}*'s been talking so much, you get to level up! \`\` Level ${user.level} \`\` ${config.emjOwl}`
+    ];      
+    return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
 }

@@ -4,7 +4,7 @@ const levels = require('discord-xp');
 
 module.exports = {
     name: 'level',
-    description: `Get your XP level (no user specified), or for a specific user. [CD: 10s]`,
+    description: `Get your XP & level (no user) or a specific user's. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
     options: [
         {
             name: `user`,
@@ -21,16 +21,27 @@ module.exports = {
         // GRABBING SLASH COMMAND INPUT VALUES
         const user = inputs[0];
 
+        
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`I can only post this embed in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
 
         // INFO FOR USER ISSUING COMMAND
         if(!user) {
-
             const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id)
-            
-            console.log(`selfUser successfully fetched`)
 
             try {
-                console.log(`selfUser value not found`)
                 // IF USER INFO DNE
                 if (!selfUser) {
                     // CREATING EMBED FOR RESPONSE        
@@ -48,8 +59,8 @@ module.exports = {
                 let infoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                    .addField(`LEVEL:`, `${selfUser.level}`)
-                    .addField(`TOTAL XP`, `${selfUser.xp}`)
+                    .addField(`LEVEL:`, `${selfUser.level}`, true)
+                    .addField(`TOTAL XP`, `${selfUser.xp}`, true)
     
                 // POST EMBED
                 return interaction.reply({ embeds: [infoEmbed] })
@@ -62,11 +73,9 @@ module.exports = {
 
         // INFO FOR SPECIFIED USER
         if(user) {
-            console.log(`User value detected in command`)
             const targetUser = await levels.fetch(user, interaction.guild.id)
             
             try {
-                console.log(`User value not found`)
                 // IF USER INFO DNE
                 if (!targetUser) {
                     // CREATING EMBED FOR RESPONSE        
@@ -87,8 +96,8 @@ module.exports = {
                     let infoEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setAuthor(user.username, interaction.user.displayAvatarURL())
-                        .addField(`LEVEL:`, `${targetUser.level}`)
-                        .addField(`TOTAL XP`, `${targetUser.xp}`)
+                        .addField(`LEVEL:`, `${targetUser.level}`, true)
+                        .addField(`TOTAL XP`, `${targetUser.xp}`, true)
         
                     // POST EMBED
                     return interaction.reply({ embeds: [infoEmbed], ephemeral: true })

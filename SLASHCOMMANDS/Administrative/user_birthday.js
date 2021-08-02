@@ -46,6 +46,7 @@ module.exports = {
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
                 .setDescription(`<@${userId}>'s birthday already exists in the database.`)
+                .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [birthdayExists], ephemeral: true })

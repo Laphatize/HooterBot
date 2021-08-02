@@ -30,7 +30,7 @@ module.exports = {
             let notCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} You selected a text channel, not a category!`)
-                .setDescription(`Sorry, I can't list only category in your selection (yell at Discord, not me). Be sure the icon of the channel you pick is a folder!`)
+                .setDescription(`Sorry, I can't list just categories in that menu (yell at Discord, not me). Be sure the icon of the channel you pick is a folder!`)
                 .setTimestamp()
             
             // SENDING MESSAGE
