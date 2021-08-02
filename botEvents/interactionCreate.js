@@ -377,7 +377,7 @@ module.exports = {
                             
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) []`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [#]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -485,6 +485,12 @@ module.exports = {
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
+                }).exec();
+
+
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
                 }).exec();
 
 
@@ -739,6 +745,12 @@ module.exports = {
                 }).exec();
 
 
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
+
+
                 // FETCHING THE GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
@@ -885,14 +897,7 @@ module.exports = {
                     })
 
                 
-
                 // UPDATE TICKET CATEGORY COUNTER
-                // GRAB DATABASE ENTRY
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
-                }).exec();
-
-
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
 
@@ -903,7 +908,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
 
 
 
@@ -1453,6 +1458,12 @@ module.exports = {
                 }).exec();
 
 
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
+
+
                 // FETCHING THE GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
@@ -1636,7 +1647,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
 
 
 
