@@ -66,22 +66,6 @@ for (const file of eventFiles) {
 
 
 /***********************************************************/
-/*      COMMAND HANDLER                                    */
-/***********************************************************/
-const cmdFolders = fs.readdirSync('./COMMANDS');
-
-for (const folder of cmdFolders) {
-    const cmdFiles = fs.readdirSync(`./COMMANDS/${folder}`).filter(file => file.endsWith('.js'));
-
-    for (const file of cmdFiles) {
-		const command = require(`./COMMANDS/${folder}/${file}`);
-		client.commands.set(command.name, command);
-	}
-}
-
-
-
-/***********************************************************/
 /*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
 const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
