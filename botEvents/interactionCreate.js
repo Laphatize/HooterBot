@@ -1415,7 +1415,7 @@ module.exports = {
                     .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
                     .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
-                    .addField(`DM Message IDs`, `Identifiers of the DM messages ${config.botName} sends during verification`)
+                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process`)
                     .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close`)
                     .addField(`Creation Date`, `The day/time you created the ticket.`)
                     .addField(`Updated Date`, `When the database entry was last modified by the bot.`)
@@ -1424,11 +1424,11 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setTitle(`**Data & Privacy**`)
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
-                    .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.`)
+                    .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify database information. Moderators and admins have access to view and inspect the database.`)
                     .addField(`How is the data used?`, `*No information is sold or shared.* Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
                     .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically. Nothing is saved by the bot.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
-                    .addField(`What if I do not want to share this information with the bot?`, `While the information ${config.botName} stores is basic and public information, if you wish to not share this information **do not create a verification ticket** as there is no way for the bot to function without this information.`)
+                    .addField(`What if I do not want to share information with the bot?`, `While the information ${config.botName} stores is basic and public information on Discord, **do not create a verification ticket** if you wish to not share this information.`)
                     .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                 
                 
