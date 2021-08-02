@@ -49,7 +49,7 @@ module.exports = {
 
 
         // MAPPING VALUES OF LEADERBOARD
-        let lb = leaderboard.map(e => `**${e.position}${config.indent}${e.tag}**\nLevel: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
+        let lb = leaderboard.map(e => `**${e.position}${config.indent}${e.username}\#${e.discriminator}**\nLevel: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
 
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
