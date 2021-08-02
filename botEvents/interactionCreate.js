@@ -896,6 +896,12 @@ module.exports = {
                 
 
                 // UPDATE TICKET CATEGORY COUNTER
+                // GRAB DATABASE ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
+
+
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
 
@@ -1646,7 +1652,7 @@ module.exports = {
 
                 ticketCategory.setName(`VERIFICATION (${ticketCount})`)
 
-                
+
                 
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNotice = new discord.MessageEmbed()
