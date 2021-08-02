@@ -2,6 +2,7 @@ const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
+const levels = require('discord-xp');
 
 module.exports = {
 	name: 'messageCreate',
@@ -219,5 +220,32 @@ module.exports = {
                 return message.react(client.emojis.cache.get('868910701295587368'))
             }
         }
+
+                
+        
+        /***********************************************************/
+        /*      LEVELS                                             */
+        /***********************************************************/
+        
+        // NO LEVELING FROM MESSAGES IN BOT SPAM OR SHITPOSTING
+        if (message.channel.name === '🤖｜bot-spam' 
+            || message.channel.name === `💩｜shitposting`
+        ) {
+            return;
+        }
+
+        
+        // RANDOM XP TO ADD: [15, 25]
+        xpToAdd = Math.floor(Math.random()*11) + 15;
+
+        const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
+
+        if(hasLeveledUp) {
+            const user = await levels.fetch(message.author.id, message.guild.id);
+
+            // BOT-CHANNEL MESSAGE
+            message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `*Look hoot's talking!* ${config.emjOwl} Congrats **${message.author.username}**, you've reached ***Level ${user.level}***!` })
+        }
+
     }
 }

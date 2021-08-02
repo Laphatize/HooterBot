@@ -1,12 +1,13 @@
 require('dotenv').config();
-const discord = require('discord.js')
+const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
-const config = require ('./config.json')
-const birthdaySchema = require('./Database/birthdaySchema')
-const ticketSchema = require('./Database/ticketSchema')
+const config = require ('./config.json');
+const birthdaySchema = require('./Database/birthdaySchema');
+const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
+const levels = require('discord-xp');
 
 
 // INITIALIZATION
@@ -628,3 +629,13 @@ cron.schedule('30 00 10 * * *', async () => {
     scheduled: true,
     timezone: "America/New_York"
 });
+
+
+
+/***********************************************************/
+/*      LEVELS                                             */
+/***********************************************************/
+let mongoUser = process.env.mongoUser;
+let mongoPswrd = process.env.mongoPswrd;
+let mongoDbName = process.env.mongoDbName;
+levels.setURL(`mongodb+srv://${mongoUser}:${mongoPswrd}@cluster0.pwonb.mongodb.net/${mongoDbName}?retryWrites=true&w=majority`);
