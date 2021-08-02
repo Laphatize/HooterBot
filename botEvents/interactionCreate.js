@@ -375,9 +375,9 @@ module.exports = {
                             }).countDocuments()
                             .exec();
                             
-                            console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+                            console.log(`The number of open tickets in the test server is ${ticketCount+1}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [#]`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [#]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -766,9 +766,8 @@ module.exports = {
                 console.log(`userTicketCh = ${userTicketCh}\n\n`)
                 
                 let initialTicketMessage = userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
-
-                console.log(`initialTicketMessage = ${initialTicketMessage}\n\n`)
-                    // .then(msg => {
+                    .then(msg => {
+                        console.log(`msg.id = ${msg.id}`)
                     //     console.log(`\nThe first message in the user's ticket channel has been located by ID.\n`)
                     //     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     //     let newTicketEditedEmbed = new discord.MessageEmbed()
@@ -796,7 +795,7 @@ module.exports = {
                     //     msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
                     //         .catch(err => console.log(err))
                     //     console.log(`\nThe initial message has been edited...\n`)
-                    // })
+                    })
 
 
 
