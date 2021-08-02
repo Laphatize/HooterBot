@@ -378,7 +378,6 @@ module.exports = {
                             console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
                             ticketCategory.setName(`VERIFICATION (${ticketCount})`)
-
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -629,13 +628,6 @@ module.exports = {
                     })        
 
 
-
-                // DELETING DATABASE ENTRY
-                await ticketSchema.deleteOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
-
-
                 // UPDATE TICKET CATEGORY COUNTER
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
@@ -647,9 +639,14 @@ module.exports = {
                 }).countDocuments()
                 .exec();
                 
-                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
 
-                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+
+
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
 
 
 
@@ -887,12 +884,6 @@ module.exports = {
                             })
                     })
 
-
-
-                // DELETING DATABASE ENTRY
-                await ticketSchema.deleteOne({
-                    CREATOR_ID: dmUser.id
-                }).exec();
                 
 
                 // UPDATE TICKET CATEGORY COUNTER
@@ -911,10 +902,15 @@ module.exports = {
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
-                
-                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
+
+
+
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
 
 
 
@@ -1630,13 +1626,6 @@ module.exports = {
                     })
 
 
-
-                // DELETING DATABASE ENTRY
-                await ticketSchema.deleteOne({
-                    CREATOR_ID: dmUser.id
-                }).exec();
-
-
                 // UPDATE TICKET CATEGORY COUNTER
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
@@ -1647,13 +1636,18 @@ module.exports = {
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
-                
-                console.log(`The number of open tickets in the test server is ${ticketCount}.`)
 
-                ticketCategory.setName(`VERIFICATION (${ticketCount})`)
+                ticketCategory.setName(`VERIFICATION (Open: ${ticketCount-1})`)
 
 
-                
+
+                // DELETING DATABASE ENTRY
+                await ticketSchema.deleteOne({
+                    CREATOR_ID: dmUser.id
+                }).exec();
+
+
+
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
