@@ -599,7 +599,7 @@ module.exports = {
                             
                         userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                             .then(msg => {
-                                // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                                 let newTicketEditedEmbed = new discord.MessageEmbed()
                                     .setColor(config.embedGreen)
                                     .setTitle(`**Verification Ticket Closed**`)
@@ -760,12 +760,10 @@ module.exports = {
 
                 
                 // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
-                // GRAB TICKET CHANNEL, THEN MESSAGE
-                let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                    
-                userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                // IN THE CHANNEL, GRAB THE INITIAL MESSAGE
+                interaction.channel.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                     .then(msg => {
-                        // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                        // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                         let newTicketEditedEmbed = new discord.MessageEmbed()
                             .setColor(config.embedGreen)
                             .setTitle(`**Verification Ticket Closed**`)
@@ -900,7 +898,7 @@ module.exports = {
 
 
                 
-                    // UPDATE TICKET CATEGORY COUNTER
+                // UPDATE TICKET CATEGORY COUNTER
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
 
@@ -1611,7 +1609,7 @@ module.exports = {
                             
                         userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                             .then(msg => {
-                                // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                                 let newTicketEditedEmbed = new discord.MessageEmbed()
                                     .setColor(config.embedGreen)
                                     .setTitle(`**Verification Ticket Closed**`)
