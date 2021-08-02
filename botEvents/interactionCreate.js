@@ -322,29 +322,29 @@ module.exports = {
 
 
                             // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                            initialTicketMsg = modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
+                            modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
                                 .catch(err => console.log(err))
-
-                            console.log(`initialTicketMsg = ${initialTicketMsg}`)
-
-                            // LOG DATABASE INFORMATION FOR TICKET
-                            ticketSchema.findOneAndUpdate({
-                                CREATOR_ID: interaction.user.id
-                            },{
-                                GUILD_ID: interaction.guild.id,
-                                GUILD_NAME: interaction.guild.name,
-                                CREATOR_NAME: interaction.user.username.toLowerCase(),
-                                CREATOR_ID: interaction.user.id,
-                                DM_INITIALMSG_ID: firstDMmsg.id,
-                                DM_2NDMSG_ID: "",
-                                STAFF_CH_ID: modAdminTicketCh.id,
-                                TICKET_CLOSE: closeDate,
-                                REMINDER1_MSG_ID: "",
-                                REMINDER2_MSG_ID: "",
-                                TICKETCH1_MSG_ID: initialTicketMsg.id,
-                            },{
-                                upsert: true
-                            }).exec();
+                                .then( ticketMsg => {
+                                        
+                                // LOG DATABASE INFORMATION FOR TICKET
+                                ticketSchema.findOneAndUpdate({
+                                    CREATOR_ID: interaction.user.id
+                                },{
+                                    GUILD_ID: interaction.guild.id,
+                                    GUILD_NAME: interaction.guild.name,
+                                    CREATOR_NAME: interaction.user.username.toLowerCase(),
+                                    CREATOR_ID: interaction.user.id,
+                                    DM_INITIALMSG_ID: firstDMmsg.id,
+                                    DM_2NDMSG_ID: "",
+                                    STAFF_CH_ID: modAdminTicketCh.id,
+                                    TICKET_CLOSE: closeDate,
+                                    REMINDER1_MSG_ID: "",
+                                    REMINDER2_MSG_ID: "",
+                                    TICKETCH1_MSG_ID: ticketMsg.id,
+                                },{
+                                    upsert: true
+                                }).exec();
+                            })
 
                             
                             // LOGGING TICKET OPENING IN LOGS CHANNEL
