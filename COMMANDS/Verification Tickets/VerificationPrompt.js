@@ -81,7 +81,7 @@ module.exports = {
                 })
 
 
-            // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
+            // STORING IN DATABASE THE VERIFICATION EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
                 // CONTENT USED TO FIND UNIQUE ENTRY
                 GUILD_NAME: message.guild.name,
