@@ -827,7 +827,7 @@ module.exports = {
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
-                    
+                        console.log(`\nUser's initial DM message has been edited.\n`)
 
 
                         // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS
@@ -840,7 +840,7 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
-
+                        console.log(`\nUser's 2nd DM prompt has been deleted.\n`)
 
                         // DELETE 1ST REMINDER IF EXISTS
                         if(dbTicketData.REMINDER1_MSG_ID) {
@@ -852,7 +852,7 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
-
+                        console.log(`\nUser's 1st DM reminder has been deleted.\n`)
 
                         // DELETE 2ND REMINDER IF EXISTS
                         if(dbTicketData.REMINDER2_MSG_ID) {
@@ -864,40 +864,45 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
+                        console.log(`\nUser's 2nd DM reminder has been deleted.\n`)
                     })
 
 
-                // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
-                // GRAB TICKET CHANNEL, THEN MESSAGE
-                let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                    
-                userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
-                    .then(msg => {
-                        // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-                        let newTicketEditedEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedGreen)
-                            .setTitle(`**Verification Ticket Closed**`)
-                            .addField(`User:`, `${interaction.user}`, true)
-                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                            .addField(`User ID:`, `${interaction.user.id}`, true)
-                            .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+                    // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                    // GRAB TICKET CHANNEL, THEN MESSAGE
+                    let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                    console.log(`\nUser's ticket channel has been found.\n`)
 
-                        let QuitButton = new MessageButton()
-                            .setLabel("End Verification")
-                            .setStyle("DANGER")
-                            .setCustomId("quit_CH")
-                            .setDisabled(true)
-        
-                        // BUTTON ROW
-                        let QuitButtonModBtn = new MessageActionRow()
-                            .addComponents(
-                                QuitButton
-                            );
+                    userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                        .then(msg => {
+                            console.log(`\nThe first message in the user's ticket channel has been located by ID.\n`)
+                            // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                            let newTicketEditedEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedGreen)
+                                .setTitle(`**Verification Ticket Closed**`)
+                                .addField(`User:`, `${interaction.user}`, true)
+                                .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                .addField(`User ID:`, `${interaction.user.id}`, true)
+                                .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
 
-                        // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                        msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
-                            .catch(err => console.log(err))
-                })
+                            let QuitButton = new MessageButton()
+                                .setLabel("End Verification")
+                                .setStyle("DANGER")
+                                .setCustomId("quit_CH")
+                                .setDisabled(true)
+            
+                            // BUTTON ROW
+                            let QuitButtonModBtn = new MessageActionRow()
+                                .addComponents(
+                                    QuitButton
+                                );
+
+                            console.log(`\nThe initial message is about to be edited...\n`)
+                            // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                            msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                .catch(err => console.log(err))
+                            console.log(`\nThe initial message has been edited...\n`)
+                        })
 
 
                 
@@ -1870,6 +1875,8 @@ module.exports = {
                 await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] })
             }
             // END OF "DO NOT CLOSE" BUTTON
+
+
 
             /***********************************************************/
             /*      END OF TICKET BUTTONS                              */
