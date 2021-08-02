@@ -5,12 +5,103 @@ const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const ticketBlacklistSchema = require('../Database/ticketBlacklistSchema');
 const moment = require('moment');
+const fs = require(`fs`)
 const pjson = require('../package.json');
 
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
+
+        // SLASH COMMANDS
+        if(interaction.isCommand()) {
+            const slashCmd = client.slashCommands.get(interaction.commandName)
+
+            // IF NOT SLASH COMMAND
+            if(!slashCmd) {
+                // DEFINING EMBED TO SEND IN CHANNEL
+                let errorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`There was an error trying to execute that slash command. Please inform <@${config.botAuthorId}>.`)
+
+                // SENDING EMBED
+                return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
+            }
+
+
+            // SLASH COMMAND USER PERMISSION REQUIREMENT
+            if (slashCmd.permissions) {
+                const authorPerms = interaction.channel.permissionsFor(interaction.user);
+
+                if (!authorPerms || !authorPerms.has(slashCmd.permissions)) {
+
+                    // DEFINING EMBED TO SEND
+                    let cmdUserPermErrEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`${config.emjORANGETICK} Sorry!`)
+                        .setDescription(`You must have the \`\`${slashCmd.permissions}\`\` permission to use this slash command.`)
+
+
+                    return interaction.reply({ embeds: [cmdUserPermErrEmbed], ephemeral: true })
+                }
+            }
+
+
+            // SLASH COMMAND COOLDOWN SETUP
+            const { cooldowns } = client;
+
+            if (!cooldowns.has(slashCmd.name)) {
+                cooldowns.set(slashCmd.name, new discord.Collection());
+            }
+
+            const now = Date.now();
+            const timestamps = cooldowns.get(slashCmd.name);
+            const cooldownTime = (slashCmd.cooldown || 0) * 1000;
+
+
+            // SLASH COMMAND COOLDOWN
+            if (timestamps.has(interaction.user.id)) {
+                const expireTime = timestamps.get(interaction.user.id) + cooldownTime;
+        
+                if (now < expireTime) {
+
+                    const timeLeft = (((expireTime - now) + 1) / 1000).toFixed(0);
+
+                    // DEFINING EMBED TO SEND
+                    let cooldownWaitEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`${config.emjORANGETICK} Not so fast!`)
+                        .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${slashCmd.name}\`\` again.`)
+            
+
+                    // SENDING COOLDOWN WAIT NOTICE
+                    return interaction.reply({ embeds: [cooldownWaitEmbed], ephemeral: true })
+                }
+            }
+
+            // SETTING COOLDOWN TIMEOUT
+            timestamps.set(interaction.user.id, now);
+            setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
+
+            // ARGUMENTS
+            const args = [];
+            interaction.options.data.map((x) => {
+                args.push(x.value)
+            })
+
+
+            // RUN INTERACTION
+            slashCmd.run(client, interaction, args)
+        }
+
+
+
+
+        
+        /***********************************************************/
+        /*      VERIFICATION TICKET INTERACTIONS                   */
+        /***********************************************************/
 
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
@@ -122,7 +213,7 @@ module.exports = {
 
 
                 // DMING USER THE INITIAL VERIFICATION PROMPT
-                let firstDMmsg = await interaction.user.send({embeds: [ticketOpenEmbed], components: [initialButtonRow, secondButtonRow] })
+                let firstDMmsg = await interaction.user.send({ embeds: [ticketOpenEmbed], components: [initialButtonRow, secondButtonRow] })
                     .catch(err => {
 
                         // UPDATING THE INITIAL EPHEMERAL MESSAGE IN #ROLES
@@ -140,7 +231,7 @@ module.exports = {
                     
 
                         // LOG ENTRY
-                        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifStartErrorEmbed]})
+                        interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifStartErrorEmbed] })
                     })
 
                     
@@ -261,7 +352,7 @@ module.exports = {
 
 
                             // LOG ENTRY
-                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logTicketOpenEmbed]})
+                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                                 .catch(err => console.log(err))
                         })
                 }
@@ -303,10 +394,10 @@ module.exports = {
 
 
                 // SENDING THE QUIT CONFIRMATION                
-                interaction.user.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                interaction.user.send({ embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
-                        client.setTimeout(() => msg.delete(), 10000 );
+                        setTimeout(() => msg.delete(), 10000 );
                     })
                     .catch(err => console.log(err))
             }
@@ -346,10 +437,10 @@ module.exports = {
 
 
                 // SENDING THE QUIT CONFIRMATION                
-                interaction.channel.send({embeds: [quitConfirmEmbed], components: [buttonRow] })
+                interaction.channel.send({ embeds: [quitConfirmEmbed], components: [buttonRow] })
                     // DELETING AFTER 10 SECONDS IF NO ACTION
                     .then(msg => {
-                        client.setTimeout(() => msg.delete(), 10000 );
+                        setTimeout(() => msg.delete(), 10000 );
                     })
                     .catch(err => console.log(err))
             }
@@ -436,7 +527,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                                     .catch(err => console.log(err))
                             })
                     
@@ -448,7 +539,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                         }
                     })
@@ -471,7 +562,7 @@ module.exports = {
 
 
                 // DMING USER THE TICKET CLOSE CONFIRMATION             
-                interaction.channel.send({embeds: [quitConfirmedEmbed]})
+                interaction.channel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
 
@@ -622,7 +713,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -633,7 +724,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                         }
                     })
@@ -656,7 +747,7 @@ module.exports = {
 
 
                 // DMING USER THE TICKET CLOSE CONFIRMATION             
-                await dmUser.send({embeds: [quitConfirmedEmbed]})
+                await dmUser.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
 
 
@@ -748,7 +839,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [physicalTUidEmbed], components: [] })
+                                    msg.edit({ embeds: [physicalTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -756,7 +847,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [physicalTUidEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [physicalTUidEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -781,7 +872,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "PHYSICAL TUID CARD"
@@ -822,7 +913,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [virtualTUidEmbed], components: [] })
+                                    msg.edit({ embeds: [virtualTUidEmbed], components: [] })
                                 })
                         })
                 }
@@ -830,7 +921,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [virtualTUidEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [virtualTUidEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -855,7 +946,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
@@ -896,7 +987,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [tuPortalEmbed], components: [] })
+                                    msg.edit({ embeds: [tuPortalEmbed], components: [] })
                                 })
                         })
                 }
@@ -904,7 +995,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [tuPortalEmbed], components: [] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [tuPortalEmbed], components: [] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -929,7 +1020,7 @@ module.exports = {
 
 
                 // SEND MESSAGE IN TICKET CHANNEL INFORMING THAT THE USER HAS SELECTED THE PHYSICAL TUID CARD OPTION
-                ticketChannel.send({embeds: [quitConfirmedEmbed]})
+                ticketChannel.send({ embeds: [quitConfirmedEmbed]})
                     .catch(err => console.log(err))
             }
             // END OF "VIRTUAL TUID CARD"
@@ -985,7 +1076,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
+                                    msg.edit({ embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                                 })
                         })
                 }
@@ -993,7 +1084,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [DataPrivacyEmbed], components: [CollectedInfoButtonRow] })
                         .catch(err => console.log(err))
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -1059,7 +1150,7 @@ module.exports = {
                             // FETCH MESSAGE FROM THE MESSAGE ID
                             dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    msg.edit({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                                    msg.edit({ embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
                                 })
                         })
                 }
@@ -1067,7 +1158,7 @@ module.exports = {
 
                 // IF 2ND DM MESSAGE DNE, POST THEN LOG MESSAGE ID
                 else {
-                    let SecondDmMsg = await interaction.user.send({embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
+                    let SecondDmMsg = await interaction.user.send({ embeds: [MoreInfoEmbed], components: [BackDataPrivacyButtonRow] })
                         .catch(err => console.log(err))                    
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
@@ -1104,7 +1195,7 @@ module.exports = {
                     // FETCH MESSAGE FROM THE MESSAGE ID
                     dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                         .then(msg => {
-                            client.setTimeout(() => msg.delete(), 0 );
+                            setTimeout(() => msg.delete(), 0 );
                         })
                 })
 
@@ -1282,7 +1373,7 @@ module.exports = {
 
 
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                                msg.edit({embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
+                                msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
                     
 
@@ -1293,7 +1384,7 @@ module.exports = {
                             // FETCH MESSAGE BY ID
                             secondDmMsg = dmCh.messages.fetch(dbTicketData.DM_2NDMSG_ID)
                                 .then(msg => {
-                                    client.setTimeout(() => msg.delete(), 0 );
+                                    setTimeout(() => msg.delete(), 0 );
                                 })
                                 .catch(err => console.log(err))
                         }
@@ -1410,7 +1501,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL
-                interaction.channel.send({embeds: [proofRejectedModEmbed], components: [] })
+                interaction.channel.send({ embeds: [proofRejectedModEmbed], components: [] })
                     .catch(err => console.log(err))
                 
 
@@ -1451,7 +1542,7 @@ module.exports = {
 
 
                 // SEND EMBED TO MOD/ADMIN CHANNEL - 10 SECONDS REMAIN
-                interaction.channel.send({embeds: [initialDeletionEmbed], components: [] })
+                interaction.channel.send({ embeds: [initialDeletionEmbed], components: [] })
                     .catch(err => console.log(err))
                     
                     // 5 SECONDS REMAIN - EDIT EMBED
@@ -1461,11 +1552,11 @@ module.exports = {
                         .setTitle(`This channel will be deleted in 5s...`)
                         .setDescription(`*Why are you seeing this?* To prevent issues with the database and the API!\n✨ ***The more you know...*** ✨`)
 
-                        client.setTimeout(() => msg.edit({embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
+                        setTimeout(() => msg.edit({ embeds: [halfwayDeletionEmbed], components: [] }), 5000 )
                     })
                     
                     // 0 SECONDS REMAINING - DELETE CHANNEL
-                    .then(client.setTimeout(() => interaction.channel.delete(), 10000 ))
+                    .then(setTimeout(() => interaction.channel.delete(), 10000 ))
                         .catch(err => console.log(err))                    
             }
             // END OF "CONFIRM TICKET CLOSE" BUTTON
@@ -1514,6 +1605,104 @@ module.exports = {
                 await interaction.update({ embeds: [closeNoticeDisabled], components: [TicketCloseReviewButtonRow] })
             }
             // END OF "DO NOT CLOSE" BUTTON
+
+            /***********************************************************/
+            /*      END OF TICKET BUTTONS                              */
+            /***********************************************************/
+
+
+
+
+
+            // // HELP - FUN 
+            // if(interaction.customId === 'help_fun') {
+
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`./COMMANDS/Fun`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`./COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
+
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`./COMMANDS/Fun/${command}`);
+
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Fun" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
+
+            //             let name = file.name.replace(`.js`, ``)
+
+            //             return `\`${name}\``;
+            //         })
+
+            //         console.log(`cmds = ${cmds}`)
+            //     })
+
+
+
+            //     // await interaction.update({ embeds: [closeNoticeDisabled], ephemeral: true })
+            // }
+
+
+            // // HELP - HELP & INFO 
+            // if(interaction.customId === 'help_helpinfo') {
+
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`../COMMANDS/Help and Info`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`../COMMANDS/Help and Info/${file}`).filter(file => file.endsWith('.js'));
+
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`../COMMANDS/Help and Info/${command}`);
+
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Help and Info" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
+
+            //             let name = file.name.replace(`.js`, ``)
+
+            //             return `\`${name}\``;
+            //         })
+
+            //         console.log(`cmds = ${cmds}`)
+            //     })
+            // }
+
+
+            // // HELP - HELP & INFO 
+            // if(interaction.customId === 'help_Misc') {
+
+            //     // GRABBING ALL "FUN" COMMANDS
+            //     fs.readdirSync(`../COMMANDS/Miscellaneous`).forEach(file => {
+            //         const funCommands = fs.readdirSync(`../COMMANDS/Miscellaneous/${file}`).filter(file => file.endsWith('.js'));
+
+            //         const cmds = funCommands.map(command => {
+            //             let file = require(`../COMMANDS/Miscellaneous/${command}`);
+
+            //             // IF NO "FUN" COMMANDS FOUND
+            //             if(!file.name) {
+            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+            //                 return interaction.reply({
+            //                     content: `Sorry, ${config.botName} does not have any "Miscellaneous" commands built yet. Suggest some in <#829629595367374918>!`,
+            //                     ephemeral: true
+            //                 })
+            //             }
+
+            //             let name = file.name.replace(`.js`, ``)
+
+            //             return `\`${name}\``;
+            //         })
+
+            //         console.log(`cmds = ${cmds}`)
+            //     })
+            // }
         }
 	},
 };

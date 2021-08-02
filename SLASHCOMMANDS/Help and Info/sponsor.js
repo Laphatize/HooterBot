@@ -1,23 +1,15 @@
 const discord = require('discord.js')
-var pjson = require('../../package.json');
+const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 
 module.exports = {
-    name: `sponsor`,
-    aliases: [`support`, `donate`],
-    description: `Describes information on how you can help support the development and operations of ${config.botName}.`,
-    category: `Help and Info`,
-    expectedArgs: '',
-    cooldown: 60,
-    minArgs: 0,
-    maxArgs: 0,
+    name: 'sponsor',
+    description: `Info on supporting the development and operations of ${config.botName}. [CD: 60s]`,
+    options: [],
     permissions: '',
-    requiredRoles: [],
-    execute: (message, arguments, client) => {
-
-        // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
-
+    cooldown: 60,
+    defaultPermission: true,
+    run: async(client, interaction, inputs) => {
 
         // CREATING EMBED FOR RESPONSE        
         let infoEmbed = new discord.MessageEmbed()
@@ -28,8 +20,8 @@ module.exports = {
             .addField(`GitHub Sponsor Page`, `https://github.com/sponsors/MrMusicMan789`)
             .setThumbnail('https://avatars.githubusercontent.com/u/58273574?v=4')
 
-        
-        // RESPONDING TO USER WITH INFO EMBED
-        message.channel.send({embeds: [infoEmbed]})
+
+        // POST EMBED
+        interaction.reply({ embeds: [infoEmbed] })
     }
 }

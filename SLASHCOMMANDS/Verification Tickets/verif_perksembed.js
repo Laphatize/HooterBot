@@ -1,30 +1,22 @@
 const discord = require('discord.js')
-const config = require('../../config.json')
+const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
-    name: `verificationperks`,
-    aliases: [`verifperks`],
-    description: `(${config.emjAdmin}) Generate the embed in the \#roles channel so users can view the list of perks for verifying.`,
-    category: `Verification`,
-    expectedArgs: '',
-    cooldown: 30,
-    minArgs: 0,
-    maxArgs: 0,
+    name: 'verif_perksembed',
+    description: `(ADMIN) Generate/update the verification perks embed message. [CD: 60s]`,
+    options: [],
     permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
-    execute: async (message, arguments, client) => {
-
-        // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
-
+    cooldown: 60,
+    defaultPermission: true,
+    run: async(client, interaction, inputs) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
+            GUILD_ID: interaction.guild.id
         }).exec();
-        
-        
+
+
         // EMBED MESSAGE
         let verifPerksEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
@@ -36,12 +28,11 @@ module.exports = {
             .addField(`Voice chat features:`, `• Screen sharing`)
 
 
-
-        // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
+        // MESSAGE ID DNE IN DATABASE, POST AND LOG MSG INFO IN DB
         if(!dbData.VERIF_PERKS_MSG_ID) {
 
             // POSTING EMBED
-            await message.channel.send({ embeds: [verifPerksEmbed] })
+            await interaction.channel.send({ embeds: [verifPerksEmbed] })
                 .catch(err => console.log(err))
 
                 // GETTING MESSAGE ID OF verifPerksEmbed
@@ -53,8 +44,8 @@ module.exports = {
             // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
                 // CONTENT USED TO FIND UNIQUE ENTRY
-                GUILD_NAME: message.guild.name,
-                GUILD_ID: message.guild.id
+                GUILD_NAME: interaction.guild.name,
+                GUILD_ID: interaction.guild.id
             },{
                 // CONTENT TO BE UPDATED
                 VERIF_PERKS_MSG_ID: verifPerksEmbedMsgId
@@ -63,31 +54,49 @@ module.exports = {
             }).exec();
 
 
+            // DEFINING UPDATE EMBED
+            let verifPostingEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Verification perks embed successfully posted.`)
+
+
+            // SENDING CONFIRMATION
+            interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
             // DEFINING LOG EMBED
             let logVerifPerksPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} New verified perks embed posted - details saved to database for updating.`)
+                .setTitle(`${config.emjGREENTICK} New verified perks embed posted.`)
+                .setDescription(`The message ID has been saved to the database.`)
                 .setTimestamp()
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPerksPromptEmbed] })
-                .catch(err => console.log(err))
-
-            return;
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPerksPromptEmbed] })
         }
 
 
-        
-        // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
+        // MESSAGE ID EXISTS IN DATABASE, EDIT EMBED WITHOUT TOUCHING MESSAGE ID
         if(dbData.VERIF_PERKS_MSG_ID) {
 
-            // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            await message.channel.messages.fetch(dbData.VERIF_PERKS_MSG_ID)
+            // GETTING THE VERIFICATION PERKS CHANNEL ID FROM DATABASE
+            await interaction.channel.messages.fetch(dbData.VERIF_PERKS_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [verifPerksEmbed] })
                 })
                 .catch(err => console.log(err))
+
+
+            // DEFINING UPDATE EMBED
+            let verifPostingEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Verification perks embed successfully edited.`)
+
+
+            // SENDING CONFIRMATION
+            interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
 
 
             // DEFINING LOG EMBED
@@ -98,10 +107,7 @@ module.exports = {
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logPerksEmbed] })
-                .catch(err => console.log(err))
-
-            return;
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logPerksEmbed] })
         }
     }
 }

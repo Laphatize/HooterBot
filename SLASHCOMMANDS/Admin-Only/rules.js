@@ -1,27 +1,21 @@
 const discord = require('discord.js')
-const config = require('../../config.json')
+const { CommandInteraction } = require('discord.js')
+const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
+
 module.exports = {
-    name: `rules`,
-    aliases: [`rulesembed`],
-    description: `Generates a list of current server staff for the Temple University Discord server.`,
-    category: `Administrator`,
-    expectedArgs: '',
-    cooldown: 15,
-    minArgs: 0,
-    maxArgs: 0,
-    permissions: 'ADMINISTRATOR',    // ADMINISTRATOR - off for testing
-    requiredRoles: [],
-    execute: async (message, arguments, client) => {
-
-        // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
-
+    name: 'rules',
+    description: '(ADMIN) Generates/updates rules, server staff, and ModMail ticket instruction embeds. [CD: 60s]',
+    options: [],
+    permissions: 'ADMINISTRATOR',
+    cooldown: 60,
+    defaultPermission: true,
+    run: async(client, interaction, inputs) => {
 
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
+            GUILD_ID: interaction.guild.id
         }).exec();
 
 
@@ -42,7 +36,6 @@ module.exports = {
             \n**10. Multiple warnings will result in mutes and eventual bans**\n > The admins and moderators reserve discretion in expediting this process based on the severity of a situation.
             `)
 
-            
         // SERVER STAFF EMBED
         let serverStaffList = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
@@ -58,11 +51,15 @@ module.exports = {
             .setFooter(`Note: ModMail is intended for moderation-related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail may result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
 
 
+        // FETCH RULES CHANNEL
+        var rulesChannel = interaction.guild.channels.cache.find(ch => ch.name === `rules`)
+
+
         // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
         if(!dbData.RULES_MSG_ID) {
             
             // POSTING EMBEDS
-            await message.channel.send({ embeds: [rules, serverStaffList, ModmailHelp] })
+            await rulesChannel.send({ embeds: [rules, serverStaffList, ModmailHelp] })
                 .catch(err => console.log(err))
 
                 // GETTING MESSAGE ID OF ticketEmbed
@@ -74,14 +71,23 @@ module.exports = {
             // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
                 // CONTENT USED TO FIND UNIQUE ENTRY
-                GUILD_NAME: message.guild.name,
-                GUILD_ID: message.guild.id
+                GUILD_NAME: interaction.guild.name,
+                GUILD_ID: interaction.guild.id
             },{
                 // CONTENT TO BE UPDATED
                 RULES_MSG_ID: rulesEmbedMsgId
             },{ 
                 upsert: true
             }).exec();
+
+
+            // REPLYING TO INTERACTION
+            let postSuccessfulEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} New Rules posted successfully.`)
+                .setTimestamp()
+
+            interaction.reply({ embeds: [postSuccessfulEmbed], ephemeral: true })
 
 
             // DEFINING LOG EMBED
@@ -92,10 +98,8 @@ module.exports = {
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
-
-            return;
         }
 
 
@@ -103,11 +107,20 @@ module.exports = {
         if(dbData.RULES_MSG_ID) {
 
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            await message.channel.messages.fetch(dbData.RULES_MSG_ID)
+            await interaction.channel.messages.fetch(dbData.RULES_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [rules, serverStaffList, ModmailHelp] })
                 })
                 .catch(err => console.log(err))
+
+
+            // REPLYING TO INTERACTION
+            let updateSuccessfulEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Rules post successfully updated.`)
+                .setTimestamp()
+
+            interaction.reply({ embeds: [updateSuccessfulEmbed], ephemeral: true })
 
 
             // DEFINING LOG EMBED
@@ -118,10 +131,8 @@ module.exports = {
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
                 .catch(err => console.log(err))
-
-            return;
         }
     }
 }

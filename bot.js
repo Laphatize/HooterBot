@@ -9,7 +9,6 @@ var cron = require('node-cron');
 const moment = require('moment');
 
 
-
 // INITIALIZATION
 const client = new discord.Client({
     intents: [
@@ -23,10 +22,10 @@ const client = new discord.Client({
         // 'GUILD_VOICE_STATES',
         // 'GUILD_PRESENCES',
         'GUILD_MESSAGES',
-        'GUILD_MESSAGE_REACTIONS',
+        // 'GUILD_MESSAGE_REACTIONS',
         // 'GUILD_MESSAGE_TYPING',
         'DIRECT_MESSAGES',
-        'DIRECT_MESSAGE_REACTIONS',
+        // 'DIRECT_MESSAGE_REACTIONS',
         // 'DIRECT_MESSAGE_TYPING',
     ],
     partials: ['CHANNEL', 'MESSAGE']
@@ -41,6 +40,8 @@ client.login(process.env.HB_BOT_TOKEN);
 
 // COLLECTIONS
 client.commands = new discord.Collection();
+client.slashCommands = new discord.Collection();
+client.buttons = new discord.Collection();
 client.cooldowns = new discord.Collection();
 
 
@@ -65,18 +66,47 @@ for (const file of eventFiles) {
 
 
 /***********************************************************/
-/*      COMMAND HANDLER                                    */
+/*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
-const cmdFolders = fs.readdirSync('./COMMANDS');
+const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
+const arrayOfSlashCmds = [];
 
-for (const folder of cmdFolders) {
-    const cmdFiles = fs.readdirSync(`./COMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+for (const folder of slashCommands) {
+    const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
 
-    for (const file of cmdFiles) {
-		const command = require(`./COMMANDS/${folder}/${file}`);
-		client.commands.set(command.name, command);
+    for (const file of slashFiles) {
+		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
+		client.slashCommands.set(slashCmd.name, slashCmd);
+        arrayOfSlashCmds.push(slashCmd)
 	}
 }
+
+// REGISTERING SLASH COMMANDS
+client.on('ready', async () => {
+    // SLASH COMMANDS
+    console.log(`======================================`);
+    console.log(`===== REGISTERING SLASH COMMANDS =====`);
+    console.log(`======================================\n`);
+
+    // GUILD SLASH COMMANDS - MMM789 TEST
+    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
+
+    // GUILD SLASH COMMANDS - MMM789 2ND TEST
+    await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
+
+    // // GUILD SLASH COMMANDS - TU SERVER ID
+    // await client.guilds.cache.get('829409161581821992').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
+})
+
+
+
+/***********************************************************/
+/*      BUTTON HANDLER                                     */
+/***********************************************************/
+
+
+
+
 
 
 
@@ -146,10 +176,10 @@ cron.schedule('00 00 08 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
-            guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${bdayMessage}` })
+            guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
  
 
@@ -215,7 +245,7 @@ cron.schedule('00 59 07 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
  
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
@@ -353,7 +383,7 @@ cron.schedule('30 00 10 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
@@ -433,7 +463,7 @@ cron.schedule('30 00 10 * * *', async () => {
         for(let i in dbTicketData) {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {
@@ -509,7 +539,7 @@ cron.schedule('30 00 10 * * *', async () => {
                                 // FETCH MESSAGE BY ID
                                 secondDmMsg = dmCh.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
                                     .then(msg => {
-                                        client.setTimeout(() => msg.delete(), 0 );
+                                        setTimeout(() => msg.delete(), 0 );
                                     })
                             }
                         })

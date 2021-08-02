@@ -1,29 +1,20 @@
 const discord = require('discord.js')
 const { MessageActionRow, MessageButton } = require('discord.js')
-const config = require('../../config.json')
+const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
-
 module.exports = {
-    name: `verificationprompt`,
-    aliases: [`verifembed`, `verifprompt`],
-    description: `(${config.emjAdmin}) Generates the embed in the \#roles channel so users can begin the verification process.`,
-    category: `Verification`,
-    expectedArgs: '',
-    cooldown: 30,
-    minArgs: 0,
-    maxArgs: 0,
+    name: 'verif_promptembed',
+    description: `(ADMIN) Generate/update the verification prompt containing the buttons. [CD: 60s]`,
+    options: [],
     permissions: 'ADMINISTRATOR',
-    requiredRoles: [],
-    execute: async (message, arguments, client) => {
+    cooldown: 60,
+    defaultPermission: true,
+    run: async(client, interaction, inputs) => {
 
-        // DELETING INVOCATION MESSAGE
-        client.setTimeout(() => message.delete(), 0 );
-
-        
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
-            GUILD_ID: message.guild.id
+            GUILD_ID: interaction.guild.id
         }).exec();
 
 
@@ -32,17 +23,13 @@ module.exports = {
             let noCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`You need to set the ticket category using \`\`${config.prefix}ticketcategory\`\` or \`\`${config.prefix}setcategory\`\` before the verification prompt can be posted.`)
+                .setDescription(`You need to set the ticket category using \`\`/ticketcategory\`\` or \`\`/setcategory\`\` before the verification prompt can be posted.`)
 
             // SENDING TO CHANNEL
-            message.channel.send({ embeds: [noCatEmbed] })
-                // DELETE AFTER 10 SECONDS
-                .then(msg => {client.setTimeout(() => msg.delete(), 10000 )})
-                .catch(err => console.log(err))
-            return
+            return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
         }
 
-        
+
         // EMBED MESSAGE
         let verifEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
@@ -67,25 +54,24 @@ module.exports = {
             );
 
 
-
-        // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB
+        // MESSAGE ID DNE IN DATABASE, POST AND LOG MSG INFO IN DB
         if(!dbData.VERIF_PROMPT_MSG_ID) {
 
-            // POSTING EMBED AND BUTTON ROW
-            await message.channel.send({ embeds: [verifEmbed], components: [buttonRow] })
-                .catch(err => console.log(err))
+            // POSTING EMBED
+            await interaction.channel.send({ embeds: [verifEmbed], components: [buttonRow] })
+            .catch(err => console.log(err))
 
-                // GETTING MESSAGE ID OF verifEmbed
-                .then(sentEmbed => {
-                    verifEmbedMsgId = sentEmbed.id;
-                })
+            // GETTING MESSAGE ID OF verifEmbed
+            .then(sentEmbed => {
+                verifEmbedMsgId = sentEmbed.id;
+            })
 
 
-            // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
+            // STORING IN DATABASE THE VERIFICATION EMBED'S MESSAGE ID AND CHANNEL ID
             await guildSchema.findOneAndUpdate({
                 // CONTENT USED TO FIND UNIQUE ENTRY
-                GUILD_NAME: message.guild.name,
-                GUILD_ID: message.guild.id
+                GUILD_NAME: interaction.guild.name,
+                GUILD_ID: interaction.guild.id
             },{
                 // CONTENT TO BE UPDATED
                 VERIF_PROMPT_MSG_ID: verifEmbedMsgId
@@ -94,45 +80,59 @@ module.exports = {
             }).exec();
 
 
+            // DEFINING UPDATE EMBED
+            let verifPostingEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Verification embed successfully posted.`)
+
+
+            // SENDING CONFIRMATION
+            interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
             // DEFINING LOG EMBED
             let logVerifPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} New verification prompt posted - details saved to database for updating.`)
+                .setTitle(`${config.emjGREENTICK} New verification prompt posted.`)
+                .setDescription(`The message ID has been saved to the database.`)
                 .setTimestamp()
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
-                .catch(err => console.log(err))
-
-            return;
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
         }
 
 
-
-        // IF MESSAGE ID EXISTS IN DATABASE, EDIT THE EMBED WITHOUT TOUCHING MESSAGE ID IN DATABASE
+        // MESSAGE ID EXISTS IN DATABASE, EDIT EMBED WITHOUT TOUCHING MESSAGE ID
         if(dbData.VERIF_PROMPT_MSG_ID) {
 
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            await message.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
+            await interaction.channel.messages.fetch(dbData.VERIF_PROMPT_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [verifEmbed], components: [buttonRow] })
                 })
                 .catch(err => console.log(err))
 
 
+            // DEFINING UPDATE EMBED
+            let verifPostingEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Verification embed successfully edited.`)
+
+
+            // SENDING CONFIRMATION
+            interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
             // DEFINING LOG EMBED
             let logVerifPromptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Verification prompt embed updated.`)
+                .setTitle(`${config.emjGREENTICK} Verified prompt embed updated.`)
                 .setTimestamp()
 
 
             // LOG ENTRY
-            message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
-                .catch(err => console.log(err))
-
-            return;
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
         }
     }
 }
