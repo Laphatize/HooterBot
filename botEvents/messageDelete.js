@@ -87,7 +87,7 @@ module.exports = {
                 await guildSchema.findOneAndUpdate({
                     GUILD_ID: message.guild.id
                 },{
-                    VERIF_PROMPT_MSG_ID: ""
+                    VERIF_PERKS_MSG_ID: ""
                 },{
                     upsert: true
                 }).exec();
