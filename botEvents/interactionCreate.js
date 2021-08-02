@@ -871,7 +871,7 @@ module.exports = {
                     console.log(`\nuserTicketch = ${userTicketCh}\nnuserTicketch.id = ${userTicketCh.id}\n`)
                     
                     
-                    let fetchedTicketChannel = interaction.guilds.channels.cache.fetch(userTicketch.id)
+                    let fetchedTicketChannel = client.guilds.channels.cache.fetch(userTicketch.id)
 
                     console.log(`fetchedTicketChannel = ${fetchedTicketChannel}`)
                     
