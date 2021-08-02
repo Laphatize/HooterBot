@@ -647,6 +647,7 @@ module.exports = {
                 }).countDocuments()
                 .exec();
                 
+                
                 ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [#]`)
 
 
@@ -921,10 +922,10 @@ module.exports = {
 
 
 
-                // DELETING DATABASE ENTRY
-                await ticketSchema.deleteOne({
-                    CREATOR_ID: dmUser.id
-                }).exec();
+                // // DELETING DATABASE ENTRY
+                // await ticketSchema.deleteOne({
+                //     CREATOR_ID: dmUser.id
+                // }).exec();
 
 
 
