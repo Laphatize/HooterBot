@@ -370,14 +370,14 @@ module.exports = {
 
 
                             // COUNT OF TICKETS IN DB
-                            ticketCount = await ticketSchema.find({
+                            var ticketCount = await ticketSchema.find({
                                 GUILD_ID: interaction.guild.id
                             }).countDocuments()
                             .exec();
                             
-                            console.log(`The number of open tickets in the test server is ${ticketCount}.`)
+                            console.log(`The number of open tickets in the test server is ${ticketCount+1}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [#]`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [#]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -639,12 +639,12 @@ module.exports = {
 
 
                 // COUNT OF TICKETS IN DB
-                ticketCount = await ticketSchema.find({
+                var ticketCount = await ticketSchema.find({
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
                 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1})`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
 
 
 
@@ -903,7 +903,7 @@ module.exports = {
 
 
                 // COUNT OF TICKETS IN DB
-                ticketCount = await ticketSchema.find({
+                var ticketCount = await ticketSchema.find({
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
@@ -1642,7 +1642,7 @@ module.exports = {
 
 
                 // COUNT OF TICKETS IN DB
-                ticketCount = await ticketSchema.find({
+                var ticketCount = await ticketSchema.find({
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
