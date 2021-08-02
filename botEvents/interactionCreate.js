@@ -870,8 +870,7 @@ module.exports = {
 
                     // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                     // GRAB TICKET CHANNEL, THEN MESSAGE
-                    let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
-                    console.log(`\nUser's ticket channel has been found.\n`)
+                    let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
                     userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                         .then(msg => {
