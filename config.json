@@ -30,7 +30,9 @@
     "emjHooter1": "<:Hooter:860765992191918091>",
     "emjHooter2": "<:Hooter2:860765991939211285>",
     "emjVerified": "<:verified:856359139205447711>",
-    "indent": "<:indent_space:862214213749440523>",
+    "emjDJS": "<:DJS:871558208936869908>",
+    "emjDJSdev": "<:DiscordJS:871558208936869908> ",
+    "indent": "<:DiscordJSdev:871558208974630973>",
 
     "ModMailId": "575252669443211264"
 }    
