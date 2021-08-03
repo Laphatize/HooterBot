@@ -99,7 +99,7 @@ module.exports = {
                             .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
-                            .addField(`LEADERBOARD:`, `#${selfUser.position}`)
+                            .addField(`LEADERBOARD:`, `#${targetUser.position}`)
             
                         // POST EMBED
                         return interaction.reply({ embeds: [infoEmbed], ephemeral: true })
