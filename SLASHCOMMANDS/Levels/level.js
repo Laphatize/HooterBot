@@ -95,7 +95,7 @@ module.exports = {
                         // CREATING EMBED FOR RESPONSE        
                         let infoEmbed = new discord.MessageEmbed()
                             .setColor(config.embedGrey)
-                            .setAuthor(member.name, member.user.displayAvatarURL({ dynamic:true }))
+                            .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
             
