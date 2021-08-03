@@ -39,7 +39,7 @@ module.exports = {
 
         // INFO FOR USER ISSUING COMMAND
         if(!user) {
-            const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id)
+            const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id, true)
 
             try {
                 // IF USER INFO DNE
@@ -60,7 +60,8 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
                     .addField(`LEVEL:`, `${selfUser.level}`, true)
-                    .addField(`TOTAL XP`, `${selfUser.xp}`, true)
+                    .addField(`TOTAL XP:`, `${selfUser.xp}`, true)
+                    .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`)
     
                 // POST EMBED
                 return interaction.reply({ embeds: [infoEmbed] })
