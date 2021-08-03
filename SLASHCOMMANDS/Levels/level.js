@@ -4,7 +4,7 @@ const levels = require('discord-xp');
 
 module.exports = {
     name: 'level',
-    description: `Get your XP & level, or specify another user. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
+    description: `Get your XP & level. Specify a user for their values. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
     options: [
         {
             name: `user`,
@@ -37,8 +37,8 @@ module.exports = {
         }
 
 
-        // INFO FOR USER ISSUING COMMAND
-        if(!user) {
+        // INFO FOR USER ISSUING COMMAND - NO ARGS OR SPECIFYING THEMSELVES
+        if(!user || user == interaction.user.id) {
             const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id, true)
 
             try {
