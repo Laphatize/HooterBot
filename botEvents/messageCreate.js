@@ -71,7 +71,7 @@ module.exports = {
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                     let userTicketMsg = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
-                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                         .setDescription(message.content)
                         .setTimestamp()
                         
@@ -96,7 +96,7 @@ module.exports = {
                     let userTicketMsgImage = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setTitle(`${message.author.username.toUpperCase()}'S VERIFICATION PROOF`)
-                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
                         .setTimestamp()
@@ -182,7 +182,7 @@ module.exports = {
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                 let userTicketMsg = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                     .setDescription(message.content)
                     .setTimestamp()
 
@@ -204,7 +204,7 @@ module.exports = {
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                 let userTicketMsg = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                     .setDescription(message.content)
                     .setImage(chMsgAttachment)
                     .setTimestamp()

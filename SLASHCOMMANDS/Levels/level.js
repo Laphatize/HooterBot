@@ -4,7 +4,7 @@ const levels = require('discord-xp');
 
 module.exports = {
     name: 'level',
-    description: `Get your XP & level (no user) or a specific user's. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
+    description: `Get your XP & level, or specify another user. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
     options: [
         {
             name: `user`,
@@ -58,7 +58,7 @@ module.exports = {
                 // CREATING EMBED FOR RESPONSE        
                 let infoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
                     .addField(`LEVEL:`, `${selfUser.level}`, true)
                     .addField(`TOTAL XP`, `${selfUser.xp}`, true)
     
@@ -95,7 +95,7 @@ module.exports = {
                         // CREATING EMBED FOR RESPONSE        
                         let infoEmbed = new discord.MessageEmbed()
                             .setColor(config.embedGrey)
-                            .setAuthor(member.name, member.displayAvatarURL())
+                            .setAuthor(member.name, member.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
             
