@@ -21,7 +21,7 @@ module.exports = {
         const message = inputs[0];
         
         // IF THE VERIF CHANNEL IS CLOSED OR ARCHIVED
-        if(interaction.channel.name.startsWith(`closed-`) || interaction.channel.name.startsWith(`archived-`)) {
+        if(interaction.channel.name.toLowerCase().startsWith(`closed-`) || interaction.channel.name.toLowerCase().startsWith(`archived-`)) {
             // DEFINING EMBED
             let normalMessages = new discord.MessageEmbed()
                 .setColor(config.embedRed)
@@ -35,7 +35,7 @@ module.exports = {
 
 
         // IF NOT USED IN VERIFICATION CHANNEL
-        if(interaction.channel.name.startsWith(`verify-`)) {
+        if(interaction.channel.name.toLowerCase().startsWith(`verify-`)) {
 
             await interaction.defer()
 
