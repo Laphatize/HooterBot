@@ -113,54 +113,31 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        // GRABBING SLASH COMMAND INPUT VALUES
-        const user1 = inputs[0];
-        const xpValue1 = inputs[1];
-        const user2 = inputs[2];
-        const xpValue2 = inputs[3];
-        const user3 = inputs[4];
-        const xpValue3 = inputs[5];
-        const user4 = inputs[6];
-        const xpValue4 = inputs[7];
-        const user5 = inputs[8];
-        const xpValue5 = inputs[9];
-        const user6 = inputs[10];
-        const xpValue6 = inputs[11];
-        const user7 = inputs[12];
-        const xpValue7 = inputs[13];
-        const user8 = inputs[14];
-        const xpValue8 = inputs[15];
-        const user9 = inputs[16];
-        const xpValue9 = inputs[17];
-        const user10 = inputs[18];
-        const xpValue10 = inputs[19];
-
-
-        // APPEND XP VALUE FOR USER
-        levels.appendXp(user.id, interaction.guild.id, xpValue);
-
-        console.log(`xpValue1 = ${xpValue1}`)
+        // APPEND XP VALUE FOR USERS
+        // 1st USER
+        levels.appendXp(inputs[0], interaction.guild.id, inputs[1]);
 
         if(user2) {
-            console.log(`xpValue2 = ${xpValue2}`)
+            levels.appendXp(inputs[2], interaction.guild.id, inputs[3]);
         } if(user3) {
-            console.log(`xpValue3 = ${xpValue3}`)
+            levels.appendXp(inputs[4], interaction.guild.id, inputs[5]);
         } if(user4) {
-            console.log(`xpValue4 = ${xpValue4}`)
+            levels.appendXp(inputs[6], interaction.guild.id, inputs[7]);
         } if(user5) {
-            console.log(`xpValue5 = ${xpValue5}`)
+            levels.appendXp(inputs[8], interaction.guild.id, inputs[9]);
         } if(user6) {
-            console.log(`xpValue6 = ${xpValue6}`)
+            levels.appendXp(inputs[10], interaction.guild.id, inputs[11]);
         } if(user7) {
-            console.log(`xpValue7 = ${xpValue7}`)
+            levels.appendXp(inputs[12], interaction.guild.id, inputs[13]);
         } if(user8) {
-            console.log(`xpValue8 = ${xpValue8}`)
+            levels.appendXp(inputs[14], interaction.guild.id, inputs[15]);
         } if(user9) {
-            console.log(`xpValue9 = ${xpValue9}`)
+            levels.appendXp(inputs[16], interaction.guild.id, inputs[17]);
         } if(user10) {
-            console.log(`xpValue10 = ${xpValue10}`)
+            levels.appendXp(inputs[18], interaction.guild.id, inputs[19]);
         }
 
-
+        // CONFIRMATION
+        interaction.reply({ content: 'The user(s) XP has been added to the database.', ephemeral: true })
     }
 }
