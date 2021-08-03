@@ -228,7 +228,8 @@ module.exports = {
         /***********************************************************/
         
         // NO LEVELING FROM MESSAGES IN BOT SPAM OR SHITPOSTING
-        if (message.channel.name === '🤖｜bot-spam' 
+        if (message.channel.type === "DM"
+            || message.channel.name === '🤖｜bot-spam' 
             || message.channel.name === `💩｜shitposting`
             || message.channel.name === `🎵｜music-commands`
             || message.channel.name.startsWith(`'verify-`)
@@ -242,12 +243,14 @@ module.exports = {
         xpToAdd = Math.floor(Math.random()*11) + 15;
 
         const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
+            .catch(err => console.log(err))
 
         if(hasLeveledUp) {
             const user = await levels.fetch(message.author.id, message.guild.id);
 
             // BOT-CHANNEL MESSAGE
             message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
+                .catch(err => console.log(err))
         }
 
     }

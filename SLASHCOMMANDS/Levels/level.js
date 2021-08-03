@@ -39,7 +39,7 @@ module.exports = {
 
         // INFO FOR USER ISSUING COMMAND
         if(!user) {
-            const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id, true)
+            const selfUser = await levels.fetch(interaction.user.id, interaction.guild.id, fetchPosition == true)
 
             try {
                 // IF USER INFO DNE
@@ -74,7 +74,7 @@ module.exports = {
 
         // INFO FOR SPECIFIED USER
         if(user) {
-            const targetUser = await levels.fetch(user, interaction.guild.id, true)
+            const targetUser = await levels.fetch(user, interaction.guild.id, fetchPosition == true)
             
             try {
                 // IF USER INFO DNE
