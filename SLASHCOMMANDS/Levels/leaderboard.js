@@ -49,7 +49,7 @@ module.exports = {
 
 
         // MAPPING VALUES OF LEADERBOARD
-        let lb = leaderboard.map(e => `**${placementEmojiPicker(e)}${e.position}${config.indent}${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
+        let lb = leaderboard.map(e => `**${e.position}${config.indent}${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
 
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
@@ -58,31 +58,5 @@ module.exports = {
 
         return interaction.reply({ embeds: [leaderboardEmbed] })
             .catch(err => console.log(err))
-    }
-}
-
-
-
-
-function placementEmojiPicker(i) {
-    switch(i){
-        case 0:
-            config.emjFirstPlace
-            break;
-        case 1:
-            config.emjSecondPlace
-            break;
-        case 2:
-            config.emjThirdPlace
-            break;
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-            config.indent
-            break;
     }
 }
