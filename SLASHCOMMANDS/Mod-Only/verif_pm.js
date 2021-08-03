@@ -17,8 +17,6 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        await interaction.defer()
-
         // IF NOT USED IN VERIFICATION CHANNEL
         if(!interaction.channel.name.startsWith(`verify-`)) {
             // DEFINING EMBED
@@ -33,6 +31,7 @@ module.exports = {
         }
 
         
+        await interaction.defer()
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const message = inputs[0];
