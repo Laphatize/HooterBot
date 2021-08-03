@@ -17,8 +17,11 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        // GRABBING SLASH COMMAND INPUT VALUES
+        const message = inputs[0];
+
         // IF NOT USED IN VERIFICATION CHANNEL
-        if(!interaction.channel.name.startsWith(`verify-`)) {
+        if(!interaction.channel.name.startsWith(`verify-`) || !interaction.channel.name.startsWith(`closed-`) || !interaction.channel.name.startsWith(`archived-`)) {
             // DEFINING EMBED
             let wrongChannelEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
@@ -31,10 +34,22 @@ module.exports = {
         }
 
         
-        await interaction.defer()
+        // IF THE VERIF CHANNEL IS CLOSED OR ARCHIVED
+        if(interaction.channel.name.startsWith(`closed-`) || interaction.channel.name.startsWith(`archived-`)) {
+            // DEFINING EMBED
+            let normalMessages = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error!`)
+                .setDescription(`Because this ticket is completed (the channel name does not start with \`\`verify-\`\`), you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n*${message}*`)
+                .setTimestamp()
+            
+            // SENDING MESSAGE
+            return interaction.reply({ embeds: [normalMessages], ephemeral: true })
+        }
 
-        // GRABBING SLASH COMMAND INPUT VALUES
-        const message = inputs[0];
+
+        
+        await interaction.defer()
 
         // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
         let modAdminMsgEmbed = new discord.MessageEmbed()
