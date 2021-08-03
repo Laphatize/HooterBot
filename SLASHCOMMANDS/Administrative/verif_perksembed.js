@@ -4,7 +4,7 @@ const guildSchema = require('../../Database/guildSchema');
 
 module.exports = {
     name: 'verif_perksembed',
-    description: `(ADMIN) Generate/update the verification perks embed message. [CD: 60s]`,
+    description: `ADMIN | Generate/update the verification perks embed message. [CD: 60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,

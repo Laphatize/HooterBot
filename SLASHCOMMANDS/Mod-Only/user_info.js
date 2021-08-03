@@ -4,7 +4,7 @@ const moment = require('moment');
 
 module.exports = {
     name: 'user_info',
-    description: `(MODERATOR) A command for generating information about a specific user in the server.`,
+    description: `MODERATOR | A command for generating information about a specific user in the server.`,
     options: [
         {
             name: `user`,

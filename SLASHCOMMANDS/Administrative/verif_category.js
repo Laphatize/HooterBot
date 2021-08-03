@@ -4,7 +4,7 @@ const guildSchema = require('../../Database/guildSchema')
 
 module.exports = {
     name: 'verif_category',
-    description: `(ADMIN) Set ticket channel creation category. Cannot modify category once set. [CD: 10s]`,
+    description: `ADMIN | Set ticket channel creation category. Cannot modify category once set. [CD: 10s]`,
     options: [
         {
             name: `channel`,

@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'verif_pm',
-    description: `(MODERATOR) Send a message in a ticket channel without it being sent to the user.`,
+    description: `MODERATOR | Send a message in a ticket channel without it being sent to the user.`,
     options: [
         {
             name: `message`,
