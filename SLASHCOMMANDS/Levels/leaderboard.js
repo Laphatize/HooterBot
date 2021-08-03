@@ -47,21 +47,12 @@ module.exports = {
         // PROCESS LEADERBOARD
         const leaderboard = await levels.computeLeaderboard(client, rawLeaderboard, true)
 
-        const leaderboardEmojiArray = [ `${config.emjFirstPlace}`, `${config.emjSecondPlace}`, `${config.emjThirdPlace}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`]
-
-        console.log(`leaderboardEmojiArray[0] = ${leaderboardEmojiArray[0]}
-        \nleaderboardEmojiArray[1] = ${leaderboardEmojiArray[1]}
-        \nleaderboardEmojiArray[2] = ${leaderboardEmojiArray[2]}
-        `)
-
-
+        // CREATING ARRAY FOR PLACEMENT EMOJIS
+        const leaderboardEmojiArray = [ `filler`, `${config.emjFirstPlace}`, `${config.emjSecondPlace}`, `${config.emjThirdPlace}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`, `${config.indent}`]
 
         // MAPPING VALUES OF LEADERBOARD
-        let lb = leaderboard.map(e => `**${e.position} ${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
-
-        console.log(`lb = ${lb}`)
-
-
+        let lb = leaderboard.map(e => `${leaderboardEmojiArray[e]} **${e.position} ${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
+        
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`HooterBot Leaderboard`)
