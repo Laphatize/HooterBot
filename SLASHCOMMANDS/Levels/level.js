@@ -74,7 +74,7 @@ module.exports = {
 
         // INFO FOR SPECIFIED USER
         if(user) {
-            const targetUser = await levels.fetch(user, interaction.guild.id)
+            const targetUser = await levels.fetch(user, interaction.guild.id, true)
             
             try {
                 // IF USER INFO DNE
@@ -99,6 +99,7 @@ module.exports = {
                             .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
+                            .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`)
             
                         // POST EMBED
                         return interaction.reply({ embeds: [infoEmbed], ephemeral: true })
