@@ -12,7 +12,7 @@ module.exports = {
             type: `USER`,
             required: true
         },{
-            name: `xp_value`,
+            name: `xp_value1`,
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: true
@@ -22,7 +22,7 @@ module.exports = {
             type: `USER`,
             required: false
         },{
-            name: `xp_value`,
+            name: `xp_value2`,
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
@@ -32,7 +32,7 @@ module.exports = {
             type: `USER`,
             required: false
         },{
-            name: `xp_value`,
+            name: `xp_value3`,
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
@@ -42,7 +42,7 @@ module.exports = {
             type: `USER`,
             required: false
         },{
-            name: `xp_value`,
+            name: `xp_value4`,
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
@@ -52,7 +52,7 @@ module.exports = {
             type: `USER`,
             required: false
         },{
-            name: `xp_value`,
+            name: `xp_value5`,
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
