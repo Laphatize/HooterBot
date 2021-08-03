@@ -377,7 +377,7 @@ module.exports = {
 
 
                             // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                            let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                            let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
                             ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [${catChCount}/50]`)
                         })
@@ -651,7 +651,7 @@ module.exports = {
                 
                 
                 // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
                 // SETTING NEW CATEGORY NAME
                 ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
@@ -916,7 +916,7 @@ module.exports = {
 
 
                 // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
                 // SETTING NEW CATEGORY NAME
                 ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
@@ -1660,7 +1660,7 @@ module.exports = {
 
 
                 // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
                 
                 // SETTING NEW CATEGORY NAME
                 ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
