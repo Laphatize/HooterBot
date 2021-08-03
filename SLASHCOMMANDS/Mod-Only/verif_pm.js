@@ -23,9 +23,9 @@ module.exports = {
         // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
         let modAdminMsgEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
+            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
             .setTitle(`For Mods/Admins only:`)
-            .setDescription(message.content)
+            .setDescription(message)
             .setTimestamp()
 
 
