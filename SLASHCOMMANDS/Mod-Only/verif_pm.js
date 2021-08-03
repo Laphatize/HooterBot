@@ -12,12 +12,27 @@ module.exports = {
             required: true,
         },
     ],
-    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    permissions: 'MANAGE_MESSAGES',
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         await interaction.defer()
+
+        // IF NOT USED IN VERIFICATION CHANNEL
+        if(!interaction.channel.name.startsWith(`verify-`)) {
+            // DEFINING EMBED
+            let wrongChannelEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Error!`)
+                .setDescription(`This command can only be used in a verification ticket channel.`)
+                .setTimestamp()
+            
+            // SENDING MESSAGE
+            return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
+        }
+
+        
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const message = inputs[0];
@@ -28,7 +43,7 @@ module.exports = {
             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
             .setDescription(message)
             .setTimestamp()
-            .setFooter(`This message is for mods/admins only and is not sent to the user.`)
+            .setFooter(`This is a Mods/Admins message and is not sent to the user.`)
 
         await interaction.editReply({ embeds: [modAdminMsgEmbed] })
     }
