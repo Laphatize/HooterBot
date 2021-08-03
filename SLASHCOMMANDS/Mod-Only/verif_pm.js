@@ -26,10 +26,10 @@ module.exports = {
         let modAdminMsgEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
-            .setTitle(`For Mods/Admins only:`)
             .setDescription(message)
             .setTimestamp()
+            .setFooter(`This message is for mods/admins only and is not sent to the user.`)
 
-        await interaction.channel.send({ embeds: [modAdminMsgEmbed] })
+        await interaction.editReply({ embeds: [modAdminMsgEmbed] })
     }
 }
