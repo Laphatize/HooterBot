@@ -7,7 +7,7 @@ module.exports = {
     name: 'verif_promptembed',
     description: `(ADMIN) Generate/update the verification prompt containing the buttons. [CD: 60s]`,
     options: [],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

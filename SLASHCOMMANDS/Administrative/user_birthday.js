@@ -23,7 +23,7 @@ module.exports = {
             required: true
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

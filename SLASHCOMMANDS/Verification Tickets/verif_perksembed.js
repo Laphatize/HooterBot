@@ -6,7 +6,7 @@ module.exports = {
     name: 'verif_perksembed',
     description: `(ADMIN) Generate/update the verification perks embed message. [CD: 60s]`,
     options: [],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
