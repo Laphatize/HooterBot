@@ -51,7 +51,7 @@ module.exports = {
         const leaderboardEmojiArray = [ `filler`, `${config.emjFirstPlace} **1ˢᵗ** `, `${config.emjSecondPlace} **2ⁿᵈ** `, `${config.emjThirdPlace} **3ʳᵈ** `, `${config.indent} **4ᵗʰ** `, `${config.indent} **5ᵗʰ** `, `${config.indent} **6** `, `${config.indent} **7ᵗʰ** `, `${config.indent} **8ᵗʰ** `, `${config.indent} **9ᵗʰ** `, `${config.indent} **10ᵗʰ** `]
 
         // MAPPING VALUES OF LEADERBOARD
-        let lb = leaderboard.map(e => `${leaderboardEmojiArray[e.position]} **${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
+        let lb = leaderboard.map(e => `${leaderboardEmojiArray[e.position]}: **${e.username}\#${e.discriminator}**\n${config.indent}${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
         
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
