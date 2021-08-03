@@ -17,6 +17,8 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        await interaction.defer()
+
         // GRABBING SLASH COMMAND INPUT VALUES
         const message = inputs[0];
 
@@ -28,7 +30,6 @@ module.exports = {
             .setDescription(message)
             .setTimestamp()
 
-
-        interaction.return({ embeds: [modAdminMsgEmbed] })
+        await interaction.channel.send({ embeds: [modAdminMsgEmbed] })
     }
 }
