@@ -374,10 +374,12 @@ module.exports = {
                                 GUILD_ID: interaction.guild.id
                             }).countDocuments()
                             .exec();
-                            
-                            console.log(`The number of open tickets in the test server is ${ticketCount+1}.`)
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [#]`)
+
+                            // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                            let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [${catChCount}/50]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -648,7 +650,11 @@ module.exports = {
                 .exec();
                 
                 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
 
@@ -897,7 +903,6 @@ module.exports = {
                     })
 
 
-                
                 // UPDATE TICKET CATEGORY COUNTER
                 // GRAB TICKET CATEGORY USING ID
                 let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
@@ -909,7 +914,12 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
+
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
 
@@ -1648,8 +1658,12 @@ module.exports = {
                 }).countDocuments()
                 .exec();
 
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [#]`)
 
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.filter(ch => ch.type === "text" && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
                 // DELETING DATABASE ENTRY
