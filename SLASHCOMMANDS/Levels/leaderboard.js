@@ -56,7 +56,7 @@ module.exports = {
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`HooterBot Leaderboard`)
-            .setDescription(`${config.emjFirstPlace} ${lb.join(`\n`)}`)
+            .setDescription(`${lb.join(`\n`)}`)
 
         return interaction.reply({ embeds: [leaderboardEmbed] })
             .catch(err => console.log(err))
