@@ -117,23 +117,23 @@ module.exports = {
         // 1st USER
         levels.appendXp(inputs[0], interaction.guild.id, inputs[1]);
 
-        if(user2) {
+        if(inputs[2]) {
             levels.appendXp(inputs[2], interaction.guild.id, inputs[3]);
-        } if(user3) {
+        } if(inputs[4]) {
             levels.appendXp(inputs[4], interaction.guild.id, inputs[5]);
-        } if(user4) {
+        } if(inputs[6]) {
             levels.appendXp(inputs[6], interaction.guild.id, inputs[7]);
-        } if(user5) {
+        } if(inputs[8]) {
             levels.appendXp(inputs[8], interaction.guild.id, inputs[9]);
-        } if(user6) {
+        } if(inputs[10]) {
             levels.appendXp(inputs[10], interaction.guild.id, inputs[11]);
-        } if(user7) {
+        } if(inputs[12]) {
             levels.appendXp(inputs[12], interaction.guild.id, inputs[13]);
-        } if(user8) {
+        } if(inputs[14]) {
             levels.appendXp(inputs[14], interaction.guild.id, inputs[15]);
-        } if(user9) {
+        } if(inputs[16]) {
             levels.appendXp(inputs[16], interaction.guild.id, inputs[17]);
-        } if(user10) {
+        } if(inputs[18]) {
             levels.appendXp(inputs[18], interaction.guild.id, inputs[19]);
         }
 
