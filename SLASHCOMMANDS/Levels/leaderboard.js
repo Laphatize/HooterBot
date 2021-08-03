@@ -51,13 +51,13 @@ module.exports = {
         // MAPPING VALUES OF LEADERBOARD
         let lb = leaderboard.map(e => `**${e.position}${config.indent}${e.username}\#${e.discriminator}**\n${config.indent}Level: ${e.level}${config.indent}XP: ${e.xp.toLocaleString()}`)
 
-        console.log(`lb.position = ${lb.position}`)
+        console.log(`lb = ${lb}`)
 
 
         let leaderboardEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`HooterBot Leaderboard`)
-            .setDescription(`${lb.join(`\n`)}`)
+            .setDescription(`${config.emjFirstPlace} ${lb.join(`\n`)}`)
 
         return interaction.reply({ embeds: [leaderboardEmbed] })
             .catch(err => console.log(err))
