@@ -26,7 +26,7 @@ module.exports = {
             let normalMessages = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Error!`)
-                .setDescription(`This ticket is completed (the channel name does not start with \`\`verify-\`\`), you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n*${message}*`)
+                .setDescription(`This ticket is completed and you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n\`\`\`${message}\`\`\``)
                 .setTimestamp()
             
             // SENDING MESSAGE
