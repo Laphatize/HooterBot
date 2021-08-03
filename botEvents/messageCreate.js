@@ -230,6 +230,8 @@ module.exports = {
         // NO LEVELING FROM MESSAGES IN BOT SPAM OR SHITPOSTING
         if (message.channel.name === '🤖｜bot-spam' 
             || message.channel.name === `💩｜shitposting`
+            || message.channel.name === `🎵｜music-commands`
+            || message.channel.name.startsWith(`'verify-`)
             || message.author.bot
         ) {
             return;
