@@ -61,7 +61,7 @@ module.exports = {
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
                     .addField(`LEVEL:`, `${selfUser.level}`, true)
                     .addField(`TOTAL XP:`, `${selfUser.xp}`, true)
-                    .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`)
+                    .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`, true)
     
                 // POST EMBED
                 return interaction.reply({ embeds: [infoEmbed] })
@@ -99,7 +99,7 @@ module.exports = {
                             .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
-                            .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`)
+                            .addField(`LEADERBOARD SPOT:`, `${selfUser.position}`, true)
             
                         // POST EMBED
                         return interaction.reply({ embeds: [infoEmbed], ephemeral: true })
