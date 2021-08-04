@@ -135,11 +135,24 @@ module.exports = {
             let missingFieldEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`If you are checking perms for a role or channel, you need to specify **both** options.`)
+                .setDescription(`If you are checking specific permissions, you need to specify **both a role and channel**.`)
                 .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [missingFieldEmbed], ephemeral: true })
+        }
+
+
+        // ROLE AND CHANNEL PROVIDED
+        if(channel && role) {
+    
+            // GENERATING EMBED TO NOTE THE PERMISSIONS
+            let channelRolePermsEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`The ${role}'s permissions in ${channel}`)
+
+            // SENDING TO CHANNEL
+            return interaction.reply({ embeds: [channelRolePermsEmbed], ephemeral: true })
         }
 
 
