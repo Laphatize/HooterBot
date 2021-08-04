@@ -11,9 +11,9 @@ module.exports = {
             type: `CHANNEL`,
             required: false
         }, {
-            name: `role`,
-            description: `Specify the role to use for checking permissions. `,
-            type: `ROLE`,
+            name: `role_or_user`,
+            description: `Specify the role or user to use for checking permissions. `,
+            type: `MENTIONABLE`,
             required: false
         }
     ],
@@ -26,7 +26,7 @@ module.exports = {
             'ADMINISTRATOR',
             'MANAGE_CHANNELS',
             'MANAGE_ROLES',
-            'MANAGE_EMOJIS',
+            'MANAGE_EMOJIS_AND_STICKERS',
             'VIEW_AUDIT_LOG',
             'VIEW_GUILD_INSIGHTS',
             'MANAGE_WEBHOOKS',
