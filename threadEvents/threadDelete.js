@@ -1,18 +1,18 @@
 const discord = require('discord.js');
-const config = require('../config.json');
+const config = require('../../config.json');
 
 module.exports = {
-	name: 'threadCreate',
+	name: 'threadDelete',
 	async execute(channel, client) {
 
         const modLogChannel = channel.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
- 
+
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
-            .setTitle(`Thread Created`)
-            .addField(`Thread:`, `${channel}`, true)
+            .setTitle(`Thread Deleted`)
+            .addField(`Thread Name:`, `${channel.name}`, true)
             .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
             .setTimestamp()
 

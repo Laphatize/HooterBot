@@ -28,6 +28,9 @@ const client = new discord.Client({
         'DIRECT_MESSAGES',
         // 'DIRECT_MESSAGE_REACTIONS',
         // 'DIRECT_MESSAGE_TYPING',
+        `THREAD_CREATE`,
+        `THREAD_UPDATE`,
+        `THREAD_DELETE`
     ],
     partials: ['CHANNEL', 'MESSAGE']
 })

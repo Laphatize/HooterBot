@@ -6,7 +6,7 @@ const wait = require('util').promisify(setTimeout);
 
 module.exports = {
     name: '8ball',
-    description: `Ask a question and get a response... [30s]`,
+    description: `Ask a question and get a response... (🤖｜bot-spam) [30s]`,
     permissions: '',
     cooldown: 30,
     defaultPermission: true,
@@ -24,6 +24,20 @@ module.exports = {
         // GRAB INPUT MESSAGE
         let message = inputs[0]
 
+
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
 
         // INITIAL RESPONSE
         let eightBallInitialEmbed = new discord.MessageEmbed()

@@ -1,25 +1,20 @@
 const discord = require('discord.js');
-const config = require('../config.json');
+const config = require('../../config.json');
 
 module.exports = {
 	name: 'threadUpdate',
-	async execute(channel, client) {
+	async execute(thread, client) {
 
-        console.log(`channel = ${channel}`) // CHANNEL OBJECT - THREAD
-        console.log(`channel.guild = ${channel.guild}`) // NAME OF GUILD
-        console.log(`channel.guild.id = ${channel.guild.id}`) // GUILD ID
-
-
-        // HARD-CODING GUILD IDs IN (BECAUSE IT'S FRUSTRATING ME OTHERWISE)
-        if(channel.guild === `MMM789 Test Server`) {
-            guild = client.guilds.cache.get(`530503548937699340`)
-        }
-        if(channel.guild === `Temple University`) {
-            guild = client.guilds.cache.get(`829409161581821992`)
-        }
-
-
-        console.log(`CHECKING: guild.name = ${guild.name}`)
+        console.log(`\n THREAD UPDATED:`)
+        console.log(`thread = ${thread}`)
+        console.log(`thread.name = ${thread.name}`) 
+        console.log(`thread.type = ${thread.type}`) 
+        console.log(`thread.owner_id = ${thread.owner_id}`)
+        console.log(`thread.guild = ${thread.guild}`)
+        console.log(`thread.guild.id = ${thread.guild.id}`)
+        console.log(`thread.guild.name = ${thread.guild.name}`)
+        console.log(`thread.parent_id = ${thread.parent_id}`)
+        console.log(`thread.thread_metadata = ${thread.thread.thread_metadata}`)
 
         
         // // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
