@@ -24,20 +24,40 @@ module.exports = {
                 .addField(`thread.locked:`, `${thread.locked}`)
 
 
-        // const modLogChannel = channel.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
+        // LOCATING MOD-LOG CHANNEL
+        const modLogChannel = thread.guild.cache.get(thread.guild.id).channels.cache.find(ch => ch.name === `mod-log`)
  
-        // // LOG ENTRY
-        // // GENERATE NOTICE EMBED
-        // let threadLogEntry = new discord.MessageEmbed()
-        //     .setColor(config.embedGrey)
-        //     .setTitle(`Thread Created`)
-        //     .addField(`Thread:`, `${channel}`, true)
-        //     .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
-        //     .setTimestamp()
 
-        // // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
-        // modLogChannel.send({ embeds: [threadLogEntry] })
-        //     .catch(err => console.log(err))
-        thread.send({ embeds: [threadDataEmbed] })
+        var threadDurationTimeString
+
+        // CONVERTING THE ARCHIVE DURATION TO MINUTES OR DAYS DEPENDING ON VALUE
+        if(thread.autoArchiveDuration <= 60) {
+                threadDurationTimeString = `${thread.autoArchiveDuration} minutes`
+        }
+        if(thread.autoArchiveDuration > 60 && thread.autoArchiveDuration <= 1440 ) {
+                threadDurationTimeString = `${thread.autoArchiveDuration / (60)} hours`
+        }
+        if(thread.autoArchiveDuration > 1440) {
+                threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
+        }
+
+        // LOG ENTRY
+        // GENERATE NOTICE EMBED
+        let threadLogEntry = new discord.MessageEmbed()
+            .setColor(config.embedGrey)
+            .setTitle(`Thread Created`)
+            .addField(`Thread:`, `${thread}`, true)
+            .addField(`Thread Type:`, `${thread.type}`, true)
+            .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+            .addField(`Creator:`, `<@${thread.ownerId}>`, true)
+            .addField(`Creator ID:`, `${thread.ownerId}`, true)
+            .addField(`\u200b`, `\u200b`, true)
+            .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
+            .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
+            .setTimestamp()
+
+        // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+        modLogChannel.send({ embeds: [threadLogEntry] })
+            .catch(err => console.log(err))
 	},
 };
