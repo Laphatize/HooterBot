@@ -14,7 +14,7 @@ module.exports = {
         console.log(`thread.guild.id = ${thread.guild.id}`)
         console.log(`thread.guild.name = ${thread.guild.name}`)
         console.log(`thread.parent_id = ${thread.parent_id}`)
-        console.log(`thread.thread_metadata = ${thread.thread.thread_metadata}`)
+        console.log(`thread.thread_metadata = ${thread.thread_metadata}`)
 
 
         // const modLogChannel = thread.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
