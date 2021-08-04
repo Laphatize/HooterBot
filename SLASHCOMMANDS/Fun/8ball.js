@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const fs = require('fs');
 const config = require ('../../config.json')
+const test = require(`../Fun/8ball_Images`)
 
 module.exports = {
     name: '8ball',
@@ -22,7 +23,7 @@ module.exports = {
         let message = inputs[0]
 
         // GRAB RANDOM IMAGE AND USE FILENAME AS RESPONSE
-        var images = fs.readdirSync(`./8ball_Images`).filter(file => file.endsWith('.png'));
+        var images = fs.readdirSync(`../Fun/8ball_Images`).filter(file => file.endsWith('.png'));
 
         // PICKING RANDOM FILE
         let chosenOption = images[Math.floor(Math.random() * images.length)]
