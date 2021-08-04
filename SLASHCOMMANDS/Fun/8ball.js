@@ -22,7 +22,7 @@ module.exports = {
         let message = inputs[0]
 
         // GRAB RANDOM IMAGE AND USE FILENAME AS RESPONSE
-        var images = fs.readdirSync(`./8ball_Images/`)
+        var images = fs.readdirSync(`./8ball_Images`).filter(file => file.endsWith('.png'));
 
         let chosenOption = images[Math.floor(Math.random() * images.length)]
         console.log(`chosenOption = ${chosenOption}`)
