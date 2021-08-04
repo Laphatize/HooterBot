@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'partner_message',
-    description: 'ADMIN | Generate embed in \#server-announcements to share messages from partner servers. [CD: 10s]',
+    description: 'ADMIN | Generate embed in \#server-announcements to share messages from partner servers. [10s]',
     options: [
         {
             name: `partner_name`,

@@ -4,7 +4,7 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 
 module.exports = {
     name: 'add_birthday',
-    description: `Adds your birthday for HooterBot to remember and announce in the server. [CD: 10s]`,
+    description: `Adds your birthday for HooterBot to remember and announce in the server. [10s]`,
     options: [
         {
             name: `month`,

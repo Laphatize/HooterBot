@@ -4,7 +4,7 @@ const levels = require('discord-xp');
 
 module.exports = {
     name: 'leaderboard',
-    description: `List the top XP users in the server. Only valid in "🤖｜bot-spam" channel. [CD: 60s]`,
+    description: `List the top 10 XP/level users in the server. (🤖｜bot-spam) [60s]`,
     options: [],
     permissions: '',
     cooldown: 60,

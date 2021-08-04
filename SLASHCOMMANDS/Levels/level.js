@@ -4,7 +4,7 @@ const levels = require('discord-xp');
 
 module.exports = {
     name: 'level',
-    description: `Get your XP & level. Specify a user for their values. Only valid in "🤖｜bot-spam" channel. [CD: 10s]`,
+    description: `The XP, level, and leaderboard rank for yourself or a specified user. (🤖｜bot-spam) [10s]`,
     options: [
         {
             name: `user`,
