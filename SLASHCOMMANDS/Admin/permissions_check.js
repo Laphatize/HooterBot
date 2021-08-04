@@ -63,7 +63,7 @@ module.exports = {
 
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${config.botName}'s Permisisons in ${targetChannel.name}:`)
+                .setTitle(`${config.botName}'s Permisisons in #${targetChannel.name}:`)
                 .setDescription(`**PERMISSIONS**\n${chPermsHave.join(`\n`)}`)
                 .setTimestamp()
 
