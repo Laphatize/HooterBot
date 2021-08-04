@@ -40,21 +40,19 @@ module.exports = {
 
         if(inputs[0]) {
 
-            console.log(`inputs[0] = ${inputs[0]}`)
+            // // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
+            // let permissionsArray = inputs[0].me.permissions.toArray()
+            // let permsHave = [];
 
-            // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
-            let permissionsArray = inputs[0].me.permissions.toArray()
-            let permsHave = [];
-
-            for (const permission of permissionsArray) {
-                permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-            }
+            // for (const permission of permissionsArray) {
+            //     permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            // }
 
 
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`${config.botName}'s Permisisons in #${inputs[0].name}:`)
-                .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
+                // .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
                 .setTimestamp()
 
             return interaction.reply({ embeds: [logPerms] })
