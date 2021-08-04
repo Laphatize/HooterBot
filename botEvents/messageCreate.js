@@ -233,6 +233,8 @@ module.exports = {
             || message.channel.name === `💩｜shitposting`
             || message.channel.name === `🎵｜music-commands`
             || message.channel.name.startsWith(`'verify-`)
+            || message.channel.name.startsWith(`'closed-`)
+            || message.channel.name.startsWith(`'archived-`)
             || message.author.bot
         ) {
             return;
