@@ -68,8 +68,8 @@ module.exports = {
 
         let eightBallInitialEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
-            .addField(`${interaction.user.username} asks:`, `*"${message}"*`)
-            .setDescription(`\n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
+            .addField(`${interaction.user.username} asks:`, `*"${message}"*
+            \n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
 
 
         let eightBallFinalEmbed = new discord.MessageEmbed()
@@ -85,6 +85,6 @@ module.exports = {
         await wait(Math.floor(Math.random() * 6));
         
         // POSTING LINK USING VALUES FROM ABOVE
-        interaction.reply({ embeds: [eightBallInitialEmbed] })
+        interaction.editReply({ embeds: [eightBallFinalEmbed] })
     }
 }
