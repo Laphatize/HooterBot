@@ -25,6 +25,10 @@ module.exports = {
             for (const permission of permissionsArray) {
                 permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
             }
+            
+            if (permsHave.length === 0 ) {
+                permsHave.push(`${config.emjREDTICK} \`\`No Permissions Enabled\`\``)
+            }
 
 
             let logPerms = new discord.MessageEmbed()
@@ -50,6 +54,10 @@ module.exports = {
 
             for (const permission of permissionsArray) {
                 chPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            }
+
+            if (chPermsHave.length === 0 ) {
+                chPermsHave.push(`${config.emjREDTICK} \`\`No Permissions Enabled\`\``)
             }
 
 
