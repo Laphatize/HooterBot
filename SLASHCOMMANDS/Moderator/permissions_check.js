@@ -127,6 +127,7 @@ module.exports = {
                 .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
                 .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
                 .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
+                .setFooter(`this is a test to see if Discord is running the right version of the command.`)
                 .setTimestamp()
 
             return interaction.reply({ embeds: [logPerms] })
