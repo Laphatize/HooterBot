@@ -36,8 +36,8 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`${config.botName}'s permisisons:`)
             .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
-            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGES`, true)
-            .addField(`PARTIALS:`, `${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
+            .addField(`INTENTS:`, `${config.emjGREENTICK} \`\`GUILDS\`\`\n${config.emjGREENTICK} \`\`GUILD_MEMBERS\`\`\n${config.emjGREENTICK} \`\`GUILD_MESSAGES\`\`\n${config.emjGREENTICK} \`\`DIRECT_MESSAGES\`\``, true)
+            .addField(`PARTIALS:`, `${config.emjGREENTICK} \`\`CHANNEL\`\`\n${config.emjGREENTICK} \`\`MESSAGE\`\``, true)
             .setTimestamp()
 
 
