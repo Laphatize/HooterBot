@@ -14,7 +14,14 @@ module.exports = {
         console.log(`thread.guild.id = ${thread.guild.id}`)
         console.log(`thread.guild.name = ${thread.guild.name}`)
         console.log(`thread.parent.id = ${thread.parent.id}`)
-        console.log(`thread.metadata = ${thread.metadata}`)
+        console.log(`thread.autoArchiveDuration = ${thread.autoArchiveDuration}`)
+        console.log(`thread.sendable = ${thread.sendable}`)
+        console.log(`thread.archived = ${thread.archived}`)
+        console.log(`thread.locked = ${thread.locked}`)
+
+
+
+
 
 
         // const modLogChannel = thread.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
@@ -31,5 +38,5 @@ module.exports = {
         // // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
         // modLogChannel.send({ embeds: [threadLogEntry] })
         //     .catch(err => console.log(err))
-	},
+        },
 };

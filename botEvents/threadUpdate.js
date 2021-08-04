@@ -5,16 +5,24 @@ module.exports = {
 	name: 'threadUpdate',
 	async execute(thread, client) {
 
-        console.log(`\n THREAD UPDATED:`)
-        console.log(`thread = ${thread}`)
-        console.log(`thread.name = ${thread.name}`) 
-        console.log(`thread.type = ${thread.type}`) 
-        console.log(`thread.ownerId = ${thread.ownerId}`)
-        console.log(`thread.guild = ${thread.guild}`)
-        console.log(`thread.guild.id = ${thread.guild.id}`)
-        console.log(`thread.guild.name = ${thread.guild.name}`)
-        console.log(`thread.parent.id = ${thread.parent.id}`)
-        console.log(`thread.metadata = ${thread.metadata}`)
+
+        let threadDataEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGrey)
+            .setTitle(`THREAD UPDATED`)
+            .addField(`thread:`, `${thread}`)
+            .addField(`thread.name:`, `${thread.name}`)
+            .addField(`thread.type:`, `${thread.type}`)
+            .addField(`thread.ownerId:`, `${thread.ownerId}`)
+            .addField(`thread.owner [object]:`, `<@${thread.ownerId}>`)
+            .addField(`thread.guild:`, `${thread.guild}`)
+            .addField(`thread.guild.id:`, `${thread.guild.id}`)
+            .addField(`thread.guild.name:`, `${thread.guild.name}`)
+            .addField(`thread.parent.id:`, `${thread.parent.id}`)
+            .addField(`thread.parent [object]:`, `<#${thread.parent.id}>`)
+            .addField(`thread.autoArchiveDuration:`, `${thread.autoArchiveDuration} minutes`)
+            .addField(`thread.sendable:`, `${thread.sendable}`)
+            .addField(`thread.archived:`, `${thread.archived}`)
+            .addField(`thread.locked:`, `${thread.locked}`)
 
         
         // // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
@@ -38,5 +46,7 @@ module.exports = {
         // // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE
         // modLogChannel.send({ embeds: [threadLogEntry] })
         //     .catch(err => console.log(err))
+
+        thread.send({ embeds: [threadDataEmbed] })
 	},
 };
