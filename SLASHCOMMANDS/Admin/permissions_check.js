@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'permissions_check',
-    description: `ADMIN | Checks HooterBot's general permissions or for a specified channel. [60s]`,
+    description: `ADMIN | Checks HooterBot's general permissions or for a specified channel.`,
     options: [
         {
             name: `channel`,
@@ -13,7 +13,7 @@ module.exports = {
         }
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
-    cooldown: 60,
+    cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
