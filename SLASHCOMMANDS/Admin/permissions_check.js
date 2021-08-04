@@ -40,18 +40,22 @@ module.exports = {
 
         if(inputs[0]) {
 
-            // // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
-            // let permissionsArray = inputs[0].me.permissions.toArray()
-            // let permsHave = [];
+            // FETCH CHANNEL
+            targetChannel = interaction.guild.channels.cache.find(ch => ch.id === inputs[0])
 
-            // for (const permission of permissionsArray) {
-            //     permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-            // }
+
+            // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
+            let permissionsArray = targetChannel.me.permissions.toArray()
+            let permsHave = [];
+
+            for (const permission of permissionsArray) {
+                permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            }
 
 
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${config.botName}'s Permisisons in #${inputs[0].name}:`)
+                .setTitle(`${config.botName}'s Permisisons in ${targetChannel}:`)
                 // .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
                 .setTimestamp()
 
