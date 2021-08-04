@@ -24,9 +24,11 @@ module.exports = {
         // GRAB RANDOM IMAGE AND USE FILENAME AS RESPONSE
         var images = fs.readdirSync(`./8ball_Images`).filter(file => file.endsWith('.png'));
 
+        // PICKING RANDOM FILE
         let chosenOption = images[Math.floor(Math.random() * images.length)]
         console.log(`chosenOption = ${chosenOption}`)
     
+        // GRABBING 8BALL TEXT FROM FILENAME TO DISPLAY
 
 
         let eightBallEmbed = new discord.MessageEmbed()
