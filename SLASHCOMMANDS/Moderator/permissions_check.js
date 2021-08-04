@@ -126,32 +126,30 @@ module.exports = {
             return interaction.reply({ embeds: [logPerms] })
         }
 
-        if(inputs[0]) {
 
-            // FETCH CHANNEL
-            targetChannel = interaction.guild.channels.cache.find(ch => ch.id === inputs[0])
+        // ROLE OR CHANNEL IS MISSING
+        if((!channel && role) || (channel && !role)) {
+           
 
+            // GENERATING EMBED TO NOTE THE PERMISSIONS
+            let missingFieldEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`If you are checking perms for a role or channel, you need to specify **both** options.`)
+                .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
 
-            // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
-            let permissionsArray = targetChannel.permissionsFor(interaction.guild.me).toArray()
-            let chPermsHave = [];
-
-            for (const permission of permissionsArray) {
-                chPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-            }
-
-            if (chPermsHave.length === 0 ) {
-                chPermsHave.push(`${config.emjREDTICK} \`\`No Permissions Enabled\`\``)
-            }
-
-
-            let logPerms = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setTitle(`${config.botName}'s Permisisons in #${targetChannel.name}:`)
-                .setDescription(`**PERMISSIONS**\n${chPermsHave.join(`\n`)}`)
-                .setTimestamp()
-
-            return interaction.reply({ embeds: [logPerms] })
+            // SENDING TO CHANNEL
+            return interaction.reply({ embeds: [missingFieldEmbed], ephemeral: true })
         }
+
+
+
+
+
+
+
+
+
+        
     }
 }
