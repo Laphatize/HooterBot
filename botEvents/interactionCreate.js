@@ -379,7 +379,7 @@ module.exports = {
                             // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
                             let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [${catChCount+1}/50]`)
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -654,7 +654,7 @@ module.exports = {
                 let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
                 // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
 
@@ -919,7 +919,7 @@ module.exports = {
                 let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
                 // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
 
@@ -1663,7 +1663,7 @@ module.exports = {
                 let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
                 
                 // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
                 // DELETING DATABASE ENTRY
