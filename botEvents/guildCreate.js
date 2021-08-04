@@ -44,12 +44,38 @@ module.exports = {
         console.log(`======================================\n\n`)
 
 
+
+        // HOOTERBOT PERMISSIONS LIST
+        let permissionsArray = guild.me.permissions.toArray()
+        let permsHave = [];
+
+        let notPermissionsArray = !guild.me.permissions.toArray()
+        let permsDoesNotHave = [];
+
+
+        for (const permission of permissionsArray) {
+            permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+        }
+
+        for (const permission of notPermissionsArray) {
+            permsDoesNotHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
+        }
+
+
+
+        // LOG ENTRY
+        // ${perms.join(`\n`)}
+
+
+
+
         // LOGGING BOT JOINING GUILD
         let logPermissionsJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`${config.botName} has joined the server!`)
             .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\``)
-            .addField(`PERMISSIONS`, `${config.emjGREENTICK} Manage Channels\n${config.emjGREENTICK} Read Messages\n${config.emjGREENTICK} Send Messages\n${config.emjGREENTICK} Manage Messages\n${config.emjGREENTICK} Embed Links\n${config.emjGREENTICK} Attach Files\n${config.emjGREENTICK} Add Reactions\n${config.emjGREENTICK} Use External Emojis\n${config.emjGREENTICK} Use Slash Commands`, true)
+            .addField(`PERMISSIONS`, `${permsHave.join(`\n`)}`, true)
+            .addField(`\u200b`, `${permsDoesNotHave.join(`\n`)}`, true)
             .setTimestamp()
 
         // LOG ENTRY
