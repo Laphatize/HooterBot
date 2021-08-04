@@ -118,9 +118,9 @@ module.exports = {
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`${config.botName}'s Discord Permissions:`)
-                .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`)
-                .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`)
-                .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`)
+                .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
+                .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
+                .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
                 .setTimestamp()
 
             return interaction.reply({ embeds: [logPerms] })
