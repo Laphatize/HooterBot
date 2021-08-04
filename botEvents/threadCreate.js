@@ -42,9 +42,7 @@ module.exports = {
                 threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
-        var threadArchiveTimeStamp = moment.unix(thread.archiveTimestamp).format("LLLL")
-
-        // 1420070400000
+        var threadArchiveTimeStamp = moment.unix(thread.archiveTimestamp + 1420070400).format("LLLL")
 
 
         // LOG ENTRY
