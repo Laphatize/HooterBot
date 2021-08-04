@@ -45,7 +45,7 @@ module.exports = {
 
 
             // HOOTERBOT'S PERMISSIONS IN THE SPECIFIED CHANNEL
-            let permissionsArray = targetChannel.me.permissions.toArray()
+            let permissionsArray = targetChannel.permissionsFor(interaction.guild.me).toArray()
             let permsHave = [];
 
             for (const permission of permissionsArray) {
