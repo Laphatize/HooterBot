@@ -9,12 +9,12 @@ module.exports = {
         console.log(`thread = ${thread}`)
         console.log(`thread.name = ${thread.name}`) 
         console.log(`thread.type = ${thread.type}`) 
-        console.log(`thread.owner_id = ${thread.owner_id}`)
+        console.log(`thread.owner.id = ${thread.owner.id}`)
         console.log(`thread.guild = ${thread.guild}`)
         console.log(`thread.guild.id = ${thread.guild.id}`)
         console.log(`thread.guild.name = ${thread.guild.name}`)
-        console.log(`thread.parent_id = ${thread.parent_id}`)
-        console.log(`thread.thread_metadata = ${thread.thread_metadata}`)
+        console.log(`thread.parent.id = ${thread.parent.id}`)
+        console.log(`thread.metadata = ${thread.metadata}`)
 
 
         // const modLogChannel = thread.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
