@@ -25,6 +25,15 @@ module.exports = {
         let message = inputs[0]
 
 
+        // INITIAL RESPONSE
+        let eightBallInitialEmbed = new discord.MessageEmbed()
+            .setColor(config.embedTempleRed)
+            .addField(`${interaction.user.username} asks:`, `*"${message}"*
+            \n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
+
+        await interaction.reply({ embeds: [eightBallInitialEmbed] })
+
+
         // ARRAY OF OUTCOMES AND FILENAMES
         const outcomesArray =  [
             [`ASK AGAIN LATER`, `https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/SLASHCOMMANDS/Fun/8ball_Images/8ball_Ask%20Again%20Later.png`],
@@ -49,11 +58,7 @@ module.exports = {
             [`YES`,`https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/SLASHCOMMANDS/Fun/8ball_Images/8ball_Yes.png`]
         ]
 
-
-        // PICKING RANDOM FILE
-       
-
-
+        // PICKING RANDOM RESPONSE VALUE AND GETTING TEXT + IMAGE
         let randomIndex = Math.floor(Math.random() * outcomesArray.length);
         let textResponse = outcomesArray[randomIndex][0]
         let imageResponse = outcomesArray[randomIndex][1]
@@ -62,14 +67,6 @@ module.exports = {
         console.log(`randomIndex = ${randomIndex}`)
         console.log(`textResponse = ${textResponse}`)
         console.log(`imageResponse = ${imageResponse}`)
-    
-        // GRABBING 8BALL TEXT FROM FILENAME TO DISPLAY
-
-
-        let eightBallInitialEmbed = new discord.MessageEmbed()
-            .setColor(config.embedTempleRed)
-            .addField(`${interaction.user.username} asks:`, `*"${message}"*
-            \n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
 
 
         let eightBallFinalEmbed = new discord.MessageEmbed()
@@ -79,12 +76,10 @@ module.exports = {
             .setImage(imageResponse)
 
 
-        // POSTING LINK USING VALUES FROM ABOVE
-        interaction.reply({ embeds: [eightBallInitialEmbed] })
-        
-        await wait(Math.floor(Math.random() * 6));
+        // RANDOM WAIT TIME FOR A RESPONSE, BETWEEN 1s and 6s
+        await wait(Math.floor(Math.random() * 5000) + 1000);
         
         // POSTING LINK USING VALUES FROM ABOVE
-        interaction.editReply({ embeds: [eightBallFinalEmbed] })
+        await interaction.editReply({ embeds: [eightBallFinalEmbed] })
     }
 }
