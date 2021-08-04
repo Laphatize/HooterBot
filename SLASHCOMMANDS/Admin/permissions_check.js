@@ -10,9 +10,17 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        console.log(`interaction.guild.me.permissions = ${interaction.guild.me.permissions}`)
+        let permissionsArray = interaction.guild.me.permissions.toArray()
+        let perms;
+
+
+        for (const permission of permissionsArray) {
+            perms.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+        }
+
+
 
         // LOG ENTRY
-        return interaction.reply({ content: `Please check the log, MMM`, ephemeral: true })
+        return interaction.reply({ content: `HooterBot's permissions:\n${perms.join(`\n`)}` })
     }
 }
