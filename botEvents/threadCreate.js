@@ -47,13 +47,13 @@ module.exports = {
             .setColor(config.embedGrey)
             .setTitle(`Thread Created`)
             .addField(`Thread:`, `${thread}`, true)
+            .addField(`Thread ID:`, `${thread.id}`, true)
             .addField(`Thread Type:`, `${thread.type}`, true)
             .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
-            .addField(`\u200b`, `\u200b`, true)
-            .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
-            .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
+            .addField(`Scheduled Close:`, `${threadDurationTimeString}`)
+            .addField(`Archive Timestamp:`, `archive_timestamp`)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE

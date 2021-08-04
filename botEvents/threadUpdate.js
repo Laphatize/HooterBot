@@ -23,7 +23,7 @@ module.exports = {
             .addField(`thread.sendable:`, `${thread.sendable}`)
             .addField(`thread.archived:`, `${thread.archived}`)
             .addField(`thread.locked:`, `${thread.locked}`)
-
+            .addField(`thread.archiveTimestamp`, `${thread.archiveTimestamp}`)
         
         // // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
         // const modLogChannel = client.guilds.cache.get(channel.guild.id)
