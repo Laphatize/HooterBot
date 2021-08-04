@@ -38,7 +38,6 @@ module.exports = {
             .addField(`PERMISSIONS`, `${permsHave.join(`\n`)}`, true)
             .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGES`)
             .addField(`PARTIALS:\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
-            .addField(`\u200b`, `${permsDoesNotHave.join(`\n`)}`, true)
             .setTimestamp()
 
 
