@@ -11,7 +11,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
         let permissionsArray = interaction.guild.me.permissions.toArray()
-        let perms;
+        let perms = [];
 
 
         for (const permission of permissionsArray) {
