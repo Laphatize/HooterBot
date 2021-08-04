@@ -27,10 +27,7 @@ const client = new discord.Client({
         // 'GUILD_MESSAGE_TYPING',
         'DIRECT_MESSAGES',
         // 'DIRECT_MESSAGE_REACTIONS',
-        // 'DIRECT_MESSAGE_TYPING',
-        `THREAD_CREATE`,
-        `THREAD_UPDATE`,
-        `THREAD_DELETE`
+        // 'DIRECT_MESSAGE_TYPING'
     ],
     partials: ['CHANNEL', 'MESSAGE']
 })
