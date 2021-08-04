@@ -29,7 +29,7 @@ module.exports = {
 
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${config.botName}'s general permisisons:`)
+                .setTitle(`${config.botName}'s General Discord Permisisons:`)
                 .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
                 .addField(`INTENTS:`, `${config.emjGREENTICK} \`\`GUILDS\`\`\n${config.emjGREENTICK} \`\`GUILD_MEMBERS\`\`\n${config.emjGREENTICK} \`\`GUILD_MESSAGES\`\`\n${config.emjGREENTICK} \`\`DIRECT_MESSAGES\`\``, true)
                 .addField(`PARTIALS:`, `${config.emjGREENTICK} \`\`CHANNEL\`\`\n${config.emjGREENTICK} \`\`MESSAGE\`\``, true)
@@ -53,7 +53,7 @@ module.exports = {
 
             let logPerms = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${config.botName}'s permisisons in #${inputs[0].name}:`)
+                .setTitle(`${config.botName}'s Permisisons in #${inputs[0].name}:`)
                 .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
                 .setTimestamp()
 
