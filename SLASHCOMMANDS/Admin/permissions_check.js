@@ -3,8 +3,21 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'permissions_check',
-    description: `ADMIN | Lists bot's current permissions in the server [60s]`,
-    options: [],
+    description: `ADMIN | Lists a user or role's current permissions in the server [60s]`,
+    options: [
+        {
+            name: `user`,
+            description: `The user being checked.`,
+            type: `USER`,
+            required: false
+        },{
+            name: `role`,
+            description: `The role being checked.`,
+            type: `ROLE`,
+            required: false
+        }
+
+    ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,
     defaultPermission: true,
@@ -14,24 +27,17 @@ module.exports = {
         let permissionsArray = interaction.guild.me.permissions.toArray()
         let permsHave = [];
 
-        let notPermissionsArray = !interaction.guild.me.permissions.toArray()
-        let permsDoesNotHave = [];
-
-
         for (const permission of permissionsArray) {
             permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-        }
-
-        for (const permission of notPermissionsArray) {
-            permsDoesNotHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
         }
 
 
         let logPerms = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setTitle(`${config.botName} has joined the server!`)
-            .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\``)
+            .setTitle(`${config.botName}'s permisisons:`)
             .addField(`PERMISSIONS`, `${permsHave.join(`\n`)}`, true)
+            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGES`)
+            .addField(`PARTIALS:\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
             .addField(`\u200b`, `${permsDoesNotHave.join(`\n`)}`, true)
             .setTimestamp()
 
