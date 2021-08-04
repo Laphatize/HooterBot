@@ -25,7 +25,7 @@ module.exports = {
 
 
         // LOCATING MOD-LOG CHANNEL
-        const modLogChannel = thread.guild.cache.get(thread.guild.id).channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
  
 
         var threadDurationTimeString
