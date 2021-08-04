@@ -1,11 +1,10 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
-const moment = require('moment');
 
 module.exports = {
     name: 'add_birthday',
-    description: `Adds your birthday for HooterBot to remember and announce in the server. [CD: 10s]`,
+    description: `Adds your birthday for HooterBot to remember and announce in the server. [10s]`,
     options: [
         {
             name: `month`,

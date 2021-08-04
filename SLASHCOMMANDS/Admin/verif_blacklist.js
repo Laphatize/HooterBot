@@ -4,7 +4,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
 module.exports = {
     name: 'verif_blacklist',
-    description: `(ADMIN) Blacklist a user from the verification system. [CD: 10s]`,
+    description: `ADMIN | Blacklist a user from the verification system. [10s]`,
     options: [
         {
             name: `user`,
@@ -18,7 +18,7 @@ module.exports = {
             required: true
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

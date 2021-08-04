@@ -4,7 +4,7 @@ const guildSchema = require('../../Database/guildSchema')
 
 module.exports = {
     name: 'verif_category',
-    description: `(ADMIN) Set ticket channel creation category. Cannot modify category once set. [CD: 10s]`,
+    description: `ADMIN | Set ticket channel creation category. Cannot modify category once set. [10s]`,
     options: [
         {
             name: `channel`,
@@ -13,7 +13,7 @@ module.exports = {
             required: true,
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -30,7 +30,7 @@ module.exports = {
             let notCatEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} You selected a text channel, not a category!`)
-                .setDescription(`Sorry, I can't list only category in your selection (yell at Discord, not me). Be sure the icon of the channel you pick is a folder!`)
+                .setDescription(`Sorry, I can't list just categories in that menu (yell at Discord, not me). Be sure the icon of the channel you pick is a folder!`)
                 .setTimestamp()
             
             // SENDING MESSAGE

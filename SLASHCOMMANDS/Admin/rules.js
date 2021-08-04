@@ -1,14 +1,12 @@
 const discord = require('discord.js')
-const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
-
 module.exports = {
     name: 'rules',
-    description: '(ADMIN) Generates/updates rules, server staff, and ModMail ticket instruction embeds. [CD: 60s]',
+    description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
     options: [],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

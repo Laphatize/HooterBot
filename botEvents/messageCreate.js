@@ -2,6 +2,7 @@ const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
+const levels = require('discord-xp');
 
 module.exports = {
 	name: 'messageCreate',
@@ -70,7 +71,7 @@ module.exports = {
                     // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                     let userTicketMsg = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
-                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                         .setDescription(message.content)
                         .setTimestamp()
                         
@@ -95,7 +96,7 @@ module.exports = {
                     let userTicketMsgImage = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setTitle(`${message.author.username.toUpperCase()}'S VERIFICATION PROOF`)
-                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                         .setDescription(message.content)
                         .setImage(dmMsgAttachment)
                         .setTimestamp()
@@ -181,7 +182,7 @@ module.exports = {
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                 let userTicketMsg = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                     .setDescription(message.content)
                     .setTimestamp()
 
@@ -203,7 +204,7 @@ module.exports = {
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                 let userTicketMsg = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic:true }))
                     .setDescription(message.content)
                     .setImage(chMsgAttachment)
                     .setTimestamp()
@@ -219,5 +220,50 @@ module.exports = {
                 return message.react(client.emojis.cache.get('868910701295587368'))
             }
         }
+
+                
+        
+        /***********************************************************/
+        /*      LEVELS                                             */
+        /***********************************************************/
+        
+        // NO LEVELING FROM MESSAGES IN BOT SPAM OR SHITPOSTING
+        if (message.channel.type === "DM"
+            || message.channel.name === '🤖｜bot-spam' 
+            || message.channel.name === `💩｜shitposting`
+            || message.channel.name === `🎵｜music-commands`
+            || message.channel.name.startsWith(`'verify-`)
+            || message.author.bot
+        ) {
+            return;
+        }
+
+        
+        // RANDOM XP TO ADD: [15, 25]
+        xpToAdd = Math.floor(Math.random()*11) + 15;
+
+        const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
+            .catch(err => console.log(err))
+
+        if(hasLeveledUp) {
+            const user = await levels.fetch(message.author.id, message.guild.id);
+
+            // BOT-CHANNEL MESSAGE
+            message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
+                .catch(err => console.log(err))
+        }
+
     }
+}
+
+
+// FUNCTION THAT GENERATES THE RANDOM LEVEL UP MESSAGE
+function createLevelMsg(username, level) {
+    const channelMsgStart = [
+        `${config.emjOwl} GG **${username}**, you've reached: \`\` Level ${level} \`\``,
+        `**${username}**'s reached \`\` Level ${level} \`\` ${config.emjOwl}`,
+        `Congrats on leveling up, **${username}**! ${config.emjOwl} You've reached \`\` Level ${level} \`\``,
+        `**${username}*'s been talking so much, you get to level up! \`\` Level ${level} \`\` ${config.emjOwl}`
+    ];      
+    return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
 }

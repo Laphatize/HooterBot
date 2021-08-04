@@ -1,11 +1,10 @@
 const discord = require('discord.js')
-const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 const moment = require('moment');
 
 module.exports = {
     name: 'user_info',
-    description: `(ADMIN) A command for generating information about a specific user in the server.`,
+    description: `MODERATOR | A command for generating information about a specific user in the server.`,
     options: [
         {
             name: `user`,
@@ -14,7 +13,7 @@ module.exports = {
             required: true
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES',
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -55,7 +54,7 @@ module.exports = {
 
                 let userInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedDarkGrey)
-                    .setAuthor(`${member.tag} Information`, `${member.displayAvatarURL()}`)
+                    .setAuthor(`${member.tag} Information`, `${member.displayAvatarURL({ dynamic:true })}`)
                     .addField(`Username:`, `${member.username}`, true)
                     .addField(`ID:`, `${member.id}`, true)
                     .addField(`Nickname:`, `${nickname}`, true)

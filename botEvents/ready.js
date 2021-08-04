@@ -27,7 +27,7 @@ module.exports = {
 		console.log(`######################################\n`);
 
 
-		// READY
+		// BOT IS FULLY READY
 		console.log(`======================================`);
 		console.log(`======== HOOTERBOT IS ONLINE =========`);
 		console.log(`======================================\n\n`);

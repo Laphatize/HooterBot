@@ -13,7 +13,9 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 
-        // SLASH COMMANDS
+        /***********************************************************/
+        /*      SLASH COMMANDS                                     */
+        /***********************************************************/
         if(interaction.isCommand()) {
             const slashCmd = client.slashCommands.get(interaction.commandName)
 
@@ -83,6 +85,7 @@ module.exports = {
             // SETTING COOLDOWN TIMEOUT
             timestamps.set(interaction.user.id, now);
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
+
 
             // ARGUMENTS
             const args = [];
@@ -321,23 +324,27 @@ module.exports = {
                             // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                             modAdminTicketCh.send({ embeds: [newTicketEmbed], components: [QuitButtonModBtn] })
                                 .catch(err => console.log(err))
-
-
-                            // LOG DATABASE INFORMATION FOR TICKET
-                            ticketSchema.findOneAndUpdate({
-                                CREATOR_ID: interaction.user.id
-                            },{
-                                GUILD_ID: interaction.guild.id,
-                                GUILD_NAME: interaction.guild.name,
-                                CREATOR_NAME: interaction.user.username.toLowerCase(),
-                                CREATOR_ID: interaction.user.id,
-                                DM_INITIALMSG_ID: firstDMmsg.id,
-                                DM_2NDMSG_ID: "",
-                                STAFF_CH_ID: modAdminTicketCh.id,
-                                TICKET_CLOSE: closeDate
-                            },{
-                                upsert: true
-                            }).exec();
+                                .then( ticketMsg => {
+                                        
+                                // LOG DATABASE INFORMATION FOR TICKET
+                                ticketSchema.findOneAndUpdate({
+                                    CREATOR_ID: interaction.user.id
+                                },{
+                                    GUILD_ID: interaction.guild.id,
+                                    GUILD_NAME: interaction.guild.name,
+                                    CREATOR_NAME: interaction.user.username.toLowerCase(),
+                                    CREATOR_ID: interaction.user.id,
+                                    DM_INITIALMSG_ID: firstDMmsg.id,
+                                    DM_2NDMSG_ID: "",
+                                    STAFF_CH_ID: modAdminTicketCh.id,
+                                    TICKET_CLOSE: closeDate,
+                                    REMINDER1_MSG_ID: "",
+                                    REMINDER2_MSG_ID: "",
+                                    TICKETCH1_MSG_ID: ticketMsg.id,
+                                },{
+                                    upsert: true
+                                }).exec();
+                            })
 
                             
                             // LOGGING TICKET OPENING IN LOGS CHANNEL
@@ -354,6 +361,25 @@ module.exports = {
                             // LOG ENTRY
                             interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                                 .catch(err => console.log(err))
+
+
+
+                            // UPDATE TICKET CATEGORY COUNTER
+                            // GRAB TICKET CATEGORY USING ID
+                            let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                            // COUNT OF TICKETS IN DB
+                            var ticketCount = await ticketSchema.find({
+                                GUILD_ID: interaction.guild.id
+                            }).countDocuments()
+                            .exec();
+
+
+                            // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                            let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount+1}) [${catChCount+1}/50]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -533,7 +559,7 @@ module.exports = {
                     
 
 
-                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS
                         if(dbTicketData.DM_2NDMSG_ID) {
                                                         
                             // FETCH MESSAGE BY ID
@@ -541,8 +567,94 @@ module.exports = {
                                 .then(msg => {
                                     setTimeout(() => msg.delete(), 0 );
                                 })
+                                .catch(err => console.log(err))
                         }
-                    })
+
+
+                        // DELETE 1ST REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER1_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER1_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
+                        }
+
+
+                        // DELETE 2ND REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER2_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER2_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
+                        }
+
+
+                        // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                        // GRAB TICKET CHANNEL, THEN MESSAGE
+                        let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                            
+                        userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                            .then(msg => {
+                                // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                let newTicketEditedEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedGreen)
+                                    .setTitle(`**Verification Ticket Closed**`)
+                                    .addField(`User:`, `${interaction.user}`, true)
+                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                                    .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+
+                                let QuitButton = new MessageButton()
+                                    .setLabel("End Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit_CH")
+                                    .setDisabled(true)
+                
+                                // BUTTON ROW
+                                let QuitButtonModBtn = new MessageActionRow()
+                                    .addComponents(
+                                        QuitButton
+                                    );
+
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                    .catch(err => console.log(err))
+                            })
+                    })        
+
+                // FETCH GUILD ID THROUGH TICKET DB VALUE
+                let ticketGuildId = dbTicketData.GUILD_ID
+
+
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: ticketGuildId
+                }).exec();
+
+
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                var ticketCount = await ticketSchema.find({
+                    GUILD_ID: ticketGuildId
+                }).countDocuments()
+                .exec();
+                
+                
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
 
 
 
@@ -550,6 +662,7 @@ module.exports = {
                 await ticketSchema.deleteOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
+
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -642,8 +755,46 @@ module.exports = {
                 }).exec();
 
 
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
+
+
                 // FETCHING THE GUILD FROM DATABASE
                 guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                
+                // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                // IN THE CHANNEL, GRAB THE INITIAL MESSAGE
+                interaction.channel.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                    .then(msg => {
+                        // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                        let newTicketEditedEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`**Verification Ticket Closed**`)
+                            .addField(`User:`, `${interaction.user}`, true)
+                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                            .addField(`User ID:`, `${interaction.user.id}`, true)
+                            .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+
+                        let QuitButton = new MessageButton()
+                            .setLabel("End Verification")
+                            .setStyle("DANGER")
+                            .setCustomId("quit_CH")
+                            .setDisabled(true)
+        
+                        // BUTTON ROW
+                        let QuitButtonModBtn = new MessageActionRow()
+                            .addComponents(
+                                QuitButton
+                            );
+
+                        // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                        msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                            .catch(err => console.log(err))
+                    })
+
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
@@ -715,10 +866,9 @@ module.exports = {
                                 // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
                                 msg.edit({ embeds: [ticketOpenEmbed], components: [initialButtonRowDisabled, secondButtonRowDisabled] })
                             })
-                    
 
 
-                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS
                         if(dbTicketData.DM_2NDMSG_ID) {
                                                         
                             // FETCH MESSAGE BY ID
@@ -726,8 +876,50 @@ module.exports = {
                                 .then(msg => {
                                     setTimeout(() => msg.delete(), 0 );
                                 })
+                                .catch(err => console.log(err))
+                        }
+
+                        // DELETE 1ST REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER1_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER1_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
+                        }
+
+                        // DELETE 2ND REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER2_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER2_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
                         }
                     })
+
+
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                var ticketCount = await ticketSchema.find({
+                    GUILD_ID: interaction.guild.id
+                }).countDocuments()
+                .exec();
+
+
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
 
 
 
@@ -735,6 +927,7 @@ module.exports = {
                 await ticketSchema.deleteOne({
                     CREATOR_ID: dmUser.id
                 }).exec();
+
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -1229,7 +1422,7 @@ module.exports = {
                     .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress`)
                     .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
-                    .addField(`DM Message IDs`, `Identifiers of the DM messages ${config.botName} sends during verification`)
+                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process`)
                     .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close`)
                     .addField(`Creation Date`, `The day/time you created the ticket.`)
                     .addField(`Updated Date`, `When the database entry was last modified by the bot.`)
@@ -1238,11 +1431,11 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setTitle(`**Data & Privacy**`)
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
-                    .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify information in the database. Moderators and admins have access to view and inspect the database.`)
+                    .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify database information. Moderators and admins have access to view and inspect the database.`)
                     .addField(`How is the data used?`, `*No information is sold or shared.* Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
                     .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically. Nothing is saved by the bot.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
-                    .addField(`What if I do not want to share this information with the bot?`, `While the information ${config.botName} stores is basic and public information, if you wish to not share this information **do not create a verification ticket** as there is no way for the bot to function without this information.`)
+                    .addField(`What if I do not want to share information with the bot?`, `While the information ${config.botName} stores is basic and public information on Discord, **do not create a verification ticket** if you wish to not share this information.`)
                     .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
                 
                 
@@ -1273,6 +1466,12 @@ module.exports = {
                 const dbTicketData = await ticketSchema.findOne({
                     // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
                     CREATOR_NAME: dmUsername
+                }).exec();
+
+
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
                 }).exec();
 
 
@@ -1378,7 +1577,7 @@ module.exports = {
                     
 
 
-                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS - NOT WORTH DISABLING ANY BUTTONS ON IT
+                        // DELETE THE 2ND PROMPT MESSAGE IF IT EXISTS
                         if(dbTicketData.DM_2NDMSG_ID) {
                                                         
                             // FETCH MESSAGE BY ID
@@ -1388,7 +1587,83 @@ module.exports = {
                                 })
                                 .catch(err => console.log(err))
                         }
+
+
+                        // DELETE 1ST REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER1_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER1_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
+                        }
+
+
+                        // DELETE 2ND REMINDER IF EXISTS
+                        if(dbTicketData.REMINDER2_MSG_ID) {
+                                                        
+                            // FETCH MESSAGE BY ID
+                            firstReminderMsg = dmCh.messages.fetch(dbTicketData.REMINDER2_MSG_ID)
+                                .then(msg => {
+                                    setTimeout(() => msg.delete(), 0 );
+                                })
+                                .catch(err => console.log(err))
+                        }
+
+
+                        // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                        // GRAB TICKET CHANNEL, THEN MESSAGE
+                        let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                            
+                        userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                            .then(msg => {
+                                // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                let newTicketEditedEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedGreen)
+                                    .setTitle(`**Verification Ticket Closed**`)
+                                    .addField(`User:`, `${interaction.user}`, true)
+                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                                    .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+
+                                let QuitButton = new MessageButton()
+                                    .setLabel("End Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit_CH")
+                                    .setDisabled(true)
+                
+                                // BUTTON ROW
+                                let QuitButtonModBtn = new MessageActionRow()
+                                    .addComponents(
+                                        QuitButton
+                                    );
+
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                    .catch(err => console.log(err))
+                            })
                     })
+
+
+                // UPDATE TICKET CATEGORY COUNTER
+                // GRAB TICKET CATEGORY USING ID
+                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                // COUNT OF TICKETS IN DB
+                var ticketCount = await ticketSchema.find({
+                    GUILD_ID: interaction.guild.id
+                }).countDocuments()
+                .exec();
+
+
+                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
+                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                
+                // SETTING NEW CATEGORY NAME
+                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount-1}/50]`)
 
 
                 // DELETING DATABASE ENTRY
@@ -1396,7 +1671,8 @@ module.exports = {
                     CREATOR_ID: dmUser.id
                 }).exec();
 
-                
+
+
                 // CLOSURE NOTICE TO CHANNEL
                 let closeNotice = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
@@ -1606,103 +1882,11 @@ module.exports = {
             }
             // END OF "DO NOT CLOSE" BUTTON
 
+
+
             /***********************************************************/
             /*      END OF TICKET BUTTONS                              */
             /***********************************************************/
-
-
-
-
-
-            // // HELP - FUN 
-            // if(interaction.customId === 'help_fun') {
-
-            //     // GRABBING ALL "FUN" COMMANDS
-            //     fs.readdirSync(`./COMMANDS/Fun`).forEach(file => {
-            //         const funCommands = fs.readdirSync(`./COMMANDS/Fun/${file}`).filter(file => file.endsWith('.js'));
-
-            //         const cmds = funCommands.map(command => {
-            //             let file = require(`./COMMANDS/Fun/${command}`);
-
-            //             // IF NO "FUN" COMMANDS FOUND
-            //             if(!file.name) {
-            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-            //                 return interaction.reply({
-            //                     content: `Sorry, ${config.botName} does not have any "Fun" commands built yet. Suggest some in <#829629595367374918>!`,
-            //                     ephemeral: true
-            //                 })
-            //             }
-
-            //             let name = file.name.replace(`.js`, ``)
-
-            //             return `\`${name}\``;
-            //         })
-
-            //         console.log(`cmds = ${cmds}`)
-            //     })
-
-
-
-            //     // await interaction.update({ embeds: [closeNoticeDisabled], ephemeral: true })
-            // }
-
-
-            // // HELP - HELP & INFO 
-            // if(interaction.customId === 'help_helpinfo') {
-
-            //     // GRABBING ALL "FUN" COMMANDS
-            //     fs.readdirSync(`../COMMANDS/Help and Info`).forEach(file => {
-            //         const funCommands = fs.readdirSync(`../COMMANDS/Help and Info/${file}`).filter(file => file.endsWith('.js'));
-
-            //         const cmds = funCommands.map(command => {
-            //             let file = require(`../COMMANDS/Help and Info/${command}`);
-
-            //             // IF NO "FUN" COMMANDS FOUND
-            //             if(!file.name) {
-            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-            //                 return interaction.reply({
-            //                     content: `Sorry, ${config.botName} does not have any "Help and Info" commands built yet. Suggest some in <#829629595367374918>!`,
-            //                     ephemeral: true
-            //                 })
-            //             }
-
-            //             let name = file.name.replace(`.js`, ``)
-
-            //             return `\`${name}\``;
-            //         })
-
-            //         console.log(`cmds = ${cmds}`)
-            //     })
-            // }
-
-
-            // // HELP - HELP & INFO 
-            // if(interaction.customId === 'help_Misc') {
-
-            //     // GRABBING ALL "FUN" COMMANDS
-            //     fs.readdirSync(`../COMMANDS/Miscellaneous`).forEach(file => {
-            //         const funCommands = fs.readdirSync(`../COMMANDS/Miscellaneous/${file}`).filter(file => file.endsWith('.js'));
-
-            //         const cmds = funCommands.map(command => {
-            //             let file = require(`../COMMANDS/Miscellaneous/${command}`);
-
-            //             // IF NO "FUN" COMMANDS FOUND
-            //             if(!file.name) {
-            //                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-            //                 return interaction.reply({
-            //                     content: `Sorry, ${config.botName} does not have any "Miscellaneous" commands built yet. Suggest some in <#829629595367374918>!`,
-            //                     ephemeral: true
-            //                 })
-            //             }
-
-            //             let name = file.name.replace(`.js`, ``)
-
-            //             return `\`${name}\``;
-            //         })
-
-            //         console.log(`cmds = ${cmds}`)
-            //     })
-            // }
         }
 	},
 };

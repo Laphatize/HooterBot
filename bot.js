@@ -1,12 +1,13 @@
 require('dotenv').config();
-const discord = require('discord.js')
+const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
-const config = require ('./config.json')
-const birthdaySchema = require('./Database/birthdaySchema')
-const ticketSchema = require('./Database/ticketSchema')
+const config = require ('./config.json');
+const birthdaySchema = require('./Database/birthdaySchema');
+const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
+const levels = require('discord-xp');
 
 
 // INITIALIZATION
@@ -327,7 +328,7 @@ cron.schedule('00 00 10 * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    client.users.fetch( user.id )
+                    client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
                             let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
@@ -342,6 +343,17 @@ cron.schedule('00 00 10 * * *', async () => {
                             // SEND MESSAGE IN TICKET CHANNEL
                             ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
                                 .catch(err => console.log(err))
+                                .then(msg => {
+                                    
+                                    // LOG MESSAGE ID IN DATABASE FOR USER
+                                    ticketSchema.findOneAndUpdate({
+                                        CREATOR_ID: user.id
+                                    },{
+                                        REMINDER1_MSG_ID: msg.id,
+                                    },{
+                                        upsert: true
+                                    }).exec();
+                                })
                         })
                 })
         })
@@ -431,6 +443,17 @@ cron.schedule('30 00 10 * * *', async () => {
                             // SEND MESSAGE IN TICKET CHANNEL
                             ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
                                 .catch(err => console.log(err))
+                                .then(msg => {
+                                    
+                                    // LOG MESSAGE ID IN DATABASE FOR USER
+                                    ticketSchema.findOneAndUpdate({
+                                        CREATOR_ID: user.id
+                                    },{
+                                        REMINDER2_MSG_ID: msg.id,
+                                    },{
+                                        upsert: true
+                                    }).exec();
+                                })
                         })
                 })
         })
@@ -457,8 +480,6 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
     if(dbTicketData) {
-
-
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO'S TICKETS ARE CLOSING
         for(let i in dbTicketData) {
             
@@ -542,8 +563,48 @@ cron.schedule('30 00 10 * * *', async () => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
                             }
+
+
+                            // DELETE 1ST REMINDER IF EXISTS
+                            if(dbTicketData[i].REMINDER1_MSG_ID) {
+                                                            
+                                // FETCH MESSAGE BY ID
+                                firstReminderMsg = dmCh.messages.fetch(dbTicketData[i].REMINDER1_MSG_ID)
+                                    .then(msg => {
+                                        setTimeout(() => msg.delete(), 0 );
+                                    })
+                                    .catch(err => console.log(err))
+                            }
+
+
+                            // DELETE 2ND REMINDER IF EXISTS
+                            if(dbTicketData[i].REMINDER2_MSG_ID) {
+                                                            
+                                // FETCH MESSAGE BY ID
+                                firstReminderMsg = dmCh.messages.fetch(dbTicketData[i].REMINDER2_MSG_ID)
+                                    .then(msg => {
+                                        setTimeout(() => msg.delete(), 0 );
+                                    })
+                                    .catch(err => console.log(err))
+                            }
                         })
 
+                    // UPDATE TICKET CATEGORY COUNTER
+                    // GRAB TICKET CATEGORY USING ID
+                    let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+                    // COUNT OF TICKETS IN DB
+                    ticketCount = ticketSchema.find({
+                        GUILD_ID: interaction.guild.id
+                    }).countDocuments()
+                    .exec();
+                    
+                    console.log(`The number of open tickets in the test server is ${ticketCount-1}.`)
+
+                    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
+
+                    
 
                     // DELETING DATABASE ENTRY
                     ticketSchema.deleteOne({
@@ -618,6 +679,39 @@ cron.schedule('30 00 10 * * *', async () => {
                                 .then(msg => {
                                     // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                                     msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
+
+                                            // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                                        // GRAB TICKET CHANNEL
+                                        initialChMsg = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                                            .then(ch => {
+                                                // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
+                                                msg = ch.messages.fetch(dbTicketData[i].TICKETCH1_MSG_ID)
+
+                                                // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                                let newTicketEditedEmbed = new discord.MessageEmbed()
+                                                    .setColor(config.embedGreen)
+                                                    .setTitle(`**Verification Ticket Closed**`)
+                                                    .addField(`User:`, `${interaction.user}`, true)
+                                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                                                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                                                    .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+
+                                                let QuitButton = new MessageButton()
+                                                    .setLabel("End Verification")
+                                                    .setStyle("DANGER")
+                                                    .setCustomId("quit_CH")
+                                                    .setDisabled(true)
+
+                                                // BUTTON ROW
+                                                let QuitButtonModBtn = new MessageActionRow()
+                                                    .addComponents(
+                                                        QuitButton
+                                                    );
+
+                                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                                msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                                    .catch(err => console.log(err))
+                                            })
                                 })
                                 .catch(err => console.log(err))
                         })
@@ -628,3 +722,13 @@ cron.schedule('30 00 10 * * *', async () => {
     scheduled: true,
     timezone: "America/New_York"
 });
+
+
+
+/***********************************************************/
+/*      LEVELS                                             */
+/***********************************************************/
+let mongoUser = process.env.mongoUser;
+let mongoPswrd = process.env.mongoPswrd;
+let mongoDbName = process.env.mongoDbName;
+levels.setURL(`mongodb+srv://${mongoUser}:${mongoPswrd}@cluster0.pwonb.mongodb.net/${mongoDbName}?retryWrites=true&w=majority`);

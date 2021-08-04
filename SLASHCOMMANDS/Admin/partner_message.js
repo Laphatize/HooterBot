@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'partner_message',
-    description: '(ADMIN) Generate embed in \#server-announcements to share messages from partner servers. [CD: 10s]',
+    description: 'ADMIN | Generate embed in \#server-announcements to share messages from partner servers. [10s]',
     options: [
         {
             name: `partner_name`,
@@ -22,7 +22,7 @@ module.exports = {
             required: false
         }
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -53,7 +53,7 @@ module.exports = {
                     let msgSendErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Error!`)
-                        .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered your message components:`)
+                        .setDescription(`Sorry, there was a problem sending your Partner Message. Please have <#${config.botAuthorId}> investigate.\nI have recovered your message components so you can try again:`)
                         .addField(`partnerName`, `\`\`${partnerName}\`\``)
                         .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
                         .setTimestamp()
@@ -92,7 +92,7 @@ module.exports = {
                     let msgSendErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Error!`)
-                        .setDescription(`Sorry, there was a problem sending your Partner Message. <#${config.botAuthorId}> please investigate.\nI have recovered your message components:`)
+                        .setDescription(`Sorry, there was a problem sending your Partner Message. Please have <#${config.botAuthorId}> investigate.\nI have recovered your message components so you can try again:`)
                         .addField(`partnerName`, `\`\`${partnerName}\`\``)
                         .addField(`partnerMsg`, `\`\`${partnerMsg}\`\``)
                         .addField(`imageUrl`, `\`\`${imageUrl}\`\``)

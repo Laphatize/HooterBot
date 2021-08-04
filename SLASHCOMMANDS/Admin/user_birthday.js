@@ -1,12 +1,10 @@
 const discord = require('discord.js')
-const { CommandInteraction } = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
-const moment = require('moment');
 
 module.exports = {
     name: 'user_birthday',
-    description: `(ADMIN) A command for admins to migrate MEE6's birthdays over to HooterBot. [CD: 10s]`,
+    description: `ADMIN | A command for admins to migrate MEE6's birthdays over to HooterBot. [10s]`,
     options: [
         {
             name: `user`,
@@ -25,7 +23,7 @@ module.exports = {
             required: true
         },
     ],
-    permissions: 'ADMINISTRATOR',
+    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -48,6 +46,7 @@ module.exports = {
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} **Error!**`)
                 .setDescription(`<@${userId}>'s birthday already exists in the database.`)
+                .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [birthdayExists], ephemeral: true })
