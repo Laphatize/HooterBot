@@ -36,6 +36,9 @@ module.exports = {
                     name: `Dining`,
                     value: `dining`,
                 },{
+                    name: `Discord_Server`,
+                    value: `discord`,
+                },{
                     name: `Finals`,
                     value: `finals`,
                 },{
@@ -112,6 +115,11 @@ module.exports = {
             case 'dining':
                 linkName = `Dining`
                 link = `https://temple.campusdish.com/`
+                break;
+
+            case 'discord':
+                linkName = `Use this link to join the Temple University Discord`
+                link = `https://discord.com/invite/vbtaBXt8dd`
                 break;
 
             case 'finals':
