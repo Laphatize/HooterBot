@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
 	name: 'threadCreate',
@@ -41,6 +42,9 @@ module.exports = {
                 threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
+        var threadArchiveTimeStamp = moment(thread.archiveTimestamp + 1420070400000).format("LLLL")
+
+
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
@@ -52,8 +56,9 @@ module.exports = {
             .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
-            .addField(`Scheduled Close:`, `${threadDurationTimeString}`)
-            .addField(`Archive Timestamp:`, `archive_timestamp`)
+            .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
+            .addField(`Archive Timestamp:`, `${threadArchiveTimeStamp}`, true)
+            .addField(`\u200b`, `\u200b`, true)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
