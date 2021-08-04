@@ -65,11 +65,6 @@ module.exports = {
         let embedColor = outcomesArray[randomIndex][2]
 
 
-        console.log(`randomIndex = ${randomIndex}`)
-        console.log(`textResponse = ${textResponse}`)
-        console.log(`imageResponse = ${imageResponse}`)
-
-
         let eightBallFinalEmbed = new discord.MessageEmbed()
             .setColor(embedColor)
             .addField(`${interaction.user.username} asks:`, `*"${message}"*`)
