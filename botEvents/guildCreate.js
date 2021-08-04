@@ -46,13 +46,51 @@ module.exports = {
 
 
         // HOOTERBOT PERMISSIONS LIST
-        let permissionsArray = guild.me.permissions.toArray()
-        let permsHave = [];
+        const generalPermsArray = [
+            'ADMINISTRATOR',
+            'MANAGE_CHANNELS',
+            'MANAGE_ROLES',
+            'MANAGE_EMOJIS_AND_STICKERS',
+            'VIEW_AUDIT_LOG',
+            'VIEW_GUILD_INSIGHTS',
+            'MANAGE_WEBHOOKS',
+            'MANAGE_GUILD',
+            'CREATE_INSTANT_INVITE',
+            'CHANGE_NICKNAME',
+            'MANAGE_NICKNAMES',
+            'KICK_MEMBERS',
+            'BAN_MEMBERS',
+        ]
+
+        const textPermsArray = [
+            'VIEW_CHANNEL',
+            'SEND_MESSAGES', 
+            'EMBED_LINKS',
+            'ATTACH_FILES',
+            'ADD_REACTIONS',
+            'USE_EXTERNAL_EMOJIS',
+            'MENTION_EVERYONE',
+            'MANAGE_MESSAGES',
+            'READ_MESSAGE_HISTORY',
+            'SEND_TTS_MESSAGES',
+            'USE_APPLICATION_COMMANDS',
+        ]
 
 
-        for (const permission of permissionsArray) {
-            permsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-        }
+        const voicePermsArray = [
+            'VIEW_CHANNEL',
+            'CONNECT',
+            'SPEAK',
+            'STREAM',
+            'USE_VAD',
+            'PRIORITY_SPEAKER',
+            'MUTE_MEMBERS',
+            'DEAFEN_MEMBERS',
+            'MOVE_MEMBERS',
+            'REQUEST_TO_SPEAK'
+        ]
+
+
 
 
         // LOGGING BOT JOINING GUILD
@@ -67,12 +105,59 @@ module.exports = {
         modLogChannel.send({embeds: [logJoinGuild]})
 
 
+
+
+        // CHECK HOOTERBOT'S GENERAL PERMISSIONS
+        let generalPermsHave = [];
+
+        // CHECKING GENERAL PERMS
+        for (const permission of generalPermsArray) {
+            if(interaction.guild.me.permissions.has(permission)) {
+                generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            }
+            else {
+                generalPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
+            }
+        }
+
+
+        // CHECK HOOTERBOT'S TEXT PERMISSIONS
+        let textPermsHave = [];
+
+        // CHECKING GENERAL PERMS
+        for (const permission of textPermsArray) {
+            if(interaction.guild.me.permissions.has(permission)) {
+                textPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            }
+            else {
+                textPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
+            }
+        }
+        
+
+        // CHECK HOOTERBOT'S TEXT PERMISSIONS
+        let voicePermsHave = [];
+
+        // CHECKING GENERAL PERMS
+        for (const permission of voicePermsArray) {
+            if(interaction.guild.me.permissions.has(permission)) {
+                voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
+            }
+            else {
+                voicePermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
+            }
+        }
+
+
         // LOGGING BOT JOINING GUILD
         let logPermsIntentsJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`Here is a list of my enabled intents and permissions:`)
-            .setDescription(`**PERMISSIONS**\n${permsHave.join(`\n`)}`)
-            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGES`)
+            .setDescription(`**PERMISSIONS**`)
+            .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
+            .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
+            .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
+            .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} DIRECT_MESSAGES`, true)
             .addField(`PARTIALS:\n${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
             .setTimestamp()
 

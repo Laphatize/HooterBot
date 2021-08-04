@@ -106,21 +106,9 @@ module.exports = {
             // CHECKING GENERAL PERMS
             for (const permission of voicePermsArray) {
                 if(interaction.guild.me.permissions.has(permission)) {
-                    if(permission == 'MANAGE_EMOJIS_AND_STICKERS') {
-                        permission = 'MANAGE_EMOJIS/STICKERS'
-                    }
-                    if(permission == 'USE_APPLICATION_COMMANDS') {
-                        permission = 'USE_SLASH_COMMANDS'
-                    }
                     voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
                 }
                 else {
-                    if(permission == 'MANAGE_EMOJIS_AND_STICKERS') {
-                        permission = 'MANAGE_EMOJIS/STICKERS'
-                    }
-                    if(permission == 'USE_APPLICATION_COMMANDS') {
-                        permission = 'USE_SLASH_COMMANDS'
-                    }
                     voicePermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
                 }
             }
