@@ -1,11 +1,11 @@
 const discord = require('discord.js');
-const config = require('../../config.json');
+const config = require('../config.json');
 
 module.exports = {
-	name: 'threadDelete',
+	name: 'threadUpdate',
 	async execute(thread, client) {
 
-        console.log(`\n THREAD DELETED:`)
+        console.log(`\n THREAD UPDATED:`)
         console.log(`thread = ${thread}`)
         console.log(`thread.name = ${thread.name}`) 
         console.log(`thread.type = ${thread.type}`) 
@@ -16,16 +16,23 @@ module.exports = {
         console.log(`thread.parent_id = ${thread.parent_id}`)
         console.log(`thread.thread_metadata = ${thread.thread.thread_metadata}`)
 
+        
+        // // FETCHING GUILD AND THEN ITS MOD-LOG CHANNEL
+        // const modLogChannel = client.guilds.cache.get(channel.guild.id)
+        
+        
+        
+        // .channels.cache.find(ch => ch.name === `mod-log`)
 
-        // const modLogChannel = thread.guild.cache.get(guild.id).channels.cache.find(ch => ch.name === `mod-log`)
-
+        
         // // LOG ENTRY
         // // GENERATE NOTICE EMBED
         // let threadLogEntry = new discord.MessageEmbed()
         //     .setColor(config.embedGrey)
-        //     .setTitle(`Thread Deleted`)
-        //     .addField(`Thread Name:`, `${thread.name}`, true)
-        //     .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+        //     .setTitle(`Thread Updated`)
+        //     .addField(`Thread:`, `${channel}`, true)
+        //     .addField(`Parent Channel:`, `<#${channel.parent.id}>`, true)
+        //     .setDescription(`This could mean the thread has been renamed or the thread has been archived. The API makes no distinction.`)
         //     .setTimestamp()
 
         // // FETCHING LOG CHANNEL AND SENDING CLOSURE NOTICE

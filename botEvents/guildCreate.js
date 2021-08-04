@@ -59,7 +59,7 @@ module.exports = {
         // LOGGING BOT JOINING GUILD
         let logIntentsJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setDescription(`**Here is the list of my enabled intents:**`)
+            .setDescription(`**Here is the list of my enabled intents and permissions:**`)
             .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjREDTICK} GUILD_BANS\n${config.emjREDTICK} GUILD_EMOJIS\n${config.emjREDTICK} GUILD_INTEGRATIONS\n${config.emjREDTICK} GUILD_WEBHOOKS\n${config.emjREDTICK} GUILD_INVITES\n${config.emjREDTICK} GUILD_VOICE_STATES\n${config.emjREDTICK} GUILD_PRESENCES\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjREDTICK} GUILD_MESSAGE_REACTIONS\n${config.emjREDTICK} GUILD_MESSAGE_TYPING\n${config.emjGREENTICK} DIRECT_MESSAGES\n${config.emjREDTICK} DIRECT_MESSAGE_REACTIONS\n${config.emjREDTICK} DIRECT_MESSAGE_TYPING`)
             .addField(`PARTIALS:\n${config.emjGREENTICK} CHANNEL\n${config.emjREDTICK} GUILD_MEMBER\n${config.emjGREENTICK} MESSAGE\n${config.emjREDTICK} REACTION\n${config.emjREDTICK} USER`, true)
             .setFooter(`(In the event this is needed for potential debugging)`)
