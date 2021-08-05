@@ -35,7 +35,7 @@ module.exports = {
 
 
             // COUNT HOW MANY TOTAL CHANNELS
-            let catChCount = guild.channels.cache.filter(ch => ch.parent.name.startsWith(`VERIFICATION`)).size;
+            let catChCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
 
             // UPDATING CATEGORY VALUES
