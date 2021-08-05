@@ -16,7 +16,7 @@ module.exports = {
         // DM EMBED MESSAGE
         const botJoinEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
-            .setTitle(`👋 **Hello Owls!** ${config.emjTempleT}`)
+            .setTitle(`${config.emjAnimatedWave} **Hello Owls!** ${config.emjTempleT}`)
             .setDescription(`*How do you do, fellow college kids?* I'm ${config.botName}, a bot built by <@${config.botAuthorId}> to help out in the server *(please yell at him if I ever break)*. I like long walks on the beach and throwing long error stacks at MrMusicMan789 when he makes silly programming mistakes. I don't know what I'm going to study at Temple since I've not been given machine learning code (...yet? 👀), but I'm looking forward to hanging out with everyone in the server!
             \nIt'll take some time for MMM to get me up to my full potential in here, but in the meantime you can check out all my commands in ${botChannel} by typing \`\`/\`\` *(oooh, ✨**[slash commands](https://blog.discord.com/slash-commands-are-here-8db0a385d9e6)**✨, fancy...)* and running \`\`/bot_info\`\`.`)
 
