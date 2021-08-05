@@ -76,7 +76,7 @@ module.exports = {
         }
 
         // THREAD UNLOCKED BY ADMIN/MOD
-        if(thread.locked) {
+        if(thread.archived && thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
