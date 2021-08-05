@@ -54,16 +54,23 @@ module.exports = {
 
         // PICKING RANDOM EMOJIS
         let randomIndex = Math.floor(Math.random() * emojiArray.length);
+        let messageArgs = []
         let emojifiedArgs =  []
 
         // SPLIT MESSAGE UP
-        emojifiedArgs = message.split(` `).forEach((e) => {
-            `${e}${emojiArray[randomIndex] }`
-        })
-
-        console.log(`emojifiedArgs = ${emojifiedArgs}`)
+        messageArgs = message.split(` `)
         
-        // SENDING
-        await interaction.reply({ content: `Your emojified message will be here soon. MMM check the logs.` })
+        interaction.reply({ content: `messageArgs = ${messageArgs}` })
+
+
+
+        // forEach ((e) => {
+        //     `${e}${emojiArray[randomIndex] }`
+        // })
+
+        // console.log(`emojifiedArgs = ${emojifiedArgs}`)
+        
+        // // SENDING
+        // await interaction.reply({ content: `Your emojified message will be here soon. MMM check the logs.` })
     }
 }
