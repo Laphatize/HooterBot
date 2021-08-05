@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'permissions',
-    description: `MODERATOR | Checks HooterBot's default permissions / default role perms / role perms in channel.`,
+    description: `MODERATOR | Checks HooterBot's default permissions or a role and channel combination.`,
     options: [
         {
             name: `channel`,
