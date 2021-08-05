@@ -50,8 +50,6 @@ module.exports = {
                 .catch(err => console.log(err))
         }
 
-        console.log(`moment(Date.now()).utcOffset(-4).format("LLLL") = ${moment(Date.now()).utcOffset(-4).format("LLLL")}`)
-        console.log(`threadArchiveTimeStampNoAdjust =                  ${threadArchiveTimeStampNoAdjust}`)
 
         // THREAD LOCKED BY ADMIN/MOD
         if(!thread.archived && !thread.locked) {
@@ -74,6 +72,7 @@ module.exports = {
                 .catch(err => console.log(err))
         }
 
+
         // THREAD UNLOCKED BY ADMIN/MOD
         if(!thread.archived && thread.locked && (threadArchiveTimeStampNoAdjust !== moment(Date.now()).utcOffset(-4).format("LLLL"))) {
             // GENERATE NOTICE EMBED
@@ -95,5 +94,8 @@ module.exports = {
             modLogChannel.send({ embeds: [threadLogEntry] })
                 .catch(err => console.log(err))
         }
+
+        // THREAD REOPENED BY USER
+        
 	},
 };
