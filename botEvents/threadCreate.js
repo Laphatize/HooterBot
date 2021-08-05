@@ -42,13 +42,7 @@ module.exports = {
                 threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
-        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).format("LLLL")
-        var threadArchiveTimeStampAdd = moment(thread.archiveTimestamp + 1420070400000).format("LLLL")
-        var threadArchiveTimeStampSub = moment(thread.archiveTimestamp - 1420070400000).format("LLLL")
-
-        console.log(`threadArchiveTimeStampNoAdjust = ${threadArchiveTimeStampNoAdjust}`)
-        console.log(`threadArchiveTimeStampAdd = ${threadArchiveTimeStampAdd}`)
-        console.log(`threadArchiveTimeStampSub = ${threadArchiveTimeStampSub}`)
+        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).utcOffset(-4).format("LLLL")
 
 
         // LOG ENTRY
@@ -63,7 +57,7 @@ module.exports = {
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
             .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
-            .addField(`Archive Timestamp:`, `${threadArchiveTimeStampNoAdjust}`, true)
+            .addField(`Archive Timestamp:`, `${threadArchiveTimeStampNoAdjust} EST`, true)
             .addField(`\u200b`, `\u200b`, true)
             .setTimestamp()
 
