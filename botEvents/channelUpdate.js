@@ -42,8 +42,6 @@ module.exports = {
 
             // UPDATING CATEGORY VALUES
             ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
-
-            console.log(`Ticket category should read:\nVERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
         };
 	},
 };

@@ -112,7 +112,7 @@ module.exports = {
 
         // CHECKING GENERAL PERMS
         for (const permission of generalPermsArray) {
-            if(interaction.guild.me.permissions.has(permission)) {
+            if(guild.me.permissions.has(permission)) {
                 generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
             }
             else {
@@ -126,7 +126,7 @@ module.exports = {
 
         // CHECKING GENERAL PERMS
         for (const permission of textPermsArray) {
-            if(interaction.guild.me.permissions.has(permission)) {
+            if(guild.me.permissions.has(permission)) {
                 textPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
             }
             else {
@@ -140,7 +140,7 @@ module.exports = {
 
         // CHECKING GENERAL PERMS
         for (const permission of voicePermsArray) {
-            if(interaction.guild.me.permissions.has(permission)) {
+            if(guild.me.permissions.has(permission)) {
                 voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
             }
             else {
