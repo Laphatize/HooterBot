@@ -9,13 +9,13 @@ module.exports = {
         // LOCATING MOD-LOG CHANNEL
         const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        
+
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
             .setTitle(`Thread Deleted`)
-            .addField(`Thread:`, `${thread}`, true)
+            .addField(`Thread Name:`, `${thread.name}`, true)
             .addField(`Thread ID:`, `${thread.id}`, true)
             .addField(`Thread Type:`, `${thread.type}`, true)
             .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
