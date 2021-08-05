@@ -58,7 +58,7 @@ module.exports = {
 
         // SPLIT MESSAGE UP
         let emojifiedMessage = message.split(` `).forEach((e) => {
-            e.join(`${e}${emojiArray[randomIndex] }`)
+            `${e}${emojiArray[randomIndex] }`
         })
         
         // SENDING
