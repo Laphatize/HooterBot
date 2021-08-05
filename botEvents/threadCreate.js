@@ -6,23 +6,23 @@ module.exports = {
 	name: 'threadCreate',
 	async execute(thread, client) {
 
-                let threadDataEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`THREAD CREATED`)
-                .addField(`thread:`, `${thread}`)
-                .addField(`thread.name:`, `${thread.name}`)
-                .addField(`thread.type:`, `${thread.type}`)
-                .addField(`thread.ownerId:`, `${thread.ownerId}`)
-                .addField(`thread.owner [object]:`, `<@${thread.ownerId}>`)
-                .addField(`thread.guild:`, `${thread.guild}`)
-                .addField(`thread.guild.id:`, `${thread.guild.id}`)
-                .addField(`thread.guild.name:`, `${thread.guild.name}`)
-                .addField(`thread.parent.id:`, `${thread.parent.id}`)
-                .addField(`thread.parent [object]:`, `<#${thread.parent.id}>`)
-                .addField(`thread.autoArchiveDuration:`, `${thread.autoArchiveDuration} minutes`)
-                .addField(`thread.sendable:`, `${thread.sendable}`)
-                .addField(`thread.archived:`, `${thread.archived}`)
-                .addField(`thread.locked:`, `${thread.locked}`)
+        let threadDataEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGrey)
+            .setTitle(`THREAD CREATED`)
+            .addField(`thread:`, `${thread}`)
+            .addField(`thread.name:`, `${thread.name}`)
+            .addField(`thread.type:`, `${thread.type}`)
+            .addField(`thread.ownerId:`, `${thread.ownerId}`)
+            .addField(`thread.owner [object]:`, `<@${thread.ownerId}>`)
+            .addField(`thread.guild:`, `${thread.guild}`)
+            .addField(`thread.guild.id:`, `${thread.guild.id}`)
+            .addField(`thread.guild.name:`, `${thread.guild.name}`)
+            .addField(`thread.parent.id:`, `${thread.parent.id}`)
+            .addField(`thread.parent [object]:`, `<#${thread.parent.id}>`)
+            .addField(`thread.autoArchiveDuration:`, `${thread.autoArchiveDuration} minutes`)
+            .addField(`thread.sendable:`, `${thread.sendable}`)
+            .addField(`thread.archived:`, `${thread.archived}`)
+            .addField(`thread.locked:`, `${thread.locked}`)
 
 
         // LOCATING MOD-LOG CHANNEL
@@ -33,15 +33,16 @@ module.exports = {
 
         // CONVERTING THE ARCHIVE DURATION TO MINUTES OR DAYS DEPENDING ON VALUE
         if(thread.autoArchiveDuration <= 60) {
-                threadDurationTimeString = `${thread.autoArchiveDuration} minutes`
+            threadDurationTimeString = `${thread.autoArchiveDuration} minutes`
         }
         if(thread.autoArchiveDuration > 60 && thread.autoArchiveDuration <= 1440 ) {
-                threadDurationTimeString = `${thread.autoArchiveDuration / (60)} hours`
+            threadDurationTimeString = `${thread.autoArchiveDuration / (60)} hours`
         }
         if(thread.autoArchiveDuration > 1440) {
-                threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
+            threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
+        // CALCULATING ARCHIVE TIME
         var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
 
         // LOG ENTRY
