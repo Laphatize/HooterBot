@@ -24,10 +24,6 @@ module.exports = {
         }
 
 
-        // CALCULATING ARCHIVE TIME
-        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
-
-
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedGrey)
