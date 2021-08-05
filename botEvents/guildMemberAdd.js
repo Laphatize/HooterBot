@@ -52,7 +52,7 @@ module.exports = {
             const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE
-            let discordAge = moment(Date.now()).subtract(member.createdTimestamp, 'minutes')
+            let discordAge = moment(Date.now().format(`LLLL`)) - moment(member.createdTimestamp.format(`LLLL`))
 
             console.log(`discordAge = ${discordAge}`)
 
@@ -61,7 +61,7 @@ module.exports = {
                   .setColor(config.embedGreen)
                   .setTitle(`New Server Member`)
                   .addField(`User:`, `${member}`, true)
-                  .addField(`Username:`, `${member.name}`, true)
+                  .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
                   .addField(`Joined Discord:`, `${moment(member.createdTimestamp).format(`LL`)}`)
                   .setTimestamp()
