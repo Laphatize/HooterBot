@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
 	name: 'guildMemberAdd',
@@ -44,6 +45,24 @@ module.exports = {
             // SEND TO #joins CHANNEL
             await joinsChannel.send({content: fullWelcomeMessage})
                   .catch(err => console.log(err))
+
+
+
+            // LOGGING NEW USER JOINING GUILD
+            const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
+            
+            // JOIN EMBED
+            let logJoinGuild = new discord.MessageEmbed()
+                  .setColor(config.embedGreen)
+                  .setTitle(`New Server Member`)
+                  .addField(`User:`, `${member}`, true)
+                  .addField(`Username:`, `${member.username}`, true)
+                  .addField(`ID:`, `${member.id}`, true)
+                  .addField(`Joined Discord:`, `${moment(member.createdTimestamp).format(`LL`)}`)
+                  .setTimestamp()
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logJoinGuild]})
 	},
 };
 
