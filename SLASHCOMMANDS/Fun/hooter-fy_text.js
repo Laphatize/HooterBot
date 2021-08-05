@@ -39,7 +39,7 @@ module.exports = {
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
         }
 
-        
+
         // ARRAY OF EMOJIS
         const emojiArray =  [
             [config.emjTempleT],
@@ -52,7 +52,7 @@ module.exports = {
         ]
 
         // PICKING RANDOM EMOJIS
-        let randomIndex = Math.floor(Math.random() * outcomesArray.length);
+        let randomIndex = Math.floor(Math.random() * emojiArray.length);
 
         // INSERTING
         let emojifiedMessage = message.replace(/ /g, ` ${emojiArray[randomIndex]} `)
