@@ -156,7 +156,7 @@ module.exports = {
             // GENERATING EMBED TO NOTE THE PERMISSIONS
             let channelRolePermsEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
-                .setTitle(`The ${targetRole.name}'s permissions in #${targetChannel.name}`)
+                .setTitle(`\`\`${targetRole.name}\`\` role permissions in \`\`#${targetChannel.name}\`\``)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [channelRolePermsEmbed], ephemeral: true })
