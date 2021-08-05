@@ -41,8 +41,8 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${!thread.archived}`, true)
-                .addField(`Locked?`, `${!thread.locked}`, true)
+                .addField(`Archived?`, `${!thread.archived.toUpperCase()}`, true)
+                .addField(`Locked?`, `${!thread.locked.toUpperCase()}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
@@ -65,8 +65,8 @@ module.exports = {
                 .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
-                .addField(`Archived?`, `${!thread.archived}`, true)
-                .addField(`Locked?`, `${!thread.locked}`, true)
+                .addField(`Archived?`, `${!thread.archived.toUpperCase()}`, true)
+                .addField(`Locked?`, `${!thread.locked.toUpperCase()}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
@@ -87,8 +87,8 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${thread.archived}`, true)
-                .addField(`Locked?`, `${!thread.locked}`, true)
+                .addField(`Archived?`, `${thread.archived.toUpperCase()}`, true)
+                .addField(`Locked?`, `${!thread.locked.toUpperCase()}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
