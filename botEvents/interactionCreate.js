@@ -1422,7 +1422,7 @@ module.exports = {
                     .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.`)
                     .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
-                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process. (User's messages are never stored)`)
+                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process. (Users' messages are never stored)`)
                     .addField(`Ticket Close Date`, `The day the ticket is scheduled to automatically close.`)
                     .addField(`Creation Date`, `The day/time you created the ticket.`)
                     .addField(`Updated Date`, `When the database entry was last modified by the bot.`)
