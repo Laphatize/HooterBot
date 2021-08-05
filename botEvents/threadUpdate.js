@@ -24,8 +24,12 @@ module.exports = {
         }
 
 
+        // CALCULATING ARCHIVE TIME
+        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
+
+
         // THREAD AUTO-ARCHIVED
-        if(!thread.archived && thread.locked) {
+        if(!thread.archived && thread.locked && (threadArchiveTimeStampNoAdjust == moment(Date.now()).utcOffset(-4).format("LLLL"))) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -47,7 +51,7 @@ module.exports = {
         }
 
         // THREAD LOCKED BY ADMIN/MOD
-        if(!thread.locked) {
+        if(!thread.archived && thread.locked && (threadArchiveTimeStampNoAdjust !== moment(Date.now()).utcOffset(-4).format("LLLL"))) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
