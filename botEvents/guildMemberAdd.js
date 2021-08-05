@@ -52,8 +52,8 @@ module.exports = {
             const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE
-            let discordAge = moment(Date.now()).format(`LLLL`) - moment(member.createdTimestamp).format(`LLLL`)
-
+            let discordAge = moment(Date.now() - member.createdTimestamp).format(`LLLL`)
+            
             console.log(`discordAge = ${discordAge}`)
 
             // JOIN EMBED
