@@ -11,9 +11,9 @@ module.exports = {
             type: `CHANNEL`,
             required: false
         }, {
-            name: `role_or_user`,
-            description: `Specify the role or user to use for checking permissions. `,
-            type: `MENTIONABLE`,
+            name: `role`,
+            description: `Specify the role or user to use for checking permissions. (Use @everyone for default permissions)`,
+            type: `role`,
             required: false
         }
     ],
@@ -131,145 +131,16 @@ module.exports = {
         /***********************************/
         /* ROLE OR CHANNEL MISSING         */
         /***********************************/
-        // if((!channel && role) || (channel && !role)) {
-           
-
-        //     // GENERATING EMBED TO NOTE THE PERMISSIONS
-        //     let missingFieldEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedTempleRed)
-        //         .setTitle(`${config.emjREDTICK} **Error!**`)
-        //         .setDescription(`If you are checking specific permissions, you need to specify **both a role and channel**.`)
-        //         .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
-
-        //     // SENDING TO CHANNEL
-        //     return interaction.reply({ embeds: [missingFieldEmbed], ephemeral: true })
-        // }
-
-
-
-        /***********************************/
-        /* DEFAULT CHANNEL PERMISSIONS     */
-        /***********************************/
-        if(channel && !role) {
-
-            // FETCH CHANNEL AND ROLE
-            const targetChannel = interaction.guild.channels.cache.find(ch => ch.id === channel)
-            const targetRole = interaction.guild.roles.cache.find(r => r.id === interaction.guild.id)
-
-
-            // CHECK HOOTERBOT'S GENERAL PERMISSIONS
-            let generalPermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of generalPermsArray) {
-                if(targetChannel.permissionsFor(targetRole)) {
-                    generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    generalPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-
-
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
-            let textPermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of textPermsArray) {
-                if(targetChannel.permissionsFor(targetRole)) {
-                    textPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    textPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-            
-
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
-            let voicePermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of voicePermsArray) {
-                if(targetChannel.permissionsFor(targetRole)) {
-                    voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    voicePermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-
-
-    
+        if((!channel && role) || (channel && !role)) {
             // GENERATING EMBED TO NOTE THE PERMISSIONS
-            let channelRolePermsEmbed = new discord.MessageEmbed()
+            let missingFieldEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
-                .setTitle(`\`\`Default ${targetRole.name}\`\` server permissions:`)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`If you are checking specific permissions, you need to specify **both a role and channel**.`)
+                .setFooter(`If this is a bug, please let ${config.botAuthorUsername} know.`)
 
             // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [channelRolePermsEmbed] })
-        }
-
-
-
-        /***********************************/
-        /* DEFAULT ROLE PERMISSIONS        */
-        /***********************************/
-        if(!channel && role) {
-
-            // FETCH ROLE
-            const targetRole = interaction.guild.roles.cache.find(r => r.id === role)
-
-
-            // CHECK HOOTERBOT'S GENERAL PERMISSIONS
-            let generalPermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of generalPermsArray) {
-                if(targetChannel.permissions.has(permission)) {
-                    generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    generalPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-
-
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
-            let textPermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of textPermsArray) {
-                if(targetChannel.permissions.has(permission)) {
-                    textPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    textPermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-            
-
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
-            let voicePermsHave = [];
-
-            // CHECKING GENERAL PERMS
-            for (const permission of voicePermsArray) {
-                if(targetChannel.permissions.has(permission)) {
-                    voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
-                }
-                else {
-                    voicePermsHave.push(`${config.emjREDTICK} \`\`${permission}\`\``)
-                }
-            }
-
-
-    
-            // GENERATING EMBED TO NOTE THE PERMISSIONS
-            let channelRolePermsEmbed = new discord.MessageEmbed()
-                .setColor(config.embedDarkGrey)
-                .setTitle(`Default \`\`${targetRole.name}\`\` role permissions:`)
-
-            // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [channelRolePermsEmbed] })
+            return interaction.reply({ embeds: [missingFieldEmbed], ephemeral: true })
         }
 
 
