@@ -25,7 +25,7 @@ module.exports = {
 
 
         // THREAD AUTO-ARCHIVED
-        if(thread.archived && !thread.locked) {
+        if(!thread.archived && thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -37,8 +37,8 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${thread.archived}`, true)
-                .addField(`Locked?`, `${thread.locked}`, true)
+                .addField(`Archived?`, `${!thread.archived}`, true)
+                .addField(`Locked?`, `${!thread.locked}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
@@ -47,7 +47,7 @@ module.exports = {
         }
 
         // THREAD LOCKED BY ADMIN/MOD
-        if(thread.locked) {
+        if(!thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -59,8 +59,8 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${thread.archived}`, true)
-                .addField(`Locked?`, `${thread.locked}`, true)
+                .addField(`Archived?`, `${!thread.archived}`, true)
+                .addField(`Locked?`, `${!thread.locked}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
@@ -69,7 +69,7 @@ module.exports = {
         }
 
         // THREAD UNLOCKED BY ADMIN/MOD
-        if(!thread.locked) {
+        if(thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -81,8 +81,8 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${thread.archived}`, true)
-                .addField(`Locked?`, `${thread.locked}`, true)
+                .addField(`Archived?`, `${!thread.archived}`, true)
+                .addField(`Locked?`, `${!thread.locked}`, true)
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
