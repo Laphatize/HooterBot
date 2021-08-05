@@ -7,7 +7,7 @@ module.exports = {
 
         // CHECK IF DATABASE HAS AN ENTRY
         const dbGuildData = await guildSchema.findOne({
-            GUILD_ID: interaction.guild.id
+            GUILD_ID: channel.guild.id
         }).exec();
 
 
