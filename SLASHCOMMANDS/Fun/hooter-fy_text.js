@@ -1,0 +1,72 @@
+const discord = require('discord.js')
+const fs = require('fs');
+const config = require ('../../config.json')
+const wait = require('util').promisify(setTimeout);
+
+
+module.exports = {
+    name: 'hooter-fy_text',
+    description: `Return provided message in an emojified way using Hooter and Temple emojis. (🤖｜bot-spam)`,
+    permissions: '',
+    cooldown: 60,
+    defaultPermission: true,
+    options: [
+        {
+            name: `message`,
+            description: `The message to emojify.`,
+            type: 'STRING',
+            required: true,
+        }
+    ],
+    defaultPermission: true,
+    run: async(client, interaction, inputs) => {
+
+        // GRAB INPUT MESSAGE
+        let message = inputs[0]
+
+
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
+        
+        // INITIAL RESPONSE
+        let eightBallInitialEmbed = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .addField(`${interaction.user.username} asks:`, `*"${message}"*
+            \n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
+
+        await interaction.reply({ embeds: [eightBallInitialEmbed] })
+
+
+        // ARRAY OF EMOJIS
+        const emojiArray =  [
+            [config.emjTempleT],
+            [config.emjTempleTWhite],
+            [config.emjOwl],
+            [config.emjHooter1],
+            [config.emjHooter2],
+            [config.emjHooterFloss],
+            [config.emjHooterEyeRoll]
+        ]
+
+        // PICKING RANDOM EMOJIS
+        let randomIndex = Math.floor(Math.random() * outcomesArray.length);
+
+        // INSERTING
+        let emojifiedMessage = message.replace(/ /g, ` ${emojiArray[randomIndex]} `)
+        
+        // SENDING
+        await interaction.reply({ content: `${emojifiedMessage}` })
+    }
+}
