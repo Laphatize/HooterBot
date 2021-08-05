@@ -51,12 +51,20 @@ module.exports = {
             [config.emjHooterEyeRoll]
         ]
 
-        // PICKING RANDOM EMOJIS
-        let randomIndex = Math.floor(Math.random() * emojiArray.length);
+        // SPLIT MESSAGE ON SPACES
+        let msgArgs = message.split(" ")
+        let msgWords = msgArgs.length
+        let emojifiedMessage
 
-        // INSERTING
-        let emojifiedMessage = message.replace(/ /g, ` ${emojiArray[randomIndex]} `)
-        
+
+        for (msgArgs of msgWords) {
+            // PICKING RANDOM EMOJIS
+            let randomIndex = Math.floor(Math.random() * emojiArray.length);
+            
+            // INSERTING
+            emojifiedMessage = message.join(`${msgArgs} ${emojiArray[randomIndex]} `)
+        }
+
         // SENDING
         await interaction.reply({ content: `${emojifiedMessage}` })
     }
