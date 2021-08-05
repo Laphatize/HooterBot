@@ -306,7 +306,7 @@ module.exports = {
                                 .addField(`Check-in Reminder:`, `${FirstReminder}`, true)
                                 .addField(`Close Notice Reminder:`, `${SecondReminder}`, true)
                                 .addField(`Ticket Auto-Close:`, `${closeDate}`, true)
-                                .setDescription(`**All messages** sent in this channel are sent to the user's DMs. **Messages cannot be edited or deleted once sent.** Bot commands will not work. Please do not send messages unless in response to a user.`)
+                                .setDescription(`**All messages** sent in this channel are sent to the user's DMs. **Messages cannot be edited or deleted once sent.** Threads cannot be created in this channel. Please do not send messages unless in response to a user.`)
 
                             let QuitButton = new MessageButton()
                                 .setLabel("End Verification")
@@ -1431,7 +1431,7 @@ module.exports = {
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
                     .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify database information. Moderators and admins have access to view and inspect the database.`)
                     .addField(`How is the data used?`, `*No information is sold or shared.* Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
-                    .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically. Nothing is saved by the bot.`)
+                    .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically ([view code](https://github.com/MrMusicMan789/HooterBot/blob/main/botEvents/interactionCreate.js#L661)). Nothing is saved by the bot.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
                     .addField(`What if I do not want to share information with the bot?`, `While the information ${config.botName} stores is basic and public information on Discord, **do not create a verification ticket** if you wish to not share this information.`)
                     .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
