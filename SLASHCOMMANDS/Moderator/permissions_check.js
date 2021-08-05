@@ -159,7 +159,7 @@ module.exports = {
                 .setTitle(`\`\`${targetRole.name}\`\` role permissions in \`\`#${targetChannel.name}\`\``)
 
             // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [channelRolePermsEmbed], ephemeral: true })
+            return interaction.reply({ embeds: [channelRolePermsEmbed] })
         }
     }
 }
