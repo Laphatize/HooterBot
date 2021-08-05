@@ -24,7 +24,7 @@ module.exports = {
         // TOTAL CHANNEL COUNT
         if(channel.parentId == dbGuildData.TICKET_CAT_ID) {
 
-            console.log(`Channel was modified in the verification category`)
+            console.log(`Channel was created in the verification category`)
 
             // FETCHING THE GUILD FROM DATABASE
             guild = client.guilds.cache.get(dbGuildData.GUILD_ID)

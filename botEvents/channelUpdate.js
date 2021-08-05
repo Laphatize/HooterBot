@@ -2,7 +2,7 @@ const guildSchema = require('../Database/guildSchema');
 
 
 module.exports = {
-	name: 'channelDelete',
+	name: 'channelUpdate',
 	async execute(channel, client) {
 
         // CHECK IF DATABASE HAS AN ENTRY
@@ -24,7 +24,7 @@ module.exports = {
         // TOTAL CHANNEL COUNT
         if(channel.parentId == dbGuildData.TICKET_CAT_ID) {
             
-            console.log(`Channel was deleted in the verification category`)
+            console.log(`Channel was modified in the verification category`)
 
             // FETCHING THE GUILD FROM DATABASE
             guild = client.guilds.cache.get(dbGuildData.GUILD_ID)
