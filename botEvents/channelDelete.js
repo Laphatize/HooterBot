@@ -24,12 +24,12 @@ module.exports = {
         // EDITING CHANNEL COUNTS
         if(channel.parentId == dbGuildData.TICKET_CAT_ID) {
 
-            // GRAB TICKET CATEGORY USING ID
-            let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
             // FETCHING THE GUILD FROM DATABASE
             guild = client.guilds.cache.get(dbGuildData.GUILD_ID)
+
+
+            // GRAB TICKET CATEGORY USING ID
+            let ticketCategory = guild.channels.cache.get(dbGuildData.TICKET_CAT_ID)
 
 
             // COUNT HOW MANY TEXT CHANNELS START WITH "verify-"
