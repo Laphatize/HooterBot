@@ -53,7 +53,7 @@ module.exports = {
 
 
         // PICKING RANDOM EMOJIS
-        let randomIndex = Math.floor(Math.random() * outcomesArray.length);
+        let randomIndex = Math.floor(Math.random() * emojiArray.length);
 
 
         // SPLIT MESSAGE UP
