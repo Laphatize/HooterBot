@@ -63,7 +63,7 @@ module.exports = {
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
             .addField(`Scheduled Close:`, `${threadDurationTimeString}`, true)
-            .addField(`Archive Timestamp:`, `${threadArchiveTimeStampAdd}`, true)
+            .addField(`Archive Timestamp:`, `${threadArchiveTimeStampNoAdjust}`, true)
             .addField(`\u200b`, `\u200b`, true)
             .setTimestamp()
 
