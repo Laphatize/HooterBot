@@ -52,7 +52,7 @@ module.exports = {
             const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE IN S
-            let discordAge = moment(Date.now()).format(`LLL`) - moment(member.user.createdAt).format(`LLL`)
+            let discordAge = moment((Date.now() - moment(member.user.createdAt)))
 
             console.log(`dscordAge = ${discordAge}`)
 
@@ -67,7 +67,7 @@ module.exports = {
                   .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
                   .addField(`Joined Discord:`, `${moment(member.user.createdAt).format(`LLL`)}`, true)
-                  .addField(`Account Age:`, ``, true)
+                  .addField(`Account Age:`, `discordAge`, true)
                   .setTimestamp()
 
             // LOG ENTRY
