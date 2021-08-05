@@ -54,7 +54,7 @@ module.exports = {
         console.log(`threadArchiveTimeStampNoAdjust =                  ${threadArchiveTimeStampNoAdjust}`)
 
         // THREAD LOCKED BY ADMIN/MOD
-        if(thread.archived && !thread.locked && (threadArchiveTimeStampNoAdjust !== moment(Date.now()).utcOffset(-4).format("LLLL"))) {
+        if(!thread.archived && !thread.locked && (threadArchiveTimeStampNoAdjust == moment(Date.now()).utcOffset(-4).format("LLLL"))) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
