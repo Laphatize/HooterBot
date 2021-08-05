@@ -13,7 +13,7 @@ module.exports = {
         }, {
             name: `role`,
             description: `Specify the role or user to use for checking permissions. (Use @everyone for default permissions)`,
-            type: `role`,
+            type: `ROLE`,
             required: false
         }
     ],
