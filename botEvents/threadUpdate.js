@@ -65,7 +65,6 @@ module.exports = {
                 .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
-                .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
                 .addField(`Archived?`, `${!thread.archived}`, true)
                 .addField(`Locked?`, `${!thread.locked}`, true)
                 .setTimestamp()
@@ -88,7 +87,7 @@ module.exports = {
                 .addField(`Creator:`, `<@${thread.ownerId}>`, true)
                 .addField(`Creator ID:`, `${thread.ownerId}`, true)
                 .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-                .addField(`Archived?`, `${!thread.archived}`, true)
+                .addField(`Archived?`, `${thread.archived}`, true)
                 .addField(`Locked?`, `${!thread.locked}`, true)
                 .setTimestamp()
 
