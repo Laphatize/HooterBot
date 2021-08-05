@@ -119,7 +119,7 @@ module.exports = {
             let ticketEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`**Get verified!**`)
-                .setDescription(`A ticket will open in your DMs when youclick the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
+                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
                 .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
 
 
