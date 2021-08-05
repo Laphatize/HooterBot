@@ -40,15 +40,6 @@ module.exports = {
         }
 
         
-        // INITIAL RESPONSE
-        let eightBallInitialEmbed = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
-            .addField(`${interaction.user.username} asks:`, `*"${message}"*
-            \n${config.emjThinking} *The Magic 8 Ball is being shaken...*`)
-
-        await interaction.reply({ embeds: [eightBallInitialEmbed] })
-
-
         // ARRAY OF EMOJIS
         const emojiArray =  [
             [config.emjTempleT],
