@@ -76,7 +76,7 @@ module.exports = {
         if(!channel && !role) {
             let generalPermsHave = [];
 
-            // CHECKING GENERAL PERMS
+            // HOOTERBOT'S GENERAL PERMISSIONS ARRAY
             for (const permission of generalPermsArray) {
                 if(interaction.guild.me.permissions.has(permission)) {
                     generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
@@ -87,7 +87,7 @@ module.exports = {
             }
 
 
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
+            // HOOTERBOT'S TEXT PERMISSIONS ARRAY
             let textPermsHave = [];
 
             // CHECKING GENERAL PERMS
@@ -101,7 +101,7 @@ module.exports = {
             }
             
 
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
+            // HOOTERBOT'S TEXT PERMISSIONS ARRAY
             let voicePermsHave = [];
 
             // CHECKING GENERAL PERMS
@@ -116,7 +116,7 @@ module.exports = {
 
 
             // GENERATING EMBED TO NOTE THE PERMISSIONS
-            let logPerms = new discord.MessageEmbed()
+            let botPermsList = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`${config.botName}'s General Permissions:`)
                 .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
@@ -124,7 +124,7 @@ module.exports = {
                 .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
                 .setTimestamp()
 
-            return interaction.reply({ embeds: [logPerms] })
+            return interaction.reply({ embeds: [botPermsList] })
         }
 
 
@@ -154,13 +154,16 @@ module.exports = {
             const targetChannel = interaction.guild.channels.cache.find(ch => ch.id === channel)
             const targetRole = interaction.guild.roles.cache.find(r => r.id === role)
 
+            // GRABBING PERMS FOR ROLE IN CHANNEL
+            const roleChPerms = targetChannel.permissionsFor(targetRole)
 
-            // CHECK HOOTERBOT'S GENERAL PERMISSIONS
+
+            // GENERAL PERMISSIONS ARRAY
             let generalPermsHave = [];
 
             // CHECKING GENERAL PERMS
             for (const permission of generalPermsArray) {
-                if(targetChannel.targetRole.permissions.has(permission)) {
+                if(roleChPerms.has(permission)) {
                     generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
                 }
                 else {
@@ -169,12 +172,12 @@ module.exports = {
             }
 
 
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
+            // TEXT PERMISSIONS ARRAY
             let textPermsHave = [];
 
             // CHECKING GENERAL PERMS
             for (const permission of textPermsArray) {
-                if(interaction.guild.me.permissions.has(permission)) {
+                if(roleChPerms.has(permission)) {
                     textPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
                 }
                 else {
@@ -183,12 +186,12 @@ module.exports = {
             }
             
 
-            // CHECK HOOTERBOT'S TEXT PERMISSIONS
+            // VOICE PERMISSIONS ARRAY
             let voicePermsHave = [];
 
             // CHECKING GENERAL PERMS
             for (const permission of voicePermsArray) {
-                if(interaction.guild.me.permissions.has(permission)) {
+                if(roleChPerms.has(permission)) {
                     voicePermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
                 }
                 else {
@@ -197,14 +200,16 @@ module.exports = {
             }
 
 
-
-
-
     
             // GENERATING EMBED TO NOTE THE PERMISSIONS
             let channelRolePermsEmbed = new discord.MessageEmbed()
                 .setColor(config.embedDarkGrey)
                 .setTitle(`\`\`${targetRole.name}\`\` role permissions in \`\`#${targetChannel.name}:\`\``)
+                .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
+                .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
+                .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
+                .setTimestamp()
+                .setFooter(`Note: A user may possess a higher role that enables more options than shown.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [channelRolePermsEmbed] })
