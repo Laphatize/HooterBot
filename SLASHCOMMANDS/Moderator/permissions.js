@@ -117,7 +117,7 @@ module.exports = {
 
             // GENERATING EMBED TO NOTE THE PERMISSIONS
             let botPermsList = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
+                .setColor(config.embedTempleRed)
                 .setTitle(`${config.botName}'s General Permissions:`)
                 .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
                 .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
@@ -203,7 +203,7 @@ module.exports = {
     
             // GENERATING EMBED TO NOTE THE PERMISSIONS
             let channelRolePermsEmbed = new discord.MessageEmbed()
-                .setColor(config.embedDarkGrey)
+                .setColor(config.embedBlurple)
                 .setTitle(`\`\`${targetRole.name}\`\` role permissions in \`\`#${targetChannel.name}:\`\``)
                 .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
                 .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
