@@ -374,12 +374,6 @@ module.exports = {
                                 GUILD_ID: interaction.guild.id
                             }).countDocuments()
                             .exec();
-
-
-                            // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                            let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-
-                            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -648,14 +642,6 @@ module.exports = {
                     GUILD_ID: ticketGuildId
                 }).countDocuments()
                 .exec();
-                
-                
-                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-
-                // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
-
 
 
                 // DELETING DATABASE ENTRY
@@ -913,14 +899,6 @@ module.exports = {
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
-
-
-                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-
-                // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
-
 
 
                 // DELETING DATABASE ENTRY
@@ -1655,13 +1633,6 @@ module.exports = {
                     GUILD_ID: interaction.guild.id
                 }).countDocuments()
                 .exec();
-
-
-                // COUNT TOTAL TICKETS IN VERIFICATION CATEGORY
-                let catChCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-                
-                // SETTING NEW CATEGORY NAME
-                ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) [${catChCount}/50]`)
 
 
                 // DELETING DATABASE ENTRY
