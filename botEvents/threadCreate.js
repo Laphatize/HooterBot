@@ -42,8 +42,7 @@ module.exports = {
                 threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
-        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).utcOffset(-4).format("LLLL")
-
+        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
