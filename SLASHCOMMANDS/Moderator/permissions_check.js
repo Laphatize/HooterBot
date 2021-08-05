@@ -145,24 +145,21 @@ module.exports = {
 
         // ROLE AND CHANNEL PROVIDED
         if(channel && role) {
+
+            // FETCH CHANNEL AND ROLE
+            const targetChannel = interaction.guild.channels.cache.find(ch => ch.id === channel)
+            const targetRole = interaction.guild.roles.cache.find(r => r.id === role)
+
+
+
     
             // GENERATING EMBED TO NOTE THE PERMISSIONS
             let channelRolePermsEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
-                .setTitle(`The ${role}'s permissions in ${channel}`)
+                .setTitle(`The ${targetRole.name}'s permissions in #${targetChannel.name}`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [channelRolePermsEmbed], ephemeral: true })
         }
-
-
-
-
-
-
-
-
-
-        
     }
 }
