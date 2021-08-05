@@ -46,13 +46,13 @@ module.exports = {
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-            modLogChannel.send({ embeds: [threadLogEntry] })
+            modLogChannel.send({ content: '!thread.archived && thread.locked && (date check)', embeds: [threadLogEntry] })
                 .catch(err => console.log(err))
         }
 
 
         // THREAD LOCKED BY ADMIN/MOD
-        if(!thread.locked) {
+        if(!thread.archived && !thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -68,13 +68,13 @@ module.exports = {
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-            modLogChannel.send({ embeds: [threadLogEntry] })
+            modLogChannel.send({ content: '!thread.archived && !thread.locked', embeds: [threadLogEntry] })
                 .catch(err => console.log(err))
         }
 
 
         // THREAD UNLOCKED BY ADMIN/MOD
-        if(thread.locked) {
+        if(thread.archived && !thread.locked) {
             // GENERATE NOTICE EMBED
             let threadLogEntry = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -91,11 +91,31 @@ module.exports = {
                 .setTimestamp()
 
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-            modLogChannel.send({ embeds: [threadLogEntry] })
+            modLogChannel.send({ content: 'thread.archived && !thread.locked', embeds: [threadLogEntry] })
                 .catch(err => console.log(err))
         }
 
         // THREAD REOPENED BY USER
+        if(thread.archived && thread.locked) {
+            // GENERATE NOTICE EMBED
+            let threadLogEntry = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Thread Unlocked by Server Staff`)
+                .addField(`Thread:`, `${thread}`, true)
+                .addField(`Thread ID:`, `${thread.id}`, true)
+                .addField(`Thread Type:`, `${thread.type}`, true)
+                .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+                .addField(`Creator:`, `<@${thread.ownerId}>`, true)
+                .addField(`Creator ID:`, `${thread.ownerId}`, true)
+                .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
+                .addField(`Archived?`, `${thread.archived}`, true)
+                .addField(`Locked?`, `${!thread.locked}`, true)
+                .setTimestamp()
+
+            // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+            modLogChannel.send({ content: 'thread.archived && thread.locked', embeds: [threadLogEntry] })
+                .catch(err => console.log(err))
+        }
         
 	},
 };
