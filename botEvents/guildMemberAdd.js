@@ -49,7 +49,7 @@ module.exports = {
 
 
             // LOGGING NEW USER JOINING GUILD
-            const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
+            const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
