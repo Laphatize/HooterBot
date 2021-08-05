@@ -6,25 +6,6 @@ module.exports = {
 	name: 'threadCreate',
 	async execute(thread, client) {
 
-        let threadDataEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`THREAD CREATED`)
-            .addField(`thread:`, `${thread}`)
-            .addField(`thread.name:`, `${thread.name}`)
-            .addField(`thread.type:`, `${thread.type}`)
-            .addField(`thread.ownerId:`, `${thread.ownerId}`)
-            .addField(`thread.owner [object]:`, `<@${thread.ownerId}>`)
-            .addField(`thread.guild:`, `${thread.guild}`)
-            .addField(`thread.guild.id:`, `${thread.guild.id}`)
-            .addField(`thread.guild.name:`, `${thread.guild.name}`)
-            .addField(`thread.parent.id:`, `${thread.parent.id}`)
-            .addField(`thread.parent [object]:`, `<#${thread.parent.id}>`)
-            .addField(`thread.autoArchiveDuration:`, `${thread.autoArchiveDuration} minutes`)
-            .addField(`thread.sendable:`, `${thread.sendable}`)
-            .addField(`thread.archived:`, `${thread.archived}`)
-            .addField(`thread.locked:`, `${thread.locked}`)
-
-
         // LOCATING MOD-LOG CHANNEL
         const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
  
@@ -42,8 +23,8 @@ module.exports = {
             threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
 
-        // CALCULATING ARCHIVE TIME
-        var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
+        // // CALCULATING ARCHIVE TIME
+        // var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
@@ -56,7 +37,7 @@ module.exports = {
             .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
-            .addField(`Scheduled Close:`, `*${threadDurationTimeString}* of inactivity.`)
+            .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
