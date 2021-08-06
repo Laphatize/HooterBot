@@ -109,22 +109,19 @@ module.exports = {
 
         const accountAge = ageArray.join('')
 
-        console.log(`Account age = ${accountAge}`)
-
-
         // AGE WARNING
         let ageWarning = " "
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue <= 23 ) {
-            ageWarning = `${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
+            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
         }
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue <= 11 ) {
-            ageWarning = `${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
+            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
         }
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue == 0 ) {
-            ageWarning = `${config.emjERROR} ***ACCOUNT IS LESS THAN 1 HOUR OLD***`
+            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 1 HOUR OLD***`
         }
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue == 0 && minuteValue <= 5 ) {
-            ageWarning = `${config.emjERROR} ***ACCOUNT IS LESS THAN 5 MINUTES OLD***`
+            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 5 MINUTES OLD***`
         }
 
 
@@ -135,7 +132,7 @@ module.exports = {
             .addField(`User:`, `${member}`, true)
             .addField(`Tag:`, `${member.user.tag}`, true)
             .addField(`ID:`, `${member.id}`, true)
-            .addField(`Account Created:`, `${accountCreated} ${ageWarning}`)
+            .addField(`Account Created:`, `${accountCreated}${ageWarning}`)
             .addField(`Account Age:`, `${accountAge}`)
             .setTimestamp()
 
