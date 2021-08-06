@@ -9,11 +9,11 @@ module.exports = {
             // IGNORE BOT
             if(member.id == config.botId)   return;
       
-            const rolesChannel = client.channels.cache.find(ch => ch.name === `roles`)
-            const questionsChannel = client.channels.cache.find(ch => ch.name === `📬｜temple-questions`)
-            const rulesChannel = client.channels.cache.find(ch => ch.name === `rules`)
-            const introduceYourselfChannel = client.channels.cache.find(ch => ch.name === `📢｜introduce-yourself`)
-            const joinsChannel = client.channels.cache.find(ch => ch.name === `joins`)
+            const rolesChannel = member.guild.channels.cache.find(ch => ch.name === `roles`)
+            const questionsChannel = member.guild.channels.cache.find(ch => ch.name === `📬｜temple-questions`)
+            const rulesChannel = member.guild.channels.cache.find(ch => ch.name === `rules`)
+            const introduceYourselfChannel = member.guild.channels.cache.find(ch => ch.name === `📢｜introduce-yourself`)
+            const joinsChannel = member.guild.channels.cache.find(ch => ch.name === `joins`)
             const ModMailId = config.ModMailId;
 
             // DM EMBED MESSAGE
@@ -49,14 +49,14 @@ module.exports = {
 
 
             // LOGGING NEW USER JOINING GUILD
-            const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
+            const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE IN S
             let discordCreateDate = moment(member.user.createdAt).format(`LLLL`)
 
 
             // CONVERTING TO UNIX (S) TIMESTAMPS
-            let accountAge = moment().format('DD MMM YYYY HH:mm:ss') - moment(member.user.createdAt).format('DD MMM YYYY HH:mm:ss')
+            let accountAge = moment() - moment(member.user.createdAt)
 
             console.log(`accountAge = ${accountAge}`)
 

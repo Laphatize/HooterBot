@@ -43,7 +43,7 @@ module.exports = {
 
 
             // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
-            ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
+            ticketChannel = message.guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER

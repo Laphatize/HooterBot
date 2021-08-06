@@ -116,7 +116,7 @@ module.exports = {
         .setColor(config.embedDarkGrey)
         .setTitle(`New Partner Message Submitted`)
         .addField(`User:`, `${interaction.user}`)
-        .addField(`Channel:`, `${client.channels.cache.find(ch => ch.name === `server-announcements`)}`)
+        .addField(`Channel:`, `${interaction.guild.channels.cache.find(ch => ch.name === `server-announcements`)}`)
         .setTimestamp()
 
         // SENDING TO LOG CHANNEL

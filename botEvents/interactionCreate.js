@@ -361,19 +361,6 @@ module.exports = {
                             // LOG ENTRY
                             interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                                 .catch(err => console.log(err))
-
-
-
-                            // UPDATE TICKET CATEGORY COUNTER
-                            // GRAB TICKET CATEGORY USING ID
-                            let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                            // COUNT OF TICKETS IN DB
-                            var ticketCount = await ticketSchema.find({
-                                GUILD_ID: interaction.guild.id
-                            }).countDocuments()
-                            .exec();
                         })
                 }
                 // END OF "BEGIN VERIFICATION (INITIAL PROMPT in #ROLES)" PROMPT BUTTON
@@ -632,18 +619,6 @@ module.exports = {
                 }).exec();
 
 
-                // UPDATE TICKET CATEGORY COUNTER
-                // GRAB TICKET CATEGORY USING ID
-                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                // COUNT OF TICKETS IN DB
-                var ticketCount = await ticketSchema.find({
-                    GUILD_ID: ticketGuildId
-                }).countDocuments()
-                .exec();
-
-
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
                     CREATOR_ID: interaction.user.id
@@ -887,19 +862,7 @@ module.exports = {
                                 .catch(err => console.log(err))
                         }
                     })
-
-
-                // UPDATE TICKET CATEGORY COUNTER
-                // GRAB TICKET CATEGORY USING ID
-                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                // COUNT OF TICKETS IN DB
-                var ticketCount = await ticketSchema.find({
-                    GUILD_ID: interaction.guild.id
-                }).countDocuments()
-                .exec();
-
+                    
 
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
@@ -1621,18 +1584,6 @@ module.exports = {
                                     .catch(err => console.log(err))
                             })
                     })
-
-
-                // UPDATE TICKET CATEGORY COUNTER
-                // GRAB TICKET CATEGORY USING ID
-                let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                // COUNT OF TICKETS IN DB
-                var ticketCount = await ticketSchema.find({
-                    GUILD_ID: interaction.guild.id
-                }).countDocuments()
-                .exec();
 
 
                 // DELETING DATABASE ENTRY
