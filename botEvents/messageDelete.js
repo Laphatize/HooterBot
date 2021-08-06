@@ -123,8 +123,7 @@ module.exports = {
             .setColor(config.embedOrange)
             .setTitle(`Message Deleted`)
             // .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-            .addField(`Channel:`, `${message.channel}`)
-            .addField(`Message:`, `${message.content}`)
+            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
             .setTimestamp()
 
         // LOG ENTRY
