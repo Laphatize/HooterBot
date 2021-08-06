@@ -116,7 +116,7 @@ module.exports = {
 
 
         // LOG CHANNEL
-        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
