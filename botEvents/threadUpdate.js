@@ -7,40 +7,40 @@ module.exports = {
 	async execute(oldThread, newThread, client) {
 
         // LOCATING MOD-LOG CHANNEL
-        const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = newThread.guild.channels.cache.find(ch => ch.name === `mod-log`)
  
 
         var threadDurationTimeString
 
         // CONVERTING THE ARCHIVE DURATION TO MINUTES OR DAYS DEPENDING ON VALUE
-        if(thread.autoArchiveDuration <= 60) {
-            threadDurationTimeString = `${thread.autoArchiveDuration} minutes`
+        if(newThread.autoArchiveDuration <= 60) {
+            threadDurationTimeString = `${newThread.autoArchiveDuration} minutes`
         }
-        if(thread.autoArchiveDuration > 60 && thread.autoArchiveDuration <= 1440 ) {
-            threadDurationTimeString = `${thread.autoArchiveDuration / (60)} hours`
+        if(newThread.autoArchiveDuration > 60 && newThread.autoArchiveDuration <= 1440 ) {
+            threadDurationTimeString = `${newThread.autoArchiveDuration / (60)} hours`
         }
-        if(thread.autoArchiveDuration > 1440) {
-            threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
+        if(newThread.autoArchiveDuration > 1440) {
+            threadDurationTimeString = `${newThread.autoArchiveDuration / (60 * 24)} days`
         }
 
 
-        // // GENERATE NOTICE EMBED
-        // let threadLogEntry = new discord.MessageEmbed()
-        //     .setColor(config.embedGrey)
-        //     .setTitle(`Thread Updated`)
-        //     .addField(`Thread:`, `${thread}`, true)
-        //     .addField(`Thread ID:`, `${thread.id}`, true)
-        //     .addField(`Thread Type:`, `${thread.type}`, true)
-        //     .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
-        //     .addField(`Creator:`, `<@${thread.ownerId}>`, true)
-        //     .addField(`Creator ID:`, `${thread.ownerId}`, true)
-        //     .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-        //     .addField(`Archived?`, `${!thread.archived}`, true)
-        //     .addField(`Locked?`, `${!thread.locked}`, true)
-        //     .setTimestamp()
+        // GENERATE NOTICE EMBED
+        let threadLogEntry = new discord.MessageEmbed()
+            .setColor(config.embedGrey)
+            .setTitle(`Thread Updated`)
+            .addField(`Thread:`, `${newThread}`, true)
+            .addField(`Thread ID:`, `${newThread.id}`, true)
+            .addField(`Thread Type:`, `${newThread.type}`, true)
+            .addField(`Parent Channel:`, `<#${newThread.parent.id}>`, true)
+            .addField(`Creator:`, `<@${newThread.ownerId}>`, true)
+            .addField(`Creator ID:`, `${newThread.ownerId}`, true)
+            .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
+            .addField(`Archived?`, `${!newThread.archived}`, true)
+            .addField(`Locked?`, `${!newThread.locked}`, true)
+            .setTimestamp()
 
-        // // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-        // modLogChannel.send({ embeds: [threadLogEntry] })
-        //     .catch(err => console.log(err))
+        // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+        modLogChannel.send({ embeds: [threadLogEntry] })
+            .catch(err => console.log(err))
 	},
 };
