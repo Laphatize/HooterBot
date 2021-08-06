@@ -58,9 +58,12 @@ module.exports = {
             console.log(`currentDate = ${currentDate}`)
             console.log(`discordCreateDate = ${discordCreateDate}`)
 
-            let accountAge = currentDate.diff(discordCreateDate)
+            // CONVERTING TO UNIX (S) TIMESTAMPS
+            let accountAge = moment(currentDate).format('X') - moment(discordCreateDate).format('X')
 
             console.log(`accountAge = ${accountAge}`)
+
+            
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
@@ -69,7 +72,7 @@ module.exports = {
                   .addField(`User:`, `${member}`, true)
                   .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
-                  .addField(`Joined Discord:`, `(Nothing here yet)`, true)
+                  .addField(`Joined Discord:`, `${discordCreateDate}`, true)
                   .addField(`Account Age:`, `(Nothing here yet)`, true)
                   .setTimestamp()
 
