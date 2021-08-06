@@ -47,10 +47,29 @@ module.exports = {
                   .catch(err => console.log(err))
 
 
-
             // LOGGING NEW USER JOINING GUILD
             const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
             
+
+
+            // ACCOUNT AGE
+            const accountAge = moment(member.user.createdAt).format('lll') + '\n*' + moment(new Date()).diff(member.user.createdAt, 'days') + ' days ago*';
+
+            // AGE WARNING
+            let ageWarning
+            if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(1, 'hours').format('Z')) {
+                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 HOUR OLD**`
+            }
+            if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(12, 'hours').format('Z')) {
+                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 12 HOURS OLD**`
+            }
+            if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(1, 'days').format('Z')) {
+                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 DAY OLD**`
+            }
+
+            console.log(`moment(member.user.createdAt).format('Z')          = ${moment(member.user.createdAt).format('Z')}`)
+            console.log(`moment(Date.now()).subtract(1, 'days').format('Z') = ${moment(Date.now()).subtract(1, 'days').format('Z')}`)
+
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
@@ -59,7 +78,7 @@ module.exports = {
                   .addField(`User:`, `${member}`, true)
                   .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
-                  .addField(`Account Created:`, `${moment(member.user.createdAt).format(`LLLL`)}`, true)
+                  .addField(`Account Created:`, `${accountAge} ${ageWarning}`, true)
                   .setTimestamp()
 
             // LOG ENTRY
