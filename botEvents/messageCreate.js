@@ -254,7 +254,6 @@ module.exports = {
             message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
                 .catch(err => console.log(err))
         }
-
     }
 }
 

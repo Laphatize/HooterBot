@@ -11,6 +11,10 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, args) => {
 
+        if(interaction.user.id == config.botAuthorId) {
+            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.id}\n**Slash Command Name:** ${interaction.name}`})
+        }
+
         // UPTIME CALCULATION
         let totalSeconds = (client.uptime / 1000);
         let days = Math.floor(totalSeconds / 86400);

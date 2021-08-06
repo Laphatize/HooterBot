@@ -23,6 +23,10 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        if(interaction.user.id == config.botAuthorId) {
+            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.id}\n**Slash Command Name:** ${interaction.name}`})
+        }
+
         // GRABBING SLASH COMMAND INPUT VALUES
         const userId = inputs[0];
         const blacklistReason = inputs[1];

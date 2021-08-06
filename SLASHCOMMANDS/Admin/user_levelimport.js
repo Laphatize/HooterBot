@@ -113,6 +113,10 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        if(interaction.user.id == config.botAuthorId) {
+            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.id}\n**Slash Command Name:** ${interaction.name}`})
+        }
+
         // APPEND XP VALUE FOR USERS
         // 1st USER
         levels.appendXp(inputs[0], interaction.guild.id, inputs[1]);
