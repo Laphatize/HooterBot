@@ -11,7 +11,10 @@ module.exports = {
 
 
         // ACCOUNT AGE CALCULATION
-        let totalSeconds = moment(new Date()).diff(member.user.joinedAt, 'seconds');
+        let totalSeconds = moment(member.user.joinedAt).diff((new Date()), 'seconds');
+
+
+        console.log(`totalSeconds = ${totalSeconds}`)
         
         // YEARS CALCULATION
         let yearValue = Math.floor(totalSeconds / 31536000 );
