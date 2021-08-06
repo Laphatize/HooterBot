@@ -30,7 +30,7 @@ module.exports = {
 
 
         // CHANNEL DESCRIPTION/TOPIC CHANGE CHECK
-        if(oldChannel.name !== newChannel.name) {
+        if(oldChannel.topic !== newChannel.topic) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
