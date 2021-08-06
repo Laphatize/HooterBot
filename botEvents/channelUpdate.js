@@ -50,7 +50,7 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Channel Topic Update`)
-                .setDescription(`**Channel** ${newChannel}\n**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
+                .setDescription(`**Channel:** ${newChannel}\n**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
                 .setTimestamp()
                 .setFooter(`Channel ID: ${newChannel.id}`)
 
@@ -59,20 +59,33 @@ module.exports = {
         }
 
 
-        // // CHANNEL POSITION CHANGE CHECK
-        // if(oldChannel.position !== newChannel.position) {
-        //     // LOG EMBED
-        //     let logEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setTitle(`Channel Topic Update`)
-        //         .setDescription(`**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
-        //         .setTimestamp()
+        // CHANNEL POSITION CHANGE CHECK
+        if(oldChannel.position !== newChannel.position) {
 
-        //     // LOG ENTRY
-        //     modLogChannel.send({embeds: [logEmbed]})
-        // }
+            // MOVED WITHIN SAME CATEGORY
+            if(oldChannel.parent.name == newChannel.parent.name) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`Channel Moved`)
+                    .setDescription(`**Channel:** ${newChannel}\n**Catgory:** ${newChannel.parent.name}`)
+                    .setTimestamp()
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+            // MOVED TO DIFFERENT CATEGORY
+            else {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`Channel Moved`)
+                    .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** ${oldChannel.parent.name}\n**Old Catgory:** ${newChannel.parent.name}`)
+                    .setTimestamp()
 
-
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+        }
 
         // CHANNEL PERMISSIONS CHANGE CHECK
 

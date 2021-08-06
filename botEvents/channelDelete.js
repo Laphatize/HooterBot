@@ -5,10 +5,6 @@ const config = require('../config.json');
 module.exports = {
     name: 'channelDelete',
     async execute(channel, client) {
-
-        // IGNORE VERIFICATION CHANNELS
-        if(oldChannel.name.startsWith('verify-'))   return;
-
         
         // LOG CHANNEL
         const modLogChannel = channel.guild.channels.cache.find(ch => ch.name === `mod-log`)
