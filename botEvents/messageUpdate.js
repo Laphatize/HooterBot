@@ -13,9 +13,7 @@ module.exports = {
             .setColor(config.embedGrey)
             .setTitle(`Message Updated`)
             .setAuthor(oldMessage.author.tag, oldMessage.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`Channel: ${oldMessage.channel}
-                \nOld Message: ${oldMessage.content}
-                \nNew Message`, `${newMessage.content}`)
+            .setDescription(`Channel: ${oldMessage.channel}\nOld Message: ${oldMessage.content}\nNew Message`, `${newMessage.content}`)
             .setTimestamp()
 
         // LOG ENTRY
