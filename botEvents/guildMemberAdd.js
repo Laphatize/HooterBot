@@ -51,21 +51,6 @@ module.exports = {
             // LOGGING NEW USER JOINING GUILD
             const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
             
-            // CALCULATING DISCORD AGE IN S
-            var discordCreateDate = moment(member.user.createdAt).format()
-            var currentDate = moment().format()
-
-            // CONVERTING TO UNIX (S) TIMESTAMPS
-            var accountAge = currentDate.diff(discordCreateDate)
-
-            console.log(`accountAge = ${accountAge}`)
-
-
-            // CONVERTING SECONDS DURATION INTO YEAR MONTHS DAYS HOURS SECONDS
-            // if(accountAge) {
-
-            // }
-
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
@@ -74,8 +59,7 @@ module.exports = {
                   .addField(`User:`, `${member}`, true)
                   .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
-                  .addField(`Joined Discord:`, `${discordCreateDate}`, true)
-                  .addField(`Account Age:`, `(Nothing here yet)`, true)
+                  .addField(`Joined Discord:`, `${moment(member.user.createdAt).format(`LLLL`)}`, true)
                   .setTimestamp()
 
             // LOG ENTRY
