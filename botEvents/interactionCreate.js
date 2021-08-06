@@ -250,6 +250,8 @@ module.exports = {
                     }).exec();
 
 
+                    let ticketCategory;
+
                     // FETCH TICKET CATEGORY FROM DATABASE
                     if(dbGuildData.TICKET_CAT_ID) {
                         ticketCategory = dbGuildData.TICKET_CAT_ID;

@@ -7,12 +7,12 @@ module.exports = {
     async execute(oldChannel, newChannel, client) {
 
         // IGNORE VERIFICATION CHANNELS
-        if(oldChannel.name.startsWith('verify-'))   return;
+        if(oldChannel.name.startsWith('verify-') || oldChannel.name.startsWith('closed-') || oldChannel.name.startsWith('archived-'))   return;
 
 
 
         // LOG CHANNEL
-        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = newChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         
         // CHANNEL NAME CHANGE CHECK
