@@ -112,7 +112,7 @@ module.exports = {
         // AGE WARNING
         let ageWarning = " "
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue <= 23 ) {
-            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
+            ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 1 DAY OLD***`
         }
         if( yearValue == 0 && monthValue == 0 && dayValue == 0 && hourValue <= 11 ) {
             ageWarning = `\n${config.emjERROR} ***ACCOUNT IS LESS THAN 12 HOURS OLD***`
