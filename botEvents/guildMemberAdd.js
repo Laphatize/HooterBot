@@ -64,7 +64,7 @@ module.exports = {
             totalSeconds %= 31536000
 
             // MONTHS CALCULATION
-            let monthValue = Math.floor(years / 2628288 );
+            let monthValue = Math.floor(totalSeconds / 2628288 );
             totalSeconds %= 2628288
 
             // DAYS CALCULATION
