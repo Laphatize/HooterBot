@@ -83,6 +83,8 @@ for (const folder of slashCommands) {
 	}
 }
 
+
+
 // REGISTERING SLASH COMMANDS
 client.on('ready', async () => {
     // SLASH COMMANDS
