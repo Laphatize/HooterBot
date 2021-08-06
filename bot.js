@@ -140,6 +140,39 @@ process.on('unhandledRejection', err => {
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
+// TICKET CATEGORY COUNTER
+// EVERY 15 MINUTES
+cron.schedule('00 00 */15 * * *', async () => {
+
+    console.log(`Updating the ticket category counters`)
+
+    // CHECK IF DATABASE HAS AN ENTRY
+    const dbGuildData = await guildSchema.findOne({
+        GUILD_ID: channel.guild.id
+    }).exec();
+
+    ticketCategory = dbGuildData.TICKET_CAT_ID;
+
+
+    // FETCHING THE GUILD FROM DATABASE
+    guild = client.guilds.cache.get(dbGuildData.GUILD_ID)
+
+
+    // GRAB TICKET CATEGORY USING ID
+    let ticketCategory = guild.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+
+
+    // SETTING COUNT VALUES
+    let ticketCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+
+    // UPDATING CATEGORY VALUES
+    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
+})
+
+
+
 // BIRTHDAY CHECKS
 // EVERY DAY AT 8:00AM EST
 cron.schedule('00 00 08 * * *', async () => {

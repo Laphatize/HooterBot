@@ -10,8 +10,8 @@ module.exports = {
         const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
-        // ACCOUNT AGE CALCULATION
-        let totalSeconds = moment(member.user.joinedAt).diff((new Date()), 'seconds');
+        // USER TIME IN GUILD CALCULATION
+        let totalSeconds = moment(new Date()).diff(member.user.joinedAt, 'seconds')
 
 
         console.log(`totalSeconds = ${totalSeconds}`)
