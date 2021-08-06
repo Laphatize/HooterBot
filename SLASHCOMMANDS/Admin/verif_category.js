@@ -2,6 +2,8 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema')
 
+// COMMAND ID: 871502773286490195
+
 module.exports = {
     name: 'verif_category',
     description: `ADMIN | Set ticket channel creation category. Cannot modify category once set. [10s]`,

@@ -3,6 +3,8 @@ const { MessageActionRow, MessageButton } = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
+// COMMAND ID: 871502773286490198
+
 module.exports = {
     name: 'verif_promptembed',
     description: `ADMIN | Generate/update the verification prompt containing the buttons. [60s]`,

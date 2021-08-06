@@ -1,6 +1,8 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
+// COMMAND ID: 
+
 module.exports = {
     name: 'permissions',
     description: `MODERATOR | Checks HooterBot's default permissions or a role and channel combination.`,

@@ -2,6 +2,8 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const levels = require('discord-xp');
 
+// COMMAND ID: 871635696207679529
+
 module.exports = {
     name: 'level',
     description: `The XP, level, and leaderboard rank for yourself or a specified user. (🤖｜bot-spam) [10s]`,

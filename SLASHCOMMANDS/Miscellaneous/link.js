@@ -1,3 +1,7 @@
+const config = require ('../../config.json')
+
+// COMMAND ID: 
+
 module.exports = {
     name: 'link',
     description: `Generates a link to a Temple University resource.`,

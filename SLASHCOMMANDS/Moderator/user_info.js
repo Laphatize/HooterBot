@@ -2,6 +2,8 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const moment = require('moment');
 
+// COMMAND ID: 
+
 module.exports = {
     name: 'user_info',
     description: `MODERATOR | A command for generating information about a specific user in the server.`,

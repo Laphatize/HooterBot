@@ -2,6 +2,8 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 
+// COMMAND ID: 871502773286490194
+
 module.exports = {
     name: 'verif_blacklist',
     description: `ADMIN | Blacklist a user from the verification system. [10s]`,

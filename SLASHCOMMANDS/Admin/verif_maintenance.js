@@ -3,6 +3,8 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
+// COMMAND ID: 871502773286490196
+
 module.exports = {
     name: 'verif_maintenance',
     description: `ADMIN | Toggle verification prompt to enter/exit maintenance mode. [10s]`,

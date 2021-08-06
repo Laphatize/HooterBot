@@ -1,6 +1,8 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
+// COMMAND ID: 871240034152501263
+
 module.exports = {
     name: 'sponsor',
     description: `Info on supporting the development and operations of ${config.botName}. [60s]`,

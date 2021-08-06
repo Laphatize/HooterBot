@@ -2,6 +2,8 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
 
+// COMMAND ID: 871240034152501261
+
 module.exports = {
     name: 'user_birthday',
     description: `ADMIN | A command for admins to migrate MEE6's birthdays over to HooterBot. [10s]`,

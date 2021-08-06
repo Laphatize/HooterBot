@@ -1,6 +1,8 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
+// COMMAND ID: 871240034152501259
+
 module.exports = {
     name: 'partner_message',
     description: 'ADMIN | Generate embed in \#server-announcements to share messages from partner servers. [10s]',

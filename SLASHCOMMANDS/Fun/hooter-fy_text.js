@@ -3,6 +3,7 @@ const fs = require('fs');
 const config = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 
+// COMMAND ID: 872905484468903956
 
 module.exports = {
     name: 'hooter-fy_text',
