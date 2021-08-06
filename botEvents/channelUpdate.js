@@ -21,25 +21,40 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Channel Name Update`)
-                .setDescription(`**Old:** \`\`${oldChannel.name}\`\`\n**New:** \`\`${newChannel.name}\`\``)
+                .setDescription(`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
                 .setTimestamp()
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
         }
 
-        // CHANNEL DESCRIPTION CHANGE CHECK
+
+        // CHANNEL DESCRIPTION/TOPIC CHANGE CHECK
+        if(oldChannel.name !== newChannel.name) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Channel Topic Update`)
+                .setDescription(`**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
+                .setTimestamp()
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
 
+        // // CHANNEL POSITION CHANGE CHECK
+        // if(oldChannel.position !== newChannel.position) {
+        //     // LOG EMBED
+        //     let logEmbed = new discord.MessageEmbed()
+        //         .setColor(config.embedGrey)
+        //         .setTitle(`Channel Topic Update`)
+        //         .setDescription(`**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
+        //         .setTimestamp()
 
-
-        // CHANNEL POSITION CHANGE CHECK
-
-
-
-
-        // CHANNEL TOPIC CHANGE CHECK
-
+        //     // LOG ENTRY
+        //     modLogChannel.send({embeds: [logEmbed]})
+        // }
 
 
 
