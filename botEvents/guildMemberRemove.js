@@ -69,7 +69,7 @@ module.exports = {
 
         // JOIN EMBED
         let logLeaveGuild = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
+                .setColor(config.embedOrange)
                 .setTitle(`Server Member Left`)
                 .addField(`User:`, `${member}`, true)
                 .addField(`Tag:`, `${member.user.tag}`, true)
