@@ -13,7 +13,7 @@ module.exports = {
 
         if(interaction.user.id !== config.botAuthorId) {
             let embed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
+                .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
                 .setDescription(`You're not ${config.botAuthorUsername}. Please run this command when you are ${config.botAuthorUsername}.`)
 
@@ -21,17 +21,18 @@ module.exports = {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        
-        const commands = await client.application?.commands.set(data)
-        console.log(`\n\n`, commands, `\n\n`)
+        // FETCH ALL GUILD COMMANDS
+        guild.commands.fetch()
+            .then(commands => console.log(`Fetched ${commands.size} commands:\n`))
+            .catch(console.error)
 
 
         let embed = new discord.MessageEmbed()
-            .setColor(config.embedTempleRed)
+            .setColor(config.embedBlurple)
             .setTitle(`${config.emjGREENTICK} ApplicationCommandData successfully generated.`)
             .setDescription(`MMM visit the logs to view the ApplicationCommandData results.`)
 
         // SENDING TO CHANNEL
-        return interaction.reply({ embeds: [embed], ephemeral: true })
+        return interaction.reply({ embeds: [embed] })
     }
 }
