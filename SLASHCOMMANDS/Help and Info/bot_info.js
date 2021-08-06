@@ -46,7 +46,7 @@ module.exports = {
             .addField(`Bot Version:`, `**${pjson.version}**`, true)
             .addField(`Build Date:`, `${config.buildDate}`, true)
             .addField(`${config.emjNodejs} NodeJS:`, `${process.version.split(`v`).pop()}`, true)
-            .addField(`${config.emjDJSdev} Discord.js:`, `${DJSversion}`, true)
+            .addField(`${DJSemoji} Discord.js:`, `${DJSversion}`, true)
             .addField(`Uptime:`, `${botUptime}`, true)
             .addField(`Description:`, `*"${pjson.description}"*`)
             .addField(`GitHub Repository`, `${pjson.repository.url.split(`+`).pop()}`)
