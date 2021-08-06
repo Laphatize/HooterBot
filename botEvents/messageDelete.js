@@ -6,10 +6,6 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
-        // // IGNORE BOT
-        // if(message.author.bot) return;
-
-
         // IGNORE NON-GUILD CHANNELS
         if(message.channel.type === 'DM') return;
 
@@ -119,6 +115,26 @@ module.exports = {
         if(message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.id == '870150164432687135') return;
 
 
+        // DELAY FOR AUDIT LOG TO UPDATE
+        await discord.Util.delayFor(900);
+
+
+        // FETCHING RECENT AUDIT LOGS
+        const fetchedLogs = await message.guild.fetchAuditLogs({
+            limit: 6,
+            type: 'MESSAGE_DELETE'
+        }).catch(err => console.log(err))
+
+        const auditEntry = fetchedLogs.entries.find(a =>
+            // FILTER
+            a.target.id === message.author.id &&
+            a.extra.channel.id === message.channel.id &&
+            Date.now() - a.createdTimestamp < 20000         // IGNORING ENTRIES OLDER THAN 20s
+        )
+        
+        // IF EXISTS, GRAB USER
+        const executor = auditEntry.executor ? auditEntry.executor.tag : 'Unknown'
+
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
@@ -126,8 +142,9 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Message Deleted`)
-            .setDescription(`**Message Author:** \n**Message Author ID:** \n**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-            .setTimestamp()
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+            .setTimestamp(`Deleted by: ${executor}`)
 
         // LOG ENTRY
         modLogChannel.send({embeds: [logEmbed]})
