@@ -4,6 +4,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json');
 const birthdaySchema = require('./Database/birthdaySchema');
+const guildSchema = require('./Database/guildSchema');
 const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
