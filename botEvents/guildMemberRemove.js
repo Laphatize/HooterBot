@@ -140,22 +140,3 @@ module.exports = {
         //     modLogChannel.send({embeds: [logJoinGuild]})
 	},
 };
-
-
-
-// FUNCTION THAT GENERATES THE RANDOM START OF THE WELCOME MESSAGE
-function createStart(member) {
-      const channelMsgStart = [
-            `Welcome to the nest, ${member}! ${config.emjTempleT}`,
-            `Welcome to the nest, ${member}! ${config.emjTempleTWhite}`,
-            `Welcome to the nest, ${member}! ${config.emjOwl}`,
-            `Thanks for flying in, ${member}! ${config.emjHooter1}`,
-            `Thanks for flying in, ${member}! ${config.emjHooter2}`,
-            `${config.emjOwl} Welcome to the server, ${member}!`,
-            `${config.emjTempleT} Welcome to the server, ${member}!`,
-            `${config.emjTempleTWhite} Welcome to the server, ${member}!`,
-            `${config.emjHooter1} Welcome to the server, ${member}!`,
-            `${config.emjHooter2} Welcome to the server, ${member}!`,
-            ];      
-      return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
-}
