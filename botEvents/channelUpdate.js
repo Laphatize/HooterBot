@@ -21,7 +21,7 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Channel Name Update`)
-                .setDescription(`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
+                .setDescription(`**Old:** \`\`${oldChannel.name}\`\`\n**New:** \`\`${newChannel.name}\`\``)
                 .setTimestamp()
 
             // LOG ENTRY
@@ -45,17 +45,5 @@ module.exports = {
 
         // CHANNEL PERMISSIONS CHANGE CHECK
 
-
-
-
-
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Channel Update`)
-            .setTimestamp()
-
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
 	},
 };
