@@ -59,8 +59,7 @@ module.exports = {
                   .addField(`User:`, `${member}`, true)
                   .addField(`Tag:`, `${member.user.tag}`, true)
                   .addField(`ID:`, `${member.id}`, true)
-                  .addField(`Joined Discord:`, `${moment(member.user.createdAt).format(`LLLL`)}`, true)
-                  .addField(`Account Age`, `${moment(member.user.createdAt).startOf('hour').fromNow()}`)
+                  .addField(`Account Created:`, `${moment(member.user.createdAt).format(`LLLL`)}`, true)
                   .setTimestamp()
 
             // LOG ENTRY

@@ -29,7 +29,7 @@ module.exports = {
                 const flags = await member.fetchFlags()
                 var userFlags = flags.toArray()
 
-                if(!userFlags) {
+                if(!userFlags || userFlags == ` `) {
                     userFlags = `*(None)*`
                 }
                 if(userFlags) {
