@@ -52,18 +52,18 @@ module.exports = {
             const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE IN S
-            let currentDate = moment().format(`LLLL`)
             let discordCreateDate = moment(member.user.createdAt).format(`LLLL`)
 
-            console.log(`currentDate = ${currentDate}`)
-            console.log(`discordCreateDate = ${discordCreateDate}`)
 
             // CONVERTING TO UNIX (S) TIMESTAMPS
-            let accountAge = moment(currentDate).format('X') - moment(discordCreateDate).format('X')
+            let accountAge = moment().format('DD MMM YYYY HH:mm:ss') - moment(member.user.createdAt).format('DD MMM YYYY HH:mm:ss')
 
             console.log(`accountAge = ${accountAge}`)
 
-            
+
+            // CONVERTING SECONDS DURATION INTO YEAR MONTHS DAYS HOURS SECONDS
+            if(accountAge )
+
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
