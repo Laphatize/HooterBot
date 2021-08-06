@@ -112,7 +112,7 @@ module.exports = {
 
 
         // IGNORE MOD-LOG CHANNEL DELETIONS
-        if(message.channel.name == `mod-log` || message.channel.id == '870150164432687135') return;
+        if(message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.id == '870150164432687135') return;
 
 
         // LOG CHANNEL

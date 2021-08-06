@@ -12,8 +12,8 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedGrey)
             .setTitle(`Message Updated`)
-            .setAuthor(oldMessage.author.tag, oldMessage.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${oldMessage.channel}\n**Old Message:** ${oldMessage.content}\n**New Message:**\n${newMessage.content}`)
+            .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
+            .setDescription(`**Channel:** ${oldMessage.channel}\n**Old Message:** ${oldMessage.content}\n**New Message:** ${newMessage.content}`)
             .setTimestamp()
 
         // LOG ENTRY
