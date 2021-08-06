@@ -3,7 +3,7 @@ const config = require('../config.json');
 const moment = require('moment');
 
 module.exports = {
-	name: 'guildMemberAdd',
+	name: 'guildMemberRemove',
 	async execute(member, client) {
 
         // LOGGING NEW USER JOINING GUILD
