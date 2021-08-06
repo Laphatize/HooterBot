@@ -52,8 +52,8 @@ module.exports = {
             const modLogChannel = client.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE IN S
-            let currentDate = moment(Date.now())
-            let discordCreateDate = moment(member.user.createdAt).format(`LLL`)
+            let currentDate = moment(Date.now(), `DD MM YYYY hh:mm:ss`, true)
+            let discordCreateDate = moment(member.user.createdAt, `DD MM YYYY hh:mm:ss`, true)
 
             console.log(`currentDate = ${currentDate}`)
             console.log(`discordCreateDate = ${discordCreateDate}`)
