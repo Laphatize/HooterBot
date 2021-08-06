@@ -7,7 +7,7 @@ module.exports = {
 	async execute(channel, client) {
 
         // IGNORE VERIFICATION CHANNELS
-        if(oldChannel.name.startsWith('verify-'))   return;
+        if(channel.name.startsWith('verify-'))   return;
 
 
         // LOG CHANNEL

@@ -6,8 +6,8 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
-        // IGNORE BOT
-        if(message.author.bot) return;
+        // // IGNORE BOT
+        // if(message.author.bot) return;
 
 
         // IGNORE NON-GUILD CHANNELS
