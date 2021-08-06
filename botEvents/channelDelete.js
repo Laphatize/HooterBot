@@ -6,8 +6,12 @@ module.exports = {
     name: 'channelDelete',
     async execute(channel, client) {
 
+        // IGNORE VERIFICATION CHANNELS
+        if(oldChannel.name.startsWith('verify-'))   return;
+
+        
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = channel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()

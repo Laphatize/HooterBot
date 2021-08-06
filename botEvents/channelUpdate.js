@@ -5,6 +5,11 @@ const config = require('../config.json');
 module.exports = {
     name: 'channelUpdate',
     async execute(oldChannel, newChannel, client) {
+
+        // IGNORE VERIFICATION CHANNELS
+        if(oldChannel.name.startsWith('verify-'))   return;
+
+
         
         // CHANNEL NAME CHANGE CHECK
 
@@ -35,7 +40,7 @@ module.exports = {
 
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
