@@ -5,6 +5,10 @@ module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
 
+        // IGNORE BOT
+        if(message.author.bot) return;
+
+        
         // LOG CHANNEL
         const modLogChannel = oldMessage.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
@@ -13,7 +17,7 @@ module.exports = {
             .setColor(config.embedGrey)
             .setTitle(`Message Updated`)
             .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${oldMessage.channel}\n**Old Message:** ${oldMessage.content}\n**New Message:** ${newMessage.content}`)
+            .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n**New:** ${newMessage.content}`)
             .setTimestamp()
 
         // LOG ENTRY

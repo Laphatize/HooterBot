@@ -37,7 +37,6 @@ module.exports = {
             'KICK_MEMBERS',
             'BAN_MEMBERS',
         ]
-
         const textPermsArray = [
             'VIEW_CHANNEL',
             'SEND_MESSAGES', 
@@ -51,8 +50,6 @@ module.exports = {
             'SEND_TTS_MESSAGES',
             'USE_APPLICATION_COMMANDS',
         ]
-
-
         const voicePermsArray = [
             'VIEW_CHANNEL',
             'CONNECT',
@@ -65,7 +62,6 @@ module.exports = {
             'MOVE_MEMBERS',
             'REQUEST_TO_SPEAK'
         ]
-
         const channel = inputs[0]
         const role = inputs[1]
 

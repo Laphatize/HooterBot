@@ -6,6 +6,10 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
+        // IGNORE BOT
+        if(message.author.bot) return;
+
+
         // IGNORE NON-GUILD CHANNELS
         if(message.channel.type === 'DM') return;
 
@@ -122,7 +126,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Message Deleted`)
-            // .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
             .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
             .setTimestamp()
 
