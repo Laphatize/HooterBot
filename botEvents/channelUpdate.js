@@ -74,7 +74,7 @@ module.exports = {
                 modLogChannel.send({embeds: [logEmbed]})
             }
             // MOVED TO DIFFERENT CATEGORY
-            else {
+            if(oldChannel.parent.name !== newChannel.parent.name) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
