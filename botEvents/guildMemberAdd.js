@@ -56,20 +56,17 @@ module.exports = {
             const accountAge = moment(member.user.createdAt).format('lll') + '\n*' + moment(new Date()).diff(member.user.createdAt, 'days') + ' days ago*';
 
             // AGE WARNING
-            let ageWarning
+            let ageWarning = " "
             if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(1, 'hours').format('Z')) {
-                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 HOUR OLD**`
+                  ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 HOUR OLD**`
             }
             if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(12, 'hours').format('Z')) {
-                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 12 HOURS OLD**`
+                  ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 12 HOURS OLD**`
             }
             if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(1, 'days').format('Z')) {
-                  return ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 DAY OLD**`
+                  ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 DAY OLD**`
             }
-
-            console.log(`moment(member.user.createdAt).format('Z')          = ${moment(member.user.createdAt).format('Z')}`)
-            console.log(`moment(Date.now()).subtract(1, 'days').format('Z') = ${moment(Date.now()).subtract(1, 'days').format('Z')}`)
-
+            
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
