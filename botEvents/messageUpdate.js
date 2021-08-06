@@ -6,9 +6,9 @@ module.exports = {
 	async execute(oldMessage, newMessage, client) {
 
         // IGNORE BOT
-        if(message.author.bot) return;
+        if(oldMessage.author.bot || newMessage.author.bot) return;
 
-        
+
         // LOG CHANNEL
         const modLogChannel = oldMessage.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
