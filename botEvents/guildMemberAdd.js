@@ -105,7 +105,7 @@ module.exports = {
 
             if(secondValue > 1 || secondValue == 0) ageArray.push(`and ${secondValue} seconds. `)
             if(secondValue == 1) ageArray.push(`and ${secondValue} second.`)
-            if(secondValue == 0 && secondValue > 0) ageArray.push(`and ${secondValue} seconds. `)
+            if(secondValue == 0 && minuteValue > 0) ageArray.push(`and ${secondValue} seconds. `)
 
         const accountAge = ageArray.join('')
 
