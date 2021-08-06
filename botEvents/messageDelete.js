@@ -126,8 +126,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Message Deleted`)
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+            .setDescription(`**Message Author:** ${message.author.tag}\n**Channel:** ${message.channel}\n**Message:** ${message.content}`)
             .setTimestamp()
 
         // LOG ENTRY
