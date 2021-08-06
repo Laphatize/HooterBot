@@ -16,7 +16,7 @@ module.exports = {
 
         
         // CHANNEL NAME CHANGE CHECK
-        if(oldChannel.name !== newChannel.name) {
+        if(oldChannel.name !== newChannel.name && newChannel.type == 'GUILD_TEXT') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -29,9 +29,23 @@ module.exports = {
             modLogChannel.send({embeds: [logEmbed]})
         }
 
+        // CATEGORY NAME CHANGE CHECK
+        if(oldChannel.name !== newChannel.name && newChannel.type == 'GUILD_CATEGORY') {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Category Name Update`)
+                .setDescription(`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
+                .setTimestamp()
+                .setFooter(`Category ID: ${newChannel.id}`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
+
 
         // CHANNEL DESCRIPTION/TOPIC CHANGE CHECK
-        if(oldChannel.topic !== newChannel.topic) {
+        if(oldChannel.topic !== newChannel.topic && newChannel.type == 'GUILD_TEXT') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
