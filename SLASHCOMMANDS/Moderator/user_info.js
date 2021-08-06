@@ -29,11 +29,11 @@ module.exports = {
                 const flags = await member.fetchFlags()
                 var userFlags = flags.toArray()
 
-                if(!userFlags || userFlags == ` `) {
-                    userFlags = `*(None)*`
-                }
                 if(userFlags) {
                     userFlags = `\`\`${userFlags.join(`\n`)}\`\``
+                }
+                else{
+                    userFlags = `*(None)*`
                 }
 
                 // GRABBING NICKNAME IF SET
