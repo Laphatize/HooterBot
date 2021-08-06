@@ -53,7 +53,7 @@ module.exports = {
             
             // CALCULATING DISCORD AGE IN S
             var discordCreateDate = moment(member.user.createdAt).format()
-            var currentDate = moment(Day()).format()
+            var currentDate = moment().format()
 
             // CONVERTING TO UNIX (S) TIMESTAMPS
             var accountAge = currentDate.diff(discordCreateDate)
