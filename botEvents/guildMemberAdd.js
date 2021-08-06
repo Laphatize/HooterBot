@@ -62,7 +62,9 @@ module.exports = {
 
 
             // CONVERTING SECONDS DURATION INTO YEAR MONTHS DAYS HOURS SECONDS
-            if(accountAge )
+            // if(accountAge) {
+
+            // }
 
 
             // JOIN EMBED
