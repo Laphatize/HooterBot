@@ -1,7 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
-// COMMAND ID: 
+// COMMAND ID: 872184009780781128
 
 module.exports = {
     name: 'verif_pm',

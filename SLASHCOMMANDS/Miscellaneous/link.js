@@ -1,6 +1,6 @@
 const config = require ('../../config.json')
 
-// COMMAND ID: 
+// COMMAND ID: 871240034152501266
 
 module.exports = {
     name: 'link',
