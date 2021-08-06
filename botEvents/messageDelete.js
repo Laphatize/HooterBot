@@ -112,14 +112,14 @@ module.exports = {
 
 
         // IGNORE MOD-LOG CHANNEL DELETIONS
-        if(message.channel.name == `mod-log`) return;
+        if(message.channel.name == `mod-log` || message.channel.id == '870150164432687135') return;
 
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Message Deleted`)
-            .setAuthor(message.author.user.username, message.author.user.displayAvatarURL({ dynamic:true }))
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
             .addField(`Channel:`, `${message.channel}`)
             .addField(`Message:`, `${message.content}`)
             .setTimestamp()
