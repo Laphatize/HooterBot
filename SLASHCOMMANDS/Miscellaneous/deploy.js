@@ -22,7 +22,7 @@ module.exports = {
         }
 
         // FETCH ALL GUILD COMMANDS
-        interaction.guild.commands.fetch()
+        client.application?.commands.fetch()
             .then(commands => console.log(`Fetched ${commands.size} commands:\n${commands}\n\n`))
             .catch(console.error)
 
