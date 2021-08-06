@@ -52,11 +52,11 @@ module.exports = {
             const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
             
             // CALCULATING DISCORD AGE IN S
-            let discordCreateDate = moment(member.user.createdAt).format(`LLLL`)
-
+            var discordCreateDate = moment(member.user.createdAt).format()
+            var currentDate = moment(Day()).format()
 
             // CONVERTING TO UNIX (S) TIMESTAMPS
-            let accountAge = moment(member.user.createdAt).fromNow()
+            var accountAge = currentDate.diff(discordCreateDate)
 
             console.log(`accountAge = ${accountAge}`)
 
