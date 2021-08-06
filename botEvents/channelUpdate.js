@@ -10,11 +10,23 @@ module.exports = {
         if(oldChannel.name.startsWith('verify-'))   return;
 
 
+
+        // LOG CHANNEL
+        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
+
         
         // CHANNEL NAME CHANGE CHECK
+        if(oldChannel.name !== newChannel.name) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Channel Name Update`)
+                .setDescription(`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
+                .setTimestamp()
 
-
-
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
         // CHANNEL DESCRIPTION CHANGE CHECK
 
@@ -36,11 +48,6 @@ module.exports = {
 
 
 
-
-
-
-        // LOG CHANNEL
-        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()

@@ -4,7 +4,7 @@ const config = require('../config.json');
 
 module.exports = {
 	name: 'guildBanRemove',
-	async execute(guild, user, client) {
+	async execute(ban, client) {
 
         // LOG CHANNEL
         const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
