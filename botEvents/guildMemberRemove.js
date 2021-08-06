@@ -11,7 +11,7 @@ module.exports = {
             
         let memberDuration = Date.now() - Date.parse(member.user.joinedAt)
 
-        console.log(`memberDuration`)
+        console.log(`memberDuration = ${memberDuration}`)
 
 
         // JOIN EMBED
