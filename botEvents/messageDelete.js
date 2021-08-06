@@ -115,6 +115,9 @@ module.exports = {
         if(message.channel.name == `mod-log` || message.channel.id == '870150164432687135') return;
 
 
+        // LOG CHANNEL
+        const modLogChannel = oldChannel.guild.channels.cache.find(ch => ch.name === `mod-log`)
+
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
