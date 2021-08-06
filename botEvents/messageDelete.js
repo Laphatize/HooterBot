@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IGNORE NON-GUILD CHANNELS
-        if(message.channel.type === 'DM') return;
+        if(!message.guild) return;
 
 
         // RULES CHANNEL FOR RULES EMBED
@@ -116,12 +116,12 @@ module.exports = {
 
 
         // DELAY FOR AUDIT LOG TO UPDATE
-        await discord.Util.delayFor(900);
+        await discord.Util.delayFor(1500);
 
 
         // FETCHING RECENT AUDIT LOGS
         const fetchedLogs = await message.guild.fetchAuditLogs({
-            limit: 6,
+            limit: 5,
             type: 'MESSAGE_DELETE'
         }).catch(err => console.log(err))
 
@@ -131,22 +131,38 @@ module.exports = {
             a.extra.channel.id === message.channel.id &&
             Date.now() - a.createdTimestamp < 20000         // IGNORING ENTRIES OLDER THAN 20s
         )
+
+        if(!auditEntry) return;
         
-        // IF EXISTS, GRAB USER
-        const executor = auditEntry.executor ? auditEntry.executor.tag : 'Unknown'
+        const { executor, target } = auditEntry
+        
 
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
-            .setTitle(`Message Deleted`)
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-            .setTimestamp(`Deleted by: ${executor}`)
 
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+        if(target.id === message.author.id) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+                .setTimestamp(`Message deleted by user.`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        } else {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+                .setTimestamp(`Message deleted by: ${executor.tag}`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
