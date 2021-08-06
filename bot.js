@@ -101,14 +101,6 @@ client.on('ready', async () => {
 
 
 
-/***********************************************************/
-/*      BUTTON HANDLER                                     */
-/***********************************************************/
-
-
-
-
-
 
 
 /***********************************************************/
@@ -124,8 +116,8 @@ process.on('unhandledRejection', err => {
     let logErrEmbed = new discord.MessageEmbed()
         .setColor(config.embedDarkGrey)
         .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
-        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
-        .setFooter('MMM, see the bot log for the full error stack.')
+        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform **${config.botAuthorUsername}** of this error so he can investigate.`)
+        .setFooter('MMM, please see the bot log for the full error stack.')
         .setTimestamp()
     
 
@@ -142,7 +134,7 @@ process.on('unhandledRejection', err => {
 
 // TICKET CATEGORY COUNTER
 // EVERY 15 MINUTES
-cron.schedule('00 00 */15 * * *', async () => {
+cron.schedule('00 */15 * * * *', async () => {
 
     console.log(`Updating the ticket category counters`)
 
