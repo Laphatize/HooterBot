@@ -79,7 +79,7 @@ module.exports = {
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Channel Moved`)
-                    .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** ${oldChannel.parent.name}\n**Old Catgory:** ${newChannel.parent.name}`)
+                    .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** \`\` ${oldChannel.parent.name.toUpperCase()} \`\`\n**Old Catgory:** \`\` ${newChannel.parent.name.toUpperCase()} \`\``)
                     .setTimestamp()
 
                 // LOG ENTRY
