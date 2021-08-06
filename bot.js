@@ -136,47 +136,45 @@ process.on('unhandledRejection', err => {
 // EVERY 15 MINUTES
 cron.schedule('00 00,15,30,45 * * * *', async () => {
 
-    console.log(`Updating the ticket category counters`)
+    console.log(`Updating the ticket category counters in test server and main Temple server`)
 
-    // CHECK IF DATABASE HAS AN ENTRY
-    const dbGuildData = await guildSchema.find({
-        GUILD_ID: channel.guild.id
+
+    const dbGuildTestServerData = await guildSchema.findOne({
+        GUILD_ID: `530503548937699340`
     }).exec();
 
-    ticketCategory = dbGuildData.TICKET_CAT_ID;
+    // const dbGuildTempleServerData = await guildSchema.findOne({
+    //     GUILD_ID: `829409161581821992`
+    // }).exec();
+
+    // TICKET CATEGORY ID'S
+    let testServerTicketCatId = dbGuildTestServerData.TICKET_CAT_ID
+    // let templeServerTicketCatId = dbGuildTempleServerData.TICKET_CAT_ID
 
 
-    if(ticketCategory) {
-
-        var result = []
-
-        // FOR LOOP 
-        for(let i in dbGuildData) {
-            result.push(dbGuildData[i].TICKET_CAT_ID)
-        }
-
-        // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
-        result.forEach( ticketCatId => {
-            
-            guildId = dbGuildData[i].GUILD_ID
-
-            // FETCHING THE GUILD FROM DATABASE
-            guild = client.guilds.cache.get(guildId)
+    // FETCHING THE GUILD FROM DATABASE
+    let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
+    // let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
 
 
-            // GRAB TICKET CATEGORY USING ID
-            let ticketCategory = guild.channels.cache.get(ticketCatId)
+    // GRAB TICKET CATEGORY USING ID
+    let testServerTicketCategory = testServer.channels.cache.get(testServerTicketCatId)
+    // let templeServerTicketCategory = templeServer.channels.cache.get(templeServerTicketCatId)
 
 
-            // SETTING COUNT VALUES
-            let ticketCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-            let catChCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    // SETTING COUNT VALUES
+    // TEST SERVER
+    let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+    // // TEMPLE SERVER
+    // let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    // let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
 
-            // UPDATING CATEGORY VALUES
-            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)    
-        })
-    }
+    // UPDATING CATEGORY VALUES
+    testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
+    // templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
 })
 
 
