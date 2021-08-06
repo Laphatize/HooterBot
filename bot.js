@@ -134,33 +134,49 @@ process.on('unhandledRejection', err => {
 
 // TICKET CATEGORY COUNTER
 // EVERY 15 MINUTES
-cron.schedule('00 */15 * * * *', async () => {
+cron.schedule('00 00,15,30,45 * * * *', async () => {
 
     console.log(`Updating the ticket category counters`)
 
     // CHECK IF DATABASE HAS AN ENTRY
-    const dbGuildData = await guildSchema.findOne({
+    const dbGuildData = await guildSchema.find({
         GUILD_ID: channel.guild.id
     }).exec();
 
     ticketCategory = dbGuildData.TICKET_CAT_ID;
 
 
-    // FETCHING THE GUILD FROM DATABASE
-    guild = client.guilds.cache.get(dbGuildData.GUILD_ID)
+    if(ticketCategory) {
+
+        var result = []
+
+        // FOR LOOP 
+        for(let i in dbGuildData) {
+            result.push(dbGuildData[i].TICKET_CAT_ID)
+        }
+
+        // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
+        result.forEach( ticketCatId => {
+            
+            guildId = dbGuildData[i].GUILD_ID
+
+            // FETCHING THE GUILD FROM DATABASE
+            guild = client.guilds.cache.get(guildId)
 
 
-    // GRAB TICKET CATEGORY USING ID
-    let ticketCategory = guild.channels.cache.get(dbGuildData.TICKET_CAT_ID)
+            // GRAB TICKET CATEGORY USING ID
+            let ticketCategory = guild.channels.cache.get(ticketCatId)
 
 
-    // SETTING COUNT VALUES
-    let ticketCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    let catChCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+            // SETTING COUNT VALUES
+            let ticketCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+            let catChCount = guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
 
-    // UPDATING CATEGORY VALUES
-    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)
+            // UPDATING CATEGORY VALUES
+            ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount}) [${catChCount}/50]`)    
+        })
+    }
 })
 
 
