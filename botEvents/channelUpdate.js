@@ -23,6 +23,7 @@ module.exports = {
                 .setTitle(`Channel Name Update`)
                 .setDescription(`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
                 .setTimestamp()
+                .setFooter(`Channel ID: ${newChannel.id}`)
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
@@ -35,8 +36,9 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Channel Topic Update`)
-                .setDescription(`**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
+                .setDescription(`**Channel** ${newChannel}\n**Old:** \`\`${oldChannel.topic}\`\`\n**New:** \`\`${newChannel.topic}\`\``)
                 .setTimestamp()
+                .setFooter(`Channel ID: ${newChannel.id}`)
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
