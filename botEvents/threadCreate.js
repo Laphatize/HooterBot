@@ -29,7 +29,7 @@ module.exports = {
         // LOG ENTRY
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
+            .setColor(config.embedGreen)
             .setTitle(`Thread Created`)
             .addField(`Thread:`, `${thread}`, true)
             .addField(`Thread ID:`, `${thread.id}`, true)

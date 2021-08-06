@@ -11,7 +11,7 @@ module.exports = {
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
+            .setColor(config.embedRed)
             .setTitle(`User Ban Removed`)
             .setTimestamp()
 

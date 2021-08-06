@@ -4,7 +4,7 @@ const moment = require('moment');
 
 module.exports = {
 	name: 'threadUpdate',
-	async execute(thread, client) {
+	async execute(oldThread, newThread, client) {
 
         // LOCATING MOD-LOG CHANNEL
         const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
@@ -24,23 +24,23 @@ module.exports = {
         }
 
 
-        // GENERATE NOTICE EMBED
-        let threadLogEntry = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Thread Updated`)
-            .addField(`Thread:`, `${thread}`, true)
-            .addField(`Thread ID:`, `${thread.id}`, true)
-            .addField(`Thread Type:`, `${thread.type}`, true)
-            .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
-            .addField(`Creator:`, `<@${thread.ownerId}>`, true)
-            .addField(`Creator ID:`, `${thread.ownerId}`, true)
-            .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
-            .addField(`Archived?`, `${!thread.archived}`, true)
-            .addField(`Locked?`, `${!thread.locked}`, true)
-            .setTimestamp()
+        // // GENERATE NOTICE EMBED
+        // let threadLogEntry = new discord.MessageEmbed()
+        //     .setColor(config.embedGrey)
+        //     .setTitle(`Thread Updated`)
+        //     .addField(`Thread:`, `${thread}`, true)
+        //     .addField(`Thread ID:`, `${thread.id}`, true)
+        //     .addField(`Thread Type:`, `${thread.type}`, true)
+        //     .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+        //     .addField(`Creator:`, `<@${thread.ownerId}>`, true)
+        //     .addField(`Creator ID:`, `${thread.ownerId}`, true)
+        //     .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
+        //     .addField(`Archived?`, `${!thread.archived}`, true)
+        //     .addField(`Locked?`, `${!thread.locked}`, true)
+        //     .setTimestamp()
 
-        // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-        modLogChannel.send({ embeds: [threadLogEntry] })
-            .catch(err => console.log(err))
+        // // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+        // modLogChannel.send({ embeds: [threadLogEntry] })
+        //     .catch(err => console.log(err))
 	},
 };

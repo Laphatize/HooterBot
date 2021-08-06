@@ -6,7 +6,7 @@ module.exports = {
 	async execute(info, client) {
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = info.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()

@@ -11,7 +11,7 @@ module.exports = {
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
+            .setColor(config.embedGrey)
             .setTitle(`Emoji Updated`)
             .setTimestamp()
 

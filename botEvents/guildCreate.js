@@ -44,7 +44,6 @@ module.exports = {
         console.log(`======================================\n\n`)
 
 
-
         // HOOTERBOT PERMISSIONS LIST
         const generalPermsArray = [
             'ADMINISTRATOR',
@@ -61,7 +60,6 @@ module.exports = {
             'KICK_MEMBERS',
             'BAN_MEMBERS',
         ]
-
         const textPermsArray = [
             'VIEW_CHANNEL',
             'SEND_MESSAGES', 
@@ -75,8 +73,6 @@ module.exports = {
             'SEND_TTS_MESSAGES',
             'USE_APPLICATION_COMMANDS',
         ]
-
-
         const voicePermsArray = [
             'VIEW_CHANNEL',
             'CONNECT',
@@ -91,8 +87,6 @@ module.exports = {
         ]
 
 
-
-
         // LOGGING BOT JOINING GUILD
         let logJoinGuild = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
@@ -103,8 +97,6 @@ module.exports = {
 
         // LOG ENTRY
         modLogChannel.send({embeds: [logJoinGuild]})
-
-
 
 
         // CHECK HOOTERBOT'S GENERAL PERMISSIONS

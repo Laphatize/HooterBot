@@ -6,16 +6,12 @@ module.exports = {
 	async execute(oldMember, newMember, client) {
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
-
+        const modLogChannel = oldMember
         // LOG EMBED
         let logLeaveGuild = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
-            .setTitle(`Server Member Left`)
-            .addField(`User:`, `${member}`, true)
-            .addField(`Tag:`, `${member.user.tag}`, true)
-            .addField(`ID:`, `${member.id}`, true)
-            .addField(`Time in server:`, `${memberDuration}`)
+            .setColor(config.embedGrey)
+            .setTitle(`Server Member Update`)
+
             .setTimestamp()
 
         // LOG ENTRY

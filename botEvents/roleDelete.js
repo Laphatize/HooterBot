@@ -6,16 +6,16 @@ module.exports = {
 	async execute(role, client) {
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = role.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Role Deleted`)
-            .addField(`User:`, `${member}`, true)
-            .addField(`Tag:`, `${member.user.tag}`, true)
-            .addField(`ID:`, `${member.id}`, true)
-            .addField(`Time in server:`, `${memberDuration}`)
+            // .addField(`User:`, `${member}`, true)
+            // .addField(`Tag:`, `${member.user.tag}`, true)
+            // .addField(`ID:`, `${member.id}`, true)
+            // .addField(`Time in server:`, `${memberDuration}`)
             .setTimestamp()
 
         // LOG ENTRY

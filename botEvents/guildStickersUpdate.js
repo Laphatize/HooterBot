@@ -7,11 +7,11 @@ module.exports = {
 	async execute(oldSticker, newSticker, client) {
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = oldSticker.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
+            .setColor(config.embedGrey)
             .setTitle(`Emoji Updated`)
             .setTimestamp()
 

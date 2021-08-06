@@ -6,16 +6,16 @@ module.exports = {
 	async execute(oldMessage, newMessage, client) {
 
         // LOG CHANNEL
-        const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = oldMessage.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
+            .setColor(config.embedGrey)
             .setTitle(`Message Updated`)
-            .addField(`User:`, `${member}`, true)
-            .addField(`Tag:`, `${member.user.tag}`, true)
-            .addField(`ID:`, `${member.id}`, true)
-            .addField(`Time in server:`, `${memberDuration}`)
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+            .addField(`Channel:`, `${message.channel}`)
+            .addField(`Old Message`, `${oldMessage.content}`)
+            .addField(`New Message`, `${newMessage.content}`)
             .setTimestamp()
 
         // LOG ENTRY
