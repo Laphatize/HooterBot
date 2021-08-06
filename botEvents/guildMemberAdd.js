@@ -53,7 +53,7 @@ module.exports = {
 
 
             // ACCOUNT AGE
-            const accountAge = moment(member.user.createdAt).format('lll') + '\n*' + moment(new Date()).diff(member.user.createdAt, 'days') + ' days ago*';
+            const accountAge = `${moment(member.user.createdAt).format('LLL')} (${moment(new Date()).diff(member.user.createdAt, 'days')} days ago)`;
 
             // AGE WARNING
             let ageWarning = " "
@@ -66,7 +66,7 @@ module.exports = {
             if(moment(member.user.createdAt).format('Z') < moment(Date.now()).subtract(1, 'days').format('Z')) {
                   ageWarning = `${config.emjERROR} **ACCOUNT IS LESS THAN 1 DAY OLD**`
             }
-            
+
 
             // JOIN EMBED
             let logJoinGuild = new discord.MessageEmbed()
