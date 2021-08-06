@@ -56,7 +56,7 @@ module.exports = {
 
 
             // CONVERTING TO UNIX (S) TIMESTAMPS
-            let accountAge = moment() - moment(member.user.createdAt)
+            let accountAge = moment(member.user.createdAt).fromNow()
 
             console.log(`accountAge = ${accountAge}`)
 
