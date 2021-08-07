@@ -22,7 +22,7 @@ module.exports = {
                 .addField(`Channel:`, `${channel}`, true)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
-                .addField(`Type:`, `${channel.name}`, true)
+                .addField(`Type:`, `${channel.type}`, true)
                 .addField(`Category:`, `${channel.parent.name}`, true)
                 .addField(`Position in Category:`, `${channel.position + 1} from top`, true)
                 .setTimestamp()
@@ -39,7 +39,7 @@ module.exports = {
                 .setTitle(`Category Created`)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
-                .addField(`Type:`, `${channel.name}`, true)
+                .addField(`Type:`, `${channel.type}`, true)
                 .setTimestamp()
 
             // LOG ENTRY
