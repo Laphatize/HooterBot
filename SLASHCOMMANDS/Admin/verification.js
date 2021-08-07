@@ -74,7 +74,7 @@ module.exports = {
         }
     ],
     cooldown: 60,
-    defaultPermission: false,
+    defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         subCmdName = interaction.options.getSubcommand()

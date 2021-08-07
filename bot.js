@@ -84,6 +84,9 @@ for (const folder of slashCommands) {
 }
 
 
+
+
+
 // REGISTERING SLASH COMMANDS
 client.on('ready', async () => {
     // SLASH COMMANDS
@@ -97,8 +100,9 @@ client.on('ready', async () => {
     // GUILD SLASH COMMANDS - MMM789 2ND TEST
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
 
-    // // GUILD SLASH COMMANDS - TU SERVER ID
+    // GUILD SLASH COMMANDS - TU SERVER ID
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
+    await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
 })
 
 
