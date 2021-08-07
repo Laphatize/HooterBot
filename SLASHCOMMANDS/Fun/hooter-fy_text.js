@@ -79,7 +79,7 @@ module.exports = {
                 .setDescription(`Discord puts limits on how big my messages can be. Your message is ${charsOver} characters over this limit.\nHere's the message you submitted:\n\`\`\`${message}\`\`\``)
 
         // POST EMBED
-        return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        return interaction.reply({ embeds: [messageTooBig], ephemeral: true })
         }        
 
         // SENDING
