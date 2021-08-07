@@ -6,16 +6,15 @@ module.exports = {
 	async execute(oldMessage, newMessage, client) {
 
         // IGNORE BOT
-        if(newMessage.channel.type === 'DM' || newMessage.author.bot)   return;
+        if(oldMessage.author.bot || newMessage.channel.type === 'DM') return;
 
 
-        // NULL EDIT
+
+        // CHECK IF NULL EDIT
         if(oldMessage.content == newMessage.content) return;
 
-        
         // LOG CHANNEL
         const modLogChannel = oldMessage.guild.channels.cache.find(ch => ch.name === `mod-log`)
-
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
