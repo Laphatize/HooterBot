@@ -26,13 +26,45 @@ module.exports = {
         console.log(`GUILD NAME: ${message.guild.name}`)
 
 
+        // GRABBING MOD, ADMIN, BOT ROLES OF SERVER
+        let botRole = guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+        let modRole = guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
+        let adminRole = guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+
+        // CREATE TICKET CATEGORY FOR HOOTERBOT'S TICKETS
+        let ticketCategory = await guild.channels.create(`VERIFICATION (OPEN: 0) [0/50]`, {
+            type: 'GUILD_CATEGORY',
+            permissionOverwrites: [
+                {
+                    // EVERYONE ROLE - HIDE (EVEN FROM USER)
+                    id: guild.roles.everyone.id,
+                    deny: [`VIEW_CHANNEL`, `USE_PUBLIC_THREADS`, `USE_PRIVATE_THREADS`]
+                },{
+                    // ADMINS - VIEW AND RESPOND
+                    id: adminRole.id,
+                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                },{
+                    // MODERATORS - VIEW AND RESPOND
+                    id: modRole.id,
+                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                },{
+                    // HOOTERBOT ROLE - VIEW AND RESPOND
+                    id: botRole.id,
+                    allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`, `MANAGE_CHANNELS`]
+                }
+            ],
+            reason: `Part of the verification process ran by HooterBot. Used to communicate with users while verifying.`
+        })
+
+
+
         // CREATE GUILD ENTRY - FOR NOW LEFT TO UPDATE SINCE DATABASE DELETION IS NOT CONFIGURED
         await guildSchema.findOneAndUpdate({
             GUILD_NAME: guild.name
         },{
             GUILD_NAME: guild.name,
             GUILD_ID: guild.id,
-            TICKET_CAT_ID: "",
+            TICKET_CAT_ID: ticketCategory.id,
             RULES_MSG_ID: "",
             VERIF_PERKS_MSG_ID: "",
             VERIF_PROMPT_MSG_ID: ""
