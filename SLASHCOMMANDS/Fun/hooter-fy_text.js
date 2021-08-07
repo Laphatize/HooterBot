@@ -7,7 +7,7 @@ const wait = require('util').promisify(setTimeout);
 
 module.exports = {
     name: 'hooter-fy_text',
-    description: `Return provided message in an emojified way using Hooter and Temple emojis. (🤖｜bot-spam)`,
+    description: `Return provided message in an emojified way using Hooter and Temple emojis. (🤖｜bot-spam) [30s]`,
     permissions: '',
     cooldown: 30,
     defaultPermission: true,
@@ -67,16 +67,16 @@ module.exports = {
             i++
         } while (i < messageArgs.length)
 
-        if(emojifiedArgs.join(' ').length >= 4096) {
+        if(emojifiedArgs.join(' ').length >= 2048) {
 
             let totalChars = emojifiedArgs.join(' ').length
 
-            let charsOver = totalChars - 4096;
+            let charsOver = totalChars - 2048;
 
             let messageTooBig = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`Discord puts limits on how big my messages can be. The emojified message is ${charsOver} characters over this limit.\nHere's the message you submitted:\n\`\`\`${message}\`\`\``)
+                .setDescription(`We all love emojified messages, but that message is a bit *too* big. Shorten your message by ${charsOver} characters and I can send it successfully.\nHere's the message you submitted:\n\`\`\`${message}\`\`\``)
 
             // POST EMBED
             return interaction.reply({ embeds: [messageTooBig], ephemeral: true })
