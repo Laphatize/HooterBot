@@ -9,7 +9,7 @@ module.exports = {
     description: `ADMIN | Set ticket channel creation category. Cannot modify category once set. [10s]`,
     options: [
         {
-            name: `channel`,
+            name: `category`,
             description: `The name of the category.`,
             type: `CHANNEL`,
             required: true,
