@@ -42,10 +42,32 @@ module.exports = {
             if(message.author.bot)   return;
 
 
-            // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
-            ticketChannel = message.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+            // GRABBING TICKET CHANNEL FOR THE USER USING THE GUILD ID IN THE DATABASE
+            const dbTicketData = await ticketSchema.findOne({
+                CREATOR_ID: message.author.id
+            }).exec();
 
-            
+
+            // IF NO TICKET OPEN, IGNORE ALL DM MESSAGES - BOT CRASH OTHERWISE
+            if(!dbTicketData) {
+                // EMBED NOTICE
+                let dmMsgEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setDescription(`Sorry, I couldn't find a verification ticket open for you and I am unable to run commands in DMs.`)
+                    .setTimestamp()
+                    
+                await message.reply({ embeds: [dmMsgEmbed] })
+            }
+
+
+
+
+            // A TICKET EXISTS FOR THE USER
+            ticketChannel = message.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+            // FETCHING THE GUILD FROM DATABASE
+            guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+
             // IGNORE ALL DM COMMS IF NO TICKET CHANNEL IS OPEN
             if (!ticketChannel)  return;
 
@@ -57,10 +79,6 @@ module.exports = {
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: message.author.id
                 }).exec();
-
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
 
                 // GRABBING TICKET CHANNEL IN GUILD
