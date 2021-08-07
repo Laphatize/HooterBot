@@ -122,7 +122,7 @@ client.on('ready', async () => {
 
     // GUILD SLASH COMMANDS - MMM789 2ND TEST
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)
-    await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ permissionsArray })          //  .commands.set([]) to empty
+    await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ testServerPermArray })          //  .commands.set([]) to empty
 
     // // GUILD SLASH COMMANDS - TU SERVER ID
     // await client.guilds.cache.get('829409161581821992').commands.set(arrayOfSlashCmds)?.commands.permissions.set({ templeServerPermArray })          //  .commands.set([]) to empty
