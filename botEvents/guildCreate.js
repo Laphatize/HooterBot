@@ -74,7 +74,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`${config.botName} has joined the server!`)
             .setDescription(`**HooterBot's ID:** \`\`${config.botId}\`\`
-            \n\nBefore users start using HooterBot, ${config.botAuthor} needs to configure my settings and run some tests.`)
+            \n\nBefore users start using HooterBot, ${config.botAuthor} needs to configure my settings and run some tests.\n\nI'd love it if my role color could be the official Temple Cherry color: \`\`#9E1B34\`\`.`)
             .setTimestamp()
 
         // LOG ENTRY
