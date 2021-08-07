@@ -108,7 +108,7 @@ const testServerPermArray = [
         // RULES - ADMIN ROLE OVERRIDES
 		id: '871240034152501260',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -116,7 +116,7 @@ const testServerPermArray = [
         // USER_BIRTHDAY - ADMIN ROLE OVERRIDES
 		id: '871240034152501261',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -124,7 +124,7 @@ const testServerPermArray = [
         // USER_LEVELIMPORT - ADMIN ROLE OVERRIDES
 		id: '871663009343369237',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -132,7 +132,7 @@ const testServerPermArray = [
         // VERIFICATION_BLACKLIST - ADMIN ROLE OVERRIDES
 		id: '871502773286490194',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -140,7 +140,7 @@ const testServerPermArray = [
         // VERIFICATION_CATEGORY - ADMIN ROLE OVERRIDES
 		id: '871502773286490195',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -148,7 +148,7 @@ const testServerPermArray = [
         // VERIFICATION_MAINTENANCE - ADMIN ROLE OVERRIDES
 		id: '871502773286490196',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -156,7 +156,7 @@ const testServerPermArray = [
         // VERIFICATION_PERKSEMBED - ADMIN ROLE OVERRIDES
 		id: '871502773286490197',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -164,7 +164,7 @@ const testServerPermArray = [
         // VERIFICATION_PROMPTEMBED - ADMIN ROLE OVERRIDES
 		id: '871502773286490198',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -172,7 +172,7 @@ const testServerPermArray = [
         // PERMISSIONS - ADMIN ROLE OVERRIDES
 		id: '872636336719429652',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -180,7 +180,7 @@ const testServerPermArray = [
         // USER_INFO - ADMIN ROLE OVERRIDES
 		id: '871449279145848872',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -188,7 +188,7 @@ const testServerPermArray = [
         // VERIF_PM - ADMIN ROLE OVERRIDES
 		id: '872184009780781128',
 		permissions: [{
-			id: 'testServerAdminRoleId',
+			id: testServerAdminRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -198,7 +198,7 @@ const testServerPermArray = [
         // PERMISSIONS - ADMIN ROLE OVERRIDES
 		id: '872636336719429652',
 		permissions: [{
-			id: 'testServerModRoleId',
+			id: testServerModRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -206,7 +206,7 @@ const testServerPermArray = [
         // USER_INFO - ADMIN ROLE OVERRIDES
 		id: '871449279145848872',
 		permissions: [{
-			id: 'testServerModRoleId',
+			id: testServerModRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
@@ -214,7 +214,7 @@ const testServerPermArray = [
         // VERIF_PM - ADMIN ROLE OVERRIDES
 		id: '872184009780781128',
 		permissions: [{
-			id: 'testServerModRoleId',
+			id: testServerModRoleId,
 			type: 'ROLE',
 			permission: true,
 		}],
