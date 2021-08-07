@@ -286,25 +286,29 @@ module.exports = {
             /*******************/
             /* PARTNER MESSAGE */
             /*******************/
-            const partnerMsgTestServerPerms = [
+
+            // GET ID OF MOD ROLE AND ADMIN ROLE FOR THE CURRENT SERVER
+            let adminRoleId = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin').id
+            let modRoleId = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator').id
+
+            const partnerMessage_ADMINarray = [
                 {
-                    id: testServerAdminRoleId,  // ADMIN ROLE
+                    id: adminRoleId,  // ADMIN ROLE
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            const testServerPartnerMsg = await client.guilds.cache.get('530503548937699340')?.commands.fetch('873415760670777484');
-            await testServerPartnerMsg.permissions.add({ partnerMsgTestServerPerms });
+            await message.guild.commands.permissions.set({ command: 873415760670777484, permissions: partnerMessage_ADMINarray });
             
-            const partnerMsgTempleServerPerms = [
+
+            const partnerMessage_MODarray = [
                 {
-                    id: templeServerAdminRoleId,
+                    id: modRoleId,
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            const templeServerPartnerMsg = await client.guilds.cache.get('829409161581821992')?.commands.fetch('873415760670777484');
-            await templeServerPartnerMsg.permissions.add({ partnerMsgTempleServerPerms });
+            await message.guild.commands.permissions.set({ command: 873415760670777484, permissions: partnerMessage_MODarray });
 
 
             message.channel.send({ content: `Slash command permissions update completed for \`\`partner_message\`\`.` })
