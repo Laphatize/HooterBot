@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
-const modActionSchema = require('../Database/modActionsSchema');
+const modActionsSchema = require('../Database/modActionsSchema');
 
 
 module.exports = {
