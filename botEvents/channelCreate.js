@@ -14,7 +14,7 @@ module.exports = {
         const modLogChannel = channel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // CHANNEL CREATION
-        if(channe.type == 'GUILD_TEXT') {
+        if(channel.type === 'GUILD_TEXT') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
@@ -32,7 +32,7 @@ module.exports = {
         }
 
         // CATEGORY CREATION
-        if(channe.type == 'GUILD_CATEGORY') {
+        if(channel.type === 'GUILD_CATEGORY') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
