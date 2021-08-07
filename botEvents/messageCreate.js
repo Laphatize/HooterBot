@@ -353,6 +353,11 @@ module.exports = {
                         id: testServerAdminRoleId,
                         type: 'ROLE',
                         permission: true,
+                    },{
+                    // PERMISSIONS - MOD ROLE OVERRIDES
+                        id: testServerModRoleId,
+                        type: 'ROLE',
+                        permission: true,
                     }],
                 },{
                     // USER_INFO - ADMIN ROLE OVERRIDES
@@ -361,42 +366,26 @@ module.exports = {
                         id: testServerAdminRoleId,
                         type: 'ROLE',
                         permission: true,
+                    },{
+                    // USER_INFO - MOD ROLE OVERRIDES
+                        id: testServerModRoleId,
+                        type: 'ROLE',
+                        permission: true,
                     }],
                 },{
                     // VERIF_PM - ADMIN ROLE OVERRIDES
                     id: '872184009780781128',
                     permissions: [{
                         id: testServerAdminRoleId,
+                        type: 'ROLE',
+                        permission: true,
+                    },{
+                    // VERIF_PM - MOD ROLE OVERRIDES
+                        id: testServerModRoleId,
                         type: 'ROLE',
                         permission: true,
                     }],
                 },
-                // MODERATOR OVERRIDES
-                {
-                    // PERMISSIONS - ADMIN ROLE OVERRIDES
-                    id: '872636336719429652',
-                    permissions: [{
-                        id: testServerModRoleId,
-                        type: 'ROLE',
-                        permission: true,
-                    }],
-                },{
-                    // USER_INFO - ADMIN ROLE OVERRIDES
-                    id: '871449279145848872',
-                    permissions: [{
-                        id: testServerModRoleId,
-                        type: 'ROLE',
-                        permission: true,
-                    }],
-                },{
-                    // VERIF_PM - ADMIN ROLE OVERRIDES
-                    id: '872184009780781128',
-                    permissions: [{
-                        id: testServerModRoleId,
-                        type: 'ROLE',
-                        permission: true,
-                    }],
-                }
             ];
 
 
