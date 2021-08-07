@@ -22,7 +22,7 @@ module.exports = {
             .addField(`ID:`, `${channel.id}`, true)
             .addField(`Type:`, `${channel.name}`, true)
             .addField(`Category:`, `${channel.parent.name}`, true)
-            .addField(`Category Position:`, `${channel.position}`, true)
+            .addField(`Position in Category:`, `${channel.position + 1} from top`, true)
 			.setTimestamp()
 
         // LOG ENTRY

@@ -54,8 +54,6 @@ module.exports = {
                 let dmMsgEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setDescription(`Sorry, I couldn't find a verification ticket open for you and I am unable to run commands in DMs.`)
-                    .setTimestamp()
-                    
                 return message.reply({ embeds: [dmMsgEmbed] })
             }
 

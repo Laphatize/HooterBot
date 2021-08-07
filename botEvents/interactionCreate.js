@@ -142,9 +142,13 @@ module.exports = {
                 }
 
 
+                // CHECK IF DATABASE HAS AN ENTRY
+                const dbGuildData = await guildSchema.findOne({
+                    GUILD_ID: interaction.guild.id
+                }).exec();
 
                 // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
-                if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName && ch.parent.id === dbGuildData.TICKET_CAT_ID)) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
                     return interaction.reply({
                         content: `Sorry, you're **already in the process of verifying!** Check your DMs with <@${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
