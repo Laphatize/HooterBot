@@ -312,7 +312,7 @@ cron.schedule('00 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
-    fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
 
 
     // CHECK DATABASE FOR ENTRY
@@ -412,7 +412,7 @@ cron.schedule('30 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
-    oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
 
 
     // CHECK DATABASE FOR ENTRY
@@ -512,7 +512,7 @@ cron.schedule('00 * * * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
-    closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
     console.log(`closingDay = ${closingDay}`)
 
     // CHECK DATABASE FOR ENTRY
