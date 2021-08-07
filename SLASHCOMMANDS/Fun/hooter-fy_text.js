@@ -69,7 +69,6 @@ module.exports = {
             i++
         } while (i < messageArgs.length)
 
-        console.log(`emojifiedArgs = ${emojifiedArgs}`)
         
         // SENDING
         await interaction.reply({ content: `${emojifiedArgs.join(' ')}` })
