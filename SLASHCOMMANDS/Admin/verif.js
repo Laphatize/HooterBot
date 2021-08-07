@@ -15,6 +15,10 @@ module.exports = {
             type: 'SUB_COMMAND',
             description: `ADMIN | Toggle verification prompt to enter/exit maintenance mode. [10s]`,
         },{
+            name: 'pm',
+            type: 'SUB_COMMAND',
+            description: `MODERATOR | Send a message in a ticket channel without it being sent to the user.`,
+        },{
             name: 'perksembed',
             type: 'SUB_COMMAND',
             description: `ADMIN | Generate/update the verification perks embed message. [60s]`,
