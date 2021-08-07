@@ -78,8 +78,15 @@ module.exports = {
                 .setTitle(`${config.emjREDTICK} Sorry!`)
                 .setDescription(`Discord puts limits on how big my messages can be. Your message is ${charsOver} characters over this limit.\nHere's the message you submitted:\n\`\`\`${message}\`\`\``)
 
-        // POST EMBED
-        return interaction.reply({ embeds: [messageTooBig], ephemeral: true })
+            // POST EMBED
+            return interaction.reply({ embeds: [messageTooBig], ephemeral: true })
+            .catch(err => {
+                let messageReallyBig = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`Discord puts limits on how big my messages can be. Your message is ${charsOver} characters over this limit. It's so big, I can't even copy/paste your message back to you so you can shorten it. Sorry!`)
+                return interaction.reply({ embeds: [messageReallyBig], ephemeral: true })
+            })
         }        
 
         // SENDING
