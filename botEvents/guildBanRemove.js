@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
-const modActionsSchema = require('../Database/modActionsSchema');
+const modActionSchema = require('../Database/modActionsSchema');
 
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 	async execute(unban, client) {
 
 
-        const dbModActionsData = await modActionsSchema.findOne({
+        const dbModActionsData = await modActionSchema.findOne({
             USER_ID: unban.user.id
         }).exec();
 
@@ -32,7 +32,7 @@ module.exports = {
             modLogChannel.send({embeds: [logEmbed]})
 
             // DATABASE LOGGING
-            await modActionsSchema.findOneAndDelete({
+            await modActionSchema.findOneAndDelete({
                 USER_ID: unban.user.id
             }).exec();
         }
@@ -49,7 +49,7 @@ module.exports = {
             modLogChannel.send({embeds: [logEmbed]})
 
             // DATABASE LOGGING
-            await modActionsSchema.findOneAndDelete({
+            await modActionSchema.findOneAndDelete({
                 USER_ID: unban.user.id
             }).exec();
         }
