@@ -60,17 +60,19 @@ module.exports = {
 
         // SPLIT MESSAGE UP
         messageArgs = message.split(` `)
-        
-        interaction.reply({ content: `messageArgs = ${messageArgs}` })
 
+        console.log(`messageArgs.length = ${messageArgs.length}`)
 
-        messageArgs.forEach( arg => {
-            emojifiedArgs.push(`${arg}${emojiArray[randomIndex]}`)
-        })
+        let i = 0
+
+        do {
+            emojifiedArgs.push(`${messageArgs[i]} ${emojiArray[randomIndex]}`)
+            i++
+        } while (i <= messageArgs.length)
 
         console.log(`emojifiedArgs = ${emojifiedArgs}`)
         
-        // // SENDING
-        // await interaction.reply({ content: `Your emojified message will be here soon. MMM check the logs.` })
+        // SENDING
+        await interaction.reply({ content: `${emojifiedArgs.join(' ')}` })
     }
 }
