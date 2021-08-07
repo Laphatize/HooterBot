@@ -148,7 +148,8 @@ module.exports = {
                 .setTitle(`Message Deleted`)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
                 .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-                .setTimestamp(`Message deleted by user.`)
+                .setFooter(`Message deleted by user.`)
+                .setTimestamp()
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
@@ -159,7 +160,8 @@ module.exports = {
                 .setTitle(`Message Deleted`)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
                 .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-                .setTimestamp(`Message deleted by: ${executor.tag}`)
+                .setFooter(`Message deleted by: ${executor.tag}`)
+                .setTimestamp()
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})

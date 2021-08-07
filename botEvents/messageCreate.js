@@ -45,6 +45,10 @@ module.exports = {
             // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
             ticketChannel = message.guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
+            
+            // IGNORE ALL DM COMMS IF NO TICKET CHANNEL IS OPEN
+            if (!ticketChannel)  return;
+
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER
             if (ticketChannel) {
