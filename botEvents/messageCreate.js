@@ -264,7 +264,7 @@ module.exports = {
         
         if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
             console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
-            console.log(client.application.commands.cache)
+            console.log(await message.guild?.commands.fetch())
             console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
         }
 
