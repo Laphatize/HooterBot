@@ -259,10 +259,19 @@ module.exports = {
         /***********************************************************/
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
+
+        if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
+            console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
+            console.log(client.application.commands.cache)
+            console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
+        }
+
+
+
         if (!client.application?.owner) await client.application?.fetch();
 
 
-        if(message.content == '!deploy' && message.author.id === client.application?.owner.id) {
+        if(message.content == 'hooterbot$deploy' && message.author.id === client.application?.owner.id) {
 
             message.channel.send({ content: `Deploying permissions update for Slash Commands.` })
 
