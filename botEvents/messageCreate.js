@@ -269,74 +269,40 @@ module.exports = {
         }
 
 
-        if(message.content == 'hooterbot$permsDeploy' && message.author.id === client.application?.owner.id) {
+        // if(message.content == 'hooterbot$permsDeploy' && message.author.id === client.application?.owner.id) {
 
-            await message.guild.commands.fetch();
+        //     await message.guild.commands.fetch();
 
-            message.channel.send({ content: `\`\`Deploying permissions update for Slash Commands.\`\`` })
+        //     message.channel.send({ content: `\`\`Deploying permissions update for Slash Commands.\`\`` })
 
-            // SLASH COMMANDS PERMISSIONS LIST
-            // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
-            const testServerModRoleId = 863645415458865163;
-            const testServerAdminRoleId = 863650974513758259;
-            const secondTestServerModRoleId = 870168204444590141;
-            const secondTestServerAdminRoleId = 870168169162108968;
-            const templeServerModRoleId = 835182957160300604;
-            const templeServerAdminRoleId = 829416550867140608;
-
-
-            /*******************/
-            /* PARTNER MESSAGE */
-            /*******************/
-
-            // GET ID OF MOD ROLE AND ADMIN ROLE FOR THE CURRENT SERVER
-            let adminRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin')
-            let modRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
-
-            const adPartnerPermissions = [
-                {
-                    id: `${adminRole.id}`,  // ADMIN ROLE
-                    type: 'ROLE',
-                    permission: true,
-                }
-            ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: adPartnerPermissions });
-            
-
-            const modPartnerPermissions = [
-                {
-                    id: `${modRole.id}`,
-                    type: 'ROLE',
-                    permission: true,
-                }
-            ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: modPartnerPermissions });
+        //     // SLASH COMMANDS PERMISSIONS LIST
+        //     // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
+        //     const testServerModRoleId = 863645415458865163;
+        //     const testServerAdminRoleId = 863650974513758259;
+        //     const secondTestServerModRoleId = 870168204444590141;
+        //     const secondTestServerAdminRoleId = 870168169162108968;
+        //     const templeServerModRoleId = 835182957160300604;
+        //     const templeServerAdminRoleId = 829416550867140608;
 
 
-            message.channel.send({ content: `Slash command permissions update completed for **/partner_message**.` })
+        //     /*******************/
+        //     /* PARTNER MESSAGE */
+        //     /*******************/
 
+        //     // GET ID OF MOD ROLE AND ADMIN ROLE FOR THE CURRENT SERVER
+        //     let adminRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin')
+        //     let modRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
 
-
-
-
-
-
-
-
-
-
-
-
-            message.channel.send({ content: `\`\`Slash Command permission deploy is complete.\`\`` })
-            // // TEST SERVER
-            // await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions })
-
-            // // 2ND TEST SERVER
-            // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions })
-
-            // // TEMPLE SERVER
-            // await client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ slashCmdsPermArray })
-        }
+        //     const adPartnerPermissions = [
+        //         {
+        //             id: `${adminRole.id}`,  // ADMIN ROLE
+        //             type: 'ROLE',
+        //             permission: true,
+        //         }
+        //     ];
+        //     await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: adPartnerPermissions });
+        
+        // }
     }
 }
 
