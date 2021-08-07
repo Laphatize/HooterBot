@@ -83,10 +83,6 @@ for (const folder of slashCommands) {
 	}
 }
 
-
-
-
-
 // REGISTERING SLASH COMMANDS
 client.on('ready', async () => {
     // SLASH COMMANDS
@@ -102,32 +98,6 @@ client.on('ready', async () => {
 
     // GUILD SLASH COMMANDS - TU SERVER ID
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
-})
-
-
-
-
-
-/***********************************************************/
-/*      UNKNOWN ERROR REPORTING                            */
-/***********************************************************/
-process.on('unhandledRejection', err => {
-    console.log(`******** UNKNOWN ERROR *********`);
-    console.log(err);
-    console.log(`********************************\n`);
-
-    
-    // DEFINING LOG EMBED
-    let logErrEmbed = new discord.MessageEmbed()
-        .setColor(config.embedDarkGrey)
-        .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
-        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform **${config.botAuthorUsername}** of this error so he can investigate.`)
-        .setFooter('MMM, please see the bot log for the full error stack.')
-        .setTimestamp()
-    
-
-    // LOG ENTRY
-    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({embeds: [logErrEmbed]})
 })
 
 
