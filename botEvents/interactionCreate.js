@@ -5,7 +5,6 @@ const guildSchema = require('../Database/guildSchema');
 const ticketSchema = require('../Database/ticketSchema');
 const ticketBlacklistSchema = require('../Database/ticketBlacklistSchema');
 const moment = require('moment');
-const fs = require(`fs`)
 const pjson = require('../package.json');
 
 
