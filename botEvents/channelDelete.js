@@ -30,7 +30,7 @@ module.exports = {
         if(channel.type === 'GUILD_CATEGORY') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
+                .setColor(config.embedOrange)
                 .setTitle(`Category Deleted`)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)

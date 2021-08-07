@@ -39,7 +39,6 @@ module.exports = {
                 .setTitle(`Category Created`)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
-                .addField(`Type:`, `${channel.type}`, true)
                 .setTimestamp()
 
             // LOG ENTRY
