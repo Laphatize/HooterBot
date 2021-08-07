@@ -521,12 +521,17 @@ cron.schedule('00 * * * * *', async () => {
     }).exec();
 
 
+
     if(dbTicketData) {
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO'S TICKETS ARE CLOSING
         for(let i in dbTicketData) {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+
+            const dbGuildData = await guildSchema.findOne({
+                GUILD_ID: guild.id
+            }).exec();
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {
