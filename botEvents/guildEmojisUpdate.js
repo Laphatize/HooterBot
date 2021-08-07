@@ -9,15 +9,15 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = member.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        if(oldEmoji.name !== newEmoji.name)
-        
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Emoji Updated`)
-            .setTimestamp()
+        if(oldEmoji.name !== newEmoji.name) {       
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Emoji Updated`)
+                .setTimestamp()
 
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
