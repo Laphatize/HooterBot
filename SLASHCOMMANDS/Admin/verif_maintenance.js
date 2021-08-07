@@ -6,7 +6,7 @@ const guildSchema = require('../../Database/guildSchema');
 // COMMAND ID: 871502773286490196
 
 module.exports = {
-    name: 'maintenance',
+    name: 'verification_maintenance',
     description: `ADMIN | Toggle verification prompt to enter/exit maintenance mode. [10s]`,
     options: [
         {

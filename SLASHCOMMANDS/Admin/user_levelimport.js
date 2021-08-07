@@ -5,7 +5,7 @@ const levels = require('discord-xp');
 // COMMAND ID: 871663009343369237
 
 module.exports = {
-    name: 'levelimport',
+    name: 'user_levelimport',
     description: `ADMIN | Import MEE6 Leaderboard values for up to 10 users at a time.`,
     options: [
         {

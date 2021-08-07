@@ -5,7 +5,7 @@ const guildSchema = require('../../Database/guildSchema');
 // COMMAND ID: 871502773286490197
 
 module.exports = {
-    name: 'perksembed',
+    name: 'verification_perksembed',
     description: `ADMIN | Generate/update the verification perks embed message. [60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR

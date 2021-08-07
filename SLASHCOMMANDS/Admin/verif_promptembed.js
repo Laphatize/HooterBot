@@ -6,7 +6,7 @@ const guildSchema = require('../../Database/guildSchema');
 // COMMAND ID: 871502773286490198
 
 module.exports = {
-    name: 'promptembed',
+    name: 'verification_promptembed',
     description: `ADMIN | Generate/update the verification prompt containing the buttons. [60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR

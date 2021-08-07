@@ -5,7 +5,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 // COMMAND ID: 871502773286490194
 
 module.exports = {
-    name: 'blacklist',
+    name: 'verification_blacklist',
     description: `ADMIN | Blacklist a user from the verification system. [10s]`,
     options: [
         {
