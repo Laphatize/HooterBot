@@ -90,14 +90,14 @@ client.on('ready', async () => {
     console.log(`===== REGISTERING SLASH COMMANDS =====`);
     console.log(`======================================\n`);
 
-    // GUILD SLASH COMMANDS - MMM789 TEST
-    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
+    // GLOBAL SLASH COMMANDS - MMM789 TEST
+    await client.application?.commands.set(arrayOfSlashCmds)                                                           //  .commands.set([]) to empty
 
-    // GUILD SLASH COMMANDS - MMM789 2ND TEST
-    await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
+    // // GUILD SLASH COMMANDS - MMM789 2ND TEST
+    // await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
 
-    // GUILD SLASH COMMANDS - TU SERVER ID
-    await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
+    // // GUILD SLASH COMMANDS - TU SERVER ID
+    // await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
 })
 
 
