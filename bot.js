@@ -141,9 +141,6 @@ process.on('unhandledRejection', err => {
 // EVERY 15 MINUTES
 cron.schedule('00 00,15,30,45 * * * *', async () => {
 
-    console.log(`Updating the ticket category counters in test server and main Temple server`)
-
-
     const dbGuildTestServerData = await guildSchema.findOne({
         GUILD_ID: `530503548937699340`
     }).exec();
