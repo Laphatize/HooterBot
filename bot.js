@@ -643,7 +643,7 @@ cron.schedule('00 * * * * *', async () => {
 
                     // COUNT OF TICKETS IN DB
                     ticketCount = ticketSchema.find({
-                        GUILD_ID: interaction.guild.id
+                        GUILD_ID: guild.id
                     }).countDocuments()
                     .exec();
                     
@@ -738,9 +738,9 @@ cron.schedule('00 * * * * *', async () => {
                                                 let newTicketEditedEmbed = new discord.MessageEmbed()
                                                     .setColor(config.embedGreen)
                                                     .setTitle(`**Verification Ticket Closed**`)
-                                                    .addField(`User:`, `${interaction.user}`, true)
-                                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                                                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                                                    .addField(`User:`, `${dmUser}`, true)
+                                                    .addField(`User Tag:`, `${dmUser.tag}`, true)
+                                                    .addField(`User ID:`, `${dmUser.id}`, true)
                                                     .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
 
                                                 let QuitButton = new MessageButton()
