@@ -508,12 +508,11 @@ cron.schedule('30 00 10 * * *', async () => {
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
 // EVERY DAY AT 10:01:00AM EST          00 01 10
-cron.schedule('00 * * * * *', async () => {
+cron.schedule('00 01 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
     closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
-    console.log(`closingDay = ${closingDay}`)
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
