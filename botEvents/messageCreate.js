@@ -271,7 +271,9 @@ module.exports = {
 
         if(message.content == 'hooterbot$permsDeploy' && message.author.id === client.application?.owner.id) {
 
-            message.channel.send({ content: `Deploying permissions update for Slash Commands.` })
+            await message.guild.commands.fetch();
+
+            message.channel.send({ content: `\`\`Deploying permissions update for Slash Commands.\`\`` })
 
             // SLASH COMMANDS PERMISSIONS LIST
             // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
@@ -311,7 +313,7 @@ module.exports = {
             await message.guild.commands.permissions.set({ command: 873415760670777484, permissions: partnerMessage_MODarray });
 
 
-            message.channel.send({ content: `Slash command permissions update completed for \`\`partner_message\`\`.` })
+            message.channel.send({ content: `Slash command permissions update completed for **/partner_message**.` })
 
 
 
