@@ -259,7 +259,10 @@ module.exports = {
         /***********************************************************/
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
-        if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner) {
+        if (!client.application?.owner) await client.application?.fetch();
+
+
+        if(message.content == '!deploy' && message.author.id === client.application?.owner.id) {
 
             message.channel.send({ content: `Deploying permissions update for Slash Commands.` })
 
