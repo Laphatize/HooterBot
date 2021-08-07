@@ -86,24 +86,139 @@ for (const folder of slashCommands) {
 // SLASH COMMANDS PERMISSIONS LIST
 // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
 // TEST SERVER
+
+const testServerModRoleId = 863645415458865163;
+const testServerAdminRoleId = 863650974513758259;
+const secondTestServerModRoleId = 870168204444590141;
+const secondTestServerAdminRoleId = 870168169162108968;
+const templeServerModRoleId = 835182957160300604;
+const templeServerAdminRoleId = 829416550867140608;
+
 const testServerPermArray = [
-	{
-//         // ""
-// 		id: '123456789012345678',
-// 		permissions: [{
-// 			id: '224617799434108928',
-// 			type: 'USER',
-// 			permission: false,
-// 		}],
-// 	},{
-//         // ""
-// 		id: '876543210987654321',
-// 		permissions: [{
-// 			id: '464464090157416448',
-// 			type: 'ROLE',
-// 			permission: true,
-// 		}],
-	},
+	// ADMINISTRATOR OVERRIDES
+    {
+        // PARTNER MESSAGE - ADMIN ROLE OVERRIDES
+		id: '871240034152501259',
+		permissions: [{
+			id: testServerAdminRoleId,
+			type: 'ROLE',
+			permission: true,
+		}],
+	},{
+        // RULES - ADMIN ROLE OVERRIDES
+		id: '871240034152501260',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+	},{
+        // USER_BIRTHDAY - ADMIN ROLE OVERRIDES
+		id: '871240034152501261',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+	},{
+        // USER_LEVELIMPORT - ADMIN ROLE OVERRIDES
+		id: '871663009343369237',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+	},{
+        // VERIFICATION_BLACKLIST - ADMIN ROLE OVERRIDES
+		id: '871502773286490194',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIFICATION_CATEGORY - ADMIN ROLE OVERRIDES
+		id: '871502773286490195',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIFICATION_MAINTENANCE - ADMIN ROLE OVERRIDES
+		id: '871502773286490196',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIFICATION_PERKSEMBED - ADMIN ROLE OVERRIDES
+		id: '871502773286490197',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIFICATION_PROMPTEMBED - ADMIN ROLE OVERRIDES
+		id: '871502773286490198',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // PERMISSIONS - ADMIN ROLE OVERRIDES
+		id: '872636336719429652',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // USER_INFO - ADMIN ROLE OVERRIDES
+		id: '871449279145848872',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIF_PM - ADMIN ROLE OVERRIDES
+		id: '872184009780781128',
+		permissions: [{
+			id: 'testServerAdminRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },
+    // MODERATOR OVERRIDES
+    {
+        // PERMISSIONS - ADMIN ROLE OVERRIDES
+		id: '872636336719429652',
+		permissions: [{
+			id: 'testServerModRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // USER_INFO - ADMIN ROLE OVERRIDES
+		id: '871449279145848872',
+		permissions: [{
+			id: 'testServerModRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    },{
+        // VERIF_PM - ADMIN ROLE OVERRIDES
+		id: '872184009780781128',
+		permissions: [{
+			id: 'testServerModRoleId',
+			type: 'ROLE',
+			permission: true,
+		}],
+    }
 ];
 
 
@@ -117,11 +232,11 @@ client.on('ready', async () => {
     console.log(`======================================\n`);
 
     // GUILD SLASH COMMANDS - MMM789 TEST
-    await client.guilds.cache.get('530503548937699340').commands.set(/*arrayOfSlashCmds*/[])                              //  .commands.set([]) to empty
+    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
     await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ testServerPermArray })
 
     // GUILD SLASH COMMANDS - MMM789 2ND TEST
-    await client.guilds.cache.get('859798908841230367').commands.set(/*arrayOfSlashCmds*/[])                              //  .commands.set([]) to empty
+    await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
     await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ testServerPermArray })          
 
     // // GUILD SLASH COMMANDS - TU SERVER ID
