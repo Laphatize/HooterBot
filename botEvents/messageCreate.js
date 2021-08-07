@@ -272,7 +272,7 @@ module.exports = {
             const templeServerModRoleId = 835182957160300604;
             const templeServerAdminRoleId = 829416550867140608;
 
-            const slashCmdsPermArray = [
+            const fullPermissions = [
                 // ADMINISTRATOR OVERRIDES
                 {
                     // PARTNER MESSAGE - ADMIN ROLE OVERRIDES
@@ -401,10 +401,10 @@ module.exports = {
 
 
             // TEST SERVER
-            await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: slashCmdsPermArray })
+            await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions })
 
             // 2ND TEST SERVER
-            await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions: slashCmdsPermArray })
+            await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions })
 
             // TEMPLE SERVER
             // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
