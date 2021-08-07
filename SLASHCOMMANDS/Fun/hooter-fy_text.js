@@ -60,10 +60,8 @@ module.exports = {
         // SPLIT MESSAGE UP
         messageArgs = message.split(` `)
 
-        console.log(`messageArgs.length = ${messageArgs.length}`)
-
+        // INSERT RANDOMIZED EMOJIS INTO MESSAGE
         let i = 0
-
         do {
             emojifiedArgs.push(`${messageArgs[i]} ${emojiArray[Math.floor(Math.random() * emojiArray.length)]}`)
             i++
