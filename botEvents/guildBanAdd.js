@@ -18,7 +18,7 @@ module.exports = {
 
 
         // BAN REASON
-        if(ban.reason == null) {
+        if(!ban.reason) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
@@ -43,7 +43,7 @@ module.exports = {
             }).exec();
         }
 
-        if(ban.reason !== null) {
+        if(ban.reason) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
