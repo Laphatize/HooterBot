@@ -259,12 +259,10 @@ module.exports = {
         /***********************************************************/
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
-        if (message.content.toLowerCase() === '!deploy' && message.author.id === config.botAuthorId) {
+        if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner) {
 
             // SLASH COMMANDS PERMISSIONS LIST
             // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
-            // TEST SERVER
-
             const testServerModRoleId = 863645415458865163;
             const testServerAdminRoleId = 863650974513758259;
             const secondTestServerModRoleId = 870168204444590141;
@@ -272,17 +270,54 @@ module.exports = {
             const templeServerModRoleId = 835182957160300604;
             const templeServerAdminRoleId = 829416550867140608;
 
-            const fullPermissions = [];
+
+            /*******************/
+            /* PARTNER MESSAGE */
+            /*******************/
+            const partnerMsgTestServerPerms = [
+                {
+                    id: testServerAdminRoleId,  // ADMIN ROLE
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ];
+            const testServerPartnerMsg = await client.guilds.cache.get('530503548937699340')?.commands.fetch('871240034152501259');
+            await testServerPartnerMsg.permissions.add({ partnerMsgTestServerPerms });
+            
+            const partnerMsgTempleServerPerms = [
+                {
+                    id: templeServerAdminRoleId,
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ];
+            const templeServerPartnerMsg = await client.guilds.cache.get('829409161581821992')?.commands.fetch('871240034152501259');
+            await templeServerPartnerMsg.permissions.add({ partnerMsgTempleServerPerms });
 
 
-            // TEST SERVER
-            await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions })
 
-            // 2ND TEST SERVER
-            await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions })
 
-            // TEMPLE SERVER
-            // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // // TEST SERVER
+            // await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions })
+
+            // // 2ND TEST SERVER
+            // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions })
+
+            // // TEMPLE SERVER
+            // await client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ slashCmdsPermArray })
         }
     }
 }
