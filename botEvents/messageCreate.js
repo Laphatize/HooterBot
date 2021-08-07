@@ -290,27 +290,27 @@ module.exports = {
             /*******************/
 
             // GET ID OF MOD ROLE AND ADMIN ROLE FOR THE CURRENT SERVER
-            let adminRoleId = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin').id
-            let modRoleId = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator').id
+            let adminRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin')
+            let modRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
 
-            const partnerMessage_ADMINarray = [
+            const permissions = [
                 {
-                    id: adminRoleId,  // ADMIN ROLE
+                    id: `${adminRole.id}`,  // ADMIN ROLE
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: partnerMessage_ADMINarray });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions });
             
 
-            const partnerMessage_MODarray = [
+            const permissions = [
                 {
-                    id: modRoleId,
+                    id: `${modRole.id}`,
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: partnerMessage_MODarray });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions });
 
 
             message.channel.send({ content: `Slash command permissions update completed for **/partner_message**.` })
@@ -327,7 +327,7 @@ module.exports = {
 
 
 
-
+            message.channel.send({ content: `\`\`Slash Command permission deploy is complete.\`\`` })
             // // TEST SERVER
             // await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions })
 
