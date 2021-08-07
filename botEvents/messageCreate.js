@@ -293,24 +293,24 @@ module.exports = {
             let adminRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin')
             let modRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
 
-            const permissions = [
+            const adPartnerPermissions = [
                 {
                     id: `${adminRole.id}`,  // ADMIN ROLE
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: adPartnerPermissions });
             
 
-            const permissions = [
+            const modPartnerPermissions = [
                 {
                     id: `${modRole.id}`,
                     type: 'ROLE',
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: modPartnerPermissions });
 
 
             message.channel.send({ content: `Slash command permissions update completed for **/partner_message**.` })
