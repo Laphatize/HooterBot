@@ -5,7 +5,7 @@ const guildSchema = require('../../Database/guildSchema');
 // COMMAND ID: 871240034152501260
 
 module.exports = {
-    name: 'rules',
+    name: 'update_rules',
     description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR

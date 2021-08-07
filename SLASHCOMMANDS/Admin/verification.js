@@ -73,7 +73,7 @@ module.exports = {
             options: []
         }
     ],
-    cooldown: 60,
+    cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
@@ -88,28 +88,28 @@ module.exports = {
 
         // VERIFICATION BLACKLIST
         if(subCmdName == 'blacklist') {
-            console.log(`Running the "verification blacklist" command`)
+            console.log(`inputs[0] = ${inputs[0]}\ninputs[1] = ${inputs[1]}`)
         }
 
 
         // VERIFICATION CATEGORY
         if(subCmdName == 'category') {
-            console.log(`Running the "verification blacklist" command`)
+            
         }
 
         // VERIFICATION MAINTENANCE
         if(subCmdName == 'maintenance') {
-            console.log(`Running the "verification blacklist" command`)
+            
         }
 
         // VERIFICATION CATEGORY
         if(subCmdName == 'perksembed') {
-            console.log(`Running the "verification blacklist" command`)
+            
         }
 
         // VERIFICATION CATEGORY
         if(subCmdName == 'promptembed') {
-            console.log(`Running the "verification blacklist" command`)
+            
         }
     }
 }
