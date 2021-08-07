@@ -6,7 +6,7 @@ module.exports = {
 	async execute(oldMember, newMember, client) {
 
         // LOG CHANNEL
-        const modLogChannel = oldMember
+        const modLogChannel = oldMember.guild.channels.cache.find(ch => ch.name === `mod-log`)
         // LOG EMBED
         let logLeaveGuild = new discord.MessageEmbed()
             .setColor(config.embedGrey)
