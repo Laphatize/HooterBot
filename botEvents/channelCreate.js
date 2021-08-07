@@ -13,19 +13,37 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = channel.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-			.setColor(config.embedGreen)
-			.setTitle(`Channel Created`)
-            .addField(`Channel:`, `${channel}`, true)
-            .addField(`Name:`, `${channel.name}`, true)
-            .addField(`ID:`, `${channel.id}`, true)
-            .addField(`Type:`, `${channel.name}`, true)
-            .addField(`Category:`, `${channel.parent.name}`, true)
-            .addField(`Position in Category:`, `${channel.position + 1} from top`, true)
-			.setTimestamp()
+        // CHANNEL CREATION
+        if(channe.type == 'GUILD_TEXT') {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`Channel Created`)
+                .addField(`Channel:`, `${channel}`, true)
+                .addField(`Name:`, `${channel.name}`, true)
+                .addField(`ID:`, `${channel.id}`, true)
+                .addField(`Type:`, `${channel.name}`, true)
+                .addField(`Category:`, `${channel.parent.name}`, true)
+                .addField(`Position in Category:`, `${channel.position + 1} from top`, true)
+                .setTimestamp()
 
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
+
+        // CATEGORY CREATION
+        if(channe.type == 'GUILD_CATEGORY') {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`Category Created`)
+                .addField(`Name:`, `${channel.name}`, true)
+                .addField(`ID:`, `${channel.id}`, true)
+                .addField(`Type:`, `${channel.name}`, true)
+                .setTimestamp()
+
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
