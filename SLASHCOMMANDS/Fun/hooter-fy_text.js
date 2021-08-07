@@ -67,7 +67,21 @@ module.exports = {
             i++
         } while (i < messageArgs.length)
 
-        
+        if(emojifiedArgs.join(' ').length >= 2048) {
+
+            let totalChars = emojifiedArgs.join(' ').length
+
+            let charsOver = totalChars - 2048;
+
+            let messageTooBig = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`Discord puts limits on how big my messages can be. Your message is ${charsOver} characters over this limit.\nHere's the message you submitted:\n\`\`\`${message}\`\`\``)
+
+        // POST EMBED
+        return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }        
+
         // SENDING
         await interaction.reply({ content: `${emojifiedArgs.join(' ')}` })
     }
