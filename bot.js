@@ -139,7 +139,7 @@ process.on('unhandledRejection', err => {
 
 // TICKET CATEGORY COUNTER
 // EVERY 15 MINUTES
-cron.schedule('00 00,15,30,45 * * * *', async () => {
+cron.schedule('00 05,20,35,50 * * * *', async () => {
 
     const dbGuildTestServerData = await guildSchema.findOne({
         GUILD_ID: `530503548937699340`
@@ -729,7 +729,7 @@ cron.schedule('00 * * * * *', async () => {
 
                                             // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                                         // GRAB TICKET CHANNEL
-                                        initialChMsg = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                                        initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${dmUser.username.toLowerCase()}`)
                                             .then(ch => {
                                                 // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
                                                 msg = ch.messages.fetch(dbTicketData[i].TICKETCH1_MSG_ID)
