@@ -9,7 +9,7 @@ module.exports = {
     name: 'hooter-fy_text',
     description: `Return provided message in an emojified way using Hooter and Temple emojis. (🤖｜bot-spam)`,
     permissions: '',
-    cooldown: 60,
+    cooldown: 30,
     defaultPermission: true,
     options: [
         {
@@ -54,7 +54,6 @@ module.exports = {
 
 
         // PICKING RANDOM EMOJIS
-        let randomIndex = Math.floor(Math.random() * emojiArray.length);
         let messageArgs = []
         let emojifiedArgs =  []
 
@@ -66,9 +65,9 @@ module.exports = {
         let i = 0
 
         do {
-            emojifiedArgs.push(`${messageArgs[i]} ${emojiArray[randomIndex]}`)
+            emojifiedArgs.push(`${messageArgs[i]} ${emojiArray[Math.floor(Math.random() * emojiArray.length)]}`)
             i++
-        } while (i <= messageArgs.length)
+        } while (i < messageArgs.length)
 
         console.log(`emojifiedArgs = ${emojifiedArgs}`)
         
