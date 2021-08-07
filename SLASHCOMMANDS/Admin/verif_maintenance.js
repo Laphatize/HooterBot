@@ -6,7 +6,7 @@ const guildSchema = require('../../Database/guildSchema');
 // COMMAND ID: 871502773286490196
 
 module.exports = {
-    name: 'verif_maintenance',
+    name: 'maintenance',
     description: `ADMIN | Toggle verification prompt to enter/exit maintenance mode. [10s]`,
     options: [
         {
@@ -27,12 +27,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const status = inputs[0];

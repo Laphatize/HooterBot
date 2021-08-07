@@ -5,7 +5,7 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 // COMMAND ID: 871240034152501261
 
 module.exports = {
-    name: 'user_birthday',
+    name: 'birthday',
     description: `ADMIN | A command for admins to migrate MEE6's birthdays over to HooterBot. [10s]`,
     options: [
         {
@@ -27,12 +27,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const userId = inputs[0];

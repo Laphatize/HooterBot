@@ -10,12 +10,8 @@ module.exports = {
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 60,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
         
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({

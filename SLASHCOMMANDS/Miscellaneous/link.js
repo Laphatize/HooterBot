@@ -73,10 +73,6 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
-
         var linkName;
         var link;
 

@@ -49,7 +49,7 @@ module.exports = {
                 }
             }
 
-
+            
             // SLASH COMMAND COOLDOWN SETUP
             const { cooldowns } = client;
 

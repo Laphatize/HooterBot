@@ -5,7 +5,7 @@ const guildSchema = require('../../Database/guildSchema')
 // COMMAND ID: 871502773286490195
 
 module.exports = {
-    name: 'verif_category',
+    name: 'category',
     description: `ADMIN | Set ticket channel creation category. Cannot modify category once set. [10s]`,
     options: [
         {
@@ -17,13 +17,9 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
-
+        
         // GRABBING SLASH COMMAND INPUT VALUES
         const categoryId = inputs[0];     // THIS IS THE CHANNEL ID
 

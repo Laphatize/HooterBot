@@ -5,7 +5,7 @@ const moment = require('moment');
 // COMMAND ID: 871449279145848872
 
 module.exports = {
-    name: 'user_info',
+    name: 'info',
     description: `MODERATOR | A command for generating information about a specific user in the server.`,
     options: [
         {
@@ -17,12 +17,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES',
     cooldown: 0,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const userId = inputs[0];

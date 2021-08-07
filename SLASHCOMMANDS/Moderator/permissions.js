@@ -21,12 +21,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', // MODERATOR
     cooldown: 0,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         const generalPermsArray = [
             'ADMINISTRATOR',

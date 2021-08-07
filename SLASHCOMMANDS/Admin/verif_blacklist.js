@@ -5,7 +5,7 @@ const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 // COMMAND ID: 871502773286490194
 
 module.exports = {
-    name: 'verif_blacklist',
+    name: 'blacklist',
     description: `ADMIN | Blacklist a user from the verification system. [10s]`,
     options: [
         {
@@ -22,12 +22,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const userId = inputs[0];

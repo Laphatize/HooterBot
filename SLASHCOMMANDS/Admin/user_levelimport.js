@@ -5,8 +5,8 @@ const levels = require('discord-xp');
 // COMMAND ID: 871663009343369237
 
 module.exports = {
-    name: 'user_levelimport',
-    description: `ADMIN | Import MEE6 Leaderboard values for up to 5 users at a time.`,
+    name: 'levelimport',
+    description: `ADMIN | Import MEE6 Leaderboard values for up to 10 users at a time.`,
     options: [
         {
             name: `user1`,
@@ -112,12 +112,8 @@ module.exports = {
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     cooldown: 0,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
-        if(interaction.user.id == config.botAuthorId) {
-            interaction.reply({ content: `**GuildApplicationCommandData**\n**Slash Command ID:** ${interaction.commandId}`})
-        }
 
         // APPEND XP VALUE FOR USERS
         // 1st USER
