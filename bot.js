@@ -513,7 +513,7 @@ cron.schedule('00 * * * * *', async () => {
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
     closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM DD, YYYY")
-
+    console.log(`closingDay = ${closingDay}`)
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
