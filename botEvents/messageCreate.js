@@ -261,7 +261,7 @@ module.exports = {
         /***********************************************************/
         if (!client.application?.owner) await client.application?.fetch();
 
-        
+        // TO GET UPDATED LIST OF SLASH COMMAND DATA, INCLUDING SLASH COMMAND ID'S, RUN:
         if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
             console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
             console.log(await message.guild?.commands.fetch())
@@ -269,7 +269,7 @@ module.exports = {
         }
 
 
-        if(message.content == 'hooterbot$deploy' && message.author.id === client.application?.owner.id) {
+        if(message.content == 'hooterbot$permsDeploy' && message.author.id === client.application?.owner.id) {
 
             message.channel.send({ content: `Deploying permissions update for Slash Commands.` })
 
@@ -293,7 +293,7 @@ module.exports = {
                     permission: true,
                 }
             ];
-            const testServerPartnerMsg = await client.guilds.cache.get('530503548937699340')?.commands.fetch('871240034152501259');
+            const testServerPartnerMsg = await client.guilds.cache.get('530503548937699340')?.commands.fetch('873415760670777484');
             await testServerPartnerMsg.permissions.add({ partnerMsgTestServerPerms });
             
             const partnerMsgTempleServerPerms = [
@@ -303,11 +303,11 @@ module.exports = {
                     permission: true,
                 }
             ];
-            const templeServerPartnerMsg = await client.guilds.cache.get('829409161581821992')?.commands.fetch('871240034152501259');
+            const templeServerPartnerMsg = await client.guilds.cache.get('829409161581821992')?.commands.fetch('873415760670777484');
             await templeServerPartnerMsg.permissions.add({ partnerMsgTempleServerPerms });
 
 
-            message.channel.send({ content: `Slash command permissions update completed.` })
+            message.channel.send({ content: `Slash command permissions update completed for \`\`partner_message\`\`.` })
 
 
 
