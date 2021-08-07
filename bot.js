@@ -507,8 +507,8 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
-// EVERY DAY AT 10:01:00AM EST
-cron.schedule('00 */2 10 * * *', async () => {
+// EVERY DAY AT 10:01:00AM EST          00 01 10
+cron.schedule('00 * * * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
