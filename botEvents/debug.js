@@ -6,7 +6,7 @@ module.exports = {
 	async execute(info, client) {
 
         // LOG CHANNEL
-        const modLogChannel = info.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
