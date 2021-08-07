@@ -58,16 +58,11 @@ module.exports = {
             }
 
 
-
-
-            // A TICKET EXISTS FOR THE USER
-            ticketChannel = message.guild.channels.cache.find(ch => ch.name === ticketChannelName)
-            // FETCHING THE GUILD FROM DATABASE
+            // FETCHING THE GUILD FROM DATABASE 
             guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-
-            // IGNORE ALL DM COMMS IF NO TICKET CHANNEL IS OPEN
-            if (!ticketChannel)  return;
+            // GRAB USER'S TICKET CHANNEL
+            ticketChannel = guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER

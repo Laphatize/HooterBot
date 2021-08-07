@@ -6,7 +6,7 @@ module.exports = {
 	async execute(oldMessage, newMessage, client) {
 
         // IGNORE BOT
-        if(newMessage.author.bot || newMessage.channel.type === 'DM') return;
+        if(oldMessage.author.bot || newMessage.channel.type === 'DM') return;
 
 
 
