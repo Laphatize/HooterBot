@@ -259,7 +259,7 @@ module.exports = {
         /***********************************************************/
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
-        if (message.content.toLowerCase() === 'hooterbot$permissionsupdate' && message.author.id === client.application?.owner.id) {
+        if (message.content.toLowerCase() === '!deploy' && message.author.id === config.botAuthorId) {
 
             // SLASH COMMANDS PERMISSIONS LIST
             // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
