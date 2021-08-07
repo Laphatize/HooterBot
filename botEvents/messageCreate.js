@@ -401,10 +401,10 @@ module.exports = {
 
 
             // TEST SERVER
-            await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ slashCmdsPermArray })
+            await client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: slashCmdsPermArray })
 
             // 2ND TEST SERVER
-            await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
+            await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ fullPermissions: slashCmdsPermArray })
 
             // TEMPLE SERVER
             // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
