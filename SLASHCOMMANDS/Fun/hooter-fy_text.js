@@ -64,12 +64,11 @@ module.exports = {
         interaction.reply({ content: `messageArgs = ${messageArgs}` })
 
 
+        messageArgs.forEach( arg => {
+            emojifiedArgs.push(`${arg}${emojiArray[randomIndex]}`)
+        })
 
-        // forEach ((e) => {
-        //     `${e}${emojiArray[randomIndex] }`
-        // })
-
-        // console.log(`emojifiedArgs = ${emojifiedArgs}`)
+        console.log(`emojifiedArgs = ${emojifiedArgs}`)
         
         // // SENDING
         // await interaction.reply({ content: `Your emojified message will be here soon. MMM check the logs.` })
