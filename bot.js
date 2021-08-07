@@ -102,7 +102,7 @@ client.on('ready', async () => {
 
     // GUILD SLASH COMMANDS - TU SERVER ID
     await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
-    await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
+    // await client.guilds.cache.get('859798908841230367')?.commands.permissions.set({ slashCmdsPermArray })
 })
 
 
