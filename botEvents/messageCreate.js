@@ -300,7 +300,7 @@ module.exports = {
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: 873415760670777484, permissions: partnerMessage_ADMINarray });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: partnerMessage_ADMINarray });
             
 
             const partnerMessage_MODarray = [
@@ -310,7 +310,7 @@ module.exports = {
                     permission: true,
                 }
             ];
-            await message.guild.commands.permissions.set({ command: 873415760670777484, permissions: partnerMessage_MODarray });
+            await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: partnerMessage_MODarray });
 
 
             message.channel.send({ content: `Slash command permissions update completed for **/partner_message**.` })
