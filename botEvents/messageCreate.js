@@ -261,6 +261,8 @@ module.exports = {
         /***********************************************************/
         if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner) {
 
+            message.channel.send({ content: `Deploying permissions update for Slash Commands.` })
+
             // SLASH COMMANDS PERMISSIONS LIST
             // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
             const testServerModRoleId = 863645415458865163;
@@ -295,7 +297,7 @@ module.exports = {
             await templeServerPartnerMsg.permissions.add({ partnerMsgTempleServerPerms });
 
 
-
+            message.channel.send({ content: `Slash command permissions update completed.` })
 
 
 
