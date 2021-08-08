@@ -84,22 +84,24 @@ module.exports = {
             // CHECKING ROLE'S PERMISSIONS
             for (const [key, element] of Object.entries(oldPerms)) {
                 if(newPerms[key] !== element) {
-                    permsUpdated.push(key);
-                    console.log(`key = ${key}`)
-                    console.log(`element = ${element}`)
+
+                    if(key == true) {
+                        permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjGREENTICK}`);
+                    }
+                    if(key == false) {
+                        permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjREDTICK}`);
+                    }
                 }
             }
 
             // CREATING MARKERS FOR NOTING UPDATES
             // PERMISSION DECREASE
             if(oldRole.permissions > newRole.permissions) {
-                permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
-
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Role Permissions Changed`)
-                    .setDescription(`**Role:** ${newRole}\n${permsUpdated}`)
+                    .setDescription(`**Role:** ${newRole}\n\n${permsUpdated.join(`\n`)}`)
                     .setFooter(`Role ID: ${newRole.id}`)
                     .setTimestamp()
 
@@ -108,13 +110,11 @@ module.exports = {
             }
             // PERMISSION INCREASE
             else if(oldRole.permissions < newRole.permissions) {
-                permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
-
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Role Permissions Changed`)
-                    .setDescription(`**Role:** ${newRole}\n${permsUpdated}`)
+                    .setDescription(`**Role:** ${newRole}\n\n${permsUpdated.join(`\n`)}`)
                     .setFooter(`Role ID: ${newRole.id}`)
                     .setTimestamp()
 
