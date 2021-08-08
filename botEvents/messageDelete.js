@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IGNORE NON-GUILD CHANNELS
-        if(message.author.bot || !message.guild) return;
+        if(!message.guild) return;
 
 
         // RULES CHANNEL FOR RULES EMBED
@@ -112,7 +112,7 @@ module.exports = {
 
 
         // IGNORE MOD-LOG CHANNEL DELETIONS
-        if(message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.id == '870150164432687135') return;
+        if(message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.name == 'hooterbot-error-logging') return;
 
 
         // DELAY FOR AUDIT LOG TO UPDATE
