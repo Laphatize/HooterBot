@@ -63,7 +63,7 @@ module.exports = {
         if(oldChannel.position !== newChannel.position) {
 
             // MOVED WITHIN SAME CATEGORY
-            if(oldChannel.parent.name == newChannel.parent.name) {
+            if(oldChannel.parent.id === newChannel.parent.id) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
@@ -74,12 +74,56 @@ module.exports = {
                 modLogChannel.send({embeds: [logEmbed]})
             }
             // MOVED TO DIFFERENT CATEGORY
-            if(oldChannel.parent.name !== newChannel.parent.name) {
+            if(oldChannel.parent.id !== newChannel.parent.id) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Channel Moved`)
                     .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** \`\` ${oldChannel.parent.name.toUpperCase()} \`\`\n**Old Catgory:** \`\` ${newChannel.parent.name.toUpperCase()} \`\``)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+        }
+
+
+        // CHANNEL SLOWMODE CHECK
+        if(oldChannel.rateLimitPerUser !== newChannel.rateLimitPerUser) {
+
+            // SLOWMODE APPLIED
+            if(newChannel.rateLimitPerUser > 0 && oldChannel.rateLimitPerUser == 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`Slowmode Enabled`)
+                    .setDescription(`**Channel:** ${newChannel}\n**Slowmode:** ${newChannel.rateLimitPerUser}s`)
+                    .setTimestamp()
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+            // SLOWMODE REMOVED
+            if(newChannel.rateLimitPerUser == 0 && oldChannel.rateLimitPerUser > 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`Slowmode Removed`)
+                    .setDescription(`**Channel:** ${newChannel}`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+            // SLOWMODE ADJUSTED
+            if(newChannel.rateLimitPerUser == 0 && oldChannel.rateLimitPerUser > 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`Slowmode Adjusted`)
+                    .setDescription(`**Channel:** ${newChannel}`)
+                    .addField(`Old Rate:`, `${oldChannel.rateLimitPerUser}s`, true)
+                    .addField(`\u200b`, `🠮`, true)
+                    .addField(`New Rate:`, `${newChannel.rateLimitPerUser}s`)
                     .setTimestamp()
 
                 // LOG ENTRY
