@@ -123,7 +123,7 @@ module.exports = {
                     .setDescription(`**Channel:** ${newChannel}`)
                     .addField(`Old Rate:`, `${oldChannel.rateLimitPerUser}s`, true)
                     .addField(`\u200b`, `🠮`, true)
-                    .addField(`New Rate:`, `${newChannel.rateLimitPerUser}s`)
+                    .addField(`New Rate:`, `${newChannel.rateLimitPerUser}s`, true)
                     .setTimestamp()
 
                 // LOG ENTRY
