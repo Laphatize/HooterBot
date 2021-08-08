@@ -33,9 +33,9 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Role Recolored`)
-                .addField(`Before:`, `${oldRole.hexColor}`, true)
+                .addField(`Before:`, `[${oldRole.hexColor}](https://www.google.com/search?q=color+picker+%23${oldRole.hexColor.split('#').pop()})`, true)
                 .addField(`\u200b`, `🡲`, true)
-                .addField(`After:`, `${newRole.hexColor}`, true)
+                .addField(`After:`, `[${newRole.hexColor}](https://www.google.com/search?q=color+picker+%23${newRole.hexColor.split(`#`).pop()})`, true)
                 .setFooter(`Role ID: ${newRole.id}`)
                 .setTimestamp()
 
@@ -44,15 +44,13 @@ module.exports = {
         }
 
         // ROLE POSITION MOVE
-        if(oldRole.color !== newRole.color) {
+        if(oldRole.position !== newRole.position) {
                 
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`Role Recolored`)
-                .addField(`Before:`, `${oldRole.color}`, true)
-                .addField(`\u200b`, `🡲`, true)
-                .addField(`After:`, `${newRole.color}`, true)
+                .setTitle(`Role Position Changed`)
+                .setDescription(`**Role:** ${role}`)
                 .setFooter(`Role ID: ${newRole.id}`)
                 .setTimestamp()
 
