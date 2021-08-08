@@ -5,6 +5,9 @@ module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
 
+        // WHEN MESSAGE IS UNCACHED, RETURNS NULL...
+        // UNABLE TO FETCH...
+        
         console.log(`oldMessage (pre-partial fetch)  = ${oldMessage}`)
 
         // IGNORE DMS

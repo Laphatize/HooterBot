@@ -10,23 +10,19 @@ module.exports = {
         const modLogChannel = newEmoji.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // EMOJI NAME CHANGE
+        if(oldEmoji.name !== newEmoji.name) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`Emoji Renamed`)
+                .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
+                .addField(`**New Name:**`, `${newEmoji.name}`, true)
+                .setImage(newEmoji.url)
+                .setFooter(`Emoji ID: ${emoji.id}`)
+                .setTimestamp()
 
-
-        // EMOJI NAME CHANGE
-
-
-
-
-
-
-
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`Emoji Deleted`)
-            .setTimestamp()
-
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
