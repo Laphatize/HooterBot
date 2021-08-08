@@ -10,9 +10,7 @@ module.exports = {
         const modLogChannel = newEmoji.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         let guildEmoji = newEmoji.guild.emojis.cache.find(emoji => emoji.name === newEmoji.name)
-
-        console.log(`newEmoji.data = ${newEmoji.data}`)
-
+        
         // EMOJI NAME CHANGE
         if(oldEmoji.name !== newEmoji.name) {
             // LOG EMBED
