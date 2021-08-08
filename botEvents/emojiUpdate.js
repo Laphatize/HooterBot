@@ -13,7 +13,7 @@ module.exports = {
         if(oldEmoji.name !== newEmoji.name) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
+                .setColor(config.embedGrey)
                 .setTitle(`Emoji Renamed`)
                 .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
                 .addField(`**New Name:**`, `${newEmoji.name}`, true)
