@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IGNORE NON-GUILD CHANNELS
-        if(message.author.id == config.botId || !message.guild) return;
+        if(message.author.bot || !message.guild) return;
 
 
         // RULES CHANNEL FOR RULES EMBED
