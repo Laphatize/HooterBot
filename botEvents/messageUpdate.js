@@ -4,19 +4,9 @@ const config = require('../config.json');
 module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
-
-        // FETCH IF PARTIAL
-        if(oldMessage.partial){
-            try {
-                await oldMessage.fetch()
-            } catch (err) {
-                return console.log(err);
-            }
-        }
-
         
         // IGNORE BOT
-        if(oldMessage.author.bot || newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
+        if(newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
 
         // CHECK IF NULL EDIT
         if(oldMessage.content == newMessage.content) return;
