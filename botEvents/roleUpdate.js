@@ -97,7 +97,7 @@ module.exports = {
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Role Permissions Changed`)
-                    .setDescription(`**Role:** ${newRole}\n${permUpdated}`)
+                    .setDescription(`**Role:** ${newRole}\n${permsUpdated}`)
                     .setFooter(`Role ID: ${newRole.id}`)
                     .setTimestamp()
 
@@ -112,7 +112,7 @@ module.exports = {
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Role Permissions Changed`)
-                    .setDescription(`**Role:** ${newRole}\n${permUpdated}`)
+                    .setDescription(`**Role:** ${newRole}\n${permsUpdated}`)
                     .setFooter(`Role ID: ${newRole.id}`)
                     .setTimestamp()
 
