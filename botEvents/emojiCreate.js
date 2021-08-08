@@ -4,10 +4,10 @@ const config = require('../config.json');
 
 module.exports = {
 	name: 'emojiCreate',
-	async execute(client2, emoji, guild, client) {
+	async execute(emoji, client) {
 
         // LOG CHANNEL
-        const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = emoji.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
