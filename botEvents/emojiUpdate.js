@@ -18,7 +18,7 @@ module.exports = {
                 .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
                 .addField(`**New Name:**`, `${newEmoji.name}`, true)
                 .setImage(newEmoji.url)
-                .setFooter(`Emoji ID: ${emoji.id}`)
+                .setFooter(`Emoji ID: ${newEmoji.id}`)
                 .setTimestamp()
 
             // LOG ENTRY
