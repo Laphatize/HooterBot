@@ -90,7 +90,7 @@ module.exports = {
 
             // CREATING MARKERS FOR NOTING UPDATES
             // PERMISSION DECREASE
-            if(oldChannel.permissions > newChannel.permissions) {
+            if(oldRole.permissions > newRole.permissions) {
                 permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
 
                 // LOG EMBED
@@ -105,7 +105,7 @@ module.exports = {
                 modLogChannel.send({embeds: [logEmbed]})
             }
             // PERMISSION INCREASE
-            else if(oldChannel.permissions < newChannel.permissions) {
+            else if(oldRole.permissions < newRole.permissions) {
                 permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
 
                 // LOG EMBED
