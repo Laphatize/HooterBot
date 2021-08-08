@@ -11,6 +11,8 @@ module.exports = {
 
         let guildEmoji = newEmoji.guild.emojis.cache.find(emoji => emoji.name === newEmoji.name)
 
+        console.log(`newEmoji.data = ${newEmoji.data}`)
+
         // EMOJI NAME CHANGE
         if(oldEmoji.name !== newEmoji.name) {
             // LOG EMBED
