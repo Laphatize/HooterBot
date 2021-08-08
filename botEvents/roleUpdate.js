@@ -82,16 +82,16 @@ module.exports = {
             let permsUpdated = []
 
             // CHECKING ROLE'S PERMISSIONS
-            for (const [key, element] of Object.entries(oldPerms)) {
-                if(newPerms[key] !== element) {
+            for (const [key, element] of Object.entries(newPerms)) {
+                if(oldPerms[key] !== element) {
                     console.log(`key: ${key}`)
                     console.log(`element: ${element}`)
 
-                    if(key == true) {
+                    if(element == true) {
                         permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjGREENTICK}`);
                         console.log(`**${key}:** ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
                     }
-                    if(key == false) {
+                    if(element == false) {
                         permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjREDTICK}`);
                         console.log(`**${key}:** ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
                     }
