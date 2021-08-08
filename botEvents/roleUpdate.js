@@ -45,20 +45,20 @@ module.exports = {
             modLogChannel.send({embeds: [logEmbed]})
         }
 
-        // ROLE POSITION MOVE
-        if(oldRole.rawPosition !== newRole.rawPosition) {
+        // // ROLE POSITION MOVE - COMMENTING OUT, TO PRONE TO API SPAM WITH HOW MANY ROLES WE HAVE
+        // if(oldRole.rawPosition !== newRole.rawPosition) {
                 
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`Role Position Changed`)
-                .setDescription(`**Role:** ${newRole}`)
-                .setFooter(`Role ID: ${newRole.id}`)
-                .setTimestamp()
+        //     // LOG EMBED
+        //     let logEmbed = new discord.MessageEmbed()
+        //         .setColor(config.embedGrey)
+        //         .setTitle(`Role Position Changed`)
+        //         .setDescription(`**Role:** ${newRole}`)
+        //         .setFooter(`Role ID: ${newRole.id}`)
+        //         .setTimestamp()
 
-            // LOG ENTRY
-            modLogChannel.send({embeds: [logEmbed]})
-        }
+        //     // LOG ENTRY
+        //     modLogChannel.send({embeds: [logEmbed]})
+        // }
 
         // HOIST CHANGE
         if(oldRole.hoist !== newRole.hoist) {
