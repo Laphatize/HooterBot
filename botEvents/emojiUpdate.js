@@ -9,13 +9,15 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = newEmoji.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
+        let guildEmoji = newEmoji.guild.emojis.cache.find(emoji => emoji.name === newEmoji.name)
+
         // EMOJI NAME CHANGE
         if(oldEmoji.name !== newEmoji.name) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Emoji Renamed`)
-                .setDescription(`**Responsible:** ${newEmoji.author.tag}`)
+                .setDescription(`**Responsible:** ${guildEmoji.author}`)
                 .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
                 .addField(`\u200b`, `🠮`, true)
                 .addField(`**New Name:**`, `${newEmoji.name}`, true)
