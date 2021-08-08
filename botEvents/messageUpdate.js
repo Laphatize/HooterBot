@@ -9,6 +9,15 @@ module.exports = {
         if(oldMessage.author.id == config.botId || newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
 
 
+        // FETCH IF PARTIAL
+        if(oldMessage.partial){
+            try {
+                await oldMessage.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+
 
         // CHECK IF NULL EDIT
         if(oldMessage.content == newMessage.content) return;
