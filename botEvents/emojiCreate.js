@@ -7,11 +7,11 @@ module.exports = {
 	async execute(emoji, client) {
 
         // LOG CHANNEL
-        const modLogChannel = emoji.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = emoji.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
+            .setColor(config.embedGreen)
             .setTitle(`Emoji Created`)
             .setDescription(`${emoji}\n**Name:** ${emoji.name}\n**Uploader:** ${emoji.author}\n**Uploader:** ${emoji.author}\n**Identifier:** ${emoji.identifier}\n**Animated?** ${emoji.animated}\nFile:`)
             .setImage(emoji.url)
