@@ -13,7 +13,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`Emoji Created`)
-            .setDescription(`${emoji}\n**Name:** ${emoji.name}\n**Uploader:** ${emoji.author}\n**Uploader:** ${emoji.author}\n**Identifier:** ${emoji.identifier}\n**Animated?** ${emoji.animated}\nFile:`)
+            .setDescription(`${emoji}\n**File name:** ${emoji.name}\nEmoji ID: ${emoji.id}\n**Animated?** ${emoji.animated}\nOriginal File:`)
             .setImage(emoji.url)
             .setTimestamp()
 
