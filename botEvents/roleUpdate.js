@@ -84,21 +84,16 @@ module.exports = {
             // CHECKING ROLE'S PERMISSIONS
             for (const [key, element] of Object.entries(newPerms)) {
                 if(oldPerms[key] !== element) {
-                    console.log(`key: ${key}`)
-                    console.log(`element: ${element}`)
+
 
                     if(element == true) {
                         permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjGREENTICK}`);
-                        console.log(`**${key}:** ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
                     }
                     if(element == false) {
                         permsUpdated.push(`**${key}:** ${config.emjGREYTICK}🡲${config.emjREDTICK}`);
-                        console.log(`**${key}:** ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
                     }
                 }
             }
-
-            console.log(`\n\npermsUpdated = ${permsUpdated}\n\n`)
 
             // CREATING MARKERS FOR NOTING UPDATES
             // PERMISSION DECREASE
