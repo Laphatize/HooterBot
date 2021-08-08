@@ -5,6 +5,9 @@ module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
 
+        console.log(`oldMessage = ${oldMessage}`)
+
+
         // FETCH IF PARTIAL
         if(oldMessage.partial){
             try {
@@ -12,6 +15,10 @@ module.exports = {
             } catch (err) {
                 return console.log(err);
             }
+        }
+
+        if(!oldMessage) {
+            console.log(`\nThe bot says there is no "oldMessage".\n`)
         }
 
         
