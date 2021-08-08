@@ -132,59 +132,59 @@ module.exports = {
         }
 
 
-        // CHANNEL PERMISSIONS CHANGE CHECK
-        if(oldChannel.permissions !== newChannel.permissions) {
+        // // CHANNEL PERMISSIONS CHANGE CHECK
+        // if(oldChannel.permissions !== newChannel.permissions) {
 
-            console.log(`The permissions of this channel have changed in some way...`)
+        //     console.log(`The permissions of this channel have changed in some way...`)
             
 
 
-            // LOOP THROUGH ALL ROLES ON A CHANNEL
-            guild.roles.cache.forEach(role => {
+        //     // LOOP THROUGH ALL ROLES ON A CHANNEL
+        //     guild.roles.cache.each(role => {
                 
-                const oldPerms = role.permissions.serialize()
-                const newPerms = role.permissions.serialize()
+        //         const oldPerms = role.permissions.serialize()
+        //         const newPerms = role.permissions.serialize()
 
-                const permsUpdated = []
+        //         const permsUpdated = []
 
-                // IF THIS ROLE'S PERMISSIONS HAVE BEEN UPDATED
-                if(oldPerms !== newPerms) {
-                    // CHECKING ROLE'S PERMISSIONS
-                    for (const [key, element] of Object.entries(oldPerms)) {
-                        if(newPerms[key] !== element) permsUpdated.push(key);
-                    }
-                }
+        //         // IF THIS ROLE'S PERMISSIONS HAVE BEEN UPDATED
+        //         if(oldPerms !== newPerms) {
+        //             // CHECKING ROLE'S PERMISSIONS
+        //             for (const [key, element] of Object.entries(oldPerms)) {
+        //                 if(newPerms[key] !== element) permsUpdated.push(key);
+        //             }
+        //         }
 
-                let permUpdated;
+        //         let permUpdated;
 
-                // CREATING MARKERS FOR NOTING UPDATES
-                if(oldChannel.permissions > newChannel.permissions) {
-                    permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
+        //         // CREATING MARKERS FOR NOTING UPDATES
+        //         if(oldChannel.permissions > newChannel.permissions) {
+        //             permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
 
-                    // LOG EMBED
-                    let logEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGrey)
-                        .setTitle(`Role Permissions Changed`)
-                        .setDescription(`**Role:** ${role}\n${permUpdated}`)
-                        .setTimestamp()
+        //             // LOG EMBED
+        //             let logEmbed = new discord.MessageEmbed()
+        //                 .setColor(config.embedGrey)
+        //                 .setTitle(`Role Permissions Changed`)
+        //                 .setDescription(`**Role:** ${role}\n${permUpdated}`)
+        //                 .setTimestamp()
 
-                    // LOG ENTRY
-                    modLogChannel.send({embeds: [logEmbed]})
-                }
-                if(oldChannel.permissions < newChannel.permissions) {
-                    permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
+        //             // LOG ENTRY
+        //             modLogChannel.send({embeds: [logEmbed]})
+        //         }
+        //         if(oldChannel.permissions < newChannel.permissions) {
+        //             permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
 
-                    // LOG EMBED
-                    let logEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGrey)
-                        .setTitle(`Role Permissions Changed`)
-                        .setDescription(`**Role:** ${role}\n${permUpdated}`)
-                        .setTimestamp()
+        //             // LOG EMBED
+        //             let logEmbed = new discord.MessageEmbed()
+        //                 .setColor(config.embedGrey)
+        //                 .setTitle(`Role Permissions Changed`)
+        //                 .setDescription(`**Role:** ${role}\n${permUpdated}`)
+        //                 .setTimestamp()
 
-                    // LOG ENTRY
-                    modLogChannel.send({embeds: [logEmbed]})
-                }
-            })
-        }
+        //             // LOG ENTRY
+        //             modLogChannel.send({embeds: [logEmbed]})
+        //         }
+        //     })
+        // }
 	},
 };
