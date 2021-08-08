@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, client) {
 
         // IGNORE NON-GUILD CHANNELS, MOD-LOG/RULES/LOGGING CHANNEL
-        if(!message.guild || message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.name == 'hooterbot-error-logging') return;
+        if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.name == 'hooterbot-error-logging') return;
 
 
         // RULES CHANNEL FOR RULES EMBED
