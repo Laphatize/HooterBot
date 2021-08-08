@@ -85,6 +85,7 @@ module.exports = {
             for (const [key, element] of Object.entries(oldPerms)) {
                 if(newPerms[key] !== element) {
                     permsUpdated.push(key);
+                    console.log(`key = ${key}`)
                 }
             }
 
