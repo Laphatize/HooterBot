@@ -7,7 +7,7 @@ module.exports = {
 	async execute(client2, emoji, guild, client) {
 
         // LOG CHANNEL
-        const modLogChannel = emoji.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
