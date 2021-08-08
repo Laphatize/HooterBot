@@ -54,6 +54,9 @@ module.exports = {
             'READ_MESSAGE_HISTORY',
             'SEND_TTS_MESSAGES',
             'USE_APPLICATION_COMMANDS',
+            'USE_PUBLIC_THREADS',
+            'USE_PRIVATE_THREADS',
+            'MANAGE_THREADS',
         ]
         const voicePermsArray = [
             'VIEW_CHANNEL',

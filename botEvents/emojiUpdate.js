@@ -19,7 +19,7 @@ module.exports = {
                 .setTitle(`Emoji Renamed`)
                 .setDescription(`**Responsible:** ${guildEmoji.author}`)
                 .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
-                .addField(`\u200b`, `🠮`, true)
+                .addField(`\u200b`, `🡲`, true)
                 .addField(`**New Name:**`, `${newEmoji.name}`, true)
                 .setImage(newEmoji.url)
                 .setFooter(`Emoji ID: ${newEmoji.id}`)

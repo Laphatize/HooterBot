@@ -122,7 +122,7 @@ module.exports = {
                     .setTitle(`Slowmode Adjusted`)
                     .setDescription(`**Channel:** ${newChannel}`)
                     .addField(`Old Rate:`, `${oldChannel.rateLimitPerUser}s`, true)
-                    .addField(`\u200b`, `🠮`, true)
+                    .addField(`\u200b`, `🡲`, true)
                     .addField(`New Rate:`, `${newChannel.rateLimitPerUser}s`, true)
                     .setTimestamp()
 
@@ -131,7 +131,60 @@ module.exports = {
             }
         }
 
-        // CHANNEL PERMISSIONS CHANGE CHECK
 
+        // CHANNEL PERMISSIONS CHANGE CHECK
+        if(oldChannel.permissions !== newChannel.permissions) {
+
+            console.log(`The permissions of this channel have changed in some way...`)
+            
+
+
+            // LOOP THROUGH ALL ROLES ON A CHANNEL
+            guild.roles.cache.forEach(role => {
+                
+                const oldPerms = role.permissions.serialize()
+                const newPerms = role.permissions.serialize()
+
+                const permsUpdated = []
+
+                // IF THIS ROLE'S PERMISSIONS HAVE BEEN UPDATED
+                if(oldPerms !== newPerms) {
+                    // CHECKING ROLE'S PERMISSIONS
+                    for (const [key, element] of Object.entries(oldPerms)) {
+                        if(newPerms[key] !== element) permsUpdated.push(key);
+                    }
+                }
+
+                let permUpdated;
+
+                // CREATING MARKERS FOR NOTING UPDATES
+                if(oldChannel.permissions > newChannel.permissions) {
+                    permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjGREENTICK}`)
+
+                    // LOG EMBED
+                    let logEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`Role Permissions Changed`)
+                        .setDescription(`**Role:** ${role}\n${permUpdated}`)
+                        .setTimestamp()
+
+                    // LOG ENTRY
+                    modLogChannel.send({embeds: [logEmbed]})
+                }
+                if(oldChannel.permissions < newChannel.permissions) {
+                    permUpdated = permsUpdated.join(`\n ${config.emjGREYTICK}🡲${config.emjREDTICK}`)
+
+                    // LOG EMBED
+                    let logEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`Role Permissions Changed`)
+                        .setDescription(`**Role:** ${role}\n${permUpdated}`)
+                        .setTimestamp()
+
+                    // LOG ENTRY
+                    modLogChannel.send({embeds: [logEmbed]})
+                }
+            })
+        }
 	},
 };
