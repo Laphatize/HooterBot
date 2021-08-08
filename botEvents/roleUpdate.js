@@ -79,7 +79,7 @@ module.exports = {
             const oldPerms = oldRole.permissions.serialize()
             const newPerms = newRole.permissions.serialize()
 
-            const permsUpdated = []
+            let permsUpdated = []
 
             // CHECKING ROLE'S PERMISSIONS
             for (const [key, element] of Object.entries(oldPerms)) {
