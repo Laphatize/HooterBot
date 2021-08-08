@@ -9,6 +9,7 @@ module.exports = {
     description: `Remove your birthday from HooterBot's memory. [10s]`,
     options: [],
     permissions: '',
+    dmUse: true,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

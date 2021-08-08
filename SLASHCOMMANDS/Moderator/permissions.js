@@ -20,6 +20,7 @@ module.exports = {
         }
     ],
     permissions: 'MANAGE_MESSAGES', // MODERATOR
+    dmUse: false,
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

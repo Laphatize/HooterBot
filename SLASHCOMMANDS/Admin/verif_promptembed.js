@@ -10,6 +10,7 @@ module.exports = {
     description: `ADMIN | Generate/update the verification prompt containing the buttons. [60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

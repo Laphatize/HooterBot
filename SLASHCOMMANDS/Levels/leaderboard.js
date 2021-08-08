@@ -9,6 +9,7 @@ module.exports = {
     description: `List the top 10 XP/level users in the server. (🤖｜bot-spam) [60s]`,
     options: [],
     permissions: '',
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

@@ -8,9 +8,6 @@ const wait = require('util').promisify(setTimeout);
 module.exports = {
     name: 'hooter-fy_text',
     description: `Return provided message in an emojified way using Hooter and Temple emojis. (🤖｜bot-spam) [30s]`,
-    permissions: '',
-    cooldown: 30,
-    defaultPermission: true,
     options: [
         {
             name: `message`,
@@ -19,6 +16,10 @@ module.exports = {
             required: true,
         }
     ],
+    permissions: '',
+    dmUse: false,
+    cooldown: 30,
+    defaultPermission: true,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 

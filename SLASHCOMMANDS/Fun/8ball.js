@@ -8,9 +8,6 @@ const wait = require('util').promisify(setTimeout);
 module.exports = {
     name: '8ball',
     description: `Ask a question and get a response... (🤖｜bot-spam) [30s]`,
-    permissions: '',
-    cooldown: 30,
-    defaultPermission: true,
     options: [
         {
             name: `question`,
@@ -19,6 +16,10 @@ module.exports = {
             required: true,
         }
     ],
+    permissions: '',
+    dmUse: false,
+    cooldown: 30,
+    defaultPermission: true,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 

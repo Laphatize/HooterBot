@@ -32,6 +32,17 @@ module.exports = {
             }
 
 
+            // GUILD USE AND COMMAND RAN IN DMs
+            if (slashCmd.dmUse === false && interaction.channel.type == `DM`) {
+                // DEFINING EMBED TO SEND
+                let dmUseErrorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Sorry!`)
+                    .setDescription(`This command cannot be run in DMs. Try running this command again in the Temple server.`)
+                return interaction.reply({ embeds: [dmUseErrorEmbed], ephemeral: true })
+            }
+
+
             // SLASH COMMAND USER PERMISSION REQUIREMENT
             if (slashCmd.permissions) {
                 const authorPerms = interaction.channel.permissionsFor(interaction.user);

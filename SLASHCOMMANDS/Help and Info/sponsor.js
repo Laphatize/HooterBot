@@ -8,6 +8,7 @@ module.exports = {
     description: `Info on supporting the development and operations of ${config.botName}. [60s]`,
     options: [],
     permissions: '',
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
