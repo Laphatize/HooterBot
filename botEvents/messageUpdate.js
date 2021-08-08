@@ -5,10 +5,6 @@ module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
 
-        // IGNORE BOT
-        if(oldMessage.author.bot || newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
-
-
         // FETCH IF PARTIAL
         if(oldMessage.partial){
             try {
@@ -18,6 +14,9 @@ module.exports = {
             }
         }
 
+        
+        // IGNORE BOT
+        if(oldMessage.author.bot || newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
 
         // CHECK IF NULL EDIT
         if(oldMessage.content == newMessage.content) return;

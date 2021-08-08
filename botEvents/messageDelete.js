@@ -6,6 +6,15 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
+        // FETCH IF PARTIAL
+        if(message.partial){
+            try {
+                await message.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+
         // IGNORE NON-GUILD CHANNELS
         if(message.author.bot || !message.guild) return;
 
