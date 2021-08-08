@@ -86,6 +86,7 @@ module.exports = {
                 if(newPerms[key] !== element) {
                     permsUpdated.push(key);
                     console.log(`key = ${key}`)
+                    console.log(`element = ${element}`)
                 }
             }
 
