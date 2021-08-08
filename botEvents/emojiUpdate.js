@@ -15,6 +15,7 @@ module.exports = {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`Emoji Renamed`)
+                .setDescription(`**Responsible:** ${newEmoji.author}`)
                 .addField(`**Old Name:**`, `${oldEmoji.name}`, true)
                 .addField(`\u200b`, `🠮`, true)
                 .addField(`**New Name:**`, `${newEmoji.name}`, true)
