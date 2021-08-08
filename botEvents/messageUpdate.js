@@ -17,14 +17,7 @@ module.exports = {
             }
         }
 
-        if(oldMessage == null) {
-            console.log(`\nThe bot says the "oldMessage" content is NULL. Trying to fetch message now...\n`)
-            
-            let fetchedOldMsg = newMessage.channel.messages.fetch(oldMessage.id)
-
-            console.log(`fetchedOldMsg = ${fetchedOldMsg}`)
-
-        }
+        console.log(`fetchedOldMsg = ${fetchedOldMsg}`)
 
         
         // IGNORE BOT
