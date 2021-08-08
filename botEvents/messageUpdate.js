@@ -4,6 +4,16 @@ const config = require('../config.json');
 module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
+
+        // FETCH IF PARTIAL
+        if(oldMessage.partial){
+            try {
+                await oldMessage.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+
         
         // IGNORE BOT
         if(newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
