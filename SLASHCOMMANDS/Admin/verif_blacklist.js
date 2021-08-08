@@ -79,7 +79,7 @@ module.exports = {
             .setDescription(`This user is now prevented from opening or using the verification system:`)
             .addField(`User:`, `<@${userId}>`, true)
             .addField(`User ID:`, `${userId}`, true)
-            .addField(`\u200b`, `\u200b`)
+            .addField(`\u200b`, `\u200b`, true)
             .addField(`Mod/Admin Responsible:`, `${interaction.user}`, true)
             .addField(`Reason:`, `${blacklistReason}`, true)
             .setTimestamp()

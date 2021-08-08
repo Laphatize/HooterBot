@@ -28,16 +28,32 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = oldMessage.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Message Updated`)
-            .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n**New:** ${newMessage.content}`)
-            .setTimestamp()
 
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+        let embedDescription = `**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n**New:** ${newMessage.content}`
+
+        if(embedDescription.length >= 4096) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Message Updated`)
+                .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${oldMessage.channel}\n***The content of the original and edited message exceeds 4096 characters and cannot be displayed.`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
+        else {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Message Updated`)
+                .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n**New:** ${newMessage.content}`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
