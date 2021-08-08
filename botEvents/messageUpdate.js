@@ -17,7 +17,7 @@ module.exports = {
             }
         }
 
-        console.log(`fetchedOldMsg = ${fetchedOldMsg}`)
+        console.log(`oldMessage = ${oldMessage}`)
 
         
         // IGNORE BOT
