@@ -18,7 +18,7 @@ module.exports = {
         }
 
         // IF OLD MESSAGE CONTENT CANNOT BE OBTAINED
-        if (oldMessage == null)   return;
+        if (oldMessage.content == 'null' || oldMessage.content == null)   return;
 
 
         // CHECK IF NULL EDIT
