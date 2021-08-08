@@ -5,8 +5,10 @@ module.exports = {
 	name: 'messageUpdate',
 	async execute(oldMessage, newMessage, client) {
 
-        console.log(`oldMessage = ${oldMessage}`)
+        console.log(`oldMessage (pre-partial fetch)  = ${oldMessage}`)
 
+        // IGNORE DMS
+        if(newMessage.channel.type === 'DM') return;
 
         // FETCH IF PARTIAL
         if(oldMessage.partial){
@@ -17,11 +19,8 @@ module.exports = {
             }
         }
 
-        console.log(`oldMessage = ${oldMessage}`)
+        console.log(`oldMessage (post partial fetch) = ${oldMessage}`)
 
-        
-        // IGNORE BOT
-        if(newMessage.channel.type === 'DM' || oldMessage.channel.type === 'DM') return;
 
         // CHECK IF NULL EDIT
         if(oldMessage.content == newMessage.content) return;
