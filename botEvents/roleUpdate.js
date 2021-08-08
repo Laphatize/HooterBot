@@ -46,7 +46,7 @@ module.exports = {
         }
 
         // ROLE POSITION MOVE
-        if(oldRole.position !== newRole.position) {
+        if(oldRole.rawPosition !== newRole.rawPosition) {
                 
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
