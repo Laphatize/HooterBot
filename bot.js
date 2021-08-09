@@ -243,25 +243,23 @@ cron.schedule('00 * * * * *', async () => {
         // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
         result.forEach( id => {
  
-            setInterval(async () => {
-                // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
-                bdayMessage = createBdayMessage(id);
+            // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
+            bdayMessage = createBdayMessage(id);
 
-                // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-                guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
-                // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
-                guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
-                    .catch(err => console.log(err))
-    
-                    // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-                    bdayUser = guild.members.fetch(id)
-                        .then(user => {
-                            bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
-                        
-                            user.roles.add(bdayRole)
-                        })
-            }, 5000)
+            // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
+            guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
+                .catch(err => console.log(err))
+
+                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+                bdayUser = guild.members.fetch(id)
+                    .then(user => {
+                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                    
+                        user.roles.add(bdayRole)
+                    })
         })
     }
 }, {
@@ -312,18 +310,16 @@ cron.schedule('30 * * * * *', async () => {
         // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
         result.forEach( id => {
 
-            setInterval(async () => {
-                // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-                guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
-                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-                bdayUser = guild.members.fetch(id)
-                    .then(user => {
-                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
-                        
-                        user.roles.remove(bdayRole)
-                    })
-            }, 5000)
+            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+            bdayUser = guild.members.fetch(id)
+                .then(user => {
+                    bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                    
+                    user.roles.remove(bdayRole)
+                })
         })
     }
 }, {
