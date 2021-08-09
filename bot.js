@@ -113,45 +113,45 @@ client.on('ready', async () => {
     console.log(`======================================\n`);
 
     // GLOBAL SLASH COMMANDS - MMM789 TEST
-    await client.application?.commands.set(arrayOfSlashCmds)                                                           //  .commands.set([]) to empty
+    await client.application?.commands.set(/*arrayOfSlashCmds*/ [])                                                           //  .commands.set([]) to empty
 
 
-    // FETCHING COMMANDS BY NAME FOR PERMISSIONS
-    const cmds = await client.application?.commands.fetch()
-    let verifSC = cmds.find(c => c.name === `verif`)
-    let userSC = cmds.find(c => c.name === `user`)
+    // // FETCHING COMMANDS BY NAME FOR PERMISSIONS
+    // const cmds = await client.application?.commands.fetch()
+    // let verifSC = cmds.find(c => c.name === `verif`)
+    // let userSC = cmds.find(c => c.name === `user`)
 
 
-    // SETTING PERMISSIONS
-    const testServerVerifPerms = [
-        {
-            id: verifSC.id,    // COMMAND: /verif
-            permissions: [{
-                id: '863650974513758259',   // TEST SERVER ADMIN ROLE
-                type: 'USER',
-                permission: true,
-            },{
-                id: '863645415458865163',   // TEST SERVER MOD ROLE
-                type: 'USER',
-                permission: true,
-            }]
-        },{
-            id: userSC.id,    // COMMAND: /user
-            permissions: [{
-                id: '863650974513758259',   // TEST SERVER ADMIN ROLE
-                type: 'USER',
-                permission: true,
-            },{
-                id: '863645415458865163',   // TEST SERVER MOD ROLE
-                type: 'USER',
-                permission: true,
-            }]
-        },
-    ];
+    // // SETTING PERMISSIONS
+    // const testServerVerifPerms = [
+    //     {
+    //         id: verifSC.id,    // COMMAND: /verif
+    //         permissions: [{
+    //             id: '863650974513758259',   // TEST SERVER ADMIN ROLE
+    //             type: 'USER',
+    //             permission: true,
+    //         },{
+    //             id: '863645415458865163',   // TEST SERVER MOD ROLE
+    //             type: 'USER',
+    //             permission: true,
+    //         }]
+    //     },{
+    //         id: userSC.id,    // COMMAND: /user
+    //         permissions: [{
+    //             id: '863650974513758259',   // TEST SERVER ADMIN ROLE
+    //             type: 'USER',
+    //             permission: true,
+    //         },{
+    //             id: '863645415458865163',   // TEST SERVER MOD ROLE
+    //             type: 'USER',
+    //             permission: true,
+    //         }]
+    //     },
+    // ];
     
 
-    // TEST SERVER
-    client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: testServerVerifPerms })
+    // // TEST SERVER
+    // client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: testServerVerifPerms })
 
     // TEMPLE SERVER
     // client.guilds.cache.get('829409161581821992').commands.permissions.set({ command: '874104396265431081', permissions: verifPerms })
