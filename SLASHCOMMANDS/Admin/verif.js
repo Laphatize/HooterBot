@@ -84,7 +84,7 @@ module.exports = {
         // BLACKLIST
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`inputs = ${inputs}`)
+            interaction.followUp(`inputs[0] = ${inputs[0]}\ninputs[1] = ${inputs[1]}`)
         }
     }
 }
