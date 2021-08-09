@@ -7,22 +7,22 @@ module.exports = {
             name: `birthday`,
             description: `ADMIN | A command for admins to migrate MEE6's birthdays over to HooterBot. [10s]`,
             type: 'SUB_COMMAND',
-            options: [{
-                    name: `user`,
-                    description: `The user who's birthday you're migrating.`,
-                    type: `USER`,
-                    required: true
-                },{
-                    name: `month`,
-                    description: `The two-digit month value.`,
-                    type: `INTEGER`,
-                    required: true
-                },{
-                    name: `day`,
-                    description: `The two-digit day value.`,
-                    type: `INTEGER`,
-                    required: true
-                }]
+            // options: [{
+            //         name: `user`,
+            //         description: `The user who's birthday you're migrating.`,
+            //         type: `USER`,
+            //         required: true
+            //     },{
+            //         name: `month`,
+            //         description: `The two-digit month value.`,
+            //         type: `INTEGER`,
+            //         required: true
+            //     },{
+            //         name: `day`,
+            //         description: `The two-digit day value.`,
+            //         type: `INTEGER`,
+            //         required: true
+            //     }]
                 
         // },{
         //     // LEVEL IMPORT
