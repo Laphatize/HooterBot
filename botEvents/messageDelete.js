@@ -39,13 +39,9 @@ module.exports = {
 
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logRuleMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logRuleMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
-            } else {
-                // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
-                return;
             }
-            return;
         }
 
 
@@ -77,7 +73,7 @@ module.exports = {
                 .setDescription(`A new verification embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
             }
             
@@ -99,21 +95,12 @@ module.exports = {
                 .setDescription(`A new verified perks embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
-
-            } else {
-                // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
-                return;
             }
-            return;
         }
 
         
-
-        // DELAY FOR AUDIT LOG TO UPDATE
-        await discord.Util.delayFor(1500);
-
 
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
@@ -125,10 +112,9 @@ module.exports = {
             .setTitle(`Message Deleted`)
             .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
             .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-            .setFooter(`Message deleted by: ???`)
             .setTimestamp()
 
         // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
+        return modLogChannel.send({embeds: [logEmbed]})
 	},
 };

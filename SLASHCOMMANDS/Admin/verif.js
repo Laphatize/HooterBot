@@ -88,6 +88,7 @@ module.exports = {
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
 
+
         /*******************/
         /* BLACKLIST       */
         /*******************/
@@ -99,7 +100,7 @@ module.exports = {
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, you must be an Administrator to blacklist a user.`)
+                    .setDescription(`Sorry, like the command description says, you must be an Administrator to blacklist a user.`)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
@@ -111,10 +112,12 @@ module.exports = {
             let blacklistUser = interaction.options.getUser('user');
             let blacklistReason = interaction.options.getString('reason');
 
+
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbBlacklistData = await ticketBlacklistSchema.findOne({
                 USER_ID: blacklistUser.id
             }).exec();
+
 
             // IF ENTRY ALREADY EXISTS
             if(dbBlacklistData) {
@@ -129,6 +132,7 @@ module.exports = {
                 // SENDING MESSAGE
                 return interaction.reply({ embeds: [alreadyBlacklistedEmbed], ephemeral: true })
             }
+
 
             // STORING IN DATABASE THE USER ID
             await ticketBlacklistSchema.findOneAndUpdate({
@@ -172,8 +176,22 @@ module.exports = {
         /*******************/
         if(subCmdName == 'maintenance') {
 
+            // CHECKING IF USER IS AN ADMIN
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+                // DEFINING EMBED
+                let notAdminEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, like the command description says, you must be an Administrator to toggle maintenance mode.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
+            }
+            
+
             // GETTING OPTIONS VALUES
-            let maintenanceSetting = interaction.options.getString('status');3
+            let maintenanceSetting = interaction.options.getString('status');
 
                 
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
@@ -318,8 +336,120 @@ module.exports = {
         /*  PERKS EMBED    */
         /*******************/
         if(subCmdName == 'perks') {
+
+            // CHECKING IF USER IS AN ADMIN
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+                // DEFINING EMBED
+                let notAdminEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, like the command description says, you must be an Administrator to generate/update the perks embed.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
+            }
             
+
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+            const dbGuildData = await guildSchema.findOne({
+                GUILD_ID: interaction.guild.id
+            }).exec();
+
+
+            // EMBED MESSAGE
+            let verifPerksEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`**Why Verify?**`)
+                .setDescription(`Students, alumni, and employee of Temple University gain access to additional channels and permissions in the server:`)
+                .addField(`Image posting and GIF embed:`, "*Server-wide* - non-verified users can only post/embed in:\n• <#829409161581821999>\n• <#831152843166580777>\n• <#832649518079672340>")
+                .addField(`Channel access:`, `• <#829445602868854804> - find roommates for the upcoming term\n• <#831527136438255626> - connect with each other on social media\n• <#832976391985168445> - discuss scheduling and classes\n• <#829629393629872159> - talk about IRL events happening on/near campus`)
+                .addField(`Posting abilities:`, `• <#829732282079903775>`)
+                .addField(`Voice chat features:`, `• Screen sharing`)
             
+
+            // MESSAGE ID DNE IN DATABASE, POST AND LOG MSG INFO IN DB
+            if(!dbGuildData.VERIF_PERKS_MSG_ID) {
+
+                // POSTING EMBED
+                await interaction.channel.send({ embeds: [verifPerksEmbed] })
+                    .catch(err => console.log(err))
+
+                    // GETTING MESSAGE ID OF verifPerksEmbed
+                    .then(sentEmbed => {
+                        verifPerksEmbedMsgId = sentEmbed.id;
+                    })
+
+
+                // STORING IN DATABASE THE RULE EMBED'S MESSAGE ID AND CHANNEL ID
+                await guildSchema.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    GUILD_NAME: interaction.guild.name,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    VERIF_PERKS_MSG_ID: verifPerksEmbedMsgId
+                },{ 
+                    upsert: true
+                }).exec();
+
+
+                // DEFINING UPDATE EMBED
+                let verifPostingEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verification perks embed successfully posted.`)
+
+
+                // SENDING CONFIRMATION
+                interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
+                // DEFINING LOG EMBED
+                let logVerifPerksPromptEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} New verified perks embed posted.`)
+                    .setDescription(`The message ID has been saved to the database.\n**User:** ${interaction.user}`)
+                    .setTimestamp()
+
+
+                // LOG ENTRY
+                return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPerksPromptEmbed] })
+            }
+
+
+            // MESSAGE ID EXISTS IN DATABASE, EDIT EMBED WITHOUT TOUCHING MESSAGE ID
+            if(dbGuildData.VERIF_PERKS_MSG_ID) {
+
+                // GETTING THE VERIFICATION PERKS CHANNEL ID FROM DATABASE
+                await interaction.channel.messages.fetch(dbGuildData.VERIF_PERKS_MSG_ID)
+                    .then(msg => {
+                        msg.edit({ embeds: [verifPerksEmbed] })
+                    })
+                    .catch(err => console.log(err))
+
+
+                // DEFINING UPDATE EMBED
+                let verifPostingEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verification perks embed successfully edited.`)
+
+
+                // SENDING CONFIRMATION
+                interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
+
+                // DEFINING LOG EMBED
+                let logPerksEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verified perks embed updated.`)
+                    .setDescription(`\n**User:** ${interaction.user}`)
+                    .setTimestamp()
+
+
+                // LOG ENTRY
+                return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logPerksEmbed] })
+            }
         }
 
 
@@ -328,11 +458,65 @@ module.exports = {
         /*******************/
         if(subCmdName == 'pm') {
 
+            // CHECKING IF USER IS AN ADMIN
+            if(!interaction.user.permissions.has('MANAGE_MESSAGES')) {
+                // DEFINING EMBED
+                let notAdminEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, like the command description says, you must be a Moderator to use this command.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
+            }
+
             // GETTING OPTIONS VALUES
             let pmMessage = interaction.options.getString('message');
 
 
+            // IF THE VERIF CHANNEL IS CLOSED OR ARCHIVED
+            if(interaction.channel.name.toLowerCase().startsWith(`closed-`) || interaction.channel.name.toLowerCase().startsWith(`archived-`)) {
+                // DEFINING EMBED
+                let normalMessages = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjORANGETICK} Command not needed!`)
+                    .setDescription(`This ticket is complete - you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n\`\`\`${message}\`\`\``)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [normalMessages], ephemeral: true })
+            }
 
+
+            // IF NOT USED IN VERIFICATION CHANNEL
+            if(interaction.channel.name.toLowerCase().startsWith(`verify-`)) {
+
+                await interaction.defer()
+
+                // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
+                let modAdminMsgEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
+                    .setDescription(pmMessage)
+                    .setTimestamp()
+                    .setFooter(`This message can only be seen by mods/admins.`)
+
+                await interaction.editReply({ embeds: [modAdminMsgEmbed] })
+            }
+
+
+            else {
+                // DEFINING EMBED
+                let wrongChannelEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`This command can only be used in a verification ticket channel.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
+            }
         }
 
 
@@ -340,9 +524,142 @@ module.exports = {
         /*  PROMPT EMBED   */
         /*******************/
         if(subCmdName == 'prompt') {
+
+            // CHECKING IF USER IS AN ADMIN
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+                // DEFINING EMBED
+                let notAdminEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, like the command description says, you must be an Administrator to generate/update the main embed.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
+            }
+
             
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+            const dbGuildData = await guildSchema.findOne({
+                GUILD_ID: interaction.guild.id
+            }).exec();
 
+
+            // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
+            if(!dbGuildData.TICKET_CAT_ID) {
+                let noCatEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to set the ticket category using \`\`/ticketcategory\`\` or \`\`/setcategory\`\` before the verification prompt can be posted.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
+            }
+
+            // EMBED MESSAGE
+            let verifEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`**Get verified!**`)
+                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
+                .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
+
+
+            // BUTTON ROW
+            const buttonRow = new MessageActionRow()
+                .addComponents(
+                    // BEGIN BUTTON
+                    new MessageButton()
+                        .setLabel("Begin Verification")
+                        .setStyle("SUCCESS")
+                        .setCustomId("begin_verification_button"),
+                    // DATA & PRIVACY BUTTON
+                    new MessageButton()
+                        .setLabel(`Data & Privacy Info`)
+                        .setStyle("PRIMARY")
+                        .setCustomId(`dataPrivacy_Roles`)
+                );
+
+
+            // MESSAGE ID DNE IN DATABASE, POST AND LOG MSG INFO IN DB
+            if(!dbGuildData.VERIF_PROMPT_MSG_ID) {
+
+                // POSTING EMBED
+                await interaction.channel.send({ embeds: [verifEmbed], components: [buttonRow] })
+                    .catch(err => console.log(err))
+
+                    // GETTING MESSAGE ID OF verifEmbed
+                    .then(sentEmbed => {
+                        verifEmbedMsgId = sentEmbed.id;
+                    })
+
+
+                // STORING IN DATABASE THE VERIFICATION EMBED'S MESSAGE ID AND CHANNEL ID
+                await guildSchema.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    GUILD_NAME: interaction.guild.name,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    VERIF_PROMPT_MSG_ID: verifEmbedMsgId
+                },{ 
+                    upsert: true
+                }).exec();
+
+
+                // DEFINING UPDATE EMBED
+                let verifPostingEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verification embed successfully posted.`)
+
+
+                // SENDING CONFIRMATION
+                interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
+                // DEFINING LOG EMBED
+                let logVerifPromptEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} New verification prompt posted.`)
+                    .setDescription(`The message ID has been saved to the database.\n**User:** ${interaction.user}`)
+                    .setTimestamp()
+
+
+                // LOG ENTRY
+                return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
+            }
+
+            // MESSAGE ID EXISTS IN DATABASE, EDIT EMBED WITHOUT TOUCHING MESSAGE ID
+            if(dbGuildData.VERIF_PROMPT_MSG_ID) {
+
+                // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+                await interaction.channel.messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
+                    .then(msg => {
+                        msg.edit({ embeds: [verifEmbed], components: [buttonRow] })
+                    })
+                    .catch(err => console.log(err))
+
+
+                // DEFINING UPDATE EMBED
+                let verifPostingEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verification embed successfully edited.`)
+
+
+                // SENDING CONFIRMATION
+                interaction.reply({ embeds: [verifPostingEmbed], ephemeral: true })
+
+
+                // DEFINING LOG EMBED
+                let logVerifPromptEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Verified prompt embed updated.`)
+                    .setDescription(`**User:** ${interaction.user}`)
+                    .setTimestamp()
+
+
+                // LOG ENTRY
+                return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logVerifPromptEmbed] })
+            }
         }
-
     }
 }
