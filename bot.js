@@ -120,10 +120,14 @@ client.on('ready', async () => {
     // SETTING PERMISSIONS
     const testServerVerifPerms = [
         {
-            id: '863645415458865163',
+            id: '863650974513758259',   // TEST SERVER ADMIN ROLE
             type: 'USER',
             permission: true,
-        },
+        },{
+            id: '863645415458865163',   // TEST SERVER MOD ROLE
+            type: 'USER',
+            permission: true,
+        }
     ];
 
     // GUILDS
