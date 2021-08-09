@@ -1,3 +1,8 @@
+const discord = require('discord.js')
+const config = require ('../../config.json')
+const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
+
+
 module.exports = {
     name: 'verif',
     description: 'Commands regarding server verification',
@@ -84,35 +89,96 @@ module.exports = {
         // BLACKLIST
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`interaction.options.getUser('user') = ${interaction.options.getUser('user')}\ninteraction.options.getString('reason') = ${interaction.options.getString('reason')}`)
+            let blacklistUser = interaction.options.getUser('user');
+            let blacklistReason = interaction.options.getString('reason');
+
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+            const dbBlacklistData = await ticketBlacklistSchema.findOne({
+                USER_ID: blacklistUser.id
+            }).exec();
+
+            // IF ENTRY ALREADY EXISTS
+            if(dbBlacklistData) {
+
+                // DEFINING EMBED
+                let alreadyBlacklistedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`${blacklistUser} is already on the blacklist.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [alreadyBlacklistedEmbed], ephemeral: true })
+            }
+
+            // STORING IN DATABASE THE USER ID
+            await ticketBlacklistSchema.findOneAndUpdate({
+                USER_ID: blacklistUser.id
+            },{
+                USER_ID: blacklistUser.id
+            },{
+                upsert: true
+            }).exec();
+
+
+            // CONFIRMATION EMBED
+            let confirmationEmbed = new discord.MessageEmbed()
+                .setColor(config.embedDarkGrey)
+                .setTitle(`User Successfully Blacklisted`)
+                .setDescription(`${blacklistUser} (ID: ${blacklistUser.id}) is now blacklisted from the verification system.\nIf this is not the user you intended, please inform <@${config.botAuthorId}> ***immediately*** and provide the user ID listed in this message.`)
+
+            // SENDING CONFIRMATION
+            interaction.reply({ embeds: [confirmationEmbed], ephemeral: true })
+
+
+            // LOG EMBED
+            let blacklistLogEmbed = new discord.MessageEmbed()
+                .setColor(config.embedDarkGrey)
+                .setTitle(`User Blacklisted`)
+                .setDescription(`This user is now prevented from opening or using the verification system:`)
+                .addField(`User:`, `${blacklistUser}`, true)
+                .addField(`User ID:`, `${blacklistUser.id}`, true)
+                .addField(`\u200b`, `\u200b`, true)
+                .addField(`Mod/Admin Responsible:`, `${interaction.user}`, true)
+                .addField(`Reason:`, `${blacklistReason}`, true)
+                .setTimestamp()
+
+            // LOG ENTRY
+            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [blacklistLogEmbed] })
         }
 
 
         // MAINTENANCE
         if(subCmdName == 'maintenance') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`interaction.options.getString('status') = ${interaction.options.getString('status')}`)
+            let maintenanceSetting = interaction.options.getString('status');
+
+
+
         }
 
 
         // PERKS EMBED
         if(subCmdName == 'perks') {
-            // GETTING OPTIONS VALUES
-            interaction.followUp(`There are no options to fetch for this command.`)
+            
+            
         }
 
 
         // PROMPT EMBED
         if(subCmdName == 'pm') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`interaction.options.getString('message') = ${interaction.options.getString('message')}`)
+            let pmMessage = interaction.options.getString('message');
+
+
+
         }
 
 
         // PROMPT EMBED
         if(subCmdName == 'prompt') {
-            // GETTING OPTIONS VALUES
-            interaction.followUp(`There are no options to fetch for this command.`)
+            
+
         }
 
     }

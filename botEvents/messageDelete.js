@@ -115,53 +115,20 @@ module.exports = {
         await discord.Util.delayFor(1500);
 
 
-        // FETCHING RECENT AUDIT LOGS
-        const fetchedLogs = await message.guild.fetchAuditLogs({
-            limit: 5,
-            type: 'MESSAGE_DELETE'
-        }).catch(err => console.log(err))
-
-        const auditEntry = fetchedLogs.entries.find(a =>
-            // FILTER
-            a.target.id === message.author.id &&
-            a.extra.channel.id === message.channel.id &&
-            Date.now() - a.createdTimestamp < 20000         // IGNORING ENTRIES OLDER THAN 20s
-        ).catch(err => { return })
-
-
-        if(!auditEntry) return;
-        
-        const { executor, target } = auditEntry
-        
-
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
-        if(target.id === message.author.id) {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Message Deleted`)
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-                .setFooter(`Message deleted by user.`)
-                .setTimestamp()
+        // LOG EMBED
+        let logEmbed = new discord.MessageEmbed()
+            .setColor(config.embedOrange)
+            .setTitle(`Message Deleted`)
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+            .setFooter(`Message deleted by: ???`)
+            .setTimestamp()
 
-            // LOG ENTRY
-            modLogChannel.send({embeds: [logEmbed]})
-        } else {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Message Deleted`)
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-                .setFooter(`Message deleted by: ${executor.tag}`)
-                .setTimestamp()
-
-            // LOG ENTRY
-            modLogChannel.send({embeds: [logEmbed]})
-        }
+        // LOG ENTRY
+        modLogChannel.send({embeds: [logEmbed]})
 	},
 };
