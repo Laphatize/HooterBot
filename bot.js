@@ -211,8 +211,8 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
 
 // BIRTHDAY CHECKS
 // EVERY DAY AT 8:00AM EST
-cron.schedule('00 */2 * * * *', async () => {
-// cron.schedule('00 00 08 * * *', async () => {
+// cron.schedule('00 */2 * * * *', async () => {  // FOR TESTING
+cron.schedule('00 00 08 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -284,8 +284,8 @@ function createBdayMessage(bdayUserId) {
 
 // BIRTHDAY ROLE REMOVAL
 // EVERY DAY AT 7:59AM EST
-// cron.schedule('00 59 07 * * *', async () => {
-cron.schedule('30 */2 * * * *', async () => {
+// cron.schedule('30 */2 * * * *', async () => {  // FOR TESTING 
+cron.schedule('00 59 07 * * *', async () => {
     console.log('Removing birthday roles.');
 
     // TODAY'S DATE
@@ -302,7 +302,8 @@ cron.schedule('30 */2 * * * *', async () => {
     let bdayRoleHoist = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hoist
     let bdayRoleMentionable = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').mentionable
 
-    console.log(`bdayRolePosition = ${bdayRolePosition}`)
+
+    console.log(`Birthday role deleted.`)
 
     // DELETE THE CURRENT BIRTHDAY ROLE
     guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').delete()
@@ -316,6 +317,8 @@ cron.schedule('30 */2 * * * *', async () => {
         hoist: bdayRoleHoist,
         mentionable: bdayRoleMentionable,
     })
+
+    console.log(`New birthday role created.`)
 }, {
     scheduled: true,
     timezone: "America/New_York"
