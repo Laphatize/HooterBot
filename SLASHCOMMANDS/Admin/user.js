@@ -288,9 +288,9 @@ module.exports = {
 
                 // LOG DATABASE INFORMATION FOR BIRTHDAY
                 await birthdaySchema.findOneAndUpdate({
-                    USER_ID: interaction.user.id
+                    USER_ID: birthdayUser.id
                 },{
-                    USER_ID: interaction.user.id,
+                    USER_ID: birthdayUser.id,
                     MONTH: 2,
                     DAY: 28
                 },{
@@ -314,9 +314,9 @@ module.exports = {
 
             // LOG DATABASE INFORMATION FOR BIRTHDAY
             await birthdaySchema.findOneAndUpdate({
-                USER_ID: interaction.user.id
+                USER_ID: birthdayUser.id
             },{
-                USER_ID: interaction.user.id,
+                USER_ID: birthdayUser.id,
                 MONTH: birthdayMonth,
                 DAY: birthdayDay
             },{
