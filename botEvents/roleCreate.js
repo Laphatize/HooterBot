@@ -5,8 +5,9 @@ module.exports = {
 	name: 'roleCreate',
 	async execute(role, client) {
 
-        if(role.name == `Birthday! 👑🥳`)   return;
-        
+        // IGNORE BIRTHDAY ROLE CREATIONS
+        if(role.name.startsWith(`birthday`))   return;
+
 
         // LOG CHANNEL
         const modLogChannel = role.guild.channels.cache.find(ch => ch.name === `mod-log`)
