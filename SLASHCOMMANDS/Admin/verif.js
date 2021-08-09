@@ -84,7 +84,7 @@ module.exports = {
         // BLACKLIST
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`blacklistUser = ${blacklistUser}\nblacklistReason = ${blacklistReason}\ninputs = ${inputs}`)
+            interaction.followUp(`inputs = ${inputs}`)
         }
     }
 }
