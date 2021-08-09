@@ -112,7 +112,7 @@ module.exports = {
         
 
         // DELAY FOR AUDIT LOG TO UPDATE
-        await discord.Util.delayFor(900);
+        await discord.Util.delayFor(1500);
 
 
         // FETCHING RECENT AUDIT LOGS
