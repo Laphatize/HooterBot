@@ -3,7 +3,7 @@ module.exports = {
     description: 'Commands regarding server verification',
     options: [
         {
-            // USER BIRTHDAY
+            // BLACKLIST
             name: `blacklist`,
             description: `ADMIN | Blacklist a user from the verification system.`,
             type: 'SUB_COMMAND',
@@ -79,5 +79,15 @@ module.exports = {
         let subCmdName = interaction.options.getSubcommand()
 
         interaction.reply(`You chose the ${subCmdName} subcommand.`)
+
+
+        // BLACKLIST
+        if(subCmdName == 'blacklist') {
+            // GETTING OPTIONS VALUES
+            let blacklistUser = interaction.options.get(subCmdName).options.get('user').value;
+            let blacklistReason = interaction.options.get(subCmdName).options.get('reason').value;
+
+            interaction.reply(`blacklistUser = ${blacklistUser}\nblacklistReason = ${blacklistReason}`)
+        }
     }
 }
