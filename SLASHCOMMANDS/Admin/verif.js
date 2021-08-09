@@ -83,10 +83,9 @@ module.exports = {
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
 
-        interaction.reply(`You chose the ${subCmdName} subcommand.`)
-
-
-        // BLACKLIST
+        /*******************/
+        /* BLACKLIST       */
+        /*******************/
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
             let blacklistUser = interaction.options.getUser('user');
@@ -148,7 +147,9 @@ module.exports = {
         }
 
 
-        // MAINTENANCE
+        /*******************/
+        /*  MAINTENANCE    */
+        /*******************/
         if(subCmdName == 'maintenance') {
             // GETTING OPTIONS VALUES
             let maintenanceSetting = interaction.options.getString('status');
@@ -158,14 +159,18 @@ module.exports = {
         }
 
 
-        // PERKS EMBED
+        /*******************/
+        /*  PERKS EMBED    */
+        /*******************/
         if(subCmdName == 'perks') {
             
             
         }
 
 
-        // PROMPT EMBED
+        /*******************/
+        /*  PM MESSAGE     */
+        /*******************/
         if(subCmdName == 'pm') {
             // GETTING OPTIONS VALUES
             let pmMessage = interaction.options.getString('message');
@@ -175,7 +180,9 @@ module.exports = {
         }
 
 
-        // PROMPT EMBED
+        /*******************/
+        /*  PROMPT EMBED   */
+        /*******************/
         if(subCmdName == 'prompt') {
             
 
