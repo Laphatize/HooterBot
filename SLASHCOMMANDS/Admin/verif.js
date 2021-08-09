@@ -472,7 +472,7 @@ module.exports = {
                 let normalMessages = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjORANGETICK} Command not needed!`)
-                    .setDescription(`This ticket is complete - you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n\`\`\`${message}\`\`\``)
+                    .setDescription(`This ticket is complete - you can send messages in here normally.\n\nHere's the message you sent so you can copy/paste it in the chat:\n\`\`\`${pmMessage}\`\`\``)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
