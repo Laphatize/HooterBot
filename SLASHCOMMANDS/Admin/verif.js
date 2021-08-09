@@ -95,7 +95,7 @@ module.exports = {
         if(subCmdName == 'blacklist') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.member.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -177,7 +177,7 @@ module.exports = {
         if(subCmdName == 'maintenance') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.member.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -338,7 +338,7 @@ module.exports = {
         if(subCmdName == 'perks') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.member.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -513,7 +513,7 @@ module.exports = {
         if(subCmdName == 'prompt') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.member.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
