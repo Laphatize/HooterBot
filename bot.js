@@ -130,9 +130,20 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
+        },{
+            id: '874104396265431080',    // COMMAND: /user
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
         },
     ];
-
+    
 
     // TEST SERVER
     client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: testServerVerifPerms })
