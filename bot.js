@@ -286,7 +286,7 @@ function createBdayMessage(bdayUserId) {
 // BIRTHDAY ROLE REMOVAL
 // EVERY DAY AT 7:59AM EST
 // cron.schedule('00 59 07 * * *', async () => {
-cron.schedule('00 * * * * *', async () => {
+cron.schedule('30 * * * * *', async () => {
     console.log('Removing birthday roles.');
 
     // TODAY'S DATE
