@@ -253,14 +253,16 @@ cron.schedule('00 * * * * *', async () => {
             guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
  
-
-            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
-                .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
-                
-                    user.roles.add(bdayRole)
-                })
+            
+            setInterval(async () => {
+                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+                bdayUser = guild.members.fetch(id)
+                    .then(user => {
+                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                    
+                        user.roles.add(bdayRole)
+                    })
+            }, 1000)
         })
     }
 }, {
@@ -289,11 +291,6 @@ function createBdayMessage(bdayUserId) {
 cron.schedule('30 * * * * *', async () => {
     console.log('Removing birthday roles.');
 
-    // TODAY'S DATE
-    yesterdayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
-    yesterdayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
-
-
     // CHECK DATABASE FOR ENTRY
     const dbBirthdayData = await birthdaySchema.find({
         MONTH: yesterdayMonth,
@@ -318,15 +315,16 @@ cron.schedule('30 * * * * *', async () => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
- 
 
-            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
-                .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
-                
-                    user.roles.remove(bdayRole)
-                })
+            setInterval(async () => {
+                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+                bdayUser = guild.members.fetch(id)
+                    .then(user => {
+                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                        
+                        user.roles.remove(bdayRole)
+                    })
+            }, 1000)
         })
     }
 }, {
