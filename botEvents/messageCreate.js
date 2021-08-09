@@ -274,49 +274,13 @@ module.exports = {
         /***********************************************************/
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
-        if (!client.application?.owner) await client.application?.fetch();
+        // if (!client.application?.owner) await client.application?.fetch();
 
-        // TO GET UPDATED LIST OF SLASH COMMAND DATA, INCLUDING SLASH COMMAND ID'S, RUN:
-        if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
-            console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
-            console.log(await message.guild?.commands.fetch())
-            console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
-        }
-
-
-        // if(message.content == 'hooterbot$permsDeploy' && message.author.id === client.application?.owner.id) {
-
-        //     await message.guild.commands.fetch();
-
-        //     message.channel.send({ content: `\`\`Deploying permissions update for Slash Commands.\`\`` })
-
-        //     // SLASH COMMANDS PERMISSIONS LIST
-        //     // IF COMMAND NOT LISTED, ENABLED FOR ALL USERS
-        //     const testServerModRoleId = 863645415458865163;
-        //     const testServerAdminRoleId = 863650974513758259;
-        //     const secondTestServerModRoleId = 870168204444590141;
-        //     const secondTestServerAdminRoleId = 870168169162108968;
-        //     const templeServerModRoleId = 835182957160300604;
-        //     const templeServerAdminRoleId = 829416550867140608;
-
-
-        //     /*******************/
-        //     /* PARTNER MESSAGE */
-        //     /*******************/
-
-        //     // GET ID OF MOD ROLE AND ADMIN ROLE FOR THE CURRENT SERVER
-        //     let adminRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'admin')
-        //     let modRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'moderator')
-
-        //     const adPartnerPermissions = [
-        //         {
-        //             id: `${adminRole.id}`,  // ADMIN ROLE
-        //             type: 'ROLE',
-        //             permission: true,
-        //         }
-        //     ];
-        //     await message.guild.commands.permissions.set({ command: '873415760670777484', permissions: adPartnerPermissions });
-        
+        // // TO GET UPDATED LIST OF SLASH COMMAND DATA, INCLUDING SLASH COMMAND ID'S, RUN:
+        // if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
+        //     console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
+        //     console.log(await message.guild?.commands.fetch())
+        //     console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
         // }
     }
 }
