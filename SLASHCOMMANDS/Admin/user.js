@@ -4,7 +4,7 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 const levels = require('discord-xp');
 const moment = require('moment');
 
-// COMMAND ID: 
+// COMMAND ID: 874104396265431080
 
 module.exports = {
     name: 'user',
@@ -312,7 +312,7 @@ module.exports = {
                     }
 
                     var booster = moment( new Date(member.premiumSince)).format('LL')
-                    if(!booster) {
+                    if(booster == 'Invalid date') {
                         booster =  `*(N/A)*`
                     }
 
