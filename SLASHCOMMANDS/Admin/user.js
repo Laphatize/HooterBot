@@ -311,7 +311,7 @@ module.exports = {
                         nickname = `*(None)*`;
                     }
 
-                    var booster = moment(member.premiumSince).format('LL')
+                    var booster = moment( new Date(member.premiumSince)).format('LL')
                     if(!booster) {
                         booster =  `*(N/A)*`
                     }
