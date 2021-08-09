@@ -156,7 +156,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
         // GRAB SUBCOMMAND
-        let subCmdName = interaction.options.getSubCommand()
+        let subCmdName = interaction.options.getSubcommand()
 
         interaction.reply(`You chose the ${subCmdName} subcommand.`)
     }

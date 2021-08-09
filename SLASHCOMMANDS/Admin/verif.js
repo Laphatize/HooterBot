@@ -49,6 +49,19 @@ module.exports = {
             type: 'SUB_COMMAND',
             options: [],
         },{
+            // VERIFICATION CHANNEL PM
+            name: `pm`,
+            description: `MODERATOR | Send a message in a ticket channel without it being sent to the user.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `message`,
+                    description: `Your message for the channel.`,
+                    type: `STRING`,
+                    required: true,
+                },
+            ],
+        },{
             // PROMPT EMBED
             name: `prompt`,
             description: `ADMIN | Generate/update the verification prompt containing the buttons.`,
@@ -63,7 +76,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
         // GRAB SUBCOMMAND
-        let subCmdName = interaction.options.getSubCommand()
+        let subCmdName = interaction.options.getSubcommand()
 
         interaction.reply(`You chose the ${subCmdName} subcommand.`)
     }
