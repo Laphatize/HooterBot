@@ -162,7 +162,7 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        console.log(`user command ID: ${interaction.commandId}`)
+        // console.log(`user command ID: ${interaction.commandId}`)
 
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
@@ -342,7 +342,7 @@ module.exports = {
         /*******************/
         /* LEVEL IMPORT    */
         /*******************/   
-        if(subCmdName == 'birthday') {
+        if(subCmdName == 'levelimport') {
             // USERS
             let user1Id = interaction.options.getUser('user1').id;
             let user2Id = interaction.options.getUser('user2').id;
