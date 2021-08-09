@@ -41,7 +41,7 @@ module.exports = {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} Sorry, you've already set your birthday!`)
-                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`$forget_birthday\`\` before running this command again.`)
+                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`/forget_birthday\`\` before running this command again.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [birthdayExists], ephemeral: true })
