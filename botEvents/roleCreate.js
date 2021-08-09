@@ -5,6 +5,9 @@ module.exports = {
 	name: 'roleCreate',
 	async execute(role, client) {
 
+        if(role.name == `Birthday! 👑🥳`)   return;
+        
+
         // LOG CHANNEL
         const modLogChannel = role.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
@@ -99,7 +102,7 @@ module.exports = {
             .setTitle(`Role Created`)
             .addField(`Role:`, `${role}`, true)
             .addField(`ID:`, `${role.id}`, true)
-            .addField(`Color:`, `[${role.hexColor}](https://www.google.com/search?q=color+picker+%23${oldRole.hexColor.split('#').pop()})`, true)
+            .addField(`Color:`, `[${role.hexColor}](https://www.google.com/search?q=color+picker+%23${role.hexColor.split('#').pop()})`, true)
             .addField(`General Permissions:`,`${generalPermsHave.join(`\n`)}`, true)
             .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
             .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)

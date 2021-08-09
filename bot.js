@@ -247,7 +247,7 @@ cron.schedule('00 * * * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
@@ -292,41 +292,28 @@ cron.schedule('30 * * * * *', async () => {
     todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
     todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
 
-
-    // CHECK DATABASE FOR ENTRY
-    const dbBirthdayData = await birthdaySchema.find({
-        MONTH: yesterdayMonth,
-        DAY: yesterdayDay
-    }).exec();
+    // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+    guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
 
 
-    if(dbBirthdayData) {
+    // GET POSITION OF CURERNT BIRTHDAY ROLE
+    let bdayRolePosition = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').position
+    let bdayRoleHexColor = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hexColor
+    let bdayRoleHoist = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hoist
+    let bdayRoleMentionable = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').mentionable
 
-        // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var result = []
-
-
-        // FOR LOOP TO GRAB ID'S OF YESTERDAY'S BIRTHDAYS FROM DATABASE
-        for(let i in dbBirthdayData) {
-            result.push(dbBirthdayData[i].USER_ID)
-        }
+    // DELETE THE CURRENT BIRTHDAY ROLE
+    guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').delete()
 
 
-        // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
-        result.forEach( id => {
-
-            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
-
-            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
-                .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
-                    
-                    user.roles.remove(bdayRole)
-                })
-        })
-    }
+    // CREATE THE NEW ROLE
+    guild.roles.create({
+        name: 'Birthday! 👑🥳',
+        color: `${bdayRoleHexColor}`,
+        position: bdayRolePosition,
+        hoist: bdayRoleHoist,
+        mentionable: bdayRoleMentionable,
+    })
 }, {
     scheduled: true,
     timezone: "America/New_York"
