@@ -134,7 +134,7 @@ client.on('ready', async () => {
     let testServer = client.guilds.cache.get('530503548937699340')
     // let templeServer = client.guilds.cache.get('829409161581821992')
 
-    testServer.commands.set({ command: '874104396265431081', permissions: testServerVerifPerms })
+    testServer.commands.set({ command: '874104396265431081', permissions: [testServerVerifPerms] })
     // templeServer.commands.set({ command: '874104396265431081', permissions: verifPerms })
 
 
