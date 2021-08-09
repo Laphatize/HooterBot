@@ -2,7 +2,6 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const levels = require('discord-xp');
 
-// COMMAND ID: 871635696207679529
 
 module.exports = {
     name: 'level',

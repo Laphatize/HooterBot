@@ -2,7 +2,6 @@ const discord = require('discord.js')
 var pjson = require('../../package.json');
 const config = require ('../../config.json')
 
-// COMMAND ID: 871240034152501262
 
 module.exports = {
     name: 'bot_info',

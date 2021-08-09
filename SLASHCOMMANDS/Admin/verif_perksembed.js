@@ -2,7 +2,6 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
-// COMMAND ID: 871502773286490197
 
 module.exports = {
     name: 'verification_perksembed',

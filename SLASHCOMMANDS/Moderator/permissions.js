@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
-// COMMAND ID: 872636336719429652
 
 module.exports = {
     name: 'permissions',

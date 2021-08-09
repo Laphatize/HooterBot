@@ -3,7 +3,6 @@ const { MessageActionRow, MessageButton } = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
-// COMMAND ID: 871502773286490198
 
 module.exports = {
     name: 'verification_promptembed',

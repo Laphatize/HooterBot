@@ -2,7 +2,6 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
-// COMMAND ID: 871240034152501260
 
 module.exports = {
     name: 'rules',

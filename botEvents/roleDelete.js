@@ -12,10 +12,8 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Role Deleted`)
-            // .addField(`User:`, `${member}`, true)
-            // .addField(`Tag:`, `${member.user.tag}`, true)
-            // .addField(`ID:`, `${member.id}`, true)
-            // .addField(`Time in server:`, `${memberDuration}`)
+            .addField(`Role Name:`, `${role.name}`, true)
+            .addField(`ID:`, `${role.id}`, true)
             .setTimestamp()
 
         // LOG ENTRY

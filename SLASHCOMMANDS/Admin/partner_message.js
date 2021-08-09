@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
-// COMMAND ID: 871240034152501259
 
 module.exports = {
     name: 'partner_message',

@@ -3,7 +3,6 @@ const fs = require('fs');
 const config = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 
-// COMMAND ID: 872300348667228181
 
 module.exports = {
     name: '8ball',

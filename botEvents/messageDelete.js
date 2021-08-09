@@ -100,6 +100,8 @@ module.exports = {
             }
         }
 
+
+        if(!message.author)  return;
         
 
         // LOG CHANNEL

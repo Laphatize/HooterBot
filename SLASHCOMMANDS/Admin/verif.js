@@ -4,7 +4,6 @@ const config = require ('../../config.json')
 const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 const guildSchema = require('../../Database/guildSchema');
 
-// COMMAND ID: 874104396265431081
 
 module.exports = {
     name: 'verif',
@@ -77,7 +76,7 @@ module.exports = {
             options: [],
         },
     ],
-    permissions: '',
+    permissions: 'MANAGE_MESSAGES',
     dmUse: false,
     cooldown: 0,
     defaultPermission: false,
@@ -462,19 +461,6 @@ module.exports = {
         /*  PM MESSAGE     */
         /*******************/
         if(subCmdName == 'pm') {
-
-            // CHECKING IF USER IS AN ADMIN
-            if(!guildMember.permissions.has('MANAGE_MESSAGES')) {
-                // DEFINING EMBED
-                let notAdminEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, like the command description says, you must be a Moderator to use this command.`)
-                    .setTimestamp()
-                
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
-            }
 
             // GETTING OPTIONS VALUES
             let pmMessage = interaction.options.getString('message');

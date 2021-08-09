@@ -4,7 +4,6 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 const levels = require('discord-xp');
 const moment = require('moment');
 
-// COMMAND ID: 874104396265431080
 
 module.exports = {
     name: 'user',
@@ -153,6 +152,60 @@ module.exports = {
                     type: `INTEGER`,
                     required: false
                 }
+            ],
+        },{
+            // INFRACTIONS
+            name: `infractions`,
+            description: `MODERATOR | A command recalling a user's recorded warnings and moderation actions.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `target_user`,
+                    description: `The user to display the list of infractions.`,
+                    type: `USER`,
+                    required: true
+                }
+            ],
+        },{
+            // WARN
+            name: `warn`,
+            description: `MODERATOR | A command for issuing warnings to users.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `target_user`,
+                    description: `The user to warn.`,
+                    type: `USER`,
+                    required: true
+                },{
+                    name: `reason`,
+                    description: `The reason for the warning.`,
+                    type: `STRING`,
+                    required: true
+                },
+            ],
+        },{
+            // BAN
+            name: `ban`,
+            description: `ADMINISTRATOR | A command for banning users from the server.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `target_user`,
+                    description: `The user to ban.`,
+                    type: `USER`,
+                    required: true
+                },{
+                    name: `reason`,
+                    description: `The reason for the ban. (Limit: 512 characters)`,
+                    type: `STRING`,
+                    required: true
+                },{
+                    name: `purge_days`,
+                    description: `How many days' of messages to purge. (Limit: 7).`,
+                    type: `INTEGER`,
+                    required: true
+                },
             ],
         },
     ],
@@ -392,5 +445,55 @@ module.exports = {
             // CONFIRMATION
             interaction.reply({ content: 'The user(s) XP has been added to the database.', ephemeral: true })
         }
+
+
+        /*******************/
+        /* INFRACTIONS     */
+        /*******************/
+        if(subCmdName == 'infractions') {
+
+            // GETTING OPTIONS VALUES
+            let targetUser = interaction.options.getUser('target_user');
+
+
+            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\ntargetUser = ${targetUser}`)
+        }
+
+
+        /*******************/
+        /* WARN            */
+        /*******************/
+        if(subCmdName == 'warn') {
+
+            // GETTING OPTIONS VALUES
+            let warnUser = interaction.options.getUser('target_user');
+            let warnReason = interaction.options.getString('reason');
+
+
+            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nwarnUser = ${warnUser}\nwarnReason = ${warnReason}`)
+        }
+
+
+        /*******************/
+        /* BAN             */
+        /*******************/
+        if(subCmdName == 'ban') {
+
+            // GETTING OPTIONS VALUES
+            let banUser = interaction.options.getUser('target_user');
+            let banReason = interaction.options.getString('reason');
+            let banPurgeDays = interaction.options.getInteger('purge_days');
+
+
+            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)
+        }
+
+
+
+
+
+
+
+
     }
 }

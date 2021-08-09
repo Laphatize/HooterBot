@@ -2,7 +2,6 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
 
-// COMMAND ID: 871240034152501264
 
 module.exports = {
     name: 'add_birthday',

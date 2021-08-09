@@ -1,8 +1,7 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
+const config = require ('../config.json')
 const moment = require('moment');
 
-// COMMAND ID: 871449279145848872
 
 module.exports = {
     name: 'info',
