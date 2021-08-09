@@ -80,7 +80,7 @@ module.exports = {
     permissions: 'MANAGE_MESSAGES',
     dmUse: false,
     cooldown: 0,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
         console.log(`verif command ID: ${interaction.commandId}`)
