@@ -126,7 +126,8 @@ module.exports = {
             a.target.id === message.author.id &&
             a.extra.channel.id === message.channel.id &&
             Date.now() - a.createdTimestamp < 20000         // IGNORING ENTRIES OLDER THAN 20s
-        )
+        ).catch(err => { return })
+
 
         if(!auditEntry) return;
         

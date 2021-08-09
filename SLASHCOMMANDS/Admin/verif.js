@@ -84,7 +84,36 @@ module.exports = {
         // BLACKLIST
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`interaction.options.getUser('user') = ${interaction.options.getUser('user')}\ninteraction.options.getString('reason') = ${interaction.options.getString('reason')}}`)
+            interaction.followUp(`interaction.options.getUser('user') = ${interaction.options.getUser('user')}\ninteraction.options.getString('reason') = ${interaction.options.getString('reason')}`)
         }
+
+
+        // MAINTENANCE
+        if(subCmdName == 'maintenance') {
+            // GETTING OPTIONS VALUES
+            interaction.followUp(`interaction.options.getString('status') = ${interaction.options.getString('status')}`)
+        }
+
+
+        // PERKS EMBED
+        if(subCmdName == 'perks') {
+            // GETTING OPTIONS VALUES
+            interaction.followUp(`There are no options to fetch for this command.`)
+        }
+
+
+        // PROMPT EMBED
+        if(subCmdName == 'pm') {
+            // GETTING OPTIONS VALUES
+            interaction.followUp(`interaction.options.getString('message') = ${interaction.options.getString('message')}`)
+        }
+
+
+        // PROMPT EMBED
+        if(subCmdName == 'prompt') {
+            // GETTING OPTIONS VALUES
+            interaction.followUp(`There are no options to fetch for this command.`)
+        }
+
     }
 }
