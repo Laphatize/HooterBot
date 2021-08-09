@@ -136,7 +136,7 @@ module.exports = {
             type: 'SUB_COMMAND',
             options: [
                 {
-                    name: `user`,
+                    name: `member`,
                     description: `The user to generate information about.`,
                     type: `USER`,
                     required: true
