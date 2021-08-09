@@ -302,6 +302,8 @@ cron.schedule('30 */2 * * * *', async () => {
     let bdayRoleHoist = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hoist
     let bdayRoleMentionable = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').mentionable
 
+    console.log(`bdayRolePosition = ${bdayRolePosition}`)
+
     // DELETE THE CURRENT BIRTHDAY ROLE
     guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').delete()
 
