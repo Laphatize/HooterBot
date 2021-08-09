@@ -4,6 +4,7 @@ const config = require ('../../config.json')
 const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 const guildSchema = require('../../Database/guildSchema');
 
+// COMMAND ID: 874104396265431081
 
 module.exports = {
     name: 'verif',
@@ -92,8 +93,6 @@ module.exports = {
         /*******************/
         if(subCmdName == 'blacklist') {
 
-            console.log(`verif blacklist command ID: ${interaction.commandId}`)
-
             // CHECKING IF USER IS AN ADMIN
             if(!interaction.user.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
@@ -172,8 +171,6 @@ module.exports = {
         /*  MAINTENANCE    */
         /*******************/
         if(subCmdName == 'maintenance') {
-
-            console.log(`verif maintenance command ID: ${interaction.commandId}`)
 
             // GETTING OPTIONS VALUES
             let maintenanceSetting = interaction.options.getString('status');3
@@ -321,8 +318,6 @@ module.exports = {
         /*  PERKS EMBED    */
         /*******************/
         if(subCmdName == 'perks') {
-
-            console.log(`verif perks ID: ${interaction.commandId}`)
             
             
         }
@@ -332,8 +327,6 @@ module.exports = {
         /*  PM MESSAGE     */
         /*******************/
         if(subCmdName == 'pm') {
-
-            console.log(`verif pm ID: ${interaction.commandId}`)
 
             // GETTING OPTIONS VALUES
             let pmMessage = interaction.options.getString('message');
@@ -347,8 +340,6 @@ module.exports = {
         /*  PROMPT EMBED   */
         /*******************/
         if(subCmdName == 'prompt') {
-
-            console.log(`verif pm ID: ${interaction.commandId}`)
             
 
         }

@@ -115,11 +115,26 @@ client.on('ready', async () => {
     // GLOBAL SLASH COMMANDS - MMM789 TEST
     await client.application?.commands.set(arrayOfSlashCmds)                                                           //  .commands.set([]) to empty
 
-    // // GUILD SLASH COMMANDS - MMM789 2ND TEST
-    // await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
 
-    // // GUILD SLASH COMMANDS - TU SERVER ID
-    // await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)                              //  .commands.set([]) to empty
+
+    // SETTING PERMISSIONS
+    const testServerVerifPerms = [
+        {
+            id: '863645415458865163',
+            type: 'USER',
+            permission: true,
+        },
+    ];
+
+    // GUILDS
+    let testServer = client.guilds.cache.get('530503548937699340')
+    // let templeServer = client.guilds.cache.get('829409161581821992')
+
+    testServer.commands.set({ command: '874104396265431081', permissions: testServerVerifPerms })
+    // templeServer.commands.set({ command: '874104396265431081', permissions: verifPerms })
+
+
+
 })
 
 
