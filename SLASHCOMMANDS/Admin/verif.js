@@ -89,17 +89,13 @@ module.exports = {
         let subCmdName = interaction.options.getSubcommand()
 
 
-        // FETCHING GUILD MEMBER FROM USER
-        let guildMember = interaction.guild.members.fetch(interaction.user.id);
-
-
         /*******************/
         /* BLACKLIST       */
         /*******************/
         if(subCmdName == 'blacklist') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!guildMember.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -181,7 +177,7 @@ module.exports = {
         if(subCmdName == 'maintenance') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!guildMember.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -342,7 +338,7 @@ module.exports = {
         if(subCmdName == 'perks') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!guildMember.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -517,7 +513,7 @@ module.exports = {
         if(subCmdName == 'prompt') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!guildMember.permissions.has('ADMINISTRATOR')) {
+            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
