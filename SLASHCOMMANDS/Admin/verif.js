@@ -84,7 +84,7 @@ module.exports = {
         // BLACKLIST
         if(subCmdName == 'blacklist') {
             // GETTING OPTIONS VALUES
-            interaction.followUp(`subCmdName.getUser(user, true)\nsubCmdName.getString(reason, true) = ${subCmdName.getString(reason, true)}}`)
+            interaction.followUp(`subCmdName.getUser(user, true) = ${subCmdName.getUser(user, true)}\nsubCmdName.getString(reason, true) = ${subCmdName.getString(reason, true)}}`)
         }
     }
 }
