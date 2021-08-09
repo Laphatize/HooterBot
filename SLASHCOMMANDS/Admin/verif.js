@@ -77,16 +77,21 @@ module.exports = {
             options: [],
         },
     ],
-    permissions: 'MANAGE_MESSAGES',
+    permissions: '',
     dmUse: false,
     cooldown: 0,
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
-        console.log(`verif command ID: ${interaction.commandId}`)
+        // console.log(`verif command ID: ${interaction.commandId}`)
 
+        
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
+
+
+        // FETCHING GUILD MEMBER FROM USER
+        let guildMember = interaction.guild.members.fetch(interaction.user.id);
 
 
         /*******************/
@@ -95,7 +100,7 @@ module.exports = {
         if(subCmdName == 'blacklist') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!guildMember.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -177,7 +182,7 @@ module.exports = {
         if(subCmdName == 'maintenance') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!guildMember.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -338,7 +343,7 @@ module.exports = {
         if(subCmdName == 'perks') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!guildMember.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -459,7 +464,7 @@ module.exports = {
         if(subCmdName == 'pm') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('MANAGE_MESSAGES')) {
+            if(!guildMember.permissions.has('MANAGE_MESSAGES')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -526,7 +531,7 @@ module.exports = {
         if(subCmdName == 'prompt') {
 
             // CHECKING IF USER IS AN ADMIN
-            if(!interaction.user.permissions.has('ADMINISTRATOR')) {
+            if(!guildMember.permissions.has('ADMINISTRATOR')) {
                 // DEFINING EMBED
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
