@@ -5,6 +5,9 @@ module.exports = {
 	name: 'roleDelete',
 	async execute(role, client) {
 
+        // IGNORE BIRTHDAY ROLE CREATIONS
+        if(role.name == `Birthday! 👑🥳`)   return;
+
         // LOG CHANNEL
         const modLogChannel = role.guild.channels.cache.find(ch => ch.name === `mod-log`)
 

@@ -6,7 +6,7 @@ module.exports = {
 	async execute(role, client) {
 
         // IGNORE BIRTHDAY ROLE CREATIONS
-        if(role.name.startsWith(`birthday`))   return;
+        if(role.name == `Birthday! 👑🥳`)   return;
 
 
         // LOG CHANNEL
