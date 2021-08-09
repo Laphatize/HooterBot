@@ -120,22 +120,25 @@ client.on('ready', async () => {
     // SETTING PERMISSIONS
     const testServerVerifPerms = [
         {
-            id: '863650974513758259',   // TEST SERVER ADMIN ROLE
-            type: 'USER',
-            permission: true,
-        },{
-            id: '863645415458865163',   // TEST SERVER MOD ROLE
-            type: 'USER',
-            permission: true,
+            id: '874104396265431081',    // COMMAND: /verif
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
         }
     ];
 
-    // GUILDS
-    let testServer = client.guilds.cache.get('530503548937699340')
-    // let templeServer = client.guilds.cache.get('829409161581821992')
 
-    testServer.commands.set({ command: '874104396265431081', permissions: [testServerVerifPerms] })
-    // templeServer.commands.set({ command: '874104396265431081', permissions: verifPerms })
+    // TEST SERVER
+    client.guilds.cache.get('530503548937699340')?.commands.set({ testServerVerifPerms })
+
+    // TEMPLE SERVER
+    // client.guilds.cache.get('829409161581821992').commands.set({ command: '874104396265431081', permissions: verifPerms })
 
 
 
