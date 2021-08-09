@@ -83,7 +83,7 @@ module.exports = {
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
-        console.log(`verif command ID: ${interaction.commandId}`)
+        // console.log(`verif command ID: ${interaction.commandId}`)
 
         
         // GRAB SUBCOMMAND

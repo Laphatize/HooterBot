@@ -116,11 +116,16 @@ client.on('ready', async () => {
     await client.application?.commands.set(arrayOfSlashCmds)                                                           //  .commands.set([]) to empty
 
 
+    // FETCHING COMMANDS BY NAME FOR PERMISSIONS
+    const cmds = await client.application?.commands.fetch()
+    let verifSC = cmds.find(c => c.name === `verif`)
+    let userSC = cmds.find(c => c.name === `user`)
+
 
     // SETTING PERMISSIONS
     const testServerVerifPerms = [
         {
-            id: '874104396265431081',    // COMMAND: /verif
+            id: verifSC.id,    // COMMAND: /verif
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER ADMIN ROLE
                 type: 'USER',
@@ -131,7 +136,7 @@ client.on('ready', async () => {
                 permission: true,
             }]
         },{
-            id: '874104396265431080',    // COMMAND: /user
+            id: userSC.id,    // COMMAND: /user
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER ADMIN ROLE
                 type: 'USER',
@@ -150,9 +155,6 @@ client.on('ready', async () => {
 
     // TEMPLE SERVER
     // client.guilds.cache.get('829409161581821992').commands.permissions.set({ command: '874104396265431081', permissions: verifPerms })
-
-
-
 })
 
 
