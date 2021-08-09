@@ -288,6 +288,11 @@ function createBdayMessage(bdayUserId) {
 cron.schedule('30 * * * * *', async () => {
     console.log('Removing birthday roles.');
 
+    // TODAY'S DATE
+    todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
+    todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
+
+
     // CHECK DATABASE FOR ENTRY
     const dbBirthdayData = await birthdaySchema.find({
         MONTH: yesterdayMonth,
