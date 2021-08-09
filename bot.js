@@ -211,7 +211,8 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
 
 // BIRTHDAY CHECKS
 // EVERY DAY AT 8:00AM EST
-cron.schedule('00 00 08 * * *', async () => {
+cron.schedule('00 * 00 * * *', async () => {
+// cron.schedule('00 00 08 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
@@ -285,7 +286,7 @@ function createBdayMessage(bdayUserId) {
 // BIRTHDAY ROLE REMOVAL
 // EVERY DAY AT 7:59AM EST
 // cron.schedule('00 59 07 * * *', async () => {
-cron.schedule('00 */2 * * * *', async () => {
+cron.schedule('00 * * * * *', async () => {
     console.log('Removing birthday roles.');
 
     // TODAY'S DATE
