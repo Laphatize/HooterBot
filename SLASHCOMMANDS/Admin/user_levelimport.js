@@ -58,7 +58,7 @@ module.exports = {
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
-        },        {
+        },{
             name: `user6`,
             description: `The user who's XP is being imported.`,
             type: `USER`,
