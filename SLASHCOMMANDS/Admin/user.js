@@ -293,9 +293,9 @@ module.exports = {
             let infoUser = interaction.options.getUser('user');
 
             // FETCH GUILD MEMBER
-            interaction.guild.members.fetch(userId)
+            interaction.guild.members.fetch(infoUser.id)
                 .then(async user => {
-                    let member = client.users.cache.find(user => user.id === userId)
+                    let member = client.users.cache.find(user => user.id === infoUser.id)
                     
                     const flags = await member.fetchFlags()
                     var userFlags = flags.toArray()
