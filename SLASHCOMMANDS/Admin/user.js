@@ -13,7 +13,7 @@ module.exports = {
         {
             // USER BIRTHDAY
             name: `birthday`,
-            description: `ADMIN | A command for admins to migrate MEE6's birthdays over to HooterBot. [10s]`,
+            description: `MODERATOR | A command for admins/mods to migrate MEE6's birthdays over to HooterBot.`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -49,7 +49,7 @@ module.exports = {
         },{
             // LEVEL IMPORT
             name: `levelimport`,
-            description: `ADMIN | Import MEE6 Leaderboard values for up to 10 users at a time.`,
+            description: `MODERATOR | Import MEE6 Leaderboard values for up to 10 users at a time.`,
             type: 'SUB_COMMAND',
             options: [
                 {
