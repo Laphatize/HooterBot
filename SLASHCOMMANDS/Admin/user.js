@@ -25,7 +25,7 @@ module.exports = {
                 }]
         },{
             // LEVEL IMPORT
-            name: `level_import`,
+            name: `levelimport`,
             description: `ADMIN | Import MEE6 Leaderboard values for up to 10 users at a time.`,
             type: 'SUB_COMMAND',
             options: [{
