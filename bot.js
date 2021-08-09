@@ -113,7 +113,7 @@ client.on('ready', async () => {
     console.log(`======================================\n`);
 
     // GLOBAL SLASH COMMANDS - MMM789 TEST
-    await client.application?.commands.set(arrayOfSlashCmds)                                                           //  .commands.set([]) to empty
+    await client.application?.commands.set(/*arrayOfSlashCmds*/ [])                                                           //  .commands.set([]) to empty
 
 
 
@@ -130,7 +130,19 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
-        }
+        },
+        // {
+        //     id: '874104396265431081',    // COMMAND: /user
+        //     permissions: [{
+        //         id: '863650974513758259',   // TEST SERVER ADMIN ROLE
+        //         type: 'USER',
+        //         permission: true,
+        //     },{
+        //         id: '863645415458865163',   // TEST SERVER MOD ROLE
+        //         type: 'USER',
+        //         permission: true,
+        //     }]
+        // }
     ];
 
 
