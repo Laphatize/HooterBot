@@ -135,10 +135,10 @@ client.on('ready', async () => {
 
 
     // TEST SERVER
-    client.guilds.cache.get('530503548937699340')?.commands.set({ testServerVerifPerms })
+    client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ testServerVerifPerms })
 
     // TEMPLE SERVER
-    // client.guilds.cache.get('829409161581821992').commands.set({ command: '874104396265431081', permissions: verifPerms })
+    // client.guilds.cache.get('829409161581821992').commands.permissions.set({ command: '874104396265431081', permissions: verifPerms })
 
 
 
