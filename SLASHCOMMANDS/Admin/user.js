@@ -162,7 +162,7 @@ module.exports = {
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
-        // console.log(`user command ID: ${interaction.commandId}`)
+        console.log(`user command ID: ${interaction.commandId}`)
 
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
