@@ -244,7 +244,7 @@ module.exports = {
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
-                await interaction.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
+                await interaction.guild.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
                     .then(msg => {
                         msg.edit({embeds: [ticketMaintenanceEmbed], components: [buttonRow]})
                     })
