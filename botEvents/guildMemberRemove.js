@@ -90,14 +90,14 @@ module.exports = {
 
 
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                member.guild.channels.cache.find(ch => ch.name === `verify-${member.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                member.guild.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${member.username.toLowerCase()}`)
+                        msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
 
                                 // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                             // GRAB TICKET CHANNEL
-                            initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${member.username.toLowerCase()}`)
+                            initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${dmUser.username.toLowerCase()}`)
                                 .then(ch => {
                                     // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
                                     msg = ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
@@ -106,9 +106,9 @@ module.exports = {
                                     let newTicketEditedEmbed = new discord.MessageEmbed()
                                         .setColor(config.embedGreen)
                                         .setTitle(`**Verification Ticket Closed**`)
-                                        .addField(`User:`, `${member}`, true)
-                                        .addField(`User Tag:`, `${member.tag}`, true)
-                                        .addField(`User ID:`, `${member.id}`, true)
+                                        .addField(`User:`, `${dmUser}`, true)
+                                        .addField(`User Tag:`, `${dmUser.tag}`, true)
+                                        .addField(`User ID:`, `${dmUser.id}`, true)
                                         .setDescription(`*This ticket has been closed because the user has left the server.*`)
 
                                     let QuitButton = new MessageButton()
