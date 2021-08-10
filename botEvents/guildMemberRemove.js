@@ -98,7 +98,7 @@ module.exports = {
 
                             // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                         // GRAB TICKET CHANNEL
-                        initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${member.user.username.toLowerCase()}`)
+                        initialChMsg = member.guild.channels.cache.find(ch => ch.name === `closed-${member.user.username.toLowerCase()}`)
                             .then(ch => {
                                 // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
                                 msg = ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
