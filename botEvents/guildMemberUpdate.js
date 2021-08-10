@@ -33,7 +33,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Added`)
-                    .setDescription(`**Role:** ${roleChange}\n**Added by:** ${executor.id}`)
+                    .setDescription(`**Role:** ${roleChange}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -75,7 +75,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** ${roleChange}\n**Added by:** ${executor.id}`)
+                    .setDescription(`**Role:** ${roleChange}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
 
                 // LOG ENTRY
