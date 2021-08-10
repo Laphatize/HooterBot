@@ -408,8 +408,6 @@ module.exports = {
             let user9 = interaction.options.getUser('user9');
             let user10 = interaction.options.getUser('user10');
 
-            console.log(`user1Id = ${user1Id}`)
-
             // XP
             let xp1 = interaction.options.getInteger('xp_value1');
             let xp2 = interaction.options.getInteger('xp_value2');
