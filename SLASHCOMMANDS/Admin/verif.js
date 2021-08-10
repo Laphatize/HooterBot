@@ -205,7 +205,7 @@ module.exports = {
                 let noCatEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`${config.emjREDTICK} **Error!** Missing Verification Prompt`)
-                    .setDescription(`You first need to create a verification prompt in the server using \`\`/verif_promptembed\`\` in **#roles** before the verification prompt can be toggled in and out of maintenance mode.`)
+                    .setDescription(`You first need to create a verification prompt in the server using \`\`/verif prompt\`\` in **#roles** before the verification prompt can be toggled in and out of maintenance mode.`)
 
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
@@ -303,7 +303,7 @@ module.exports = {
 
 
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
-                await interaction.channel.messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
+                await interaction.guild.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
                     .then(msg => {
                         msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
                     })
@@ -421,7 +421,7 @@ module.exports = {
             if(dbGuildData.VERIF_PERKS_MSG_ID) {
 
                 // GETTING THE VERIFICATION PERKS CHANNEL ID FROM DATABASE
-                await interaction.channel.messages.fetch(dbGuildData.VERIF_PERKS_MSG_ID)
+                await interaction.guild.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PERKS_MSG_ID)
                     .then(msg => {
                         msg.edit({ embeds: [verifPerksEmbed] })
                     })
