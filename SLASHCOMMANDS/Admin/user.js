@@ -420,37 +420,37 @@ module.exports = {
             let xp9 = interaction.options.getInteger('xp_value9');
             let xp10 = interaction.options.getInteger('xp_value10');
 
-            interaction.reply(`user1 = ${user1}\nuser1.id = ${user1.id}`)
-
+            // ARRAY FOR CONFIRMATION MESSAGE
             let confirmationArray = []
 
+            // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
             levels.appendXp(user1.id, interaction.guild.id, xp1);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            if(user2Id) {
+            if(user2) {
                 levels.appendXp(user2.id, interaction.guild.id, xp2);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user3Id) {
+            } if(user3) {
                 levels.appendXp(user3.id, interaction.guild.id, xp3);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user4Id) {
+            } if(user4) {
                 levels.appendXp(user4.id, interaction.guild.id, xp4);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user5Id) {
+            } if(user5) {
                 levels.appendXp(user5.id, interaction.guild.id, xp5);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user6Id) {
+            } if(user6) {
                 levels.appendXp(user6.id, interaction.guild.id, xp6);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user7Id) {
+            } if(user7) {
                 levels.appendXp(user7.id, interaction.guild.id, xp7);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user8Id) {
+            } if(user8) {
                 levels.appendXp(user8.id, interaction.guild.id, xp8);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user9Id) {
+            } if(user9) {
                 levels.appendXp(user9.id, interaction.guild.id, xp9);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            } if(user10Id) {
+            } if(user10) {
                 levels.appendXp(user10.id, interaction.guild.id, xp10);
                 confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
             }
