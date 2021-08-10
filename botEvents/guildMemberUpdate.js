@@ -73,7 +73,7 @@ module.exports = {
 
 
             // FETCH ROLE IN GUILD TO GET ROLE OBJECT
-            let oldRole = newMember.roles.cache.get(roleChangeId)
+            let oldRole = oldMember.roles.cache.get(roleChangeId)
                         
             
             // ROLE REMOVED FROM USER BY SOMEONE ELSE
