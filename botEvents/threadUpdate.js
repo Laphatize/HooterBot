@@ -134,12 +134,12 @@ module.exports = {
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
             modLogChannel.send({ embeds: [logEmbed] })
         }
-        
+
 
         // THREAD LOCK CHANGE
         if(oldThread.locked !== newThread.locked) {
 
-            // THREAD NOW ARCHIVED
+            // THREAD LOCKED
             if(newThread.locked == true) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
@@ -153,13 +153,13 @@ module.exports = {
                 modLogChannel.send({ embeds: [logEmbed] })
             }
 
-            // THREAD NOW ARCHIVED
+            // THREAD UNLOCKED
             if(newThread.archived == false) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`Thread Unlocked`)
-                    .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Locked By:** (admin/mod)`)
+                    .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Unlocked By:** (admin/mod)`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()
 
