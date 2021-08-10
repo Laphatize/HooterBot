@@ -38,14 +38,6 @@ module.exports = {
         // TICKET OPEN
         if(dbTicketData) {
             let leftUser = member.guild.members.fetch(dbTicketData.CREATOR_ID)
-                .then(dmUser => {
-
-                    // DELETING DATABASE ENTRY
-                    ticketSchema.deleteOne({
-                        CREATOR_ID: dmUser.id
-                    }).exec();
-                })
-
 
             // LOGGING TICKET CLOSURE
             let logCloseTicketEmbed = new discord.MessageEmbed()
@@ -130,6 +122,12 @@ module.exports = {
                             })
                 })
                 .catch(err => console.log(err))
+
+
+            // DELETING DATABASE ENTRY
+            ticketSchema.deleteOne({
+                CREATOR_ID: member.user.id
+            }).exec();
         }
 	},
 };
