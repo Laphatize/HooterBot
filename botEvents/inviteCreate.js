@@ -19,7 +19,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`Server Invite Created`)
-            .setDescription(`**Invite URL:** ${invite.url}\n**Creator:** ${invite.inviter}\n**Expiration:** ${expirationDate}\n**Max Uses:** ${maxUse}\n**Channel:** ${invite.channel}`)
+            .setDescription(`**Invite URL:** ${invite.url}\n**Creator:** ${invite.inviter}\n**Expiration:** ${expirationDate}\n**Max Uses:** ${maxUse}\n**Temporary Membership?** ${invite.temporary}\n**Channel:** ${invite.channel}`)
             .setTimestamp()
 
         // LOG ENTRY
