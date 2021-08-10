@@ -654,23 +654,6 @@ cron.schedule('00 01 10 * * *', async () => {
                             }
                         })
 
-                    // UPDATE TICKET CATEGORY COUNTER
-                    // GRAB TICKET CATEGORY USING ID
-                    let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                    // COUNT OF TICKETS IN DB
-                    ticketCount = ticketSchema.find({
-                        GUILD_ID: guild.id
-                    }).countDocuments()
-                    .exec();
-                    
-                    console.log(`The number of open tickets in the test server is ${ticketCount-1}.`)
-
-                    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
-
-                    
-
                     // DELETING DATABASE ENTRY
                     ticketSchema.deleteOne({
                         CREATOR_ID: dmUser.id

@@ -100,7 +100,7 @@ module.exports = {
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, like the command description says, you must be an Administrator to blacklist a user.`)
+                    .setDescription(`Sorry, like the command description says, you must be an **Administrator** to blacklist a user.`)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
@@ -182,7 +182,7 @@ module.exports = {
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, like the command description says, you must be an Administrator to toggle maintenance mode.`)
+                    .setDescription(`Sorry, like the command description says, you must be an **Administrator** to toggle maintenance mode.`)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
@@ -343,7 +343,7 @@ module.exports = {
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, like the command description says, you must be an Administrator to generate/update the perks embed.`)
+                    .setDescription(`Sorry, like the command description says, you must be an **Administrator** to generate/update the perks embed.`)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
@@ -518,7 +518,7 @@ module.exports = {
                 let notAdminEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`Sorry, like the command description says, you must be an Administrator to generate/update the main embed.`)
+                    .setDescription(`Sorry, like the command description says, you must be an **Administrator** to generate/update the main embed.`)
                     .setTimestamp()
                 
                 // SENDING MESSAGE
