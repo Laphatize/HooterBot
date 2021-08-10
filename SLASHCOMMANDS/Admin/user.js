@@ -397,16 +397,18 @@ module.exports = {
         /*******************/   
         if(subCmdName == 'levelimport') {
             // USERS
-            let user1Id = interaction.options.getUser('user1').id;
-            let user2Id = interaction.options.getUser('user2').id;
-            let user3Id = interaction.options.getUser('user3').id;
-            let user4Id = interaction.options.getUser('user4').id;
-            let user5Id = interaction.options.getUser('user5').id;
-            let user6Id = interaction.options.getUser('user6').id;
-            let user7Id = interaction.options.getUser('user7').id;
-            let user8Id = interaction.options.getUser('user8').id;
-            let user9Id = interaction.options.getUser('user9').id;
-            let user10Id = interaction.options.getUser('user10').id;
+            let user1Id = interaction.options.getUser('user1');
+            let user2Id = interaction.options.getUser('user2');
+            let user3Id = interaction.options.getUser('user3');
+            let user4Id = interaction.options.getUser('user4');
+            let user5Id = interaction.options.getUser('user5');
+            let user6Id = interaction.options.getUser('user6');
+            let user7Id = interaction.options.getUser('user7');
+            let user8Id = interaction.options.getUser('user8');
+            let user9Id = interaction.options.getUser('user9');
+            let user10Id = interaction.options.getUser('user10');
+
+            console.log(`user1Id = ${user1Id}`)
 
             // XP
             let xp1 = interaction.options.getUser('user1');
