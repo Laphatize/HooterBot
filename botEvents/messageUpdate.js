@@ -37,7 +37,7 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${oldMessage.channel}\n*The content of the original and edited message exceeds 4096 characters and cannot be displayed.*`)
+                .setDescription(`**Channel:** ${oldMessage.channel}\n*The content of the combined original and edited message exceeds 4096 characters and cannot be displayed.*`)
                 .setTimestamp()
 
             // LOG ENTRY

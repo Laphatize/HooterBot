@@ -12,12 +12,44 @@ module.exports = {
         let roleChangeId = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.id).toString()
 
 
+        // USERNAME CHANGE
+        if(oldMember.displayName !== newMember.displayName) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                .setTitle(`Display Name Changed`)
+                .setDescription(`**Old Name:** ${oldMember.displayname}\n**New Name:** ${newMember.displayname}`)
+                .setTimestamp()
+                .setFooter(`User ID: ${newMember.id}`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
+
+
+        // USERNAME CHANGE
+        if(oldMember.nickname !== newMember.nickname) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                .setTitle(`Nickname Changed`)
+                .setDescription(`**Old Name:** ${oldMember.nickname}\n**New Name:** ${newMember.nickname}`)
+                .setTimestamp()
+                .setFooter(`User ID: ${newMember.id}`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
+
+
         // ROLE ADDED TO USER
         if(oldMember.roles.cache.size < newMember.roles.cache.size) {
   
             // SET SHORT TIMEOUT TO WAIT FOR LOG ENTRY
             setTimeout(() => {}, 500 )
-            
+
             const fetchedLogs = await oldMember.guild.fetchAuditLogs({
                 limit: 1,
                 type: 'MEMBER_ROLE_UPDATE'
@@ -88,10 +120,10 @@ module.exports = {
             if(executor.id !== target.id) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
+                    .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** ${oldRole}\n**Added by:** <@${executor.id}>`)
+                    .setDescription(`**Role:** ${oldRole}\n**Removed by:** <@${executor.id}>`)
                     .setTimestamp()
                     .setFooter(`User ID: ${newMember.id}`)
 
@@ -102,7 +134,7 @@ module.exports = {
             else {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
+                    .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
                     .setDescription(`**Role:** ${oldRole}`)
@@ -113,5 +145,8 @@ module.exports = {
                 modLogChannel.send({embeds: [logEmbed]})
             }
         }
+
+
+
 	},
 };
