@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const moment = require('moment');
-const ticketSchema = require('./Database/ticketSchema');
+const ticketSchema = require('../Database/ticketSchema')
 
 module.exports = {
 	name: 'guildMemberRemove',
