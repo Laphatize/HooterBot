@@ -9,7 +9,7 @@ module.exports = {
         const modLogChannel = oldMember.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // FINDING THE ROLE ADDED/REMOVED
-        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.id).toString()
+        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role).toString()
 
 
         // ROLE ADDED TO USER
@@ -33,7 +33,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Added`)
-                    .setDescription(`**Role:** <@${roleChange}>\n**Added by:** ${executor.id}`)
+                    .setDescription(`**Role:** ${roleChange}\n**Added by:** ${executor.id}`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -46,7 +46,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Added`)
-                    .setDescription(`**Role:** <@${roleChange}>`)
+                    .setDescription(`**Role:** ${roleChange}`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -75,7 +75,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** <@${roleChange}>\n**Added by:** ${executor.id}`)
+                    .setDescription(`**Role:** ${roleChange}\n**Added by:** ${executor.id}`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -88,7 +88,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** <@${roleChange}>`)
+                    .setDescription(`**Role:** ${roleChange}`)
                     .setTimestamp()
 
                 // LOG ENTRY
