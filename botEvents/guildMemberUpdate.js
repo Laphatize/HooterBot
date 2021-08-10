@@ -8,58 +8,92 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = oldMember.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
+        // FINDING THE ROLE ADDED/REMOVED
+        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.id).toString()
 
 
+        // ROLE ADDED TO USER
         if(oldMember.roles.cache.size < newMember.roles.cache.size) {
   
             const fetchedLogs = await oldMember.guild.fetchAuditLogs({
-            limit: 1,
-            type: 'MEMBER_ROLE_UPDATE'
+                limit: 1,
+                type: 'MEMBER_ROLE_UPDATE'
             })
           
-            const roleAddLog = fetchedLogs.entries.first(); 
-             if (!roleAddLog) return;
-            
-            const { executor, target, extra } = roleAddLog;
-            
-            console.log(`Role ${extra} added to ${target.id} by ${executor.id}`)
+            // FETCH AUDIT LOG INFO FOR MAIN LOG
+            const roleAddLog = fetchedLogs.entries.first()
+            if (!roleAddLog) return
+            const { executor, target } = roleAddLog
+
+
+            // USER GIVEN ROLE BY SOMEONE ELSE
+            if(executor.id !== target.id) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                    .setTitle(`Role Added`)
+                    .setDescription(`**Role:** <@${roleChange}>\n**Added by:** ${executor.id}`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+            // USER GIVES THEMSELVES THE ROLE
+            else {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                    .setTitle(`Role Added`)
+                    .setDescription(`**Role:** <@${roleChange}>`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
         }
 
-
-        console.log(`oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.name).toString() = \n ${oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.name).toString()}`)
-
-
-
+        // ROLE REMOVED FROM USER
         if(oldMember.roles.cache.size > newMember.roles.cache.size) {
-  
+
             const fetchedLogs = await oldMember.guild.fetchAuditLogs({
-            limit: 1,
-            type: 'MEMBER_ROLE_UPDATE'
+                limit: 1,
+                type: 'MEMBER_ROLE_UPDATE'
             })
-          
-            const roleAddLog = fetchedLogs.entries.first(); 
-             if (!roleAddLog) return;
             
-            const { executor, target, extra } = roleAddLog;
-            
-            console.log(`Role ${extra} removed from ${target.id} by ${executor.id}`)
+            // FETCH AUDIT LOG INFO FOR MAIN LOG
+            const roleAddLog = fetchedLogs.entries.first()
+            if (!roleAddLog) return
+            const { executor, target } = roleAddLog
+
+
+            // ROLE REMOVED FROM USER BY SOMEONE ELSE
+            if(executor.id !== target.id) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                    .setTitle(`Role Removed`)
+                    .setDescription(`**Role:** <@${roleChange}>\n**Added by:** ${executor.id}`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
+            // USER REMOVED ROLE THEMSELVES
+            else {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
+                    .setTitle(`Role Removed`)
+                    .setDescription(`**Role:** <@${roleChange}>`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
         }
-
-
-
-
-
-
-
-
-        // LOG EMBED
-        let logLeaveGuild = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Server Member Update`)
-
-            .setTimestamp()
-
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logLeaveGuild]})
 	},
 };
