@@ -22,11 +22,13 @@ module.exports = {
             
             const { executor, target, extra } = roleAddLog;
             
-            console.log(`Role ${extra.name} added to ${target.id} by ${executor.id}`)
+            console.log(`Role ${extra} added to ${target.id} by ${executor.id}`)
         }
 
 
-        
+        console.log(`oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.name).toString() = \n ${oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.name).toString()}`)
+
+
 
         if(oldMember.roles.cache.size > newMember.roles.cache.size) {
   
@@ -40,7 +42,7 @@ module.exports = {
             
             const { executor, target, extra } = roleAddLog;
             
-            console.log(`Role ${extra.name} removed from ${target.id} by ${executor.id}`)
+            console.log(`Role ${extra} removed from ${target.id} by ${executor.id}`)
         }
 
 
