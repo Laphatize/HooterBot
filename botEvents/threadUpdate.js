@@ -10,6 +10,24 @@ module.exports = {
         const modLogChannel = newThread.guild.channels.cache.find(ch => ch.name === `mod-log`)
  
 
+        // NAME CHANGED
+        if(oldThread.name !== newThread.name) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Thread Renamed`)
+                .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
+                .addField(`**Old Name:**`, `${oldThread.name}`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`**New Name:**`, `${newThread.name}`, true)
+                .setFooter(`Thread ID: ${newThread.id}`)
+                .setTimestamp()
+
+            // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+            modLogChannel.send({ embeds: [logEmbed] })
+        }
+
+
         // AUTO-ARCHIVE TIME CHANGED
         if(oldThread.autoArchiveDuration !== newThread.autoArchiveDuration) {
             
@@ -36,7 +54,6 @@ module.exports = {
             if(newThread.autoArchiveDuration > 1440) {
                 newThreadDurationTimeString = `${newThread.autoArchiveDuration / (60 * 24)} days`
             }
-
 
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
@@ -117,8 +134,7 @@ module.exports = {
             // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
             modLogChannel.send({ embeds: [logEmbed] })
         }
-
-
+        
 
         // THREAD LOCK CHANGE
         if(oldThread.locked !== newThread.locked) {
