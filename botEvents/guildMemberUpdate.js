@@ -13,29 +13,22 @@ module.exports = {
 
 
         // USERNAME CHANGE
-        if(oldMember.displayName !== newMember.displayName) {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
-                .setTitle(`Display Name Changed`)
-                .setDescription(`**Old Name:** ${oldMember.displayname}\n**New Name:** ${newMember.displayname}`)
-                .setTimestamp()
-                .setFooter(`User ID: ${newMember.id}`)
-
-            // LOG ENTRY
-            modLogChannel.send({embeds: [logEmbed]})
-        }
-
-
-        // USERNAME CHANGE
         if(oldMember.nickname !== newMember.nickname) {
+
+            let oldNickname = oldMember.nickname;
+            let newNickname = newMember.nickname
+
+            // OVERRIDING NULL VALUES
+            if(oldNickname == 'null') oldNickname = `${oldMember.username}`
+            if(newNickname == 'null') newNickname = `${oldMember.username}`
+
+            
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                 .setTitle(`Nickname Changed`)
-                .setDescription(`**Old Name:** ${oldMember.nickname}\n**New Name:** ${newMember.nickname}`)
+                .setDescription(`**Old Name:** ${oldNickname}\n**New Name:** ${newNickname}`)
                 .setTimestamp()
                 .setFooter(`User ID: ${newMember.id}`)
 
