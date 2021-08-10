@@ -397,16 +397,16 @@ module.exports = {
         /*******************/   
         if(subCmdName == 'levelimport') {
             // USERS
-            let user1Id = interaction.options.getUser('user1');
-            let user2Id = interaction.options.getUser('user2');
-            let user3Id = interaction.options.getUser('user3');
-            let user4Id = interaction.options.getUser('user4');
-            let user5Id = interaction.options.getUser('user5');
-            let user6Id = interaction.options.getUser('user6');
-            let user7Id = interaction.options.getUser('user7');
-            let user8Id = interaction.options.getUser('user8');
-            let user9Id = interaction.options.getUser('user9');
-            let user10Id = interaction.options.getUser('user10');
+            let user1 = interaction.options.getUser('user1');
+            let user2 = interaction.options.getUser('user2');
+            let user3 = interaction.options.getUser('user3');
+            let user4 = interaction.options.getUser('user4');
+            let user5 = interaction.options.getUser('user5');
+            let user6 = interaction.options.getUser('user6');
+            let user7 = interaction.options.getUser('user7');
+            let user8 = interaction.options.getUser('user8');
+            let user9 = interaction.options.getUser('user9');
+            let user10 = interaction.options.getUser('user10');
 
             console.log(`user1Id = ${user1Id}`)
 
@@ -422,30 +422,31 @@ module.exports = {
             let xp9 = interaction.options.getInteger('xp_value9');
             let xp10 = interaction.options.getInteger('xp_value10');
 
+            interaction.reply(`user1 = ${user1}\nuser1.id = ${user1.id}\nuser1.user.id = ${user1.user.id}`)
 
-            levels.appendXp(user1Id, interaction.guild.id, xp1);
-            if(user2Id) {
-                levels.appendXp(user2Id, interaction.guild.id, xp2);
-            } if(user3Id) {
-                levels.appendXp(user3Id, interaction.guild.id, xp3);
-            } if(user4Id) {
-                levels.appendXp(user4Id, interaction.guild.id, xp4);
-            } if(user5Id) {
-                levels.appendXp(user5Id, interaction.guild.id, xp5);
-            } if(user6Id) {
-                levels.appendXp(user6Id, interaction.guild.id, xp6);
-            } if(user7Id) {
-                levels.appendXp(user7Id, interaction.guild.id, xp7);
-            } if(user8Id) {
-                levels.appendXp(user8Id, interaction.guild.id, xp8);
-            } if(user9Id) {
-                levels.appendXp(user9Id, interaction.guild.id, xp9);
-            } if(user10Id) {
-                levels.appendXp(user10Id, interaction.guild.id, xp10);
-            }
+            // levels.appendXp(user1Id, interaction.guild.id, xp1);
+            // if(user2Id) {
+            //     levels.appendXp(user2Id, interaction.guild.id, xp2);
+            // } if(user3Id) {
+            //     levels.appendXp(user3Id, interaction.guild.id, xp3);
+            // } if(user4Id) {
+            //     levels.appendXp(user4Id, interaction.guild.id, xp4);
+            // } if(user5Id) {
+            //     levels.appendXp(user5Id, interaction.guild.id, xp5);
+            // } if(user6Id) {
+            //     levels.appendXp(user6Id, interaction.guild.id, xp6);
+            // } if(user7Id) {
+            //     levels.appendXp(user7Id, interaction.guild.id, xp7);
+            // } if(user8Id) {
+            //     levels.appendXp(user8Id, interaction.guild.id, xp8);
+            // } if(user9Id) {
+            //     levels.appendXp(user9Id, interaction.guild.id, xp9);
+            // } if(user10Id) {
+            //     levels.appendXp(user10Id, interaction.guild.id, xp10);
+            // }
 
-            // CONFIRMATION
-            interaction.reply({ content: 'The user(s) XP has been added to the database.', ephemeral: true })
+            // // CONFIRMATION
+            // interaction.reply({ content: 'The user(s) XP has been added to the database.', ephemeral: true })
         }
 
 
