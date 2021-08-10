@@ -39,6 +39,7 @@ module.exports = {
                     .setTitle(`Role Added`)
                     .setDescription(`**Role:** ${newRole}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
+                    .setFooter(`User ID: ${newMember.id}`)
 
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
@@ -52,6 +53,7 @@ module.exports = {
                     .setTitle(`Role Added`)
                     .setDescription(`**Role:** ${newRole}`)
                     .setTimestamp()
+                    .setFooter(`User ID: ${newMember.id}`)
 
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
@@ -85,6 +87,7 @@ module.exports = {
                     .setTitle(`Role Removed`)
                     .setDescription(`**Role:** ${oldRole}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
+                    .setFooter(`User ID: ${newMember.id}`)
 
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
@@ -98,6 +101,7 @@ module.exports = {
                     .setTitle(`Role Removed`)
                     .setDescription(`**Role:** ${oldRole}`)
                     .setTimestamp()
+                    .setFooter(`User ID: ${newMember.id}`)
 
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
