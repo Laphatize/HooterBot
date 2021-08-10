@@ -63,7 +63,7 @@ module.exports = {
         if(oldChannel.position !== newChannel.position) {
 
             // MOVED WITHIN SAME CATEGORY
-            if(oldChannel.parent.id === newChannel.parent.id) {
+            if(oldChannel.parent.id == newChannel.parent.id) {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
@@ -79,7 +79,7 @@ module.exports = {
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
                     .setTitle(`Channel Moved`)
-                    .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** \`\` ${oldChannel.parent.name.toUpperCase()} \`\`\n**Old Catgory:** \`\` ${newChannel.parent.name.toUpperCase()} \`\``)
+                    .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** \`\` ${oldChannel.parent.name.toUpperCase()} \`\`\n**New Catgory:** \`\` ${newChannel.parent.name.toUpperCase()} \`\``)
                     .setTimestamp()
 
                 // LOG ENTRY
