@@ -90,51 +90,46 @@ module.exports = {
             );
 
 
-            console.log(`member = ${member}`)
-            console.log(`member.user = ${member.user}`)
-            console.log(`member.username = ${member.username}`)
-            console.log(`member.user.username = ${member.user.username}`)
+            // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
+            member.guild.channels.cache.find(ch => ch.name === `verify-${member.user.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                .then(msg => {
+                    // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                    msg.channel.setName(`closed-${member.user.username.toLowerCase()}`)
 
-            // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-            // member.guild.channels.cache.find(ch => ch.name === `verify-${dmUser}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
-            //     .then(msg => {
-            //         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-            //         msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
+                            // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                        // GRAB TICKET CHANNEL
+                        initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${member.user.username.toLowerCase()}`)
+                            .then(ch => {
+                                // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
+                                msg = ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
 
-            //                 // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
-            //             // GRAB TICKET CHANNEL
-            //             initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${dmUser.username.toLowerCase()}`)
-            //                 .then(ch => {
-            //                     // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
-            //                     msg = ch.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                                // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                                let newTicketEditedEmbed = new discord.MessageEmbed()
+                                    .setColor(config.embedGreen)
+                                    .setTitle(`**Verification Ticket Closed**`)
+                                    .addField(`User:`, `${member}`, true)
+                                    .addField(`User Tag:`, `${member.user.tag}`, true)
+                                    .addField(`User ID:`, `${member.user.id}`, true)
+                                    .setDescription(`*This ticket has been closed because the user has left the server.*`)
 
-            //                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-            //                     let newTicketEditedEmbed = new discord.MessageEmbed()
-            //                         .setColor(config.embedGreen)
-            //                         .setTitle(`**Verification Ticket Closed**`)
-            //                         .addField(`User:`, `${dmUser}`, true)
-            //                         .addField(`User Tag:`, `${dmUser.tag}`, true)
-            //                         .addField(`User ID:`, `${dmUser.id}`, true)
-            //                         .setDescription(`*This ticket has been closed because the user has left the server.*`)
+                                let QuitButton = new MessageButton()
+                                    .setLabel("End Verification")
+                                    .setStyle("DANGER")
+                                    .setCustomId("quit_CH")
+                                    .setDisabled(true)
 
-            //                     let QuitButton = new MessageButton()
-            //                         .setLabel("End Verification")
-            //                         .setStyle("DANGER")
-            //                         .setCustomId("quit_CH")
-            //                         .setDisabled(true)
+                                // BUTTON ROW
+                                let QuitButtonModBtn = new MessageActionRow()
+                                    .addComponents(
+                                        QuitButton
+                                    );
 
-            //                     // BUTTON ROW
-            //                     let QuitButtonModBtn = new MessageActionRow()
-            //                         .addComponents(
-            //                             QuitButton
-            //                         );
-
-            //                     // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-            //                     msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
-            //                         .catch(err => console.log(err))
-            //                 })
-            //     })
-            //     .catch(err => console.log(err))
+                                // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                                msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                                    .catch(err => console.log(err))
+                            })
+                })
+                .catch(err => console.log(err))
         }
 	},
 };
