@@ -23,7 +23,7 @@ module.exports = {
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
                 .addField(`Type:`, `${channel.type}`, true)
-                .addField(`Category:`, `${channel.parent.name}`, true)
+                .addField(`Category:`, `${channel.parent.name.toUpperCase()}`, true)
                 .addField(`Position in Category:`, `${channel.position + 1} from top`, true)
                 .setTimestamp()
 

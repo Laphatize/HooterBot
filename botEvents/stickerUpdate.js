@@ -3,7 +3,7 @@ const config = require('../config.json');
 
 
 module.exports = {
-	name: 'guildStickersUpdate',
+	name: 'stickerUpdate',
 	async execute(oldSticker, newSticker, client) {
 
         // LOG CHANNEL

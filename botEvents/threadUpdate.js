@@ -12,16 +12,6 @@ module.exports = {
 
         var threadDurationTimeString
 
-        // CONVERTING THE ARCHIVE DURATION TO MINUTES OR DAYS DEPENDING ON VALUE
-        if(newThread.autoArchiveDuration <= 60) {
-            threadDurationTimeString = `${newThread.autoArchiveDuration} minutes`
-        }
-        if(newThread.autoArchiveDuration > 60 && newThread.autoArchiveDuration <= 1440 ) {
-            threadDurationTimeString = `${newThread.autoArchiveDuration / (60)} hours`
-        }
-        if(newThread.autoArchiveDuration > 1440) {
-            threadDurationTimeString = `${newThread.autoArchiveDuration / (60 * 24)} days`
-        }
 
 
         // GENERATE NOTICE EMBED
