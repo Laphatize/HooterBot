@@ -26,7 +26,7 @@ module.exports = {
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     dmUse: false,
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
         // GRABBING SLASH COMMAND INPUT VALUES

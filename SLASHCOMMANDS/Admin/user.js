@@ -185,6 +185,42 @@ module.exports = {
                 },
             ],
         },{
+            // MUTE
+            name: `mute`,
+            description: `MODERATOR | A command for muting users.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `target_user`,
+                    description: `The user to warn.`,
+                    type: `USER`,
+                    required: true
+                },{
+                    name: `reason`,
+                    description: `The reason for the warning.`,
+                    type: `STRING`,
+                    required: true
+                },
+            ],
+        },{
+            // UNMUTE
+            name: `unmute`,
+            description: `MODERATOR | A command for unmuting users.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `target_user`,
+                    description: `The user to warn.`,
+                    type: `USER`,
+                    required: true
+                },{
+                    name: `reason`,
+                    description: `The reason for the warning.`,
+                    type: `STRING`,
+                    required: true
+                },
+            ],
+        },{
             // BAN
             name: `ban`,
             description: `ADMINISTRATOR | A command for banning users from the server.`,
@@ -424,34 +460,34 @@ module.exports = {
             let confirmationArray = []
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
-            levels.appendXp(user1.id, interaction.guild.id, xp1);
+            levels.setXp(user1.id, interaction.guild.id, xp1);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             if(user2) {
-                levels.appendXp(user2.id, interaction.guild.id, xp2);
+                levels.setXp(user2.id, interaction.guild.id, xp2);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user3) {
-                levels.appendXp(user3.id, interaction.guild.id, xp3);
+                levels.setXp(user3.id, interaction.guild.id, xp3);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user4) {
-                levels.appendXp(user4.id, interaction.guild.id, xp4);
+                levels.setXp(user4.id, interaction.guild.id, xp4);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user5) {
-                levels.appendXp(user5.id, interaction.guild.id, xp5);
+                levels.setXp(user5.id, interaction.guild.id, xp5);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user6) {
-                levels.appendXp(user6.id, interaction.guild.id, xp6);
+                levels.setXp(user6.id, interaction.guild.id, xp6);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user7) {
-                levels.appendXp(user7.id, interaction.guild.id, xp7);
+                levels.setXp(user7.id, interaction.guild.id, xp7);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user8) {
-                levels.appendXp(user8.id, interaction.guild.id, xp8);
+                levels.setXp(user8.id, interaction.guild.id, xp8);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user9) {
-                levels.appendXp(user9.id, interaction.guild.id, xp9);
+                levels.setXp(user9.id, interaction.guild.id, xp9);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             } if(user10) {
-                levels.appendXp(user10.id, interaction.guild.id, xp10);
+                levels.setXp(user10.id, interaction.guild.id, xp10);
                 confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
             }
 
@@ -488,6 +524,34 @@ module.exports = {
 
 
         /*******************/
+        /* MUTE            */
+        /*******************/
+        if(subCmdName == 'mute') {
+
+            // GETTING OPTIONS VALUES
+            let muteUser = interaction.options.getUser('target_user');
+            let muteReason = interaction.options.getString('reason');
+
+
+            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nmuteUser = ${muteUser}\nwarnReason = ${muteReason}`)
+        }
+
+
+        /*******************/
+        /* UNMUTE          */
+        /*******************/
+        if(subCmdName == 'unmute') {
+
+            // GETTING OPTIONS VALUES
+            let unmuteUser = interaction.options.getUser('target_user');
+            let unmuteReason = interaction.options.getString('reason');
+
+
+            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nunmuteUser = ${unmuteUser}\nunmuteReason = ${unmuteReason}`)
+        }
+
+
+        /*******************/
         /* BAN             */
         /*******************/
         if(subCmdName == 'ban') {
@@ -500,13 +564,5 @@ module.exports = {
 
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)
         }
-
-
-
-
-
-
-
-
     }
 }

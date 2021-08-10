@@ -21,7 +21,7 @@ module.exports = {
     permissions: 'MANAGE_MESSAGES', // MODERATOR
     dmUse: false,
     cooldown: 0,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
         const generalPermsArray = [

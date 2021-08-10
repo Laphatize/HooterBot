@@ -3,7 +3,7 @@ const config = require ('../../config.json')
 
 
 module.exports = {
-    name: 'sponsor',
+    name: 'bot_sponsor',
     description: `Info on supporting the development and operations of ${config.botName}. [60s]`,
     options: [],
     permissions: '',

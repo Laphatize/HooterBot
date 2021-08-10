@@ -10,7 +10,7 @@ module.exports = {
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
     dmUse: false,
     cooldown: 60,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
         
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD

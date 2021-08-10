@@ -121,6 +121,8 @@ client.on('ready', async () => {
     let verifSC = cmds.find(c => c.name === `verif`)
     let userSC = cmds.find(c => c.name === `user`)
     let rulesSC = cmds.find(c => c.name === `rules`)
+    let permsSC = cmd.find(c => c.name ===`permissions`)
+    let partnerMsgSC = cmd.find(c => c.name ===`partner_message`)
 
 
     // SETTING PERMISSIONS
@@ -174,7 +176,36 @@ client.on('ready', async () => {
             //     type: 'USER',
             //     permission: true,
             }]
-        },
+        },{
+            id: permsSC.id,    // COMMAND: /permissions
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            // },{
+            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+            //     type: 'USER',
+            //     permission: true,
+            // },{
+            //     id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+            //     type: 'USER',
+            //     permission: true,
+            }]
+        },{
+            id: partnerMsgSC.id,    // COMMAND: /partner_message
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            // },{
+            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+            //     type: 'USER',
+            //     permission: true,
+            }]},
     ];
     
 
