@@ -89,8 +89,10 @@ module.exports = {
                 );
 
 
+                console.log(`dmUser = ${dmUser}`)
+
                 // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                member.guild.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                member.guild.channels.cache.find(ch => ch.name === `verify-${dmUser}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                         msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
