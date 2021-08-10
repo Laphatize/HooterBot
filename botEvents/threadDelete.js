@@ -18,7 +18,7 @@ module.exports = {
             .addField(`Thread Name:`, `${thread.name}`, true)
             .addField(`Thread ID:`, `${thread.id}`, true)
             .addField(`Thread Type:`, `${thread.type}`, true)
-            .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+            .addField(`Parent Channel:`, `${thread.parent}`, true)
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
             .setTimestamp()

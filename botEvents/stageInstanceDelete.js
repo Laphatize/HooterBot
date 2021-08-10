@@ -13,6 +13,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Stage Instance Deleted`)
+            .setDescription(`**Parent Channel:** ${stage.channel.name}\n**Discoverable?** ${stage.discoverableDisabled}\n**Privacy Level:** ${stage.privacyLevel}\n**Topic:** ${stage.topic}`)
             .setTimestamp()
 
         // LOG ENTRY

@@ -34,10 +34,10 @@ module.exports = {
             .addField(`Thread:`, `${thread}`, true)
             .addField(`Thread ID:`, `${thread.id}`, true)
             .addField(`Thread Type:`, `${thread.type}`, true)
-            .addField(`Parent Channel:`, `<#${thread.parent.id}>`, true)
+            .addField(`Parent Channel:`, `${thread.parent}`, true)
             .addField(`Creator:`, `<@${thread.ownerId}>`, true)
             .addField(`Creator ID:`, `${thread.ownerId}`, true)
-            .addField(`Scheduled Close:`, `After *${threadDurationTimeString}* of inactivity.`)
+            .addField(`Archive:`, `After *${threadDurationTimeString}* of inactivity.`)
             .setTimestamp()
 
         // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
