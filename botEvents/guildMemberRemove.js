@@ -51,8 +51,8 @@ module.exports = {
             let logCloseTicketEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`${config.emjORANGETICK} Verification Ticket Closed`)
-                .addField(`User:`, `${leftUser}`, true)
-                .addField(`User ID:`, `${leftUser.id}`, true)
+                .addField(`User:`, `${member}`, true)
+                .addField(`User ID:`, `${member.id}`, true)
                 .addField(`Verified?`, `\`\` NO \`\``, true)
                 .addField(`Ticket closed by:`, `<@${config.botId}> ***(automatically)***`)
                 .setTimestamp()
@@ -90,10 +90,10 @@ module.exports = {
             );
 
 
-            console.log(`leftUser = ${leftUser}`)
-            console.log(`leftUser.user = ${leftUser.user}`)
-            console.log(`leftUser.username = ${leftUser.username}`)
-            console.log(`leftUser.user.username = ${leftUser.user.username}`)
+            console.log(`member = ${member}`)
+            console.log(`member.user = ${member.user}`)
+            console.log(`member.username = ${member.username}`)
+            console.log(`member.user.username = ${member.user.username}`)
 
             // // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
             // member.guild.channels.cache.find(ch => ch.name === `verify-${dmUser}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
