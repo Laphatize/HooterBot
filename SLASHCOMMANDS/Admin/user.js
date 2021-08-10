@@ -424,39 +424,39 @@ module.exports = {
 
             let confirmationArray = []
 
-            // levels.appendXp(user1Id, interaction.guild.id, xp1);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // if(user2Id) {
-            //     levels.appendXp(user2Id, interaction.guild.id, xp2);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user3Id) {
-            //     levels.appendXp(user3Id, interaction.guild.id, xp3);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user4Id) {
-            //     levels.appendXp(user4Id, interaction.guild.id, xp4);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user5Id) {
-            //     levels.appendXp(user5Id, interaction.guild.id, xp5);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user6Id) {
-            //     levels.appendXp(user6Id, interaction.guild.id, xp6);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user7Id) {
-            //     levels.appendXp(user7Id, interaction.guild.id, xp7);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user8Id) {
-            //     levels.appendXp(user8Id, interaction.guild.id, xp8);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user9Id) {
-            //     levels.appendXp(user9Id, interaction.guild.id, xp9);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // } if(user10Id) {
-            //     levels.appendXp(user10Id, interaction.guild.id, xp10);
-            //     confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
-            // }
+            levels.appendXp(user1.id, interaction.guild.id, xp1);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            if(user2Id) {
+                levels.appendXp(user2.id, interaction.guild.id, xp2);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user3Id) {
+                levels.appendXp(user3.id, interaction.guild.id, xp3);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user4Id) {
+                levels.appendXp(user4.id, interaction.guild.id, xp4);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user5Id) {
+                levels.appendXp(user5.id, interaction.guild.id, xp5);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user6Id) {
+                levels.appendXp(user6.id, interaction.guild.id, xp6);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user7Id) {
+                levels.appendXp(user7.id, interaction.guild.id, xp7);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user8Id) {
+                levels.appendXp(user8.id, interaction.guild.id, xp8);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user9Id) {
+                levels.appendXp(user9.id, interaction.guild.id, xp9);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            } if(user10Id) {
+                levels.appendXp(user10.id, interaction.guild.id, xp10);
+                confirmationArray.push(`${xp1}XP has been added for ${user1}.`)
+            }
 
-            // // CONFIRMATION
-            // interaction.reply({ content: `${confirmationArray.join(`\n`)}`, ephemeral: true })
+            // CONFIRMATION
+            interaction.reply({ content: `${confirmationArray.join(`\n`)}`, ephemeral: true })
         }
 
 
