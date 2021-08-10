@@ -1,22 +1,31 @@
 const discord = require('discord.js');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
 	name: 'guildUpdate',
 	async execute(oldGuild, newGuild, client) {
 
-        // LOG CHANNEL
-        const modLogChannel = oldGuild.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        if(oldGuild.available == true && newGuild.available == false) {
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`SERVER IS UNAVAILABLE - LIKELY SERVER OUTAGE`)
+                .setDescription(`**NAME:** ${oldGuild.name}\n**OUTAGE START: ${moment(new Date(member.premiumSince)).format('LL')}`)
+                .setTimestamp()
 
-        // LOG EMBED
-        let logLeaveGuild = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`Server Updated`)
-            .addField(`Before:`, `something`, true)
-            .addField(`After:`, `else`, true)
-            .setTimestamp()
+            // LOG ENTRY
+            client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logEmbed], content: `@everyone` })
+        }
 
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logLeaveGuild]})
+        if(oldGuild.available == false && newGuild.available == true) {
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`SERVER SHOULD BE BACK ONLINE`)
+                .setDescription(`**NAME:** ${oldGuild.name}`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logEmbed] })
+        }
 	},
 };

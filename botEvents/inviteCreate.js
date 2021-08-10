@@ -12,10 +12,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`Server Invite Created`)
-        //     .addField(`User:`, `${member}`, true)
-        //     .addField(`Tag:`, `${member.user.tag}`, true)
-        //     .addField(`ID:`, `${member.id}`, true)
-        //     .addField(`Time in server:`, `${memberDuration}`)
+            .setDescription(`**Invite URL:**${invite.url}\n**Creator:** ${invite.inviter}\n**Expiration:** ${invite.expiresAt}\n**Max Uses:** ${invite.maxUses}\n**Channel:** ${invite.channel}`)
             .setTimestamp()
 
         // LOG ENTRY

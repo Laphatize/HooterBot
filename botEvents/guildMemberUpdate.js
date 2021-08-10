@@ -15,7 +15,7 @@ module.exports = {
         // USERNAME CHANGE
         if(oldMember.nickname !== newMember.nickname) {
 
-            let oldNickname = oldMember.nickname;
+            let oldNickname = oldMember.nickname
             let newNickname = newMember.nickname
 
             // OVERRIDING NULL VALUES
