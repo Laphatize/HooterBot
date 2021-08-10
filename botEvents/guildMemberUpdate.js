@@ -15,6 +15,9 @@ module.exports = {
         // ROLE ADDED TO USER
         if(oldMember.roles.cache.size < newMember.roles.cache.size) {
   
+            // SET SHORT TIMEOUT TO WAIT FOR LOG ENTRY
+            setTimeout(() => {}, 500 )
+            
             const fetchedLogs = await oldMember.guild.fetchAuditLogs({
                 limit: 1,
                 type: 'MEMBER_ROLE_UPDATE'
@@ -62,6 +65,9 @@ module.exports = {
 
         // ROLE REMOVED FROM USER
         if(oldMember.roles.cache.size > newMember.roles.cache.size) {
+
+            // SET SHORT TIMEOUT TO WAIT FOR LOG ENTRY
+            setTimeout(() => {}, 500 )
 
             const fetchedLogs = await oldMember.guild.fetchAuditLogs({
                 limit: 1,
