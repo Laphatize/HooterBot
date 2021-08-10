@@ -420,7 +420,7 @@ module.exports = {
             let xp9 = interaction.options.getInteger('xp_value9');
             let xp10 = interaction.options.getInteger('xp_value10');
 
-            interaction.reply(`user1 = ${user1}\nuser1.id = ${user1.id}\nuser1.member.id = ${user1.member.id}`)
+            interaction.reply(`user1 = ${user1}\nuser1.id = ${user1.id}`)
 
             let confirmationArray = []
 
