@@ -7,7 +7,7 @@ module.exports = {
 
         // LOG CHANNEL
         const modLogChannel = invite.guild.channels.cache.find(ch => ch.name === `mod-log`)
-
+     
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedRed)
