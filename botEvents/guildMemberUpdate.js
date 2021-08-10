@@ -9,7 +9,7 @@ module.exports = {
         const modLogChannel = oldMember.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // FINDING THE ROLE ADDED/REMOVED
-        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role).toString()
+        let roleChangeId = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role.id).toString()
 
 
         // ROLE ADDED TO USER
@@ -25,6 +25,10 @@ module.exports = {
             if (!roleAddLog) return
             const { executor, target } = roleAddLog
 
+            
+            // FETCH ROLE IN GUILD TO GET ROLE OBJECT
+            let newRole = newMember.roles.cache.get(roleChangeId)
+
 
             // USER GIVEN ROLE BY SOMEONE ELSE
             if(executor.id !== target.id) {
@@ -33,7 +37,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Added`)
-                    .setDescription(`**Role:** ${roleChange}\n**Added by:** <@${executor.id}>`)
+                    .setDescription(`**Role:** ${newRole}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -46,7 +50,7 @@ module.exports = {
                     .setColor(config.embedBlurple)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Added`)
-                    .setDescription(`**Role:** ${roleChange}`)
+                    .setDescription(`**Role:** ${newRole}`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -68,6 +72,10 @@ module.exports = {
             const { executor, target } = roleAddLog
 
 
+            // FETCH ROLE IN GUILD TO GET ROLE OBJECT
+            let oldRole = newMember.roles.cache.get(roleChangeId)
+                        
+            
             // ROLE REMOVED FROM USER BY SOMEONE ELSE
             if(executor.id !== target.id) {
                 // LOG EMBED
@@ -75,7 +83,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** ${roleChange}\n**Added by:** <@${executor.id}>`)
+                    .setDescription(`**Role:** ${oldRole}\n**Added by:** <@${executor.id}>`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -88,7 +96,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setAuthor(newMember.user.tag, newMember.user.displayAvatarURL({ dynamic:true }))
                     .setTitle(`Role Removed`)
-                    .setDescription(`**Role:** ${roleChange}`)
+                    .setDescription(`**Role:** ${oldRole}`)
                     .setTimestamp()
 
                 // LOG ENTRY
