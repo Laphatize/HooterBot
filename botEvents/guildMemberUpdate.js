@@ -9,7 +9,7 @@ module.exports = {
         const modLogChannel = oldMember.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
         // FINDING THE ROLE ADDED/REMOVED
-        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role).toString()
+        let roleChange = oldMember.roles.cache.difference(newMember.roles.cache).map(role => role).toString()
 
 
         // ROLE ADDED TO USER
