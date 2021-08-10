@@ -10,9 +10,9 @@ module.exports = {
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGreen)
+            .setColor(config.embedRed)
             .setTitle(`Server Invite Deleted`)
-            .setDescription(`**Invite URL:**${invite.url}\n**Creator:** ${invite.inviter}\n**Created At:** ${invite.createdAt}**Uses:** ${invite.uses}\n**Channel:** ${invite.channel}`)
+            .setDescription(`**Invite URL:** ${invite.url}\n**Creator:** ${invite.inviter}\n**Uses:** ${invite.uses}\n**Channel:** ${invite.channel}`)
             .setTimestamp()
 
         // LOG ENTRY
