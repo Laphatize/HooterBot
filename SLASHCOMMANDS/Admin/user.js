@@ -411,16 +411,16 @@ module.exports = {
             console.log(`user1Id = ${user1Id}`)
 
             // XP
-            let xp1 = interaction.options.getUser('user1');
-            let xp2 = interaction.options.getUser('user2');
-            let xp3 = interaction.options.getUser('user3');
-            let xp4 = interaction.options.getUser('user4');
-            let xp5 = interaction.options.getUser('user5');
-            let xp6 = interaction.options.getUser('user6');
-            let xp7 = interaction.options.getUser('user7');
-            let xp8 = interaction.options.getUser('user8');
-            let xp9 = interaction.options.getUser('user9');
-            let xp10 = interaction.options.getUser('user10');
+            let xp1 = interaction.options.getUser('xp_value1');
+            let xp2 = interaction.options.getUser('xp_value2');
+            let xp3 = interaction.options.getUser('xp_value3');
+            let xp4 = interaction.options.getUser('xp_value4');
+            let xp5 = interaction.options.getUser('xp_value5');
+            let xp6 = interaction.options.getUser('xp_value6');
+            let xp7 = interaction.options.getUser('xp_value7');
+            let xp8 = interaction.options.getUser('xp_value8');
+            let xp9 = interaction.options.getUser('xp_value9');
+            let xp10 = interaction.options.getUser('xp_value10');
 
 
             levels.appendXp(user1Id, interaction.guild.id, xp1);
