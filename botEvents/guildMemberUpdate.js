@@ -19,8 +19,8 @@ module.exports = {
             let newNickname = newMember.nickname
 
             // OVERRIDING NULL VALUES
-            if(oldNickname == null) oldNickname = `${oldMember.username}`
-            if(newNickname == null) newNickname = `${oldMember.username}`
+            if(oldNickname == null) oldNickname = `${oldMember.user.username}`
+            if(newNickname == null) newNickname = `${oldMember.user.username}`
 
 
             // LOG EMBED
