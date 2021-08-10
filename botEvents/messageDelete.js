@@ -101,7 +101,7 @@ module.exports = {
         }
 
 
-        if(!message.author)  return;
+        if(!message.author || message.author.id == config.botId)  return;
         
 
         // LOG CHANNEL
