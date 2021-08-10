@@ -121,8 +121,8 @@ client.on('ready', async () => {
     let verifSC = cmds.find(c => c.name === `verif`)
     let userSC = cmds.find(c => c.name === `user`)
     let rulesSC = cmds.find(c => c.name === `rules`)
-    let permsSC = cmd.find(c => c.name ===`permissions`)
-    let partnerMsgSC = cmd.find(c => c.name ===`partner_message`)
+    let permsSC = cmds.find(c => c.name ===`permissions`)
+    let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
 
 
     // SETTING PERMISSIONS
