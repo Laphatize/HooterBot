@@ -20,8 +20,8 @@ module.exports = {
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGrey)
-            .setTitle(`API RATELIMIT ON HOOTERBOT`)
+            .setColor(config.embedRed)
+            .setTitle(`${config.emjREDTICK} API RATELIMIT ON HOOTERBOT ${config.emjREDTICK}`)
             .setDescription(`**TIMEOUT:** ${rateLimitData.timeout} (ms)\n**LIMIT:** ${rateLimitData.limit} requests at this endpoint\n**METHOD:** ${rateLimitData.method}\n**PATH:** ${rateLimitData.path}\n**ROUTE:** ${rateLimitData.route}\n**GLOBAL?** ${rateLimitData.global}`)
             .setTimestamp()
 
