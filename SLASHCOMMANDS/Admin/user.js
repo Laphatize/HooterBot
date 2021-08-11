@@ -785,7 +785,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${parseInt(caseCounter)+1}: User Muted`)
+                .setTitle(`Case \#${caseCounter+1}: User Muted`)
                 .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                 .setFooter(``)
 
