@@ -650,14 +650,14 @@ module.exports = {
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+                DATE: new moment(Date.now()).format('LLL'),
                 CASE_NUM: caseCounter
             },{
                 USER_ID: warnUser.id,
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+                DATE: new moment(Date.now()).format('LLL'),
                 CASE_NUM: caseCounter
             },{
                 upsert: true
