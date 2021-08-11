@@ -6,7 +6,7 @@ module.exports = {
 	async execute(oldState, newState, client) {
 
         // LOG CHANNEL
-        const modLogChannel = info.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = oldState.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
         // JOIN VOICE CHANNEL
