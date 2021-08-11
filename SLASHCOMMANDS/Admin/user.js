@@ -643,8 +643,7 @@ module.exports = {
             let member = client.users.cache.find(user => user.id === warnUser.id)
             let caseCounter
             
-            infractionsSchema.count()
-                .then(count => caseCounter = count + 1)
+            let caseCounter = infractionsSchema.countDocuments() + 1
 
 
             // // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
