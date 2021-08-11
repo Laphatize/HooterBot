@@ -569,7 +569,7 @@ module.exports = {
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
                 let userInfCount = infractionResults.countDocuments({
-                    USER_ID: warnUser.id 
+                    USER_ID: targetUser.id 
                 })
 
                 // DYNAMIC EMBED TITLE
