@@ -511,12 +511,7 @@ module.exports = {
 
 
             // MESSAGE SENT IN INVALID CATEGORY
-            if (// TEST SERVER - "HOOTERBOT TESTING"
-                interaction.channel.parent.id !== `859992423127973898` ||
-                // TEST SERVER - "TEXT CHANNELS"
-                interaction.channel.parent.id !== `530503548937699341` ||
-                // TEMPLE SERVER - "MOD-CHANNELS"
-                interaction.channel.parent.id !== `829420812951748628`) {
+            if (!interaction.channel.parent.name.startsWith(`mod-`)) {
 
                 // GENERATE ERROR EMBED
                 let wrongChannelsEmbed = new discord.MessageEmbed()
