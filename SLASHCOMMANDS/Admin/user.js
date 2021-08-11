@@ -50,7 +50,7 @@ module.exports = {
         },{
             // LEVEL IMPORT
             name: `levelimport`,
-            description: `MODERATOR | Import MEE6 Leaderboard values for up to 10 users at a time. Overrides any XP/level values stored.`,
+            description: `MODERATOR | Import MEE6 Leaderboard values for up to 10 users at once. (Overrides XP/level values)`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -657,7 +657,9 @@ module.exports = {
             //     }]
             // }).exec();
 
+
             let rolesCh = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
+
 
             // DM THE USER
             let userWarnEmbed = new discord.MessageEmbed()
