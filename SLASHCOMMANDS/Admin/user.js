@@ -564,7 +564,7 @@ module.exports = {
 
                 // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {
-                    result.push(`**CASE #${infractionResults[i].CASE_NUM} – ${infractionResults[i].ACTION}**\n**Date:** ${infractionResults[i].DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
+                    result.push(`**CASE #${infractionResults[i].CASE_NUM} – ${infractionResults[i].ACTION}**\n**Date:** ${infractionResults[i].DATE} (EST)\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
@@ -648,14 +648,14 @@ module.exports = {
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL'),
+                DATE: new moment(Date.now()).format('LLL').utcOffset(-4),
                 CASE_NUM: parseInt(caseCounter)+1
             },{
                 USER_ID: warnUser.id,
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL'),
+                DATE: new moment(Date.now()).format('LLL').utcOffset(-4),
                 CASE_NUM: parseInt(caseCounter)+1
             },{
                 upsert: true

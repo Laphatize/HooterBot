@@ -1573,7 +1573,9 @@ module.exports = {
                 // GRAB TICKET CHANNEL, THEN MESSAGE
                 let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
                     
+
                 // // THIS CODE BLOCK HAS STOPPED WORKING - THE CHANNEL CAN'T BE FOUND WHEN FETCHED, ODDLY ENOUGH...
+                
                 // userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                 //     .then(msg => {
                 //         // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
