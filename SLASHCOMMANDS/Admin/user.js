@@ -554,7 +554,7 @@ module.exports = {
             // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
             if(dbInfractionData) {
 
-                let infractionResults =  infractionsSchema.find({
+                let infractionResults =  await infractionsSchema.countDocuments({
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec()     // DESCENDING CREATION DATE
 
