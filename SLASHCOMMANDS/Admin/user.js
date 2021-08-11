@@ -786,12 +786,9 @@ module.exports = {
             let confirmationEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Mute Successfully Issued`)
-                .setDescription(`You have successfully issued a mute to ${member}.`)
+                .setDescription(`You have successfully issued a mute to ${member}. **Please follow up with the user about the duration of the mute and more details on why they were muted.**`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
-
-
-            interaction.reply()
         }
 
 
