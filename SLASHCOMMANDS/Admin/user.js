@@ -554,26 +554,23 @@ module.exports = {
             if(dbInfractionData) {
 
 
-
-                // THIS WILL NEED TO BE REWORKED FOR NEW SCHEMA SETUP!
                 let infractionResults =  await infractionsSchema.find({
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
 
-
-
-
-
-
-
+                    
                 var result = []
 
+                // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {
                     result.push(`**${i+1}. ${infractionResults[i].ACTION} on ${moment(new Date(infractionResults[i].INFRACTION_DATE)).format('LLL')}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
-                let userInfCount = infractionResults.countDocuments()
+                // GRABBING USER'S TOTAL MOD ACTIONS COUNT
+                let userInfCount = infractionResults.countDocuments({
+                    USER_ID: warnUser.id 
+                })
 
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
