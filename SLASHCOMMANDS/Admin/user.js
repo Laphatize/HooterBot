@@ -564,7 +564,7 @@ module.exports = {
 
                 // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {
-                    result.push(`**${i+1}. ${infractionResults[i].ACTION} on ${moment(new Date(infractionResults[i].INFRACTION_DATE)).format('LLL')}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
+                    result.push(`**${i+1}. ${infractionResults[i].ACTION}** on ${infractionResults[i].INFRACTION_DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
@@ -575,7 +575,7 @@ module.exports = {
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
                 if(userInfCount == 1) embedTitle = `${member.tag}: 1 recorded infraction`
-                if(userInfCount >= 2) embedTitle = `${member.tag}:${userInfCount} recorded infractions`
+                if(userInfCount >= 2) embedTitle = `${member.tag}: ${userInfCount} recorded infractions`
 
                 // LIMITING LIST OF INFRACTIONS IF TOO LARGE
                 let infractionBodyText = `${result.join('\n\n')}`
