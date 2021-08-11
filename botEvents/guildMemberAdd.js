@@ -1,6 +1,8 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const moment = require('moment');
+const mutedUsersSchema = require('../../Database/mutedUsersSchema');
+
 
 module.exports = {
 	name: 'guildMemberAdd',
@@ -16,7 +18,7 @@ module.exports = {
         const joinsChannel = member.guild.channels.cache.find(ch => ch.name === `joins`)
         const ModMailId = config.ModMailId;
 
-            // DM EMBED MESSAGE
+        // DM EMBED MESSAGE
 		const welcomeDMEmbed = new discord.MessageEmbed()
             .setColor(config.embedTempleRed)
             .setTitle(`**Welcome!** ${config.emjTempleT}`)
@@ -138,6 +140,28 @@ module.exports = {
 
         // LOG ENTRY
         modLogChannel.send({embeds: [logJoinGuild]})
+
+
+
+        
+        console.log(`Checking if ${member.user.username} has been logged as muted.`)
+
+        // CHECK IF USER IS MUTED IN THE DATABASE
+        const dbMutedData = await mutedUsersSchema.findOne({
+            USER_ID: member.id
+        }).exec();
+
+        // USER JOINING SHOULD BE MUTED
+        if(dbMutedData) {
+            
+            // FETCHING MUTED ROLE
+            bdayRole = guild.roles.cache.find(role => role.name === 'Muted :(')
+            
+            // APPLYING ROLE TO USER
+            member.roles.add(bdayRole)
+
+            console.log(`Mute has been applied.`)
+        }
     },
 };
 

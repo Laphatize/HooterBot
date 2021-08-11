@@ -96,5 +96,34 @@ module.exports = {
                 CREATOR_ID: member.user.id
             }).exec();
         }
+
+
+
+        // CHECKING IF USER IS MUTED WHEN LEAVING
+        if (member.roles.cache.some((role) => role.name === `Muted :(`)) {
+            
+            console.log(`${member.user.username} is muted in ${member.guild.name}, logging.`)
+            
+
+            // CHECK IF USER IS MUTED IN THE DATABASE
+            const dbMutedData = await mutedUsersSchema.findOne({
+                USER_ID: member.id
+            }).exec();
+
+
+            // USER DOESN'T EXIST IN DB BUT SHOULD
+            if(!dbMutedData) {
+                // LOG DATABASE INFORMATION
+                await mutedUsersSchema.findOneAndUpdate({
+                    USER_ID: member.id
+                },{
+                    USER_ID: member.id,
+                },{
+                    upsert: true
+                }).exec();
+            }
+
+            console.log(`Mute has been logged.`)
+        }
 	},
 };
