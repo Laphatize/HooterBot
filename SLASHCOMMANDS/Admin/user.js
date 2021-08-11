@@ -526,7 +526,7 @@ module.exports = {
 
 
             // CHECK DATABASE FOR ENTRIES
-            let dbInfractionData = await infractionsSchema.find({
+            let dbInfractionData = await infractionsSchema.findOne({
                 USER_ID: targetUser.id
             }).exec();
 
@@ -548,7 +548,9 @@ module.exports = {
             // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
             if(dbInfractionData) {
 
-                let infractionResults = dbInfractionData.sort( [['_id', -1]] )      // DESCENDING CREATION DATE
+                let infractionResults =  await infractionsSchema.find({
+                        USER_ID: targetUser.id
+                    }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
                 var result = []
 
