@@ -531,14 +531,18 @@ module.exports = {
             }).exec();
 
 
+            // FETCHING GUILD MEMBER
+            let member = client.users.cache.find(user => user.id === targetUser.id)
+
             // NO INFRACTIONS EXIST
             if(!dbInfractionData) {
                 // GENERATE ERROR EMBED
                 let noInfractionsEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} ${targetUser.user.tag}: no recorded infractions`)
+                    .setTitle(`${config.emjREDTICK} ${member.tag}: no recorded infractions`)
                     .setDescription(`I've scanned the entire database and there are no recorded bans, mutes, or warnings issued to this user.`)
                     .setTimestamp()
+                    .setFooter(`Target User ID: ${targetUser.id}`)
             
                 // SENDING MESSAGE
                 return interaction.reply({ embeds: [noInfractionsEmbed], ephemeral: true })
@@ -562,8 +566,8 @@ module.exports = {
 
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
-                if(userInfCount == 1) embedTitle = `${targetUser.user.tag}: 1 recorded infraction`
-                if(userInfCount >= 2) embedTitle = `${targetUser.user.tag}:${userInfCount} recorded infractions`
+                if(userInfCount == 1) embedTitle = `${member.tag}: 1 recorded infraction`
+                if(userInfCount >= 2) embedTitle = `${member.tag}:${userInfCount} recorded infractions`
 
                 // LIMITING LIST OF INFRACTIONS IF TOO LARGE
                 let infractionBodyText = `${result.join('\n\n')}`
@@ -589,6 +593,7 @@ module.exports = {
                     .setTitle(`${embedTitle}`)
                     .setDescription(`${result.join('\n\n')}`)
                     .setTimestamp()
+                    .setFooter(`Target User ID: ${targetUser.id}`)
             
                 // SENDING MESSAGE
                 return interaction.reply({ embeds: [infractionsListEmbed], ephemeral: true })
