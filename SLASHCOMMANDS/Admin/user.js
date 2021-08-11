@@ -641,8 +641,10 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
-
-            let caseCounter = infractionsSchema.count() + 1;
+            let caseCounter
+            
+            infractionsSchema.count()
+                .then(count => caseCounter = count + 1)
 
 
             // // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
@@ -658,7 +660,7 @@ module.exports = {
             // }).exec();
 
 
-            let rolesCh = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
+            let rolesCh = interaction.guild.channels.cache.find(ch => ch.name === `rules`)
 
 
             // DM THE USER
