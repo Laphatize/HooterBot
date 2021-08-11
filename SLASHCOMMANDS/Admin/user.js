@@ -753,8 +753,21 @@ module.exports = {
                 upsert: true
             }).exec();
 
+            // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+            await mutedUsersSchema.findOneAndUpdate({
+                USER_ID: muteUser.id,
+            },{
+                USER_ID: muteUser.id,
+            },{
+                upsert: true
+            }).exec();
 
-            // APPLYING MUTE ROLE
+
+            // FETCHING MUTED ROLE
+            bdayRole = guild.roles.cache.find(role => role.name == 'Muted :(')
+            
+            // APPLYING ROLE TO USER
+            member.roles.add(bdayRole)
 
 
             // DM THE USER

@@ -142,8 +142,6 @@ module.exports = {
         // LOG ENTRY
         modLogChannel.send({embeds: [logJoinGuild]})
 
-
-
         
         console.log(`Checking if ${member.user.username} has been logged as muted.`)
 
@@ -154,9 +152,10 @@ module.exports = {
 
         // USER JOINING SHOULD BE MUTED
         if(dbMutedData) {
+            console.log(`User was muted, reapplying role...`)
             
             // FETCHING MUTED ROLE
-            bdayRole = guild.roles.cache.find(role => role.name === 'Muted :(')
+            bdayRole = guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
             member.roles.add(bdayRole)
