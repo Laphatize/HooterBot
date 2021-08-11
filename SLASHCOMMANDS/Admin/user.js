@@ -641,7 +641,6 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
-            let caseCounter
             
             let caseCounter = infractionsSchema.countDocuments() + 1
 
