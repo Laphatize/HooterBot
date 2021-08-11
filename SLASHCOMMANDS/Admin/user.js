@@ -558,7 +558,7 @@ module.exports = {
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
-
+                console.log(`infractionResults = ${infractionResults}`)
                     
                 var result = []
 
