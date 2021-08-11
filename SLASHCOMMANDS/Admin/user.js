@@ -4,6 +4,7 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 const infractionsSchema = require('../../Database/infractionsSchema');
 const levels = require('discord-xp');
 const moment = require('moment');
+const { now } = require('moment');
 
 
 module.exports = {
@@ -180,7 +181,7 @@ module.exports = {
                     required: true
                 },{
                     name: `reason`,
-                    description: `The reason for the warning.`,
+                    description: `The reason for the warning. (LIMIT: 250 CHARACTERS)`,
                     type: `STRING`,
                     required: true
                 },
@@ -198,7 +199,7 @@ module.exports = {
                     required: true
                 },{
                     name: `reason`,
-                    description: `The reason for the warning.`,
+                    description: `The reason for the warning. (LIMIT: 250 CHARACTERS)`,
                     type: `STRING`,
                     required: true
                 },
@@ -216,7 +217,7 @@ module.exports = {
                     required: true
                 },{
                     name: `reason`,
-                    description: `The reason for the warning.`,
+                    description: `The reason for the warning. (LIMIT: 250 CHARACTERS)`,
                     type: `STRING`,
                     required: true
                 },
@@ -234,7 +235,7 @@ module.exports = {
                     required: true
                 },{
                     name: `reason`,
-                    description: `The reason for the ban. (Limit: 512 characters)`,
+                    description: `The reason for the ban. (LIMIT: 250 CHARACTERS)`,
                     type: `STRING`,
                     required: true
                 },{
@@ -552,10 +553,20 @@ module.exports = {
             // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
             if(dbInfractionData) {
 
+
+
+                // THIS WILL NEED TO BE REWORKED FOR NEW SCHEMA SETUP!
                 let infractionResults =  await infractionsSchema.find({
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
+
+
+
+
+
+
+                    
                 var result = []
 
                 for(let i in infractionResults) {
@@ -611,7 +622,58 @@ module.exports = {
             let warnReason = interaction.options.getString('reason');
 
 
-            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nwarnUser = ${warnUser}\nwarnReason = ${warnReason}`)
+            // REASON TOO LONG
+            if(warnReason.length > 250) {
+
+                let overchar = warnReason.length - 250
+
+                // GENERATE ERROR EMBED
+                let reasonTooLargeEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
+            }
+
+
+            // FETCHING GUILD MEMBER
+            let member = client.users.cache.find(user => user.id === warnUser.id)
+
+            let caseCounter = infractionsSchema.count() + 1;
+
+
+            // // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
+            // await infractionsSchema.insertOne({
+            //     USER_ID: warnUser.id,
+            //     ACTION: 'WARN',
+            //     REASON: warnReason,
+            //     STAFF_ID: interaction.user.id,
+            //     INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+            //     CASE_NUM: caseCounter
+            // }).exec();
+
+
+            // DM THE USER
+            let userWarnEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Warning Issued`)
+                .setDescription(`You have been warned in the ${interaction.guild.name} server by an admin or moderator for the following reason:\n\n*${warnReason}.`)
+
+            interaction.reply({ embeds: [userWarnEmbed], ephemeral: true });
+
+
+            // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+
+
+
+            // SENDING
+            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
+                .catch(err => console.log(err))
+
+            
         }
 
 
@@ -624,6 +686,21 @@ module.exports = {
             let muteUser = interaction.options.getUser('target_user');
             let muteReason = interaction.options.getString('reason');
 
+
+            // REASON TOO LONG
+            if(muteReason.length > 250) {
+                let overchar = muteReason.length - 250
+
+                // GENERATE ERROR EMBED
+                let reasonTooLargeEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
+            }
 
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nmuteUser = ${muteUser}\nwarnReason = ${muteReason}`)
         }
@@ -639,6 +716,22 @@ module.exports = {
             let unmuteReason = interaction.options.getString('reason');
 
 
+            // REASON TOO LONG
+            if(unmuteReason.length > 250) {
+
+                let overchar = unmuteReason.length - 250
+
+                // GENERATE ERROR EMBED
+                let reasonTooLargeEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
+            }
+
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nunmuteUser = ${unmuteUser}\nunmuteReason = ${unmuteReason}`)
         }
 
@@ -652,6 +745,22 @@ module.exports = {
             let banUser = interaction.options.getUser('target_user');
             let banReason = interaction.options.getString('reason');
             let banPurgeDays = interaction.options.getInteger('purge_days');
+
+
+            // REASON TOO LONG
+            if(banReason.length > 250) {
+                let overchar = banReason.length - 250
+
+                // GENERATE ERROR EMBED
+                let reasonTooLargeEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
+            }
 
 
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)
