@@ -26,10 +26,10 @@ module.exports = {
         if(oldState.channel !== null && newState.channel == null ) {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`${newState.member.user.username} left ${newState.channel.name}`)
-                .setDescription(`**Session ID:** ${newState.sessionId}`)
+                .setTitle(`${oldState.member.user.username} left ${oldState.channel.name}`)
+                .setDescription(`**Session ID:** ${oldState.sessionId}`)
                 .setTimestamp()
-                .setFooter(`User ID: ${newState.member.user.id}`)
+                .setFooter(`User ID: ${oldState.member.user.id}`)
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
