@@ -554,7 +554,6 @@ module.exports = {
             // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
             if(dbInfractionData) {
 
-
                 let infractionResults =  await infractionsSchema.countDocuments({
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec()     // DESCENDING CREATION DATE
@@ -568,15 +567,17 @@ module.exports = {
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
-                let userInfCount = await parseInt(infractionsSchema.countDocuments({
+                let userInfCount = await infractionsSchema.countDocuments({
                     USER_ID: targetUser.id 
-                }))
+                })
 
-                
+
+                let counterVal = parseInt(userInfCount + 1)
+
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
-                if(userInfCount == 1) embedTitle = `${member.tag}: 1 recorded infraction`
-                if(userInfCount >= 2) embedTitle = `${member.tag}: ${userInfCount} recorded infractions`
+                if(counterVal == 1) embedTitle = `${member.tag}: 1 recorded infraction`
+                if(counterVal >= 2) embedTitle = `${member.tag}: ${counterVal} recorded infractions`
 
                 // LIMITING LIST OF INFRACTIONS IF TOO LARGE
                 let infractionBodyText = `${result.join('\n\n')}`
