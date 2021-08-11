@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
+const infractionsSchema = require('../../Database/infractionsSchema');
 const levels = require('discord-xp');
 const moment = require('moment');
 
@@ -509,7 +510,92 @@ module.exports = {
             let targetUser = interaction.options.getUser('target_user');
 
 
-            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\ntargetUser = ${targetUser}`)
+            // MESSAGE SENT IN INVALID CATEGORY
+            if (// TEST SERVER - "HOOTERBOT TESTING"
+                interaction.channel.parent.id !== `859992423127973898` ||
+                // TEST SERVER - "TEXT CHANNELS"
+                interaction.channel.parent.id !== `530503548937699341` ||
+                // TEMPLE SERVER - "MOD-CHANNELS"
+                interaction.channel.parent.id !== `829420812951748628`) {
+
+                // GENERATE ERROR EMBED
+                let wrongChannelsEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, this command can only be run in the \`\`MOD-CHANNELS\`\` category of the Temple Server.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [wrongChannelsEmbed], ephemeral: true })
+            }
+
+
+            // CHECK DATABASE FOR ENTRIES
+            let dbInfractionData = await infractionsSchema.find({
+                USER_ID: targetUser.id
+            }).exec();
+
+
+            // NO INFRACTIONS EXIST
+            if(!dbInfractionData) {
+                // GENERATE ERROR EMBED
+                let noInfractionsEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} ${targetUser}: no recorded infractions`)
+                    .setDescription(`I've scanned the entire database and there are no recorded bans, mutes, or warnings issued to this user.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [noInfractionsEmbed], ephemeral: true })
+            }
+
+
+            // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
+            if(dbInfractionData) {
+
+                let infractionResults = dbInfractionData.sort( [['_id', -1]] )      // DESCENDING CREATION DATE
+
+                var result = []
+
+                for(let i in infractionResults) {
+                    result.push(`**${i+1}. ${infractionResults[i].ACTION} on ${moment(new Date(infractionResults[i].INFRACTION_DATE)).format('LLL')}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
+                }
+
+                let userInfCount = infractionResults.count()
+
+                // DYNAMIC EMBED TITLE
+                let embedTitle;
+                if(userInfCount == 1) embedTitle = `${targetUser}: 1 recorded infraction`
+                if(userInfCount >= 2) embedTitle = `${targetUser}:${userInfCount} recorded infractions`
+
+                // LIMITING LIST OF INFRACTIONS IF TOO LARGE
+                let infractionBodyText = `${result.join('\n\n')}`
+                let limitedInfractionBodyText;
+                
+                // LIMIT IF CHAR COUNT IS TOO HIGH
+                if(infractionBodyText.length > 4096) {
+                    limitedInfractionBodyText = `*Limited display: showing 5 most-recent entries:* ${result[0]}\n\n${result[1]}\n\n${result[2]}\n\n${result[3]}\n\n${result[4]}`
+
+                    if(infractionBodyText.length > 4096) {
+                        limitedInfractionBodyText = `*Limited display: showing 4 most-recent entries:* ${result[0]}\n\n${result[1]}\n\n${result[2]}\n\n${result[3]}`
+
+                        if(limitedInfractionBodyText.length > 4096) {
+                            limitedInfractionBodyText = `*Limited display: showing 3 most-recent entries:* ${result[0]}\n\n${result[1]}\n\n${result[2]}`
+                        }
+                    }
+                }
+
+
+                // GENERATE ERROR EMBED
+                let infractionsListEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`${embedTitle}`)
+                    .setDescription(`${result.join('\n\n')}`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [infractionsListEmbed], ephemeral: true })
+            }
         }
 
 
