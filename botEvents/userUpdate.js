@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const config = require('../config.json');
 
 module.exports = {
-	name: 'roleDelete',
+	name: 'userUpdate',
 	async execute(oldUser, newUser, client) {
 
         // LOG CHANNEL
