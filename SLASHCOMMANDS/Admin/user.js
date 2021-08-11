@@ -395,10 +395,14 @@ module.exports = {
                     }
 
                     // GRABBING NICKNAME IF SET
-                    var nickname = user.displayName
+                    let nickname;
                     if(user.displayName == user.username) {
                         nickname = `*(None)*`;
                     }
+                    if(user.displayName !== user.username) {
+                        nickname = user.displayName
+                    }
+
 
                     var booster = moment( new Date(member.premiumSince)).format('LL')
                     if(booster == 'Invalid date') {

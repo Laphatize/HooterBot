@@ -120,19 +120,48 @@ module.exports = {
 
         // THREAD SLOWMODE
         if(oldThread.rateLimitPerUser !== newThread.rateLimitPerUser) {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`Thread Slowmode Changed`)
-                .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
-                .addField(`**Old Time:**`, `${oldThread.rateLimitPerUser}s`, true)
-                .addField(`\u200b`, `🡲`, true)
-                .addField(`**New Time:**`, `${newThread.rateLimitPerUser}s`, true)
-                .setFooter(`Thread ID: ${newThread.id}`)
-                .setTimestamp()
+            
+            // SLOWMODE ADDED
+            if(newThread.rateLimitPerUser > 0 && oldThread.rateLimitPerUser == 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`Thread Slowmode Enabled`)
+                    .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Slowmode:**`, `${newThread.rateLimitPerUser}s`)
+                    .setFooter(`Thread ID: ${newThread.id}`)
+                    .setTimestamp()
 
-            // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
-            modLogChannel.send({ embeds: [logEmbed] })
+                // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+                modLogChannel.send({ embeds: [logEmbed] })
+            }
+            // SLOWMODE REMOVED
+            if(newThread.rateLimitPerUser == 0 && oldThread.rateLimitPerUser > 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`Thread Slowmode Removed`)
+                    .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
+                    .setFooter(`Thread ID: ${newThread.id}`)
+                    .setTimestamp()
+
+                // FETCHING LOG CHANNEL AND SENDING CREATION NOTICE
+                modLogChannel.send({ embeds: [logEmbed] })
+            }
+            // SLOWMODE ADJUSTED
+            if(newThread.rateLimitPerUser > 0 && oldThread.rateLimitPerUser > 0) {
+                // LOG EMBED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`Slowmode Adjusted`)
+                    .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
+                    .addField(`Old Rate:`, `${oldThread.rateLimitPerUser}s`, true)
+                    .addField(`\u200b`, `🡲`, true)
+                    .addField(`New Rate:`, `${newThread.rateLimitPerUser}s`, true)
+                    .setTimestamp()
+                    .setFooter(`Thread ID: ${newThread.id}`)
+                // LOG ENTRY
+                modLogChannel.send({embeds: [logEmbed]})
+            }
         }
 
 

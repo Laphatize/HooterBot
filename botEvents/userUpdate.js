@@ -7,18 +7,55 @@ module.exports = {
 
         // LOG CHANNEL
         const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        
+        
+        // AVATAR CHANGE
+        if(oldUser.avatar !== newUser.avatar) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Avatar Update`)
+                .setThumbnail(newUser.user.displayAvatarURL({ dynamic:true }))
+                .setAuthor(newUser.user.tag, oldUser.user.displayAvatarURL({ dynamic:true }))
+                .addField(`Old:`, `[Avatar Link](${oldUser.avatarURL})`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New:`, `[Avatar Link](${newUser.avatarURL})`, true)
+                .setTimestamp()
+                .setFooter(`User ID: ${newUser.id}`)
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
-        // // LOG EMBED
-        // let logEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedGrey)
-        //     .setTitle(`User Updated`)
-        // //     .addField(`User:`, `${member}`, true)
-        // //     .addField(`Tag:`, `${member.user.tag}`, true)
-        // //     .addField(`ID:`, `${member.id}`, true)
-        // //     .addField(`Time in server:`, `${memberDuration}`)
-        //     .setTimestamp()
+        // DISCRIMINATOR CHANGE
+        if(oldUser.discriminator !== newUser.discriminator) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Discriminator Changed`)
+                .setAuthor(newUser.user.tag, newUser.user.displayAvatarURL({ dynamic:true }))
+                .addField(`Old:`, `${oldUser.discriminator}`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New:`, `${newUser.discriminator}`, true)
+                .setTimestamp()
+                .setFooter(`User ID: ${newUser.id}`)
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
-        // // LOG ENTRY
-        // modLogChannel.send({embeds: [logEmbed]})
+        // USERNAME CHANGE
+        if(oldUser.username !== newUser.username) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Username Changed`)
+                .setAuthor(newUser.user.tag, newUser.user.displayAvatarURL({ dynamic:true }))
+                .addField(`Old:`, `${oldUser.username}`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New:`, `${newUser.username}`, true)
+                .setTimestamp()
+                .setFooter(`User ID: ${newUser.id}`)
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };

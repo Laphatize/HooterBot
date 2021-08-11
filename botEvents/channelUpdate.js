@@ -70,6 +70,7 @@ module.exports = {
                     .setTitle(`Channel Moved`)
                     .setDescription(`**Channel:** ${newChannel}\n**Catgory:** ${newChannel.parent.name}`)
                     .setTimestamp()
+                    .setFooter(`Channel ID: ${newChannel.id}`)
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
             }
@@ -81,7 +82,7 @@ module.exports = {
                     .setTitle(`Channel Moved`)
                     .setDescription(`**Channel:** ${newChannel}\n**Old Catgory:** \`\` ${oldChannel.parent.name.toUpperCase()} \`\`\n**New Catgory:** \`\` ${newChannel.parent.name.toUpperCase()} \`\``)
                     .setTimestamp()
-
+                    .setFooter(`Channel ID: ${newChannel.id}`)
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
             }
@@ -99,6 +100,7 @@ module.exports = {
                     .setTitle(`Slowmode Enabled`)
                     .setDescription(`**Channel:** ${newChannel}\n**Slowmode:** ${newChannel.rateLimitPerUser}s`)
                     .setTimestamp()
+                    .setFooter(`Channel ID: ${newChannel.id}`)
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
             }
@@ -110,7 +112,7 @@ module.exports = {
                     .setTitle(`Slowmode Removed`)
                     .setDescription(`**Channel:** ${newChannel}`)
                     .setTimestamp()
-
+                    .setFooter(`Channel ID: ${newChannel.id}`)
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
             }
@@ -125,7 +127,7 @@ module.exports = {
                     .addField(`\u200b`, `🡲`, true)
                     .addField(`New Rate:`, `${newChannel.rateLimitPerUser}s`, true)
                     .setTimestamp()
-
+                    .setFooter(`Channel ID: ${newChannel.id}`)
                 // LOG ENTRY
                 modLogChannel.send({embeds: [logEmbed]})
             }
