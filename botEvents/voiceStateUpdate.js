@@ -10,27 +10,46 @@ module.exports = {
 
 
         // JOIN VOICE CHANNEL
+        if(oldState.channel == 'null' && newState.channel !== 'null' ) {
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`${newState.member.username} joined ${newState.channel.name}`)
+                .setDescription(`**Session ID:** ${newState.sessionId}`)
+                .setTimestamp()
+                .setFooter(`User ID: ${newState.member.id}`)
 
-
-
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
         // LEAVE VOICE CHANNEL
+        if(oldState.channel !== 'null' && newState.channel == 'null' ) {
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`${newState.member.username} left ${newState.channel.name}`)
+                .setDescription(`**Session ID:** ${newState.sessionId}`)
+                .setTimestamp()
+                .setFooter(`User ID: ${newState.member.id}`)
+
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
 
 
 
         // CHANGE VOICE CHANNEL
+        if(oldState.channel !== 'null' && newState.channel !== 'null' ) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`${newState.member.username} changed channels`)
+                .addField(`Old Channel:`, `${oldState.channel}\n**Session:** ${oldState.sessionId}`)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New Channel:`, `${newState.channel}\n**Session:** ${newState.sessionId}`)
+                .setTimestam()
 
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
-            .setTitle(`Logging \`\`voiceStateUpdate\`\` info`)
-            .addField(`Channel:`, `oldState.channel: ${oldState.channel}\nnewState.channel${newState.channel}`)
-            .addField(`Member:`, `oldState.member: ${oldState.member}\nnewState.member${newState.member}`)
-            .addField(`Server Mute:`, `oldState.serverMute: ${oldState.serverMute}\nnewState.serverMute${newState.serverMute}`)
-            .addField(`Session ID:`, `oldState.sessionId: ${oldState.sessionId}\nnewState.sessionId${newState.sessionId}`)
-            .setTimestamp()
-
-        // LOG ENTRY
-        modLogChannel.send({embeds: [logEmbed]})
-	},
+            // LOG ENTRY
+            modLogChannel.send({embeds: [logEmbed]})
+        }
+    },
 };
