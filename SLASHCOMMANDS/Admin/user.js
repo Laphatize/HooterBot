@@ -648,14 +648,14 @@ module.exports = {
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL').utcOffset(-4),
+                DATE: new moment(Date.now().utcOffset(-4)).format('LLL'),
                 CASE_NUM: parseInt(caseCounter)+1
             },{
                 USER_ID: warnUser.id,
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL').utcOffset(-4),
+                DATE: new moment(Date.now().utcOffset(-4)).format('LLL'),
                 CASE_NUM: parseInt(caseCounter)+1
             },{
                 upsert: true
