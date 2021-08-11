@@ -1,7 +1,8 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const moment = require('moment');
-const mutedUsersSchema = require('../../Database/mutedUsersSchema');
+const mutedUsersSchema = require('../Database/mutedUsersSchema');
+
 
 
 module.exports = {
