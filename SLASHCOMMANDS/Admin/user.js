@@ -729,7 +729,7 @@ module.exports = {
             }
 
             // FETCHING GUILD MEMBER
-            let member = interaction.guild.users.fetch(muteUser.id)
+            let member = interaction.guild.members.fetch(muteUser.id)
             
             let caseCounter = await infractionsSchema.countDocuments()
             
