@@ -739,68 +739,68 @@ module.exports = {
                             .setTitle(`Mute Applied`)
                             .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
 
-                        member.send({ embeds: [userMuteEmbed] })
-                            .catch(err => {
-                                let dmErrorEmbed = new discord.MessageEmbed()
-                                    .setColor(config.embedRed)
-                                    .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
-                                    .setDescription(`HooterBot was unable to DM ${member} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                        mbr.send({ embeds: [userMuteEmbed] })
+                        .catch(err => {
+                            let dmErrorEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedRed)
+                                .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
+                                .setDescription(`HooterBot was unable to DM ${mbr} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
                         interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                    })                
+
+
+                        let caseCounter = await infractionsSchema.countDocuments()
+            
+
+                        // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+                        await infractionsSchema.findOneAndUpdate({
+                            USER_ID: muteUser.id,
+                            ACTION: 'MUTE',
+                            REASON: muteReason,
+                            STAFF_ID: interaction.user.id,
+                            DATE: new moment(Date.now()).format('LLL'),
+                            CASE_NUM: caseCounter
+                        },{
+                            USER_ID: muteUser.id,
+                            ACTION: 'MUTE',
+                            REASON: muteReason,
+                            STAFF_ID: interaction.user.id,
+                            DATE: new moment(Date.now()).format('LLL'),
+                            CASE_NUM: caseCounter
+                        },{
+                            upsert: true
+                        }).exec();
+            
+                        // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+                        await mutedUsersSchema.findOneAndUpdate({
+                            USER_ID: muteUser.id,
+                        },{
+                            USER_ID: muteUser.id,
+                        },{
+                            upsert: true
+                        }).exec();
+            
+            
+                        // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+                        let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedOrange)
+                            .setTitle(`Case \#${caseCounter+1}: User Muted`)
+                            .setDescription(`**User:** ${mbr}\n**User ID:** ${mbr.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
+                            .setFooter(``)
+            
+                        interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
+                            .catch(err => console.log(err))
+            
+            
+                        // CONFIRMATION MESSAGE TO INTERACTION USER
+                        let confirmationEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`${config.emjGREENTICK} Mute Successfully Issued`)
+                            .setDescription(`You have successfully issued a mute to ${mbr}. **Please follow up with the user about the duration of the mute and more details on why they were muted.**`)
+            
+                        interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+                    })
                 })
-
-            
-            let caseCounter = await infractionsSchema.countDocuments()
-            
-
-            // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-            await infractionsSchema.findOneAndUpdate({
-                USER_ID: muteUser.id,
-                ACTION: 'MUTE',
-                REASON: muteReason,
-                STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: caseCounter
-            },{
-                USER_ID: muteUser.id,
-                ACTION: 'MUTE',
-                REASON: muteReason,
-                STAFF_ID: interaction.user.id,
-                DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: caseCounter
-            },{
-                upsert: true
-            }).exec();
-
-            // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-            await mutedUsersSchema.findOneAndUpdate({
-                USER_ID: muteUser.id,
-            },{
-                USER_ID: muteUser.id,
-            },{
-                upsert: true
-            }).exec();
-
-
-            // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
-            let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Case \#${caseCounter+1}: User Muted`)
-                .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
-                .setFooter(``)
-
-            interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
-                .catch(err => console.log(err))
-
-
-            // CONFIRMATION MESSAGE TO INTERACTION USER
-            let confirmationEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Mute Successfully Issued`)
-                .setDescription(`You have successfully issued a mute to ${member}. **Please follow up with the user about the duration of the mute and more details on why they were muted.**`)
-
-            interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
 
 
