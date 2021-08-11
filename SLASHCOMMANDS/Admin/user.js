@@ -764,7 +764,7 @@ module.exports = {
 
 
             // FETCHING MUTED ROLE
-            bdayRole = guild.roles.cache.find(role => role.name == 'Muted :(')
+            bdayRole = interaction.guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
             member.roles.add(bdayRole)
