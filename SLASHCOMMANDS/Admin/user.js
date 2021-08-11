@@ -647,22 +647,18 @@ module.exports = {
             // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
             await infractionsSchema.findOneAndUpdate({
                 USER_ID: warnUser.id,
-                ACTIONSARRAY: [{
-                    ACTION: 'WARN',
-                    REASON: warnReason,
-                    STAFF_ID: interaction.user.id,
-                    INTERACTION_DATE: new moment(Date.now()).format('LLL'),
-                    CASE_NUM: caseCounter
-                }]
+                ACTION: 'WARN',
+                REASON: warnReason,
+                STAFF_ID: interaction.user.id,
+                INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+                CASE_NUM: caseCounter
             },{
                 USER_ID: warnUser.id,
-                ACTIONSARRAY: [{
-                    ACTION: 'WARN',
-                    REASON: warnReason,
-                    STAFF_ID: interaction.user.id,
-                    INTERACTION_DATE: new moment(Date.now()).format('LLL'),
-                    CASE_NUM: caseCounter
-                }]
+                ACTION: 'WARN',
+                REASON: warnReason,
+                STAFF_ID: interaction.user.id,
+                INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+                CASE_NUM: caseCounter
             },{
                 upsert: true
             }).exec();
