@@ -751,38 +751,34 @@ module.exports = {
                 })
 
             let caseCounter = await infractionsSchema.countDocuments()
-            console.log(`caseCounter = ${caseCounter}`)
-            console.log(`typeof caseCounter = ${typeof caseCounter}`)
-            console.log(`caseCounter+1 = ${caseCounter+1}`)
-            consoel.log(`parseInt(caseCounter)+1 = ${parseInt(caseCounter)+1}`)
 
-            // // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-            // infractionsSchema.findOneAndUpdate({
-            //     USER_ID: muteUser.id,
-            //     ACTION: 'MUTE',
-            //     REASON: muteReason,
-            //     STAFF_ID: interaction.user.id,
-            //     DATE: new moment(Date.now()).format('LLL'),
-            //     CASE_NUM: caseCounter+1
-            // },{
-            //     USER_ID: muteUser.id,
-            //     ACTION: 'MUTE',
-            //     REASON: muteReason,
-            //     STAFF_ID: interaction.user.id,
-            //     DATE: new moment(Date.now()).format('LLL'),
-            //     CASE_NUM: caseCounter+1
-            // },{
-            //     upsert: true
-            // }).exec();
+            // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+            infractionsSchema.findOneAndUpdate({
+                USER_ID: muteUser.id,
+                ACTION: 'MUTE',
+                REASON: muteReason,
+                STAFF_ID: interaction.user.id,
+                DATE: new moment(Date.now()).format('LLL'),
+                CASE_NUM: parseInt(caseCounter)+1
+            },{
+                USER_ID: muteUser.id,
+                ACTION: 'MUTE',
+                REASON: muteReason,
+                STAFF_ID: interaction.user.id,
+                DATE: new moment(Date.now()).format('LLL'),
+                CASE_NUM: parseInt(caseCounter)+1
+            },{
+                upsert: true
+            }).exec();
 
-            // // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-            // mutedUsersSchema.findOneAndUpdate({
-            //     USER_ID: muteUser.id,
-            // },{
-            //     USER_ID: muteUser.id,
-            // },{
-            //     upsert: true
-            // }).exec();
+            // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+            mutedUsersSchema.findOneAndUpdate({
+                USER_ID: muteUser.id,
+            },{
+                USER_ID: muteUser.id,
+            },{
+                upsert: true
+            }).exec();
 
 
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
