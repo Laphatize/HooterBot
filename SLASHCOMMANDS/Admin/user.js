@@ -573,7 +573,7 @@ module.exports = {
                     result.push(`**${i+1}. ${infractionResults[i].ACTION} on ${moment(new Date(infractionResults[i].INFRACTION_DATE)).format('LLL')}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
-                let userInfCount = infractionResults.count()
+                let userInfCount = infractionResults.countDocuments()
 
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
