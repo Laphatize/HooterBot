@@ -1573,33 +1573,34 @@ module.exports = {
                 // GRAB TICKET CHANNEL, THEN MESSAGE
                 let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
                     
-                userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
-                    .then(msg => {
-                        // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
-                        let newTicketEditedEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedGreen)
-                            .setTitle(`**Verification Ticket Closed**`)
-                            .addField(`User:`, `${interaction.user}`, true)
-                            .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                            .addField(`User ID:`, `${interaction.user.id}`, true)
-                            .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
+                // // THIS CODE BLOCK HAS STOPPED WORKING - THE CHANNEL CAN'T BE FOUND WHEN FETCHED, ODDLY ENOUGH...
+                // userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
+                //     .then(msg => {
+                //         // CREATE EDITED INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
+                //         let newTicketEditedEmbed = new discord.MessageEmbed()
+                //             .setColor(config.embedGreen)
+                //             .setTitle(`**Verification Ticket Closed**`)
+                //             .addField(`User:`, `${interaction.user}`, true)
+                //             .addField(`User Tag:`, `${interaction.user.tag}`, true)
+                //             .addField(`User ID:`, `${interaction.user.id}`, true)
+                //             .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
 
-                        let QuitButton = new MessageButton()
-                            .setLabel("End Verification")
-                            .setStyle("DANGER")
-                            .setCustomId("quit_CH")
-                            .setDisabled(true)
+                //         let QuitButton = new MessageButton()
+                //             .setLabel("End Verification")
+                //             .setStyle("DANGER")
+                //             .setCustomId("quit_CH")
+                //             .setDisabled(true)
         
-                        // BUTTON ROW
-                        let QuitButtonModBtn = new MessageActionRow()
-                            .addComponents(
-                                QuitButton
-                            );
+                //         // BUTTON ROW
+                //         let QuitButtonModBtn = new MessageActionRow()
+                //             .addComponents(
+                //                 QuitButton
+                //             );
 
-                        // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
-                        msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
-                            .catch(err => console.log(err))
-                    })
+                //         // EDITING THE INITIAL DM PROMPT TO DISABLE BUTTONS
+                //         msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
+                //             .catch(err => console.log(err))
+                //     })
 
 
                 // DELETING DATABASE ENTRY
