@@ -555,10 +555,9 @@ module.exports = {
             if(dbInfractionData) {
 
 
-                let infractionResults =  await parseInt(infractionsSchema.countDocuments({
+                let infractionResults =  await infractionsSchema.countDocuments({
                         USER_ID: targetUser.id
                     }).sort( [['_id', -1]] ).exec()     // DESCENDING CREATION DATE
-                )
 
                     
                 var result = []
@@ -569,10 +568,11 @@ module.exports = {
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
-                let userInfCount = await infractionsSchema.countDocuments({
+                let userInfCount = await parseInt(infractionsSchema.countDocuments({
                     USER_ID: targetUser.id 
-                })
+                }))
 
+                
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
                 if(userInfCount == 1) embedTitle = `${member.tag}: 1 recorded infraction`
