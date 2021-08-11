@@ -46,7 +46,7 @@ module.exports = {
                 .addField(`Old Channel:`, `${oldState.channel}\n**Session:** ${oldState.sessionId}`)
                 .addField(`\u200b`, `🡲`, true)
                 .addField(`New Channel:`, `${newState.channel}\n**Session:** ${newState.sessionId}`)
-                .setTimestam()
+                .setTimestamp()
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
