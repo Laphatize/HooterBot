@@ -555,10 +555,9 @@ module.exports = {
             if(dbInfractionData) {
 
 
-                let infractionResults =  await parseInt(infractionsSchema.countDocuments({
+                let infractionResults =  await infractionsSchema.find({
                         USER_ID: targetUser.id
-                    }).sort( [['_id', -1]] ).exec()     // DESCENDING CREATION DATE
-                )
+                    }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
                     
                 var result = []
@@ -639,8 +638,8 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
-                                    
-            let caseCounter = await parseInt(infractionsSchema.countDocuments());
+            
+            let caseCounter = await infractionsSchema.countDocuments()
 
 
             // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
@@ -751,7 +750,7 @@ module.exports = {
                         })
                 })
 
-            let caseCounter = parseInt(infractionsSchema.countDocuments());
+            let caseCounter = infractionsSchema.countDocuments()
 
 
             // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
@@ -786,7 +785,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${caseCounter}: User Muted`)
+                .setTitle(`Case \#${caseCounter+1}: User Muted`)
                 .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                 .setFooter(``)
 
