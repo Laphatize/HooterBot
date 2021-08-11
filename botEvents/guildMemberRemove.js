@@ -84,13 +84,19 @@ module.exports = {
             );
 
 
-            // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-            member.guild.channels.cache.find(ch => ch.name === `verify-${member.user.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
-                .then(msg => {
-                    // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                    msg.channel.setName(`closed-${member.user.username.toLowerCase()}`)
-                })
-                .catch(err => console.log(err))
+            // FETCHING TICKET CHANNEL
+            let ticketCh = member.guild.channels.cache.find(ch => ch.name === `verify-${member.user.username.toLowerCase()}`)
+
+
+            if(ticketCh) {
+                // SENDING CLOSURE NOTICE
+                ticketCh.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                    .then(msg => {
+                        // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
+                        msg.channel.setName(`closed-${member.user.username.toLowerCase()}`)
+                    })
+                    .catch(err => console.log(err))
+            }
 
 
             // DELETING DATABASE ENTRY

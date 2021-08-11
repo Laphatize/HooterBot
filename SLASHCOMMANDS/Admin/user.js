@@ -754,6 +754,9 @@ module.exports = {
             }).exec();
 
 
+            // APPLYING MUTE ROLE
+
+
             // DM THE USER
             let userMuteEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
