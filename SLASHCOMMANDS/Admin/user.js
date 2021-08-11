@@ -466,34 +466,34 @@ module.exports = {
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
             levels.setXp(user1.id, interaction.guild.id, xp1);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             if(user2) {
                 levels.setXp(user2.id, interaction.guild.id, xp2);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user3) {
                 levels.setXp(user3.id, interaction.guild.id, xp3);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user4) {
                 levels.setXp(user4.id, interaction.guild.id, xp4);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user5) {
                 levels.setXp(user5.id, interaction.guild.id, xp5);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user6) {
                 levels.setXp(user6.id, interaction.guild.id, xp6);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user7) {
                 levels.setXp(user7.id, interaction.guild.id, xp7);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user8) {
                 levels.setXp(user8.id, interaction.guild.id, xp8);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user9) {
                 levels.setXp(user9.id, interaction.guild.id, xp9);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             } if(user10) {
                 levels.setXp(user10.id, interaction.guild.id, xp10);
-                confirmationArray.push(`**${xp1} XP** has been added for ${user1}.`)
+                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             }
 
             // CONFIRMATION
@@ -536,7 +536,7 @@ module.exports = {
                 // GENERATE ERROR EMBED
                 let noInfractionsEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} ${targetUser}: no recorded infractions`)
+                    .setTitle(`${config.emjREDTICK} ${targetUser.user.tag}: no recorded infractions`)
                     .setDescription(`I've scanned the entire database and there are no recorded bans, mutes, or warnings issued to this user.`)
                     .setTimestamp()
             
@@ -562,8 +562,8 @@ module.exports = {
 
                 // DYNAMIC EMBED TITLE
                 let embedTitle;
-                if(userInfCount == 1) embedTitle = `${targetUser}: 1 recorded infraction`
-                if(userInfCount >= 2) embedTitle = `${targetUser}:${userInfCount} recorded infractions`
+                if(userInfCount == 1) embedTitle = `${targetUser.user.tag}: 1 recorded infraction`
+                if(userInfCount >= 2) embedTitle = `${targetUser.user.tag}:${userInfCount} recorded infractions`
 
                 // LIMITING LIST OF INFRACTIONS IF TOO LARGE
                 let infractionBodyText = `${result.join('\n\n')}`
