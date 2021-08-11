@@ -1571,7 +1571,7 @@ module.exports = {
 
                         // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                         // GRAB TICKET CHANNEL, THEN MESSAGE
-                        let userTicketCh = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                        let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
                             
                         userTicketCh.messages.fetch(dbTicketData.TICKETCH1_MSG_ID)
                             .then(msg => {

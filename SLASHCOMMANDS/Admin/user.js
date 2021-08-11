@@ -729,7 +729,7 @@ module.exports = {
             }
 
             // FETCHING GUILD MEMBER
-            let member = interaction.guild.members.fetch(muteUser.id)
+            interaction.guild.members.fetch(muteUser.id)
                 .then(mbr => {
                     mbr.roles.add(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
                 
