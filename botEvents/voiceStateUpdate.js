@@ -35,14 +35,12 @@ module.exports = {
             modLogChannel.send({embeds: [logEmbed]})
         }
 
-
-
         // CHANGE VOICE CHANNEL
         if(oldState.channel !== null && newState.channel !== null ) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`${newState.member.user.username} changed channels`)
+                .setColor(config.embedGrey)
+                .setTitle(`${newState.member.user.username} changed voice channels`)
                 .addField(`Old Channel:`, `${oldState.channel}\n**Session:** ${oldState.sessionId}`, true)
                 .addField(`\u200b`, `🡲`, true)
                 .addField(`New Channel:`, `${newState.channel}\n**Session:** ${newState.sessionId}`, true)
