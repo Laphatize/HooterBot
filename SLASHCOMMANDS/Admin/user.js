@@ -564,7 +564,7 @@ module.exports = {
 
                 // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {
-                    result.push(`**${(i+1)}. ${infractionResults[i].ACTION}** on ${infractionResults[i].DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
+                    result.push(`**${infractionResults[i].CASE_NUM}. ${infractionResults[i].ACTION}** on ${infractionResults[i].DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
