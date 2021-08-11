@@ -9,6 +9,17 @@ module.exports = {
         const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
         
         
+        // PARTIAL USER
+        if (oldUser.partial || newUser.partial) {
+            try {
+                await oldUser.fetch()
+                await newUser.fetch()
+            } catch (err) {
+                return console.log(err);
+            }
+        }
+
+        
         // AVATAR CHANGE
         if(oldUser.avatar !== newUser.avatar) {
             // LOG EMBED

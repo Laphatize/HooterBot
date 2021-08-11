@@ -30,7 +30,7 @@ const client = new discord.Client({
         // 'DIRECT_MESSAGE_REACTIONS',
         // 'DIRECT_MESSAGE_TYPING'
     ],
-    partials: ['CHANNEL', 'MESSAGE']
+    partials: ['CHANNEL', 'MESSAGE', 'USER']
 })
 
 

@@ -135,7 +135,7 @@ module.exports = {
             .addField(`Text Permissions:`,`${textPermsHave.join(`\n`)}`, true)
             .addField(`Voice Permissions:`,`${voicePermsHave.join(`\n`)}`, true)
             .addField(`INTENTS:`, `${config.emjGREENTICK} GUILDS\n${config.emjGREENTICK} GUILD_MEMBERS\n${config.emjGREENTICK} GUILD_BANS\n${config.emjGREENTICK} GUILD_EMOJIS_AND_STICKERS\n${config.emjGREENTICK} GUILD_INVITES\n${config.emjGREENTICK} GUILD_MESSAGES\n${config.emjGREENTICK} GUILD_VOICE_STATES\n${config.emjGREENTICK} DIRECT_MESSAGES`, true)
-            .addField(`PARTIALS:`, `${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE`, true)
+            .addField(`PARTIALS:`, `${config.emjGREENTICK} CHANNEL\n${config.emjGREENTICK} MESSAGE\n${config.emjGREENTICK} USER`, true)
             .setTimestamp()
 
         // LOG ENTRY
