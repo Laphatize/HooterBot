@@ -155,12 +155,12 @@ module.exports = {
             console.log(`User was muted, reapplying role...`)
             
             // FETCHING MUTED ROLE
-            bdayRole = guild.roles.cache.find(role => role.name == 'Muted :(')
+            let mutedRole = guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
-            member.roles.add(bdayRole)
+            member.roles.add(mutedRole.id)
 
-            console.log(`Mute has been applied.`)
+            console.log(`Mute has been reapplied.`)
         }
     },
 };

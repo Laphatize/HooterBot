@@ -767,7 +767,7 @@ module.exports = {
             bdayRole = interaction.guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
-            member.roles.add(bdayRole)
+            member.roles.add(bdayRole.id)
 
 
             // DM THE USER
