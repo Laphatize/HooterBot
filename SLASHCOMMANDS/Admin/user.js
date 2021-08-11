@@ -760,14 +760,14 @@ module.exports = {
                 REASON: muteReason,
                 STAFF_ID: interaction.user.id,
                 DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: parseInt(caseCounter)+1
+                CASE_NUM: caseCounter+1
             },{
                 USER_ID: muteUser.id,
                 ACTION: 'MUTE',
                 REASON: muteReason,
                 STAFF_ID: interaction.user.id,
                 DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: parseInt(caseCounter)+1
+                CASE_NUM: caseCounter+1
             },{
                 upsert: true
             }).exec();
