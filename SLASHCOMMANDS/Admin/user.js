@@ -568,7 +568,7 @@ module.exports = {
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
-                let userInfCount = infractionResults.countDocuments({
+                let userInfCount = await infractionsSchema.countDocuments({
                     USER_ID: targetUser.id 
                 })
 
