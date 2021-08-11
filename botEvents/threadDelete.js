@@ -14,7 +14,7 @@ module.exports = {
         // GENERATE NOTICE EMBED
         let threadLogEntry = new discord.MessageEmbed()
             .setColor(config.embedOrange)
-            .setTitle(`Thread Deleted`)
+            .setTitle(`${config.emjThreadChannel} Thread Deleted`)
             .addField(`Thread Name:`, `${thread.name}`, true)
             .addField(`Thread ID:`, `${thread.id}`, true)
             .addField(`Thread Type:`, `${thread.type}`, true)

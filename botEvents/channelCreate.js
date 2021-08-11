@@ -15,11 +15,17 @@ module.exports = {
 
         // CHANNEL CREATION
         if(channel.type === 'GUILD_TEXT' || channel.type === 'GUILD_VOICE' || channel.type === 'GUILD_STAGE_VOICE') {
+
+            let chVar;
+            if(channel.type === 'GUILD_TEXT') chVar = `${config.emjTextChannel}`
+            if(channel.type === 'GUILD_VOICE') chVar = `${config.emjVoiceChannel}`
+            if(channel.type === 'GUILD_STAGE_VOICE') chVar = `${config.emjStageChannel}`
+
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`Channel Created`)
-                .addField(`Channel:`, `${channel}`, true)
+                .addField(`Channel:`, `${chVar} ${channel}`, true)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
                 .addField(`Type:`, `${channel.type}`, true)

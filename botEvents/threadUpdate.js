@@ -15,7 +15,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`Thread Renamed`)
+                .setTitle(`${config.emjThreadChannel} Thread Renamed`)
                 .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
                 .addField(`**Old Name:**`, `${oldThread.name}`, true)
                 .addField(`\u200b`, `🡲`, true)
@@ -58,7 +58,7 @@ module.exports = {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`Thread Auto-Archive Time Changed`)
+                .setTitle(`${config.emjThreadChannel} Thread Auto-Archive Time Changed`)
                 .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
                 .addField(`**Old Time:**`, `${oldThreadDurationTimeString}`, true)
                 .addField(`\u200b`, `🡲`, true)
@@ -79,7 +79,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setTitle(`Thread Archived`)
+                    .setTitle(`${config.emjThreadChannel} Thread Archived`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()
@@ -107,7 +107,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setTitle(`Thread Unarchived`)
+                    .setTitle(`${config.emjThreadChannel} Thread Unarchived`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n\nThis thread is now active and will archive after ${newThreadDurationTimeString} of inactivity.`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()
@@ -126,7 +126,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`Thread Slowmode Enabled`)
+                    .setTitle(`${config.emjSlowmode} Thread Slowmode Enabled`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Slowmode:**`, `${newThread.rateLimitPerUser}s`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()
@@ -139,7 +139,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
-                    .setTitle(`Thread Slowmode Removed`)
+                    .setTitle(`${config.emjSlowmode} Thread Slowmode Removed`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()
@@ -152,7 +152,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`Slowmode Adjusted`)
+                    .setTitle(`${config.emjSlowmode} Slowmode Adjusted`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}`)
                     .addField(`Old Rate:`, `${oldThread.rateLimitPerUser}s`, true)
                     .addField(`\u200b`, `🡲`, true)
@@ -173,7 +173,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`Thread Locked`)
+                    .setTitle(`${config.emjThreadChannel} Thread Locked`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Locked By:** (admin/mod)`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()

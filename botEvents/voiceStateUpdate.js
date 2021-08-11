@@ -13,7 +13,7 @@ module.exports = {
         if(oldState.channel == null && newState.channel !== null ) {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`${newState.member.user.username} joined ${newState.channel.name}`)
+                .setTitle(`${newState.member.user.username} joined ${config.emjVoiceChannel}${newState.channel.name}`)
                 .setDescription(`**Session ID:** ${newState.sessionId}`)
                 .setTimestamp()
                 .setFooter(`User ID: ${newState.member.user.id}`)
@@ -26,7 +26,7 @@ module.exports = {
         if(oldState.channel !== null && newState.channel == null ) {
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`${oldState.member.user.username} left ${oldState.channel.name}`)
+                .setTitle(`${oldState.member.user.username} left ${config.emjVoiceChannel}${oldState.channel.name}`)
                 .setDescription(`**Session ID:** ${oldState.sessionId}`)
                 .setTimestamp()
                 .setFooter(`User ID: ${oldState.member.user.id}`)
@@ -40,7 +40,7 @@ module.exports = {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
-                .setTitle(`${newState.member.user.username} changed voice channels`)
+                .setTitle(`${newState.member.user.username} changed ${config.emjVoiceChannel} voice channels`)
                 .addField(`Old Channel:`, `${oldState.channel}\n**Session:** ${oldState.sessionId}`, true)
                 .addField(`\u200b`, `🡲`, true)
                 .addField(`New Channel:`, `${newState.channel}\n**Session:** ${newState.sessionId}`, true)

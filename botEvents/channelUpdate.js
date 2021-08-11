@@ -16,7 +16,9 @@ module.exports = {
 
         
         // CHANNEL NAME CHANGE CHECK
-        if(oldChannel.name !== newChannel.name && (newChannel.type === 'GUILD_TEXT' || newChannel.type === 'GUILD_VOICE' || newChannel.type === `GUILD_STAGE_VOICE `)) {
+        if(oldChannel.name !== newChannel.name && (newChannel.type === 'GUILD_TEXT' || newChannel.type === 'GUILD_VOICE' || newChannel.type === `GUILD_STAGE_VOICE`)) {
+
+            
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -97,7 +99,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`Slowmode Enabled`)
+                    .setTitle(`${config.emjSlowmode} Slowmode Enabled`)
                     .setDescription(`**Channel:** ${newChannel}\n**Slowmode:** ${newChannel.rateLimitPerUser}s`)
                     .setTimestamp()
                     .setFooter(`Channel ID: ${newChannel.id}`)
@@ -109,7 +111,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
-                    .setTitle(`Slowmode Removed`)
+                    .setTitle(`${config.emjSlowmode} Slowmode Removed`)
                     .setDescription(`**Channel:** ${newChannel}`)
                     .setTimestamp()
                     .setFooter(`Channel ID: ${newChannel.id}`)
@@ -121,7 +123,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`Slowmode Adjusted`)
+                    .setTitle(`${config.emjSlowmode} Slowmode Adjusted`)
                     .setDescription(`**Channel:** ${newChannel}`)
                     .addField(`Old Rate:`, `${oldChannel.rateLimitPerUser}s`, true)
                     .addField(`\u200b`, `🡲`, true)

@@ -39,6 +39,11 @@
     "emjThirdPlace": "🥉",
     "emjAnimatedWave": "<a:wave:870738138069344326>",
     "emjThinking": "<a:thinking:872330762983190628>",
+    "emjTextChannel": "<:textchannel:874881496815632405>",
+    "emjVoiceChannel": "<:voicechannel:874881552268541973>",
+    "emjThreadChannel": "<:threadchannel:874881538200858654>",
+    "emjStageChannel": "<:stagechannel:874881516579221544>",
+    "emjSlowmode": "<:Slowmode:874884697853919302>",
 
     "indent": "<:indent_space:862214213749440523>",
 
