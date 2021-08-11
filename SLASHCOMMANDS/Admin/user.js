@@ -685,7 +685,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${caseCounter+1}: Warning Issued`)
+                .setTitle(`Case \#${parseInt(caseCounter)+1}: Warning Issued`)
                 .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
                 .setFooter(``)
 
@@ -760,14 +760,14 @@ module.exports = {
                 REASON: muteReason,
                 STAFF_ID: interaction.user.id,
                 DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: caseCounter
+                CASE_NUM: parseInt(caseCounter)+1
             },{
                 USER_ID: muteUser.id,
                 ACTION: 'MUTE',
                 REASON: muteReason,
                 STAFF_ID: interaction.user.id,
                 DATE: new moment(Date.now()).format('LLL'),
-                CASE_NUM: caseCounter
+                CASE_NUM: parseInt(caseCounter)+1
             },{
                 upsert: true
             }).exec();
@@ -785,7 +785,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${caseCounter+1}: User Muted`)
+                .setTitle(`Case \#${parseInt(caseCounter)+1}: User Muted`)
                 .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                 .setFooter(``)
 
