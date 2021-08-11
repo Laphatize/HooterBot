@@ -564,7 +564,7 @@ module.exports = {
 
                 // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {
-                    result.push(`**${i+1}. ${infractionResults[i].ACTION}** on ${infractionResults[i].DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
+                    result.push(`**${i}. ${infractionResults[i].ACTION}** on ${infractionResults[i].DATE}\n**Staff:** <@${infractionResults[i].STAFF_ID}>\n**Reason:** "${infractionResults[i].REASON}"`)
                 }
 
                 // GRABBING USER'S TOTAL MOD ACTIONS COUNT
@@ -639,7 +639,7 @@ module.exports = {
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
             
-            let caseCounter = await infractionsSchema.countDocuments() + 1
+            let caseCounter = await infractionsSchema.countDocuments()
 
             console.log(`caseCounter = ${caseCounter}`)
 
@@ -679,7 +679,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${caseCounter}: Warning Issued`)
+                .setTitle(`Case \#${caseCounter+1}: Warning Issued`)
                 .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
                 .setFooter(``)
 
