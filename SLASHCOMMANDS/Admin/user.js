@@ -750,10 +750,11 @@ module.exports = {
                         })
                 })
 
-            let caseCounter = infractionsSchema.countDocuments()
+            let caseCounter = await infractionsSchema.countDocuments()
             console.log(`caseCounter = ${caseCounter}`)
             console.log(`typeof caseCounter = ${typeof caseCounter}`)
             console.log(`caseCounter+1 = ${caseCounter+1}`)
+            consoel.log(`parseInt(caseCounter)+1 = ${parseInt(caseCounter)+1}`)
 
             // // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
             // infractionsSchema.findOneAndUpdate({
