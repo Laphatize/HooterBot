@@ -786,7 +786,7 @@ module.exports = {
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Case \#${caseCounter+1}: User Muted`)
-                .setDescription(`**User:** ${mbr}\n**User ID:** ${mbr.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
+                .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                 .setFooter(``)
 
             interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
@@ -797,7 +797,7 @@ module.exports = {
             let confirmationEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Mute Successfully Issued`)
-                .setDescription(`You have successfully issued a mute to ${mbr}. **Please follow up with the user about the duration of the mute and more details on why they were muted.**`)
+                .setDescription(`You have successfully issued a mute to ${muteUser}.\n\n**Please follow up with this user in DMs about the duration of the mute and more details on why they were muted.**`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
