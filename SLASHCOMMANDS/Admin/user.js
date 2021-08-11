@@ -749,11 +749,11 @@ module.exports = {
                         interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
 
 
-                        let caseCounter = await infractionsSchema.countDocuments()
+                        let caseCounter = infractionsSchema.countDocuments()
             
 
                         // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-                        await infractionsSchema.findOneAndUpdate({
+                        infractionsSchema.findOneAndUpdate({
                             USER_ID: muteUser.id,
                             ACTION: 'MUTE',
                             REASON: muteReason,
@@ -772,7 +772,7 @@ module.exports = {
                         }).exec();
             
                         // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
-                        await mutedUsersSchema.findOneAndUpdate({
+                        mutedUsersSchema.findOneAndUpdate({
                             USER_ID: muteUser.id,
                         },{
                             USER_ID: muteUser.id,
