@@ -11,7 +11,7 @@ module.exports = {
 
 
         // CHANNEL DELETED
-        if(channel.type === 'GUILD_TEXT' || channel.type == 'GUILD_VOICE') {
+        if(channel.type === 'GUILD_TEXT' || channel.type === 'GUILD_VOICE' || channel.type === 'GUILD_STAGE_VOICE') {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)

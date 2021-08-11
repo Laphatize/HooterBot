@@ -16,7 +16,7 @@ module.exports = {
 
         
         // CHANNEL NAME CHANGE CHECK
-        if(oldChannel.name !== newChannel.name && (newChannel.type == 'GUILD_TEXT' || newChannel.type == 'GUILD_VOICE')) {
+        if(oldChannel.name !== newChannel.name && (newChannel.type === 'GUILD_TEXT' || newChannel.type === 'GUILD_VOICE' || newChannel.type === `GUILD_STAGE_VOICE `)) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
