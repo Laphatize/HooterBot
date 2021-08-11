@@ -50,7 +50,7 @@ module.exports = {
         },{
             // LEVEL IMPORT
             name: `levelimport`,
-            description: `MODERATOR | Import MEE6 Leaderboard values for up to 10 users at a time.`,
+            description: `MODERATOR | Import MEE6 Leaderboard values for up to 10 users at a time. Overrides any XP/level values stored.`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -566,7 +566,7 @@ module.exports = {
 
 
 
-                    
+
                 var result = []
 
                 for(let i in infractionResults) {
@@ -648,32 +648,44 @@ module.exports = {
             // // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
             // await infractionsSchema.insertOne({
             //     USER_ID: warnUser.id,
-            //     ACTION: 'WARN',
-            //     REASON: warnReason,
-            //     STAFF_ID: interaction.user.id,
-            //     INTERACTION_DATE: new moment(Date.now()).format('LLL'),
-            //     CASE_NUM: caseCounter
+            //     ACTIONSARRAY: [{
+            //         ACTION: 'WARN',
+            //         REASON: warnReason,
+            //         STAFF_ID: interaction.user.id,
+            //         INTERACTION_DATE: new moment(Date.now()).format('LLL'),
+            //         CASE_NUM: caseCounter
+            //     }]
             // }).exec();
 
+            let rolesCh = interaction.guild.channels.cache.find(ch => ch.name === `roles`)
 
             // DM THE USER
             let userWarnEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Warning Issued`)
-                .setDescription(`You have been warned in the ${interaction.guild.name} server by an admin or moderator for the following reason:\n\n*${warnReason}.`)
+                .setDescription(`You have been issued a warning in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${warnReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
-            interaction.reply({ embeds: [userWarnEmbed], ephemeral: true });
+            member.send({ embeds: [userWarnEmbed] });
 
 
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+            let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Case \#${caseCounter}: Warning Issued`)
+                .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
+                .setFooter(``)
 
-
-
-            // SENDING
-            return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logRulesIDEmbed] })
+            interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
                 .catch(err => console.log(err))
 
-            
+
+            // CONFIRMATION MESSAGE TO INTERACTION USER
+            let confirmationEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Warning Successfully Issued`)
+                .setDescription(`You have successfully issued a warning to ${member}.`)
+
+            interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
 
 
