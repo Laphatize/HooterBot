@@ -545,7 +545,7 @@ module.exports = {
                     .setFooter(`Target User ID: ${targetUser.id}`)
             
                 // SENDING MESSAGE
-                return interaction.reply({ embeds: [noInfractionsEmbed], ephemeral: true })
+                return interaction.reply({ embeds: [noInfractionsEmbed] })
             }
 
 
@@ -596,7 +596,7 @@ module.exports = {
                     .setFooter(`Target User ID: ${targetUser.id}`)
             
                 // SENDING MESSAGE
-                return interaction.reply({ embeds: [infractionsListEmbed], ephemeral: true })
+                return interaction.reply({ embeds: [infractionsListEmbed] })
             }
         }
 
