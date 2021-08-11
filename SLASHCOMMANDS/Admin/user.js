@@ -729,7 +729,7 @@ module.exports = {
             }
 
             // FETCHING GUILD MEMBER
-            let member = client.users.cache.find(user => user.id === muteUser.id)
+            let member = interaction.guild.users.fetch(muteUser.id)
             
             let caseCounter = await infractionsSchema.countDocuments()
             
@@ -763,11 +763,8 @@ module.exports = {
             }).exec();
 
 
-            // FETCHING MUTED ROLE
-            bdayRole = interaction.guild.roles.cache.find(role => role.name == 'Muted :(')
-            
-            // APPLYING ROLE TO USER
-            member.roles.add(bdayRole.id)
+            // FETCHING AND APPLYING ROLE TO USER
+            member.roles.add(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
 
 
             // DM THE USER
