@@ -677,7 +677,9 @@ module.exports = {
             let DMable = true;
 
             member.send({ embeds: [userWarnEmbed] })
-                .catch(err => DMable = false )
+                .catch(err => {
+                    DMable = false
+                })
 
 
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
@@ -699,7 +701,7 @@ module.exports = {
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
-            if(!DMable) {
+            if(DMable == false) {
                 let dmErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Warning DM Not Received`)
@@ -771,7 +773,9 @@ module.exports = {
 
                     // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     member.send({ embeds: [userMuteEmbed] })
-                        .catch(err => DMable = false )
+                        .catch(err => {
+                            DMable = false
+                        })
                     
 
                     let caseCounter = await infractionsSchema.countDocuments()
@@ -825,7 +829,7 @@ module.exports = {
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
-                    if(!DMable) {
+                    if(DMable == false) {
                         let dmErrorEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
@@ -898,7 +902,9 @@ module.exports = {
                     let DMable = true;
 
                     member.send({ embeds: [userMuteEmbed] })
-                        .catch(err => DMable = false )
+                        .catch(err => {
+                            DMable = false
+                        })
 
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
@@ -927,7 +933,7 @@ module.exports = {
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
-                    if(!DMable) {
+                    if(DMable == false) {
                         let dmErrorEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
