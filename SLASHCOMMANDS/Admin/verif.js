@@ -66,6 +66,20 @@ module.exports = {
                     description: `Your message for the channel.`,
                     type: `STRING`,
                     required: true,
+                },{
+                    name: `ping`,
+                    description: `Ping the admins and mods on this message?`,
+                    type: `STRING`,
+                    required: true,
+                    choices: [
+                        {
+                            name: `ADMINS`,
+                            value: `ADMINS`,
+                        },{
+                            name: `ADMINS & MODS`,
+                            value: `ADMINS_MODS`,
+                        }
+                    ]
                 },
             ],
         },{
@@ -460,6 +474,7 @@ module.exports = {
 
             // GETTING OPTIONS VALUES
             let pmMessage = interaction.options.getString('message');
+            let pmgPing = interaction.options.getString('ping');
 
 
             // IF THE VERIF CHANNEL IS CLOSED OR ARCHIVED
@@ -501,8 +516,29 @@ module.exports = {
                     .setDescription(`This command can only be used in a verification ticket channel.`)
                     .setTimestamp()
                 
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
+                // PING ADMINS ONLY
+                if(pmgPing = 'ADMINS') {
+
+                    // FETCH ADMIN ROLE
+                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [wrongChannelEmbed], content: `<@${adminRole}>`, ephemeral: true })
+                }
+                // PING ADMINS AND MODS
+                if(pmgPing = 'ADMINS_MODS') {
+
+                    // FETCH ADMIN & MOD ROLES
+                    let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
+                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [wrongChannelEmbed], content: `<@${adminRole}> <@${modRole}>`, ephemeral: true })
+                }
+                else {
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
+                }
             }
         }
 
