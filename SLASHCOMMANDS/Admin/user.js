@@ -675,7 +675,6 @@ module.exports = {
                 .setDescription(`You have been issued a warning in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${warnReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
             let notDMable = ``;
-            console.log(`DMable pre-msg = ${DMable}`)
             member.send({ embeds: [userWarnEmbed] })
                 .catch(err => {
                     let cannotDMEmbed = new discord.MessageEmbed()
