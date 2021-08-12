@@ -882,7 +882,7 @@ module.exports = {
                     let userMuteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`Mute Removed`)
-                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*`)
+                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${unmuteReason}*`)
 
                         member.send({ embeds: [userMuteEmbed] })
                         .catch(err => {
