@@ -1021,12 +1021,6 @@ module.exports = {
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
-
-
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
                     interaction.user.createDM()
@@ -1110,12 +1104,6 @@ module.exports = {
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
 
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
-
-
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
                     interaction.user.createDM()
@@ -1197,12 +1185,6 @@ module.exports = {
                         \n**Before sending, please obscure any personally identifiable information (pictures, names) you wish to not share.**
                         \n**4.** Wait for a response from server staff. Responses may take up to a day.
                         \n\nWhen ready, attach your image in a DM below and send it to the bot (no message text needed). Want to use a different method? Select a button in the initial prompt above.`)
-
-
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
 
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
@@ -1303,11 +1285,6 @@ module.exports = {
                             CloseButton
                         );
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
-
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
                 if(dbTicketData.DM_2NDMSG_ID) {
@@ -1391,11 +1368,6 @@ module.exports = {
                             BackDataPrivacyButton,
                             CloseButton
                         );
-
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
-                }).exec();
 
 
                 // IF 2ND DM MESSAGE EXISTS, EDIT WITH NEW EMBED
