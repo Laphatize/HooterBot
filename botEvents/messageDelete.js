@@ -112,8 +112,6 @@ module.exports = {
             type: 'MESSAGE_DELETE',
         })
         const deletionLog = fetchedLogs.entries.first();
-        console.log(`Log fetched`)
-        console.log(`deletionLog = ${deletionLog}`)
 
 
         // IF NO DELETION LOG
@@ -137,32 +135,21 @@ module.exports = {
         // IGNORE BOT'S OWN DELETIONS
         if(!executor.id == config.botId)  return
 
+        console.log(`target.id = ${target.id}`)
+        console.log(`message.author.id = ${message.author.id}`)
+
         // IF TARGET MATCHES AUTHOR
         if(target.id === message.author.id) {
-            if(executor.id == message.author.id) {
-                // LOG EMBED - SELF-DELETED
-                let logEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedOrange)
-                    .setTitle(`Message Deleted`)
-                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *Self*`)
-                    .setTimestamp()
+            // LOG EMBED - DELETED BY ANOTHER USER
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
+                .setTimestamp()
 
-                // LOG ENTRY
-                return modLogChannel.send({embeds: [logEmbed]})
-            }
-            else {
-                // LOG EMBED - DELETED BY ANOTHER USER
-                let logEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedOrange)
-                    .setTitle(`Message Deleted`)
-                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${target.id}>`)
-                    .setTimestamp()
-
-                // LOG ENTRY
-                return modLogChannel.send({embeds: [logEmbed]})
-            }
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
         }
         else {
             // LOG EMBED
