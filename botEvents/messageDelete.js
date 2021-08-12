@@ -144,19 +144,19 @@ module.exports = {
         console.log(`currentTimestamp (valueOf) = ${moment().valueOf()}`)
         console.log(`currentTimestamp (valueOf) - createdTimestamp = ${moment().valueOf() - createdTimestamp}`)
 
+
         // IF TARGET MATCHES THE MESSAGE AUTHOR
         if(target.id === message.author.id) {
 
             
-            // IF THE AUDIT LOG WAS CREATED IN THE LAST SECOND = ADMIN/MOD DELETED
-            if(moment().valueOf() - createdTimestamp < 1000) {
+            // IF THE AUDIT LOG WAS CREATED IN THE LAST 2 SECONDS = ADMIN/MOD DELETED
+            if(moment().valueOf() - createdTimestamp > 1000) {
                 // LOG EMBED - DELETED BY ANOTHER USER
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
                     .setTitle(`Message Deleted`)
                     .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
-                    .setFooter(`Note: executor may report false-positives for admins/mods.`)
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(Self)*`)
                     .setTimestamp()
 
                 // LOG ENTRY
@@ -168,7 +168,7 @@ module.exports = {
                     .setColor(config.embedOrange)
                     .setTitle(`Message Deleted`)
                     .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(Self)`)
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
                     .setTimestamp()
 
                 // LOG ENTRY
