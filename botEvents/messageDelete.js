@@ -130,7 +130,7 @@ module.exports = {
 
         
         // GRABBING USER WHO DELETED AND TARGET FOR CHECK
-        const { executor, target } = deletionLog
+        const { createdAt, executor, target } = deletionLog
 
         // IGNORE BOT'S OWN DELETIONS
         if(!executor.id == config.botId)  return
@@ -139,9 +139,15 @@ module.exports = {
         console.log(`\nMessage deleted:\nexecutor.id = ${executor.id}`)
         console.log(`target.id = ${target.id}`)
         console.log(`message.author.id = ${message.author.id}\n`)
+        console.log(`createdTimestamp = ${createdTimestamp}`)
+        console.log(`currentTimestamp (Unix) = ${moment().unix()}`)
 
         // IF TARGET MATCHES THE MESSAGE AUTHOR
         if(target.id === message.author.id) {
+
+            
+            // IF THE AUDIT LOG WAS CREATED IN THE LAST 1 SECONDS = ADMIN/MOD DELETED
+            // if(moment().unix() - createdTimestamp > 1000)
             // LOG EMBED - DELETED BY ANOTHER USER
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
