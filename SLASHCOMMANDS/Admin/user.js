@@ -872,7 +872,7 @@ module.exports = {
 
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
-                    let infractionResult = await infractionsSchema.findOne({
+                    let infractionResult = infractionsSchema.findOne({
                         USER_ID: unmuteUser.id,
                         ACTION: `MUTE`
                     }).sort( [['_id', -1]] ).exec(); 
