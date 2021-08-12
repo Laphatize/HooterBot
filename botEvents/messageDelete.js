@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const guildSchema = require('../Database/guildSchema');
+const moment = require('moment');
 
 module.exports = {
 	name: 'messageDelete',
