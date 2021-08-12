@@ -401,6 +401,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -462,6 +463,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -523,6 +525,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -769,6 +772,7 @@ module.exports = {
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1010,6 +1014,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1097,6 +1102,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1182,6 +1188,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1268,6 +1275,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1355,6 +1363,7 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1434,14 +1443,15 @@ module.exports = {
             /*      CLOSE BUTTON                                       */
             /***********************************************************/
             if(interaction.customId === 'close_2nd_Prompt') {
+                
                 await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1539,6 +1549,7 @@ module.exports = {
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1804,6 +1815,7 @@ module.exports = {
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                if(!dbTicketData) return;
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
