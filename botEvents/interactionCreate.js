@@ -663,10 +663,7 @@ module.exports = {
                                 msg.edit({ embeds: [newTicketEditedEmbed], components: [QuitButtonModBtn] })
                                     .catch(err => console.log(err))
                             })
-                    })        
-
-                // FETCH GUILD ID THROUGH TICKET DB VALUE
-                let ticketGuildId = dbTicketData.GUILD_ID
+                    })
 
 
                 // DELETING DATABASE ENTRY
@@ -702,7 +699,6 @@ module.exports = {
                 
 
                 // FETCHING THE GUILD FROM DATABASE
-                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
                 guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logCloseTicketEmbed] })
                     .catch(err => console.log(err))
 
