@@ -138,14 +138,27 @@ module.exports = {
         console.log(`target.id = ${target.id}`)
         console.log(`message.author.id = ${message.author.id}`)
 
-        // IF TARGET MATCHES AUTHOR
-        if(target.id === message.author.id) {
+        // IF EXECUTOR MATCHES AUTHOR
+        if(executor.id === message.author.id) {
             // LOG EMBED - DELETED BY ANOTHER USER
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Message Deleted`)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(self)*`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
+        // IF TARGET MATCHES AUTHOR
+        if(executor.id === target.id) {
+            // LOG EMBED - DELETED BY ANOTHER USER
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(self)*`)
                 .setTimestamp()
 
             // LOG ENTRY
