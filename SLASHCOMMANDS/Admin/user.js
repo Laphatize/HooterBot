@@ -870,7 +870,7 @@ module.exports = {
                             let dmErrorEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedRed)
                                 .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
-                                .setDescription(`HooterBot was unable to DM ${member} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                                .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
@@ -878,7 +878,7 @@ module.exports = {
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
                     let infractionResult = infractionsSchema.findOne({
-                        USER_ID: unmuteUser.id,
+                        USER_ID: member.id,
                         ACTION: `MUTE`
                     }).sort( [['_id', -1]] ).exec(); 
 
@@ -888,7 +888,7 @@ module.exports = {
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`Case \#${muteCaseNum} (Update): User Unmuted`)
-                        .setDescription(`**User:** ${unmuteUser}\n**User ID:** ${unmuteUser.id}\n**Issued by:** ${interaction.user}`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}`)
                         .setFooter(``)
 
                     interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
