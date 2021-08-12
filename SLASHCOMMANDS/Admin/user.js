@@ -839,7 +839,7 @@ module.exports = {
                 .then(mbr => {
 
                     // USER IS NOT MUTED
-                    if(!mbr.roles.cache.has(role => role.name == 'Muted :(').id) {
+                    if(!mbr.roles.cache.has(role => role.name == 'Muted :(')) {
                         // GENERATE ERROR EMBED
                         let notMutedEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
@@ -874,7 +874,7 @@ module.exports = {
 
             // FETCHING MOST-RECENT MUTE CASE FOR USER
             let infractionResult = await infractionsSchema.findOne({
-                USER_ID: targetUser.id,
+                USER_ID: unmuteUser.id,
                 ACTION: `MUTE`
             }).sort( [['_id', -1]] ).exec(); 
 
