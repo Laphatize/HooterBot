@@ -774,7 +774,7 @@ module.exports = {
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
                     
-                    let caseCounter = await infractionsSchema.countDocuments()
+                    let caseCounter = infractionsSchema.countDocuments()
 
                     // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
                     infractionsSchema.findOneAndUpdate({
