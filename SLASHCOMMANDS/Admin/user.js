@@ -769,15 +769,14 @@ module.exports = {
                     // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     member.send({ embeds: [userMuteEmbed] })
                         .catch(err => {
-                            
-                            // let cannotDMEmbed = new discord.MessageEmbed()
-                            //     .setColor(config.embedRed)
-                            //     .setTitle(`${config.emjREDTICK} Error!`)
-                            //     .setDescription(`**HooterBot was unable to DM ${member} about their mute** (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
-                            //     .setTimestamp()
+                            let cannotDMEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedRed)
+                                .setTitle(`${config.emjREDTICK} Error!`)
+                                .setDescription(`**HooterBot was unable to DM ${member} about their mute** (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                                .setTimestamp()
 
-                            // // SENDING MESSAGE IN MOD LOG AND PINGING USER
-                            // interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [cannotDMEmbed], content: `<@${interaction.user.id}>` })
+                            // SENDING MESSAGE IN MOD LOG AND PINGING USER
+                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [cannotDMEmbed], content: `<@${interaction.user.id}>` })
                         })
                     
 
