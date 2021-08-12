@@ -882,7 +882,7 @@ module.exports = {
                     let userMuteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`Mute Removed`)
-                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator.`)
+                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*`)
 
                         member.send({ embeds: [userMuteEmbed] })
                         .catch(err => {
@@ -907,7 +907,7 @@ module.exports = {
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`Case \#${muteCaseNum} (Update): User Unmuted`)
-                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
                         .setFooter(``)
 
                     interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
