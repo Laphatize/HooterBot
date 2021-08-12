@@ -154,13 +154,13 @@ module.exports = {
             return modLogChannel.send({embeds: [logEmbed]})
         }
         // IF TARGET MATCHES AUTHOR
-        if(executor.id === target.id) {
+        if(executor.id !== message.author.id) {
             // LOG EMBED - DELETED BY ANOTHER USER
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Message Deleted`)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(self)*`)
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
                 .setTimestamp()
 
             // LOG ENTRY
