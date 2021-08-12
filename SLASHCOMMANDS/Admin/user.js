@@ -835,7 +835,7 @@ module.exports = {
             }
 
             // FETCHING GUILD MEMBER
-            let userToUnmute = interaction.guild.members.fetch(muteUser.id)
+            let userToUnmute = interaction.guild.members.fetch(unmuteUser.id)
                 .then(mbr => {
 
                     // USER IS NOT MUTED
@@ -884,7 +884,7 @@ module.exports = {
             let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Case \#${muteCaseNum}: User Unmuted`)
-                .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}`)
+                .setDescription(`**User:** ${unmuteUser}\n**User ID:** ${unmuteUser.id}\n**Issued by:** ${interaction.user}`)
                 .setFooter(``)
 
             interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
@@ -895,7 +895,7 @@ module.exports = {
             let confirmationEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
-                .setDescription(`You have successfully removed the mute from ${muteUser}.`)
+                .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
