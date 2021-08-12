@@ -858,7 +858,7 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             interaction.guild.members.fetch(unmuteUser.id)
-                .then(member => {
+                .then(async member => {
 
                     let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
 
