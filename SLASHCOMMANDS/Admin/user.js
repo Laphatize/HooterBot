@@ -674,15 +674,10 @@ module.exports = {
                 .setTitle(`Warning Issued`)
                 .setDescription(`You have been issued a warning in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${warnReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
-            member.send({ embeds: [userWarnEmbed] })
-                .catch(err => {
-                    let dmErrorEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedRed)
-                        .setTitle(`${config.emjREDTICK} Warning DM Not Received`)
-                        .setDescription(`HooterBot was unable to DM ${member} about their warning (they likely do not allow DMs from server members). Please find another method to inform this user of their warning.`)
+            let DMable = true;
 
-                    interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                })
+            member.send({ embeds: [userWarnEmbed] })
+                .catch(err => DMable = false )
 
 
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
@@ -703,6 +698,15 @@ module.exports = {
                 .setDescription(`You have successfully issued a warning to ${member}.`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+            if(!DMable) {
+                let dmErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Warning DM Not Received`)
+                        .setDescription(`HooterBot was unable to DM ${member} about their warning (they likely do not allow DMs from server members). Please find another method to inform this user of their warning.`)
+
+                return interaction.followUp({ embeds: [dmErrorEmbed], ephemeral: true })
+            }
         }
 
 
@@ -763,17 +767,13 @@ module.exports = {
                         .setTitle(`Mute Applied`)
                         .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
 
+                    let DMable = true;
+
                     // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     member.send({ embeds: [userMuteEmbed] })
-                        .catch(err => {
-                            let dmErrorEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedRed)
-                                .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
-                                .setDescription(`HooterBot was unable to DM ${member} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
-
-                            interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                        })
+                        .catch(err => DMable = false )
                     
+
                     let caseCounter = await infractionsSchema.countDocuments()
 
 
@@ -824,6 +824,15 @@ module.exports = {
                         .setDescription(`You have successfully issued a mute to ${muteUser}.\n\n**Please follow up with this user in DMs about the duration of the mute and more details on why they were muted.**`)
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+                    if(!DMable) {
+                        let dmErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
+                            .setDescription(`HooterBot was unable to DM ${member} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+
+                        return interaction.followUp({ embeds: [dmErrorEmbed], ephemeral: true })
+                    }
                 })
         }
 
@@ -886,15 +895,10 @@ module.exports = {
                         .setTitle(`Mute Removed`)
                         .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${unmuteReason}*`)
 
-                    member.send({ embeds: [userMuteEmbed] })
-                    .catch(err => {
-                        let dmErrorEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
-                            .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
-                            .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                    let DMable = true;
 
-                        interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                    })
+                    member.send({ embeds: [userMuteEmbed] })
+                        .catch(err => DMable = false )
 
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
@@ -902,10 +906,6 @@ module.exports = {
                         USER_ID: member.user.id,
                         ACTION: `MUTE`
                     }).sort( [['_id', -1]] ).exec();
-
-
-                    console.log(`infractionResult = ${infractionResult}`)
-                    console.log(`infractionResult[0].CASE_NUM = ${infractionResult[0].CASE_NUM}`)
 
 
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
@@ -926,6 +926,15 @@ module.exports = {
                         .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+                    if(!DMable) {
+                        let dmErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
+                            .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+
+                        return interaction.followUp({ embeds: [dmErrorEmbed], ephemeral: true })
+                    }
                 })
         }
 
