@@ -148,18 +148,32 @@ module.exports = {
         if(target.id === message.author.id) {
 
             
-            // IF THE AUDIT LOG WAS CREATED IN THE LAST 1 SECONDS = ADMIN/MOD DELETED
-            // if(moment().unix() - createdTimestamp > 1000)
-            // LOG EMBED - DELETED BY ANOTHER USER
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Message Deleted`)
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
-                .setTimestamp()
+            // IF THE AUDIT LOG WAS CREATED IN THE LAST SECOND = ADMIN/MOD DELETED
+            if(moment().valueOf() - createdTimestamp < 1000) {
+                // LOG EMBED - DELETED BY ANOTHER USER
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Message Deleted`)
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${executor.id}>`)
+                    .setFooter(`Note: executor may report false-positives for admins/mods.`)
+                    .setTimestamp()
 
-            // LOG ENTRY
-            return modLogChannel.send({embeds: [logEmbed]})
+                // LOG ENTRY
+                return modLogChannel.send({embeds: [logEmbed]})
+            }
+            else {
+                // LOG EMBED - DELETED BY ANOTHER USER
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Message Deleted`)
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(Self)`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                return modLogChannel.send({embeds: [logEmbed]})
+            }
         }
         else {
             // LOG EMBED
