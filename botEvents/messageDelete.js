@@ -141,7 +141,8 @@ module.exports = {
         console.log(`target.id = ${target.id}`)
         console.log(`message.author.id = ${message.author.id}\n`)
         console.log(`createdTimestamp = ${createdTimestamp}`)
-        console.log(`currentTimestamp (Unix) = ${moment().unix()}`)
+        console.log(`currentTimestamp (valueOf) = ${moment().valueOf()}`)
+        console.log(`currentTimestamp (valueOf) - createdTimestamp = ${moment().valueOf() - createdTimestamp}`)
 
         // IF TARGET MATCHES THE MESSAGE AUTHOR
         if(target.id === message.author.id) {
