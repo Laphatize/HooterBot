@@ -836,39 +836,39 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let userToUnmute = interaction.guild.members.fetch(unmuteUser.id)
-                .then(mbr => {
-
-                    // USER IS NOT MUTED
-                    if(!mbr.roles.cache.has(role => role.name == 'Muted :(')) {
-                        // GENERATE ERROR EMBED
-                        let notMutedEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
-                            .setTitle(`${config.emjREDTICK} Error!`)
-                            .setDescription(`Sorry, it appears ${unmuteUser} is **not currently muted** and thus, cannot be unmuted.`)
-                            .setTimestamp()
-
-                        // SENDING MESSAGE
-                        return interaction.reply({ embeds: [notMutedEmbed], ephemeral: true })
-                    }
 
 
-                    mbr.roles.remove(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
+            // USER IS NOT MUTED
+            if(!userToUnmute.roles.cache.has(role => role.name == 'Muted :(')) {
+                // GENERATE ERROR EMBED
+                let notMutedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, it appears ${unmuteUser} is **not currently muted** and thus, cannot be unmuted.`)
+                    .setTimestamp()
 
-                    // DM THE USER
-                    let userMuteEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`Mute Removed`)
-                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator.`)
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notMutedEmbed], ephemeral: true })
+            }
 
-                    mbr.send({ embeds: [userMuteEmbed] })
-                        .catch(err => {
-                            let dmErrorEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedRed)
-                                .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
-                                .setDescription(`HooterBot was unable to DM ${mbr} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
-                            interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                        })
+            userToUnmute.roles.remove(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
+
+            
+            // DM THE USER
+            let userMuteEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`Mute Removed`)
+                .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator.`)
+
+            userToUnmute.send({ embeds: [userMuteEmbed] })
+                .catch(err => {
+                    let dmErrorEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
+                        .setDescription(`HooterBot was unable to DM ${userToUnmute} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+
+                    interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                 })
 
 
@@ -883,7 +883,7 @@ module.exports = {
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
             let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
-                .setTitle(`Case \#${muteCaseNum}: User Unmuted`)
+                .setTitle(`Case \#${muteCaseNum} (Update): User Unmuted`)
                 .setDescription(`**User:** ${unmuteUser}\n**User ID:** ${unmuteUser.id}\n**Issued by:** ${interaction.user}`)
                 .setFooter(``)
 
