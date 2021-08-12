@@ -774,7 +774,10 @@ module.exports = {
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
                     
-                    let caseCounter = infractionsSchema.countDocuments()
+                    let caseCounter = infractionsSchema.countDocuments() + 1
+
+                    console.log(`caseCounter = ${caseCounter}`)
+                    
 
                     // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
                     infractionsSchema.findOneAndUpdate({
@@ -783,14 +786,14 @@ module.exports = {
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: ++caseCounter
+                        CASE_NUM: caseCounter
                     },{
                         USER_ID: muteUser.id,
                         ACTION: 'MUTE',
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: ++caseCounter
+                        CASE_NUM: caseCounter
                     },{
                         upsert: true
                     }).exec();
