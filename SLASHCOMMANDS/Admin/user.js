@@ -898,7 +898,7 @@ module.exports = {
                             let cannotDMEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedRed)
                                 .setTitle(`${config.emjREDTICK} Error!`)
-                                .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal** (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                                .setDescription(`**HooterBot was unable to DM ${unmuteUser} about their mute removal** (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
                                 .setTimestamp()
 
                             // SENDING MESSAGE IN MOD LOG AND PINGING USER

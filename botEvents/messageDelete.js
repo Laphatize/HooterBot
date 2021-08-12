@@ -108,15 +108,69 @@ module.exports = {
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedOrange)
-            .setTitle(`Message Deleted`)
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-            .setTimestamp()
+        // AUDIT LOG FETCH
+        const fetchedLogs = await message.guild.fetchAuditLogs({
+            limit: 1,
+            type: 'MESSAGE_DELETE',
+        })
+        const deletionLog = fetchedLogs.entries.first();
 
-        // LOG ENTRY
-        return modLogChannel.send({embeds: [logEmbed]})
+
+        // IF NO DELETION LOG
+        if(!deletionLog) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(Could not be fetched)*`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
+
+        
+        // GRABBING USER WHO DELETED AND TARGET FOR CHECK
+        const { executor, target } = deletionLog
+
+        if(target.id === message.author.id) {
+            if(executor.id == message.author.id) {
+                // LOG EMBED - SELF-DELETED
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Message Deleted`)
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *Self*`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                return modLogChannel.send({embeds: [logEmbed]})
+            }
+            else {
+                // LOG EMBED - DELETED BY ANOTHER USER
+                let logEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`Message Deleted`)
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                    .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** <@${target.id}>`)
+                    .setTimestamp()
+
+                // LOG ENTRY
+                return modLogChannel.send({embeds: [logEmbed]})
+            }
+        }
+        else {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}\n**Deleted by:** *(Could not be fetched)*`)
+                .setTimestamp()
+
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
