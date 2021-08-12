@@ -735,21 +735,41 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             interaction.guild.members.fetch(muteUser.id)
-                .then(mbr => {
-                    mbr.roles.add(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
+                .then(member => {
+
+                    let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
+
+                    // USER IS ALREADY MUTED
+                    if(hasMutedRole) {
+                        // GENERATE ERROR EMBED
+                        let notMutedEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Error!`)
+                            .setDescription(`Sorry, it appears ${unmuteUser} is **already muted** and thus, cannot be muted again.`)
+                            .setTimestamp()
+
+                        // SENDING MESSAGE
+                        return interaction.reply({ embeds: [notMutedEmbed], ephemeral: true })
+                    }
+
+
+                    // ADD ROLE
+                    member.roles.add(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
                 
+
                     // DM THE USER
                     let userMuteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`Mute Applied`)
                         .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
 
-                    mbr.send({ embeds: [userMuteEmbed] })
+                    // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
+                    member.send({ embeds: [userMuteEmbed] })
                         .catch(err => {
                             let dmErrorEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedRed)
                                 .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
-                                .setDescription(`HooterBot was unable to DM ${mbr} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                                .setDescription(`HooterBot was unable to DM ${member} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
@@ -840,9 +860,7 @@ module.exports = {
 
                     let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
 
-                    console.log(`hasMutedRole = ${hasMutedRole }`)
-
-                    // USER IS NOT MUTED
+                    // USER IS ALREADY UNMUTED
                     if(!hasMutedRole) {
                         // GENERATE ERROR EMBED
                         let notMutedEmbed = new discord.MessageEmbed()
@@ -856,10 +874,11 @@ module.exports = {
                     }
 
 
+                    // REMOVE ROLE
                     member.roles.remove(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
 
 
-                    // DM THE USER
+                    // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     let userMuteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`Mute Removed`)
