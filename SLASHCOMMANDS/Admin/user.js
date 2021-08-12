@@ -905,12 +905,13 @@ module.exports = {
 
 
                     console.log(`infractionResult = ${infractionResult}`)
+                    console.log(`infractionResult[0].CASE_NUM = ${infractionResult[0].CASE_NUM}`)
 
 
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
-                        .setTitle(`Case \#${infractionResult.CASE_NUM} (Update): User Unmuted`)
+                        .setTitle(`Case \#${infractionResult[0].CASE_NUM} (Update): User Unmuted`)
                         .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
                         .setFooter(``)
 
