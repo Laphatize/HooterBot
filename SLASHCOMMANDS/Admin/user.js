@@ -776,8 +776,6 @@ module.exports = {
                     
                     let caseCounter = await infractionsSchema.countDocuments()
 
-                    console.log(`caseCounter = ${caseCounter}`)
-                    
 
                     // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
                     infractionsSchema.findOneAndUpdate({
@@ -899,14 +897,14 @@ module.exports = {
                     })
 
 
-                    // // FETCHING MOST-RECENT MUTE CASE FOR USER
-                    // let infractionResult = infractionsSchema.find({
-                    //     USER_ID: unmuteUser.id,
-                    //     ACTION: `MUTE`
-                    // }).sort( [['_id', -1]] ).exec();
+                    // FETCHING MOST-RECENT MUTE CASE FOR USER
+                    let infractionResult = infractionsSchema.find({
+                        USER_ID: member.user.id,
+                        ACTION: `MUTE`
+                    }).sort( [['_id', -1]] ).exec();
 
 
-                    // console.log(`infractionResult.CASE_NUM = ${infractionResult.CASE_NUM}`)
+                    console.log(`infractionResult.CASE_NUM = ${infractionResult.CASE_NUM}`)
 
 
                     // // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
