@@ -674,11 +674,11 @@ module.exports = {
                 .setTitle(`Warning Issued`)
                 .setDescription(`You have been issued a warning in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${warnReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
-            let DMable = true;
-
+            let DMable = 'true';
+            console.log(`DMable pre-msg = ${DMable}`)
             member.send({ embeds: [userWarnEmbed] })
                 .catch(err => {
-                    DMable = false
+                    DMable = 'false'
                 })
 
 
@@ -701,7 +701,9 @@ module.exports = {
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
-            if(DMable == false) {
+            console.log(`DMable post-msg = ${DMable}`)
+
+            if(DMable == 'false') {
                 let dmErrorEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Warning DM Not Received`)
@@ -899,11 +901,11 @@ module.exports = {
                         .setTitle(`Mute Removed`)
                         .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${unmuteReason}*`)
 
-                    let DMable = true;
-
+                    let DMable = 'true';
+                    console.log(`DMable pre-msg = ${DMable}`)
                     member.send({ embeds: [userMuteEmbed] })
                         .catch(err => {
-                            DMable = false
+                            DMable = 'false'
                         })
 
 
@@ -933,7 +935,9 @@ module.exports = {
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
-                    if(DMable == false) {
+                    console.log(`DMable post-msg = ${DMable}`)
+
+                    if(DMable == 'false') {
                         let dmErrorEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
