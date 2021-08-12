@@ -774,7 +774,7 @@ module.exports = {
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
                     
-                    let caseCounter = infractionsSchema.countDocuments() + 1
+                    let caseCounter = await infractionsSchema.countDocuments()
 
                     console.log(`caseCounter = ${caseCounter}`)
                     
@@ -786,14 +786,14 @@ module.exports = {
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: caseCounter
+                        CASE_NUM: parseInt(caseCounter)+1
                     },{
                         USER_ID: muteUser.id,
                         ACTION: 'MUTE',
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: caseCounter
+                        CASE_NUM: parseInt(caseCounter)+1
                     },{
                         upsert: true
                     }).exec();
@@ -811,7 +811,7 @@ module.exports = {
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userMutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
-                        .setTitle(`Case \#${++caseCounter}: User Muted`)
+                        .setTitle(`Case \#${parseInt(caseCounter)+1}: User Muted`)
                         .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                         .setFooter(``)
 
