@@ -135,8 +135,10 @@ module.exports = {
         // IGNORE BOT'S OWN DELETIONS
         if(!executor.id == config.botId)  return
 
+
+        console.log(`\nMessage deleted:\nexecutor.id = ${executor.id}`)
         console.log(`target.id = ${target.id}`)
-        console.log(`message.author.id = ${message.author.id}`)
+        console.log(`message.author.id = ${message.author.id}\n`)
 
         // IF EXECUTOR MATCHES AUTHOR
         if(executor.id === message.author.id) {
