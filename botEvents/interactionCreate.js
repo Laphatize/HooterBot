@@ -396,6 +396,21 @@ module.exports = {
                 interaction.deferUpdate()
 
 
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
+
+
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
                 let quitConfirmEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -437,6 +452,21 @@ module.exports = {
                 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
+
+
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -486,6 +516,15 @@ module.exports = {
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
+
+
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
@@ -630,12 +669,6 @@ module.exports = {
                 let ticketGuildId = dbTicketData.GUILD_ID
 
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: ticketGuildId
-                }).exec();
-
-
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
                     CREATOR_ID: interaction.user.id
@@ -728,19 +761,18 @@ module.exports = {
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
-                    // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
-                }).exec();
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 
                 // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
@@ -961,7 +993,23 @@ module.exports = {
             /*      PHYSICAL TUID CARD                                 */
             /***********************************************************/
             if(interaction.customId === 'physical_TUid_Card') {
+                
                 await interaction.deferUpdate()
+
+
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // EMBED MESSAGE
@@ -1035,8 +1083,23 @@ module.exports = {
             /*      VIRTUAL TUID CARD                                  */
             /***********************************************************/
             if(interaction.customId === 'virtual_TUid_Card') {
+                
                 await interaction.deferUpdate()
 
+
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
                 // EMBED MESSAGE
                 let virtualTUidEmbed = new discord.MessageEmbed()
@@ -1109,7 +1172,22 @@ module.exports = {
             /*      TUPORTAL STUDENT DASHBOARD                         */
             /***********************************************************/
             if(interaction.customId === 'TU_portal') {
+                
                 await interaction.deferUpdate()
+
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // EMBED MESSAGE
@@ -1180,10 +1258,25 @@ module.exports = {
 
 
             /***********************************************************/
-            /*      DATA & PRIVACY PROMPT                              */
+            /*      DATA & PRIVACY PROMPT - DMs                        */
             /***********************************************************/
             if(interaction.customId === 'Data_Privacy') {
+                
                 await interaction.deferUpdate()
+
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // EMBED MESSAGE
@@ -1254,11 +1347,26 @@ module.exports = {
 
 
             /***********************************************************/
-            /*      COLLECTED DATA PROMPT                              */
+            /*      COLLECTED DATA PROMPT - DMs                        */
             /***********************************************************/
             if(interaction.customId === 'Info_Collected') {
+                
                 await interaction.deferUpdate()
 
+                // GRAB DATABASE ENTRY
+                const dbTicketData = await ticketSchema.findOne({
+                    CREATOR_ID: interaction.user.id
+                }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
+                
 
                 // EMBED MESSAGE
                 let MoreInfoEmbed = new discord.MessageEmbed()
@@ -1334,10 +1442,19 @@ module.exports = {
                 await interaction.deferUpdate()
 
 
-                // CHECK IF DATABASE HAS AN ENTRY
+                // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
+
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // FETCH THE 2ND MESSAGE ID AND DELETE THE MESSAGE
@@ -1424,15 +1541,14 @@ module.exports = {
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // CHECK IF DATABASE HAS AN ENTRY
-                const dbGuildData = await guildSchema.findOne({
-                    GUILD_ID: interaction.guild.id
-                }).exec();
-
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
@@ -1687,9 +1803,14 @@ module.exports = {
                     CREATOR_NAME: dmUsername
                 }).exec();
 
+                
+                // GET GUILD OF TICKET
+                let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return;
+                }
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
@@ -1748,6 +1869,7 @@ module.exports = {
                                 
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
+
 
                 // GENERATE EMBED TO NOTE PENDING DELETION
                 let initialDeletionEmbed = new discord.MessageEmbed()
