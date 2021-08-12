@@ -745,7 +745,7 @@ module.exports = {
                         let notMutedEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} Error!`)
-                            .setDescription(`Sorry, it appears ${unmuteUser} is **already muted** and thus, cannot be muted again.`)
+                            .setDescription(`Sorry, it appears ${muteUser} is **already muted** and thus, cannot be muted again.`)
                             .setTimestamp()
 
                         // SENDING MESSAGE
