@@ -292,7 +292,7 @@ function createLevelMsg(username, level) {
         `${config.emjOwl} GG **${username}**, you've reached: \`\` Level ${level} \`\``,
         `**${username}**'s reached \`\` Level ${level} \`\` ${config.emjOwl}`,
         `Congrats on leveling up, **${username}**! ${config.emjOwl} You've reached \`\` Level ${level} \`\``,
-        `**${username}**, you've talked so much,you're leveling up! \`\` Level ${level} \`\` ${config.emjOwl}`
+        `**${username}**, you've talked so much, you're leveling up! \`\` Level ${level} \`\` ${config.emjOwl}`
     ];      
     return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
 }
