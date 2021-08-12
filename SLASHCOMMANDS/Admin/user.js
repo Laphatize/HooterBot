@@ -739,6 +739,8 @@ module.exports = {
 
                     let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
 
+                    console.log(`hasMutedRole = ${hasMutedRole}`)
+
                     // USER IS ALREADY MUTED
                     if(hasMutedRole == true) {
                         // GENERATE ERROR EMBED
