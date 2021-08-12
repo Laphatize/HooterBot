@@ -898,7 +898,7 @@ module.exports = {
 
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
-                    let infractionResult = infractionsSchema.find({
+                    let infractionResult = await infractionsSchema.find({
                         USER_ID: member.user.id,
                         ACTION: `MUTE`
                     }).sort( [['_id', -1]] ).exec();
@@ -907,24 +907,24 @@ module.exports = {
                     console.log(`infractionResult = ${infractionResult}`)
 
 
-                    // // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
-                    // let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
-                    //     .setColor(config.embedOrange)
-                    //     .setTitle(`Case \#${infractionResult.CASE_NUM} (Update): User Unmuted`)
-                    //     .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
-                    //     .setFooter(``)
+                    // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+                    let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`Case \#${infractionResult.CASE_NUM} (Update): User Unmuted`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
+                        .setFooter(``)
 
-                    // interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
-                    //     .catch(err => console.log(err))
+                    interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
+                        .catch(err => console.log(err))
 
 
-                    // // CONFIRMATION MESSAGE TO INTERACTION USER
-                    // let confirmationEmbed = new discord.MessageEmbed()
-                    //     .setColor(config.embedGreen)
-                    //     .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
-                    //     .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
+                    // CONFIRMATION MESSAGE TO INTERACTION USER
+                    let confirmationEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
+                        .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
 
-                    // interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+                    interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
                 })
         }
 
