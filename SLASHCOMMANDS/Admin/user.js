@@ -904,7 +904,7 @@ module.exports = {
                     }).sort( [['_id', -1]] ).exec();
 
 
-                    console.log(`infractionResult.CASE_NUM = ${infractionResult.CASE_NUM}`)
+                    console.log(`infractionResult = ${infractionResult}`)
 
 
                     // // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
