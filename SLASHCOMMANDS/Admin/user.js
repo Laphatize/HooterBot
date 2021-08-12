@@ -854,6 +854,7 @@ module.exports = {
                 return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
             }
 
+
             // FETCHING GUILD MEMBER
             interaction.guild.members.fetch(unmuteUser.id)
                 .then(member => {
@@ -884,29 +885,28 @@ module.exports = {
                         .setTitle(`Mute Removed`)
                         .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${unmuteReason}*`)
 
-                        member.send({ embeds: [userMuteEmbed] })
-                        .catch(err => {
-                            let dmErrorEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedRed)
-                                .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
-                                .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                    member.send({ embeds: [userMuteEmbed] })
+                    .catch(err => {
+                        let dmErrorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
+                            .setDescription(`HooterBot was unable to DM ${unmuteUser} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
-                            interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
-                        })
+                        interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
+                    })
 
 
                     // FETCHING MOST-RECENT MUTE CASE FOR USER
-                    let infractionResult = infractionsSchema.findOne({
+                    let infractionResult = infractionsSchema.find({
                         USER_ID: unmuteUser.id,
                         ACTION: `MUTE`
                     }).sort( [['_id', -1]] ).exec(); 
-
-                    let muteCaseNum = infractionResult.CASE_NUM
+                    
 
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
-                        .setTitle(`Case \#${muteCaseNum} (Update): User Unmuted`)
+                        .setTitle(`Case \#${infractionResult[0].CASE_NUM} (Update): User Unmuted`)
                         .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
                         .setFooter(``)
 
