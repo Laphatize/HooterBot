@@ -740,16 +740,16 @@ module.exports = {
                     let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
 
                     // USER IS ALREADY MUTED
-                    if(hasMutedRole) {
+                    if(hasMutedRole == true) {
                         // GENERATE ERROR EMBED
-                        let notMutedEmbed = new discord.MessageEmbed()
+                        let alreadyMutedEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} Error!`)
                             .setDescription(`Sorry, it appears ${muteUser} is **already muted** and thus, cannot be muted again.`)
                             .setTimestamp()
 
                         // SENDING MESSAGE
-                        return interaction.reply({ embeds: [notMutedEmbed], ephemeral: true })
+                        return interaction.reply({ embeds: [alreadyMutedEmbed], ephemeral: true })
                     }
 
 
@@ -862,7 +862,7 @@ module.exports = {
                     let hasMutedRole = member.roles.cache.some(role => role.name == 'Muted :(')
 
                     // USER IS ALREADY UNMUTED
-                    if(!hasMutedRole) {
+                    if(hasMutedRole == false) {
                         // GENERATE ERROR EMBED
                         let notMutedEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
@@ -900,27 +900,30 @@ module.exports = {
                     let infractionResult = infractionsSchema.find({
                         USER_ID: unmuteUser.id,
                         ACTION: `MUTE`
-                    }).sort( [['_id', -1]] ).exec(); 
-                    
-
-                    // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
-                    let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedOrange)
-                        .setTitle(`Case \#${infractionResult[0].CASE_NUM} (Update): User Unmuted`)
-                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
-                        .setFooter(``)
-
-                    interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
-                        .catch(err => console.log(err))
+                    }).sort( [['_id', -1]] ).exec();
 
 
-                    // CONFIRMATION MESSAGE TO INTERACTION USER
-                    let confirmationEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
-                        .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
+                    console.log(`infractionResult.CASE_NUM = ${infractionResult.CASE_NUM}`)
 
-                    interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+                    // // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+                    // let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
+                    //     .setColor(config.embedOrange)
+                    //     .setTitle(`Case \#${infractionResult.CASE_NUM} (Update): User Unmuted`)
+                    //     .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
+                    //     .setFooter(``)
+
+                    // interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
+                    //     .catch(err => console.log(err))
+
+
+                    // // CONFIRMATION MESSAGE TO INTERACTION USER
+                    // let confirmationEmbed = new discord.MessageEmbed()
+                    //     .setColor(config.embedGreen)
+                    //     .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
+                    //     .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
+
+                    // interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
                 })
         }
 
