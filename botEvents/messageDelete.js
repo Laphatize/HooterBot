@@ -130,7 +130,7 @@ module.exports = {
 
         
         // GRABBING USER WHO DELETED AND TARGET FOR CHECK
-        const { createdAt, executor, target } = deletionLog
+        const { createdTimestamp , executor, target } = deletionLog
 
         // IGNORE BOT'S OWN DELETIONS
         if(!executor.id == config.botId)  return
