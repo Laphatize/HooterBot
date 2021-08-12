@@ -101,19 +101,19 @@ module.exports = {
         }
 
 
-        if(!message.author || message.author.id == config.botId)  return;
-        
-
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
         // AUDIT LOG FETCH
+        console.log(`Message deleted, fetching audit log`)
         const fetchedLogs = await message.guild.fetchAuditLogs({
             limit: 1,
             type: 'MESSAGE_DELETE',
         })
         const deletionLog = fetchedLogs.entries.first();
+        console.log(`Log fetched`)
+        console.log(`deletionLog = ${deletionLog}`)
 
 
         // IF NO DELETION LOG
@@ -134,6 +134,10 @@ module.exports = {
         // GRABBING USER WHO DELETED AND TARGET FOR CHECK
         const { executor, target } = deletionLog
 
+        // IGNORE BOT'S OWN DELETIONS
+        if(!executor.id == config.botId)  return
+
+        // IF TARGET MATCHES AUTHOR
         if(target.id === message.author.id) {
             if(executor.id == message.author.id) {
                 // LOG EMBED - SELF-DELETED
