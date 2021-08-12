@@ -783,14 +783,14 @@ module.exports = {
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: parseInt(caseCounter)+1
+                        CASE_NUM: ++caseCounter
                     },{
                         USER_ID: muteUser.id,
                         ACTION: 'MUTE',
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
                         DATE: new moment(Date.now()).format('LLL'),
-                        CASE_NUM: parseInt(caseCounter)+1
+                        CASE_NUM: ++caseCounter
                     },{
                         upsert: true
                     }).exec();
@@ -808,7 +808,7 @@ module.exports = {
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userMutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
-                        .setTitle(`Case \#${caseCounter+1}: User Muted`)
+                        .setTitle(`Case \#${++caseCounter}: User Muted`)
                         .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                         .setFooter(``)
 
