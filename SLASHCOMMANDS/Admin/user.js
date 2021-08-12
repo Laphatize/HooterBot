@@ -378,6 +378,7 @@ module.exports = {
         }
 
 
+
         /*******************/
         /* INFO            */
         /*******************/
@@ -433,6 +434,7 @@ module.exports = {
                     return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
                 })
         }
+
 
 
         /*******************/
@@ -503,6 +505,7 @@ module.exports = {
         }
 
 
+
         /*******************/
         /* INFRACTIONS     */
         /*******************/
@@ -513,7 +516,7 @@ module.exports = {
 
 
             // MESSAGE SENT IN INVALID CATEGORY
-            if (!interaction.channel.parent.name.startsWith(`mod-`)) {
+            if (!interaction.channel.parent.name.startsWith(`mod-`) || interaction.channel.name.startsWith(`mod-`)) {
 
                 // GENERATE ERROR EMBED
                 let wrongChannelsEmbed = new discord.MessageEmbed()
@@ -553,7 +556,6 @@ module.exports = {
 
             // GRAB ARRAY OF ALL INFRACTIONS FOR THIS USER FROM THE DATABASE
             if(dbInfractionData) {
-
 
                 let infractionResults =  await infractionsSchema.find({
                         USER_ID: targetUser.id
@@ -607,6 +609,7 @@ module.exports = {
                 return interaction.reply({ embeds: [infractionsListEmbed] })
             }
         }
+
 
 
         /*******************/
@@ -703,6 +706,7 @@ module.exports = {
         }
 
 
+
         /*******************/
         /* MUTE            */
         /*******************/
@@ -728,23 +732,24 @@ module.exports = {
                 return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
             }
 
+
             // FETCHING GUILD MEMBER
             interaction.guild.members.fetch(muteUser.id)
                 .then(mbr => {
                     mbr.roles.add(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
                 
-                        // DM THE USER
-                        let userMuteEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedOrange)
-                            .setTitle(`Mute Applied`)
-                            .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
+                    // DM THE USER
+                    let userMuteEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`Mute Applied`)
+                        .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
 
-                        mbr.send({ embeds: [userMuteEmbed] })
-                            .catch(err => {
-                                let dmErrorEmbed = new discord.MessageEmbed()
-                                    .setColor(config.embedRed)
-                                    .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
-                                    .setDescription(`HooterBot was unable to DM ${mbr} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+                    mbr.send({ embeds: [userMuteEmbed] })
+                        .catch(err => {
+                            let dmErrorEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedRed)
+                                .setTitle(`${config.emjREDTICK} Mute DM Not Received`)
+                                .setDescription(`HooterBot was unable to DM ${mbr} about their mute (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
 
                             interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
                         })
@@ -782,13 +787,13 @@ module.exports = {
 
 
             // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
-            let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
+            let userMutePublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Case \#${caseCounter+1}: User Muted`)
                 .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${muteReason}`)
                 .setFooter(``)
 
-            interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
+            interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userMutePublicNoticeEmbed] })
                 .catch(err => console.log(err))
 
 
@@ -800,6 +805,7 @@ module.exports = {
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
+
 
 
         /*******************/
@@ -828,8 +834,72 @@ module.exports = {
                 return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
             }
 
-            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nunmuteUser = ${unmuteUser}\nunmuteReason = ${unmuteReason}`)
+            // FETCHING GUILD MEMBER
+            let userToUnmute = interaction.guild.members.fetch(muteUser.id)
+                .then(mbr => {
+
+                    // USER IS NOT MUTED
+                    if(!mbr.roles.cache.has(role => role.name == 'Muted :(').id) {
+                        // GENERATE ERROR EMBED
+                        let notMutedEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Error!`)
+                            .setDescription(`Sorry, it appears ${unmuteUser} is **not currently muted** and thus, cannot be unmuted.`)
+                            .setTimestamp()
+
+                        // SENDING MESSAGE
+                        return interaction.reply({ embeds: [notMutedEmbed], ephemeral: true })
+                    }
+
+
+                    mbr.roles.remove(interaction.guild.roles.cache.find(role => role.name == 'Muted :(').id)
+
+                    // DM THE USER
+                    let userMuteEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`Mute Removed`)
+                        .setDescription(`You have been unmuted in the **${interaction.guild.name}** server by an admin or moderator.`)
+
+                    mbr.send({ embeds: [userMuteEmbed] })
+                        .catch(err => {
+                            let dmErrorEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedRed)
+                                .setTitle(`${config.emjREDTICK} Unmute DM Not Received`)
+                                .setDescription(`HooterBot was unable to DM ${mbr} about their mute removal (they likely do not allow DMs from server members). Please find another method to inform this user of their mute.`)
+
+                            interaction.channel.send({ embeds: [dmErrorEmbed], ephemeral: true })
+                        })
+                })
+
+
+            // FETCHING MOST-RECENT MUTE CASE FOR USER
+            let infractionResult = await infractionsSchema.findOne({
+                USER_ID: targetUser.id,
+                ACTION: `MUTE`
+            }).sort( [['_id', -1]] ).exec(); 
+
+            let muteCaseNum = infractionResult.CASE_NUM
+
+            // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+            let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
+                .setColor(config.embedOrange)
+                .setTitle(`Case \#${muteCaseNum}: User Unmuted`)
+                .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Issued by:** ${interaction.user}`)
+                .setFooter(``)
+
+            interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
+                .catch(err => console.log(err))
+
+
+            // CONFIRMATION MESSAGE TO INTERACTION USER
+            let confirmationEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Mute Successfully Removed`)
+                .setDescription(`You have successfully removed the mute from ${muteUser}.`)
+
+            interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
         }
+
 
 
         /*******************/
