@@ -838,7 +838,7 @@ module.exports = {
             interaction.guild.members.fetch(unmuteUser.id)
                 .then(member => {
 
-                    let hasMutedRole = member.roles.cache.has(interaction.guild.roles.cache.find(role => role.name == 'Muted :('))
+                    let hasMutedRole = member.roles.cache.find(role => role.name == 'Muted :(')
 
                     console.log(`hasMutedRole = ${hasMutedRole }`)
 
