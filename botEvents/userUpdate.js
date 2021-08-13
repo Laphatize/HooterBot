@@ -37,9 +37,9 @@ module.exports = {
                 .setTitle(`Avatar Update`)
                 .setThumbnail(newUser.displayAvatarURL({ dynamic:true }))
                 .setAuthor(newUser.tag, oldUser.displayAvatarURL({ dynamic:true }))
-                .addField(`Old:`, `[Avatar Link](${oldUser.avatarURL})`, true)
+                .addField(`Old:`, `[Avatar Link](${oldUser.avatarURL()})`, true)
                 .addField(`\u200b`, `🡲`, true)
-                .addField(`New:`, `[Avatar Link](${newUser.avatarURL})`, true)
+                .addField(`New:`, `[Avatar Link](${newUser.avatarURL()})`, true)
                 .setTimestamp()
                 .setFooter(`User ID: ${newUser.id}`)
 

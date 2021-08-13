@@ -25,14 +25,16 @@ module.exports = {
             .setTitle(`**Welcome!** ${config.emjTempleT}`)
             .setDescription(`Hey **${member.user.username}**, welcome to the **Temple University server**. ${config.emjAnimatedWave}`)
             .addField(`Say Hi`, `Consider saying hi by posting a welcome message to fellow Owls in ${introduceYourselfChannel}.`)
-            .addField(`Roles`, `Grab roles in ${rolesChannel} to describe yourself and to denote your college or school.\nWe have a ${config.emjVerified} **verified role** for students and staff of Temple University that grants additional features in the server (access to more channels, image sharing abilities, and more!)`)
-            .addField(`Ask Questions`, `Get answers from current students to the questions you have about Temple University in ${questionsChannel}`)
-            .addField(`Rules`, `Take a minute to look over the server's ${rulesChannel}`)
-            .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - DM <@${ModMailId}> to get started.`)
+            .addField(`Roles`, `Grab roles in ${rolesChannel} to describe yourself and to denote your college or school.\nWe have a ${config.emjVerified} **verified role** for students and staff of Temple University that grants additional features in the server (access to more channels, image sharing abilities, and more!).`)
+            .addField(`Ask Questions`, `Get answers from current students to the questions you have about Temple University in ${questionsChannel}.`)
+            .addField(`Rules`, `Take a minute to look over the server's ${rulesChannel}.`)
+            .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - see ${rulesChannel} fpr instructions.`)
 
         // SENDING DM EMBED
         await member.send({embeds: [welcomeDMEmbed]})
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(`Welcome message could not be sent to ${member.user.tag}.`)
+            })
 
         
         // DEFINING STRINGS FOR WELCOME MESSAGES IN #joins
@@ -42,9 +44,11 @@ module.exports = {
         // CREATING RANDOM START TO THE STRING
         const channelMsgStart = createStart(member);
 
+        
         // CONCATENATE GENERIC ENDING TO STRING
         let fullWelcomeMessage = channelMsgStart.concat(channelMsgEnding);
         
+
         // SEND TO #joins CHANNEL
         await joinsChannel.send({content: fullWelcomeMessage})
             .catch(err => console.log(err))
@@ -55,33 +59,33 @@ module.exports = {
         
 
 
-        // ACCOUNT CREATED
+        // ACCOUNT CREATION DATE
         const accountCreated = `${moment(member.user.createdAt).format('LLL')}`
 
 
         // ACCOUNT AGE CALCULATION
         let totalSeconds = moment(new Date()).diff(member.user.createdAt, 'seconds');
         
-        // YEARS CALCULATION
+        // YEARS
         let yearValue = Math.floor(totalSeconds / 31536000 );
             totalSeconds %= 31536000
 
-        // MONTHS CALCULATION
+        // MONTHS
         let monthValue = Math.floor(totalSeconds / 2628288 );
             totalSeconds %= 2628288
 
-        // DAYS CALCULATION
+        // DAYS
         let dayValue = Math.floor(totalSeconds / 86400);
             totalSeconds %= 86400;
 
-        // HOURS CALCULATION
+        // HOURS
         let hourValue = Math.floor(totalSeconds / 3600);
             totalSeconds %= 3600;
 
-        // MINUTES CALCULATION
+        // MINUTES
         let minuteValue = Math.floor(totalSeconds / 60);
 
-        // SECONDS CALCULATION
+        // SECONDS
         let secondValue = Math.floor(totalSeconds % 60);
 
 
@@ -155,7 +159,7 @@ module.exports = {
             console.log(`User was muted, reapplying role...`)
             
             // FETCHING MUTED ROLE
-            let mutedRole = guild.roles.cache.find(role => role.name == 'Muted :(')
+            let mutedRole = member.guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
             member.roles.add(mutedRole.id)
