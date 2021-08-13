@@ -311,14 +311,12 @@ module.exports = {
             // CHANNEL OBJECT
             let msgCh = message.guild.channels.cache.get(messageChannelId)
 
-            message.channel.send(`The message you linked came from ${msgCh}, right?`)
+            message.channel.send(`The message you linked came from ${msgCh}, right?\nmessageId = ${messageId}`)
 
 
-            // FETCH MESSAGE
-            msgCh.fetch(messageId)
-                .then(msg => {
-                    message.channel.send(`**Message found.**\nmsg = "${msg}"\nmsg.author = "${msg.author}"`)
-                })
+            // // FETCH MESSAGE
+            // msgCh.fetch(messageId)
+
 
             
         }
