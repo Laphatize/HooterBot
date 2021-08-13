@@ -451,8 +451,7 @@ cron.schedule('00 00 10 * * *', async () => {
                     client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
-
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -551,8 +550,7 @@ cron.schedule('30 00 10 * * *', async () => {
                     client.users.fetch( user.id )
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
-
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -606,9 +604,6 @@ cron.schedule('00 01 10 * * *', async () => {
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
-            const dbGuildData = await guildSchema.findOne({
-                GUILD_ID: guild.id
-            }).exec();
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {
@@ -782,7 +777,7 @@ cron.schedule('00 01 10 * * *', async () => {
                     dmUser = client.users.fetch(dmUser.id)
                         .then(dmUser => {
                             // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}-id-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                                 .then(msg => {
                                     // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                                     msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)

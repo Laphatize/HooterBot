@@ -118,7 +118,7 @@ module.exports = {
         /***********************************************************/
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}`;
+        let ticketChannelName = `verify-${interaction.user.username.toLowerCase()}-id-${interaction.user.id}`;
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -755,12 +755,12 @@ module.exports = {
 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUsername = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
       
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_NAME: dmUsername
+                    CREATOR_ID: dmUserId
                 }).exec();
 
                 if(!dbTicketData) return;
@@ -808,7 +808,7 @@ module.exports = {
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+                const dmUser = await guild.members.fetch(dmUserId)
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
@@ -980,7 +980,7 @@ module.exports = {
                 interaction.channel.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${dmUsername.toLowerCase()}`)
+                        msg.channel.setName(`closed-${dmUser.user.username.toLowerCase()}`)
                     })
                     .catch(err => console.log(err))
             }
@@ -1046,7 +1046,7 @@ module.exports = {
                     
                     // LOG DATABASE INFORMATION FOR 2ND MESSAGE
                     ticketSchema.findOneAndUpdate({
-                        CREATOR_NAME: interaction.user.username.toLowerCase()
+                        CREATOR_ID: interaction.user.id
                     },{
                         DM_2NDMSG_ID: SecondDmMsg.id,
                     },{
@@ -1510,13 +1510,13 @@ module.exports = {
                 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUsername = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
         
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
-                    CREATOR_NAME: dmUsername
+                    CREATOR_ID: dmUserId
                 }).exec();
 
                 if(!dbTicketData) return;
@@ -1531,7 +1531,7 @@ module.exports = {
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+                const dmUser = await guild.members.fetch(dmUserId)
 
                 
                 // GRANT THE USER THE VERIFIED ROLE
@@ -1664,9 +1664,9 @@ module.exports = {
                         }
                     })
 
-                // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
-                // GRAB TICKET CHANNEL, THEN MESSAGE
-                let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
+                // // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
+                // // GRAB TICKET CHANNEL, THEN MESSAGE
+                // let userTicketCh = interaction.guild.channels.cache.find(ch => ch.name === ticketChannelName)
                     
 
                 // // THIS CODE BLOCK HAS STOPPED WORKING - THE CHANNEL CAN'T BE FOUND WHEN FETCHED, ODDLY ENOUGH...
@@ -1702,7 +1702,7 @@ module.exports = {
 
                 // DELETING DATABASE ENTRY
                 await ticketSchema.deleteOne({
-                    CREATOR_ID: dmUser.id
+                    CREATOR_ID: dmUserId
                 }).exec();
 
 
@@ -1727,10 +1727,10 @@ module.exports = {
 
                 // BUTTON ROW
                 let TicketCloseReviewButtonRow = new MessageActionRow()
-                .addComponents(
-                    InfoButton,
-                    QuitButton
-                );
+                    .addComponents(
+                        InfoButton,
+                        QuitButton
+                    );
     
 
                 // LOG ENTRY
@@ -1754,7 +1754,7 @@ module.exports = {
                 interaction.channel.send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                     .then(msg => {
                         // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
-                        msg.channel.setName(`closed-${dmUsername.toLowerCase()}`)
+                        msg.channel.setName(`closed-${dmUser.user.username.toLowerCase()}`)
                     })
                     .catch(err => console.log(err))
             }
@@ -1773,13 +1773,13 @@ module.exports = {
                 
                 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUsername = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
       
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     // THE NAMES ARE SAVED AS LOWERCASE, SO SHOULD BE EXACT MATCH
-                    CREATOR_NAME: dmUsername
+                    CREATOR_ID: dmUserId
                 }).exec();
 
                 if(!dbTicketData) return;
@@ -1794,7 +1794,7 @@ module.exports = {
 
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-                const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+                const dmUser = await guild.members.fetch(dmUserId)
                 
 
                 // GENERATE EMBED FOR USER

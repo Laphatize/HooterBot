@@ -13,7 +13,7 @@ module.exports = {
         /***********************************************************/
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
+        let ticketChannelName = `verify-${message.author.username.toLowerCase()}-${message.author.id}`;
         
 
         // PARTIAL MESSAGE
