@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
 	name: 'messageUpdate',
@@ -38,7 +39,8 @@ module.exports = {
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
                 .setDescription(`**Channel:** ${oldMessage.channel}\n*The content of the combined original and edited message exceeds 4096 characters and cannot be displayed.*`)
-                .setTimestamp()
+                .setFooter(`<t:${moment(Date.now()).valueOf()}:R>`)
+                
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
@@ -50,7 +52,7 @@ module.exports = {
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
                 .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n\n**New:** ${newMessage.content}`)
-                .setTimestamp()
+                .setFooter(`<t:${moment(Date.now()).valueOf()}:R>`)
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})

@@ -1125,15 +1125,7 @@ module.exports = {
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
 
-                    // MOD LOG CHANNEL
-                    let modLogEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedRed)
-                        .setTitle(`${config.emjREDTICK} USER BANNED`)
-                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${banReason}`)
-                        .setTimestamp()
-
-                    // SENDING MESSAGE IN MOD LOG AND PINGING USER
-                    interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [modLogEmbed] })
+                    // MOD LOG NOTICE OF GUILD BAN HAPPENS IN THE guildBanAdd EVENT
                 })
         }
     }
