@@ -41,7 +41,7 @@ module.exports = {
                 .addField(`\u200b`, `🡲`, true)
                 .addField(`New:`, `[Avatar Link](${newUser.avatarURL()})`, true)
                 .setTimestamp()
-                .setFooter(`User ID: ${newUser.id}`)
+                .setFooter(`User ID: ${newUser.id}\nNote: Old Avatar URLs may be invalid.`)
 
             // LOG ENTRY IN EACH GUILD THE USER IS IN
             guildIdArray.forEach( guildId => {
