@@ -307,19 +307,19 @@ module.exports = {
             // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
             let messageChannelId = splitArgs[5];
             let messageId = splitArgs[6].split(' ');
-
-            let msgCh = message.guild.channels.cache.get(messageChannelId)      // CHANNEL OBJECT
+            
+            // CHANNEL OBJECT
+            let msgCh = message.guild.channels.cache.get(messageChannelId)
 
             message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
 
+            // FETCH MESSAGE
+            msgCh.fetch(messageId)
+            .then(msg => {
+                message.channel.send(`I've fetched the message! The content was *"${msg.content}"*, right?`)
+            })
 
-            let msg = msgCh.fetch(messageId)
-
-            message.channel.send(`I've fetched the message! The content was *"${msg.content}"*, right?`)
-
-
-            // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
             
         }
     }
