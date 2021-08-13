@@ -319,7 +319,7 @@ module.exports = {
             let messageId = splitArgs[6].split(' ');
 
             let msgCh = message.guild.channels.cache.filter(ch => ch.id == messageChannelId)
-            let msg = msgCh.messages.fetch(messageId)
+            // let msg = msgCh.messages.fetch(messageId)
 
             message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
