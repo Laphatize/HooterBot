@@ -225,7 +225,7 @@ module.exports = {
         },{
             // BAN
             name: `ban`,
-            description: `ADMINISTRATOR | A command for banning users from the server.`,
+            description: `ADMINISTRATOR | A command for banning users from the server. Optional message purge.`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -705,6 +705,18 @@ module.exports = {
                 .setDescription(`You have successfully issued a warning to ${member}.${notDMable}`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+
+            // MOD LOG CHANNEL
+            let modLogEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} USER WARNED`)
+                .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
+                .setTimestamp()
+
+            // SENDING MESSAGE IN MOD LOG AND PINGING USER
+            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [modLogEmbed] })
+
         }
 
 
@@ -829,6 +841,17 @@ module.exports = {
                         .setDescription(`You have successfully issued a mute to ${muteUser}.\n\n**Please follow up with this user about the duration of the mute and more details on why they were muted.**`)
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+
+                    // MOD LOG CHANNEL
+                    let modLogEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} USER MUTED`)
+                        .setDescription(`**User:** ${muteUser}\n**User ID:** ${muteUser.id}\n**Performed by:** ${interaction.user}\n**Reason:** ${muteReason}`)
+                        .setTimestamp()
+
+                    // SENDING MESSAGE IN MOD LOG AND PINGING USER
+                    interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [modLogEmbed] })
                 })
         }
 
@@ -930,6 +953,17 @@ module.exports = {
                         .setDescription(`You have successfully removed the mute from ${unmuteUser}.`)
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+
+                    // MOD LOG CHANNEL
+                    let modLogEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} USER UNMUTED`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Performed by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
+                        .setTimestamp()
+
+                    // SENDING MESSAGE IN MOD LOG AND PINGING USER
+                    interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [modLogEmbed] })
                 })
         }
 
@@ -976,8 +1010,9 @@ module.exports = {
             }
 
 
+            // PURGE COUNT CHECK
             if(banPurgeDays !== null) {
-                // PURGE DAYS INVALID
+                // PURGE DAYS INVALID RANGE
                 if(banPurgeDays < 1 || banPurgeDays > 7) {
                     // GENERATE ERROR EMBED
                     let purgeTooLargeEmbed = new discord.MessageEmbed()
@@ -991,18 +1026,107 @@ module.exports = {
                 }
             }
 
+            
             // FETCHING GUILD MEMBER TO BAN
             interaction.guild.members.fetch(banUser.id)
                 .then(async member => {
-                    console.log(`ban member fetched.`)
+                    if(!member.manageable) {
+                        // GENERATE ERROR EMBED
+                        let cannotBanEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Error!`)
+                            .setDescription(`Sorry, you are unable to ban this user because they have higher permissions/roles than you.`)
+                            .setTimestamp()
+                    
+                        // SENDING MESSAGE
+                        return interaction.reply({ embeds: [cannotBanEmbed], ephemeral: true })
+                    }
+
+                    
+                    // DMING THE USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
+                    let banUserEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`Banned`)
+                        .setDescription(`You have been banned from the **${interaction.guild.name}** server by an admin for the following reason:\n\n*${banReason}*`)
+
+
+                    member.send({ embeds: [banUserEmbed] })
+                        .catch(err => {
+                            let cannotDMEmbed = new discord.MessageEmbed()
+                                .setColor(config.embedRed)
+                                .setDescription(`HooterBot couldn't DM ${banUser} about their ban removal. ***w e l p***`)
+                                .setTimestamp()
+
+                            // SENDING MESSAGE IN MOD LOG AND PINGING USER
+                            interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [cannotDMEmbed] })
+                        })
+
+
+
+                    let caseCounter = await infractionsSchema.countDocuments()
+
+                    // CREATE DATABASE ENTRY FOR THE ISSUED MUTE
+                    infractionsSchema.findOneAndUpdate({
+                        USER_ID: banUser.id,
+                        ACTION: 'BAN',
+                        REASON: banReason,
+                        STAFF_ID: interaction.user.id,
+                        DATE: new moment(Date.now()).format('LLL'),
+                        CASE_NUM: parseInt(caseCounter)+1
+                    },{
+                        USER_ID: banUser.id,
+                        ACTION: 'BAN',
+                        REASON: banReason,
+                        STAFF_ID: interaction.user.id,
+                        DATE: new moment(Date.now()).format('LLL'),
+                        CASE_NUM: parseInt(caseCounter)+1
+                    },{
+                        upsert: true
+                    }).exec();
+
+
+
+                    // BANNING THE USER
+                    // WITH MESSAGE PURGE
+                    if(banPurgeDays !== null) {
+                        member.ban({ reason: banReason, days: banPurgeDays })                        
+                    }
+                    // WITHOUT MESSAGE PURGE
+                    else {
+                        member.ban({ reason: banReason })   
+                    }
+
+
+                    // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
+                    let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedOrange)
+                        .setTitle(`Case \#${infractionResult[0].CASE_NUM} (Update): User Unmuted`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
+                        .setFooter(``)
+
+                    interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
+                        .catch(err => console.log(err))
+
+
+                    // CONFIRMATION MESSAGE TO INTERACTION USER
+                    let confirmationEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Successfully Banned`)
+                        .setDescription(`You have successfully banned ${unmuteUser} from the server.`)
+
+                    interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+
+
+                    // MOD LOG CHANNEL
+                    let modLogEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} USER BANNED`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${banReason}`)
+                        .setTimestamp()
+
+                    // SENDING MESSAGE IN MOD LOG AND PINGING USER
+                    interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [modLogEmbed] })
                 })
-
-
-            // // PURGING
-            // if(banPurgeDays)
-
-
-            interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)
         }
     }
 }
