@@ -8,7 +8,9 @@ module.exports = {
         console.log(`The userUpdate event has fired, and if you're seeing this, it's working but the rest of your code is not!`)
 
         // FETCH NEW USER IN EACH GUILD
-        console.log(`client.guilds.cache.keyArray() = ${client.guilds.cache.keyArray()}`)
+        client.guilds.cache.keyArray().forEach(guild => {
+            console.log(`keyArray guild = ${guild}`)
+        })
 
         // for(let guild in client.guilds) {
         //     console.log(`guild.id = ${guild.id}`)

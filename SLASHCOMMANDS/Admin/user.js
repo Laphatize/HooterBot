@@ -976,18 +976,20 @@ module.exports = {
             }
 
 
-            // // PURGE DAYS INVALID
-            // if(banPurgeDays < 1 || banPurgeDays > 7) {
-            //     // GENERATE ERROR EMBED
-            //     let purgeTooLargeEmbed = new discord.MessageEmbed()
-            //         .setColor(config.embedRed)
-            //         .setTitle(`${config.emjREDTICK} Error!`)
-            //         .setDescription(`Sorry, the purge day value you provided is not valid. Please run this command again using a value between 1 and 7 days (or do not provide if no purge should happen).`)
-            //         .setTimestamp()
-            
-            //     // SENDING MESSAGE
-            //     return interaction.reply({ embeds: [purgeTooLargeEmbed], ephemeral: true })
-            // }
+            if(banPurgeDays !== null) {
+                // PURGE DAYS INVALID
+                if(banPurgeDays < 1 || banPurgeDays > 7) {
+                    // GENERATE ERROR EMBED
+                    let purgeTooLargeEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Error!`)
+                        .setDescription(`Sorry, the purge day value you provided is not valid. Please run this command again using a value between 1 and 7 days (or do not provide if no purge should happen).`)
+                        .setTimestamp()
+                
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [purgeTooLargeEmbed], ephemeral: true })
+                }
+            }
 
             // FETCHING GUILD MEMBER TO BAN
             interaction.guild.members.fetch(banUser.id)
