@@ -315,7 +315,7 @@ module.exports = {
 
 
             // FETCH MESSAGE
-            let fetchedMsg = msgCh.messages.fetch(messageId)
+            let fetchedMsg = await msgCh.messages.fetch(messageId)
             console.log(`fetchedMsg = ${fetchedMsg}`)
             
             // msgAuthor = fetchedMsg.author
