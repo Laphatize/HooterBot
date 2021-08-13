@@ -305,7 +305,7 @@ module.exports = {
 
 
 
-            let linkOnward = message.content.slice(inviteIndexValue)
+            let linkOnward = message.content.slice(inviteIndexValue).split(' ')
 
             let splitArgs = linkOnward.split(`/`)
 
@@ -315,11 +315,10 @@ module.exports = {
 
             // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
             let messageChannelId = splitArgs[5];
-            let tailEndArgs = splitArgs[6].split(' ');
-            let messageId = tailEndArgs[0];
+            let messageId = splitArgs[6].split(' ');
 
             let msgCh = message.guild.channels.cache.filter(ch => ch.id == messageChannelId)
-            let msg = msgCh.messages.fetch(messageId)
+            // let msg = msgCh.messages.fetch(messageId)
 
             message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
