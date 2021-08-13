@@ -317,7 +317,8 @@ module.exports = {
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
-                    return message.channel.send(`msg = ${msg}}`)
+                    console.log([...msg.entries()]);
+
                 })
 
             
