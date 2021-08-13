@@ -5,12 +5,10 @@ module.exports = {
 	name: 'userUpdate',
 	async execute(oldUser, newUser, client) {
 
-        console.log(`The userUpdate event has fired, and if you're seeing this, it's working but the rest of your code is not!`)
+        console.log(`Fetching all guilds HooterBot is in:`)
 
         // FETCH NEW USER IN EACH GUILD
-        client.guilds.cache.keyArray().forEach(guild => {
-            console.log(`keyArray guild = ${guild}`)
-        })
+        console.log(client.guilds.cache.keyArray())
 
         // for(let guild in client.guilds) {
         //     console.log(`guild.id = ${guild.id}`)
@@ -20,15 +18,15 @@ module.exports = {
         // const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
         
         
-        // PARTIAL USER
-        if (oldUser.partial || newUser.partial) {
-            try {
-                await oldUser.fetch()
-                await newUser.fetch()
-            } catch (err) {
-                return console.log(err);
-            }
-        }
+        // // PARTIAL USER
+        // if (oldUser.partial || newUser.partial) {
+        //     try {
+        //         await oldUser.fetch()
+        //         await newUser.fetch()
+        //     } catch (err) {
+        //         return console.log(err);
+        //     }
+        // }
 
         
         // // AVATAR CHANGE
