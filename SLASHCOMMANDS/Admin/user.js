@@ -1123,7 +1123,7 @@ module.exports = {
                         let confirmationEmbed = new discord.MessageEmbed()
                             .setColor(config.embedGreen)
                             .setTitle(`${config.emjGREENTICK} Successfully Banned`)
-                            .setDescription(`You have successfully banned ${banUser} from the server. HooterBot has also deleted ${banPurgeDays} days' of messages from the user as you requested.`)
+                            .setDescription(`You have successfully banned ${banUser} from the server. HooterBot has also deleted ${banPurgeDays} days worth of messages from the user as you requested.`)
 
                         interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
                     }
