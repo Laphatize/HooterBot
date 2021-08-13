@@ -8,7 +8,7 @@ module.exports = {
         console.log(`Fetching all guilds HooterBot is in:`)
 
         // FETCH NEW USER IN EACH GUILD
-        console.log(client.guilds.cache.keyArray())
+        client.guilds.cache.each(guild => console.log(`guild.id => ${guild.id}`))
 
         // for(let guild in client.guilds) {
         //     console.log(`guild.id = ${guild.id}`)
