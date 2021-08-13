@@ -935,6 +935,14 @@ module.exports = {
                     }).sort( [['_id', -1]] ).exec();
 
 
+                    // DELETING DATABASE ENTRY FOR THE ISSUED MUTE
+                    mutedUsersSchema.delete({
+                        USER_ID: unmuteUser.id,
+                    },{
+                        upsert: true
+                    }).exec();
+
+                    
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
