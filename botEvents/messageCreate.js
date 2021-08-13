@@ -301,10 +301,19 @@ module.exports = {
 
             let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
 
-            return message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
+            message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
 
 
-            // READ THE MESSAGE ID FROM 
+
+            let linkOnward = message.content.slice(inviteIndexValue)
+
+            let splitArgs = linkOnward.split(`/`)
+
+            message.channel.send({ content: `Splitting off the start of the message: \`\`${linkOnward}\`\``})
+            message.channel.send({ content: `splitArgs: ${splitArgs.join(`\n`)}`})
+
+
+            // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
             // let messageChannelId = ;
             // let messageId = ;
 
