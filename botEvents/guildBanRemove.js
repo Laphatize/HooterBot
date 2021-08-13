@@ -25,7 +25,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER BAN REMOVED ${config.emjREDTICK}`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${unbanLog.reason}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -38,7 +38,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER BAN REMOVED${config.emjREDTICK}`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** ${executor}\n**Original Ban Reason:** ${unbanLog.reason}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** ${executor}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -48,7 +48,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER BAN REMOVED ${config.emjREDTICK}`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${unbanLog.reason}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
