@@ -942,7 +942,7 @@ module.exports = {
                         upsert: true
                     }).exec();
 
-                    
+
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
@@ -1108,7 +1108,7 @@ module.exports = {
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
-                        .setTitle(`Case \#${infractionResult[0].CASE_NUM} (Update): User Unmuted`)
+                        .setTitle(`Case \#${parseInt(caseCounter)+1} (Update): User Unmuted`)
                         .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
                         .setFooter(``)
 
