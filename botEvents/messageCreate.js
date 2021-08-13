@@ -318,10 +318,12 @@ module.exports = {
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
                     // [ MESSAGE ID , {MSG_OBJ} ]
-                    let msgObject = msg.get(`${messageId}`)
+                    let grabbedMessage = msg.get(`${messageId}`)
+                    let msgContent = msg.get(`${messageId}.content`)
+                    let msgAuthor = msg.get(`${messageId}.author`)
 
-                    console.log(`msgObject = ${msgObject}`)
-
+                    console.log(`grabbedMessage = ${grabbedMessage}`)
+                    message.channel.send(`msgContent = ${msgContent}\nmsgAuthor = ${msgAuthor}`)
                 })
 
             
