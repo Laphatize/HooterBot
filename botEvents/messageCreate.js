@@ -314,8 +314,11 @@ module.exports = {
             message.channel.send(`The message you linked came from ${msgCh}, right?\nmessageId = ${messageId}`)
 
 
-            // // FETCH MESSAGE
-            // msgCh.fetch(messageId)
+            // FETCH MESSAGE
+            msgCh.messages.fetch(messageId)
+            .then(msg => {
+                message.channel.send(`msg = ${msg}\nmsg.content = ${msg.content}\nmsg.author = ${msg.author}`)
+            })
 
 
             
