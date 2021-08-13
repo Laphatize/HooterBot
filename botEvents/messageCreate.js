@@ -296,3 +296,30 @@ function createLevelMsg(username, level) {
     ];      
     return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
 }
+
+
+
+// DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
+let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
+
+
+// MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
+if(message.content.includes(discordMsgLinkFormat)) {
+    
+    message.channel.send({ content: `I've detected you've included a link to a Discord message!` })
+
+
+    let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
+
+    return message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
+
+
+    // READ THE MESSAGE ID FROM 
+    // let messageChannelId = ;
+    // let messageId = ;
+
+
+    // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
+
+    
+}
