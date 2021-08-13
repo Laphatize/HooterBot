@@ -315,14 +315,15 @@ module.exports = {
 
             // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
             let messageChannelId = splitArgs[5];
-            let messageId = splitArgs[6];
+            let tailEndArgs = splitArgs[6].split(' ');
+            let messageId = tailEndArgs[0];
 
             let msgCh = message.guild.channels.cache.filter(ch => ch.id == messageChannelId)
             let msg = msgCh.messages.fetch(messageId)
 
             message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
-            
+
             // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
             
         }
