@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const config = require('../config.json');
+const wait = require('util').promisify(setTimeout);
 
 module.exports = {
 	name: 'messageDeleteBulk',
@@ -7,6 +8,9 @@ module.exports = {
 
         // LOG CHANNEL
         const modLogChannel = messages.first().guild.channels.cache.find(ch => ch.name === `mod-log`)
+
+        // WAIT 5 SECONDS (PLENTY OF TIME, NO?)
+        await wait(5000)
 
         const fetchedLogs = await messages.first().guild.fetchAuditLogs({
             limit: 1,
