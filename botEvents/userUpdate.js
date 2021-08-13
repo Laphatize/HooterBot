@@ -46,7 +46,10 @@ module.exports = {
             // LOG ENTRY IN EACH GUILD THE USER IS IN
             guildIdArray.forEach( guildId => {
                 // FETCH GUILD BY ID
-                client.guilds.fetch(guildId).channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logEmbed]})
+                client.guilds.fetch(guildId)
+                    .then(guild => {
+                        guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logEmbed]})
+                    })
             })
         }
 
