@@ -936,7 +936,7 @@ module.exports = {
 
 
                     // DELETING DATABASE ENTRY FOR THE ISSUED MUTE
-                    mutedUsersSchema.delete({
+                    mutedUsersSchema.deleteOne({
                         USER_ID: unmuteUser.id,
                     },{
                         upsert: true
