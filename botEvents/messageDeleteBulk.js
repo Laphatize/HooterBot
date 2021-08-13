@@ -18,29 +18,14 @@ module.exports = {
         });
         const deletionLog = fetchedLogs.entries.first();
 
+        // LOG EMBED
+        let logEmbed = new discord.MessageEmbed()
+            .setColor(config.embedOrange)
+            .setTitle(`Messages Deleted in Bulk`)
+            .setDescription(`**Performed by:** <@${config.botId}>\n**Message Count:** ${messages.size}`)
+            .setTimestamp()
 
-        if(!deletionLog) {
-            // LOG EMBED
-            let modLogEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`Messages Deleted in Bulk`)
-                .setDescription(`**Performed By:** <@${config.botId}>\n**Message Count:** *(Could not be fetched from audit logs)*`)
-                .setTimestamp()
-
-            // LOG ENTRY
-            modLogChannel.send({ embeds: [modLogEmbed] })
-        }
-
-        else {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedOrange)
-                .setTitle(`Messages Deleted in Bulk`)
-                .setDescription(`**Performed by:** <@${config.botId}>\n**Message Count:** ${messages.size}`)
-                .setTimestamp()
-
-            // LOG ENTRY
-            modLogChannel.send({embeds: [logEmbed]})
-        }
+        // LOG ENTRY
+        modLogChannel.send({embeds: [logEmbed]})
 	},
 };
