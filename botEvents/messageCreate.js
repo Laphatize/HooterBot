@@ -317,7 +317,7 @@ module.exports = {
             // FETCH MESSAGE
             msgCh.messages.fetch(messageId)
             .then(msg => {
-                message.channel.send(`msg = ${msg}\nmsg.content = ${msg.content}\nmsg.author = ${msg.author}`)
+                message.channel.send(`msg.message = ${msg.message}\nmsg.message.content = ${msg.message.content}\nmsg.message.author = ${msg.message.author}`)
             })
 
 
