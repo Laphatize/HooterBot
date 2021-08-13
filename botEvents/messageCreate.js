@@ -300,32 +300,23 @@ module.exports = {
 
 
             let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
-
-            message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
-
-
-
             let msgLink = message.content.slice(inviteIndexValue).split(' ')
-
-            message.channel.send({ content: `msgLink = \`\`${msgLink}\`\`` })
-
-
             let msgFullUrl = msgLink[0]
-
             let splitArgs = msgFullUrl.split('/')
 
             // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
             let messageChannelId = splitArgs[5];
             let messageId = splitArgs[6].split(' ');
 
-            let msgCh = message.guild.channels.cache.get(messageChannelId)
+            let msgCh = message.guild.channels.cache.get(messageChannelId)      // CHANNEL OBJECT
 
             message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
 
-            // let msg = msgCh.fetch(messageId)
 
-            // message.channel.send(`I've fetched the message!`)
+            let msg = msgCh.fetch(messageId)
+
+            message.channel.send(`I've fetched the message! The content was *"${msg.content}"*, right?`)
 
 
             // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
