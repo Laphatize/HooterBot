@@ -1116,13 +1116,27 @@ module.exports = {
                         .catch(err => console.log(err))
 
 
-                    // CONFIRMATION MESSAGE TO INTERACTION USER
-                    let confirmationEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Successfully Banned`)
-                        .setDescription(`You have successfully banned ${banUser} from the server.`)
+                    
+                    if(banPurgeDays !== null) {
 
-                    interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+                        // CONFIRMATION MESSAGE TO INTERACTION USER
+                        let confirmationEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`${config.emjGREENTICK} Successfully Banned`)
+                            .setDescription(`You have successfully banned ${banUser} from the server. HooterBot has also deleted ${banPurgeDays} days' of messages from the user as you requested.`)
+
+                        interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+                    }
+                    else {
+
+                        // CONFIRMATION MESSAGE TO INTERACTION USER
+                        let confirmationEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedGreen)
+                            .setTitle(`${config.emjGREENTICK} Successfully Banned`)
+                            .setDescription(`You have successfully banned ${banUser} from the server.`)
+
+                        interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
+                    }
 
 
                     // MOD LOG NOTICE OF GUILD BAN HAPPENS IN THE guildBanAdd EVENT

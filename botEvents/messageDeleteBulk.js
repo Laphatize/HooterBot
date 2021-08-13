@@ -6,19 +6,38 @@ module.exports = {
 	async execute(messages, client) {
 
         // LOG CHANNEL
-        const modLogChannel = messages.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        const modLogChannel = messages.first().guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        // // LOG EMBED
-        // let logEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedOrange)
-        //     .setTitle(`Messages Deleted in Bulk`)
-        //     .addField(`User:`, `${member}`, true)
-        //     .addField(`Tag:`, `${member.user.tag}`, true)
-        //     .addField(`ID:`, `${member.id}`, true)
-        //     .addField(`Time in server:`, `${memberDuration}`)
-        //     .setTimestamp()
+        const fetchedLogs = await messages.first().guild.fetchAuditLogs({
+            limit: 1,
+            type: 'MESSAGE_BULK_DELETE',
+        });
+        const deletionLog = fetchedLogs.entries.first();
+    
 
-        // // LOG ENTRY
-        // modLogChannel.send({embeds: [logEmbed]})
+        const { executor } = deletionLog;
+
+        if(!deletionLog) {
+            // MOD LOG CHANNEL
+            let modLogEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Messages Deleted in Bulk`)
+                .setDescription(`**Performed By:** ${executor}\n**Message Count:** *(Could not be fetched from audit logs)*`)
+                .setTimestamp()
+
+            // SENDING MESSAGE IN MOD LOG
+            modLogChannel.send({ embeds: [modLogEmbed] })
+        }
+
+
+        // LOG EMBED
+        let logEmbed = new discord.MessageEmbed()
+            .setColor(config.embedOrange)
+            .setTitle(`Messages Deleted in Bulk`)
+            .setDescription(`**Performed by:** ${executor}\n**Message Count:** ${messages.size}`)
+            .setTimestamp()
+
+        // LOG ENTRY
+        modLogChannel.send({embeds: [logEmbed]})
 	},
 };
