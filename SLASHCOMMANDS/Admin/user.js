@@ -996,8 +996,8 @@ module.exports = {
                 })
 
 
-            // PURGING
-            if(banPurgeDays)
+            // // PURGING
+            // if(banPurgeDays)
 
 
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)

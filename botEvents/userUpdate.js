@@ -7,8 +7,11 @@ module.exports = {
 
         console.log(`The userUpdate event has fired, and if you're seeing this, it's working but the rest of your code is not!`)
 
-        // LOG CHANNEL
-        const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
+        // FETCH NEW USER IN EACH GUILD
+        console.log(`client.guilds = ${client.guilds}`)
+
+        // // LOG CHANNEL
+        // const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
         
         
         // PARTIAL USER
