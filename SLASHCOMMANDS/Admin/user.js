@@ -1053,7 +1053,7 @@ module.exports = {
                     
                     // DMING THE USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     let banUserEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
+                        .setColor(config.embedRed)
                         .setTitle(`Banned`)
                         .setDescription(`You have been banned from the **${interaction.guild.name}** server by an admin for the following reason:\n\n*${banReason}*`)
 
