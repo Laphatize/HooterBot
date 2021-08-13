@@ -40,7 +40,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER BANNED ${config.emjREDTICK}`)
-                .setDescription(`**User:** ${ban.user}\n**User ID:** ${user.id}\n**Issued by:** ${executor}\n**Reason:** ${reason}`)
+                .setDescription(`**User:** ${ban.user}\n**User ID:** ${ban.user.id}\n**Issued by:** ${executor}\n**Reason:** ${reason}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -50,7 +50,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER BANNED ${config.emjREDTICK}`)
-                .setDescription(`**User:** ${ban.user}\n**User ID:** ${user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${reason}`)
+                .setDescription(`**User:** ${ban.user}\n**User ID:** ${ban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${reason}`)
                 .setTimestamp(``)
 
             // SENDING MESSAGE IN MOD LOG
