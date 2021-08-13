@@ -184,7 +184,7 @@ module.exports = {
                         \n${config.indent}**2.** Use a virtual TUid card
                         \n${config.indent}**3.** Using TUportal
                         \n\nSelect a method using the buttons below to receive further instructions. You may quit verification at any time using the red "Quit Verification" button.
-                        \n**Have questions?** Please send a message here in DMs to Hooterbot and a member of the server staff will respond shortly. If yur message gets a green check reaction, it was sent successfully. Messages sent in the channel cannot be edited or deleted on the mod/admin side once sent.`)
+                        \n**Have questions?** Please send a message here in DMs to Hooterbot and a member of the server staff will respond shortly. If your message gets a green check reaction, it was sent successfully. Messages sent in the channel cannot be edited or deleted on the mod/admin side once sent.`)
 
 
                 // INITIALIZING BUTTONS 
