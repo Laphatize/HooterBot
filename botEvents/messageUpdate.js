@@ -38,8 +38,8 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${oldMessage.channel}\n*The content of the combined original and edited message exceeds 4096 characters and cannot be displayed.*`)
-                .setFooter(`<t:${moment(Date.now()).valueOf()}:R>`)
+                .setDescription(`**Channel:** ${oldMessage.channel}\n*The content of the combined original and edited message exceeds 4096 characters and cannot be displayed.*
+                \n<t:${moment(Date.now()).valueOf()}:R>`)
                 
 
             // LOG ENTRY
@@ -51,8 +51,8 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n\n**New:** ${newMessage.content}`)
-                .setFooter(`<t:${moment(Date.now()).valueOf()}:R>`)
+                .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n\n**New:** ${newMessage.content}
+                \n<t:${moment(Date.now()).valueOf()}:R>`)
 
             // LOG ENTRY
             modLogChannel.send({embeds: [logEmbed]})
