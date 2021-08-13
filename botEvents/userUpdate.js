@@ -8,11 +8,11 @@ module.exports = {
         console.log(`The userUpdate event has fired, and if you're seeing this, it's working but the rest of your code is not!`)
 
         // FETCH NEW USER IN EACH GUILD
-        console.log(`client.guilds = ${client.guilds}`)
+        console.log(`client.guilds.cache.keyArray() = ${client.guilds.cache.keyArray()}`)
 
-        for(let guild in client.guilds) {
-            console.log(`guild.id = ${guild.id}`)
-        }
+        // for(let guild in client.guilds) {
+        //     console.log(`guild.id = ${guild.id}`)
+        // }
 
         // // LOG CHANNEL
         // const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
