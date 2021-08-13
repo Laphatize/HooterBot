@@ -3,7 +3,7 @@ const config = require('../config.json');
 
 
 module.exports = {
-	name: 'guildBanAdd',
+	name: 'guildBanRemove',
 	async execute(unban, client) {
 
         // LOG CHANNEL

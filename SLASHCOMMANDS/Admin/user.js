@@ -1107,8 +1107,8 @@ module.exports = {
 
                     // LOG THE ACTION IN THE PUBLIC MOD-ACTIONS CHANNEL
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedOrange)
-                        .setTitle(`Case \#${parseInt(caseCounter)+1} (Update): User Unmuted`)
+                        .setColor(config.embedRed)
+                        .setTitle(`Case \#${parseInt(caseCounter)+1}: User Banned`)
                         .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${banReason}`)
                         .setFooter(``)
 
