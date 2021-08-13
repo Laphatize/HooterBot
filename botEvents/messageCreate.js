@@ -319,22 +319,17 @@ module.exports = {
                 .then(msg => {
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
-                    let msgContent
-                    let msgAuthor
 
-                    console.log(`grabbedMessage = ${grabbedMessage}`)
-                    console.log(`grabbedMessage.id = ${grabbedMessage.id}`)
-                    console.log(`grabbedMessage.author = ${grabbedMessage.author}`)
-                    console.log(`grabbedMessage.content = ${grabbedMessage.content}`)
-                    message.channel.send(`grabbedMessage = ${grabbedMessage}\ngrabbedMessage.id = ${grabbedMessage.id}\ngrabbedMessage.author = ${grabbedMessage.author}\ngrabbedMessage.content = ${grabbedMessage.content}`)
+                    // FORMATTING QUOTE
+                    let msgLinkQuoteEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedDarkGrey)
+                        .setAuthor(grabbedMessage.author.username, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                        .setTimestamp()
+
+                    // SENDING BACK IN CHANNEL
+                    message.channel.send({ embeds: [msgLinkQuoteEmbed] })
                 })
-
-            
-            // msgAuthor = fetchedMsg.author
-            // msgContent = fetchedMsg.author
-            // message.channel.send(`msgContent = ${msgContent}\nmsgAuthor = ${msgAuthor}`)
-
-            
         }
     }
 }
