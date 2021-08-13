@@ -11,8 +11,6 @@ module.exports = {
 
 
         // FETCH AUDIT LOGS FOR BAN
-        console.log(`User banned, fetching audit logs`)
-
         const fetchedLogs = await unban.guild.fetchAuditLogs({
             limit: 1,
             type: 'MEMBER_BAN_REMOVE',
@@ -26,8 +24,8 @@ module.exports = {
             // MOD LOG CHANNEL
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} USER BAN REMOVED`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${reason}`)
+                .setTitle(`${config.emjREDTICK} USER BAN REMOVED ${config.emjREDTICK}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${unbanLog.reason}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -39,8 +37,8 @@ module.exports = {
             // MOD LOG CHANNEL
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} USER BANNED`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.id}\n**Issued by:** ${executor}\n**Reason:** ${reason}`)
+                .setTitle(`${config.emjREDTICK} USER BAN REMOVED${config.emjREDTICK}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** ${executor}\n**Original Ban Reason:** ${unbanLog.reason}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -49,8 +47,8 @@ module.exports = {
             // MOD LOG CHANNEL
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} USER BANNED`)
-                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${reason}`)
+                .setTitle(`${config.emjREDTICK} USER BAN REMOVED ${config.emjREDTICK}`)
+                .setDescription(`**User:** ${unban.user}\n**User ID:** ${unban.user.id}\n**Issued by:** *(Could not be fetched from audit logs)*\n**Reason:** ${unbanLog.reason}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG

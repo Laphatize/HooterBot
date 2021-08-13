@@ -11,8 +11,6 @@ module.exports = {
 
 
         // FETCH AUDIT LOGS FOR BAN
-        console.log(`User banned, fetching audit logs`)
-
         const fetchedLogs = await ban.guild.fetchAuditLogs({
             limit: 1,
             type: 'MEMBER_BAN_ADD',
