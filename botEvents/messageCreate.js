@@ -317,7 +317,8 @@ module.exports = {
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
-                    let msgObject = msg.get(messageId)
+                    // [ MESSAGE ID , {MSG_OBJ} ]
+                    let msgObject = msg.get(`${messageId}`)
 
                     console.log(`msgObject = ${msgObject}`)
 
