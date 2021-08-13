@@ -295,10 +295,7 @@ module.exports = {
 
         // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
         if(message.content.includes(discordMsgLinkFormat)) {
-            
-            message.channel.send({ content: `I've detected you've included a link to a Discord message!` })
-
-
+            // FINDING URL IN MESSAGE, CUTTING DOWN INTO USEFUL PIECES
             let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
             let msgLink = message.content.slice(inviteIndexValue).split(' ')
             let msgFullUrl = msgLink[0]
@@ -310,9 +307,6 @@ module.exports = {
             
             // CHANNEL OBJECT
             let msgCh = message.guild.channels.cache.get(messageChannelId)
-
-            message.channel.send(`The message you linked came from ${msgCh}, right?\nmessageId = ${messageId}`)
-
 
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
