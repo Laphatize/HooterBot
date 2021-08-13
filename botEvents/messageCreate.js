@@ -319,12 +319,14 @@ module.exports = {
                 .then(msg => {
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
-                    let msgContent = msg.get(`Message.content`)
-                    let msgAuthor = msg.get(`Message.author`)
+                    let msgContent
+                    let msgAuthor
 
                     console.log(`grabbedMessage = ${grabbedMessage}`)
                     console.log(`grabbedMessage.id = ${grabbedMessage.id}`)
-                    message.channel.send(`msgContent = ${msgContent}\nmsgAuthor = ${msgAuthor}`)
+                    console.log(`grabbedMessage.author = ${grabbedMessage.author}`)
+                    console.log(`grabbedMessage.content = ${grabbedMessage.content}`)
+                    message.channel.send(`grabbedMessage = ${grabbedMessage}\ngrabbedMessage.id = ${grabbedMessage.id}\ngrabbedMessage.author = ${grabbedMessage.author}\ngrabbedMessage.content = ${grabbedMessage.content}`)
                 })
 
             
