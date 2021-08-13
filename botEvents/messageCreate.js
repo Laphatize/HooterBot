@@ -282,6 +282,37 @@ module.exports = {
         //     console.log(await message.guild?.commands.fetch())
         //     console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
         // }
+
+
+
+
+        /***********************************************************/
+        /*      LINK READER                                        */
+        /***********************************************************/
+        // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
+        let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
+
+
+        // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
+        if(message.content.includes(discordMsgLinkFormat)) {
+            
+            message.channel.send({ content: `I've detected you've included a link to a Discord message!` })
+
+
+            let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
+
+            return message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
+
+
+            // READ THE MESSAGE ID FROM 
+            // let messageChannelId = ;
+            // let messageId = ;
+
+
+            // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
+
+            
+        }
     }
 }
 
@@ -295,31 +326,4 @@ function createLevelMsg(username, level) {
         `**${username}**, you've talked so much, you're leveling up! \`\` Level ${level} \`\` ${config.emjOwl}`
     ];      
     return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
-}
-
-
-
-// DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
-let discordMsgLinkFormat = `https://discord.com/channels/`
-
-
-// MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
-if(message.content.includes(discordMsgLinkFormat)) {
-    
-    message.channel.send({ content: `I've detected you've included a link to a Discord message!` })
-
-
-    let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
-
-    return message.channel.send({ content: `The invite starts at character: **${inviteIndexValue}**` })
-
-
-    // READ THE MESSAGE ID FROM 
-    // let messageChannelId = ;
-    // let messageId = ;
-
-
-    // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
-
-    
 }
