@@ -53,36 +53,50 @@ module.exports = {
             })
         }
 
-        // // DISCRIMINATOR CHANGE
-        // if(oldUser.discriminator !== newUser.discriminator) {
-        //     // LOG EMBED
-        //     let logEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setTitle(`Discriminator Changed`)
-        //         .setAuthor(newUser.tag, newUser.displayAvatarURL({ dynamic:true }))
-        //         .addField(`Old:`, `${oldUser.discriminator}`, true)
-        //         .addField(`\u200b`, `🡲`, true)
-        //         .addField(`New:`, `${newUser.discriminator}`, true)
-        //         .setTimestamp()
-        //         .setFooter(`User ID: ${newUser.id}`)
-        //     // LOG ENTRY
-        //     modLogChannel.send({embeds: [logEmbed]})
-        // }
+        // DISCRIMINATOR CHANGE
+        if(oldUser.discriminator !== newUser.discriminator) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Discriminator Changed`)
+                .setAuthor(newUser.tag, newUser.displayAvatarURL({ dynamic:true }))
+                .addField(`Old:`, `${oldUser.discriminator}`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New:`, `${newUser.discriminator}`, true)
+                .setTimestamp()
+                .setFooter(`User ID: ${newUser.id}`)
+            
+            // LOG ENTRY IN EACH GUILD THE USER IS IN
+            guildIdArray.forEach( guildId => {
+                // FETCH GUILD BY ID
+                client.guilds.fetch(guildId)
+                    .then(guild => {
+                        guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logEmbed]})
+                    })
+            })
+        }
 
-        // // USERNAME CHANGE
-        // if(oldUser.username !== newUser.username) {
-        //     // LOG EMBED
-        //     let logEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setTitle(`Username Changed`)
-        //         .setAuthor(newUser.tag, newUser.displayAvatarURL({ dynamic:true }))
-        //         .addField(`Old:`, `${oldUser.username}`, true)
-        //         .addField(`\u200b`, `🡲`, true)
-        //         .addField(`New:`, `${newUser.username}`, true)
-        //         .setTimestamp()
-        //         .setFooter(`User ID: ${newUser.id}`)
-        //     // LOG ENTRY
-        //     modLogChannel.send({embeds: [logEmbed]})
-        // }
+        // USERNAME CHANGE
+        if(oldUser.username !== newUser.username) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`Username Changed`)
+                .setAuthor(newUser.tag, newUser.displayAvatarURL({ dynamic:true }))
+                .addField(`Old:`, `${oldUser.username}`, true)
+                .addField(`\u200b`, `🡲`, true)
+                .addField(`New:`, `${newUser.username}`, true)
+                .setTimestamp()
+                .setFooter(`User ID: ${newUser.id}`)
+            
+                // LOG ENTRY IN EACH GUILD THE USER IS IN
+            guildIdArray.forEach( guildId => {
+                // FETCH GUILD BY ID
+                client.guilds.fetch(guildId)
+                    .then(guild => {
+                        guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logEmbed]})
+                    })
+            })
+        }
 	},
 };
