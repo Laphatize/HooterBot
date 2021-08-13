@@ -300,7 +300,7 @@ function createLevelMsg(username, level) {
 
 
 // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
-let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
+let discordMsgLinkFormat = `https://discord.com/channels/`
 
 
 // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
