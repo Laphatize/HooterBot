@@ -316,9 +316,9 @@ module.exports = {
 
             // FETCH MESSAGE
             msgCh.fetch(messageId)
-            .then(msg => {
-                message.channel.send(`I've fetched the message! The content was *"${msg.content}"*, right?`)
-            })
+                .then(msg => {
+                    message.channel.send(`**Message found.**\nmsg = "${msg}"\nmsg.author = "${msg.author}"`)
+                })
 
             
         }
