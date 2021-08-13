@@ -311,8 +311,11 @@ module.exports = {
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
+
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
+
+                    console.log(`grabbedMessage = ${grabbedMessage}`)
 
                     // FORMATTING QUOTE
                     let msgLinkQuoteEmbed = new discord.MessageEmbed()
