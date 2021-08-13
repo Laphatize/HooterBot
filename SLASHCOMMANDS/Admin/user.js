@@ -5,7 +5,6 @@ const infractionsSchema = require('../../Database/infractionsSchema');
 const mutedUsersSchema = require('../../Database/mutedUsersSchema');
 const levels = require('discord-xp');
 const moment = require('moment');
-const { now } = require('moment');
 
 
 module.exports = {
@@ -243,7 +242,7 @@ module.exports = {
                     name: `purge_days`,
                     description: `How many days' of messages to purge. (Limit: 7).`,
                     type: `INTEGER`,
-                    required: true
+                    required: false
                 },
             ],
         },
@@ -941,6 +940,20 @@ module.exports = {
         /*******************/
         if(subCmdName == 'ban') {
 
+            // CHECKING IF USER IS AN ADMIN
+            if(!interaction.member.permissions.has('ADMINISTRATOR')) {
+                // DEFINING EMBED
+                let notAdminEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, like the command description says, you must be an **Administrator** to ban members.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [notAdminEmbed], ephemeral: true })
+            }
+
+
             // GETTING OPTIONS VALUES
             let banUser = interaction.options.getUser('target_user');
             let banReason = interaction.options.getString('reason');
@@ -961,6 +974,30 @@ module.exports = {
                 // SENDING MESSAGE
                 return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
             }
+
+
+            // // PURGE DAYS INVALID
+            // if(banPurgeDays < 1 || banPurgeDays > 7) {
+            //     // GENERATE ERROR EMBED
+            //     let purgeTooLargeEmbed = new discord.MessageEmbed()
+            //         .setColor(config.embedRed)
+            //         .setTitle(`${config.emjREDTICK} Error!`)
+            //         .setDescription(`Sorry, the purge day value you provided is not valid. Please run this command again using a value between 1 and 7 days (or do not provide if no purge should happen).`)
+            //         .setTimestamp()
+            
+            //     // SENDING MESSAGE
+            //     return interaction.reply({ embeds: [purgeTooLargeEmbed], ephemeral: true })
+            // }
+
+            // FETCHING GUILD MEMBER TO BAN
+            interaction.guild.members.fetch(banUser.id)
+                .then(async member => {
+                    console.log(`ban member fetched.`)
+                })
+
+
+            // PURGING
+            if(banPurgeDays)
 
 
             interaction.reply(`${config.emjORANGETICK} ***This command is being set up.***\n\nbanUser = ${banUser}\nbanReason = ${banReason}\nbanPurgeDays = ${banPurgeDays}`)

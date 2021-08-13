@@ -31,7 +31,7 @@ module.exports = {
 
         let embedDescription = `**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n**New:** ${newMessage.content}`
 
-        if(embedDescription.length >= 4096) {
+        if(embedDescription.length >= 4062) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
@@ -49,7 +49,7 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`Message Updated`)
                 .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n— — — — — — — — — — — — — — — —\n**New:** ${newMessage.content}`)
+                .setDescription(`**Channel:** ${oldMessage.channel}\n**Old:** ${oldMessage.content}\n— — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —\n**New:** ${newMessage.content}`)
                 .setTimestamp()
 
             // LOG ENTRY
