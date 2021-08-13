@@ -315,13 +315,10 @@ module.exports = {
 
 
             // FETCH MESSAGE
-            let fetchedMsg = await msgCh.messages.fetch(messageId)
-
-            let entriesArray = fetchedMsg.entries()
-
-            for (const item of entriesArray) {
-                message.channel.send(`${item}`)
-            }
+            await msgCh.messages.fetch(messageId)
+                .then(msg => {
+                    return message.channel.send(`msg = ${msg}`)
+                })
 
             
             // msgAuthor = fetchedMsg.author
