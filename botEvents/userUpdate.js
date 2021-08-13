@@ -7,12 +7,13 @@ module.exports = {
 
         console.log(`Fetching all guilds HooterBot is in:`)
 
-        // FETCH NEW USER IN EACH GUILD
-        client.guilds.cache.each(guild => console.log(`guild.id => ${guild.id}`))
+        let guildIdArray = []
 
-        // for(let guild in client.guilds) {
-        //     console.log(`guild.id = ${guild.id}`)
-        // }
+        // FETCH EACH GUILD
+        client.guilds.cache.each(guild => guildIdArray.push(guild.id))
+
+        console.log(`guildIdArray = ${guildIdArray}`)
+
 
         // // LOG CHANNEL
         // const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
