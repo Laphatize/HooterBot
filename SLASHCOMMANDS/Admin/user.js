@@ -1109,7 +1109,7 @@ module.exports = {
                     let userUnmutePublicNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`Case \#${parseInt(caseCounter)+1} (Update): User Unmuted`)
-                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${unmuteReason}`)
+                        .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${banReason}`)
                         .setFooter(``)
 
                     interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userUnmutePublicNoticeEmbed] })
@@ -1120,7 +1120,7 @@ module.exports = {
                     let confirmationEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`${config.emjGREENTICK} Successfully Banned`)
-                        .setDescription(`You have successfully banned ${unmuteUser} from the server.`)
+                        .setDescription(`You have successfully banned ${banUser} from the server.`)
 
                     interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 

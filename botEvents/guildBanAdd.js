@@ -35,7 +35,7 @@ module.exports = {
         }
 
 
-        if (target.id === user.id) {
+        if (target.id === ban.user.id) {
             // MOD LOG CHANNEL
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
