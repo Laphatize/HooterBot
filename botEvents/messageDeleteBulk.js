@@ -13,16 +13,14 @@ module.exports = {
             type: 'MESSAGE_BULK_DELETE',
         });
         const deletionLog = fetchedLogs.entries.first();
-    
 
-        const { executor } = deletionLog;
 
         if(!deletionLog) {
             // MOD LOG CHANNEL
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Messages Deleted in Bulk`)
-                .setDescription(`**Performed By:** ${executor}\n**Message Count:** *(Could not be fetched from audit logs)*`)
+                .setDescription(`**Performed By:** <@${config.botId}>\n**Message Count:** *(Could not be fetched from audit logs)*`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG
@@ -34,7 +32,7 @@ module.exports = {
         let logEmbed = new discord.MessageEmbed()
             .setColor(config.embedOrange)
             .setTitle(`Messages Deleted in Bulk`)
-            .setDescription(`**Performed by:** ${executor}\n**Message Count:** ${messages.size}`)
+            .setDescription(`**Performed by:** <@${config.botId}>\n**Message Count:** ${messages.size}`)
             .setTimestamp()
 
         // LOG ENTRY
