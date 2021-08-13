@@ -315,11 +315,15 @@ module.exports = {
 
 
             // FETCH MESSAGE
+            let msgContent
+            let msgAuthor
             msgCh.messages.fetch(messageId)
-            .then(msg => {
-                message.channel.send(`msg.message = ${msg.message}\nmsg.message.content = ${msg.message.content}\nmsg.message.author = ${msg.message.author}`)
-            })
-
+                .then(msg => {
+                    msgContent = msg.content
+                    msgAuthor = msg.author
+                })
+            
+            message.channel.send(`msgContent = ${msgContent}\nmsgAuthor = ${msgAuthor}`)
 
             
         }
