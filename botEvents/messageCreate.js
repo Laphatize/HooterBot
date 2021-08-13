@@ -305,22 +305,29 @@ module.exports = {
 
 
 
-            let linkOnward = message.content.slice(inviteIndexValue).split(' ')
+            let msgLink = message.content.slice(inviteIndexValue).split(' ')
 
-            let splitArgs = linkOnward.split(`/`)
-
-            message.channel.send({ content: `Splitting off the start of the message: \`\`${linkOnward}\`\`` })
-            message.channel.send({ content: `splitArgs:\n-${splitArgs.join(`\n-`)}` })
+            message.channel.send({ content: `msgLink = \`\`${msgLink}\`\`` })
 
 
-            // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
-            let messageChannelId = splitArgs[5];
-            let messageId = splitArgs[6].split(' ');
 
-            let msgCh = message.guild.channels.cache.filter(ch => ch.id == messageChannelId)
-            // let msg = msgCh.messages.fetch(messageId)
 
-            message.channel.send(`The message you linked came from ${msgCh}, right?`)
+            // let linkOnward = message.content.slice(inviteIndexValue)
+
+            // let splitArgs = linkOnward.split(`/`)
+
+            // message.channel.send({ content: `Splitting off the start of the message: \`\`${linkOnward}\`\`` })
+            // message.channel.send({ content: `splitArgs:\n-${splitArgs.join(`\n-`)}` })
+
+
+            // // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
+            // let messageChannelId = splitArgs[5];
+            // let messageId = splitArgs[6].split(' ');
+
+            // let msgCh = message.guild.channels.cache.filter(ch => ch.id == messageChannelId)
+            // // let msg = msgCh.messages.fetch(messageId)
+
+            // message.channel.send(`The message you linked came from ${msgCh}, right?`)
 
 
             // CONTENT, AUTHOR, AND SEND EMBED OF THE MESSAGE
