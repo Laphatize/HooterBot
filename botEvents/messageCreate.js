@@ -316,8 +316,9 @@ module.exports = {
 
             // FETCH MESSAGE
             let fetchedMsg = await msgCh.messages.fetch(messageId)
-            message.channel.send(`fetchedMsg.values() = ${fetchedMsg.values()}`)
-            message.channel.send(`fetchedMsg.entries().join(\`\\n\`) = ${fetchedMsg.entries().join(`\n`)}`)
+
+            let entriesArray = fetchedMsg.entries()
+            message.channel.send(`entriesArray = ${entriesArray}`)
 
             
             // msgAuthor = fetchedMsg.author
