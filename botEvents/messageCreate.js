@@ -13,7 +13,7 @@ module.exports = {
         /***********************************************************/
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${message.author.username.toLowerCase()}-${message.author.id}`;
+        let ticketChannelName = `verify-${message.author.username.toLowerCase()}-id-${message.author.id}`;
         
 
         // PARTIAL MESSAGE
@@ -173,12 +173,12 @@ module.exports = {
             
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-            dmUsername = message.channel.name.split('-').pop()
+            dmUserId = message.channel.name.split('-').pop()
                         
             
             // GRAB USER ID FROM DATABASE USING THE CHANNEL NAME
             const dbTicketData = await ticketSchema.findOne({
-                CREATOR_NAME: dmUsername
+                CREATOR_ID: dmUserId
             }).exec();
 
 
@@ -187,7 +187,7 @@ module.exports = {
 
             
             // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-            const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+            const dmUser = await guild.members.fetch(dmUserId)
 
             
         // MOD/ADMIN TICKET CHANNEL -> USER'S DMs
