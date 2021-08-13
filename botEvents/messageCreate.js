@@ -317,7 +317,7 @@ module.exports = {
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
-                    return message.channel.send(`msg = ${msg}`)
+                    return message.channel.send(`msg = ${msg}\nmsg.first(5) = ${msg.first(5)}`)
                 })
 
             
