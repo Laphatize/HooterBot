@@ -513,7 +513,7 @@ module.exports = {
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
                     // return interaction.followUp(`${adminRole}`)
-                    return interaction.followUp(`@here`)
+                    return interaction.followUp(`<@400071708947513355>, <@694391619868295241>, <@472185023622152203>`)
                 }
                 // PING ADMINS AND MODS
                 if(pmgPing == 'ADMINS_MODS') {
@@ -526,7 +526,7 @@ module.exports = {
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
                     // return interaction.followUp( `${adminRole} ${modRole}` )
-                    return interaction.followUp( `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>` )
+                    return interaction.followUp( `<@400071708947513355>, <@694391619868295241>, <@472185023622152203> <@626143139639459841>, <@418870468955602944>` )
                 }
                 else {
                     return interaction.reply({ embeds: [modAdminMsgEmbed] })
