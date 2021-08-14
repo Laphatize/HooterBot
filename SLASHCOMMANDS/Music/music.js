@@ -75,7 +75,7 @@ module.exports = {
             type: 'SUB_COMMAND',
             options: [
                 {
-                    name: `YouTube_URL`,
+                    name: `youtube_url`,
                     description: `Must be a video URL (cannot play playlists, currently).`,
                     type: `STRING`,
                     required: true
