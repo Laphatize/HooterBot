@@ -1,5 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
+const yts = require('yt-search')
 const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
 
 
@@ -246,7 +247,35 @@ module.exports = {
             let searchTitle = interaction.options.getString('title');
             let searchArtist = interaction.options.getString('artist');
 
-            return interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by ${searchArtist}.` });
+
+            if(!searchArtist) {
+                const result = await yts(searchTitle)
+
+                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"*.` });
+
+                resultsArray = []
+
+                const videos = result.videos.slice( 0 , 3 )
+                videos.forEach( function (v) {
+                    resultsArray.push( `#${v} | "${ v.title }" (${ v.timestamp }) by ${ v.author.name }` )
+                })
+
+                interaction.followUp({ content: `Results: ${resultsArray.join(`\n`)}`})
+            }
+            else {
+                const result = await yts(`${searchTitle} by ${searchArtist}`)
+
+                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by ${searchArtist}.` });
+
+                resultsArray = []
+
+                const videos = result.videos.slice( 0 , 3 )
+                videos.forEach( function (v) {
+                    resultsArray.push( `#${v} | "${ v.title }" (${ v.timestamp }) by ${ v.author.name }` )
+                })
+
+                interaction.followUp({ content: `Results: ${resultsArray.join(`\n`)}`})
+            }
         }
     }
 }
