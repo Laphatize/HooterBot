@@ -506,25 +506,27 @@ module.exports = {
                 // PING ADMINS ONLY
                 if(pmgPing == 'ADMINS') {
 
-                    // FETCH ADMIN ROLE
-                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    // // FETCH ADMIN ROLE
+                    // let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
                     
                     // SENDING MESSAGE
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
-                    return interaction.followUp(`${adminRole}`)
+                    // return interaction.followUp(`${adminRole}`)
+                    return interaction.followUp(`@here`)
                 }
                 // PING ADMINS AND MODS
                 if(pmgPing == 'ADMINS_MODS') {
 
-                    // FETCH ADMIN & MOD ROLES
-                    let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
-                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    // // FETCH ADMIN & MOD ROLES
+                    // let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
+                    // let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
                     
                     // SENDING MESSAGE
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
-                    return interaction.followUp( `${adminRole} ${modRole}` )
+                    // return interaction.followUp( `${adminRole} ${modRole}` )
+                    return interaction.followUp( `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>` )
                 }
                 else {
                     return interaction.reply({ embeds: [modAdminMsgEmbed] })
