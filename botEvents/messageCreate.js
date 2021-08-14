@@ -312,7 +312,7 @@ module.exports = {
 
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
-                .then(msg => {
+                .then(async msg => {
 
                     // PARTIAL MESSAGE
                     if (msg.partial) {
