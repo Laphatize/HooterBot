@@ -68,6 +68,19 @@ module.exports = {
                     required: false
                 },
             ],
+        },{
+            // MUSIC ADD
+            name: `add`,
+            description: `Add a song to the playlist using a YouTube URL.`,
+            type: 'SUB_COMMAND',
+            options: [
+                {
+                    name: `YouTube_URL`,
+                    description: `Must be a video URL (cannot play playlists, currently).`,
+                    type: `STRING`,
+                    required: true
+                },
+            ],
         },
     ],
     permissions: '',
@@ -277,6 +290,17 @@ module.exports = {
 
                 interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
+        }
+
+        /*******************/
+        /* ADD          */
+        /*******************/
+        if(subCmdName == 'add') {
+
+            // GETTING OPTIONS VALUES
+            let videoURL = interaction.options.getString('YouTube_URL');
+
+            interaction.reply({ content: `You asked HooterBot to add this song to the queue: <${videoURL}>` });
         }
     }
 }
