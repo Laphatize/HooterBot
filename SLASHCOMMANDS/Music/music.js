@@ -261,12 +261,12 @@ module.exports = {
                     resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.followUp({ content: `Result: ${resultsArray.join(`\n`)}`})
+                interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
             else {
                 const result = await yts(`${searchTitle} by ${searchArtist}`)
 
-                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by ${searchArtist}.` });
+                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by **${searchArtist}**.` });
 
                 resultsArray = []
 
@@ -275,7 +275,7 @@ module.exports = {
                     resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.followUp({ content: `Result: ${resultsArray.join(`\n`)}`})
+                interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
         }
     }
