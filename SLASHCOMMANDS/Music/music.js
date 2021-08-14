@@ -86,11 +86,22 @@ module.exports = {
         /*******************/
         if(subCmdName == 'join') {
 
+            let userVC = interaction.member.voice.channel
+
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to join a voice channel before I can join you! Hop in a voice channel and re-run this command.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
+            
 
 
             interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
-
-            let userVC = interaction.member.voice.channel
 
             const connection = joinVoiceChannel({
                 channelId: userVC.id,
@@ -110,6 +121,18 @@ module.exports = {
         /*******************/
         if(subCmdName == 'leave') {
 
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to be in a voice channel for me to leave a voice channel, silly!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
+
+
             return interaction.reply({ content: 'You asked HooterBot to leave your current voice channel.' });
         }
         
@@ -119,6 +142,17 @@ module.exports = {
         /* PLAY            */
         /*******************/
         if(subCmdName == 'play') {
+
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to be in a voice channel before we can start jamming! Hop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
 
             return interaction.reply({ content: 'You asked HooterBot to play music in your current voice channel.' });
         }
