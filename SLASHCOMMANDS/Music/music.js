@@ -91,9 +91,9 @@ module.exports = {
             interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
 
             const connection = joinVoiceChannel({
-                channelId: channel.id,
-                guildId: channel.guild.id,
-                adapterCreator: channel.guild.voiceAdapterCreator,
+                channelId: member.voice.channel.id,
+                guildId: member.voice.channel.guild.id,
+                adapterCreator: member.voice.channel.guild.voiceAdapterCreator,
             });
             
             connection.on(VoiceConnectionStatus.Ready, () => {
