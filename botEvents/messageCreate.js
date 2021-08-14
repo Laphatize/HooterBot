@@ -305,12 +305,23 @@ module.exports = {
             let messageChannelId = splitArgs[5];
             let messageId = splitArgs[6].split(' ');
             
+            
+
             // CHANNEL OBJECT
             let msgCh = message.guild.channels.cache.get(messageChannelId)
 
             // FETCH MESSAGE
             await msgCh.messages.fetch(messageId)
                 .then(msg => {
+
+                    // PARTIAL MESSAGE
+                    if (msg.partial) {
+                        try {
+                            await msg.fetch()
+                        } catch (err) {
+                            return console.log(err);
+                        }
+                    }
 
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
