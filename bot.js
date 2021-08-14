@@ -123,6 +123,7 @@ client.on('ready', async () => {
     let rulesSC = cmds.find(c => c.name === `rules_embed`)
     let permsSC = cmds.find(c => c.name ===`permissions`)
     let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
+    let musicSC = cmds.find(c => c.name ===`music`)
 
 
     // SETTING PERMISSIONS
@@ -205,7 +206,19 @@ client.on('ready', async () => {
             //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
             //     type: 'USER',
             //     permission: true,
-            }]},
+            }]
+        },{
+            id: musicSC.id,     // COMMAND: /music
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            // },{
+            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+            //     type: 'USER',
+            //     permission: true,
+            }]
+        },
     ];
     
 
