@@ -316,20 +316,20 @@ module.exports = {
                     let grabbedMessage = msg.get(`${messageId}`)
 
 
-                    let msgAuthorField
+                    let msgLinkQuoteEmbed
                     try {
-                        msgAuthorField = `${grabbedMessage.author.tag}, ${grabbedMessage.author.displayAvatarURL({ dynamic:true })}`
+                        msgLinkQuoteEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedDarkGrey)
+                            .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
+                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                            .setTimestamp()
                     } catch {
-                        msgAuthorField = `*Author could not be fetched*`
+                        msgLinkQuoteEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedDarkGrey)
+                            .setAuthor(`*Author could not be fetched*`)
+                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                            .setTimestamp()
                     }
-
-                    // FORMATTING QUOTE
-                    let msgLinkQuoteEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedDarkGrey)
-                        .setAuthor(msgAuthorField)
-                        // .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
-                        .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
-                        .setTimestamp()
 
                     // SENDING BACK IN CHANNEL
                     message.channel.send({ embeds: [msgLinkQuoteEmbed] })
