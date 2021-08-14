@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
-const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
+const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
 
 
 module.exports = {
@@ -108,6 +108,14 @@ module.exports = {
                 guildId: interaction.guild.id,
                 adapterCreator: userVC.guild.voiceAdapterCreator,
             });
+
+            connection.on(VoiceConnectionStatus.Signalling, () => {
+                console.log('The initial voice connection is signaling permission to join a voice channel.');
+            });
+
+            connection.on(VoiceConnectionStatus.Connecting, () => {
+                console.log('Permission to join voice channel authorized, establishing connection to voice channel.');
+            });
             
             connection.on(VoiceConnectionStatus.Ready, () => {
                 interaction.channel.send('The connection has entered the Ready state - ready to play audio!');
@@ -152,7 +160,7 @@ module.exports = {
                 let notInVcEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`${config.emjREDTICK} **Error!**`)
-                    .setDescription(`You need to be in a voice channel before we can start jamming! Hop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
+                    .setDescription(`You need to be in a voice channel before we can start jamming! 🎵\nHop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
 
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
@@ -175,7 +183,7 @@ module.exports = {
                 let notInVcEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`${config.emjREDTICK} **Error!**`)
-                    .setDescription(`You need to be in a voice channel for me to stop music. Hop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
+                    .setDescription(`You need to be in a voice channel for me to stop music\nHop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
 
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
