@@ -110,15 +110,15 @@ module.exports = {
             });
 
             connection.on(VoiceConnectionStatus.Signalling, () => {
-                console.log('The initial voice connection is signaling permission to join a voice channel.');
+                interaction.channel.send('[Initial voice connection is signaling permission to join a voice channel.]');
             });
 
             connection.on(VoiceConnectionStatus.Connecting, () => {
-                console.log('Permission to join voice channel authorized, establishing connection to voice channel.');
+                interaction.channel.send('[Permission to join voice channel authorized, establishing connection to voice channel.]');
             });
             
             connection.on(VoiceConnectionStatus.Ready, () => {
-                interaction.channel.send('The connection has entered the Ready state - ready to play audio!');
+                interaction.channel.send('[Connection has entered the Ready state - ready to play audio, join sequence complete!]');
             });
         }
 
