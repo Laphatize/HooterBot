@@ -255,12 +255,13 @@ module.exports = {
 
                 resultsArray = []
 
-                const videos = result.videos.slice( 0 , 3 )
+
+                const videos = result.videos.slice( 0 , 1 )
                 videos.forEach( function (v) {
-                    resultsArray.push( `#${v} | "${ v.title }" (${ v.timestamp }) by ${ v.author.name }` )
+                    resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.followUp({ content: `Results: ${resultsArray.join(`\n`)}`})
+                interaction.followUp({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
             else {
                 const result = await yts(`${searchTitle} by ${searchArtist}`)
@@ -271,10 +272,10 @@ module.exports = {
 
                 const videos = result.videos.slice( 0 , 3 )
                 videos.forEach( function (v) {
-                    resultsArray.push( `#${v} | "${ v.title }" (${ v.timestamp }) by ${ v.author.name }` )
+                    resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.followUp({ content: `Results: ${resultsArray.join(`\n`)}`})
+                interaction.followUp({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
         }
     }
