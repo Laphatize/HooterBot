@@ -4,7 +4,7 @@ const config = require ('../../config.json')
 
 module.exports = {
     name: 'rule',
-    description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
+    description: 'Generates and individual rule.',
     options: [
         {
             name: `number`,
@@ -75,7 +75,7 @@ module.exports = {
         // DEFINING LOG EMBED
         let rulesEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
-            .setTitle(`${ruleNum} ${ruleTitle}`)
+            .setTitle(`Rule ${ruleNum}: ${ruleTitle}`)
             .setDescription(`${ruleText}\n\n*See the full list of rules at* ${interaction.guild.channels.cache.find(ch => ch.name === `rules`)}*.*`)
             .setTimestamp()
 
