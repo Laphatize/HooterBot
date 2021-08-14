@@ -110,10 +110,13 @@ module.exports = {
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
-        let msgAuthor = message.author.tag
-            .catch(err => {
-                return
-            })
+        let msgAuthor
+        try {
+            msgAuthor= message.author.tag
+        } catch {
+            return
+        }
+        
 
         // LOG EMBED
         let logEmbed = new discord.MessageEmbed()
