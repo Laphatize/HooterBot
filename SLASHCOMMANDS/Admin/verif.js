@@ -494,8 +494,6 @@ module.exports = {
             // IF NOT USED IN VERIFICATION CHANNEL
             if(interaction.channel.name.toLowerCase().startsWith(`verify-`)) {
 
-                await interaction.deferReply()
-
                 // GRABBING MESSAGE CONTENT AND FORMATTING FOR EMBED
                 let modAdminMsgEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
