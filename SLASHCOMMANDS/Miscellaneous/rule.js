@@ -77,8 +77,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`Rule ${ruleNum}: ${ruleTitle}`)
             .setDescription(`${ruleText}\n\n*See the full list of rules at* ${interaction.guild.channels.cache.find(ch => ch.name === `rules`)}*.*`)
-            .setTimestamp()
-
+            
 
         // LOG ENTRY
         return interaction.reply({ embeds: [rulesEmbed] })
