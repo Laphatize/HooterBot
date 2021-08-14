@@ -121,6 +121,8 @@ module.exports = {
         /*******************/
         if(subCmdName == 'leave') {
 
+            let userVC = interaction.member.voice.channel
+
             // USER NOT IN VC
             if(!userVC) {
                 let notInVcEmbed = new discord.MessageEmbed()
@@ -143,6 +145,8 @@ module.exports = {
         /*******************/
         if(subCmdName == 'play') {
 
+            let userVC = interaction.member.voice.channel
+
             // USER NOT IN VC
             if(!userVC) {
                 let notInVcEmbed = new discord.MessageEmbed()
@@ -164,6 +168,19 @@ module.exports = {
         /*******************/
         if(subCmdName == 'stop') {
 
+            let userVC = interaction.member.voice.channel
+
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to be in a voice channel for me to stop music. Hop into a voice channel and make sure I'm there too with \`\`/music join\`\`!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
+
             return interaction.reply({ content: 'You asked HooterBot to stop the music in your current voice channel.' });
         }
 
@@ -173,6 +190,19 @@ module.exports = {
         /* SKIP            */
         /*******************/
         if(subCmdName == 'skip') {
+
+            let userVC = interaction.member.voice.channel
+
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to be in a voice channel first before I can skip music.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
 
             return interaction.reply({ content: 'You asked HooterBot to skip to the next song in the queue.' });
         }
