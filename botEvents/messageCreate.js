@@ -311,7 +311,7 @@ module.exports = {
             let msgCh = message.guild.channels.cache.get(messageChannelId)
 
             // FETCH MESSAGE
-            await msgCh.messages.fetch(messageId)
+            await msgCh.messages.fetch(messageId, true)
                 .then(async msg => {
 
                     // PARTIAL MESSAGE
