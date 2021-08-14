@@ -9,7 +9,7 @@ module.exports = {
 
 
         // IGNORE NON-GUILD CHANNELS, MOD-LOG/RULES/LOGGING CHANNEL
-        if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.name == 'hooterbot-error-logging') return;
+        if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == 'hooterbot-error-logging') return;
 
 
         // RULES CHANNEL FOR RULES EMBED
@@ -106,16 +106,18 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
+        
+        if(message.author) {
+            // LOG EMBED
+            let logEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`Message Deleted`)
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
+                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+                .setTimestamp()
 
-        // LOG EMBED
-        let logEmbed = new discord.MessageEmbed()
-            .setColor(config.embedRed)
-            .setTitle(`Message Deleted`)
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-            .setTimestamp()
-
-        // LOG ENTRY
-        return modLogChannel.send({embeds: [logEmbed]})
+            // LOG ENTRY
+            return modLogChannel.send({embeds: [logEmbed]})
+        }
 	},
 };
