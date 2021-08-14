@@ -1,10 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
-const birthdaySchema = require('../../Database/birthdaySchema');
-const infractionsSchema = require('../../Database/infractionsSchema');
-const mutedUsersSchema = require('../../Database/mutedUsersSchema');
-const levels = require('discord-xp');
-const moment = require('moment');
+const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 
 
 module.exports = {
@@ -90,7 +86,19 @@ module.exports = {
         /*******************/
         if(subCmdName == 'join') {
 
-            return interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
+
+
+            interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
+
+            const connection = joinVoiceChannel({
+                channelId: channel.id,
+                guildId: channel.guild.id,
+                adapterCreator: channel.guild.voiceAdapterCreator,
+            });
+            
+            connection.on(VoiceConnectionStatus.Ready, () => {
+                interaction.channel.send('The connection has entered the Ready state - ready to play audio!');
+            });
         }
 
 
