@@ -110,17 +110,20 @@ module.exports = {
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
 
-        if(!message.author) {
-            // LOG EMBED
-            let logEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`Message Deleted`)
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
-                .setTimestamp()
+        let msgAuthor = message.author.tag
+            .catch(err => {
+                return
+            })
 
-            // LOG ENTRY
-            return modLogChannel.send({embeds: [logEmbed]})
-        }
+        // LOG EMBED
+        let logEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`Message Deleted`)
+            .setAuthor(msgAuthor, message.author.displayAvatarURL({ dynamic:true }))
+            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+            .setTimestamp()
+
+        // LOG ENTRY
+        return modLogChannel.send({embeds: [logEmbed]})
 	},
 };
