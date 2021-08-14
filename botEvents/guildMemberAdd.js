@@ -28,7 +28,7 @@ module.exports = {
             .addField(`Roles`, `Grab roles in ${rolesChannel} to describe yourself and to denote your college or school.\nWe have a ${config.emjVerified} **verified role** for students and staff of Temple University that grants additional features in the server (access to more channels, image sharing abilities, and more!).`)
             .addField(`Ask Questions`, `Get answers from current students to the questions you have about Temple University in ${questionsChannel}.`)
             .addField(`Rules`, `Take a minute to look over the server's ${rulesChannel}.`)
-            .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - see ${rulesChannel} fpr instructions.`)
+            .addField(`Need help?`, `If you encounter any problems in the server, please contact the moderators and admins by opening a ModMail ticket - see ${rulesChannel} for instructions.`)
 
         // SENDING DM EMBED
         await member.send({embeds: [welcomeDMEmbed]})

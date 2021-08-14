@@ -4,6 +4,10 @@ const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
 const levels = require('discord-xp');
 
+// COOLDOWN FOR XP SYSTEM
+const cooldowns = new Set()
+
+
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
@@ -255,17 +259,29 @@ module.exports = {
             return;
         }
 
-        
-        // RANDOM XP TO ADD: [15, 25]
+        // IF WITHIN COOLDOWN, NO XP
+        if(cooldowns.has(message.author.id)) return;
+
+
+        // NO CURRENT COOLDOWN, SET
+        cooldowns.add(message.author.id)
+
+        // [15, 25]XP PER MESSAGE
         xpToAdd = Math.floor(Math.random()*11) + 15;
 
+        // COOLDOWN EXPIRES AFTER 60s
+        setTimeout(() => cooldowns.delete(message.author.id), 60000)
+
+
+
+        // USER HAS LEVELED UP
         const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
             .catch(err => console.log(err))
 
+
+        // SEND MESSAGE IN BOT-CHANNEL
         if(hasLeveledUp) {
             const user = await levels.fetch(message.author.id, message.guild.id);
-
-            // BOT-CHANNEL MESSAGE
             message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
                 .catch(err => console.log(err))
         }
@@ -286,9 +302,9 @@ module.exports = {
 
 
 
-        /***********************************************************/
-        /*      LINK READER - ONLY WORKING FOR CACHED MESSAGES     */
-        /***********************************************************/
+        /****************************************************************/
+        /*      LINK READER - ONLY WORKING FOR CACHED MESSAGES <4 HRS   */
+        /****************************************************************/
         // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
         let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
 
@@ -327,7 +343,11 @@ module.exports = {
                             .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
                             .setTimestamp(grabbedMessage.createdTimestamp)
                     } catch {
-                        return;
+                        msgLinkQuoteEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedDarkGrey)
+                            .setAuthor(`Unknown Author`)
+                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                            .setTimestamp(grabbedMessage.createdTimestamp)
                     }
 
                     // SENDING BACK IN CHANNEL
