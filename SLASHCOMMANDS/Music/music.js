@@ -70,7 +70,7 @@ module.exports = {
             ],
         },{
             // MUSIC ADD
-            name: `addYouTube`,
+            name: `add_youtube`,
             description: `Add a song to the playlist using a YouTube URL.`,
             type: 'SUB_COMMAND',
             options: [
@@ -295,7 +295,7 @@ module.exports = {
         /*******************/
         /* ADD YOUTUBE     */
         /*******************/
-        if(subCmdName == 'addYouTube') {
+        if(subCmdName == 'add_youtube') {
 
             // GETTING OPTIONS VALUES
             let videoURL = interaction.options.getString('url');
