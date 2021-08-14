@@ -6,7 +6,7 @@ const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@disco
 
 module.exports = {
     name: 'music',
-    description: 'Commands regarding music playing in voice channels',
+    description: 'Commands regarding music playing in voice channels.',
     options: [
         {
             // MUSIC JOIN
@@ -35,7 +35,7 @@ module.exports = {
         },{
             // MUSIC SKIP
             name: `skip`,
-            description: `Skips the current song for the next song in the queue`,
+            description: `Skips the current song for the next song in the queue.`,
             type: 'SUB_COMMAND',
             options: []
         },{
@@ -53,17 +53,17 @@ module.exports = {
         },{
             // MUSIC SEARCH
             name: `search`,
-            description: `Have HooterBot find and add a song to the queue using the title`,
+            description: `Have HooterBot find and add a song to the queue using the title.`,
             type: 'SUB_COMMAND',
             options: [
                 {
                     name: `title`,
-                    description: `Search using the title`,
+                    description: `Search using the title.`,
                     type: `STRING`,
                     required: true
                 },{
                     name: `artist`,
-                    description: `Specify the artist of the song`,
+                    description: `Specify the artist of the song to find a more specific result.`,
                     type: `STRING`,
                     required: false
                 },
