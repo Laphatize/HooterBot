@@ -324,15 +324,11 @@ module.exports = {
                             .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
                             .setTimestamp()
                     } catch {
-                        msgLinkQuoteEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedDarkGrey)
-                            .setAuthor(`*Author could not be fetched*`)
-                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
-                            .setTimestamp()
+                        return;
                     }
 
                     // SENDING BACK IN CHANNEL
-                    message.channel.send({ embeds: [msgLinkQuoteEmbed] })
+                    return message.channel.send({ embeds: [msgLinkQuoteEmbed] })
                 })
         }
     }
