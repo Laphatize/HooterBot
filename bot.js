@@ -120,7 +120,7 @@ client.on('ready', async () => {
     const cmds = await client.application?.commands.fetch()
     let verifSC = cmds.find(c => c.name === `verif`)
     let userSC = cmds.find(c => c.name === `user`)
-    let rulesSC = cmds.find(c => c.name === `rules`)
+    let rulesSC = cmds.find(c => c.name === `rules_embed`)
     let permsSC = cmds.find(c => c.name ===`permissions`)
     let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
 
