@@ -14,34 +14,34 @@ module.exports = {
             choices: [
                 {
                     name: `1_Communicate_in_English`,
-                    value: `1`,
+                    value: 1,
                 },{
                     name: `2_Be_respectful_of_all_members`,
-                    value: `2`,
+                    value: 2,
                 },{
                     name: `3_No_spam`,
-                    value: `3`,
+                    value: 3,
                 },{
                     name: `4_Channels_on-topic`,
-                    value: `4`,
+                    value: 4,
                 },{
                     name: `5_No_NSFW`,
-                    value: `5`,
+                    value: 5,
                 },{
                     name: `6_No_advertising`,
-                    value: `6`,
+                    value: 6,
                 },{
                     name: `7_Server_raiding`,
-                    value: `7`,
+                    value: 7,
                 },{
                     name: `8_Discord_TOS`,
-                    value: `8`,
+                    value: 8,
                 },{
                     name: `9_Decisions_final`,
-                    value: `9`,
+                    value: 9,
                 },{
                     name: `10_punishments`,
-                    value: `10`,
+                    value: 10,
                 }
             ]
         },
@@ -55,7 +55,7 @@ module.exports = {
         let ruleNum = inputs[0]
 
         // MAIN RULES EMBED
-        let rules = [
+        let rulesArray = [
             [`Communicate in English`, `All communication within the server needs to be in English.`],
             [`Be respectful of all members`,`We have zero tolerance for discriminatory rhetoric, racism, sexism, homophobia, transphobia, or any other kind of offensive language. The use of inappropriate language and profanity should be kept to a minimum. Derogatory language and slurs are prohibited. This includes usernames, nicknames, and statuses.`],
             [`No spam, mention spamming, or ghost pinging`, `This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.`],
@@ -68,8 +68,8 @@ module.exports = {
             [`Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`],
         ]
 
-        let ruleTitle = outcomesArray[ruleNum-1][0]
-        let ruleText = outcomesArray[ruleNum-1][1]
+        let ruleTitle = rulesArray[ruleNum-1][0]
+        let ruleText = rulesArray[ruleNum-1][1]
         
 
         // DEFINING LOG EMBED
