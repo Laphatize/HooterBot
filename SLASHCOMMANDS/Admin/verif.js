@@ -512,7 +512,7 @@ module.exports = {
                     // SENDING MESSAGE
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
-                    return interaction.followUp({ content: `${adminRole}s!` })
+                    return interaction.followUp(`${adminRole}`)
                 }
                 // PING ADMINS AND MODS
                 if(pmgPing == 'ADMINS_MODS') {
@@ -524,7 +524,7 @@ module.exports = {
                     // SENDING MESSAGE
                     interaction.reply({ embeds: [modAdminMsgEmbed] })
 
-                    return interaction.followUp({ content: `${adminRole}s & ${modRole}s!` })
+                    return interaction.followUp( `${adminRole} ${modRole}` )
                 }
                 else {
                     return interaction.reply({ embeds: [modAdminMsgEmbed] })
