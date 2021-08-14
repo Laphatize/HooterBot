@@ -510,7 +510,9 @@ module.exports = {
                     let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
                     
                     // SENDING MESSAGE
-                    return interaction.reply({ embeds: [modAdminMsgEmbed], content: `${adminRole}s!` })
+                    interaction.reply({ embeds: [modAdminMsgEmbed] })
+
+                    return interaction.followUp({ content: `${adminRole}s!` })
                 }
                 // PING ADMINS AND MODS
                 if(pmgPing == 'ADMINS_MODS') {
@@ -520,7 +522,9 @@ module.exports = {
                     let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
                     
                     // SENDING MESSAGE
-                    return interaction.reply({ embeds: [modAdminMsgEmbed], content: `${adminRole}s & ${modRole}s!` })
+                    interaction.reply({ embeds: [modAdminMsgEmbed] })
+
+                    return interaction.followUp({ content: `${adminRole}s & ${modRole}s!` })
                 }
                 else {
                     return interaction.reply({ embeds: [modAdminMsgEmbed] })
