@@ -287,7 +287,7 @@ module.exports = {
 
 
         /***********************************************************/
-        /*      LINK READER                                        */
+        /*      LINK READER - ONLY WORKING FOR CACHED MESSAGES     */
         /***********************************************************/
         // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
         let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
@@ -296,8 +296,7 @@ module.exports = {
         // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
         if(message.content.includes(discordMsgLinkFormat)) {
             // FINDING URL IN MESSAGE, CUTTING DOWN INTO USEFUL PIECES
-            let inviteIndexValue = message.content.indexOf(discordMsgLinkFormat)
-            let msgLink = message.content.slice(inviteIndexValue).split(' ')
+            let msgLink = message.content.slice(message.content.indexOf(discordMsgLinkFormat)).split(' ')
             let msgFullUrl = msgLink[0]
             let splitArgs = msgFullUrl.split('/')
 
@@ -308,12 +307,11 @@ module.exports = {
             
 
             // CHANNEL OBJECT
-            let msgCh = message.guild.channels.fetch(messageChannelId)
+            let msgCh = message.guild.channels.cache.get(messageChannelId)
 
             // FETCH MESSAGE
             await msgCh.messages.fetch({}, true)
                 .then(async msg => {
-
 
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)

@@ -6,9 +6,12 @@ module.exports = {
 	name: 'guildBanAdd',
 	async execute(ban, client) {
 
+        if (ban.user.partial) ban.user = await ban.user.fetch()
+
+        
         // LOG CHANNEL
         const modLogChannel = ban.guild.channels.cache.find(ch => ch.name === `mod-log`)
-
+        
 
         // FETCH AUDIT LOGS FOR BAN
         const fetchedLogs = await ban.guild.fetchAuditLogs({

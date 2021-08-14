@@ -7,15 +7,6 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
-        // FETCH IF PARTIAL
-        if(message.partial){
-            try {
-                await message.fetch()
-            } catch (err) {
-                return console.log(err);
-            }
-        }
-
 
         // IGNORE NON-GUILD CHANNELS, MOD-LOG/RULES/LOGGING CHANNEL
         if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == `rules` || message.channel.name == 'hooterbot-error-logging') return;
