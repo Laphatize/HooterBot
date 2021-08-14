@@ -308,7 +308,7 @@ module.exports = {
             
 
             // CHANNEL OBJECT
-            let msgCh = message.channels.fetch(messageChannelId)
+            let msgCh = message.guild.channels.fetch(messageChannelId)
 
             // FETCH MESSAGE
             await msgCh.messages.fetch({}, true)
