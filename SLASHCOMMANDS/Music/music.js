@@ -70,12 +70,12 @@ module.exports = {
             ],
         },{
             // MUSIC ADD
-            name: `add_youtube`,
+            name: `add`,
             description: `Add a song to the playlist using a YouTube URL.`,
             type: 'SUB_COMMAND',
             options: [
                 {
-                    name: `url`,
+                    name: `youtube_url`,
                     description: `Must be a video URL (cannot play playlists, currently).`,
                     type: `STRING`,
                     required: true
@@ -295,10 +295,10 @@ module.exports = {
         /*******************/
         /* ADD YOUTUBE     */
         /*******************/
-        if(subCmdName == 'add_youtube') {
+        if(subCmdName == 'add') {
 
             // GETTING OPTIONS VALUES
-            let videoURL = interaction.options.getString('url');
+            let videoURL = interaction.options.getString('add');
 
             interaction.reply({ content: `You asked HooterBot to add this song to the queue: <${videoURL}>` });
         }
