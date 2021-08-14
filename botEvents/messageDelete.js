@@ -8,6 +8,9 @@ module.exports = {
 	async execute(message, client) {
 
 
+
+
+
         // IGNORE NON-GUILD CHANNELS, MOD-LOG/RULES/LOGGING CHANNEL
         if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == 'hooterbot-error-logging') return;
 
@@ -106,8 +109,8 @@ module.exports = {
         // LOG CHANNEL
         const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
 
-        
-        if(message.author) {
+
+        if(!message.author) {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
