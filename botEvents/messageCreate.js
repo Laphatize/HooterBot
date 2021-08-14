@@ -328,8 +328,6 @@ module.exports = {
             // MESSAGE
             await msgCh.messages.fetch({}, true)
                 .then(async msg => {
-
-                    console.log(`${grabbedMessage}`)
                     
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
