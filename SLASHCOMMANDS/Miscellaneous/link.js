@@ -129,7 +129,7 @@ module.exports = {
 
             case 'finals':
                 linkName = `Final Exam Schedules`
-                link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
+                link = `https://registrar.temple.edu/exam-schedule`
                 break;
 
             case 'financial_aid':

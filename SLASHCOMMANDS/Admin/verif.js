@@ -504,7 +504,29 @@ module.exports = {
                     .setTimestamp()
                     .setFooter(`This message can only be seen by mods/admins.`)
 
-                await interaction.editReply({ embeds: [modAdminMsgEmbed] })
+
+                // PING ADMINS ONLY
+                if(pmgPing == 'ADMINS') {
+
+                    // FETCH ADMIN ROLE
+                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [modAdminMsgEmbed], content: `<@${adminRole}>` })
+                }
+                // PING ADMINS AND MODS
+                if(pmgPing == 'ADMINS_MODS') {
+
+                    // FETCH ADMIN & MOD ROLES
+                    let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
+                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
+                    
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [modAdminMsgEmbed], content: `<@${adminRole}> <@${modRole}>` })
+                }
+                else {
+                    return interaction.reply({ embeds: [modAdminMsgEmbed] })
+                }
             }
 
 
@@ -515,27 +537,7 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Error!`)
                     .setDescription(`This command can only be used in a verification ticket channel.`)
                     .setTimestamp()
-                
-                // PING ADMINS ONLY
-                if(pmgPing == 'ADMINS') {
 
-                    // FETCH ADMIN ROLE
-                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
-                    
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [wrongChannelEmbed], content: `<@${adminRole}>`, ephemeral: true })
-                }
-                // PING ADMINS AND MODS
-                if(pmgPing == 'ADMINS_MODS') {
-
-                    // FETCH ADMIN & MOD ROLES
-                    let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');
-                    let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
-                    
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [wrongChannelEmbed], content: `<@${adminRole}> <@${modRole}>`, ephemeral: true })
-                }
-                else {
                     // SENDING MESSAGE
                     return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
                 }
