@@ -538,9 +538,8 @@ module.exports = {
                     .setDescription(`This command can only be used in a verification ticket channel.`)
                     .setTimestamp()
 
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
-                }
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [wrongChannelEmbed], ephemeral: true })
             }
         }
 
