@@ -322,7 +322,7 @@ module.exports = {
                             .setColor(config.embedDarkGrey)
                             .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
                             .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
-                            .setTimestamp()
+                            .setTimestamp(grabbedMessage.createdTimestamp)
                     } catch {
                         return;
                     }
