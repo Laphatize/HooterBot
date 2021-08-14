@@ -70,7 +70,7 @@ module.exports = {
                     name: `ping`,
                     description: `Ping the admins and mods on this message?`,
                     type: `STRING`,
-                    required: true,
+                    required: false,
                     choices: [
                         {
                             name: `ADMINS`,
@@ -260,7 +260,7 @@ module.exports = {
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await interaction.guild.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
                     .then(msg => {
-                        msg.edit({embeds: [ticketMaintenanceEmbed], components: [buttonRow]})
+                        msg.edit({ embeds: [ticketMaintenanceEmbed], components: [buttonRow] })
                     })
                     .catch(err => console.log(err))
                 
@@ -319,7 +319,7 @@ module.exports = {
                 // POSTING MAINTENANCE EMBED MESSAGE AND BUTTON
                 await interaction.guild.channels.cache.find(ch => ch.name === `roles`).messages.fetch(dbGuildData.VERIF_PROMPT_MSG_ID)
                     .then(msg => {
-                        msg.edit({embeds: [ticketEmbed], components: [buttonRow]})
+                        msg.edit({ embeds: [ticketEmbed], components: [buttonRow] })
                     })
                     .catch(err => console.log(err))
 
@@ -517,7 +517,7 @@ module.exports = {
                     .setTimestamp()
                 
                 // PING ADMINS ONLY
-                if(pmgPing = 'ADMINS') {
+                if(pmgPing == 'ADMINS') {
 
                     // FETCH ADMIN ROLE
                     let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
@@ -526,7 +526,7 @@ module.exports = {
                     return interaction.reply({ embeds: [wrongChannelEmbed], content: `<@${adminRole}>`, ephemeral: true })
                 }
                 // PING ADMINS AND MODS
-                if(pmgPing = 'ADMINS_MODS') {
+                if(pmgPing == 'ADMINS_MODS') {
 
                     // FETCH ADMIN & MOD ROLES
                     let modRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'moderator');

@@ -1,4 +1,5 @@
 const config = require ('../../config.json')
+const { MessageActionRow, MessageButton } = require('discord.js');
 
 
 module.exports = {
@@ -154,7 +155,21 @@ module.exports = {
         }
 
 
+        let linkButton = new MessageButton()
+            .setLabel(`${linkName}`)
+            .setStyle("LINK")
+            .setURL(`${link}`)
+            .setDisabled(false)
+
+
+        // BUTTON ROW
+        let buttonRow = new MessageActionRow()
+            .addComponents(
+                linkButton
+            );
+
+
         // POSTING LINK USING VALUES FROM ABOVE
-        interaction.reply({ content: `**${linkName}**: <${link}>` })
+        interaction.reply({ content: `Here you go!`, components: [buttonRow] })
     }
 }
