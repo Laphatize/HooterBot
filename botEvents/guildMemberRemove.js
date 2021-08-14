@@ -1,9 +1,9 @@
 const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
-const moment = require('moment');
 const ticketSchema = require('../Database/ticketSchema')
-const mutedUsersSchema = require('../Database/mutedUsersSchema');
+const levels = require('discord-xp');
+
 
 
 module.exports = {
@@ -24,6 +24,12 @@ module.exports = {
 
         // LOG ENTRY
         modLogChannel.send({embeds: [logLeaveGuild]})
+
+
+
+        // DELETING XP VALUES
+        levels.deleteUser(member.id, member.guild.id);
+
 
 
                 
