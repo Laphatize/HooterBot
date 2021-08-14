@@ -270,7 +270,7 @@ module.exports = {
 
                 resultsArray = []
 
-                const videos = result.videos.slice( 0 , 3 )
+                const videos = result.videos.slice( 0 , 1 )
                 videos.forEach( function (v) {
                     resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
