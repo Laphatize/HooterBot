@@ -3,11 +3,11 @@ const config = require ('../../config.json')
 
 
 module.exports = {
-    name: 'rules_embed',
+    name: 'rule',
     description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
     options: [
         {
-            name: `rule`,
+            name: `number`,
             description: `The rule to display.`,
             type: `INTEGER`,
             required: true,
