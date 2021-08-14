@@ -315,12 +315,19 @@ module.exports = {
                     // [ MESSAGE ID , {MSG_OBJ} ]
                     let grabbedMessage = msg.get(`${messageId}`)
 
-                    console.log(`grabbedMessage = ${grabbedMessage}`)
+
+                    let msgAuthorField
+                    try {
+                        msgAuthorField = `${grabbedMessage.author.tag}, ${grabbedMessage.author.displayAvatarURL({ dynamic:true })}`
+                    } catch {
+                        msgAuthorField = `*Author could not be fetched*`
+                    }
 
                     // FORMATTING QUOTE
                     let msgLinkQuoteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedDarkGrey)
-                        .setAuthor(grabbedMessage.author.username, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
+                        .setAuthor(msgAuthorField)
+                        // .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
                         .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
                         .setTimestamp()
 
