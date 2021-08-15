@@ -29,8 +29,8 @@ module.exports = {
             options: []
         },{
             // MUSIC STOP
-            name: `stop`,
-            description: `[In development] Stops playing music.`,
+            name: `pause`,
+            description: `[In development] Pauses the music.`,
             type: 'SUB_COMMAND',
             options: []
         },{
@@ -92,7 +92,7 @@ module.exports = {
 
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
-        var connection = getVoiceConnection(interaction.guild.id)
+        
 
         /*******************/
         /* JOIN            */
@@ -112,6 +112,8 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+
+            var connection = getVoiceConnection(interaction.guild.id)
 
             // JOIN CONFIRMATION
             let joiningEmbed = new discord.MessageEmbed()
@@ -184,6 +186,8 @@ module.exports = {
             }
 
 
+            var connection = getVoiceConnection(interaction.guild.id)
+
             // LEAVING VC - DESTROY CONNECTIOn
             connection.destroy();
         }
@@ -196,9 +200,7 @@ module.exports = {
         if(subCmdName == 'play') {
 
             let userVC = interaction.member.voice.channel
-            const player = connection.state.subscription.player;
-
-
+            
             // USER NOT IN VC
             if(!userVC) {
                 let notInVcEmbed = new discord.MessageEmbed()
@@ -210,6 +212,9 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+            var connection = getVoiceConnection(interaction.guild.id)
+            const player = connection.state.subscription.player;
+
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet!)` });
@@ -218,9 +223,9 @@ module.exports = {
 
 
         /*******************/
-        /* STOP            */
+        /* PAUSE            */
         /*******************/
-        if(subCmdName == 'stop') {
+        if(subCmdName == 'pause') {
 
             let userVC = interaction.member.voice.channel
 
@@ -235,6 +240,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet!)` });
