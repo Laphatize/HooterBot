@@ -408,6 +408,9 @@ module.exports = {
 
 
                     var booster = moment( new Date(member.premiumSince)).format('LL')
+                    
+                    console.log(`server boost date for ${user.username} = ${booster}`)
+
                     if(booster == 'Invalid date') {
                         booster =  `*(N/A)*`
                     }
@@ -472,35 +475,41 @@ module.exports = {
                 confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             if(user2) {
                 levels.setXp(user2.id, interaction.guild.id, xp2);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
             } if(user3) {
                 levels.setXp(user3.id, interaction.guild.id, xp3);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp3} XP** has been added to ${user3}.`)
             } if(user4) {
                 levels.setXp(user4.id, interaction.guild.id, xp4);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp4} XP** has been added to ${user4}.`)
             } if(user5) {
                 levels.setXp(user5.id, interaction.guild.id, xp5);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp5} XP** has been added to ${user5}.`)
             } if(user6) {
                 levels.setXp(user6.id, interaction.guild.id, xp6);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp6} XP** has been added to ${user6}.`)
             } if(user7) {
                 levels.setXp(user7.id, interaction.guild.id, xp7);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp7} XP** has been added to ${user7}.`)
             } if(user8) {
                 levels.setXp(user8.id, interaction.guild.id, xp8);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp8} XP** has been added to ${user8}.`)
             } if(user9) {
                 levels.setXp(user9.id, interaction.guild.id, xp9);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp9} XP** has been added to ${user9}.`)
             } if(user10) {
                 levels.setXp(user10.id, interaction.guild.id, xp10);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                confirmationArray.push(`**${xp10} XP** has been added to ${user10}.`)
             }
 
+
+            let levelImportConfirmEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Level Import Success`)
+                .setDescription(`${confirmationArray.join(`\n`)}`)
+
             // CONFIRMATION
-            interaction.reply({ content: `${confirmationArray.join(`\n`)}`, ephemeral: true })
+            interaction.reply({ embeds: [levelImportConfirmEmbed], ephemeral: true })
         }
 
 
