@@ -119,7 +119,7 @@ module.exports = {
                 .setTitle(`Here I Come!`)
                 .setDescription(`Attempting to join you now!`)
 
-            interaction.reply({ embeds: [joiningEmbed], ephemeral: true });
+            interaction.reply({ embeds: [joiningEmbed] });
 
             // ATTEMPTING TO CONNECT
             if(connection?.state.status !== VoiceConnectionStatus.Destroyed) {
@@ -149,7 +149,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setDescription(`${config.emjGREENTICK} I've joined ${userVC}! Let's get some music playing!`)
 
-                interaction.editReply({ embeds: [joiningEmbed], ephemeral: true });
+                interaction.editReply({ embeds: [joiningEmbed] });
             }
             else{
                 // JOIN CONFIRMATION
@@ -159,7 +159,7 @@ module.exports = {
                     .setDescription(`Seems I'm having a hard time joining you in ${userVC}... Try again in a little while.`)
                     .setFooter(`If this continues to happen, please create a ModMail ticket to inform MrMusicMan789.`)
 
-                interaction.editReply({ embeds: [joiningEmbed], ephemeral: true });
+                interaction.editReply({ embeds: [joiningEmbed] });
             }
         }
 
@@ -182,8 +182,6 @@ module.exports = {
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
-
-            var connection = getVoiceConnection(interaction.guild.id)
 
 
             // LEAVING VC - DESTROY CONNECTIOn
@@ -212,7 +210,6 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet!)` });
@@ -238,7 +235,6 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet!)` });
@@ -264,7 +260,6 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to skip to the next song in the queue. (Sorry, don't know how to do that yet!)`});
