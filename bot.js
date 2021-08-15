@@ -138,14 +138,14 @@ client.on('ready', async () => {
                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
-            // },{
-            //     id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
             id: userSC.id,    // COMMAND: /user
@@ -157,14 +157,14 @@ client.on('ready', async () => {
                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
-            // },{
-            //     id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
             id: rulesSC.id,    // COMMAND: /rules
@@ -172,10 +172,10 @@ client.on('ready', async () => {
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
             id: permsSC.id,    // COMMAND: /permissions
@@ -187,14 +187,14 @@ client.on('ready', async () => {
                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
-            // },{
-            //     id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
             id: partnerMsgSC.id,    // COMMAND: /partner_message
@@ -202,10 +202,10 @@ client.on('ready', async () => {
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
             id: musicSC.id,     // COMMAND: /music
@@ -213,10 +213,10 @@ client.on('ready', async () => {
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
-            // },{
-            //     id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-            //     type: 'USER',
-            //     permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
             }]
         },
     ];
@@ -226,7 +226,7 @@ client.on('ready', async () => {
     client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
 
     // TEMPLE SERVER
-    // client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
+    client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
 })
 
 
@@ -244,23 +244,23 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
         GUILD_ID: `530503548937699340`
     }).exec();
 
-    // const dbGuildTempleServerData = await guildSchema.findOne({
-    //     GUILD_ID: `829409161581821992`
-    // }).exec();
+    const dbGuildTempleServerData = await guildSchema.findOne({
+        GUILD_ID: `829409161581821992`
+    }).exec();
 
     // TICKET CATEGORY ID'S
     let testServerTicketCatId = dbGuildTestServerData.TICKET_CAT_ID
-    // let templeServerTicketCatId = dbGuildTempleServerData.TICKET_CAT_ID
+    let templeServerTicketCatId = dbGuildTempleServerData.TICKET_CAT_ID
 
 
     // FETCHING THE GUILD FROM DATABASE
     let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
-    // let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
+    let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
 
 
     // GRAB TICKET CATEGORY USING ID
     let testServerTicketCategory = testServer.channels.cache.get(testServerTicketCatId)
-    // let templeServerTicketCategory = templeServer.channels.cache.get(templeServerTicketCatId)
+    let templeServerTicketCategory = templeServer.channels.cache.get(templeServerTicketCatId)
 
 
     // SETTING COUNT VALUES
@@ -269,14 +269,14 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
     
-    // // TEMPLE SERVER
-    // let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    // let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    // TEMPLE SERVER
+    let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
 
     // UPDATING CATEGORY VALUES
     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
-    // templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
 })
 
 
