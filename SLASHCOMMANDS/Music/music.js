@@ -112,6 +112,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
             
+            var connection = getVoiceConnection(interaction.guild.id)
 
             // JOIN CONFIRMATION
             let joiningEmbed = new discord.MessageEmbed()
@@ -183,7 +184,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(userVC.guild.id);
+            var connection = getVoiceConnection(interaction.guild.id)
 
 
             // LEAVING VC - DESTROY CONNECTIOn
@@ -212,7 +213,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(userVC.guild.id);
+            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet!)` });
@@ -238,7 +239,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(userVC.guild.id);
+            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet!)` });
@@ -264,7 +265,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(userVC.guild.id);
+            var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: `You asked HooterBot to skip to the next song in the queue. (Sorry, don't know how to do that yet!)`});
