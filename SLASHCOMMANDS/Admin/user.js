@@ -471,43 +471,43 @@ module.exports = {
             let confirmationArray = []
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
-            Levels.createUser(user1.id, interaction.guild.id)
+            levels.createUser(user1.id, interaction.guild.id)
             levels.setXp(user1.id, interaction.guild.id, xp1);
                 confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
             if(user2) {
-                Levels.createUser(user2.id, interaction.guild.id)
+                levels.createUser(user2.id, interaction.guild.id)
                 levels.setXp(user2.id, interaction.guild.id, xp2);
                 confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
             } if(user3) {
-                Levels.createUser(user3.id, interaction.guild.id)
+                levels.createUser(user3.id, interaction.guild.id)
                 levels.setXp(user3.id, interaction.guild.id, xp3);
                 confirmationArray.push(`**${xp3} XP** has been added to ${user3}.`)
             } if(user4) {
-                Levels.createUser(user4.id, interaction.guild.id)
+                levels.createUser(user4.id, interaction.guild.id)
                 levels.setXp(user4.id, interaction.guild.id, xp4);
                 confirmationArray.push(`**${xp4} XP** has been added to ${user4}.`)
             } if(user5) {
-                Levels.createUser(user5.id, interaction.guild.id)
+                levels.createUser(user5.id, interaction.guild.id)
                 levels.setXp(user5.id, interaction.guild.id, xp5);
                 confirmationArray.push(`**${xp5} XP** has been added to ${user5}.`)
             } if(user6) {
-                Levels.createUser(user6.id, interaction.guild.id)
+                levels.createUser(user6.id, interaction.guild.id)
                 levels.setXp(user6.id, interaction.guild.id, xp6);
                 confirmationArray.push(`**${xp6} XP** has been added to ${user6}.`)
             } if(user7) {
-                Levels.createUser(user7.id, interaction.guild.id)
+                levels.createUser(user7.id, interaction.guild.id)
                 levels.setXp(user7.id, interaction.guild.id, xp7);
                 confirmationArray.push(`**${xp7} XP** has been added to ${user7}.`)
             } if(user8) {
-                Levels.createUser(user8.id, interaction.guild.id)
+                levels.createUser(user8.id, interaction.guild.id)
                 levels.setXp(user8.id, interaction.guild.id, xp8);
                 confirmationArray.push(`**${xp8} XP** has been added to ${user8}.`)
             } if(user9) {
-                Levels.createUser(user9.id, interaction.guild.id)
+                levels.createUser(user9.id, interaction.guild.id)
                 levels.setXp(user9.id, interaction.guild.id, xp9);
                 confirmationArray.push(`**${xp9} XP** has been added to ${user9}.`)
             } if(user10) {
-                Levels.createUser(user10.id, interaction.guild.id)
+                levels.createUser(user10.id, interaction.guild.id)
                 levels.setXp(user10.id, interaction.guild.id, xp10);
                 confirmationArray.push(`**${xp10} XP** has been added to ${user10}.`)
             }
