@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
-const yts = require('yt-search')
+const yt = require('ytdl-core')
+const ytSearch = require('yt-search')
 const { joinVoiceChannel, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 
 
@@ -116,29 +117,50 @@ module.exports = {
             let joiningEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlue)
                 .setTitle(`Here I Come!`)
-                .setDescription(`Joining ${userVC} now!`)
+                .setDescription(`Attempting to join you now!`)
 
             interaction.reply({ embeds: [joiningEmbed], ephemeral: true });
 
+            // ATTEMPTING TO CONNECT
+            if(connection?.state.status !== VoiceConnectionStatus.Destroyed) {
+                // CONNECTING
+                const connection = joinVoiceChannel({
+                    channelId: userVC.id,
+                    guildId: interaction.guild.id,
+                    adapterCreator: userVC.guild.voiceAdapterCreator,
+                    selfDeaf: false,
+                    selfMute: false,
+                });
 
-            // CONNECTING
-            const connection = joinVoiceChannel({
-                channelId: userVC.id,
-                guildId: interaction.guild.id,
-                adapterCreator: userVC.guild.voiceAdapterCreator,
-            });
+                connection.on(VoiceConnectionStatus.Signalling, () => {
+                    interaction.channel.send('\`\`Initial voice connection is signaling permission to join a voice channel.\`\`');
+                });
 
-            connection.on(VoiceConnectionStatus.Signalling, () => {
-                interaction.channel.send('\`\`Initial voice connection is signaling permission to join a voice channel.\`\`');
-            });
+                connection.on(VoiceConnectionStatus.Connecting, () => {
+                    interaction.channel.send('\`\`Permission to join voice channel authorized, establishing connection to voice channel.\`\`');
+                });
+                
+                connection.on(VoiceConnectionStatus.Ready, () => {
+                    interaction.channel.send('\`\`[Connection has entered the Ready state - ready to play audio, join sequence complete!]\`\`');
+                });
 
-            connection.on(VoiceConnectionStatus.Connecting, () => {
-                interaction.channel.send('\`\`Permission to join voice channel authorized, establishing connection to voice channel.\`\`');
-            });
-            
-            connection.on(VoiceConnectionStatus.Ready, () => {
-                interaction.channel.send('\`\`[Connection has entered the Ready state - ready to play audio, join sequence complete!]\`\`');
-            });
+                // JOIN CONFIRMATION
+                let joiningEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlue)
+                    .setDescription(`I've joined ${userVC}! Let's get some music playing!`)
+
+                interaction.followUp({ embeds: [joiningEmbed], ephemeral: true });
+            }
+            else{
+                // JOIN CONFIRMATION
+                let joiningEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`Seems I'm having a hard time joining you in ${userVC}... Try again in a little while.`)
+                    .setFooter(`If this continues to happen, please create a ModMail ticket to inform MrMusicMan789.`)
+
+                interaction.followUp({ embeds: [joiningEmbed], ephemeral: true });
+            }
         }
 
 
@@ -162,11 +184,10 @@ module.exports = {
             }
 
             const connection = getVoiceConnection(userVC.guild.id);
-            // const subscription = connection.subscribe(audioPlayer);
 
+
+            // LEAVING VC - DESTROY CONNECTIOn
             connection.destroy();
-
-            return interaction.reply({ content: 'You asked HooterBot to leave your current voice channel.' });
         }
         
 
@@ -177,6 +198,8 @@ module.exports = {
         if(subCmdName == 'play') {
 
             let userVC = interaction.member.voice.channel
+            const player = connection.state.subscription.player;
+
 
             // USER NOT IN VC
             if(!userVC) {
@@ -192,7 +215,7 @@ module.exports = {
             const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
-            return interaction.reply({ content: 'You asked HooterBot to play music in your current voice channel.' });
+            return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet!)` });
         }
 
 
@@ -218,7 +241,7 @@ module.exports = {
             const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
-            return interaction.reply({ content: 'You asked HooterBot to stop the music in your current voice channel.' });
+            return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet!)` });
         }
 
 
@@ -244,7 +267,7 @@ module.exports = {
             const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
-            return interaction.reply({ content: 'You asked HooterBot to skip to the next song in the queue.' });
+            return interaction.reply({ content: `You asked HooterBot to skip to the next song in the queue. (Sorry, don't know how to do that yet!)`});
         }
 
 
@@ -254,7 +277,7 @@ module.exports = {
         /*******************/
         if(subCmdName == 'queue') {
 
-            return interaction.reply({ content: 'You asked HooterBot to pull up the current queue of music for this session.' });
+            return interaction.reply({ content: `You asked HooterBot to pull up the current queue of music for this session. (Sorry, don't know how to do that yet!)`});
         }
         
 
@@ -275,7 +298,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
             
-            return interaction.reply({ content: 'You asked HooterBot to clear the current queue of music.' });
+            return interaction.reply({ content: `You asked HooterBot to clear the current queue of music. (Sorry, don't know how to do that yet!)`});
         }
                 
 
@@ -291,7 +314,7 @@ module.exports = {
 
 
             if(!searchArtist) {
-                const result = await yts(searchTitle)
+                const result = await ytSearch(searchTitle)
 
                 interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"*.` });
 
@@ -306,7 +329,7 @@ module.exports = {
                 interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
             }
             else {
-                const result = await yts(`${searchTitle} by ${searchArtist}`)
+                const result = await ytSearch(`${searchTitle} by ${searchArtist}`)
 
                 interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by **${searchArtist}**.` });
 
@@ -321,6 +344,8 @@ module.exports = {
             }
         }
 
+
+        
         /*******************/
         /* ADD YOUTUBE     */
         /*******************/
