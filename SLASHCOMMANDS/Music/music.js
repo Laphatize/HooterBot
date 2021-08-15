@@ -137,7 +137,7 @@ module.exports = {
             });
             
             connection.on(VoiceConnectionStatus.Ready, () => {
-                interaction.followUp('`\`\`[Connection has entered the Ready state - ready to play audio, join sequence complete!]\`\`');
+                interaction.channel.send('\`\`[Connection has entered the Ready state - ready to play audio, join sequence complete!]\`\`');
             });
         }
 
@@ -161,7 +161,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
             connection.destroy();
@@ -189,7 +189,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: 'You asked HooterBot to play music in your current voice channel.' });
@@ -215,7 +215,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: 'You asked HooterBot to stop the music in your current voice channel.' });
@@ -241,7 +241,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
-            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            const connection = getVoiceConnection(userVC.guild.id);
             // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: 'You asked HooterBot to skip to the next song in the queue.' });
