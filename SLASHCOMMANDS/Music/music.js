@@ -356,7 +356,7 @@ module.exports = {
 
 
             // INVALID LINK TYPE
-            if(!videoURL.includes(`https://www.youtube.com/watch?v=`) || !videoURL.includes(`https://youtu.be/`)) {
+            if(videoURL.includes(`https://www.youtube.com/watch?v=`) || videoURL.includes(`https://youtu.be/`)) {
                 let invalidLinkEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`${config.emjREDTICK} **Error!**`)
