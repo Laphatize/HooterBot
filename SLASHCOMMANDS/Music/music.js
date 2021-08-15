@@ -92,7 +92,7 @@ module.exports = {
 
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
-
+        var connection = getVoiceConnection(interaction.guild.id)
 
         /*******************/
         /* JOIN            */
@@ -111,8 +111,7 @@ module.exports = {
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
-            
-            var connection = getVoiceConnection(interaction.guild.id)
+
 
             // JOIN CONFIRMATION
             let joiningEmbed = new discord.MessageEmbed()
@@ -147,10 +146,10 @@ module.exports = {
 
                 // JOIN CONFIRMATION
                 let joiningEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedBlue)
-                    .setDescription(`I've joined ${userVC}! Let's get some music playing!`)
+                    .setColor(config.embedGreen)
+                    .setDescription(`${config.emjGREENTICK} I've joined ${userVC}! Let's get some music playing!`)
 
-                interaction.followUp({ embeds: [joiningEmbed], ephemeral: true });
+                interaction.editReply({ embeds: [joiningEmbed], ephemeral: true });
             }
             else{
                 // JOIN CONFIRMATION
@@ -160,7 +159,7 @@ module.exports = {
                     .setDescription(`Seems I'm having a hard time joining you in ${userVC}... Try again in a little while.`)
                     .setFooter(`If this continues to happen, please create a ModMail ticket to inform MrMusicMan789.`)
 
-                interaction.followUp({ embeds: [joiningEmbed], ephemeral: true });
+                interaction.editReply({ embeds: [joiningEmbed], ephemeral: true });
             }
         }
 
