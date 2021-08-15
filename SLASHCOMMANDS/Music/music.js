@@ -3,10 +3,6 @@ const config = require ('../../config.json')
 const yts = require('yt-search')
 const { joinVoiceChannel, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 
-const connection = getVoiceConnection(myVoiceChannel.guild.id);
-const subscription = connection.subscribe(audioPlayer);
-
-
 
 module.exports = {
     name: 'music',
@@ -117,7 +113,8 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
             
-
+            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            // const subscription = connection.subscribe(audioPlayer);
 
             interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
 
@@ -160,6 +157,9 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            // const subscription = connection.subscribe(audioPlayer);
+
             connection.destroy();
 
             return interaction.reply({ content: 'You asked HooterBot to leave your current voice channel.' });
@@ -174,7 +174,6 @@ module.exports = {
 
             let userVC = interaction.member.voice.channel
 
-
             // USER NOT IN VC
             if(!userVC) {
                 let notInVcEmbed = new discord.MessageEmbed()
@@ -185,6 +184,9 @@ module.exports = {
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
+
+            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: 'You asked HooterBot to play music in your current voice channel.' });
         }
@@ -209,6 +211,9 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            // const subscription = connection.subscribe(audioPlayer);
+
             return interaction.reply({ content: 'You asked HooterBot to stop the music in your current voice channel.' });
         }
 
@@ -231,6 +236,9 @@ module.exports = {
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
+
+            const connection = getVoiceConnection(myVoiceChannel.guild.id);
+            // const subscription = connection.subscribe(audioPlayer);
 
             return interaction.reply({ content: 'You asked HooterBot to skip to the next song in the queue.' });
         }
