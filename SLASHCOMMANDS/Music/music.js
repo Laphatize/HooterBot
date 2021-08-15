@@ -363,7 +363,7 @@ module.exports = {
                     .setDescription(`You shared a YouTube link I can use! (I still have a lot of work to go before I can add this to your queue)`)
 
                 // SENDING TO CHANNEL
-                return interaction.reply({ embeds: [invalidLinkEmbed], ephemeral: true })
+                return interaction.reply({ embeds: [validLinkEmbed], ephemeral: true })
             }
 
             
