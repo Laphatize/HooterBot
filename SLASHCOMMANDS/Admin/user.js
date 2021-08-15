@@ -515,7 +515,7 @@ module.exports = {
 
 
             // MESSAGE SENT IN INVALID CATEGORY
-            if (!interaction.channel.parent.name.startsWith(`mod-`) || !interaction.channel.name.startsWith(`mod-`)) {
+            if (!interaction.channel.name.startsWith(`mod-`) || !interaction.channel.name.startsWith(`setup`)) {
 
                 // GENERATE ERROR EMBED
                 let wrongChannelsEmbed = new discord.MessageEmbed()
