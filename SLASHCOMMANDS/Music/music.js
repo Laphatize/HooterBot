@@ -356,11 +356,11 @@ module.exports = {
 
 
             // INVALID LINK TYPE
-            if(!videoURL.includes(`youtube.com/watch?v=`) || !videoURL.includes(`youtu.be/`)) {
-                let invalidLinkEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`${config.emjREDTICK} **Error!**`)
-                    .setDescription(`You submitted a link I'm not recognizing from YouTube! Please try using a different YouTube link!`)
+            if(videoURL.includes(`youtube.com/watch?v=`) || videoURL.includes(`youtu.be/`)) {
+                let validLinkEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} YouTube Link Recognized`)
+                    .setDescription(`You shared a YouTube link I can use! (I still have a lot of work to go before I can add this to your queue)`)
 
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [invalidLinkEmbed], ephemeral: true })
@@ -378,8 +378,15 @@ module.exports = {
                 return interaction.reply({ embeds: [playlistLinkEmbed], ephemeral: true })
             }
 
+            else {
+                let invalidLinkEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Unrecognized link. Please make sure the link is for a single video from YouTube.`)
 
-            interaction.reply({ content: `You asked HooterBot to add this song to the queue: <${videoURL}>` });
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [invalidLinkEmbed], ephemeral: true })
+            }
         }
     }
 }
