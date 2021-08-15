@@ -48,7 +48,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`**Need help?**`)
             .setDescription(`If you need to speak with a member of the server staff about an issue, please create a ticket using <@${config.ModMailId}>:\n**1.** DM modmail \`\`=new\`\` followed by the message you wish to send.\n**2.** If you are in multiple servers that use Modmail, select the "Temple University" server to receive your message.\n**3.** Wait for a response back from the moderation team.`)
-            .setFooter(`Note: ModMail is intended for moderation-related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail may result in being blocked from submitting future ModMail tickets and potential other moderation actions.`)
+            .setFooter(`Note: ModMail is intended for moderation-related issues and questions. Sending invalid issues, spam, or any other abuse of ModMail may result in being blocked from submitting future ModMail tickets and possibly other moderation actions.`)
 
 
         // FETCH RULES CHANNEL

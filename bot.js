@@ -9,6 +9,8 @@ const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
 const levels = require('discord-xp');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 
 // INITIALIZATION
@@ -121,9 +123,10 @@ client.on('ready', async () => {
     let verifSC = cmds.find(c => c.name === `verif`)
     let userSC = cmds.find(c => c.name === `user`)
     let rulesSC = cmds.find(c => c.name === `rules_embed`)
-    let permsSC = cmds.find(c => c.name ===`permissions`)
-    let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
-    let musicSC = cmds.find(c => c.name ===`music`)
+    let permsSC = cmds.find(c => c.name === `permissions`)
+    let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
+    let musicSC = cmds.find(c => c.name === `music`)
+    let suggestSC = cmds.find(c => c.name === `suggest`)
 
 
     // SETTING PERMISSIONS
@@ -209,6 +212,17 @@ client.on('ready', async () => {
             }]
         },{
             id: musicSC.id,     // COMMAND: /music
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: suggestSC.id,     // COMMAND: /suggest
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',

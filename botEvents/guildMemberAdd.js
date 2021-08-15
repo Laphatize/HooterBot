@@ -146,8 +146,6 @@ module.exports = {
         // LOG ENTRY
         modLogChannel.send({embeds: [logJoinGuild]})
 
-        
-        console.log(`Checking if ${member.user.username} has been logged as muted.`)
 
         // CHECK IF USER IS MUTED IN THE DATABASE
         const dbMutedData = await mutedUsersSchema.findOne({
@@ -156,15 +154,12 @@ module.exports = {
 
         // USER JOINING SHOULD BE MUTED
         if(dbMutedData) {
-            console.log(`User was muted, reapplying role...`)
-            
+
             // FETCHING MUTED ROLE
             let mutedRole = member.guild.roles.cache.find(role => role.name == 'Muted :(')
             
             // APPLYING ROLE TO USER
             member.roles.add(mutedRole.id)
-
-            console.log(`Mute has been reapplied.`)
         }
     },
 };
