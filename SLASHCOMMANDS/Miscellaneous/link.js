@@ -38,9 +38,6 @@ module.exports = {
                     name: `Course_Catalog`,
                     value: `course_catalog`,
                 },{
-                    name: `Counseling_Services`,
-                    value: `tuttleman1`,
-                },{ 
                     name: `DARS`,
                     value: `dars`,
                 },{
@@ -78,7 +75,7 @@ module.exports = {
                     value: `tuportal`,
                 },{
                     name: `Tuttleman_Counseling_Services`,
-                    value: `tuttleman2`,
+                    value: `tuttleman`,
                 }
             ],
         },{
@@ -386,8 +383,7 @@ module.exports = {
                 link = `https://tuportal5.temple.edu/`
                 break;
 
-            case 'tuttleman1':
-            case 'tuttleman2':
+            case 'tuttleman':
                 linkName = `Tuttleman Counseling Services`
                 link = `https://counseling.temple.edu/`
                 break;
