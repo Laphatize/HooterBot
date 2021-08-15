@@ -23,6 +23,9 @@ module.exports = {
                     name: `Admissions`,
                     value: `admissions`,
                 },{
+                    name: `Advising`,
+                    value: `advising`,
+                },{
                     name: `Athletics`,
                     value: `athletics`,
                 },{
@@ -205,23 +208,103 @@ module.exports = {
                         linkName = `Admissions - School of Social Work`;
                         link = `https://www.temple.edu/academics/degree-programs/graduate-programs/social-work---graduate-msw-sswg/social-work-msw-admissions-information/`;
                         break;
-
                     case `sthm`:
                         linkName = `Admissions - Sport Tourism, Hospitality Management`;
                         link = `https://admissions.temple.edu/apply/`;
                         break;
-                    case `cph`:
+                    case `theaterfilmmedia`:
                         linkName = `Admissions - Theater, Film, Media Arts`;
                         link = `https://tfma.temple.edu/admissions/`;
                         break;
-                    case `cph`:
+                    case `tyler`:
                         linkName = `Admissions - Tyler School of Art & Architecture`;
                         link = `https://tyler.temple.edu/undergraduate-admissions/`;
                         break;
 
                     default:
-                        linkName = `Admissions`;
+                        linkName = `Admissions - Temple University`;
                         link = `https://www.temple.edu/admissions`;
+                        break;
+                }
+            break;
+
+            case 'advising':
+                switch(inputs[1]) {
+                    case `beasley`:
+                        linkName = `Advising - Beasley Law`;
+                        link = `https://law.temple.edu/resources/student-services/course-registration/academic-advising/`;
+                        break;
+                    case `boyer`:
+                        linkName = `Advising - Boyer Music & Dance (Varies by program)`;
+                        link = `https://boyer.temple.edu/academic-programs/programs/undergraduate-programs/`;
+                        break;
+                    case `education`:
+                        linkName = `Advising - College of Education (Visit your college's tab on TUportal)`;
+                        link = `https://tuportal5.temple.edu/`;
+                        break;
+                    case `engineering`:
+                        linkName = `Advising - College of Engineering (Visit your college's tab on TUportal)`;
+                        link = `https://tuportal5.temple.edu/`;
+                        break;
+                    case `cla`:
+                        linkName = `Advising - College of Liberal Arts`;
+                        link = `https://liberalarts.temple.edu/students/academic-advising/`;
+                        break;
+                    case `cph`:
+                        linkName = `Advising - College of Public Health`;
+                        link = `https://cph.temple.edu/academics/academic-advising-and-student-resources/advising-staff`;
+                        break;
+                    case `cst`:
+                        linkName = `Advising - College of Science & Technology`;
+                        link = `https://cst.temple.edu/students/undergraduate-academic-advising`;
+                        break;
+                    case `fox`:
+                        linkName = `Advising - Fox School of Business`;
+                        link = `https://www.fox.temple.edu/advising/`;
+                        break;
+                    case `lewklein`:
+                        linkName = `Advising - Media and Communication`;
+                        link = `https://klein.temple.edu/student-life/office-academic-advising`;
+                        break;
+                    case `medicine`:
+                        linkName = `Advising - Medicine`;
+                        link = `https://medicine.temple.edu/academic-advising`;
+                        break;
+                    case `dentistry`:
+                        linkName = `Advising - Dentistry (Not Found)`;
+                        link = `https://dentistry.temple.edu/`;
+                        break;
+                    case `pharmacy`:
+                        linkName = `Advising - School of Pharmacy (Not Found)`;
+                        link = `https://pharmacy.temple.edu/`;
+                        break;
+                    case `podiatricmedicine`:
+                        linkName = `Advising - School of Podiatric Medicine (Not Found)`;
+                        link = `https://podiatry.temple.edu/`;
+                        break;
+                    case `socialwork`:
+                        linkName = `Advising - School of Social Work`;
+                        link = `https://bulletin.temple.edu/undergraduate/social-work/#advisingtext`;
+                        break;
+                    case `sthm`:
+                        linkName = `Advising - Sport Tourism, Hospitality Management`;
+                        link = `https://sthm.temple.edu/current-students/center-for-student-services/student-advising/`;
+                        break;
+                    case `theaterfilmmedia`:
+                        linkName = `Advising - Theater, Film, Media Arts`;
+                        link = `https://tfma.temple.edu/tfma-advising`;
+                        break;
+                    case `tyler`:
+                        linkName = `Advising - Tyler School of Art & Architecture`;
+                        link = `https://tyler.temple.edu/academic-advising-0`;
+                        break;
+                    case `universitystudies`:
+                        linkName = 'Advising - University Studies';
+                        link = `https://www.temple.edu/vpus/arc/about/index.html#appointments`;
+
+                    default:
+                        linkName = `Advising - Temple University`;
+                        link = ``;
                         break;
                 }
             break;
