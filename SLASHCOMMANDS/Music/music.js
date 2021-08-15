@@ -149,7 +149,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setDescription(`${config.emjGREENTICK} I've joined ${userVC}! Let's get some music playing!`)
 
-                interaction.editReply({ embeds: [joiningEmbed] });
+                interaction.reply({ embeds: [joiningEmbed] });
             }
             else{
                 // JOIN CONFIRMATION
@@ -159,7 +159,7 @@ module.exports = {
                     .setDescription(`Seems I'm having a hard time joining you in ${userVC}... Try again in a little while.`)
                     .setFooter(`If this continues to happen, please create a ModMail ticket to inform MrMusicMan789.`)
 
-                interaction.editReply({ embeds: [joiningEmbed] });
+                interaction.reply({ embeds: [joiningEmbed] });
             }
         }
 
