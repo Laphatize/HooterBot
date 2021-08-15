@@ -472,13 +472,15 @@ module.exports = {
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
             levels.createUser(user1.id, interaction.guild.id)
-            .then(user => console.log(`user post-create = ${user}`))
-                // levels.setXp(user1.id, interaction.guild.id, xp1);
-                // confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                .then(user1DNE => {
+                    levels.setXp(user1.id, interaction.guild.id, xp1);
+                    confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                })
             
+
             if(user2) {
                 levels.createUser(user2.id, interaction.guild.id)
-                    .then( user2 => {
+                    .then(user2DNE => {
                         levels.setXp(user2.id, interaction.guild.id, xp2);
                         confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
                     })
