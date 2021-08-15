@@ -1,10 +1,11 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
+const config = require ('../config.json')
 const levels = require('discord-xp');
+
 
 module.exports = {
     name: 'user_levelimport',
-    description: `ADMIN | Import MEE6 Leaderboard values for up to 5 users at a time.`,
+    description: `ADMIN | Import MEE6 Leaderboard values for up to 10 users at a time.`,
     options: [
         {
             name: `user1`,
@@ -56,7 +57,7 @@ module.exports = {
             description: `The XP value the user currently has.`,
             type: `INTEGER`,
             required: false
-        },        {
+        },{
             name: `user6`,
             description: `The user who's XP is being imported.`,
             type: `USER`,
@@ -109,6 +110,7 @@ module.exports = {
         }
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

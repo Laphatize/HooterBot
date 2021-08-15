@@ -2,9 +2,10 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const levels = require('discord-xp');
 
+
 module.exports = {
     name: 'level',
-    description: `The XP, level, and leaderboard rank for yourself or a specified user. (🤖｜bot-spam) [10s]`,
+    description: `Your XP, level, and leaderboard rank. Specify a user for their values. (🤖｜bot-spam) [10s]`,
     options: [
         {
             name: `user`,
@@ -14,6 +15,7 @@ module.exports = {
         }
     ],
     permissions: '',
+    dmUse: true,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -30,7 +32,7 @@ module.exports = {
             let wrongChannel = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I can only post this embed in <#${botSpamChannel.id}>. Head there and try again!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
 
             // POST EMBED
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })

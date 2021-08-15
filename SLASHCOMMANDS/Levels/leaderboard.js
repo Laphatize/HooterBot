@@ -2,16 +2,17 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const levels = require('discord-xp');
 
+
 module.exports = {
     name: 'leaderboard',
     description: `List the top 10 XP/level users in the server. (🤖｜bot-spam) [60s]`,
     options: [],
     permissions: '',
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
-        
-        
+
         // BOT-SPAM CHANNEL ONLY
         if(interaction.channel.name !== '🤖｜bot-spam') {
 
@@ -20,7 +21,7 @@ module.exports = {
             let wrongChannel = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I can only post this embed in <#${botSpamChannel.id}>. Head there and try again!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
 
             // POST EMBED
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })

@@ -1,7 +1,12 @@
+const config = require ('../../config.json')
+const { MessageActionRow, MessageButton } = require('discord.js');
+
+
 module.exports = {
     name: 'link',
     description: `Generates a link to a Temple University resource.`,
     permissions: '',
+    dmUse: true,
     cooldown: 0,
     defaultPermission: true,
     options: [
@@ -124,7 +129,7 @@ module.exports = {
 
             case 'finals':
                 linkName = `Final Exam Schedules`
-                link = `http://www.temple.edu/registrar/students/courseinfo/exams.asp`
+                link = `https://registrar.temple.edu/exam-schedule`
                 break;
 
             case 'financial_aid':
@@ -150,7 +155,21 @@ module.exports = {
         }
 
 
+        let linkButton = new MessageButton()
+            .setLabel(`${linkName}`)
+            .setStyle("LINK")
+            .setURL(`${link}`)
+            .setDisabled(false)
+
+
+        // BUTTON ROW
+        let buttonRow = new MessageActionRow()
+            .addComponents(
+                linkButton
+            );
+
+
         // POSTING LINK USING VALUES FROM ABOVE
-        interaction.reply({ content: `**${linkName}**: <${link}>` })
+        interaction.reply({ content: `Here you go!`, components: [buttonRow] })
     }
 }

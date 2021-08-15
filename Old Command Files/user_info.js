@@ -1,9 +1,10 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
+const config = require ('../config.json')
 const moment = require('moment');
 
+
 module.exports = {
-    name: 'user_info',
+    name: 'info',
     description: `MODERATOR | A command for generating information about a specific user in the server.`,
     options: [
         {
@@ -14,6 +15,7 @@ module.exports = {
         },
     ],
     permissions: 'MANAGE_MESSAGES',
+    dmUse: false,
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -29,11 +31,8 @@ module.exports = {
                 const flags = await member.fetchFlags()
                 var userFlags = flags.toArray()
 
-                if(!userFlags) {
-                    userFlags = `*(None)*`
-                }
                 if(userFlags) {
-                    userFlags = `\`\`${userFlags.join(`\n`)}\`\``
+                    userFlags = `${userFlags.join(`\n`)}`
                 }
 
                 // GRABBING NICKNAME IF SET
@@ -62,7 +61,7 @@ module.exports = {
                     .addField(`Server Join Date:`, `${moment(user.joinedAt).format(`LLL`)}`, true)
                     .addField(`Discord Join Date:`, `${moment(member.createdTimestamp).format(`LL`)}`, true)
                     .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
-                    .addField(`Flags:`, `${userFlags}`, true)
+                    .addField(`Flags:`, `\`\`${userFlags || `(None)`}\`\``, true)
                     .addField(`Bot?`, `${member.bot}`, true)
 
                 return interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });

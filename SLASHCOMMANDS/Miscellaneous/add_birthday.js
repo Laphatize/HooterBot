@@ -2,6 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
 
+
 module.exports = {
     name: 'add_birthday',
     description: `Adds your birthday for HooterBot to remember and announce in the server. [10s]`,
@@ -19,6 +20,7 @@ module.exports = {
         },
     ],
     permissions: '',
+    dmUse: true,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
@@ -39,7 +41,7 @@ module.exports = {
             let birthdayExists = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`${config.emjREDTICK} Sorry, you've already set your birthday!`)
-                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`$forget_birthday\`\` before running this command again.`)
+                .setDescription(`You've already set your birthday as \`\`${dbBirthdayData.MONTH} / ${dbBirthdayData.DAY}\`\`. If this is not correct, use \`\`/forget_birthday\`\` before running this command again.`)
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [birthdayExists], ephemeral: true })

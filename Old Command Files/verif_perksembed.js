@@ -1,12 +1,14 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
-const guildSchema = require('../../Database/guildSchema');
+const config = require ('../config.json')
+const guildSchema = require('../Database/guildSchema');
+
 
 module.exports = {
-    name: 'verif_perksembed',
+    name: 'verification_perksembed',
     description: `ADMIN | Generate/update the verification perks embed message. [60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

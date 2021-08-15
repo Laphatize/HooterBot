@@ -4,6 +4,10 @@ const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
 const levels = require('discord-xp');
 
+// COOLDOWN FOR XP SYSTEM
+const cooldowns = new Set()
+
+
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
@@ -13,7 +17,7 @@ module.exports = {
         /***********************************************************/
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${message.author.username.toLowerCase()}`;
+        let ticketChannelName = `verify-${message.author.username.toLowerCase()}-id-${message.author.id}`;
         
 
         // PARTIAL MESSAGE
@@ -42,8 +46,27 @@ module.exports = {
             if(message.author.bot)   return;
 
 
-            // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER
-            ticketChannel = client.channels.cache.find(ch => ch.name === ticketChannelName)
+            // GRABBING TICKET CHANNEL FOR THE USER USING THE GUILD ID IN THE DATABASE
+            const dbTicketData = await ticketSchema.findOne({
+                CREATOR_ID: message.author.id
+            }).exec();
+
+
+            // IF NO TICKET OPEN, IGNORE ALL DM MESSAGES - BOT CRASH OTHERWISE
+            if(!dbTicketData) {
+                // EMBED NOTICE
+                let dmMsgEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setDescription(`Sorry, I couldn't find a verification ticket open for you and I am unable to run commands in DMs.`)
+                return message.reply({ embeds: [dmMsgEmbed] })
+            }
+
+
+            // FETCHING THE GUILD FROM DATABASE 
+            guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
+
+            // GRAB USER'S TICKET CHANNEL
+            ticketChannel = guild.channels.cache.find(ch => ch.name === ticketChannelName)
 
 
             // IF TICKET CHANNEL EXISTS, PASS ON MESSAGE TO SERVER
@@ -53,10 +76,6 @@ module.exports = {
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: message.author.id
                 }).exec();
-
-
-                // FETCHING THE GUILD FROM DATABASE
-                guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
 
                 // GRABBING TICKET CHANNEL IN GUILD
@@ -158,12 +177,12 @@ module.exports = {
             
 
             // GRAB THE USERNAME FROM THE CHANNEL THE MESSAGE WAS SENT IN
-            dmUsername = message.channel.name.split('-').pop()
+            dmUserId = message.channel.name.split('-').pop()
                         
             
             // GRAB USER ID FROM DATABASE USING THE CHANNEL NAME
             const dbTicketData = await ticketSchema.findOne({
-                CREATOR_NAME: dmUsername
+                CREATOR_ID: dmUserId
             }).exec();
 
 
@@ -172,7 +191,7 @@ module.exports = {
 
             
             // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
-            const dmUser = await guild.members.fetch(dbTicketData.CREATOR_ID)
+            const dmUser = await guild.members.fetch(dmUserId)
 
             
         // MOD/ADMIN TICKET CHANNEL -> USER'S DMs
@@ -233,26 +252,106 @@ module.exports = {
             || message.channel.name === `💩｜shitposting`
             || message.channel.name === `🎵｜music-commands`
             || message.channel.name.startsWith(`'verify-`)
+            || message.channel.name.startsWith(`'closed-`)
+            || message.channel.name.startsWith(`'archived-`)
             || message.author.bot
         ) {
             return;
         }
 
-        
-        // RANDOM XP TO ADD: [15, 25]
+        // IF WITHIN COOLDOWN, NO XP
+        if(cooldowns.has(message.author.id)) return;
+
+
+        // NO CURRENT COOLDOWN, SET
+        cooldowns.add(message.author.id)
+
+        // [15, 25]XP PER MESSAGE
         xpToAdd = Math.floor(Math.random()*11) + 15;
 
+        // COOLDOWN EXPIRES AFTER 60s
+        setTimeout(() => cooldowns.delete(message.author.id), 60000)
+
+
+
+        // USER HAS LEVELED UP
         const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
             .catch(err => console.log(err))
 
+
+        // SEND MESSAGE IN BOT-CHANNEL
         if(hasLeveledUp) {
             const user = await levels.fetch(message.author.id, message.guild.id);
-
-            // BOT-CHANNEL MESSAGE
             message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
                 .catch(err => console.log(err))
         }
 
+
+        /***********************************************************/
+        /*      SLASH COMMANDS                                     */
+        /***********************************************************/
+        // if (!client.application?.owner) await client.application?.fetch();
+
+        // // TO GET UPDATED LIST OF SLASH COMMAND DATA, INCLUDING SLASH COMMAND ID'S, RUN:
+        // if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
+        //     console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
+        //     console.log(await message.guild?.commands.fetch())
+        //     console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
+        // }
+
+
+
+
+        /****************************************************************/
+        /*      LINK READER - ONLY WORKING FOR CACHED MESSAGES <4 HRS   */
+        /****************************************************************/
+        // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
+        let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
+
+
+        // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
+        if(message.content.includes(discordMsgLinkFormat)) {
+            // FINDING URL IN MESSAGE, CUTTING DOWN INTO USEFUL PIECES
+            let msgLink = message.content.slice(message.content.indexOf(discordMsgLinkFormat)).split(' ')
+            let msgFullUrl = msgLink[0]
+            let splitArgs = msgFullUrl.split('/')
+
+            // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
+            let messageChannelId = splitArgs[5];
+            let messageId = splitArgs[6].split(' ');
+            
+            
+
+            // CHANNEL
+            let msgCh = message.guild.channels.cache.get(messageChannelId)
+
+            // MESSAGE
+            await msgCh.messages.fetch({}, true)
+                .then(async msg => {
+                    
+                    // [ MESSAGE ID , {MSG_OBJ} ]
+                    let grabbedMessage = msg.get(`${messageId}`)
+
+
+                    let msgLinkQuoteEmbed
+                    try {
+                        msgLinkQuoteEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedDarkGrey)
+                            .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
+                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                            .setTimestamp(grabbedMessage.createdTimestamp)
+                    } catch {
+                        msgLinkQuoteEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedDarkGrey)
+                            .setAuthor(`Unknown Author`)
+                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
+                            .setTimestamp(grabbedMessage.createdTimestamp)
+                    }
+
+                    // SENDING BACK IN CHANNEL
+                    return message.channel.send({ embeds: [msgLinkQuoteEmbed] })
+                })
+        }
     }
 }
 
@@ -263,7 +362,7 @@ function createLevelMsg(username, level) {
         `${config.emjOwl} GG **${username}**, you've reached: \`\` Level ${level} \`\``,
         `**${username}**'s reached \`\` Level ${level} \`\` ${config.emjOwl}`,
         `Congrats on leveling up, **${username}**! ${config.emjOwl} You've reached \`\` Level ${level} \`\``,
-        `**${username}*'s been talking so much, you get to level up! \`\` Level ${level} \`\` ${config.emjOwl}`
+        `**${username}**, you've talked so much, you're leveling up! \`\` Level ${level} \`\` ${config.emjOwl}`
     ];      
     return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
 }

@@ -2,11 +2,13 @@ const discord = require('discord.js')
 var pjson = require('../../package.json');
 const config = require ('../../config.json')
 
+
 module.exports = {
     name: 'bot_info',
     description: `Describes details about ${config.botName}. [60s]`,
     options: [],
     permissions: '',
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, args) => {
@@ -46,7 +48,7 @@ module.exports = {
             .addField(`Bot Version:`, `**${pjson.version}**`, true)
             .addField(`Build Date:`, `${config.buildDate}`, true)
             .addField(`${config.emjNodejs} NodeJS:`, `${process.version.split(`v`).pop()}`, true)
-            .addField(`${config.emjDJSdev} Discord.js:`, `${DJSversion}`, true)
+            .addField(`${DJSemoji} Discord.js:`, `${DJSversion}`, true)
             .addField(`Uptime:`, `${botUptime}`, true)
             .addField(`Description:`, `*"${pjson.description}"*`)
             .addField(`GitHub Repository`, `${pjson.repository.url.split(`+`).pop()}`)

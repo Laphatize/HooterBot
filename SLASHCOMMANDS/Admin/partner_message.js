@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
+
 module.exports = {
     name: 'partner_message',
     description: 'ADMIN | Generate embed in \#server-announcements to share messages from partner servers. [10s]',
@@ -23,8 +24,9 @@ module.exports = {
         }
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
         // GRABBING SLASH COMMAND INPUT VALUES
@@ -116,7 +118,7 @@ module.exports = {
         .setColor(config.embedDarkGrey)
         .setTitle(`New Partner Message Submitted`)
         .addField(`User:`, `${interaction.user}`)
-        .addField(`Channel:`, `${client.channels.cache.find(ch => ch.name === `server-announcements`)}`)
+        .addField(`Channel:`, `${interaction.guild.channels.cache.find(ch => ch.name === `server-announcements`)}`)
         .setTimestamp()
 
         // SENDING TO LOG CHANNEL

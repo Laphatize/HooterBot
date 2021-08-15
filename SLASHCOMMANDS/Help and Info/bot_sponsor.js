@@ -1,11 +1,13 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 
+
 module.exports = {
-    name: 'sponsor',
+    name: 'bot_sponsor',
     description: `Info on supporting the development and operations of ${config.botName}. [60s]`,
     options: [],
     permissions: '',
+    dmUse: true,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

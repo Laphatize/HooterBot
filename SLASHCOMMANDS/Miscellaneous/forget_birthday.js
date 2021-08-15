@@ -2,11 +2,13 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
 
+
 module.exports = {
     name: 'forget_birthday',
     description: `Remove your birthday from HooterBot's memory. [10s]`,
     options: [],
     permissions: '',
+    dmUse: true,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

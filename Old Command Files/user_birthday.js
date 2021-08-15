@@ -1,6 +1,7 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
-const birthdaySchema = require('../../Database/birthdaySchema');
+const config = require ('../config.json')
+const birthdaySchema = require('../Database/birthdaySchema');
+
 
 module.exports = {
     name: 'user_birthday',
@@ -24,6 +25,7 @@ module.exports = {
         },
     ],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

@@ -2,15 +2,17 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const guildSchema = require('../../Database/guildSchema');
 
+
 module.exports = {
-    name: 'rules',
+    name: 'rules_embed',
     description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 60,
-    defaultPermission: true,
+    defaultPermission: false,
     run: async(client, interaction, inputs) => {
-
+        
         // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
         const dbData = await guildSchema.findOne({
             GUILD_ID: interaction.guild.id
@@ -25,7 +27,7 @@ module.exports = {
             \n**1. Communicate in English**\n > All communication within the server needs to be in English. 
             \n**2. Be respectful of all members**\n > We have zero tolerance for discriminatory rhetoric, racism, sexism, homophobia, transphobia, or any other kind of offensive language. The use of inappropriate language and profanity should be kept to a minimum. Derogatory language and slurs are prohibited. This includes usernames, nicknames, and statuses
             \n**3. No spam, mention spamming, or ghost pinging**\n > This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.
-            \n**4. Keep channels on-topic**\n > If discussion is not relevant to the channel, consider taking it to <#829409161581821997> or <#829409161581822000>. All memes must go in <#829409161581821999>. Mods reserve the right to delete messages that do not fit the channel subject.
+            \n**4. Keep channels on-topic**\n > If discussion is not relevant to the channel, consider taking it to <#829409161581821997> or <#829409161581822000>. If discussion digresses from the channel topic, consider opening a thread to continue your conversation. All memes must go in <#829409161581821999>. Mods reserve the right to delete messages that do not fit the channel subject.
             \n**5. No NSFW material or discussions that may cause hostility**\n > Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion or anything that may cause hostility are prohibited.
             \n**6. No advertising**\n > This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>, though these are still subject to moderator discretion. DM advertising is strictly prohibited and will result in an immediate ban.
             \n**7. No server raiding**\n > Discussion of raids or participating in raids is not allowed.
@@ -39,7 +41,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`**Server Staff**`)
             .addField(`${config.emjAdmin} Admins:`, `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>`)
-            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@338762061502873600>, <@446818962760531989>, <@270661345588936715>, <@418870468955602944>`)
+            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@418870468955602944>`)
 
         // MODMAIL INSTRUCTIONS EMBED
         let ModmailHelp = new discord.MessageEmbed()

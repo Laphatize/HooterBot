@@ -4,6 +4,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json');
 const birthdaySchema = require('./Database/birthdaySchema');
+const guildSchema = require('./Database/guildSchema');
 const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
@@ -15,21 +16,21 @@ const client = new discord.Client({
     intents: [
         'GUILDS',
         'GUILD_MEMBERS',
-        // 'GUILD_BANS ',
-        // 'GUILD_EMOJIS',
+        'GUILD_BANS',
+        'GUILD_EMOJIS_AND_STICKERS',
         // 'GUILD_INTEGRATIONS',
         // 'GUILD_WEBHOOKS',
-        // 'GUILD_INVITES',
-        // 'GUILD_VOICE_STATES',
-        // 'GUILD_PRESENCES',
+        'GUILD_INVITES',
+        'GUILD_VOICE_STATES',
+        'GUILD_PRESENCES',
         'GUILD_MESSAGES',
         // 'GUILD_MESSAGE_REACTIONS',
         // 'GUILD_MESSAGE_TYPING',
         'DIRECT_MESSAGES',
         // 'DIRECT_MESSAGE_REACTIONS',
-        // 'DIRECT_MESSAGE_TYPING',
+        // 'DIRECT_MESSAGE_TYPING'
     ],
-    partials: ['CHANNEL', 'MESSAGE']
+    partials: ['CHANNEL', 'MESSAGE', 'USER']
 })
 
 
@@ -44,6 +45,28 @@ client.commands = new discord.Collection();
 client.slashCommands = new discord.Collection();
 client.buttons = new discord.Collection();
 client.cooldowns = new discord.Collection();
+
+
+/***********************************************************/
+/*      UNKNOWN ERROR REPORTING                            */
+/***********************************************************/
+process.on('unhandledRejection', err => {
+    console.log(`******** UNKNOWN ERROR *********`);
+    console.log(err);
+    console.log(`********************************\n`);
+    
+    // DEFINING LOG EMBED
+    let logErrEmbed = new discord.MessageEmbed()
+        .setColor(config.embedDarkGrey)
+        .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
+        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform **${config.botAuthorUsername}** of this error so he can investigate.`)
+        .setFooter('MMM, please see the bot\'s log for the full error stack.')
+        .setTimestamp()
+    
+    // LOG ENTRY
+    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({embeds: [logErrEmbed]})
+})
+
 
 
 
@@ -89,48 +112,121 @@ client.on('ready', async () => {
     console.log(`===== REGISTERING SLASH COMMANDS =====`);
     console.log(`======================================\n`);
 
-    // GUILD SLASH COMMANDS - MMM789 TEST
-    await client.guilds.cache.get('530503548937699340').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
-
-    // GUILD SLASH COMMANDS - MMM789 2ND TEST
-    await client.guilds.cache.get('859798908841230367').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
-
-    // // GUILD SLASH COMMANDS - TU SERVER ID
-    // await client.guilds.cache.get('829409161581821992').commands.set(arrayOfSlashCmds)          //  .commands.set([]) to empty
-})
+    // GLOBAL SLASH COMMANDS - MMM789 TEST
+    await client.application?.commands.set(arrayOfSlashCmds)        //  .commands.set([]) to empty
 
 
+    // FETCHING COMMANDS BY NAME FOR PERMISSIONS
+    const cmds = await client.application?.commands.fetch()
+    let verifSC = cmds.find(c => c.name === `verif`)
+    let userSC = cmds.find(c => c.name === `user`)
+    let rulesSC = cmds.find(c => c.name === `rules_embed`)
+    let permsSC = cmds.find(c => c.name ===`permissions`)
+    let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
+    let musicSC = cmds.find(c => c.name ===`music`)
 
-/***********************************************************/
-/*      BUTTON HANDLER                                     */
-/***********************************************************/
 
-
-
-
-
-
-
-/***********************************************************/
-/*      UNKNOWN ERROR REPORTING                            */
-/***********************************************************/
-process.on('unhandledRejection', err => {
-    console.log(`******** UNKNOWN ERROR *********`);
-    console.log(err);
-    console.log(`********************************\n`);
-
+    // SETTING PERMISSIONS
+    const serverVerifPerms = [
+        {
+            id: verifSC.id,    // COMMAND: /verif
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: userSC.id,    // COMMAND: /user
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: rulesSC.id,    // COMMAND: /rules
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: permsSC.id,    // COMMAND: /permissions
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: partnerMsgSC.id,    // COMMAND: /partner_message
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: musicSC.id,     // COMMAND: /music
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },
+    ];
     
-    // DEFINING LOG EMBED
-    let logErrEmbed = new discord.MessageEmbed()
-        .setColor(config.embedDarkGrey)
-        .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
-        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform <@${config.botAuthorId}> of this error so he can investigate (if he does not already know about this).`)
-        .setFooter('MMM, see the bot log for the full error stack.')
-        .setTimestamp()
-    
 
-    // LOG ENTRY
-    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({embeds: [logErrEmbed]})
+    // TEST SERVER
+    client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
+
+    // TEMPLE SERVER
+    client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
 })
 
 
@@ -140,8 +236,54 @@ process.on('unhandledRejection', err => {
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
+// TICKET CATEGORY COUNTER
+// EVERY 15 MINUTES
+cron.schedule('00 05,20,35,50 * * * *', async () => {
+
+    const dbGuildTestServerData = await guildSchema.findOne({
+        GUILD_ID: `530503548937699340`
+    }).exec();
+
+    const dbGuildTempleServerData = await guildSchema.findOne({
+        GUILD_ID: `829409161581821992`
+    }).exec();
+
+    // TICKET CATEGORY ID'S
+    let testServerTicketCatId = dbGuildTestServerData.TICKET_CAT_ID
+    let templeServerTicketCatId = dbGuildTempleServerData.TICKET_CAT_ID
+
+
+    // FETCHING THE GUILD FROM DATABASE
+    let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
+    let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
+
+
+    // GRAB TICKET CATEGORY USING ID
+    let testServerTicketCategory = testServer.channels.cache.get(testServerTicketCatId)
+    let templeServerTicketCategory = templeServer.channels.cache.get(templeServerTicketCatId)
+
+
+    // SETTING COUNT VALUES
+    // TEST SERVER
+    let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+    
+    // TEMPLE SERVER
+    let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+
+
+    // UPDATING CATEGORY VALUES
+    testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
+    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+})
+
+
+
 // BIRTHDAY CHECKS
 // EVERY DAY AT 8:00AM EST
+// cron.schedule('00 */2 * * * *', async () => {  // FOR TESTING
 cron.schedule('00 00 08 * * *', async () => {
     
     console.log('Checking for birthdays...');
@@ -172,25 +314,24 @@ cron.schedule('00 00 08 * * *', async () => {
 
         // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
         result.forEach( id => {
-            
+ 
             // CREATE RANDOM BIRTHDAY MESSAGE USING FUNCTION
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
- 
 
-            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
-                .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
-                
-                    user.roles.add(bdayRole)
-                })
+                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+                bdayUser = guild.members.fetch(id)
+                    .then(user => {
+                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                    
+                        user.roles.add(bdayRole)
+                    })
         })
     }
 }, {
@@ -215,49 +356,41 @@ function createBdayMessage(bdayUserId) {
 
 // BIRTHDAY ROLE REMOVAL
 // EVERY DAY AT 7:59AM EST
+// cron.schedule('30 */2 * * * *', async () => {  // FOR TESTING 
 cron.schedule('00 59 07 * * *', async () => {
     console.log('Removing birthday roles.');
 
     // TODAY'S DATE
-    yesterdayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
-    yesterdayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
+    todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
+    todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
+
+    // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
+    guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
 
 
-    // CHECK DATABASE FOR ENTRY
-    const dbBirthdayData = await birthdaySchema.find({
-        MONTH: yesterdayMonth,
-        DAY: yesterdayDay
-    }).exec();
+    // GET POSITION OF CURERNT BIRTHDAY ROLE
+    let bdayRolePosition = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').position
+    let bdayRoleHexColor = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hexColor
+    let bdayRoleHoist = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hoist
+    let bdayRoleMentionable = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').mentionable
 
 
-    if(dbBirthdayData) {
+    console.log(`Birthday role deleted.`)
 
-        // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var result = []
-
-
-        // FOR LOOP TO GRAB ID'S OF YESTERDAY'S BIRTHDAYS FROM DATABASE
-        for(let i in dbBirthdayData) {
-            result.push(dbBirthdayData[i].USER_ID)
-        }
+    // DELETE THE CURRENT BIRTHDAY ROLE
+    guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').delete()
 
 
-        // THE "result" ARRAY HAS ALL THE DAY'S BIRTHDAYS, LOOP
-        result.forEach( id => {
+    // CREATE THE NEW ROLE
+    guild.roles.create({
+        name: 'Birthday! 👑🥳',
+        color: `${bdayRoleHexColor}`,
+        position: bdayRolePosition,
+        hoist: bdayRoleHoist,
+        mentionable: bdayRoleMentionable,
+    })
 
-            // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
- 
-
-            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
-                .then(user => {
-                    bdayRole = guild.roles.cache.find(role => role.name.toLowerCase().startsWith('birthday'))
-                
-                    user.roles.remove(bdayRole)
-                })
-        })
-    }
+    console.log(`New birthday role created.`)
 }, {
     scheduled: true,
     timezone: "America/New_York"
@@ -270,7 +403,7 @@ cron.schedule('00 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
-    fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
 
 
     // CHECK DATABASE FOR ENTRY
@@ -331,8 +464,7 @@ cron.schedule('00 00 10 * * *', async () => {
                     client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
-
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -370,7 +502,7 @@ cron.schedule('30 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
-    oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM DD, YYYY")
+    oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
 
 
     // CHECK DATABASE FOR ENTRY
@@ -431,8 +563,7 @@ cron.schedule('30 00 10 * * *', async () => {
                     client.users.fetch( user.id )
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}`);
-
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -465,18 +596,18 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
-// EVERY DAY AT 10:01:00AM EST
-cron.schedule('30 00 10 * * *', async () => {
+// EVERY DAY AT 10:01:00AM EST          00 01 10
+cron.schedule('00 01 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
-    closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM DD, YYYY")
-
+    closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
         TICKET_CLOSE: closingDay
     }).exec();
+
 
 
     if(dbTicketData) {
@@ -485,6 +616,7 @@ cron.schedule('30 00 10 * * *', async () => {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {
@@ -589,23 +721,6 @@ cron.schedule('30 00 10 * * *', async () => {
                             }
                         })
 
-                    // UPDATE TICKET CATEGORY COUNTER
-                    // GRAB TICKET CATEGORY USING ID
-                    let ticketCategory = client.channels.cache.get(dbGuildData.TICKET_CAT_ID)
-
-
-                    // COUNT OF TICKETS IN DB
-                    ticketCount = ticketSchema.find({
-                        GUILD_ID: interaction.guild.id
-                    }).countDocuments()
-                    .exec();
-                    
-                    console.log(`The number of open tickets in the test server is ${ticketCount-1}.`)
-
-                    ticketCategory.setName(`VERIFICATION (OPEN: ${ticketCount-1}) []`)
-
-                    
-
                     // DELETING DATABASE ENTRY
                     ticketSchema.deleteOne({
                         CREATOR_ID: dmUser.id
@@ -675,14 +790,14 @@ cron.schedule('30 00 10 * * *', async () => {
                     dmUser = client.users.fetch(dmUser.id)
                         .then(dmUser => {
                             // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}-id-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                                 .then(msg => {
                                     // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                                     msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
 
                                             // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
                                         // GRAB TICKET CHANNEL
-                                        initialChMsg = client.channels.cache.find(ch => ch.name === ticketChannelName)
+                                        initialChMsg = client.channels.cache.find(ch => ch.name === `closed-${dmUser.username.toLowerCase()}`)
                                             .then(ch => {
                                                 // GRABBING THE INITIAL MESSAGE FROM TICKET CHANNEL
                                                 msg = ch.messages.fetch(dbTicketData[i].TICKETCH1_MSG_ID)
@@ -691,9 +806,9 @@ cron.schedule('30 00 10 * * *', async () => {
                                                 let newTicketEditedEmbed = new discord.MessageEmbed()
                                                     .setColor(config.embedGreen)
                                                     .setTitle(`**Verification Ticket Closed**`)
-                                                    .addField(`User:`, `${interaction.user}`, true)
-                                                    .addField(`User Tag:`, `${interaction.user.tag}`, true)
-                                                    .addField(`User ID:`, `${interaction.user.id}`, true)
+                                                    .addField(`User:`, `${dmUser}`, true)
+                                                    .addField(`User Tag:`, `${dmUser.tag}`, true)
+                                                    .addField(`User ID:`, `${dmUser.id}`, true)
                                                     .setDescription(`*This ticket has been closed. See the last message in the channel for information.*`)
 
                                                 let QuitButton = new MessageButton()

@@ -1,13 +1,18 @@
 const discord = require('discord.js');
 const config = require('../config.json');
 const guildSchema = require('../Database/guildSchema');
+const moment = require('moment');
 
 module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 
-        // IGNORE NON-GUILD CHANNELS
-        if(message.channel.type === 'DM') return;
+
+
+
+
+        // IGNORE NON-GUILD CHANNELS, MOD-LOG/RULES/LOGGING CHANNEL
+        if(message.channel.type == 'DM' || message.channel.name == `mod-log` || message.channel.name == 'hooterbot-error-logging') return;
 
 
         // RULES CHANNEL FOR RULES EMBED
@@ -39,13 +44,9 @@ module.exports = {
 
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logRuleMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logRuleMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
-            } else {
-                // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
-                return;
             }
-            return;
         }
 
 
@@ -77,7 +78,7 @@ module.exports = {
                 .setDescription(`A new verification embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
             }
             
@@ -99,14 +100,33 @@ module.exports = {
                 .setDescription(`A new verified perks embed can now be sent in any channel.`)
 
                 // LOG ENTRY
-                message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
+                return message.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [logVerifPromptMsgIDRemoveEmbed]})
                     .catch(err => console.log(err))
-
-            } else {
-                // THIS ISN'T A MESSAGE THE BOT NEEDS TO FUNCTION
-                return;
             }
-            return;
         }
-    }
-}
+
+
+        // LOG CHANNEL
+        const modLogChannel = message.guild.channels.cache.find(ch => ch.name === `mod-log`)
+
+
+        let msgAuthor
+        try {
+            msgAuthor= message.author.tag
+        } catch {
+            return
+        }
+        
+
+        // LOG EMBED
+        let logEmbed = new discord.MessageEmbed()
+            .setColor(config.embedRed)
+            .setTitle(`Message Deleted`)
+            .setAuthor(msgAuthor, message.author.displayAvatarURL({ dynamic:true }))
+            .setDescription(`**Channel:** ${message.channel}\n**Message:** ${message.content}`)
+            .setTimestamp()
+
+        // LOG ENTRY
+        return modLogChannel.send({embeds: [logEmbed]})
+	},
+};

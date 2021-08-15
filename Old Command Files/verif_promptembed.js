@@ -1,13 +1,15 @@
 const discord = require('discord.js')
 const { MessageActionRow, MessageButton } = require('discord.js')
-const config = require ('../../config.json')
-const guildSchema = require('../../Database/guildSchema');
+const config = require ('../config.json')
+const guildSchema = require('../Database/guildSchema');
+
 
 module.exports = {
-    name: 'verif_promptembed',
+    name: 'verification_promptembed',
     description: `ADMIN | Generate/update the verification prompt containing the buttons. [60s]`,
     options: [],
     permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    dmUse: false,
     cooldown: 60,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {

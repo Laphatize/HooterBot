@@ -1,5 +1,6 @@
 const discord = require('discord.js')
-const config = require ('../../config.json')
+const config = require ('../config.json')
+
 
 module.exports = {
     name: 'verif_pm',
@@ -13,6 +14,7 @@ module.exports = {
         },
     ],
     permissions: 'MANAGE_MESSAGES',
+    dmUse: false,
     cooldown: 0,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
