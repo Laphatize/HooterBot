@@ -58,7 +58,7 @@ module.exports = {
 
         let generalPermsHave = [];
 
-            // HOOTERBOT'S GENERAL PERMISSIONS ARRAY
+            // GENERAL PERMISSIONS ARRAY
             for (const permission of generalPermsArray) {
                 if(role.permissions.has(permission)) {
                     generalPermsHave.push(`${config.emjGREENTICK} \`\`${permission}\`\``)
@@ -69,7 +69,7 @@ module.exports = {
             }
 
 
-            // HOOTERBOT'S TEXT PERMISSIONS ARRAY
+            // TEXT PERMISSIONS ARRAY
             let textPermsHave = [];
 
             // CHECKING GENERAL PERMS
@@ -83,7 +83,7 @@ module.exports = {
             }
             
 
-            // HOOTERBOT'S TEXT PERMISSIONS ARRAY
+            // TEXT PERMISSIONS ARRAY
             let voicePermsHave = [];
 
             // CHECKING GENERAL PERMS

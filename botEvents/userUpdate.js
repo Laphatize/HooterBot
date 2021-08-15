@@ -13,10 +13,6 @@ module.exports = {
             }
         })
 
-
-        // // LOG CHANNEL
-        // const modLogChannel = oldUser.guild.channels.cache.find(ch => ch.name === `mod-log`)
-        
         
         // PARTIAL USER
         if (oldUser.partial || newUser.partial) {
