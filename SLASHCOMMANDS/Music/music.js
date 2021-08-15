@@ -1,7 +1,11 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const yts = require('yt-search')
-const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
+const { joinVoiceChannel, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
+
+const connection = getVoiceConnection(myVoiceChannel.guild.id);
+const subscription = connection.subscribe(audioPlayer);
+
 
 
 module.exports = {
@@ -124,15 +128,15 @@ module.exports = {
             });
 
             connection.on(VoiceConnectionStatus.Signalling, () => {
-                interaction.channel.send('[Initial voice connection is signaling permission to join a voice channel.]');
+                interaction.channel.send('\`\`Initial voice connection is signaling permission to join a voice channel.\`\`');
             });
 
             connection.on(VoiceConnectionStatus.Connecting, () => {
-                interaction.channel.send('[Permission to join voice channel authorized, establishing connection to voice channel.]');
+                interaction.channel.send('\`\`Permission to join voice channel authorized, establishing connection to voice channel.\`\`');
             });
             
             connection.on(VoiceConnectionStatus.Ready, () => {
-                interaction.channel.send('[Connection has entered the Ready state - ready to play audio, join sequence complete!]');
+                interaction.followUp('`\`\`[Connection has entered the Ready state - ready to play audio, join sequence complete!]\`\`');
             });
         }
 
@@ -156,6 +160,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
 
+            connection.destroy();
 
             return interaction.reply({ content: 'You asked HooterBot to leave your current voice channel.' });
         }
@@ -168,6 +173,7 @@ module.exports = {
         if(subCmdName == 'play') {
 
             let userVC = interaction.member.voice.channel
+
 
             // USER NOT IN VC
             if(!userVC) {
@@ -246,6 +252,17 @@ module.exports = {
         /*******************/
         if(subCmdName == 'clear_queue') {
 
+            // USER NOT IN VC
+            if(!userVC) {
+                let notInVcEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You need to be in the voice channel before you can clear the queue!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
+            }
+            
             return interaction.reply({ content: 'You asked HooterBot to clear the current queue of music.' });
         }
                 
@@ -298,7 +315,7 @@ module.exports = {
         if(subCmdName == 'add') {
 
             // GETTING OPTIONS VALUES
-            let videoURL = interaction.options.getString('add');
+            let videoURL = interaction.options.getString('youtube_url');
 
             interaction.reply({ content: `You asked HooterBot to add this song to the queue: <${videoURL}>` });
         }
