@@ -224,7 +224,8 @@ module.exports = {
                         link = `https://www.temple.edu/admissions`;
                         break;
                 }
-                
+            break;
+
             case 'athletics':
             case 'sports':
             case 'sports_tickets':
