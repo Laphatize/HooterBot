@@ -472,12 +472,16 @@ module.exports = {
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
             levels.createUser(user1.id, interaction.guild.id)
-            levels.setXp(user1.id, interaction.guild.id, xp1);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                .then( user1 => {
+                    levels.setXp(user1.id, interaction.guild.id, xp1);
+                    confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                })
             if(user2) {
                 levels.createUser(user2.id, interaction.guild.id)
-                levels.setXp(user2.id, interaction.guild.id, xp2);
-                confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
+                    .then( user2 => {
+                        levels.setXp(user2.id, interaction.guild.id, xp2);
+                        confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
+                    })
             } if(user3) {
                 levels.createUser(user3.id, interaction.guild.id)
                 levels.setXp(user3.id, interaction.guild.id, xp3);
