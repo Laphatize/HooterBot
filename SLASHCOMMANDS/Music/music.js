@@ -355,6 +355,18 @@ module.exports = {
             let videoURL = interaction.options.getString('youtube_url');
 
 
+            // PLAYLIST URL ENTERED
+            if(videoURL.includes(`&list=`)) {
+                let playlistLinkEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You submitted a link to a YouTube playlist! I unfortunately cannot handle those right now. Please share individual video links!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [playlistLinkEmbed], ephemeral: true })
+            }
+
+
             // INVALID LINK TYPE
             if(videoURL.includes(`youtube.com/watch?v=`) || videoURL.includes(`youtu.be/`)) {
                 let validLinkEmbed = new discord.MessageEmbed()
@@ -367,17 +379,7 @@ module.exports = {
             }
 
             
-            // PLAYLIST URL ENTERED
-            if(videoURL.includes(`&list=`)) {
-                let playlistLinkEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`${config.emjREDTICK} **Error!**`)
-                    .setDescription(`You submitted a link to a YouTube playlist! I unfortunately cannot handle those right now. Please share individual video links!`)
-
-                // SENDING TO CHANNEL
-                return interaction.reply({ embeds: [playlistLinkEmbed], ephemeral: true })
-            }
-
+            // NON-YOUTUBE LINKS
             else {
                 let invalidLinkEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
