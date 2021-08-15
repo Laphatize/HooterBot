@@ -12,49 +12,49 @@ module.exports = {
         {
             // MUSIC JOIN
             name: `join`,
-            description: `Have HooterBot join your voice channel.`,
+            description: `[In development] Have HooterBot join your voice channel.`,
             type: 'SUB_COMMAND',
             options: []
         },{
             // MUSIC LEAVE
             name: `leave`,
-            description: `Have HooterBot leave the voice channel.`,
+            description: `[In development] Have HooterBot leave the voice channel.`,
             type: 'SUB_COMMAND',
             options: [],    
         },{
             // MUSIC PLAY
             name: `play`,
-            description: `Starts playing music.`,
+            description: `[In development] Starts playing music.`,
             type: 'SUB_COMMAND',
             options: []
         },{
             // MUSIC STOP
             name: `stop`,
-            description: `Stops playing music.`,
+            description: `[In development] Stops playing music.`,
             type: 'SUB_COMMAND',
             options: []
         },{
             // MUSIC SKIP
             name: `skip`,
-            description: `Skips the current song for the next song in the queue.`,
+            description: `[In development] Skips the current song for the next song in the queue.`,
             type: 'SUB_COMMAND',
             options: []
         },{
             // MUSIC QUEUE
             name: `queue`,
-            description: `Displays the current music queue.`,
+            description: `[In development] Displays the current music queue.`,
             type: 'SUB_COMMAND',
             options: []
         },{
             // MUSIC CLEAR_QUEUE
             name: `clear_queue`,
-            description: `Clears the queue of all songs.`,
+            description: `[In development] Clears the queue of all songs.`,
             type: 'SUB_COMMAND',
             options: [],
         },{
             // MUSIC SEARCH
             name: `search`,
-            description: `Have HooterBot find and add a song to the queue using the title.`,
+            description: `[In development] Have HooterBot find and add a song to the queue using the title.`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -72,7 +72,7 @@ module.exports = {
         },{
             // MUSIC ADD
             name: `add`,
-            description: `Add a song to the playlist using a YouTube URL.`,
+            description: `[In development] Add a song to the playlist using a YouTube URL.`,
             type: 'SUB_COMMAND',
             options: [
                 {
