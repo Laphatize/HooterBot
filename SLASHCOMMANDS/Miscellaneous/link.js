@@ -37,6 +37,9 @@ module.exports = {
                 },{
                     name: `Course_Catalog`,
                     value: `course_catalog`,
+                },{
+                    name: `Counseling_Services`,
+                    value: `tuttleman1`,
                 },{ 
                     name: `DARS`,
                     value: `dars`,
@@ -65,11 +68,17 @@ module.exports = {
                     name: `Student_Financial_Services`,
                     value: `sfs`,
                 },{
+                    name: `Study_Abroad`,
+                    value: `studyabroad`,
+                },{
                     name: `TUid`,
                     value: `tuid`,
                 },{
                     name: `TUportal`,
                     value: `tuportal`,
+                },{
+                    name: `Tuttleman_Counseling_Services`,
+                    value: `tuttleman2`,
                 }
             ],
         },{
@@ -362,6 +371,11 @@ module.exports = {
                 link = `https://housing.temple.edu/`
                 break;
 
+            case 'studyabroad':
+                linkName = `Study Abroad`
+                link = `https://studyabroad.temple.edu/`
+                break;
+
             case 'tuid':
                 linkName = `Get Your TUid`
                 link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
@@ -370,6 +384,12 @@ module.exports = {
             case 'tuportal':
                 linkName = `TUPortal`
                 link = `https://tuportal5.temple.edu/`
+                break;
+
+            case 'tuttleman1':
+            case 'tuttleman2':
+                linkName = `Tuttleman Counseling Services`
+                link = `https://counseling.temple.edu/`
                 break;
         }
 
