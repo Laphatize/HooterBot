@@ -89,8 +89,6 @@ module.exports = {
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
-        // console.log(`user command ID: ${interaction.commandId}`)
-
         // GRAB SUBCOMMAND
         let subCmdName = interaction.options.getSubcommand()
 
@@ -113,11 +111,17 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
             
-            const connection = getVoiceConnection(myVoiceChannel.guild.id);
-            // const subscription = connection.subscribe(audioPlayer);
 
-            interaction.reply({ content: 'You asked HooterBot to join your current voice channel.' });
+            // JOIN CONFIRMATION
+            let joiningEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlue)
+                .setTitle(`Here I Come!`)
+                .setDescription(`Joining ${userVC} now!`)
 
+            interaction.reply({ embeds: [joiningEmbed], ephemeral: true });
+
+
+            // CONNECTING
             const connection = joinVoiceChannel({
                 channelId: userVC.id,
                 guildId: interaction.guild.id,
