@@ -345,7 +345,7 @@ module.exports = {
         }
 
 
-        
+
         /*******************/
         /* ADD YOUTUBE     */
         /*******************/
@@ -353,6 +353,31 @@ module.exports = {
 
             // GETTING OPTIONS VALUES
             let videoURL = interaction.options.getString('youtube_url');
+
+
+            // INVALID LINK TYPE
+            if(!videoURL.includes(`https://www.youtube.com/watch?v=`) || !videoURL.includes(`https://youtu.be/`)) {
+                let invalidLinkEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You submitted a link I'm not recognizing from YouTube! Please try using a different YouTube link!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [invalidLinkEmbed], ephemeral: true })
+            }
+
+            
+            // PLAYLIST URL ENTERED
+            if(videoURL.includes(`&list=`)) {
+                let playlistLinkEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`You submitted a link to a YouTube playlist! I unfortunately cannot handle those right now. Please share individual video links!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [playlistLinkEmbed], ephemeral: true })
+            }
+
 
             interaction.reply({ content: `You asked HooterBot to add this song to the queue: <${videoURL}>` });
         }
