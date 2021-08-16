@@ -99,8 +99,11 @@ module.exports = {
                     let suggestionMsg = msgs.filter(m => m.id === origSuggestionMsgId)
 
                     console.log(`suggestionMsg = ${suggestionMsg}`)
+                    console.log(`suggestionMsg.author.tag = ${suggestionMsg.author.tag}`)
+                    console.log(`suggestionMsg.content = ${suggestionMsg.content}`)
 
-                    console.log(`suggestionMsg.get(messageId) = ${suggestionMsg.get(`${messageId}`)}`)
+                    console.log(`suggestionMsg.get(origSuggestionMsgId) = ${suggestionMsg.get(`${origSuggestionMsgId}`)}`)
+
 
                     suggestionMsg.get(messageId).edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
