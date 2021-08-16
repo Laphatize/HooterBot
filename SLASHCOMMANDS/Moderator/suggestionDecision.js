@@ -92,7 +92,7 @@ module.exports = {
                             let suggestionEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGreen)
                                 .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                                .setAuthor(msg.member.tag, msg.member.displayAvatarURL({ dynamic:true }))
+                                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic:true }))
                                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                             msg.edit({ embeds: suggestionEmbed})
@@ -116,7 +116,7 @@ module.exports = {
                             let suggestionEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedRed)
                                 .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                                .setAuthor(msg.member.tag, msg.member.displayAvatarURL({ dynamic:true }))
+                                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic:true }))
                                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                             msg.edit({ embeds: suggestionEmbed})
@@ -140,7 +140,7 @@ module.exports = {
                             let suggestionEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
                                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
-                                .setAuthor(msg.member.tag, msg.member.displayAvatarURL({ dynamic:true }))
+                                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic:true }))
                                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                             msg.edit({ embeds: suggestionEmbed})
@@ -156,7 +156,7 @@ module.exports = {
                             let suggestionEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGrey)
                                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
-                                .setAuthor(msg.member.tag, msg.member.displayAvatarURL({ dynamic:true }))
+                                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic:true }))
                                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                             msg.edit({ embeds: suggestionEmbed})
