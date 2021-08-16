@@ -102,12 +102,20 @@ module.exports = {
             let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${oldSuggestionEmbed.author.tag}`)
+                .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
             targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                 .catch(err => console.log(err))
         }
+
+
+
+
+
+
+
+
 
 
         // REJECTED
