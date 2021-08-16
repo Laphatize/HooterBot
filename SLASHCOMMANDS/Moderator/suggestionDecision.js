@@ -95,8 +95,8 @@ module.exports = {
 
             suggestionCh.messages.fetch(origSuggestionMsgId)
                 .then( msg => {
-                    console.log(`msg = ${msg}`)
-                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                    console.log(`msg[origSuggestionMsgId] = ${msg[origSuggestionMsgId]}`)
+                    msg[origSuggestionMsgId].edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
 
