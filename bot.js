@@ -9,8 +9,6 @@ const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
 const levels = require('discord-xp');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
 
 
 // INITIALIZATION
@@ -292,16 +290,26 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     // UPDATING CATEGORY VALUES
     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+})
 
 
+// MEMBER COUNTER
+// EVERY 6 MINUTES
+//cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
+cron.schedule('00,30 * * * * *', async () => {
+    
     console.log(`Checking the voice channel member count`)
+
+    // FETCHING THE GUILD FROM DATABASE
+    let testServer = client.guilds.cache.get(`530503548937699340`)
+    // let templeServer = client.guilds.cache.get(`829409161581821992`)
 
     // MEMBER LIST VC'S
     var totalTestMembersCount = testServer.memberCount
     // var totalTempleMembersCount = templeServer.members.fetch().size
     let memTestCount, memTempleCount;
 
-    console.log(`memTestCount = ${memTestCount}`)
+    console.log(`totalTestMembersCount = ${totalTestMembersCount}`)
 
     if(totalTestMembersCount > 1000) {
         memTestCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
@@ -309,8 +317,10 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
         memTestCount = `${totalTestMembersCount}`
     }
 
-    let owlCounterTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
-    owlCounterTestServer.setName(`Owls: ${memTestCount}`)
+    console.log(`totalTestMembersCount = ${totalTestMembersCount}`)
+    
+    // let owlCounterTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    // owlCounterTestServer.setName(`Owls: ${memTestCount}`)
 
 
 
@@ -323,7 +333,6 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     // let owlCounterTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
     // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
 })
-
 
 
 // BIRTHDAY CHECKS
