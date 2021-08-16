@@ -102,13 +102,15 @@ module.exports = {
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
 
-            .then(msg => {
+            .then(chMsgs => {
 
-                console.log(`\n\n Message Map Data:`, msg, `\n\n`)
+                let suggestionMsg = chMsgs.get(dbSuggestionData.SUGGESTION_MSG_ID)
 
-                let keys = Array.from(msg.keys());
 
-                console.log(`\n\n keys Data:`, keys, `\n\n`)
+
+                console.log(`\n\n suggestionMsg:`, suggestionMsg, `\n\n`)
+
+
             })
 
 
