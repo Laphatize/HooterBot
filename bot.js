@@ -249,7 +249,7 @@ client.on('ready', async () => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // TICKET CATEGORY COUNTER
-// EVERY 10 MINUTES
+// EVERY 15 MINUTES
 cron.schedule('00 5,20,35,50 * * * *', async () => {
     console.log(`Updating ticket categories`)
 
@@ -311,7 +311,7 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 
     // MEMBER LIST VC'S
     var totalTestMembersCount = testServer.memberCount
-    var totalTempleMembersCount = testServer.memberCount
+    var totalTempleMembersCount = templeServer.memberCount
     let memTestCount;
     let memTempleCount;
 
