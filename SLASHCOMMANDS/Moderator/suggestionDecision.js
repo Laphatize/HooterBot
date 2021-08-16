@@ -87,12 +87,54 @@ module.exports = {
             return interaction.reply({ embeds: [suggestionChDNEembed], ephemeral: true })
         }
 
-
         const suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
 
-        let suggestionMsg
+        let suggestionUpdatedEmbed
+        
 
-        suggestionCh.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID, false, true)
+        // ACCEPTED
+        if(decisionVerdict == 'accept') {
+
+            suggestionUpdatedEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                .setAuthor(`${origSuggesterTag}`)
+                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+        }
+
+        // REJECTED
+        if(decisionVerdict == 'deny') {
+
+            let suggestionUpdatedEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
+                .setAuthor(`${origSuggesterTag}`)
+                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+        }
+
+        // ON HOLD
+        if(decisionVerdict == 'onhold') {
+
+            let suggestionUpdatedEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
+                .setAuthor(`${origSuggesterTag}`)
+                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+        }
+
+        // UNDER CONSIDERATION
+        if(decisionVerdict == 'underconsideration') {
+            
+            let suggestionConsideringEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGrey)
+                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
+                .setAuthor(`${origSuggesterTag}`)
+                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+        }
+
+
+        // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
+        suggestionCh.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -102,102 +144,29 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-            .then(chMsgs => {
+            .then(message => {
+                message.edit({ embeds: [suggestionUpdatedEmbed] })
+                    .catch(err => {
+                        console.log(err)
 
-                let filteredMsg = chMsgs.filter(msg => msg.id === dbSuggestionData.SUGGESTION_MSG_ID)
-
-                console.log(`filteredMsg = ${filteredMsg}`)
-
-                // let msgs = chMsgs.values(dbSuggestionData.SUGGESTION_MSG_ID)
-                // console.log(`\n\n msgs:`, msgs, `\n\n`)     // MAP ITERATOR OBJECT
-                //let msgsArray = Array.from(chMsgs.entries())
-
-
+                        let errorEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} Sorry!`)
+                            .setDescription(`I ran into an error updating the initial suggestion.`)
+        
+                        // POST EMBED
+                        return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
+                })
             })
 
 
-                // let fetchedMapMsg = msg.get([dbSuggestionData.SUGGESTION_MSG_ID].content)
-                
-                // console.log(`fetchedMapMsg\n`, fetchedMapMsg)
+        // CONFIRMATION
+        let sugDecConfirmationEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGreen)
+            .setTitle(`${config.emjGREENTICK} Decision submitted!`)
+            .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
 
-
-
-
-            //     // ACCEPTED
-            //     if(decisionVerdict == 'accept') {
-
-            //         let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-            //             .setColor(config.embedGreen)
-            //             .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-            //             .setAuthor(`${origSuggesterTag}`)
-            //             .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-            //         fetchedMapMsg.edit({ embeds: [suggestionEditAcceptEmbed] })
-            //             .catch(err => console.log(err))
-            //     }
-            // })
-
-        
-            
-
-
-
-        // // REJECTED
-        // if(decisionVerdict == 'deny') {
-
-        //     let suggestionEditDenyEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedRed)
-        //         .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-        //         .setAuthor(`${origSuggesterTag}`)
-        //         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-        //     suggestionCh.messages.fetch()
-        //         .then( msg => {
-        //             msg.edit({ embeds: [suggestionEditDenyEmbed] })
-        //         }).catch(err => console.log(err))
-        // }
-
-
-        // // ON HOLD
-        // if(decisionVerdict == 'onhold') {
-
-        //     let suggestionHoldEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
-        //         .setAuthor(`${origSuggesterTag}`)
-        //         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-        //     suggestionCh.messages.fetch()
-        //         .then( msg => {
-        //             msg.edit({ embeds: [suggestionHoldEmbed] })
-        //         }).catch(err => console.log(err))
-        // }
-
-
-        // // UNDER CONSIDERATION
-        // if(decisionVerdict == 'underconsideration') {
-            
-        //     let suggestionConsideringEmbed = new discord.MessageEmbed()
-        //         .setColor(config.embedGrey)
-        //         .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
-        //         .setAuthor(`${origSuggesterTag}`)
-        //         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-        //     suggestionCh.messages.fetch()
-        //         .then( msg => {
-        //             msg.edit({ embeds: [suggestionConsideringEmbed] })
-        //         }).catch(err => console.log(err))
-        // }
-
-
-
-        // // CONFIRMATION
-        // let sugDecConfirmationEmbed = new discord.MessageEmbed()
-        //     .setColor(config.embedGreen)
-        //     .setTitle(`${config.emjGREENTICK} Decision submitted!`)
-        //     .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
-
-        // // POST EMBED
-        // return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
+        // POST EMBED
+        return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
     }
 }
