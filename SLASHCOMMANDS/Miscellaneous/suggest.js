@@ -40,7 +40,7 @@ module.exports = {
         let suggestCh = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
 
 
-        let caseCounter = await infractionsSchema.countDocuments()
+        let caseCounter = await suggestionSchema.countDocuments()
 
 
         let suggestionEmbed = new discord.MessageEmbed()
@@ -52,7 +52,7 @@ module.exports = {
 
 
         // LOG DATABASE INFORMATION
-        await birthdaySchema.findOneAndUpdate({
+        await suggestionSchema.findOneAndUpdate({
             GUILD_ID: interaction.guild.id,
             CREATOR_ID: interaction.user.id,
             SUGGESTION_MSG_ID: suggestionMsg.id
