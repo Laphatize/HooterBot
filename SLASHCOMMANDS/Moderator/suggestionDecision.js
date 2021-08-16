@@ -143,7 +143,7 @@ module.exports = {
 
                 console.log(`messageCollection.size = ${messageCollection.size}`)
 
-                let findKeyResult = messageCollection.findKey(msg => msg.id == dbSuggestionData.SUGGESTION_MSG_ID);
+                let findKeyResult = messageCollection.findKey(msg => msg.name == dbSuggestionData.SUGGESTION_MSG_ID);
 
                 console.log(`findKeyResult = ${findKeyResult }`)
 
