@@ -76,15 +76,16 @@ module.exports = {
         let suggestionChId = dbSuggestionData.SUGGESTION_CH_ID;
         let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
 
-        
+
         // GRAB CHANNELS
-        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.id === suggestionChId)
+        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
         let origSuggester = client.users.fetch(origSuggesterId)
 
         
-        console.log(`suggestionCh = ${suggestionCh}`)
+        console.log(`suggestionCh          = ${suggestionCh}`)
+        console.log(`suggestionDecisionsCh = ${suggestionDecisionsCh}`)
 
 
         // ACCEPTED
