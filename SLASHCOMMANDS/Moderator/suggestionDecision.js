@@ -59,7 +59,7 @@ module.exports = {
         console.log(`\ndbSuggestionData = ${dbSuggestionData}\n`)
 
         // IF NO SUGGESTION NUMBER ENTERED EXISTS
-        if(!dbSuggestionData){
+        if(dbSuggestionData == ''){
             let suggestionDNEembed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
@@ -83,6 +83,9 @@ module.exports = {
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
         let origSuggester = client.users.fetch(origSuggesterId)
+
+        
+        console.log(`suggestionCh = ${suggestionCh}`)
 
 
         // ACCEPTED
