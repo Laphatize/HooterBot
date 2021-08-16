@@ -100,11 +100,9 @@ module.exports = {
 
                     console.log(`suggestionMsg = ${suggestionMsg}`)
 
-                    console.log(`suggestionMsg.first() = ${suggestionMsg.first()}`)
+                    console.log(`suggestionMsg.get(messageId) = ${suggestionMsg.get(`${messageId}`)}`)
 
-                    console.log(`suggestionMsg[origSuggestionMsgId] = ${suggestionMsg[origSuggestionMsgId]}`)
-
-                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                    suggestionMsg.get(messageId).edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
 
