@@ -81,7 +81,8 @@ module.exports = {
         let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
-        let origSuggester = client.users.fetch(origSuggesterId)
+        let origSuggester = await client.users.fetch(origSuggesterId)
+            .catch(err => console.log(err))
 
         
         console.log(`suggestionCh          = ${suggestionCh}`)
