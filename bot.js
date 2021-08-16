@@ -323,7 +323,7 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 
     console.log(`memTestCount = ${memTestCount}`)
     
-    let owlCounterTestServerCh = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    let owlCounterTestServerCh = testServer.channels.cache.find(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
     owlCounterTestServerCh.setName(`Owls: ${memTestCount}`)
 
 
@@ -334,7 +334,7 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     //     memTempleCount = `${totalTestMembersCount}`
     // }
 
-    // let owlCounterTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    // let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
     // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
 })
 
