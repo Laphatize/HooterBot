@@ -137,22 +137,12 @@ module.exports = {
 
 
         // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        interaction.channel.messages.fetch(true).array()
-            .catch(err => {
-                let suggestionDNEembed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
+        interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+            .then(message => {
 
-                // POST EMBED
-                return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
-            })
-            .then(messageArray => {
-                // EDITING THE INITIAL MESSAGE
-
-                // message.get(dbSuggestionData.SUGGESTION_MSG_ID)
-
-                console.log(`messageArray = ${messageArray}`)
+                console.log(`message = ${message}`)
+                console.log(`message.author = ${message.author}`)
+                console.log(`message.content = ${message.content}`)
 
                 // message.edit({ embeds: [suggestionUpdatedEmbed] })
                 //     .catch(err => {
@@ -166,6 +156,15 @@ module.exports = {
                 //         // POST EMBED
                 //         return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
                 // })
+            })
+            .catch(err => {
+                let suggestionDNEembed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
+
+                // POST EMBED
+                return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
 
 
