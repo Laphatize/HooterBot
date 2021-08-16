@@ -63,7 +63,7 @@ module.exports = {
             let suggestionDNEembed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I couldn't find a suggestion with the number ${suggestionNum} in the database. Please try a different suggestion number`)
+                .setDescription(`I couldn't find Suggestion #${suggestionNum} in the database. Please try a different suggestion number.`)
 
             // POST EMBED
             return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
@@ -77,9 +77,9 @@ module.exports = {
         let suggestionChId = dbSuggestionData.SUGGESTION_CH_ID;
         let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
 
-
+                                
         // GRAB CHANNELS
-        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.id == suggestionChId)
+        let suggestionCh = interaction.guild.channels.cache.get(suggestionChId)
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
         let origSuggester = client.users.fetch(origSuggesterId)
