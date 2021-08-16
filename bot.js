@@ -282,6 +282,8 @@ cron.schedule('00 5,20,35,50 * * * *', async () => {
     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
+    console.log(`ticketCountTestServer = ${ticketCountTestServer}`)
+    console.log(`catChCountTestServer = ${catChCountTestServer}`)
     
     // TEMPLE SERVER
     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
