@@ -336,8 +336,8 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 
     console.log(`memTempleCount = ${memTempleCount}`)
 
-    // let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
-    // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
+    let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
+    owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
 })
 
 
