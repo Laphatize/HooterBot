@@ -137,12 +137,12 @@ module.exports = {
 
 
         // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        await interaction.channel.messages.fetch(`${dbSuggestionData.SUGGESTION_MSG_ID}`)
-            .then(message => {
+        await interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+            .then(messageCollection => {
 
-                console.log(`message = ${message}`)
-                console.log(`message.author = ${message[0].author}`)
-                console.log(`message.content = ${message[0].content}`)
+                let suggestionMsg = messageCollection.filter(msg => msg.id == dbSuggestionData.SUGGESTION_MSG_ID)
+
+                console.log(`suggestionMsg = ${suggestionMsg}`)
 
                 // message.edit({ embeds: [suggestionUpdatedEmbed] })
                 //     .catch(err => {
