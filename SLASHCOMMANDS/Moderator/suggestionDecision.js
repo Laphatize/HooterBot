@@ -106,8 +106,7 @@ module.exports = {
 
                 console.log(`\n\n Message Map Data:`, msg, `\n\n`)
 
-                let fetchedMapMsg = msg[`${dbSuggestionData.SUGGESTION_MSG_ID}`]
-                
+                let fetchedMapMsg = msg.get(dbSuggestionData.SUGGESTION_MSG_ID)
                 
                 console.log(`fetchedMapMsg\n`, fetchedMapMsg)
 
