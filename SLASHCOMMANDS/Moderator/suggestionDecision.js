@@ -81,16 +81,10 @@ module.exports = {
         let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
-        await interaction.guild.members.fetch(origSuggesterId)
-            .then(member => {
-                
+        suggestionCh.messages.fetch(origSuggestionMsgId)
+            .then( msg => {
                 // ACCEPTED
                 if(decisionVerdict == 'accept') {
-                    
-                    let msg = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions').messages.fetch(origSuggestionMsgId)
-
-                    console.log(`msg =\n${msg}\n`)
-
                     let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
@@ -113,68 +107,49 @@ module.exports = {
 
                 // REJECTED
                 if(decisionVerdict == 'deny') {
-                    suggestionCh.messages.fetch(origSuggestionMsgId)
-                        .then(msg => {
+                    let suggestionEditDenyEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            let user = client.users.cache.get(origSuggesterId)
+                    msg.edit({ embeds: suggestionEditDenyEmbed})
 
-                            let suggestionEditDenyEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedRed)
-                                .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                    // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
+                    let suggestionDecisionDenyEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            msg.edit({ embeds: suggestionEditDenyEmbed})
-
-                            // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
-                            let suggestionDecisionDenyEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedRed)
-                                .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-                            suggestionDecisionsCh.send({ embeds: suggestionDecisionDenyEmbed})
-                        })
+                    suggestionDecisionsCh.send({ embeds: suggestionDecisionDenyEmbed})
                 }
 
 
                 // ON HOLD
                 if(decisionVerdict == 'onhold') {
-                    suggestionCh.messages.fetch(origSuggestionMsgId)
-                        .then(msg => {
+                    let suggestionHoldEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            let user = client.users.cache.get(origSuggesterId)
-
-                            let suggestionHoldEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedGrey)
-                                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-                            msg.edit({ embeds: suggestionHoldEmbed})
-                        })
+                    msg.edit({ embeds: suggestionHoldEmbed})
                 }
 
 
                 // UNDER CONSIDERATION
                 if(decisionVerdict == 'underconsideration') {
-                    suggestionCh.messages.fetch(origSuggestionMsgId)
-                        .then(msg => {
+                    let suggestionConsideringEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            let user = client.users.cache.get(origSuggesterId)
-
-                            let suggestionConsideringEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedGrey)
-                                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-                            msg.edit({ embeds: suggestionConsideringEmbed})
-                        })
+                    msg.edit({ embeds: suggestionConsideringEmbed})
                 }
-                
         })
-            .catch(err => console.log(err))
+        .catch(err => console.log(err))
 
 
 

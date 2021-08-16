@@ -393,7 +393,7 @@ cron.schedule('00 00 08 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
+            guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })
