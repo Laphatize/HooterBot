@@ -46,26 +46,32 @@ module.exports = {
         let suggestionEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`Suggestion #${parseInt(caseCounter)+1}`)
-            .setDescription(`${userSuggestion}`)
+            .setDescription(`${userSuggestion}\n\n*Suggested by: ${interaction.user}*`)
+            .setFooter(`[Waiting for community feedback...]`)
 
-        let suggestionMsg = suggestCh.send({ embeds: [suggestionEmbed] })
+        suggestCh.send({ embeds: [suggestionEmbed] })
+            .then(suggestionMsg => {
+                // LOG DATABASE INFORMATION
+                await suggestionSchema.findOneAndUpdate({
+                    GUILD_ID: interaction.guild.id,
+                    CREATOR_ID: interaction.user.id,
+                    SUGGESTION_MSG_ID: suggestionMsg.id
+                },{
+                    GUILD_ID: interaction.guild.id,
+                    GUILD_NAME: interaction.guild.name,
+                    CREATOR_ID: interaction.user.id,
+                    CREATOR_NAME: interaction.user.username,
+                    SUGGESTION_CH_ID: suggestCh.id,
+                    SUGGESTION_MSG_ID: suggestionMsg.id
+                },{
+                    upsert: true
+                }).exec();
 
+                // ADDING REACTIONS
+                suggestionMsg.react(`👍`)
+                    .then(() => suggestionMsg.react(`👎`))
+            })
 
-        // LOG DATABASE INFORMATION
-        await suggestionSchema.findOneAndUpdate({
-            GUILD_ID: interaction.guild.id,
-            CREATOR_ID: interaction.user.id,
-            SUGGESTION_MSG_ID: suggestionMsg.id
-        },{
-            GUILD_ID: interaction.guild.id,
-            GUILD_NAME: interaction.guild.name,
-            CREATOR_ID: interaction.user.id,
-            CREATOR_NAME: interaction.user.username,
-            SUGGESTION_CH_ID: suggestionMsg.channel.id,
-            SUGGESTION_MSG_ID: suggestionMsg.id
-        },{
-            upsert: true
-        }).exec();
 
 
         let suggestionConfirmedEmbed = new discord.MessageEmbed()
