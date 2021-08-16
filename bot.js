@@ -305,11 +305,11 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 
     // FETCHING THE GUILD FROM DATABASE
     let testServer = client.guilds.cache.get(`530503548937699340`)
-    // let templeServer = client.guilds.cache.get(`829409161581821992`)
+    let templeServer = client.guilds.cache.get(`829409161581821992`)
 
     // MEMBER LIST VC'S
     var totalTestMembersCount = testServer.memberCount
-    // var totalTempleMembersCount = templeServer.members.fetch().size
+    var totalTempleMembersCount = testServer.memberCount
     let memTestCount;
     let memTempleCount;
 
@@ -328,11 +328,13 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 
 
 
-    // if(totalTestMembersCount > 1000) {
-    //     memTempleCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
-    // } else {
-    //     memTempleCount = `${totalTestMembersCount}`
-    // }
+    if(totalTestMembersCount > 1000) {
+        memTempleCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
+    } else {
+        memTempleCount = `${totalTestMembersCount}`
+    }
+
+    console.log(`memTempleCount = ${memTempleCount}`)
 
     // let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
     // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
