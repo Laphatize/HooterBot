@@ -10,7 +10,7 @@ module.exports = {
         {
             name: `your_suggestion`,
             description: `The idea you want to suggest.`,
-            type: `INTEGER`,
+            type: `STRING`,
             required: true,
         },
     ],
