@@ -294,11 +294,14 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
 
 
+    console.log(`Checking the voice channel member count`)
 
     // MEMBER LIST VC'S
     var totalTestMembersCount = testServer.memberCount
     // var totalTempleMembersCount = templeServer.members.fetch().size
     let memTestCount, memTempleCount;
+
+    console.log(`memTestCount = ${memTestCount}`)
 
     if(totalTestMembersCount > 1000) {
         memTestCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
