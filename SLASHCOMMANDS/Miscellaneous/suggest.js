@@ -48,7 +48,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`Suggestion #${parseInt(caseCounter)+1}`)
             .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ dynamic:true }))
-            .setDescription(`${userSuggestion}*`)
+            .setDescription(`${userSuggestion}`)
             .setFooter(`[Waiting for community feedback...]`)
 
         suggestCh.send({ embeds: [suggestionEmbed] })
