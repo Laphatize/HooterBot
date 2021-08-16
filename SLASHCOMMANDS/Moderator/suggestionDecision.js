@@ -84,6 +84,19 @@ module.exports = {
         const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
             .then(msg => {
                 oldSuggestionEmbed = msg.embeds[0]
+
+                // ACCEPTED
+                if(decisionVerdict == 'accept') {
+
+                    let suggestionEditAcceptEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                        .setAuthor(`${origSuggesterTag}`)
+                        .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                
+                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                        .catch(err => console.log(err))
+                }
             })
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
@@ -94,23 +107,6 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-
-
-        // ACCEPTED
-        if(decisionVerdict == 'accept') {
-
-            let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-        
-            targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
-                .catch(err => console.log(err))
-        }
-
-
-
 
 
 
