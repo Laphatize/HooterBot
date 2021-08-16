@@ -137,7 +137,7 @@ module.exports = {
 
 
         // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        await interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+        await interaction.channel.messages.fetch(`${dbSuggestionData.SUGGESTION_MSG_ID}`)
             .then(message => {
 
                 console.log(`message = ${message}`)
