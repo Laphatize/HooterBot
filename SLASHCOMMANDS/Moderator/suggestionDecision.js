@@ -94,7 +94,7 @@ module.exports = {
                         .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
                 
-                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                    targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                         .catch(err => console.log(err))
                 }
             })
