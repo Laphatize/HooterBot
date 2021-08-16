@@ -105,7 +105,7 @@ module.exports = {
         // REJECTED
         if(decisionVerdict == 'deny') {
 
-            let suggestionUpdatedEmbed = new discord.MessageEmbed()
+            suggestionUpdatedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
                 .setAuthor(`${origSuggesterTag}`)
@@ -115,7 +115,7 @@ module.exports = {
         // ON HOLD
         if(decisionVerdict == 'onhold') {
 
-            let suggestionUpdatedEmbed = new discord.MessageEmbed()
+            suggestionUpdatedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
                 .setAuthor(`${origSuggesterTag}`)
@@ -125,7 +125,7 @@ module.exports = {
         // UNDER CONSIDERATION
         if(decisionVerdict == 'underconsideration') {
             
-            let suggestionConsideringEmbed = new discord.MessageEmbed()
+            suggestionUpdatedEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
                 .setAuthor(`${origSuggesterTag}`)
