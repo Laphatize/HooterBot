@@ -299,7 +299,7 @@ cron.schedule('00 5,20,35,50 * * * *', async () => {
 
 
 // MEMBER COUNTER
-// EVERY 6 MINUTES
+// EVERY 10 MINUTES
 //cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
 cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     
@@ -322,23 +322,21 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     } else {
         memTestCount = `${totalTestMembersCount}`
     }
+    if(totalTempleMembersCount > 1000) {
+        memTempleCount = `${(totalTempleMembersCount/1000).toFixed(1)}K`
+    } else {
+        memTempleCount = `${totalTempleMembersCount}`
+    }
 
     console.log(`memTestCount = ${memTestCount}`)
     
-    let owlCounterTestServerCh = testServer.channels.cache.find(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    let owlCounterTestServerCh = testServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
     owlCounterTestServerCh.setName(`Owls: ${memTestCount}`)
 
 
-
-    if(totalTestMembersCount > 1000) {
-        memTempleCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
-    } else {
-        memTempleCount = `${totalTestMembersCount}`
-    }
-
     console.log(`memTempleCount = ${memTempleCount}`)
 
-    // let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    // let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
     // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
 })
 
