@@ -106,26 +106,31 @@ module.exports = {
 
                 console.log(`\n\n Message Map Data:`, msg, `\n\n`)
 
-                let fetchedMapMsg = msg.get(dbSuggestionData.SUGGESTION_MSG_ID)
+                let keys = Array.from(msg.keys());
+
+                console.log(`\n\n keys Data:`, keys, `\n\n`)
+
+
+                // let fetchedMapMsg = msg.get([dbSuggestionData.SUGGESTION_MSG_ID].content)
                 
-                console.log(`fetchedMapMsg\n`, fetchedMapMsg)
+                // console.log(`fetchedMapMsg\n`, fetchedMapMsg)
 
 
 
 
-                // ACCEPTED
-                if(decisionVerdict == 'accept') {
+            //     // ACCEPTED
+            //     if(decisionVerdict == 'accept') {
 
-                    let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                        .setAuthor(`${origSuggesterTag}`)
-                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+            //         let suggestionEditAcceptEmbed = new discord.MessageEmbed()
+            //             .setColor(config.embedGreen)
+            //             .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+            //             .setAuthor(`${origSuggesterTag}`)
+            //             .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    fetchedMapMsg.edit({ embeds: [suggestionEditAcceptEmbed] })
-                        .catch(err => console.log(err))
-                }
-            })
+            //         fetchedMapMsg.edit({ embeds: [suggestionEditAcceptEmbed] })
+            //             .catch(err => console.log(err))
+            //     }
+            // })
 
         
             
