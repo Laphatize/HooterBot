@@ -33,7 +33,7 @@ module.exports = {
                 }
             ]
         }, {
-            name: `message`,
+            name: `response`,
             description: `Feedback or a response to the suggestion and why this decision is being made.`,
             type: `STRING`,
             required: true
@@ -78,7 +78,7 @@ module.exports = {
 
 
         // GRAB CHANNEL, SUGGESTION
-        const suggestionCh = await interaction.guild.channels.cache.find(suggestionChId)
+        const suggestionCh = await interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         console.log(`suggestionCh = ${suggestionCh}`)
         const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
     
