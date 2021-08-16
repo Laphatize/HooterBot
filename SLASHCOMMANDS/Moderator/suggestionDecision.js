@@ -87,28 +87,26 @@ module.exports = {
                 // ACCEPTED
                 if(decisionVerdict == 'accept') {
                     
-                    
-                    interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
-                        .then(ch => {
-                            msg = ch.messages.fetch(origSuggestionMsgId)
+                    let msg = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions').messages.fetch(origSuggestionMsgId)
 
-                            let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedGreen)
-                                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            msg.edit({ embeds: suggestionEditAcceptEmbed})
+                    let suggestionEditAcceptEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                            // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
-                            let suggestionDecisionAcceptEmbed = new discord.MessageEmbed()
-                                .setColor(config.embedGreen)
-                                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                                // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
-                                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                    msg.edit({ embeds: suggestionEditAcceptEmbed})
 
-                            suggestionDecisionsCh.send({ embeds: suggestionDecisionAcceptEmbed})
-                        })
+
+                    // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
+                    let suggestionDecisionAcceptEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                        // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                    suggestionDecisionsCh.send({ embeds: suggestionDecisionAcceptEmbed})
                 }
 
 
