@@ -38,7 +38,7 @@ module.exports = {
 
         
         // DEFINING STRINGS FOR WELCOME MESSAGES IN #joins
-        const channelMsgEnding = ` Grab some roles in ${rolesChannel} and say hi to your fellow Owls in ${introduceYourselfChannel}`;
+        const channelMsgEnding = ` Grab some roles in ${rolesChannel} and say hi to your fellow Owls in ${introduceYourselfChannel}!`;
             
             
         // CREATING RANDOM START TO THE STRING
