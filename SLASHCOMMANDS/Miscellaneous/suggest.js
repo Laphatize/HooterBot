@@ -50,7 +50,7 @@ module.exports = {
             .setFooter(`[Waiting for community feedback...]`)
 
         suggestCh.send({ embeds: [suggestionEmbed] })
-            .then(suggestionMsg => {
+            .then(async suggestionMsg => {
                 // LOG DATABASE INFORMATION
                 await suggestionSchema.findOneAndUpdate({
                     GUILD_ID: interaction.guild.id,
