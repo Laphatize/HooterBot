@@ -140,11 +140,15 @@ module.exports = {
         await interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
             .then(messageCollection => {
 
+
+                console.log(`messageCollection.size = ${messageCollection.size}`)
+                console.log(`messageCollection.entries() = ${messageCollection.entries()}`)
+
                 let suggestionMsg = messageCollection.filter(msg => msg.id == dbSuggestionData.SUGGESTION_MSG_ID)
 
                 console.log(`suggestionMsg = ${suggestionMsg}`)
                 console.log(`suggestionMsg.size = ${suggestionMsg.size}`)
-                console.log(`suggestionMsg.get(dbSuggestionData.SUGGESTION_MSG_ID) = ${suggestionMsg.get(dbSuggestionData.SUGGESTION_MSG_ID)}`)
+                console.log(`suggestionMsg.entries() = ${suggestionMsg.entries()}`)
 
                 // message.edit({ embeds: [suggestionUpdatedEmbed] })
                 //     .catch(err => {
