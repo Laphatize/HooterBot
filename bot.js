@@ -297,6 +297,7 @@ cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
     // TEST SERVER
     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    testServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]` })
 
     console.log(`ticketCountTestServer = ${ticketCountTestServer}`)
     console.log(`catChCountTestServer = ${catChCountTestServer}`)
@@ -304,13 +305,10 @@ cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
     // TEMPLE SERVER
     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    templeServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]` })
 
     console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
     console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
-
-    // UPDATING CATEGORY VALUES
-    testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
-    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
 
     console.log(`Ticket categories updated.`)
 })

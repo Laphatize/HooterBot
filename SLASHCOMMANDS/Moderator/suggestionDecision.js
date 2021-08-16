@@ -96,9 +96,9 @@ module.exports = {
             suggestionCh.messages.fetch({ limit: 1 }, true)
                 .then(msg => {
 
-                    let grabbedSuggestion = msg.find(msg => msg.id === origSuggestionMsgId)
+                    let grabbedSuggestion = msg[0]
 
-                    console.log(`grabbedSuggestion = ${grabbedSuggestion}`)
+                    console.log(`grabbedSuggestion => msg[0]  = ${grabbedSuggestion}`)
 
                     grabbedSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
