@@ -5,7 +5,7 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 
 module.exports = {
     name: 'add_birthday',
-    description: `Adds your birthday for HooterBot to remember and announce in the server. [10s]`,
+    description: `Adds your birthday for HooterBot to remember and announce in the server. (🤖｜bot-spam) [10s]`,
     options: [
         {
             name: `month`,
@@ -25,6 +25,21 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
+        
         // GRABBING SLASH COMMAND INPUT VALUES
         const month = inputs[0];
         const day = inputs[1];

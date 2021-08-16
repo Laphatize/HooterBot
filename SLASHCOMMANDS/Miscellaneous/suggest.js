@@ -5,7 +5,7 @@ const suggestionSchema = require('../../Database/suggestionSchema');
 
 module.exports = {
     name: 'suggest',
-    description: 'Generates a suggestion that server members will vote on to accept or reject.',
+    description: 'Generates a suggestion that server members will vote on to accept or reject. (🤖｜bot-spam) [60s]',
     options: [
         {
             name: `your_suggestion`,
@@ -16,9 +16,24 @@ module.exports = {
     ],
     permissions: '',
     dmUse: false,
-    cooldown: 0,
+    cooldown: 60,
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
+
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
 
         // INPUTS
         let userSuggestion = inputs[0]
