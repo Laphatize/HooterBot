@@ -93,10 +93,12 @@ module.exports = {
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
 
-            suggestionCh.messages.fetch(origSuggestionMsgId)
-                .then( msg => {
-                    console.log(`msg[origSuggestionMsgId] = ${msg[origSuggestionMsgId]}`)
-                    msg[origSuggestionMsgId].edit({ embeds: [suggestionEditAcceptEmbed] })
+            suggestionCh.messages.fetch({}, true)
+                .then(async msg => {
+
+                    let grabbedSuggestion = msg.get(`${origSuggestionMsgId}`)
+
+                    grabbedSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
 
