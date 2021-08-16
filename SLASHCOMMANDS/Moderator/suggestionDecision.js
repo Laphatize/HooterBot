@@ -96,7 +96,7 @@ module.exports = {
             suggestionCh.messages.fetch({ limit: 1 }, true)
                 .then(msg => {
 
-                    let grabbedSuggestion = msg.first()
+                    let grabbedSuggestion = msg.id == origSuggestionMsgId
 
                     console.log(`grabbedSuggestion = ${grabbedSuggestion}`)
 
