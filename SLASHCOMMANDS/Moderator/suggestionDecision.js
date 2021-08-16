@@ -90,20 +90,19 @@ module.exports = {
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
 
-            .then(msg => {
-                // ACCEPTED
-                if(decisionVerdict == 'accept') {
+            
+        // ACCEPTED
+        if(decisionVerdict == 'accept') {
 
-                    let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                        .setAuthor(`${origSuggesterTag}`)
-                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-                
-                    targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
-                        .catch(err => console.log(err))
-                }
-            })
+            let suggestionEditAcceptEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                .setAuthor(`${origSuggesterTag}`)
+                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+        
+            targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
+                .catch(err => console.log(err))
+        }
 
         
             
