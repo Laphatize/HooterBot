@@ -299,7 +299,7 @@ cron.schedule('00 5,20,35,50 * * * *', async () => {
 // MEMBER COUNTER
 // EVERY 6 MINUTES
 //cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
-cron.schedule('00 02,32 * * * *', async () => {
+cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     
     console.log(`Checking the voice channel member count`)
 
