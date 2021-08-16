@@ -78,7 +78,7 @@ module.exports = {
 
 
         // GRAB CHANNELS
-        let suggestionCh = interaction.guild.channels.cache.get(suggestionChId)
+        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
 
@@ -93,10 +93,10 @@ module.exports = {
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
 
-            suggestionCh.messages.fetch({}, true)
-                .then(async msg => {
+            suggestionCh.messages.fetch({ limit: 1 }, true)
+                .then(msg => {
 
-                    let grabbedSuggestion = msg.get(`${origSuggestionMsgId}`)
+                    let grabbedSuggestion = msg.first()
 
                     console.log(`grabbedSuggestion = ${grabbedSuggestion}`)
 

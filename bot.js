@@ -269,8 +269,8 @@ client.on('ready', async () => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // TICKET CATEGORY COUNTER
-// EVERY 15 MINUTES
-cron.schedule('00 5,20,35,50 * * * *', async () => {
+// EVERY 20 MINUTES
+cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
     console.log(`Updating ticket categories`)
 
     // VERIFICATION CATEGORIES
