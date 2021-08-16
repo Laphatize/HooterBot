@@ -77,9 +77,23 @@ module.exports = {
         let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
 
 
-        // GRAB CHANNELS
-        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
-        let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
+        // GRAB CHANNEL, SUGGESTION
+        const suggestionCh = interaction.guild.channels.cache.get(suggestionChId)
+        const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
+
+        if (!targetSuggestion) {
+            let suggestionDNEembed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
+        }
+
+
+        // GRABBING INITIAL EMBED
+        const oldSuggestionEmbed = targetSuggestion.embeds[0]
 
 
 
@@ -89,32 +103,11 @@ module.exports = {
             let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                .setAuthor(`${oldSuggestionEmbed.author.tag}`)
+                .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
-
-            await suggestionCh.messages.fetch({}, true)
-                .then(async msg => {
-                    
-                    // [ MESSAGE ID , {MSG_OBJ} ]
-                    let grabbedMessage = msg.get(`${origSuggestionMsgId}`)
-
-                    console.log(`grabbedMessage.author.tag = ${grabbedMessage.author.tag}`)
-                    console.log(`grabbedMessage.content = ${grabbedMessage.content}`)
-
-
-                    grabbedMessage.get(messageId).edit({ embeds: [suggestionEditAcceptEmbed] })
-                }).catch(err => console.log(err))
-
-
-            // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
-            let suggestionDecisionAcceptEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-            suggestionDecisionsCh.send({ embeds: [suggestionDecisionAcceptEmbed] })
+            targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
+                .catch(err => console.log(err))
         }
 
 
@@ -131,16 +124,6 @@ module.exports = {
                 .then( msg => {
                     msg.edit({ embeds: [suggestionEditDenyEmbed] })
                 }).catch(err => console.log(err))
-
-
-            // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
-            let suggestionDecisionDenyEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-
-            suggestionDecisionsCh.send({ embeds: [suggestionDecisionDenyEmbed] })
         }
 
 
