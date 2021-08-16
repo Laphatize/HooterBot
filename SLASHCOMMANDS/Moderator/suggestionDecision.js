@@ -101,12 +101,9 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-
             .then(chMsgs => {
 
-                let suggestionMsg = chMsgs.get(dbSuggestionData.SUGGESTION_MSG_ID)
-
-
+                let suggestionMsg = chMsgs.values(dbSuggestionData.SUGGESTION_MSG_ID)
 
                 console.log(`\n\n suggestionMsg:`, suggestionMsg, `\n\n`)
 
