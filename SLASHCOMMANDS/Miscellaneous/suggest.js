@@ -70,7 +70,7 @@ module.exports = {
 
                 // ADDING REACTIONS
                 suggestionMsg.react(`👍`)
-                    .then(() => {
+                    .then(async () => {
                         await wait(500)
                         suggestionMsg.react(`👎`)
                     })
