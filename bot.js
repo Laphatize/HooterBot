@@ -249,8 +249,9 @@ client.on('ready', async () => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // TICKET CATEGORY COUNTER
-// EVERY 15 MINUTES
-cron.schedule('00 05,20,35,50 * * * *', async () => {
+// EVERY 10 MINUTES
+cron.schedule('00 5,15,25,35,45,55 * * * *', async () => {
+    console.log(`Updating ticket categories`)
 
     // VERIFICATION CATEGORIES
     const dbGuildTestServerData = await guildSchema.findOne({
@@ -290,13 +291,15 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     // UPDATING CATEGORY VALUES
     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+
+    console.log(`Ticket categories updated.`)
 })
 
 
 // MEMBER COUNTER
 // EVERY 6 MINUTES
 //cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
-cron.schedule('00,30 * * * * *', async () => {
+cron.schedule('00 2,12,22,32,42,52, * * * *', async () => {
     
     console.log(`Checking the voice channel member count`)
 
@@ -307,7 +310,8 @@ cron.schedule('00,30 * * * * *', async () => {
     // MEMBER LIST VC'S
     var totalTestMembersCount = testServer.memberCount
     // var totalTempleMembersCount = templeServer.members.fetch().size
-    let memTestCount, memTempleCount;
+    let memTestCount;
+    let memTempleCount;
 
     console.log(`totalTestMembersCount = ${totalTestMembersCount}`)
 
@@ -317,10 +321,10 @@ cron.schedule('00,30 * * * * *', async () => {
         memTestCount = `${totalTestMembersCount}`
     }
 
-    console.log(`totalTestMembersCount = ${totalTestMembersCount}`)
+    console.log(`memTestCount = ${memTestCount}`)
     
-    // let owlCounterTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
-    // owlCounterTestServer.setName(`Owls: ${memTestCount}`)
+    let owlCounterTestServerCh = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    owlCounterTestServerCh.setName(`Owls: ${memTestCount}`)
 
 
 
