@@ -82,7 +82,7 @@ module.exports = {
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
         suggestionCh.messages.fetch(origSuggestionMsgId)
-            .then( msg => {
+            .then( async msg => {
                 // ACCEPTED
                 if(decisionVerdict == 'accept') {
                     let suggestionEditAcceptEmbed = new discord.MessageEmbed()
@@ -91,7 +91,7 @@ module.exports = {
                         // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    msg.edit({ embeds: suggestionEditAcceptEmbed})
+                    await msg.edit({ embeds: suggestionEditAcceptEmbed})
 
 
                     // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
@@ -113,7 +113,7 @@ module.exports = {
                         // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    msg.edit({ embeds: suggestionEditDenyEmbed})
+                    await msg.edit({ embeds: suggestionEditDenyEmbed})
 
                     // SEND NOTICE TO SUGGESTION DECISIONS CHANNEL
                     let suggestionDecisionDenyEmbed = new discord.MessageEmbed()
@@ -134,7 +134,7 @@ module.exports = {
                         // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    msg.edit({ embeds: suggestionHoldEmbed})
+                    await msg.edit({ embeds: suggestionHoldEmbed})
                 }
 
 
@@ -146,7 +146,7 @@ module.exports = {
                         // .setAuthor(origSuggesterTag, user.user.displayAvatarURL({ dynamic:true }))
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    msg.edit({ embeds: suggestionConsideringEmbed})
+                    await msg.edit({ embeds: suggestionConsideringEmbed})
                 }
         })
         .catch(err => console.log(err))
