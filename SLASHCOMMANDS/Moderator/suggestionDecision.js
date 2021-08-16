@@ -102,7 +102,7 @@ module.exports = {
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
                 .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
         }
 
         // REJECTED
@@ -112,7 +112,7 @@ module.exports = {
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
                 .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
         }
 
         // ON HOLD
@@ -122,7 +122,7 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
                 .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
         }
 
         // UNDER CONSIDERATION
@@ -132,7 +132,7 @@ module.exports = {
                 .setColor(config.embedGrey)
                 .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
                 .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
         }
 
 
