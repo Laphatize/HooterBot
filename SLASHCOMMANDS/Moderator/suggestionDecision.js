@@ -137,7 +137,7 @@ module.exports = {
 
 
         // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+        interaction.channel.messages.fetch(true).array()
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -147,23 +147,25 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-            .then(message => {
+            .then(messageArray => {
                 // EDITING THE INITIAL MESSAGE
 
-                console.log(`message = ${message}`)
+                // message.get(dbSuggestionData.SUGGESTION_MSG_ID)
 
-                message.edit({ embeds: [suggestionUpdatedEmbed] })
-                    .catch(err => {
-                        console.log(err)
+                console.log(`messageArray = ${messageArray}`)
 
-                        let errorEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
-                            .setTitle(`${config.emjREDTICK} Sorry!`)
-                            .setDescription(`I ran into an error updating the initial suggestion.`)
+                // message.edit({ embeds: [suggestionUpdatedEmbed] })
+                //     .catch(err => {
+                //         console.log(err)
+
+                //         let errorEmbed = new discord.MessageEmbed()
+                //             .setColor(config.embedRed)
+                //             .setTitle(`${config.emjREDTICK} Sorry!`)
+                //             .setDescription(`I ran into an error updating the initial suggestion.`)
         
-                        // POST EMBED
-                        return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
-                })
+                //         // POST EMBED
+                //         return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
+                // })
             })
 
 
