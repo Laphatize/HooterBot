@@ -93,19 +93,17 @@ module.exports = {
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
 
-            suggestionCh.messages.fetch()
-                .then(msgs => {
+            await suggestionCh.messages.fetch({}, true)
+                .then(async msg => {
+                    
+                    // [ MESSAGE ID , {MSG_OBJ} ]
+                    let grabbedMessage = msg.get(`${origSuggestionMsgId}`)
 
-                    let suggestionMsg = msgs.filter(m => m.id === origSuggestionMsgId)
-
-                    console.log(`suggestionMsg = ${suggestionMsg}`)
-                    console.log(`suggestionMsg.author.tag = ${suggestionMsg.author.tag}`)
-                    console.log(`suggestionMsg.content = ${suggestionMsg.content}`)
-
-                    console.log(`suggestionMsg.get(origSuggestionMsgId) = ${suggestionMsg.get(`${origSuggestionMsgId}`)}`)
+                    console.log(`grabbedMessage.author.tag = ${grabbedMessage.author.tag}`)
+                    console.log(`grabbedMessage.content = ${grabbedMessage.content}`)
 
 
-                    suggestionMsg.get(messageId).edit({ embeds: [suggestionEditAcceptEmbed] })
+                    grabbedMessage.get(messageId).edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
 
