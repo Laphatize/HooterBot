@@ -156,6 +156,16 @@ module.exports = {
                 //         // POST EMBED
                 //         return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
                 // })
+
+                
+                // CONFIRMATION MESSAGE ON EDIT
+                let sugDecConfirmationEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Decision submitted!`)
+                    .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
+
+                // POST EMBED
+                return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
             })
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
@@ -166,15 +176,5 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-
-
-        // CONFIRMATION
-        let sugDecConfirmationEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} Decision submitted!`)
-            .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
-
-        // POST EMBED
-        return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
     }
 }
