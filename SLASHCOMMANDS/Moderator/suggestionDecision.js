@@ -103,7 +103,15 @@ module.exports = {
             })
 
             .then(msg => {
-                console.log(msg)
+
+                console.log(`\n\n Message Map Data:`, msg, `\n\n`)
+
+                let fetchedMapMsg = msg[`${dbSuggestionData.SUGGESTION_MSG_ID}`]
+                
+                
+                console.log(`fetchedMapMsg\n`, fetchedMapMsg)
+
+
 
 
                 // ACCEPTED
@@ -115,7 +123,7 @@ module.exports = {
                         .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                    fetchedMapMsg.edit({ embeds: [suggestionEditAcceptEmbed] })
                         .catch(err => console.log(err))
                 }
             })
