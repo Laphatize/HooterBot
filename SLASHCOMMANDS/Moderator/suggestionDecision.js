@@ -109,6 +109,7 @@ module.exports = {
                 let keys = Array.from(msg.keys());
 
                 console.log(`\n\n keys Data:`, keys, `\n\n`)
+            })
 
 
                 // let fetchedMapMsg = msg.get([dbSuggestionData.SUGGESTION_MSG_ID].content)
