@@ -254,6 +254,7 @@ client.on('ready', async () => {
 // EVERY 15 MINUTES
 cron.schedule('00 05,20,35,50 * * * *', async () => {
 
+    // VERIFICATION CATEGORIES
     const dbGuildTestServerData = await guildSchema.findOne({
         GUILD_ID: `530503548937699340`
     }).exec();
@@ -291,6 +292,33 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
     // UPDATING CATEGORY VALUES
     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+
+
+
+    // MEMBER LIST VC'S
+    var totalTestMembersCount = testServer.memberCount
+    // var totalTempleMembersCount = templeServer.members.fetch().size
+    let memTestCount, memTempleCount;
+
+    if(totalTestMembersCount > 1000) {
+        memTestCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
+    } else {
+        memTestCount = `${totalTestMembersCount}`
+    }
+
+    let owlCounterTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    owlCounterTestServer.setName(`Owls: ${memTestCount}`)
+
+
+
+    // if(totalTestMembersCount > 1000) {
+    //     memTempleCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
+    // } else {
+    //     memTempleCount = `${totalTestMembersCount}`
+    // }
+
+    // let owlCounterTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`Owls: `))
+    // owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
 })
 
 
