@@ -95,7 +95,8 @@ module.exports = {
 
             suggestionCh.messages.fetch(origSuggestionMsgId)
                 .then( msg => {
-                    msg.edit({ embeds: suggestionEditAcceptEmbed})
+                    console.log(`msg = ${msg}`)
+                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
 
@@ -106,7 +107,7 @@ module.exports = {
                 .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-            suggestionDecisionsCh.send({ embeds: suggestionDecisionAcceptEmbed})
+            suggestionDecisionsCh.send({ embeds: [suggestionDecisionAcceptEmbed] })
         }
 
 
@@ -121,7 +122,7 @@ module.exports = {
 
             suggestionCh.messages.fetch(origSuggestionMsgId)
                 .then( msg => {
-                    msg.edit({ embeds: suggestionEditDenyEmbed})
+                    msg.edit({ embeds: [suggestionEditDenyEmbed] })
                 }).catch(err => console.log(err))
 
 
@@ -132,7 +133,7 @@ module.exports = {
                 .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-            suggestionDecisionsCh.send({ embeds: suggestionDecisionDenyEmbed})
+            suggestionDecisionsCh.send({ embeds: [suggestionDecisionDenyEmbed] })
         }
 
 
@@ -147,7 +148,7 @@ module.exports = {
 
             suggestionCh.messages.fetch(origSuggestionMsgId)
                 .then( msg => {
-                    msg.edit({ embeds: suggestionHoldEmbed})
+                    msg.edit({ embeds: [suggestionHoldEmbed] })
                 }).catch(err => console.log(err))
         }
 
@@ -163,7 +164,7 @@ module.exports = {
 
             suggestionCh.messages.fetch(origSuggestionMsgId)
                 .then( msg => {
-                    msg.edit({ embeds: suggestionConsideringEmbed})
+                    msg.edit({ embeds: [suggestionConsideringEmbed] })
                 }).catch(err => console.log(err))
         }
 
