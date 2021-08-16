@@ -78,7 +78,7 @@ module.exports = {
 
 
         // GRAB CHANNEL, SUGGESTION
-        const suggestionCh = interaction.guild.channels.cache.get(suggestionChId)
+        const suggestionCh = interaction.guild.channels.get(suggestionChId)
         console.log(`suggestionCh = ${suggestionCh}`)
         const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
     
