@@ -148,6 +148,10 @@ module.exports = {
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
             .then(message => {
+                // EDITING THE INITIAL MESSAGE
+
+                console.log(`message = ${message}`)
+
                 message.edit({ embeds: [suggestionUpdatedEmbed] })
                     .catch(err => {
                         console.log(err)
