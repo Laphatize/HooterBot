@@ -47,7 +47,8 @@ module.exports = {
         let suggestionEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`Suggestion #${parseInt(caseCounter)+1}`)
-            .setDescription(`${userSuggestion}\n\n*Suggested by: ${interaction.user}*`)
+            .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ dynamic:true }))
+            .setDescription(`${userSuggestion}*`)
             .setFooter(`[Waiting for community feedback...]`)
 
         suggestCh.send({ embeds: [suggestionEmbed] })
@@ -61,19 +62,28 @@ module.exports = {
                     GUILD_ID: interaction.guild.id,
                     GUILD_NAME: interaction.guild.name,
                     CREATOR_ID: interaction.user.id,
-                    CREATOR_NAME: interaction.user.username,
+                    CREATOR_TAG: interaction.user.tag,
                     SUGGESTION_CH_ID: suggestCh.id,
-                    SUGGESTION_MSG_ID: suggestionMsg.id
+                    SUGGESTION_MSG_ID: suggestionMsg.id,
+                    SUGGESTION_NUM: (parseInt(caseCounter)+1),
+                    SUGGESTION_TEXT: userSuggestion
                 },{
                     upsert: true
                 }).exec();
 
-                // ADDING REACTIONS
-                suggestionMsg.react(`👍`)
-                    .then(async () => {
-                        await wait(500)
-                        suggestionMsg.react(`👎`)
-                    })
+                try {
+                    // ADDING REACTIONS
+                    await suggestionMsg.react(`👍`)
+                    await suggestionMsg.react(`👎`)
+                } catch (error) {
+                    let reactionError = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Sorry!`)
+                        .setDescription(`HooterBot ran into an error adding the voting reactions to your suggestion. Please create a <@${config.ModMailId}> ticket to let the admins know.`)
+        
+                    // POST EMBED
+                    return interaction.reply({ embeds: [reactionError], ephemeral: true })
+                }
             })
 
 
@@ -81,7 +91,7 @@ module.exports = {
         let suggestionConfirmedEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`${config.emjGREENTICK} Suggestion received!`)
-            .setDescription(`View your suggestion in ${suggestCh}!`)
+            .setDescription(`View your suggestion in ${suggestCh}! If the suggestion reaches the community voting threshold, the admins will consider implementing your suggestion.`)
 
         interaction.reply({ embeds: [suggestionConfirmedEmbed], ephemeral: true })
     }
