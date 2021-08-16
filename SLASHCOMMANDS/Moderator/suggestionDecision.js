@@ -93,10 +93,13 @@ module.exports = {
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
         
 
-            suggestionCh.messages.fetch({ limit: 1 })
-                .then(msg => {
+            suggestionCh.messages.fetch()
+                .then(msgs => {
 
-                    console.log(`msg = ${msg}`)
+                    let suggestionMsg = msgs.filter(m => m.id === origSuggestionMsgId)
+
+                    console.log(`suggestionMsg = ${suggestionMsg}`)
+ 
                     console.log(`\nmsg.first() = ${msg.first()}\n`)
 
                     msg.edit({ embeds: [suggestionEditAcceptEmbed] })
@@ -123,7 +126,7 @@ module.exports = {
                 .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-            suggestionCh.messages.fetch(origSuggestionMsgId)
+            suggestionCh.messages.fetch()
                 .then( msg => {
                     msg.edit({ embeds: [suggestionEditDenyEmbed] })
                 }).catch(err => console.log(err))
@@ -149,7 +152,7 @@ module.exports = {
                 .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-            suggestionCh.messages.fetch(origSuggestionMsgId)
+            suggestionCh.messages.fetch()
                 .then( msg => {
                     msg.edit({ embeds: [suggestionHoldEmbed] })
                 }).catch(err => console.log(err))
@@ -165,7 +168,7 @@ module.exports = {
                 .setAuthor(`${origSuggesterTag}`)
                 .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
-            suggestionCh.messages.fetch(origSuggestionMsgId)
+            suggestionCh.messages.fetch()
                 .then( msg => {
                     msg.edit({ embeds: [suggestionConsideringEmbed] })
                 }).catch(err => console.log(err))
