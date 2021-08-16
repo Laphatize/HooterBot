@@ -272,9 +272,6 @@ cron.schedule('00 5,20,35,50 * * * *', async () => {
     let testServerTicketCategory = testServer.channels.cache.get(dbGuildTestServerData.TICKET_CAT_ID)
     let templeServerTicketCategory = templeServer.channels.cache.get(dbGuildTempleServerData.TICKET_CAT_ID)
 
-    testServer.channels.cache.find(ch => ch.name === `mod-log`).send({ content: `Ticket category is: ${testServerTicketCategory}` })
-    templeServer.channels.cache.find(ch => ch.name === `mod-log`).send({ content: `Ticket category is: ${templeServerTicketCategory}` })
-
 
     // SETTING COUNT VALUES
     // TEST SERVER
@@ -316,7 +313,6 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     let memTestCount;
     let memTempleCount;
 
-    console.log(`totalTestMembersCount = ${totalTestMembersCount}`)
 
     if(totalTestMembersCount > 1000) {
         memTestCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
@@ -329,13 +325,10 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
         memTempleCount = `${totalTempleMembersCount}`
     }
 
-    console.log(`memTestCount = ${memTestCount}`)
     
     let owlCounterTestServerCh = testServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
     owlCounterTestServerCh.setName(`Owls: ${memTestCount}`)
 
-
-    console.log(`memTempleCount = ${memTempleCount}`)
 
     let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
     owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
