@@ -89,6 +89,7 @@ module.exports = {
                     
                     let msg = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions').messages.fetch(origSuggestionMsgId)
 
+                    console.log(`msg =\n${msg}\n`)
 
                     let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
