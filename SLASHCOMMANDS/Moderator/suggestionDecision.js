@@ -5,7 +5,7 @@ const suggestionSchema = require('../../Database/suggestionSchema');
 
 module.exports = {
     name: 'suggestion_decision',
-    description: `MODERATOR | Provide a response to a suggestion.`,
+    description: `MODERATOR | Provide a response to a suggestion. (#suggestions)`,
     options: [
         {
             name: `number`,
@@ -45,6 +45,21 @@ module.exports = {
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== 'suggestions') {
+
+            let suggestionsCh = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'suggestions')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`This command can only be run in ${suggestionsCh}. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
+
         // GRABBING SLASH COMMAND INPUT VALUES
         const suggestionNum = inputs[0];
         const decisionVerdict = inputs[1];
@@ -76,19 +91,7 @@ module.exports = {
     
 
 
-        // GRAB CHANNEL, SUGGESTION
-        if (!interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')) {
-            let suggestionChDNEembed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I couldn't find the suggestion channel. If this is an error, please let <@${config.botAuthorId}> know.`)
-
-            // POST EMBED
-            return interaction.reply({ embeds: [suggestionChDNEembed], ephemeral: true })
-        }
-
-        const suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
-
+        // EMBED UPDATES
         let suggestionUpdatedEmbed
         
 
@@ -134,7 +137,7 @@ module.exports = {
 
 
         // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        suggestionCh.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+        interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
                     .setColor(config.embedRed)

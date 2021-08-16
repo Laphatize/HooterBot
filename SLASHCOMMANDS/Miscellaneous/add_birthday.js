@@ -33,7 +33,7 @@ module.exports = {
             let wrongChannel = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`You'll have to run this command in <#${botSpamChannel.id}>. Head there and try again!`)
+                .setDescription(`This command can only be run in <#${botSpamChannel.id}>. Head there and try again!`)
 
             // POST EMBED
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
