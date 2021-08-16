@@ -88,7 +88,7 @@ module.exports = {
                     let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     await msg.edit({ embeds: suggestionEditAcceptEmbed})
@@ -98,7 +98,7 @@ module.exports = {
                     let suggestionDecisionAcceptEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGreen)
                         .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     suggestionDecisionsCh.send({ embeds: suggestionDecisionAcceptEmbed})
@@ -110,7 +110,7 @@ module.exports = {
                     let suggestionEditDenyEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     await msg.edit({ embeds: suggestionEditDenyEmbed})
@@ -119,7 +119,7 @@ module.exports = {
                     let suggestionDecisionDenyEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     suggestionDecisionsCh.send({ embeds: suggestionDecisionDenyEmbed})
@@ -131,7 +131,7 @@ module.exports = {
                     let suggestionHoldEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     await msg.edit({ embeds: suggestionHoldEmbed})
@@ -143,7 +143,7 @@ module.exports = {
                     let suggestionConsideringEmbed = new discord.MessageEmbed()
                         .setColor(config.embedGrey)
                         .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
-                        .setAuthor(origSuggesterTag)
+                        .setAuthor(`${origSuggesterTag}`)
                         .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
 
                     await msg.edit({ embeds: suggestionConsideringEmbed})
