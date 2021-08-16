@@ -63,7 +63,6 @@ module.exports = {
                     GUILD_NAME: interaction.guild.name,
                     CREATOR_ID: interaction.user.id,
                     CREATOR_TAG: interaction.user.tag,
-                    SUGGESTION_CH_ID: suggestCh.id,
                     SUGGESTION_MSG_ID: suggestionMsg.id,
                     SUGGESTION_NUM: (parseInt(caseCounter)+1),
                     SUGGESTION_TEXT: userSuggestion
@@ -74,6 +73,7 @@ module.exports = {
                 try {
                     // ADDING REACTIONS
                     await suggestionMsg.react(`👍`)
+                    await wait(1000)
                     await suggestionMsg.react(`👎`)
                 } catch (error) {
                     let reactionError = new discord.MessageEmbed()

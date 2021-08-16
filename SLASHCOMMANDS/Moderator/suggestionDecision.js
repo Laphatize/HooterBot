@@ -73,13 +73,25 @@ module.exports = {
         let origSuggesterId = dbSuggestionData.CREATOR_ID;
         let origSuggesterTag = dbSuggestionData.CREATOR_TAG;
         let origSuggestionText = dbSuggestionData.SUGGESTION_TEXT;
-        let suggestionChId = dbSuggestionData.SUGGESTION_CH_ID;
-        let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
+    
+
 
         // GRAB CHANNEL, SUGGESTION
-        const suggestionCh = await interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
-        console.log(`suggestionCh = ${suggestionCh}`)
-        const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
+        if (!interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')) {
+            let suggestionChDNEembed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`I couldn't find the suggestion channel. If this is an error, please let <@${config.botAuthorId}> know.`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [suggestionChDNEembed], ephemeral: true })
+        }
+
+
+        const suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
+
+        
+        suggestionCh.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID, false, true)
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -90,19 +102,23 @@ module.exports = {
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
 
-            
-        // ACCEPTED
-        if(decisionVerdict == 'accept') {
+            .then(msg => {
+                console.log(msg)
 
-            let suggestionEditAcceptEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
-        
-            targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
-                .catch(err => console.log(err))
-        }
+
+                // ACCEPTED
+                if(decisionVerdict == 'accept') {
+
+                    let suggestionEditAcceptEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                        .setAuthor(`${origSuggesterTag}`)
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                    msg.edit({ embeds: [suggestionEditAcceptEmbed] })
+                        .catch(err => console.log(err))
+                }
+            })
 
         
             
