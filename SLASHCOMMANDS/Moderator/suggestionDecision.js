@@ -78,7 +78,7 @@ module.exports = {
 
 
         // GRAB CHANNELS
-        let suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
+        let suggestionCh = interaction.guild.channels.cache.get(suggestionChId)
         let suggestionDecisionsCh = interaction.guild.channels.cache.find(ch => ch.name == `suggestions-decisions`)
 
 
