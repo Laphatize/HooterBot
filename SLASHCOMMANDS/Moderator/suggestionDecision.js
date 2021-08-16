@@ -76,27 +76,24 @@ module.exports = {
         let suggestionChId = dbSuggestionData.SUGGESTION_CH_ID;
         let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
 
+        let oldSuggestionEmbed;
 
         // GRAB CHANNEL, SUGGESTION
         const suggestionCh = await interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         console.log(`suggestionCh = ${suggestionCh}`)
         const targetSuggestion = await suggestionCh.messages.fetch(origSuggestionMsgId, false, true)
-    
+            .then(msg => {
+                oldSuggestionEmbed = msg.embeds[0]
+            })
+            .catch(err => {
+                let suggestionDNEembed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
 
-        if (!targetSuggestion) {
-            let suggestionDNEembed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
-
-            // POST EMBED
-            return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
-        }
-
-
-        // GRABBING INITIAL EMBED
-        const oldSuggestionEmbed = targetSuggestion.embeds[0]
-
+                // POST EMBED
+                return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
+            })
 
 
         // ACCEPTED
