@@ -86,12 +86,11 @@ module.exports = {
                 
                 // ACCEPTED
                 if(decisionVerdict == 'accept') {
-                    suggestionCh.messages.fetch(origSuggestionMsgId)
-                        .then(msg => {
-
-                            let user = client.users.cache.get(origSuggesterId)
-
-                            console.log(`msg = ${msg}`)                            
+                    
+                    
+                    interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
+                        .then(ch => {
+                            msg = ch.messages.fetch(origSuggestionMsgId)
 
                             let suggestionEditAcceptEmbed = new discord.MessageEmbed()
                                 .setColor(config.embedGreen)
