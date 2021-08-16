@@ -344,7 +344,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
                     .setDescription(`I'll remember ${birthdayUser}'s birthday on ${monthNames[birthdayMonth-1]} ${birthdayDay-1}, even though their birthday is actually on February 29.
-                    \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
+                    \n*If you ever wish for me to forget your birthday, use* \`\`/forget_birthday\`\`.`)
 
                 return interaction.followUp({ embeds: [bdaySetEmbed] });
             }
@@ -371,7 +371,7 @@ module.exports = {
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
                 .setDescription(`I'll remember ${birthdayUser}'s birthday on ${monthNames[birthdayMonth-1]} ${birthdayDay}.
-                \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
+                \n*If you ever wish for me to forget your birthday, use* \`\`/forget_birthday\`\`.`)
             
             return interaction.reply({ embeds: [bdaySetEmbed] });
         }
