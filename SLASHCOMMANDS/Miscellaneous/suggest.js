@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const suggestionSchema = require('../../Database/suggestionSchema');
+const wait = require('util').promisify(setTimeout);
 
 
 module.exports = {
@@ -69,7 +70,10 @@ module.exports = {
 
                 // ADDING REACTIONS
                 suggestionMsg.react(`👍`)
-                    .then(() => suggestionMsg.react(`👎`))
+                    .then(() => {
+                        await wait(500)
+                        suggestionMsg.react(`👎`)
+                    })
             })
 
 
