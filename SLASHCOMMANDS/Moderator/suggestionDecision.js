@@ -76,8 +76,6 @@ module.exports = {
         let suggestionChId = dbSuggestionData.SUGGESTION_CH_ID;
         let origSuggestionMsgId = dbSuggestionData.SUGGESTION_MSG_ID;
 
-        let oldSuggestionEmbed;
-
         // GRAB CHANNEL, SUGGESTION
         const suggestionCh = await interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
         console.log(`suggestionCh = ${suggestionCh}`)
@@ -91,9 +89,8 @@ module.exports = {
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
             })
-            .then(msg => {
-                oldSuggestionEmbed = msg.embeds[0]
 
+            .then(msg => {
                 // ACCEPTED
                 if(decisionVerdict == 'accept') {
 
@@ -101,12 +98,14 @@ module.exports = {
                         .setColor(config.embedGreen)
                         .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
                         .setAuthor(`${origSuggesterTag}`)
-                        .setDescription(`${oldSuggestionEmbed}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
+                        .setDescription(`${origSuggestionText}\n\n**Reason from ${interaction.user.tag}:**\n${decisionMsg}`)
                 
                     targetSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                         .catch(err => console.log(err))
                 }
             })
+
+        
             
 
 
