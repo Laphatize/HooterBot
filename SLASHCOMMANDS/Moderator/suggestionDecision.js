@@ -90,7 +90,8 @@ module.exports = {
 
         const suggestionCh = interaction.guild.channels.cache.find(ch => ch.name === 'suggestions')
 
-        
+        let suggestionMsg
+
         suggestionCh.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID, false, true)
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
@@ -103,9 +104,13 @@ module.exports = {
             })
             .then(chMsgs => {
 
-                let suggestionMsg = chMsgs.values(dbSuggestionData.SUGGESTION_MSG_ID)
+                let filteredMsg = chMsgs.filter(msg => msg.id === dbSuggestionData.SUGGESTION_MSG_ID)
 
-                console.log(`\n\n suggestionMsg:`, suggestionMsg, `\n\n`)
+                console.log(`filteredMsg = ${filteredMsg}`)
+
+                // let msgs = chMsgs.values(dbSuggestionData.SUGGESTION_MSG_ID)
+                // console.log(`\n\n msgs:`, msgs, `\n\n`)     // MAP ITERATOR OBJECT
+                //let msgsArray = Array.from(chMsgs.entries())
 
 
             })
