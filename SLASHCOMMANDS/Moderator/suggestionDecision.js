@@ -98,6 +98,8 @@ module.exports = {
 
                     let grabbedSuggestion = msg.get(`${origSuggestionMsgId}`)
 
+                    console.log(`grabbedSuggestion = ${grabbedSuggestion}`)
+
                     grabbedSuggestion.edit({ embeds: [suggestionEditAcceptEmbed] })
                 }).catch(err => console.log(err))
 
