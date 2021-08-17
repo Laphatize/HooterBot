@@ -1522,25 +1522,31 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return;
+
+                if(!dbTicketData) return console.log(`DB entry not found`);
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
+                console.log(`Guild fetched`)
+
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return;
+                    return console.log(`DM channel not found`);
                 }
 
+                console.log(`Grabbing guild member`)
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dmUserId)
 
+                console.log(`Grabbing role`)
                 
                 // GRANT THE USER THE VERIFIED ROLE
                 let verifRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
                 dmUser.roles.add(verifRole)
 
+                console.log(`User has role.`)
 
                 // MESSAGE THE USER
                 let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
