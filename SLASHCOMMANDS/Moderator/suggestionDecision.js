@@ -120,7 +120,7 @@ module.exports = {
                     .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <R:${moment().unix()}>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
-                await dbSuggestionData.findOneAndUpdate({
+                await suggestionSchema.findOneAndUpdate({
                     // CONTENT USED TO FIND UNIQUE ENTRY
                     SUGGESTION_NUM: suggestionNum,
                     GUILD_ID: interaction.guild.id
@@ -142,7 +142,7 @@ module.exports = {
                     .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <R:${moment().unix()}>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
-                await dbSuggestionData.findOneAndUpdate({
+                await suggestionSchema.findOneAndUpdate({
                     // CONTENT USED TO FIND UNIQUE ENTRY
                     SUGGESTION_NUM: suggestionNum,
                     GUILD_ID: interaction.guild.id
@@ -164,7 +164,7 @@ module.exports = {
                     .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <R:${moment().unix()}>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
-                await dbSuggestionData.findOneAndUpdate({
+                await suggestionSchema.findOneAndUpdate({
                     // CONTENT USED TO FIND UNIQUE ENTRY
                     SUGGESTION_NUM: suggestionNum,
                     GUILD_ID: interaction.guild.id
@@ -186,7 +186,7 @@ module.exports = {
                     .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <R:${moment().unix()}>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
-                await dbSuggestionData.findOneAndUpdate({
+                await suggestionSchema.findOneAndUpdate({
                     // CONTENT USED TO FIND UNIQUE ENTRY
                     SUGGESTION_NUM: suggestionNum,
                     GUILD_ID: interaction.guild.id
