@@ -55,12 +55,11 @@ module.exports = {
                 // LOG DATABASE INFORMATION
                 await suggestionSchema.findOneAndUpdate({
                     GUILD_ID: interaction.guild.id,
-                    CREATOR_ID: interaction.user.id,
+                    CREATOR_TAG: interaction.user.tag,
                     SUGGESTION_MSG_ID: suggestionMsg.id
                 },{
                     GUILD_ID: interaction.guild.id,
                     GUILD_NAME: interaction.guild.name,
-                    CREATOR_ID: interaction.user.id,
                     CREATOR_TAG: interaction.user.tag,
                     SUGGESTION_MSG_ID: suggestionMsg.id,
                     SUGGESTION_NUM: (parseInt(caseCounter)+1),
