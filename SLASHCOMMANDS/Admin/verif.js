@@ -380,7 +380,7 @@ module.exports = {
                 .addField(`Channel access:`, `• <#829445602868854804> - find roommates for the upcoming term\n• <#831527136438255626> - connect with each other on social media\n• <#832976391985168445> - discuss scheduling and classes\n• <#829629393629872159> - talk about IRL events happening on/near campus`)
                 .addField(`Posting abilities:`, `• <#829732282079903775>`)
                 .addField(`Voice chat features:`, `• Screen sharing`)
-            
+                
 
             // MESSAGE ID DNE IN DATABASE, POST AND LOG MSG INFO IN DB
             if(!dbGuildData.VERIF_PERKS_MSG_ID) {

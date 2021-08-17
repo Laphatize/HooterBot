@@ -1,5 +1,5 @@
 {
-    "buildDate": "15 August 2021",
+    "buildDate": "17 August 2021",
     "botName": "HooterBot",
     "botId": "857010679286595629",
     "botAuthor": "MrMusicMan789#0789",
@@ -30,7 +30,7 @@
     "emjHooter1": "<:Hooter:860765992191918091>",
     "emjHooter2": "<:Hooter2:860765991939211285>",
     "emjHooterFloss": "<a:Hooter_Floss:857293540174594058>",
-    "emjHooterEyeRoll": "<:Hooter_EyeRoll:862123234246000640>",
+    "emjHooterEyeRoll": "<:hooterEyeroll:872903086606254141>",
     "emjVerified": "<:verified:856359139205447711>",
     "emjDJS": "<:DiscordJS:871558208936869908>",
     "emjDJSdev": "<:DiscordJSdev:871558208974630973>",
@@ -44,6 +44,8 @@
     "emjThreadChannel": "<:threadchannel:874881538200858654>",
     "emjStageChannel": "<:stagechannel:874881516579221544>",
     "emjSlowmode": "<:Slowmode:874884697853919302>",
+    "emjLock": "🔒",
+    "emjUnlock": "🔓",
 
     "indent": "<:indent_space:862214213749440523>",
 

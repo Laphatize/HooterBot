@@ -121,9 +121,11 @@ client.on('ready', async () => {
     let verifSC = cmds.find(c => c.name === `verif`)
     let userSC = cmds.find(c => c.name === `user`)
     let rulesSC = cmds.find(c => c.name === `rules_embed`)
-    let permsSC = cmds.find(c => c.name ===`permissions`)
-    let partnerMsgSC = cmds.find(c => c.name ===`partner_message`)
-    let musicSC = cmds.find(c => c.name ===`music`)
+    let permsSC = cmds.find(c => c.name === `permissions`)
+    let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
+    let musicSC = cmds.find(c => c.name === `music`)
+    let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
+    let channelSC = cmds.find(c => c.name === `channel`)
 
 
     // SETTING PERMISSIONS
@@ -218,6 +220,44 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
+        },{
+            id: suggestDecisionSC.id,    // COMMAND: /suggestion_decision
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: channelSC.id,    // COMMAND: /channel
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
         },
     ];
     
@@ -237,9 +277,11 @@ client.on('ready', async () => {
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
 // TICKET CATEGORY COUNTER
-// EVERY 15 MINUTES
-cron.schedule('00 05,20,35,50 * * * *', async () => {
+// EVERY 10 MINUTES
+cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
+    console.log(`Updating ticket categories`)
 
+    // VERIFICATION CATEGORIES
     const dbGuildTestServerData = await guildSchema.findOne({
         GUILD_ID: `530503548937699340`
     }).exec();
@@ -248,10 +290,6 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
         GUILD_ID: `829409161581821992`
     }).exec();
 
-    // TICKET CATEGORY ID'S
-    let testServerTicketCatId = dbGuildTestServerData.TICKET_CAT_ID
-    let templeServerTicketCatId = dbGuildTempleServerData.TICKET_CAT_ID
-
 
     // FETCHING THE GUILD FROM DATABASE
     let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
@@ -259,26 +297,60 @@ cron.schedule('00 05,20,35,50 * * * *', async () => {
 
 
     // GRAB TICKET CATEGORY USING ID
-    let testServerTicketCategory = testServer.channels.cache.get(testServerTicketCatId)
-    let templeServerTicketCategory = templeServer.channels.cache.get(templeServerTicketCatId)
+    let testServerTicketCategory = testServer.channels.cache.get(dbGuildTestServerData.TICKET_CAT_ID)
+    let templeServerTicketCategory = templeServer.channels.cache.get(dbGuildTempleServerData.TICKET_CAT_ID)
 
 
     // SETTING COUNT VALUES
     // TEST SERVER
     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-
+    testServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]` })
     
     // TEMPLE SERVER
     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-
-
-    // UPDATING CATEGORY VALUES
-    testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
-    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+    templeServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]` })
 })
 
+
+// MEMBER COUNTER
+// EVERY 10 MINUTES
+//cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
+cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
+    
+    console.log(`Checking the voice channel member count`)
+
+    // FETCHING THE GUILD FROM DATABASE
+    let testServer = client.guilds.cache.get(`530503548937699340`)
+    let templeServer = client.guilds.cache.get(`829409161581821992`)
+
+    // MEMBER LIST VC'S
+    var totalTestMembersCount = testServer.memberCount
+    var totalTempleMembersCount = templeServer.memberCount
+    let memTestCount;
+    let memTempleCount;
+
+
+    if(totalTestMembersCount > 1000) {
+        memTestCount = `${(totalTestMembersCount/1000).toFixed(1)}K`
+    } else {
+        memTestCount = `${totalTestMembersCount}`
+    }
+    if(totalTempleMembersCount > 1000) {
+        memTempleCount = `${(totalTempleMembersCount/1000).toFixed(1)}K`
+    } else {
+        memTempleCount = `${totalTempleMembersCount}`
+    }
+
+    
+    let owlCounterTestServerCh = testServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
+    owlCounterTestServerCh.setName(`Owls: ${memTestCount}`)
+
+
+    let owlCounterTempleServer = templeServer.channels.cache.find(ch => ch.type === `GUILD_VOICE` && ch.name.startsWith(`Owls: `))
+    owlCounterTempleServer.setName(`Owls: ${memTempleCount}`)
+})
 
 
 // BIRTHDAY CHECKS
@@ -319,7 +391,7 @@ cron.schedule('00 00 08 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
+            guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `off-topic`).send({ content: `${bdayMessage}` })

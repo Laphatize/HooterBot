@@ -326,7 +326,7 @@ module.exports = {
             let msgCh = message.guild.channels.cache.get(messageChannelId)
 
             // MESSAGE
-            await msgCh.messages.fetch({}, true)
+            await msgCh.messages.fetch({}, false, true)
                 .then(async msg => {
                     
                     // [ MESSAGE ID , {MSG_OBJ} ]

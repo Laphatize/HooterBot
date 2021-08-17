@@ -187,7 +187,7 @@ module.exports = {
                 // LOG EMBED
                 let logEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
-                    .setTitle(`Thread Unlocked`)
+                    .setTitle(`${config.emjThreadChannel} Thread Unlocked`)
                     .setDescription(`**Thread:** ${newThread}\n**Parent Channel:** ${newThread.parent}\n**Unlocked By:** (admin/mod)`)
                     .setFooter(`Thread ID: ${newThread.id}`)
                     .setTimestamp()

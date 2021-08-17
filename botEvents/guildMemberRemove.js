@@ -40,13 +40,11 @@ module.exports = {
 
 
         // NO TICKET
-        if(!dbTicketData)  return;
+        if(dbTicketData == '')  return;
 
 
         // TICKET OPEN
         if(dbTicketData) {
-            let leftUser = member.guild.members.fetch(dbTicketData.CREATOR_ID)
-
             // LOGGING TICKET CLOSURE
             let logCloseTicketEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)

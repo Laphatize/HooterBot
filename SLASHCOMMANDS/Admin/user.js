@@ -344,7 +344,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
                     .setDescription(`I'll remember ${birthdayUser}'s birthday on ${monthNames[birthdayMonth-1]} ${birthdayDay-1}, even though their birthday is actually on February 29.
-                    \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
+                    \n*If you ever wish for me to forget your birthday, use* \`\`/forget_birthday\`\`.`)
 
                 return interaction.followUp({ embeds: [bdaySetEmbed] });
             }
@@ -371,7 +371,7 @@ module.exports = {
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} **Birthday Saved!**`)
                 .setDescription(`I'll remember ${birthdayUser}'s birthday on ${monthNames[birthdayMonth-1]} ${birthdayDay}.
-                \n*If you ever wish for me to forget your birthday, use* \`\`/forgetbirthday\`\`.`)
+                \n*If you ever wish for me to forget your birthday, use* \`\`/forget_birthday\`\`.`)
             
             return interaction.reply({ embeds: [bdaySetEmbed] });
         }
@@ -406,8 +406,10 @@ module.exports = {
                         nickname = user.displayName
                     }
 
+                    console.log(`member.premiumSince = ${member.premiumSince}`)
 
-                    var booster = moment( new Date(member.premiumSince)).format('LL')
+                    var booster = moment(member.premiumSince).format('LL')
+
                     if(booster == 'Invalid date') {
                         booster =  `*(N/A)*`
                     }
@@ -468,39 +470,76 @@ module.exports = {
             let confirmationArray = []
 
             // AWARDING XP FOR USER, PUSHING CONFIRMATION TO ARRAY
-            levels.setXp(user1.id, interaction.guild.id, xp1);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+            levels.createUser(user1.id, interaction.guild.id)
+                .then(user1DNE => {
+                    levels.setXp(user1.id, interaction.guild.id, xp1);
+                })
+            confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+
             if(user2) {
-                levels.setXp(user2.id, interaction.guild.id, xp2);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user2.id, interaction.guild.id)
+                    .then(user2DNE => {
+                        levels.setXp(user2.id, interaction.guild.id, xp2);
+                    })
+                confirmationArray.push(`**${xp2} XP** has been added to ${user2}.`)
             } if(user3) {
-                levels.setXp(user3.id, interaction.guild.id, xp3);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user3.id, interaction.guild.id)
+                    .then(user3DNE => {
+                        levels.setXp(user3.id, interaction.guild.id, xp3);
+                    })
+                confirmationArray.push(`**${xp3} XP** has been added to ${user3}.`)
             } if(user4) {
-                levels.setXp(user4.id, interaction.guild.id, xp4);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user4.id, interaction.guild.id)
+                    .then(user4DNE => {
+                        levels.setXp(user4.id, interaction.guild.id, xp4);
+                    })
+                confirmationArray.push(`**${xp4} XP** has been added to ${user4}.`)
             } if(user5) {
-                levels.setXp(user5.id, interaction.guild.id, xp5);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user5.id, interaction.guild.id)
+                    .then(user5DNE => {
+                        levels.setXp(user5.id, interaction.guild.id, xp5);
+                    })
+                confirmationArray.push(`**${xp5} XP** has been added to ${user5}.`)
             } if(user6) {
-                levels.setXp(user6.id, interaction.guild.id, xp6);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user6.id, interaction.guild.id)
+                    .then(user6DNE => {
+                        levels.setXp(user6.id, interaction.guild.id, xp6);
+                    })
+                confirmationArray.push(`**${xp6} XP** has been added to ${user6}.`)
             } if(user7) {
-                levels.setXp(user7.id, interaction.guild.id, xp7);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user7.id, interaction.guild.id)
+                    .then(user7DNE => {
+                        levels.setXp(user7.id, interaction.guild.id, xp7);
+                    })
+                confirmationArray.push(`**${xp7} XP** has been added to ${user7}.`)
             } if(user8) {
-                levels.setXp(user8.id, interaction.guild.id, xp8);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user8.id, interaction.guild.id)
+                    .then(user8DNE => {
+                        levels.setXp(user8.id, interaction.guild.id, xp8);
+                    })
+                confirmationArray.push(`**${xp8} XP** has been added to ${user8}.`)
             } if(user9) {
-                levels.setXp(user9.id, interaction.guild.id, xp9);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user9.id, interaction.guild.id)
+                    .then(user9DNE => {
+                        levels.setXp(user9.id, interaction.guild.id, xp9);
+                    })
+                confirmationArray.push(`**${xp9} XP** has been added to ${user9}.`)
             } if(user10) {
-                levels.setXp(user10.id, interaction.guild.id, xp10);
-                confirmationArray.push(`**${xp1} XP** has been added to ${user1}.`)
+                levels.createUser(user10.id, interaction.guild.id)
+                    .then(user10DNE => {
+                        levels.setXp(user10.id, interaction.guild.id, xp10);
+                    })
+                confirmationArray.push(`**${xp10} XP** has been added to ${user10}.`)
             }
 
+
+            let levelImportConfirmEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Level Import Success`)
+                .setDescription(`${confirmationArray.join(`\n`)}`)
+
             // CONFIRMATION
-            interaction.reply({ content: `${confirmationArray.join(`\n`)}`, ephemeral: true })
+            interaction.reply({ embeds: [levelImportConfirmEmbed], ephemeral: true })
         }
 
 
@@ -515,7 +554,7 @@ module.exports = {
 
 
             // MESSAGE SENT IN INVALID CATEGORY
-            if (!interaction.channel.parent.name.startsWith(`mod-`) || !interaction.channel.name.startsWith(`mod-`)) {
+            if (interaction.channel.parent.id !== '829420812951748628') {
 
                 // GENERATE ERROR EMBED
                 let wrongChannelsEmbed = new discord.MessageEmbed()

@@ -5,13 +5,28 @@ const birthdaySchema = require('../../Database/birthdaySchema');
 
 module.exports = {
     name: 'forget_birthday',
-    description: `Remove your birthday from HooterBot's memory. [10s]`,
+    description: `Remove your birthday from HooterBot's memory. (🤖｜bot-spam) [10s]`,
     options: [],
     permissions: '',
     dmUse: true,
     cooldown: 10,
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
+
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`This command can only be run in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
 
         // CHECK DATABASE FOR ENTRY
         const dbBirthdayData = await birthdaySchema.findOne({
