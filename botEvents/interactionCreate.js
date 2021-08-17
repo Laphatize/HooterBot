@@ -754,7 +754,7 @@ module.exports = {
 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('id-').pop()
       
                 
                 // GRAB DATABASE ENTRY
@@ -1504,12 +1504,16 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'Proof_Approved') {
                 
+                console.log(`Proof approved button clicked.`)
+
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
                 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('id-').pop()
+
+                console.log(`dmUserId = ${dmUserId}`)
         
                 
                 // GRAB DATABASE ENTRY
@@ -1518,25 +1522,24 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return;
+                if(!dbTicketData) return console.log(`DB entry not found`);
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return;
-                }
-
+                console.log(`Guild fetched`)
+                console.log(`Grabbing guild member`)
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dmUserId)
 
+                console.log(`Grabbing role`)
                 
                 // GRANT THE USER THE VERIFIED ROLE
                 let verifRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
                 dmUser.roles.add(verifRole)
 
+                console.log(`User has been given the Verified role.`)
 
                 // MESSAGE THE USER
                 let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
@@ -1772,8 +1775,9 @@ module.exports = {
                 
                 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('-').pop()
+                dmUserId = interaction.channel.name.split('id-').pop()
       
+                console.log(`dmUserId = ${dmUserId}`)
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
@@ -1786,15 +1790,12 @@ module.exports = {
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return;
-                }
-
+                console.log(`Guild fetched`)
+                console.log(`Grabbing guild member`)
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dmUserId)
-                
+
 
                 // GENERATE EMBED FOR USER
                 let userProofRejectedEmbed = new discord.MessageEmbed()
