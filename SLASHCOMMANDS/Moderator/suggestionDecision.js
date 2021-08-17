@@ -68,7 +68,8 @@ module.exports = {
 
         // SEARCHING DATABASE USING SUGGESTIONNUM TO GET SUGGESTION
         const dbSuggestionData = await suggestionSchema.find({
-            SUGGESTION_NUM: suggestionNum
+            SUGGESTION_NUM: suggestionNum,
+            GUILD_ID: interaction.guild.id
         }).exec();
         
 
@@ -77,7 +78,7 @@ module.exports = {
             let suggestionDNEembed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I couldn't find Suggestion #${suggestionNum} in the database. Please try a different suggestion number.`)
+                .setDescription(`I couldn't find **Suggestion #${suggestionNum}** in the database. Please try a different suggestion number.`)
 
             // POST EMBED
             return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
@@ -85,7 +86,6 @@ module.exports = {
 
 
         // GRAB SUGGESTION DATA
-        let origSuggesterId = dbSuggestionData.CREATOR_ID;
         let origSuggesterTag = dbSuggestionData.CREATOR_TAG;
         let origSuggestionText = dbSuggestionData.SUGGESTION_TEXT;
     
@@ -136,48 +136,28 @@ module.exports = {
         }
 
 
-        // FETCH ORIGINAL SUGGESTION AND EDIT BASED ON THE RESPONSE
-        interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
-            .then(messageCollection => {
 
-                console.log(`Object.entries(messageCollection) = ${Object.entries(messageCollection)}`)
-
-                console.log(`messageCollection.size = ${messageCollection.size}`)
-
-                let findKeyResult = messageCollection.findKey(msg => msg.name == dbSuggestionData.SUGGESTION_MSG_ID);
-
-                console.log(`findKeyResult = ${findKeyResult }`)
-
-
-
-                // message.edit({ embeds: [suggestionUpdatedEmbed] })
-                //     .catch(err => {
-                //         console.log(err)
-
-                //         let errorEmbed = new discord.MessageEmbed()
-                //             .setColor(config.embedRed)
-                //             .setTitle(`${config.emjREDTICK} Sorry!`)
-                //             .setDescription(`I ran into an error updating the initial suggestion.`)
-        
-                //         // POST EMBED
-                //         return interaction.reply({ embeds: [errorEmbed], ephemeral: true })
-                // })
-
-                
-                // CONFIRMATION MESSAGE ON EDIT
-                let sugDecConfirmationEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGreen)
-                    .setTitle(`${config.emjGREENTICK} Decision submitted!`)
-                    .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
-
-                // POST EMBED
-                return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
+        // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+        await interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+            .then(msg => {
+                msg.edit({ embeds: [suggestionUpdatedEmbed] })
             })
+            .catch(err => console.log(err))
+
+        
+        // CONFIRMATION MESSAGE ON EDIT
+        let sugDecConfirmationEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGreen)
+            .setTitle(`${config.emjGREENTICK} Decision submitted!`)
+            .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
+
+        // POST EMBED
+        return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
             .catch(err => {
                 let suggestionDNEembed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`I couldn't find Suggestion #${suggestionNum} in the channel. Please try a different suggestion number.`)
+                    .setDescription(`I couldn't find **Suggestion #${suggestionNum}** in the channel. Please try a different suggestion number.`)
 
                 // POST EMBED
                 return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
