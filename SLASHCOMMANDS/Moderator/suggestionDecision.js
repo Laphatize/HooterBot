@@ -140,6 +140,7 @@ module.exports = {
         interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
             .then(messageCollection => {
 
+                console.log(`Object.entries(messageCollection) = ${Object.entries(messageCollection)}`)
 
                 console.log(`messageCollection.size = ${messageCollection.size}`)
 
