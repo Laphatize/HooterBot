@@ -406,10 +406,9 @@ module.exports = {
                         nickname = user.displayName
                     }
 
+                    console.log(`member.premiumSince = ${member.premiumSince}`)
 
-                    var booster = moment( new Date(member.premiumSince)).format('LL')
-
-                    console.log(`server boost date for ${user.username} = ${booster}`)
+                    var booster = moment(member.premiumSince).format('LL')
 
                     if(booster == 'Invalid date') {
                         booster =  `*(N/A)*`

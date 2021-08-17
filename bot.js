@@ -124,8 +124,8 @@ client.on('ready', async () => {
     let permsSC = cmds.find(c => c.name === `permissions`)
     let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
     let musicSC = cmds.find(c => c.name === `music`)
-    let suggestSC = cmds.find(c => c.name === `suggest`)
     let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
+    let channelSC = cmds.find(c => c.name === `channel`)
 
 
     // SETTING PERMISSIONS
@@ -221,18 +221,26 @@ client.on('ready', async () => {
                 permission: true,
             }]
         },{
-            id: suggestSC.id,     // COMMAND: /suggest
+            id: suggestDecisionSC.id,    // COMMAND: /suggestion_decision
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
                 type: 'USER',
                 permission: true,
             },{
                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
             }]
         },{
-            id: suggestDecisionSC.id,    // COMMAND: /suggestion_decision
+            id: channelSC.id,    // COMMAND: /channel
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',

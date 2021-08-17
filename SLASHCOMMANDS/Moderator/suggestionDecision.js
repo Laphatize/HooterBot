@@ -117,7 +117,7 @@ module.exports = {
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
                     .setAuthor(`${origSuggesterTag}`)
-                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <t:${moment().unix()}:R>`)
+                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**Updated:** <t:${moment().unix()}:R>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
                 await suggestionSchema.findOneAndUpdate({
@@ -139,7 +139,7 @@ module.exports = {
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
                     .setAuthor(`${origSuggesterTag}`)
-                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <t:${moment().unix()}:R>`)
+                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**Updated:** <t:${moment().unix()}:R>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
                 await suggestionSchema.findOneAndUpdate({
@@ -161,7 +161,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
                     .setAuthor(`${origSuggesterTag}`)
-                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <t:${moment().unix()}:R>`)
+                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**Updated:** <t:${moment().unix()}:R>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
                 await suggestionSchema.findOneAndUpdate({
@@ -183,7 +183,7 @@ module.exports = {
                     .setColor(config.embedGrey)
                     .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
                     .setAuthor(`${origSuggesterTag}`)
-                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**On:** <t:${moment().unix()}:R>`)
+                    .setDescription(`${origSuggestionText}\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}\n**Updated:** <t:${moment().unix()}:R>`)
 
                 // STORING IN DATABASE THE SUGGESTION DECISION
                 await suggestionSchema.findOneAndUpdate({
