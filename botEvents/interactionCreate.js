@@ -1512,6 +1512,8 @@ module.exports = {
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('id-').pop()
+
+                console.log(`dmUserId = ${dmUserId}`)
         
                 
                 // GRAB DATABASE ENTRY
