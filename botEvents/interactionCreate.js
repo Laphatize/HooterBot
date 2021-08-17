@@ -1522,7 +1522,6 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-
                 if(!dbTicketData) return console.log(`DB entry not found`);
                 
                 // GET GUILD OF TICKET
@@ -1531,7 +1530,7 @@ module.exports = {
                 console.log(`Guild fetched`)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) {
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME}-id-${dmUserId}`)) {
                     return console.log(`Ticket channel not found`);
                 }
 
@@ -1797,7 +1796,7 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) {
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME}-id-${dmUserId}`)) {
                     return;
                 }
 
