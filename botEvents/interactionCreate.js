@@ -1531,8 +1531,8 @@ module.exports = {
                 console.log(`Guild fetched`)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return console.log(`DM channel not found`);
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) {
+                    return console.log(`Ticket channel not found`);
                 }
 
                 console.log(`Grabbing guild member`)
@@ -1797,7 +1797,7 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) 
                     return;
                 }
 
