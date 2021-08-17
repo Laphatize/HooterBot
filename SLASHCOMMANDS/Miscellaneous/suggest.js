@@ -9,11 +9,6 @@ module.exports = {
     description: 'Generates a suggestion that server members will vote on to accept or reject. (🤖｜bot-spam) [60s]',
     options: [
         {
-            name: `your_suggestion`,
-            description: `The idea you want to suggest.`,
-            type: `STRING`,
-            required: true,
-        },{
             name: `type`,
             description: `Is the feedback for the server, or for HooterBot?`,
             type: `STRING`,
@@ -27,6 +22,11 @@ module.exports = {
                     value: `hooterbot`,
                 }
             ]
+        },{
+            name: `suggestion_text`,
+            description: `The idea you want to suggest.`,
+            type: `STRING`,
+            required: true,
         },
     ],
     permissions: '',
@@ -51,8 +51,8 @@ module.exports = {
 
 
         // INPUTS
-        let userSuggestion = inputs[0]
-        let feedbackType = inputs[1]
+        let userSuggestion = inputs[1]
+        let feedbackType = inputs[0]
         let suggestCh = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
 
 
