@@ -13,6 +13,20 @@ module.exports = {
             description: `The idea you want to suggest.`,
             type: `STRING`,
             required: true,
+        },{
+            name: `type`,
+            description: `Is the feedback for the server, or for HooterBot?`,
+            type: `STRING`,
+            required: true,
+            choices: [
+                {
+                    name: `server`,
+                    value: `server`,
+                },{
+                    name: `hooterbot`,
+                    value: `hooterbot`,
+                }
+            ]
         },
     ],
     permissions: '',
@@ -38,10 +52,22 @@ module.exports = {
 
         // INPUTS
         let userSuggestion = inputs[0]
+        let feedbackType = inputs[1]
         let suggestCh = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
 
 
         let caseCounter = await suggestionSchema.countDocuments()
+
+        let suggestionText;
+
+        if(feedbackType == 'server')
+        {
+            suggestionText = `**Server:** ${userSuggestion}`
+        }
+        if(feedbackType == 'hooterbot')
+        {
+            suggestionText = `**HooterBot:** ${userSuggestion}`
+        }
 
 
         let suggestionEmbed = new discord.MessageEmbed()
@@ -63,7 +89,7 @@ module.exports = {
                     CREATOR_TAG: interaction.user.tag,
                     SUGGESTION_MSG_ID: suggestionMsg.id,
                     SUGGESTION_NUM: (parseInt(caseCounter)+1),
-                    SUGGESTION_TEXT: userSuggestion
+                    SUGGESTION_TEXT: suggestionText
                 },{
                     upsert: true
                 }).exec();
