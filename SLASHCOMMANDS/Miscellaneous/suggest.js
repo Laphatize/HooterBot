@@ -32,7 +32,7 @@ module.exports = {
     permissions: '',
     dmUse: false,
     cooldown: 60,
-    defaultPermission: false,
+    defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         // BOT-SPAM CHANNEL ONLY

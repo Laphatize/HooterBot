@@ -51,7 +51,8 @@ module.exports = {
             .addField(`${DJSemoji} Discord.js:`, `${DJSversion}`, true)
             .addField(`Uptime:`, `${botUptime}`, true)
             .addField(`Description:`, `*"${pjson.description}"*`)
-            .addField(`GitHub Repository`, `${pjson.repository.url.split(`+`).pop()}`)
+            .addField(`GitHub Repository:`, `${pjson.repository.url.split(`+`).pop()}`)
+            .addField(`Latest Bot Update:`, `https://github.com/MrMusicMan789/HooterBot/releases`)
             .setThumbnail('https://raw.githubusercontent.com/MrMusicMan789/HooterBot/main/HooterBot_Square_Shadow.png')
 
         interaction.reply({ embeds: [infoEmbed] })
