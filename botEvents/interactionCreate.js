@@ -1504,6 +1504,8 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'Proof_Approved') {
                 
+                console.log(`Proof approved button clicked.`)
+
                 // DEFERRING BUTTON ACTION
                 interaction.deferUpdate()
                 
