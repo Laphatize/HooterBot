@@ -47,7 +47,7 @@ module.exports = {
         let suggestionEmbed = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle(`Suggestion #${parseInt(caseCounter)+1}`)
-            .setDescription(`${userSuggestion}\n\n*Suggested by: ${interaction.user.tag}*`)
+            .setDescription(`${userSuggestion}\n\n`)
             .setFooter(`[Waiting for community feedback...]`)
 
         suggestCh.send({ embeds: [suggestionEmbed] })
