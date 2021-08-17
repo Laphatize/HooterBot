@@ -107,7 +107,7 @@ module.exports = {
         if(dbData.RULES_MSG_ID) {
 
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-            await interaction.channel.messages.fetch(dbData.RULES_MSG_ID)
+            await rulesChannel.messages.fetch(dbData.RULES_MSG_ID)
                 .then(msg => {
                     msg.edit({ embeds: [rules, serverStaffList, ModmailHelp] })
                 })

@@ -59,6 +59,8 @@ module.exports = {
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
         }
 
+        var suggestionsChannel = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
+
 
         // GRABBING SLASH COMMAND INPUT VALUES
         const suggestionNum = inputs[0];
@@ -67,14 +69,14 @@ module.exports = {
 
 
         // SEARCHING DATABASE USING SUGGESTIONNUM TO GET SUGGESTION
-        const dbSuggestionData = await suggestionSchema.find({
+        const dbSuggestionData = await suggestionSchema.findOne({
             SUGGESTION_NUM: suggestionNum,
             GUILD_ID: interaction.guild.id
         }).exec();
         
 
         // IF NO SUGGESTION NUMBER ENTERED EXISTS
-        if(dbSuggestionData == ''){
+        if(!dbSuggestionData){
             let suggestionDNEembed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
@@ -84,83 +86,96 @@ module.exports = {
             return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
         }
 
-
-        // GRAB SUGGESTION DATA
-        let origSuggesterTag = dbSuggestionData.CREATOR_TAG;
-        let origSuggestionText = dbSuggestionData.SUGGESTION_TEXT;
-    
-
-
-        // EMBED UPDATES
-        let suggestionUpdatedEmbed
         
-
-        // ACCEPTED
-        if(decisionVerdict == 'accept') {
-
-            suggestionUpdatedEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
-        }
-
-        // REJECTED
-        if(decisionVerdict == 'deny') {
-
-            suggestionUpdatedEmbed = new discord.MessageEmbed()
+        // A YES/NO DECISION ALREADY MADE ON THIS SUGGESTION
+        if(dbSuggestionData.DECISION && (dbSuggestionData.DECISION !== 'HOLD' || dbSuggestionData.DECISION !== 'CONSIDERING')) {
+            let decisionAlreadyMadeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
-        }
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`**Suggestion #${suggestionNum}** has already been given feedback.`)
 
-        // ON HOLD
-        if(decisionVerdict == 'onhold') {
-
-            suggestionUpdatedEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
-        }
-
-        // UNDER CONSIDERATION
-        if(decisionVerdict == 'underconsideration') {
-            
-            suggestionUpdatedEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
-                .setAuthor(`${origSuggesterTag}`)
-                .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+            // POST EMBED
+            return interaction.reply({ embeds: [decisionAlreadyMadeEmbed], ephemeral: true }) 
         }
 
 
-
-        // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
-        await interaction.channel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
-            .then(msg => {
-                msg.edit({ embeds: [suggestionUpdatedEmbed] })
-            })
-            .catch(err => console.log(err))
-
+        // NO FINAL SUGGESTION MADE
+        if(!dbSuggestionData.DECISION || dbSuggestionData.DECISION !== 'HOLD' || dbSuggestionData.DECISION !== 'CONSIDERING') {
+            // GRAB SUGGESTION DATA
+            let origSuggesterTag = dbSuggestionData.CREATOR_TAG;
+            let origSuggestionText = dbSuggestionData.SUGGESTION_TEXT;
         
-        // CONFIRMATION MESSAGE ON EDIT
-        let sugDecConfirmationEmbed = new discord.MessageEmbed()
-            .setColor(config.embedGreen)
-            .setTitle(`${config.emjGREENTICK} Decision submitted!`)
-            .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
+            // UPDATED EMBED
+            let suggestionUpdatedEmbed
+            
 
-        // POST EMBED
-        return interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
-            .catch(err => {
-                let suggestionDNEembed = new discord.MessageEmbed()
+            // ACCEPTED
+            if(decisionVerdict == 'accept') {
+
+                suggestionUpdatedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
+                    .setAuthor(`${origSuggesterTag}`)
+                    .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+            }
+
+            // REJECTED
+            if(decisionVerdict == 'deny') {
+
+                suggestionUpdatedEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`I couldn't find **Suggestion #${suggestionNum}** in the channel. Please try a different suggestion number.`)
+                    .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
+                    .setAuthor(`${origSuggesterTag}`)
+                    .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+            }
 
-                // POST EMBED
-                return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
-            })
+            // ON HOLD
+            if(decisionVerdict == 'onhold') {
+
+                suggestionUpdatedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
+                    .setAuthor(`${origSuggesterTag}`)
+                    .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+            }
+
+            // UNDER CONSIDERATION
+            if(decisionVerdict == 'underconsideration') {
+                
+                suggestionUpdatedEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
+                    .setAuthor(`${origSuggesterTag}`)
+                    .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+            }
+
+
+
+            // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
+            await suggestionsChannel.messages.fetch(dbSuggestionData.SUGGESTION_MSG_ID)
+                .then(msg => {
+                    msg.edit({ embeds: [suggestionUpdatedEmbed] })
+                })
+                .catch(err => console.log(err))
+
+            
+            // CONFIRMATION MESSAGE ON EDIT
+            let sugDecConfirmationEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Decision submitted!`)
+                .setDescription(`Your decision on **suggestion #${suggestionNum}** has been successfully submitted.`)
+
+            // POST EMBED
+            interaction.reply({ embeds: [sugDecConfirmationEmbed], ephemeral: true })
+                .catch(err => {
+                    let suggestionDNEembed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Sorry!`)
+                        .setDescription(`I couldn't find **Suggestion #${suggestionNum}** in the channel. Please try a different suggestion number.`)
+
+                    // POST EMBED
+                    return interaction.reply({ embeds: [suggestionDNEembed], ephemeral: true })
+                })
+        }
     }
 }

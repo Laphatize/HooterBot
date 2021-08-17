@@ -93,5 +93,19 @@ module.exports = {
             .setDescription(`View your suggestion in ${suggestCh}! If the suggestion reaches the community voting threshold, the admins will consider implementing your suggestion.`)
 
         interaction.reply({ embeds: [suggestionConfirmedEmbed], ephemeral: true })
+
+        
+        // DEFINING LOG EMBED
+        let logSuggestionEmbed = new discord.MessageEmbed()
+            .setColor(config.embedGreen)
+            .setTitle(`New Suggestion`)
+            .setDescription(`**User:** ${interaction.user}\n**ID:** ${interaction.user.id}\n**Suggestion Number:** ${parseInt(caseCounter)+1}\n**Suggestion:** ${userSuggestion}`)
+            .setTimestamp()
+
+
+        // LOG ENTRY
+        return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logSuggestionEmbed] })
+            .catch(err => console.log(err))
+
     }
 }

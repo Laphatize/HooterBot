@@ -7,6 +7,7 @@ module.exports = mongoose.model("Suggestions", new mongoose.Schema({
     SUGGESTION_MSG_ID:   {type: String},
     SUGGESTION_NUM:      {type: Number},
     SUGGESTION_TEXT:     {type: String},
+    DECISION:            {type: String},
 },{
     timestamps: true,
     versionKey: false,
