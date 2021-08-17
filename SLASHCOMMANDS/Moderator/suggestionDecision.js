@@ -88,7 +88,7 @@ module.exports = {
 
         
         // A YES/NO DECISION ALREADY MADE ON THIS SUGGESTION
-        if(dbSuggestionData.DECISION && (dbSuggestionData.DECISION !== 'HOLD' || dbSuggestionData.DECISION !== 'CONSIDERING')) {
+        if(dbSuggestionData.DECISION == 'ACCEPTED' || dbSuggestionData.DECISION == 'DENIED') {
             let decisionAlreadyMadeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
@@ -100,7 +100,7 @@ module.exports = {
 
 
         // NO FINAL SUGGESTION MADE
-        if(!dbSuggestionData.DECISION || dbSuggestionData.DECISION !== 'HOLD' || dbSuggestionData.DECISION !== 'CONSIDERING') {
+        if(!dbSuggestionData.DECISION || dbSuggestionData.DECISION == 'HOLD' || dbSuggestionData.DECISION == 'CONSIDERING') {
             // GRAB SUGGESTION DATA
             let origSuggesterTag = dbSuggestionData.CREATOR_TAG;
             let origSuggestionText = dbSuggestionData.SUGGESTION_TEXT;
@@ -117,6 +117,18 @@ module.exports = {
                     .setTitle(`${config.emjGREENTICK} Suggestion #${suggestionNum}: ACCEPTED`)
                     .setAuthor(`${origSuggesterTag}`)
                     .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                // STORING IN DATABASE THE SUGGESTION DECISION
+                await dbSuggestionData.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    SUGGESTION_NUM: suggestionNum,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    DECISION: `ACCEPTED`
+                },{ 
+                    upsert: true
+                }).exec();
             }
 
             // REJECTED
@@ -127,6 +139,18 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Suggestion #${suggestionNum}: DENIED`)
                     .setAuthor(`${origSuggesterTag}`)
                     .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                // STORING IN DATABASE THE SUGGESTION DECISION
+                await dbSuggestionData.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    SUGGESTION_NUM: suggestionNum,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    DECISION: `DENIED`
+                },{ 
+                    upsert: true
+                }).exec();
             }
 
             // ON HOLD
@@ -137,6 +161,18 @@ module.exports = {
                     .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: ON HOLD`)
                     .setAuthor(`${origSuggesterTag}`)
                     .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                // STORING IN DATABASE THE SUGGESTION DECISION
+                await dbSuggestionData.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    SUGGESTION_NUM: suggestionNum,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    DECISION: `HOLD`
+                },{ 
+                    upsert: true
+                }).exec();
             }
 
             // UNDER CONSIDERATION
@@ -147,6 +183,18 @@ module.exports = {
                     .setTitle(`${config.emjGREYTICK} Suggestion #${suggestionNum}: UNDER CONSIDERATION`)
                     .setAuthor(`${origSuggesterTag}`)
                     .setDescription(`${origSuggestionText}\n\n*Suggested by: ${interaction.user.tag}*\n\n**Staff response from ${interaction.user.tag}:**\n${decisionMsg}`)
+
+                // STORING IN DATABASE THE SUGGESTION DECISION
+                await dbSuggestionData.findOneAndUpdate({
+                    // CONTENT USED TO FIND UNIQUE ENTRY
+                    SUGGESTION_NUM: suggestionNum,
+                    GUILD_ID: interaction.guild.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    DECISION: `CONSIDERING`
+                },{ 
+                    upsert: true
+                }).exec();
             }
 
 
