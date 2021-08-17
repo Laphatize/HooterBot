@@ -1528,12 +1528,6 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 console.log(`Guild fetched`)
-
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME}-id-${dmUserId}`)) {
-                    return console.log(`Ticket channel not found`);
-                }
-
                 console.log(`Grabbing guild member`)
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
@@ -1545,7 +1539,7 @@ module.exports = {
                 let verifRole = guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
                 dmUser.roles.add(verifRole)
 
-                console.log(`User has role.`)
+                console.log(`User has been given the Verified role.`)
 
                 // MESSAGE THE USER
                 let userVerifiedSuccessfullyEmbed = new discord.MessageEmbed()
@@ -1783,6 +1777,7 @@ module.exports = {
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('id-').pop()
       
+                console.log(`dmUserId = ${dmUserId}`)
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
@@ -1795,15 +1790,12 @@ module.exports = {
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME}-id-${dmUserId}`)) {
-                    return;
-                }
-
+                console.log(`Guild fetched`)
+                console.log(`Grabbing guild member`)
 
                 // FETCH THE USER USING THEIR ID FROM THE DATABASE USING THE CHANNEL NAME
                 const dmUser = await guild.members.fetch(dmUserId)
-                
+
 
                 // GENERATE EMBED FOR USER
                 let userProofRejectedEmbed = new discord.MessageEmbed()
