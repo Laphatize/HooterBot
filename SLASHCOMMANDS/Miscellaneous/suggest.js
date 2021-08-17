@@ -98,8 +98,9 @@ module.exports = {
         let logSuggestionEmbed = new discord.MessageEmbed()
             .setColor(config.embedGreen)
             .setTitle(`New Suggestion`)
-            .setDescription(`**User:** ${interaction.user}\n**ID:** ${interaction.user.id}\n**Suggestion Number:** ${parseInt(caseCounter)+1}\n**Suggestion:** ${userSuggestion}`)
+            .setDescription(`**User:** ${interaction.user}\n**Suggestion Number:** ${parseInt(caseCounter)+1}\n**Suggestion:** ${userSuggestion}`)
             .setTimestamp()
+            .setFooter(`User ID: ${interaction.user.id}`)
 
 
         // LOG ENTRY
