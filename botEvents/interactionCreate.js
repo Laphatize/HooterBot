@@ -1797,7 +1797,7 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) 
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${ticketSchema.CREATOR_NAME.toLowerCase()}-id-${dmUserId}`)) {
                     return;
                 }
 
