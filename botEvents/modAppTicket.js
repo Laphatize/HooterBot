@@ -27,8 +27,6 @@ module.exports = {
                     .then( guildMemberApplicant => {
                         // CALCULATE TIME MEMBER HAS BEEN IN SERVER
                         memberDuration = Math.abs(new Date - new Date(guildMemberApplicant.joinedAt))
-
-                        interaction.reply(`memberDuration = ${memberDuration}`)
                     })
 
 
