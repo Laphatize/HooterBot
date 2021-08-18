@@ -11,7 +11,7 @@ module.exports = {
         /***********************************************************/
 
         // MOD APP CHANNEL NAME
-        let modAppChannelName = `modApp-${interaction.user.username.toLowerCase()}`;
+        let modAppChannelName = `modApp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -20,6 +20,7 @@ module.exports = {
             if(interaction.customId === 'modAppApply') {
                 
                 var memberDuration;
+                const monthRequirement = (1) * 2628002880
 
                 // GET INTERACTION MEMBER AS GUILD MEMBER
                 interaction.guild.members.fetch(interaction.user.id)
@@ -31,38 +32,38 @@ module.exports = {
                     })
 
 
+            // USER JOINED LESS THAN 1 MONTH AGO
+            if(memberDuration < monthRequirement) {
+                return interaction.reply({
+                    content: `Sorry, you are not eligible to apply at this time. (Joined less than 1 month ago)`,
+                    ephemeral: true })
+            }
 
 
-            //     if(dbBlacklistData) {
-            //         // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-            //         return interaction.reply({
-            //             content: `Sorry, you are not eligible to create a verification ticket.\n*(If this is an error, please submit a ModMail ticket.)*`,
-            //             ephemeral: true })
-            //     }
-
-            //     const verifiedRole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === 'verified')
-
-            //     // CHECK IF USER HAS VERIFIED ROLE
-            //     if(interaction.member.roles.cache.some((role) => role.id === verifiedRole.id)) {
-            //         // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-            //         return interaction.reply({
-            //             content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
-            //             ephemeral: true })
-            //     }
+            // IF MEMBER IS CURRENTLY MUTED
+            if(interaction.member.roles.cache.some((role) => role.name === 'Muted :(')) {
+                return interaction.reply({
+                    content: `Sorry, you are not eligible to apply at this time.`,
+                    ephemeral: true })
+            }
 
 
-            //     // CHECK IF DATABASE HAS AN ENTRY
-            //     const dbGuildData = await guildSchema.findOne({
-            //         GUILD_ID: interaction.guild.id
-            //     }).exec();
+            // IF MEMBER IS MOD OR ADMIN
+            if(interaction.member.roles.cache.some((role) => role.name.toLowerCase() === 'moderator')
+            || interaction.member.roles.cache.some((role) => role.name.toLowerCase() === 'admin')) {
+                return interaction.reply({
+                    content: `Sorry, you are not eligible to apply. You're already in!`,
+                    ephemeral: true })
+            }
 
-            //     // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
-            //     if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName && ch.parent.id === dbGuildData.TICKET_CAT_ID)) {
-            //         // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
-            //         return interaction.reply({
-            //             content: `Sorry, you're **already in the process of verifying!** Check your DMs with <@${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
-            //             ephemeral: true })
-            //     }
+
+            // CHECK IF THERE EXISTS A TICKET CHANNEL FOR THE USER CURRENTLY
+            if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === modAppChannelName)) {
+                // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
+                return interaction.reply({
+                    content: `Sorry, you're **already in the process of verifying!** Check your DMs with <@${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                    ephemeral: true })
+            }
 
 
 
