@@ -25,7 +25,7 @@ module.exports = {
                 interaction.guild.members.fetch(interaction.user.id)
                     .then( guildMemberApplicant => {
                         // CALCULATE TIME MEMBER HAS BEEN IN SERVER
-                        memberDuration = Math.abs(new Date.now() - new Date(guildMemberApplicant.joinedAt()))
+                        memberDuration = Math.abs(new Date - new Date(guildMemberApplicant.joinedAt()))
 
                         interaction.reply(`memberDuration = ${memberDuration}`)
                     })
