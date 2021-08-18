@@ -679,6 +679,24 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
+            let modAdminMember = client.users.cache.find(user => user.id === interaction.user.id)
+
+            let memberRoles = member.roles.highest
+            let modAdminRole = modAdminMember.roles.highest
+
+            // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
+            if (memberRoles.comparePositionsTo(modAdminRole) <= 0) {
+                // GENERATE ERROR EMBED
+                let reasonTooLargeEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`You can't warn this user. *(I can't believe I actually have to put this logic into the bot to stop ourselves...)*`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
+            }
+
             
             let caseCounter = await infractionsSchema.countDocuments()
 
