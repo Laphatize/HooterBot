@@ -68,8 +68,11 @@ module.exports = {
                     name: `Study_Abroad`,
                     value: `studyabroad`,
                 },{
-                    name: `TUid`,
-                    value: `tuid`,
+                    name: `TUid_virtual`,
+                    value: `tuid_virtual`,
+                },{
+                    name: `TUid_physical`,
+                    value: `tuid_physical`,
                 },{
                     name: `TUportal`,
                     value: `tuportal`,
@@ -373,9 +376,14 @@ module.exports = {
                 link = `https://studyabroad.temple.edu/`
                 break;
 
-            case 'tuid':
-                linkName = `Get Your TUid`
-                link = `https://tuportal5.temple.edu/html/TEMPLE/apps/tup/TempleGCF/index.jsp?gcf=tu_getmytuid`
+            case 'tuid_virtual':
+                linkName = `Get Your Virtual TUid`
+                link = `https://prd-challenger.erp.temple.edu/luminis_gettuid/tu_getmytuid_1.aspx`
+                break;
+
+            case 'tuid_physical':
+                linkName = 'TUid Physical Card - Schedule an Appointment'
+                link = `https://booktuod.timetap.com/#/`
                 break;
 
             case 'tuportal':
