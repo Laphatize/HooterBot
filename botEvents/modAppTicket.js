@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const config = require ('../config.json');
+const modAppTicketSchema = require('../Database/modappSchema');
 
 
 module.exports = {
@@ -110,13 +111,13 @@ module.exports = {
                         .addField(`Applicant:`, `${interaction.user}`, true)
                         .addField(`Applicant Tag:`, `${interaction.user.tag}`, true)
                         .addField(`Applicant ID:`, `${interaction.user.id}`, true)
-                        .setDescription(`\nThank you for your interest in our moderator position! To help the admins assess applicants, HooterBot will ask you a few simple questions. Type up your response in a single message and send it in the channel. HooterBot will ask a total of **# questions**, one at a time.`)
+                        .setDescription(`\nThank you for your interest in our moderator position! To help the admins assess applicants, HooterBot will ask you a few simple questions **one at a time**. After submitting your response to the current question, HooterBot will follow up with the next question. There are a total of **# questions** in this application.`)
 
 
                     let modAppQuestionOne = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Question 1:`)
-                        .setDescription(`**Why do you want to be a moderator?**`)
+                        .setDescription(`**Why do you want to become a moderator of the Temple University server?**`)
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                     modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne] })
@@ -134,6 +135,25 @@ module.exports = {
                     // LOG ENTRY
                     interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                         .catch(err => console.log(err))
+
+
+                    // DATABASE ENTRY
+                    await modAppTicketSchema.findOneAndUpdate({
+                        // CONTENT USED TO FIND UNIQUE ENTRY
+                        USERNAME: interaction.user.username.toLowerCase(),
+                        USER_ID: interaction.user.id
+                    },{
+                        // CONTENT TO BE UPDATED
+                        USERNAME: interaction.user.username.toLowerCase(),
+                        USER_ID: interaction.user.id,
+                        FIRST_Q: false,
+                        SECOND_Q: false,
+                        THIRD_Q: false,
+                        FOURTH_Q: false,
+                        FIFTH_Q: false,
+                    },{ 
+                        upsert: true
+                    }).exec();
                 })
             }
         }

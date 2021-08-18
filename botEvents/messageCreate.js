@@ -2,7 +2,9 @@ const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
+const modAppTicketSchema = require('../Database/modappSchema');
 const levels = require('discord-xp');
+const wait = require('util').promisify(setTimeout);
 
 // COOLDOWN FOR XP SYSTEM
 const cooldowns = new Set()
@@ -23,7 +25,148 @@ module.exports = {
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
-            message.channel.send({ content: `I see you've responded.` })
+
+            // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
+            const dbData = await modAppTicketSchema.findOne({
+                USERNAME: message.author.username,
+                USER_ID: message.author.id
+            }).exec();
+
+
+
+            // WAIT 2 SECONDS TO FOLLOW UP WITH NEXT RESPONSE
+            wait(2000)
+
+
+            // SENDING QUESTION 2
+            if(dbData.FIRST_Q == false) {
+                
+                let modAppQuestionTwo = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`Question 2:`)
+                    .setDescription(`**[TBD]**`)
+
+                message.channel.send({ embeds: [modAppQuestionTwo] })
+
+                // UPDATE DATABASE
+                await modAppTicketSchema.findOneAndUpdate({
+                    USERNAME: message.author.username.toLowerCase(),
+                    USER_ID: message.author.id
+                },{
+                    // CONTENT TO BE UPDATED
+                    FIRST_Q: true,
+                },{ 
+                    upsert: true
+                }).exec();
+            }
+
+
+            // SENDING QUESTION 3
+            if(dbData.FIRST_Q == true
+               && dbData.SECOND_Q == false ) {
+
+                    let modAppQuestionThree = new discord.MessageEmbed()
+                        .setColor(config.embedBlurple)
+                        .setTitle(`Question 3:`)
+                        .setDescription(`**[TBD]**`)
+
+                    message.channel.send({ embeds: [modAppQuestionThree] })
+
+                    // UPDATE DATABASE
+                    await modAppTicketSchema.findOneAndUpdate({
+                        USERNAME: message.author.username.toLowerCase(),
+                        USER_ID: message.author.id
+                    },{
+                        // CONTENT TO BE UPDATED
+                        SECOND_Q: true,
+                    },{ 
+                        upsert: true
+                    }).exec();
+            }
+
+
+            // SENDING QUESTION 4
+            if(dbData.FIRST_Q == true
+               && dbData.SECOND_Q == true
+               && dbData.THIRD_Q == false ) {
+
+                    let modAppQuestionFour = new discord.MessageEmbed()
+                        .setColor(config.embedBlurple)
+                        .setTitle(`Question 4:`)
+                        .setDescription(`**[TBD]**`)
+
+                    message.channel.send({ embeds: [modAppQuestionFour] })
+
+                    // UPDATE DATABASE
+                    await modAppTicketSchema.findOneAndUpdate({
+                        USERNAME: message.author.username.toLowerCase(),
+                        USER_ID: message.author.id
+                    },{
+                        // CONTENT TO BE UPDATED
+                        THIRD_Q: true,
+                    },{ 
+                        upsert: true
+                    }).exec();
+            }
+
+            // SENDING QUESTION 5
+            if(dbData.FIRST_Q == true
+                && dbData.SECOND_Q == true
+                && dbData.THIRD_Q == true 
+                && dbData.FOURTH_Q == false ) {
+                    
+                    let modAppQuestionFive = new discord.MessageEmbed()
+                        .setColor(config.embedBlurple)
+                        .setTitle(`Question 5:`)
+                        .setDescription(`**[TBD]**`)
+    
+                    message.channel.send({ embeds: [modAppQuestionFive] })
+    
+                    // UPDATE DATABASE
+                    await modAppTicketSchema.findOneAndUpdate({
+                        USERNAME: message.author.username.toLowerCase(),
+                        USER_ID: message.author.id
+                    },{
+                        // CONTENT TO BE UPDATED
+                        FOURTH_Q: true,
+                    },{ 
+                        upsert: true
+                    }).exec();
+                }
+
+            // SENDING TICKET CLOSE
+            if(dbData.FIRST_Q == true
+                && dbData.SECOND_Q == true
+                && dbData.THIRD_Q == true 
+                && dbData.FOURTH_Q == true
+                && dbData.FIFTH_Q == true ) {
+                    // USER SENT THEIR FIRST MESSAGE, SEND SECOND QUESTION
+    
+                    let modAppQuestionFive = new discord.MessageEmbed()
+                        .setColor(config.embedBlurple)
+                        .setTitle(`Application Complete:`)
+                        .setDescription(`Your application is now completed. Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave your questions below. Once the application window is closed, the admins will review all applications and announce the new moderator(s) shortly thereafter.`)
+    
+                    message.channel.send({ embeds: [modAppQuestionFive] })
+    
+                    // UPDATE DATABASE
+                    await modAppTicketSchema.findOneAndUpdate({
+                        USERNAME: message.author.username.toLowerCase(),
+                        USER_ID: message.author.id
+                    },{
+                        // CONTENT TO BE UPDATED
+                        FOURTH_Q: true,
+                    },{ 
+                        upsert: true
+                    }).exec();
+                }
+
+
+
+
+
+
+
         }
 
 
