@@ -143,7 +143,7 @@ module.exports = {
                     let modAppQuestionFive = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Application Complete:`)
-                        .setDescription(`Your application is now completed. Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave your questions below. Once the application window is closed, the admins will review all applications and announce the new moderator(s) shortly thereafter.`)
+                        .setDescription(`Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave your questions below.\nOnce the application window closes, the admins will review all applications and announce the new moderator(s).`)
     
                     message.channel.send({ embeds: [modAppQuestionFive] })
                     .then(msg => {
