@@ -64,6 +64,8 @@ module.exports = {
             }
 
 
+            interaction.reply({ content: `Your ticket will start (...once MMM builds the code for that.)`})
+
 
             //     // EMPHEMERAL REPLY TO BUTTON PRESS - IF ELIGIBLE TO APPLY
             //     interaction.reply({ content: `**Verification started!** Please check for a DM from HooterBot to complete your verification.\n**Didn't receive a DM?** Please create a ModMail ticket and let us know!`, ephemeral: true })
