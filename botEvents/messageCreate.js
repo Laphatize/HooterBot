@@ -11,6 +11,23 @@ const cooldowns = new Set()
 module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
+
+
+
+        /***********************************************************/
+        /*      MOD APPLICATION TICKETS                            */
+        /***********************************************************/
+        
+        // MESSAGES IN THE USER'S MOD APP CHANNEL
+        if(message.channel.name == `modApp-${message.author.username.toLowerCase()}-${message.author.id}`) {
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
+
+            message.channel.send({ content: `I see you've responded.` })
+        }
+
+
+
                             
         /***********************************************************/
         /*      VERIFICATION TICKETS                               */
