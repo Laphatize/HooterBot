@@ -146,6 +146,10 @@ module.exports = {
                         .setDescription(`Your application is now completed. Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave your questions below. Once the application window is closed, the admins will review all applications and announce the new moderator(s) shortly thereafter.`)
     
                     message.channel.send({ embeds: [modAppQuestionFive] })
+                    .then(msg => {
+                        // RENAME CHANNEL TO AVOID DB CALL ISSUES
+                        msg.channel.setName(`modapp-${message.author.username.toLowerCase()}-completed`)
+                    })
     
                     // UPDATE DATABASE
                     await modAppTicketSchema.findOneAndDelete({
