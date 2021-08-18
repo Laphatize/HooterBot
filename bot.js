@@ -126,6 +126,7 @@ client.on('ready', async () => {
     let musicSC = cmds.find(c => c.name === `music`)
     let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
     let channelSC = cmds.find(c => c.name === `channel`)
+    let modappSC = cmds.find(c => c.name === `modapp`) 
 
 
     // SETTING PERMISSIONS
@@ -258,7 +259,18 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
-        },
+        },{
+            id: modappSC.id,     // COMMAND: /modapp
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        }
     ];
     
 
