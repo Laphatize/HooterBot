@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
-const guildSchema = require('../../Database/guildSchema');
+const { MessageActionRow, MessageButton } = require('discord.js');
 
 
 module.exports = {
