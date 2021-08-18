@@ -671,11 +671,15 @@ module.exports = {
                 // SENDING MESSAGE
                 return interaction.reply({ embeds: [warnSelfEmbed], ephemeral: true })
             }
+            
+            // FETCHING GUILD MEMBER
+            let member = client.users.cache.find(user => user.id === warnUser.id)
+            let selfMember = client.users.cache.find(user => user.id === interaction.user.id)
 
 
             // IF USER IS TRYING TO WARN SOMEONE ABOVE THEM IN PERMS
-            let warnUserMaxPerm = warnUser.roles.highest
-            let warnerMaxPerm = interaction.user.roles.highest
+            let warnUserMaxPerm = member.roles.highest
+            let warnerMaxPerm = selfMember.user.roles.highest
             if( warnUserMaxPerm.comparePositionsTo(warnerMaxPerm) <= 0 ){
                 // GENERATE ERROR EMBED
                 let warnEqualEmbed = new discord.MessageEmbed()
@@ -706,8 +710,7 @@ module.exports = {
             }
 
 
-            // FETCHING GUILD MEMBER
-            let member = client.users.cache.find(user => user.id === warnUser.id)
+            
             
             let caseCounter = await infractionsSchema.countDocuments()
 
