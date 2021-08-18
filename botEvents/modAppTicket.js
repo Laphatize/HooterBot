@@ -60,7 +60,7 @@ module.exports = {
             if (interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === modAppChannelName)) {
                 // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY IN VERIFYING PROCESS
                 return interaction.reply({
-                    content: `${config.emjREDTICK} Sorry, you're **already in the process of verifying!** Check your DMs with <@${config.botId}>!\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                    content: `${config.emjREDTICK} Sorry, you're **already in the process of applying!** Check ${interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === modAppChannelName)}.`,
                     ephemeral: true })
             }
 
