@@ -101,9 +101,8 @@ module.exports = {
                 .then(async modApplicantChannel => {
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                     modApplicantChannel.send({ content: `<@${interaction.user.id}>` })
-                    .catch(err => console.log(err))
-                })
-                .then(async modApplicantChannel => {
+                        .catch(err => console.log(err))
+
                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -122,7 +121,6 @@ module.exports = {
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
                     modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne] })
                         .catch(err => console.log(err))
-                    })
 
                             
                     // LOGGING TICKET OPENING IN LOGS CHANNEL
@@ -136,6 +134,7 @@ module.exports = {
                     // LOG ENTRY
                     interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [logTicketOpenEmbed] })
                         .catch(err => console.log(err))
+                })
             }
         }
 	},
