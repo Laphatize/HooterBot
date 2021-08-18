@@ -28,7 +28,6 @@ module.exports = {
 
             // CHECK IF DATABASE HAS AN ENTRY FOR THE GUILD
             const dbData = await modAppTicketSchema.findOne({
-                USERNAME: message.author.username,
                 USER_ID: message.author.id
             }).exec();
 
@@ -39,7 +38,7 @@ module.exports = {
 
 
             // SENDING QUESTION 2
-            if(dbData.FIRST_Q == false) {
+            if(dbData.Q2 == false) {
                 
                 let modAppQuestionTwo = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
@@ -54,7 +53,7 @@ module.exports = {
                     USER_ID: message.author.id
                 },{
                     // CONTENT TO BE UPDATED
-                    FIRST_Q: true,
+                    Q2: true,
                 },{ 
                     upsert: true
                 }).exec();
@@ -62,8 +61,8 @@ module.exports = {
 
 
             // SENDING QUESTION 3
-            if(dbData.FIRST_Q == true
-               && dbData.SECOND_Q == false ) {
+            if(dbData.Q2 == true
+               && dbData.Q3 == false ) {
 
                     let modAppQuestionThree = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -78,7 +77,7 @@ module.exports = {
                         USER_ID: message.author.id
                     },{
                         // CONTENT TO BE UPDATED
-                        SECOND_Q: true,
+                        Q3: true,
                     },{ 
                         upsert: true
                     }).exec();
@@ -86,9 +85,9 @@ module.exports = {
 
 
             // SENDING QUESTION 4
-            if(dbData.FIRST_Q == true
-               && dbData.SECOND_Q == true
-               && dbData.THIRD_Q == false ) {
+            if(dbData.Q2 == true
+               && dbData.Q3 == true
+               && dbData.Q4 == false ) {
 
                     let modAppQuestionFour = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -103,17 +102,17 @@ module.exports = {
                         USER_ID: message.author.id
                     },{
                         // CONTENT TO BE UPDATED
-                        THIRD_Q: true,
+                        Q4: true,
                     },{ 
                         upsert: true
                     }).exec();
             }
 
             // SENDING QUESTION 5
-            if(dbData.FIRST_Q == true
-                && dbData.SECOND_Q == true
-                && dbData.THIRD_Q == true 
-                && dbData.FOURTH_Q == false ) {
+            if(dbData.Q2 == true
+                && dbData.Q3 == true
+                && dbData.Q4 == true 
+                && dbData.Q5 == false ) {
                     
                     let modAppQuestionFive = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -128,18 +127,17 @@ module.exports = {
                         USER_ID: message.author.id
                     },{
                         // CONTENT TO BE UPDATED
-                        FOURTH_Q: true,
+                        Q5: true,
                     },{ 
                         upsert: true
                     }).exec();
                 }
 
             // SENDING TICKET CLOSE
-            if(dbData.FIRST_Q == true
-                && dbData.SECOND_Q == true
-                && dbData.THIRD_Q == true 
-                && dbData.FOURTH_Q == true
-                && dbData.FIFTH_Q == true ) {
+            if(dbData.Q2 == true
+                && dbData.Q3 == true
+                && dbData.Q4 == true 
+                && dbData.Q5 == true ) {
                     // USER SENT THEIR FIRST MESSAGE, SEND SECOND QUESTION
     
                     let modAppQuestionFive = new discord.MessageEmbed()
@@ -150,23 +148,11 @@ module.exports = {
                     message.channel.send({ embeds: [modAppQuestionFive] })
     
                     // UPDATE DATABASE
-                    await modAppTicketSchema.findOneAndUpdate({
+                    await modAppTicketSchema.findOneAndDelete({
                         USERNAME: message.author.username.toLowerCase(),
                         USER_ID: message.author.id
-                    },{
-                        // CONTENT TO BE UPDATED
-                        FOURTH_Q: true,
-                    },{ 
-                        upsert: true
                     }).exec();
                 }
-
-
-
-
-
-
-
         }
 
 

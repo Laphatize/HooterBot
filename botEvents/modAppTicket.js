@@ -146,11 +146,10 @@ module.exports = {
                         // CONTENT TO BE UPDATED
                         USERNAME: interaction.user.username.toLowerCase(),
                         USER_ID: interaction.user.id,
-                        FIRST_Q: false,
-                        SECOND_Q: false,
-                        THIRD_Q: false,
-                        FOURTH_Q: false,
-                        FIFTH_Q: false,
+                        Q2: false,
+                        Q3: false,
+                        Q4: false,
+                        Q5: false,
                     },{ 
                         upsert: true
                     }).exec();
