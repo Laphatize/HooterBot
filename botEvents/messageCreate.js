@@ -34,7 +34,7 @@ module.exports = {
 
 
             // WAIT 2 SECONDS TO FOLLOW UP WITH NEXT RESPONSE
-            wait(2000)
+            await wait(2000)
 
 
             // SENDING QUESTION 2
