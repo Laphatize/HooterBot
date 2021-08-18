@@ -686,7 +686,7 @@ module.exports = {
             let modAdminRole = interaction.member.roles.highest
 
             // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
-            if (memberRoles.comparePositionsTo(modAdminRole) <= 0) {
+            if (memberRoles.comparePositionTo(modAdminRole) <= 0) {
                 // GENERATE ERROR EMBED
                 let reasonTooLargeEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
