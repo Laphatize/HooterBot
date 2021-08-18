@@ -50,7 +50,7 @@ module.exports = {
             if(interaction.member.roles.cache.some((role) => role.name.toLowerCase() === 'moderator')
             || interaction.member.roles.cache.some((role) => role.name.toLowerCase() === 'admin')) {
                 return interaction.reply({
-                    content: `Sorry, you are not eligible to apply. You're already in!`,
+                    content: `Sorry, you are not eligible to apply. You're already in, silly!`,
                     ephemeral: true })
             }
 
