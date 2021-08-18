@@ -659,6 +659,35 @@ module.exports = {
             let warnUser = interaction.options.getUser('target_user');
             let warnReason = interaction.options.getString('reason');
 
+            // IF USER IS TRYING TO SELF-WARN
+            if(warnUser.id == interaction.user.id) {
+                // GENERATE ERROR EMBED
+                let warnSelfEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`You're trying to warn yourself? Really? `)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [warnSelfEmbed], ephemeral: true })
+            }
+
+
+            // IF USER IS TRYING TO WARN SOMEONE ABOVE THEM IN PERMS
+            let warnUserMaxPerm = warnUser.roles.highest
+            let warnerMaxPerm = interaction.user.roles.highest
+            if( warnUserMaxPerm.comparePositionsTo(warnerMaxPerm) <= 0 ){
+                // GENERATE ERROR EMBED
+                let warnEqualEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`I can't believe our goofiness as mods/admins is making me implement this...`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [warnEqualEmbed], ephemeral: true })
+            }
+
 
             // REASON TOO LONG
             if(warnReason.length > 250) {
