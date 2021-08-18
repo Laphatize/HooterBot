@@ -115,7 +115,7 @@ module.exports = {
                         .setDescription(`**Why do you want to be a moderator?**`)
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne] })
+                    modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne], content: `<@${interaction.user.id}>` })
                         .catch(err => console.log(err))
                     })
 
@@ -135,3 +135,19 @@ module.exports = {
         }
 	},
 };
+
+
+
+module.exports = {
+	name: 'messageCreate',
+	async execute(message, client) {
+
+        // MESSAGES IN THE USER'S MOD APP CHANNEL
+        if(message.channel.name == `modApp-${message.author.username.toLowerCase()}-${message.author.id}`) {
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
+
+            message.channel.send({ content: `I see you've responded, thanks.` })
+        }
+    }
+}
