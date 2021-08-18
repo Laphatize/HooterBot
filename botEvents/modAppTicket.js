@@ -11,7 +11,7 @@ module.exports = {
         /***********************************************************/
 
         // MOD APP CHANNEL NAME
-        let modAppChannelName = `modApp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
+        let modAppChannelName = `modapp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
         let parentCategory = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod apps' && ch.type === 'GUILD_CATEGORY')
 
 
@@ -21,7 +21,7 @@ module.exports = {
             if(interaction.customId === 'modAppApply') {
                 
                 var memberDuration;
-                const monthRequirement = (1) * 2628002880
+                const monthRequirement = (1) * 2628002880   // 30.4167 DAYS FOR THE AVERAGE "MONTH"
 
                 // GET INTERACTION MEMBER AS GUILD MEMBER
                 interaction.guild.members.fetch(interaction.user.id)
@@ -99,6 +99,11 @@ module.exports = {
                 reason: `User is submitting an application to become a moderator.`
             })
                 .then(async modApplicantChannel => {
+                    // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
+                    modApplicantChannel.send({ content: `<@${interaction.user.id}>` })
+                    .catch(err => console.log(err))
+                })
+                .then(async modApplicantChannel => {
                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -115,7 +120,7 @@ module.exports = {
                         .setDescription(`**Why do you want to be a moderator?**`)
 
                     // SENDING INTRO EMBED TO ADMIN/MOD TICKET CHANNEL
-                    modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne], content: `<@${interaction.user.id}>` })
+                    modApplicantChannel.send({ embeds: [newTicketEmbed, modAppQuestionOne] })
                         .catch(err => console.log(err))
                     })
 
@@ -134,20 +139,18 @@ module.exports = {
             }
         }
 	},
-};
 
 
+    // FOLLOW-UP QUESTIONS
+	name: 'messageCreate',
+	async execute(message, client) {
 
-// module.exports = {
-// 	name: 'messageCreate',
-// 	async execute(message, client) {
+        // MESSAGES IN THE USER'S MOD APP CHANNEL
+        if(message.channel.name == `modApp-${message.author.username.toLowerCase()}-${message.author.id}`) {
+            // IGNORE HOOTERBOT'S OWN MESSAGES
+            if(message.author.bot)   return;
 
-//         // MESSAGES IN THE USER'S MOD APP CHANNEL
-//         if(message.channel.name == `modApp-${message.author.username.toLowerCase()}-${message.author.id}`) {
-//             // IGNORE HOOTERBOT'S OWN MESSAGES
-//             if(message.author.bot)   return;
-
-//             message.channel.send({ content: `I see you've responded, thanks.` })
-//         }
-//     }
-// }
+            message.channel.send({ content: `I see you've responded.` })
+        }
+    }
+}
