@@ -368,7 +368,7 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 // BIRTHDAY CHECKS
 // EVERY DAY AT 8:00AM EST
 // cron.schedule('00 */2 * * * *', async () => {  // FOR TESTING
-cron.schedule('00 00 08 * * *', async () => {
+cron.schedule('00 10 10 * * *', async () => {
     
     console.log('Checking for birthdays...');
 
