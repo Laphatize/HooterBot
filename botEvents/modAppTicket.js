@@ -69,7 +69,8 @@ module.exports = {
             interaction.reply({ content: `${config.emjGREENTICK} **Application opened!** HooterBot has pinged you in the channel to get started.`, ephemeral: true })
                 .catch(err => console.log(err))
 
-
+            let botRole = interaction.guild.me.roles.cache.find((role) => role.name == 'HooterBot');
+            let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
 
             // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
             await interaction.guild.channels.create(`${modAppChannelName}`, {
