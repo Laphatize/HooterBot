@@ -72,7 +72,7 @@ module.exports = {
 
 
             // CREATE TICKET CHANNEL USING CLICKER'S USERNAME
-            await interaction.guild.channels.create(`${ticketChannelName}`, {
+            await interaction.guild.channels.create(`${modAppChannelName}`, {
                 type: 'GUILD_TEXT',
                 parent: parentCategory,
                 topic: `The moderator application for ${interaction.user.tag} (ID: ${interaction.user.id}).`,
