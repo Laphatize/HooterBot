@@ -656,11 +656,11 @@ module.exports = {
         if(subCmdName == 'warn') {
 
             // GETTING OPTIONS VALUES
-            let warnMember = interaction.options.getMember('target_user');
+            let warnUser = interaction.options.getUser('target_user');
             let warnReason = interaction.options.getString('reason');
 
             // IF USER IS TRYING TO SELF-WARN
-            if(warnMember.id == interaction.user.id) {
+            if(warnUser.id == interaction.user.id) {
                 // GENERATE ERROR EMBED
                 let warnSelfEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -673,13 +673,14 @@ module.exports = {
             }
             
             // FETCHING GUILD MEMBER
-            let selfMember = interaction.member
+            let member = client.users.cache.find(user => user.id === warnUser.id)
+            let selfMember = client.users.cache.find(user => user.id === interaction.user.id)
 
 
             // IF USER IS TRYING TO WARN SOMEONE ABOVE THEM IN PERMS
-            let warnMemberMaxPerm = member.roles.highest
+            let warnUserMaxPerm = member.roles.highest
             let warnerMaxPerm = selfMember.user.roles.highest
-            if( warnMemberMaxPerm.comparePositionsTo(warnerMaxPerm) <= 0 ){
+            if( warnUserMaxPerm.comparePositionsTo(warnerMaxPerm) <= 0 ){
                 // GENERATE ERROR EMBED
                 let warnEqualEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
@@ -716,14 +717,14 @@ module.exports = {
 
             // CREATE DATABASE ENTRY FOR THE ISSUED WARNING
             await infractionsSchema.findOneAndUpdate({
-                USER_ID: warnMember.id,
+                USER_ID: warnUser.id,
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
                 DATE: new moment(Date.now()).utcOffset(-4).format('LLL'),
                 CASE_NUM: parseInt(caseCounter)+1
             },{
-                USER_ID: warnMember.id,
+                USER_ID: warnUser.id,
                 ACTION: 'WARN',
                 REASON: warnReason,
                 STAFF_ID: interaction.user.id,
@@ -744,12 +745,12 @@ module.exports = {
                 .setDescription(`You have been issued a warning in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${warnReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
             let notDMable = ``;
-            warnMember.send({ embeds: [userWarnEmbed] })
+            member.send({ embeds: [userWarnEmbed] })
                 .catch(err => {
                     let cannotDMEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Error!`)
-                        .setDescription(`**HooterBot was unable to DM ${warnMember} about their warning** (they likely do not allow DMs from server members). Please find another method to inform this user of their warning.`)
+                        .setDescription(`**HooterBot was unable to DM ${member} about their warning** (they likely do not allow DMs from server members). Please find another method to inform this user of their warning.`)
                         .setTimestamp()
 
                     // SENDING MESSAGE IN MOD LOG AND PINGING USER
@@ -761,7 +762,7 @@ module.exports = {
             let userWarnPublicNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
                 .setTitle(`Case \#${parseInt(caseCounter)+1}: Warning Issued`)
-                .setDescription(`**User:** ${warnMember}\n**User ID:** ${warnMember.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
+                .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
                 .setFooter(``)
 
             interaction.guild.channels.cache.find(ch => ch.name === `mod-actions`).send({ embeds: [userWarnPublicNoticeEmbed] })
@@ -772,7 +773,7 @@ module.exports = {
             let confirmationEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setTitle(`${config.emjGREENTICK} Warning Successfully Issued`)
-                .setDescription(`You have successfully issued a warning to ${warnMember}.${notDMable}`)
+                .setDescription(`You have successfully issued a warning to ${member}.${notDMable}`)
 
             interaction.reply({ embeds: [confirmationEmbed], ephemeral: true });
 
@@ -781,7 +782,7 @@ module.exports = {
             let modLogEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} USER WARNED`)
-                .setDescription(`**User:** ${warnMember}\n**User ID:** ${warnMember.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
+                .setDescription(`**User:** ${member}\n**User ID:** ${member.id}\n**Issued by:** ${interaction.user}\n**Reason:** ${warnReason}`)
                 .setTimestamp()
 
             // SENDING MESSAGE IN MOD LOG AND PINGING USER
