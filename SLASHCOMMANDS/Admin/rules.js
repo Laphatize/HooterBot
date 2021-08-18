@@ -7,7 +7,7 @@ module.exports = {
     name: 'rules_embed',
     description: 'ADMIN | Generates/updates rules, server staff, and ModMail ticket instruction embeds. [60s]',
     options: [],
-    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    permissions: 'ADMINISTRATOR',
     dmUse: false,
     cooldown: 60,
     defaultPermission: false,

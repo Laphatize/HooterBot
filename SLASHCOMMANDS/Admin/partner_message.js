@@ -11,19 +11,19 @@ module.exports = {
             description: `The name of the partner server`,
             type: `STRING`,
             required: true
-            },{
+        },{
             name: `message`,
             description: `The main body of the announcement message`,
             type: `STRING`,
             required: true
-            },{
+        },{
             name: `image_url`,
             description: `Image URL to be attached to message`,
             type: `STRING`,
             required: false
         }
     ],
-    permissions: 'MANAGE_MESSAGES', //ADMINISTRATOR
+    permissions: 'ADMINISTRATOR',
     dmUse: false,
     cooldown: 10,
     defaultPermission: false,
