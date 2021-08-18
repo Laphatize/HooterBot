@@ -25,7 +25,7 @@ module.exports = {
     ],
     permissions: 'ADMINISTRATOR',
     dmUse: false,
-    cooldown: 60,
+    cooldown: 0,
     defaultPermission: false,
     run: async(client, interaction, inputs) => {
 
