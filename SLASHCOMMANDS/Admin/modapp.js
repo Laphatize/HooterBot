@@ -76,7 +76,7 @@ module.exports = {
                     // CREATE APPLICATION INFO EMBED WITH BUTTON
                     let appNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
-                        .setTitle(`**Moderator Application Are Open**`)
+                        .setTitle(`**Moderator Applications Are Open**`)
                         .setDescription(`The admins are looking for more users to become moderators in the server. To be eligible to apply, you must:
                             \n${config.indent}**1.** be a membmer for at least **one month**.
                             \n${config.indent}**2.** be active member of the community (participating in channels).
@@ -117,8 +117,11 @@ module.exports = {
         // OPEN APPS
         if(inputs[0] == 'close') {
 
-            let modAppNoticeChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod-applications-info' && ch.type === 'GUILD_TEXT')
-                .catch( err => {
+            let modAppNoticeChannel
+            
+            try {
+                modAppNoticeChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod-applications-info' && ch.type === 'GUILD_TEXT')
+            } catch (err) {
                     let chNotFoundEmbed = new discord.MessageEmbed()
                         .setColor(config.embedTempleRed)
                         .setTitle(`${config.emjREDTICK} **Error!**`)
@@ -126,34 +129,16 @@ module.exports = {
 
                     // SENDING TO CHANNEL
                     return interaction.reply({ embeds: [chNotFoundEmbed], ephemeral: true })
-                })
+            }
 
 
             // CREATE APPLICATION INFO EMBED WITH BUTTON
             let appNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`**Moderator Application**`)
-                .setDescription(`The admins are looking for more users to become moderators in the server. To be eligible to apply, you must:
-                    \n${config.indent}**1.** be a membmer for at least **one month**.
-                    \n${config.indent}**2.** be active member of the community (participating in channels).
-                    \n${config.indent}**3.** ???
-                    \n${config.indent}(Not required, but **past moderating experience on Discord** is a plus)
-                    \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you and begin the application.`)
-                .setFooter(`BUTTON NOT ENABLED`)
+                .setTitle(`**Moderator Applications Are Now Closed**`)
+                .setDescription(`Thank you to everyone who has applied. We will begin reviewing your applications and will announce the new moderators soon.`)
 
-
-            let ApplyButton = new MessageButton()
-                .setLabel("Apply")
-                .setStyle("SUCCESS")
-                .setCustomId("modAppApply")
-
-            // BUTTON ROW
-            let ButtonRow = new MessageActionRow()
-                .addComponents(
-                    ApplyButton
-                );
-
-            await modAppNoticeChannel.send({ embeds: [appNoticeEmbed], components: [ButtonRow] })
+            await modAppNoticeChannel.send({ embeds: [appNoticeEmbed] })
 
 
             // CONFIRMATION
