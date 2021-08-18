@@ -50,14 +50,14 @@ module.exports = {
             }
 
             // CREATE MOD APPLICATION CHANNEL
-            await message.guild.channels.create(`mod-applications-info`, {
+            await interaction.guild.channels.create(`mod-applications-info`, {
                 type: 'GUILD_TEXT',
                 parent: parentCategory.id,
                 topic: `Interested in becoming a moderator? Apply here.`,
                 permissionOverwrites: [
                     {
                         // EVERYONE ROLE
-                        id: message.guild.roles.everyone.id,
+                        id: interaction.guild.roles.everyone.id,
                         deny: [`SEND_MESSAGES`, `USE_PUBLIC_THREADS`, `USE_PRIVATE_THREADS`]
                     },{
                         // ADMINS
