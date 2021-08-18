@@ -657,6 +657,7 @@ module.exports = {
 
             // GETTING OPTIONS VALUES
             let warnUser = interaction.options.getUser('target_user');
+            let warnMember = interaction.options.getMember('target_user');
             let warnReason = interaction.options.getString('reason');
 
 
@@ -679,10 +680,10 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
-            let modAdminMember = client.users.cache.find(user => user.id === interaction.user.id)
-
-            let memberRoles = member.roles.highest
-            let modAdminRole = modAdminMember.roles.highest
+            
+            
+            let memberRoles = warnMember.roles.highest
+            let modAdminRole = interaction.member.roles.highest
 
             // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
             if (memberRoles.comparePositionsTo(modAdminRole) <= 0) {
