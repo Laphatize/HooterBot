@@ -59,12 +59,11 @@ process.on('unhandledRejection', err => {
     let logErrEmbed = new discord.MessageEmbed()
         .setColor(config.embedDarkGrey)
         .setTitle(`${config.emjERROR} An Unknown Error Has Occurred`)
-        .setDescription(`\`\`\`${err}\`\`\`\nPlease inform **${config.botAuthorUsername}** of this error so he can investigate.`)
-        .setFooter('MMM, please see the bot\'s log for the full error stack.')
+        .setDescription(`\`\`\`${err}\`\`\``)
         .setTimestamp()
     
     // LOG ENTRY
-    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({embeds: [logErrEmbed]})
+    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed], content: `<@${config.botAuthorId}>` })
 })
 
 
