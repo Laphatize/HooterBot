@@ -11,16 +11,15 @@ module.exports = {
         /*      MOD APPLICATION BUTTON                             */
         /***********************************************************/
 
-        // MOD APP CHANNEL NAME
-        let modAppChannelName = `modapp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
-        let parentCategory = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod apps' && ch.type === 'GUILD_CATEGORY')
-
-
         // IGNORNING NON-BUTTON INTERACTIONS
         if(interaction.isButton()) {
 
             if(interaction.customId === 'modAppApply') {
                 
+            // MOD APP CHANNEL NAME
+            let modAppChannelName = `modapp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
+            let parentCategory = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod apps' && ch.type === 'GUILD_CATEGORY')
+
                 var memberDuration;
                 const monthRequirement = (1) * 2628002880   // 30.4167 DAYS FOR THE AVERAGE "MONTH"
 
