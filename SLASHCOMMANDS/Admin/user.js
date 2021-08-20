@@ -408,12 +408,16 @@ module.exports = {
 
                     console.log(`member.premiumSince = ${member.premiumSince}`)
 
-                    var booster = moment(member.premiumSince).format('LL')
 
-                    if(booster == 'Invalid date') {
+                    // SERVER BOOSTING DATE FIX
+                    var booster
+                    if(booster == 'undefined') {
                         booster =  `*(N/A)*`
+                    } else {
+                        booster = moment(member.premiumSince).format('LL')
                     }
 
+                    // ROLES
                     const userRoles = user.roles.cache
                         .map(role => role.toString())
                         .slice(0, -1)
