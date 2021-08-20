@@ -308,25 +308,28 @@ cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
 
 
     // GRAB TICKET CATEGORY USING ID
-    let testServerTicketCategory = testServer.channels.cache.get(dbGuildTestServerData.TICKET_CAT_ID)
-    let templeServerTicketCategory = templeServer.channels.cache.get(dbGuildTempleServerData.TICKET_CAT_ID)
+    let testServerTicketCategory = testServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
+    let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
 
 
     // SETTING COUNT VALUES
     // TEST SERVER
     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    
     console.log(`ticketCountTestServer = ${ticketCountTestServer}`)
     console.log(`catChCountTestServer = ${catChCountTestServer}`)
+    
     testServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]` })
     
     // TEMPLE SERVER
     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    
     console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
     console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
+
     templeServerTicketCategory.edit({ name: `VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]` })
-    
 })
 
 
