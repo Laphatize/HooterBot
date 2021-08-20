@@ -454,9 +454,13 @@ module.exports = {
                 interaction.deferUpdate()
 
 
+                // FETCH THE TICKET USER VIA CHANNEL NAME
+                dmUserId = interaction.channel.name.split('id-').pop()
+
+
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
-                    CREATOR_ID: interaction.user.id
+                    CREATOR_ID: dmUserId
                 }).exec();
 
                 if(!dbTicketData) return;
