@@ -557,9 +557,8 @@ cron.schedule('00 00 10 * * *', async () => {
 
                             // SEND MESSAGE IN TICKET CHANNEL
                             ticketChannel.send({embeds: [firstReminderTicketChEmbed]})
-                                .catch(err => console.log(err))
+                                .catch(err => console.log(`Unable to send initial ticket reminder to ${user.username.toLowerCase()} (ID: ${user.id})`))
                                 .then(msg => {
-                                    
                                     // LOG MESSAGE ID IN DATABASE FOR USER
                                     ticketSchema.findOneAndUpdate({
                                         CREATOR_ID: user.id
