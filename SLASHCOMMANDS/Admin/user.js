@@ -845,14 +845,14 @@ module.exports = {
                         ACTION: 'MUTE',
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
-                        DATE: new moment(Date.now()).format('LLL'),
+                        DATE: new moment(Date.now()).utcOffset(-4).format('LLL'),
                         CASE_NUM: parseInt(caseCounter)+1
                     },{
                         USER_ID: muteUser.id,
                         ACTION: 'MUTE',
                         REASON: muteReason,
                         STAFF_ID: interaction.user.id,
-                        DATE: new moment(Date.now()).format('LLL'),
+                        DATE: new moment(Date.now()).utcOffset(-4).format('LLL'),
                         CASE_NUM: parseInt(caseCounter)+1
                     },{
                         upsert: true
@@ -1143,14 +1143,14 @@ module.exports = {
                         ACTION: 'BAN',
                         REASON: banReason,
                         STAFF_ID: interaction.user.id,
-                        DATE: new moment(Date.now()).format('LLL'),
+                        DATE: new moment(Date.now()).utcOffset(-4).format('LLL'),
                         CASE_NUM: parseInt(caseCounter)+1
                     },{
                         USER_ID: banUser.id,
                         ACTION: 'BAN',
                         REASON: banReason,
                         STAFF_ID: interaction.user.id,
-                        DATE: new moment(Date.now()).format('LLL'),
+                        DATE: new moment(Date.now()).utcOffset(-4).format('LLL'),
                         CASE_NUM: parseInt(caseCounter)+1
                     },{
                         upsert: true
