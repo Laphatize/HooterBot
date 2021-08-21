@@ -683,23 +683,6 @@ module.exports = {
 
             // FETCHING GUILD MEMBER
             let member = client.users.cache.find(user => user.id === warnUser.id)
-            
-            
-            let memberRoles = warnMember.roles.highest
-            let modAdminRole = interaction.member.roles.highest
-
-            // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
-            if (memberRoles.comparePositionTo(modAdminRole) <= 0) {
-                // GENERATE ERROR EMBED
-                let reasonTooLargeEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`You can't warn this user. *(I can't believe I actually have to put this logic into the bot to stop ourselves...)*`)
-                    .setTimestamp()
-            
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
-            }
 
             
             let caseCounter = await infractionsSchema.countDocuments()
@@ -802,23 +785,6 @@ module.exports = {
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
                     .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
-                    .setTimestamp()
-            
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
-            }
-
-            let memberRoles = muteMember.roles.highest
-            let modAdminRole = interaction.member.roles.highest
-
-
-            // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
-            if (memberRoles.comparePositionTo(modAdminRole) <= 0) {
-                // GENERATE ERROR EMBED
-                let reasonTooLargeEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`You can't mute this user. *(I can't believe I actually have to put this logic into the bot to stop ourselves...)*`)
                     .setTimestamp()
             
                 // SENDING MESSAGE
@@ -1109,22 +1075,6 @@ module.exports = {
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
                     .setDescription(`Sorry, the reason you provided is ${overchar} characters over the 250 character reason limt. Please run this command again using a shorter reason.`)
-                    .setTimestamp()
-            
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
-            }
-
-            let memberRoles = banMember.roles.highest
-            let modAdminRole = interaction.member.roles.highest
-
-            // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
-            if (memberRoles.comparePositionTo(modAdminRole) <= 0) {
-                // GENERATE ERROR EMBED
-                let reasonTooLargeEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`You can't ban this user. *(I can't believe I actually have to put this logic into the bot to stop ourselves...)*`)
                     .setTimestamp()
             
                 // SENDING MESSAGE
