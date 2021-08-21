@@ -820,7 +820,7 @@ module.exports = {
                     let userMuteEmbed = new discord.MessageEmbed()
                         .setColor(config.embedOrange)
                         .setTitle(`Mute Applied`)
-                        .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease wait for a message from a moderator or admin with more details about your mute.`)
+                        .setDescription(`You have been muted in the **${interaction.guild.name}** server by an admin or moderator for the following reason:\n\n*${muteReason}*\n\nPlease create a ticket with <@${config.ModMailId}> if you have questions (instructions can be found in ${rolesCh})`)
 
                     // DM USER, INFORM INTERACTION USER IF FAILED TO NOTIFY
                     member.send({ embeds: [userMuteEmbed] })
