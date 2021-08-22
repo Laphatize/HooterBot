@@ -929,24 +929,7 @@ module.exports = {
                 return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
             }
 
-
-            let memberRoles = unmuteMember.roles.highest
-            let modAdminRole = interaction.member.roles.highest
-
-            // TRYING TO WARN A USER ABOVE THEIR PERMISSION LEVEL
-            if (memberRoles.comparePositionTo(modAdminRole) <= 0) {
-                // GENERATE ERROR EMBED
-                let reasonTooLargeEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Error!`)
-                    .setDescription(`You can't unmute this user. A user with higher permissions will need to unmute this user.`)
-                    .setTimestamp()
             
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [reasonTooLargeEmbed], ephemeral: true })
-            }
-
-
             // FETCHING GUILD MEMBER
             interaction.guild.members.fetch(unmuteUser.id)
                 .then(async member => {
