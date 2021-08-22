@@ -110,7 +110,7 @@ module.exports = {
                         .addField(`Applicant:`, `${interaction.user}`, true)
                         .addField(`Applicant Tag:`, `${interaction.user.tag}`, true)
                         .addField(`Applicant ID:`, `${interaction.user.id}`, true)
-                        .setDescription(`\nThank you for your interest in our moderator position! To help the admins assess applicants, HooterBot will ask you a few simple questions **one at a time**. After submitting your response to the current question, HooterBot will follow up with the next question. There are a total of **# questions** in this application.`)
+                        .setDescription(`\n**Thank you for your interest in our moderator position!**\n\nTo help the admins assess applicants, HooterBot will ask you a few simple questions about your rationale and experience.\n\nThere are a total of **X questions**. HooterBot will ask each question one at a time. After submitting your message responding to the current question, HooterBot will follow up with the next question. If you want to append or change your response to a question, you can edit your message.`)
 
 
                     let modAppQuestionOne = new discord.MessageEmbed()
