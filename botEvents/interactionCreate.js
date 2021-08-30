@@ -455,7 +455,7 @@ module.exports = {
 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('id-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
                 
 
                 // GRAB DATABASE ENTRY
@@ -758,7 +758,7 @@ module.exports = {
 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('id-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
       
                 
                 // GRAB DATABASE ENTRY
@@ -1514,7 +1514,7 @@ module.exports = {
                 
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('id-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
 
                 
                 // GRAB DATABASE ENTRY
@@ -1769,7 +1769,7 @@ module.exports = {
                 
                 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
-                dmUserId = interaction.channel.name.split('id-').pop()
+                dmUserId = interaction.channel.name.split('-').pop()
       
                 
                 // GRAB DATABASE ENTRY
@@ -1877,10 +1877,10 @@ module.exports = {
             if(interaction.customId === 'Ticket_DoNotClose') {
 
                 // FETCH THE ORIGINAL TICKET USER NAME VIA CHANNEL NAME
-                ticketUserName = interaction.channel.name.split('-').pop()
+                ticketUserId = interaction.channel.name.split('-').pop()
 
                 // CHANGING TICKET CHANNEL NAME TO "archived-(username)" SINCE THE TICKET IS NOW ARCHIVED
-                interaction.channel.setName(`archived-${ticketUserName}`)
+                interaction.channel.setName(`archived-${ticketUserId}`)
                     .catch(err => console.log(err))
 
                 // CLOSURE NOTICE TO CHANNEL
