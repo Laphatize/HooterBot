@@ -21,7 +21,7 @@ module.exports = {
         /***********************************************************/
         
         // MESSAGES IN THE USER'S MOD APP CHANNEL
-        if(message.channel.name == `modapp-${message.author.username.toLowerCase()}-${message.author.id}`) {
+        if(message.channel.name == `modapp-${message.author.id}`) {
             // IGNORE HOOTERBOT'S OWN MESSAGES
             if(message.author.bot)   return;
 
@@ -167,7 +167,7 @@ module.exports = {
         /***********************************************************/
 
         // TICKET CHANNEL NAME
-        let ticketChannelName = `verify-${message.author.username.toLowerCase()}-id-${message.author.id}`;
+        let ticketChannelName = `verify-${message.author.id}`;
         
 
         // PARTIAL MESSAGE

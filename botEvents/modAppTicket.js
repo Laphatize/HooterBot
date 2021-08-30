@@ -17,7 +17,7 @@ module.exports = {
             if(interaction.customId === 'modAppApply') {
                 
             // MOD APP CHANNEL NAME
-            let modAppChannelName = `modapp-${interaction.user.username.toLowerCase()}-${interaction.user.id}`;
+            let modAppChannelName = `modapp-${interaction.user.id}`;
             let parentCategory = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod apps' && ch.type === 'GUILD_CATEGORY')
 
                 var memberDuration;
