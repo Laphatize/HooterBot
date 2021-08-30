@@ -287,58 +287,52 @@ client.on('ready', async () => {
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
-// TICKET CATEGORY COUNTER
-// EVERY 10 MINUTES
-cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
-    console.log(`Updating ticket categories`)
+// // TICKET CATEGORY COUNTER
+// // EVERY 10 MINUTES
+// cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
 
-    // VERIFICATION CATEGORIES
-    const dbGuildTestServerData = await guildSchema.findOne({
-        GUILD_ID: `530503548937699340`
-    }).exec();
+//     // VERIFICATION CATEGORIES
+//     const dbGuildTestServerData = await guildSchema.findOne({
+//         GUILD_ID: `530503548937699340`
+//     }).exec();
 
-    const dbGuildTempleServerData = await guildSchema.findOne({
-        GUILD_ID: `829409161581821992`
-    }).exec();
-
-
-    // FETCHING THE GUILD FROM DATABASE
-    let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
-    let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
+//     const dbGuildTempleServerData = await guildSchema.findOne({
+//         GUILD_ID: `829409161581821992`
+//     }).exec();
 
 
-    // GRAB TICKET CATEGORY USING ID
-    let testServerTicketCategory = testServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
-    let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
+//     // FETCHING THE GUILD FROM DATABASE
+//     let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
+//     let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
 
 
-    // SETTING COUNT VALUES
-    // TEST SERVER
-    let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+//     // GRAB TICKET CATEGORY USING ID
+//     let testServerTicketCategory = testServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
+//     let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
+
+
+//     // SETTING COUNT VALUES
+//     // TEST SERVER
+//     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+//     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
     
-    console.log(`ticketCountTestServer = ${ticketCountTestServer}`)
-    console.log(`catChCountTestServer = ${catChCountTestServer}`)
+//     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
     
-    testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
+//     // TEMPLE SERVER
+//     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+//     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
     
-    // TEMPLE SERVER
-    let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    
-    console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
-    console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
+//     console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
+//     console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
 
-    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
-})
+//     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+// })
 
 
 // MEMBER COUNTER
 // EVERY 10 MINUTES
 //cron.schedule('00 06,12,18,24,30,36,42,48,54 * * * *', async () => {
 cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
-    
-    console.log(`Checking the voice channel member count`)
 
     // FETCHING THE GUILD FROM DATABASE
     let testServer = client.guilds.cache.get(`530503548937699340`)
@@ -376,9 +370,6 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
 // EVERY DAY AT 8:00AM EST
 // cron.schedule('00 */2 * * * *', async () => {  // FOR TESTING
 cron.schedule('00 00 08 * * *', async () => {
-    
-    console.log('Checking for birthdays...');
-
     
     // TODAY'S DATE
     todayDay = moment(Date.now()).utcOffset(-4).format("DD")
@@ -449,14 +440,14 @@ function createBdayMessage(bdayUserId) {
 // EVERY DAY AT 7:59AM EST
 // cron.schedule('30 */2 * * * *', async () => {  // FOR TESTING 
 cron.schedule('00 59 07 * * *', async () => {
-    console.log('Removing birthday roles.');
 
     // TODAY'S DATE
     todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
     todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
 
+
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-    guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') /* client.guilds.cache.find(guild => guild.name === 'Temple University') */
+    guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
     // GET POSITION OF CURERNT BIRTHDAY ROLE
@@ -465,8 +456,6 @@ cron.schedule('00 59 07 * * *', async () => {
     let bdayRoleHoist = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').hoist
     let bdayRoleMentionable = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').mentionable
 
-
-    console.log(`Birthday role deleted.`)
 
     // DELETE THE CURRENT BIRTHDAY ROLE
     guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳').delete()
@@ -519,7 +508,7 @@ cron.schedule('00 00 10 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
@@ -555,7 +544,7 @@ cron.schedule('00 00 10 * * *', async () => {
                     client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -653,7 +642,7 @@ cron.schedule('30 00 10 * * *', async () => {
                     client.users.fetch( user.id )
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
-                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.username.toLowerCase()}-id-${user.id}`);
+                            let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.id}`);
 
                             // GENERATE NOTICE EMBED
                             let firstReminderTicketChEmbed = new discord.MessageEmbed()
@@ -880,7 +869,7 @@ cron.schedule('00 01 10 * * *', async () => {
                     dmUser = client.users.fetch(dmUser.id)
                         .then(dmUser => {
                             // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
-                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.username.toLowerCase()}-id-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
+                            client.channels.cache.find(ch => ch.name === `verify-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
                                 .then(msg => {
                                     // CHANGING TICKET CHANNEL NAME TO "closed-(username)" TO CUT DM-CHANNEL COMMS
                                     msg.channel.setName(`closed-${dmUser.username.toLowerCase()}`)
