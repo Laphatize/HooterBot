@@ -401,6 +401,7 @@ module.exports = {
             || message.channel.name === '🤖｜bot-spam' 
             || message.channel.name === `💩｜shitposting`
             || message.channel.name === `🎵｜music-commands`
+            || message.channel.name === `🔇｜no-mic`
             || message.channel.name.startsWith(`'verify-`)
             || message.channel.name.startsWith(`'closed-`)
             || message.channel.name.startsWith(`'archived-`)

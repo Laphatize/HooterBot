@@ -232,8 +232,9 @@ module.exports = {
                 let ticketMaintenanceEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Get verified!**`)
-                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.
-                    \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**`)
+                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server during the process until verification is complete/closed.
+                    \n\n**Verification is currently OFFLINE for maintenance. Please check back again soon to open a verification ticket.**
+                    \nMaintenance started: <t:${moment().unix()}:R>`)
 
 
                 // INITIALIZING MAINTENANCE BUTTON - DISABLED AND COLOR CHANGE
@@ -293,7 +294,7 @@ module.exports = {
                 let ticketEmbed = new discord.MessageEmbed()
                     .setColor(config.embedTempleRed)
                     .setTitle(`**Get verified!**`)
-                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
+                    .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server during the process until verification is complete/closed.`)
                     .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
 
 
@@ -573,22 +574,12 @@ module.exports = {
             }).exec();
 
 
-            // IF NO TICKET CATEGORY, SEND MESSAGE IN CHANNEL
-            if(!dbGuildData.TICKET_CAT_ID) {
-                let noCatEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedTempleRed)
-                    .setTitle(`${config.emjREDTICK} **Error!**`)
-                    .setDescription(`You need to set the ticket category using \`\`/ticketcategory\`\` or \`\`/setcategory\`\` before the verification prompt can be posted.`)
-
-                // SENDING TO CHANNEL
-                return interaction.reply({ embeds: [noCatEmbed], ephemeral: true })
-            }
 
             // EMBED MESSAGE
             let verifEmbed = new discord.MessageEmbed()
                 .setColor(config.embedTempleRed)
                 .setTitle(`**Get verified!**`)
-                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server to verify.`)
+                .setDescription(`A ticket will open in your DMs when you click the button below to start the verification process. You'll need to allow DMs from members of the server during the process until verification is complete/closed.`)
                 .setFooter(`For information about what data the bot collects to function, please click the "Data & Privacy Info" button.`)
 
 
