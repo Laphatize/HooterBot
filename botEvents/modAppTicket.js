@@ -104,7 +104,7 @@ module.exports = {
                     modApplicantChannel.send({ content: `<@${interaction.user.id}>` })
                         .catch(err => console.log(err))
 
-                    const memberJoin;
+                    let memberJoin;
 
                     interaction.guild.members.fetch(interaction.user.id)
                         .then( guildMemberApplicant => {
