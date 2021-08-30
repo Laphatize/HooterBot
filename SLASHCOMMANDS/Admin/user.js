@@ -406,8 +406,6 @@ module.exports = {
                         nickname = user.displayName
                     }
 
-                    console.log(`member.premiumSince = ${member.premiumSince}`)
-
 
                     // SERVER BOOSTING DATE FIX
                     var booster
