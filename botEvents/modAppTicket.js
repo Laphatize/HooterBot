@@ -104,13 +104,6 @@ module.exports = {
                     modApplicantChannel.send({ content: `<@${interaction.user.id}>` })
                         .catch(err => console.log(err))
 
-                    let memberJoin;
-
-                    interaction.guild.members.fetch(interaction.user.id)
-                        .then( guildMemberApplicant => {
-                            memberJoin = new Date(guildMemberApplicant.joinedAt)
-                        })
-
                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
@@ -118,7 +111,6 @@ module.exports = {
                         .addField(`Applicant:`, `${interaction.user}`, true)
                         .addField(`Applicant Tag:`, `${interaction.user.tag}`, true)
                         .addField(`Applicant ID:`, `${interaction.user.id}`, true)
-                        .addField(`Server Join:`, `${memberJoin}`)
                         .setDescription(`\n**Thank you for your interest in our moderator position!**\n\nTo help the admins assess applicants, HooterBot will ask you a few questions. There are a total of **5 questions**. HooterBot will ask each question one at a time. Submit your response to the current question in a **single message** and HooterBot will follow up with the next question. If need to append or change your response, please edit your message.`)
 
 
