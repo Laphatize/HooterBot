@@ -77,13 +77,14 @@ module.exports = {
                     let appNoticeEmbed = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`**Moderator Applications Are Open**`)
-                        .setDescription(`The admins are looking for more users to become moderators in the server. To be eligible to apply, you must:
-                            \n${config.indent}**1.** be a membmer for at least **one month**.
-                            \n${config.indent}**2.** be active member of the community (participating in channels).
+                        .setDescription(`The admins are looking for eager users interested in becoming moderators in the server!
+                        \n\nEligiblity:
+                            \n${config.indent}**1.** Be a membmer for at least **one month**.
+                            \n${config.indent}**2.** Be active member of the community (participating in channels).
                             \n${config.indent}**3.** ???
                             \n${config.indent}(Not required, but **past moderating experience on Discord** is a plus)
-                            \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you and begin the application.`)
-                        .setFooter(`BUTTON NOT ENABLED`)
+                            \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you in the channel so you can begin the application.
+                            \n*Be sure to answer all questions; incomplete applications will not be considered!*`)
 
 
                     let ApplyButton = new MessageButton()

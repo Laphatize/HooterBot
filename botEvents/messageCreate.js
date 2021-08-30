@@ -32,9 +32,8 @@ module.exports = {
             }).exec();
 
 
-
-            // WAIT 2 SECONDS TO FOLLOW UP WITH NEXT RESPONSE
-            await wait(2000)
+            // WAIT 3.5 SECONDS TO FOLLOW UP WITH NEXT RESPONSE
+            await wait(3500)
 
 
             // SENDING QUESTION 2
@@ -43,7 +42,7 @@ module.exports = {
                 let modAppQuestionTwo = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`Question 2:`)
-                    .setDescription(`**[TBD]**`)
+                    .setDescription(`**Do you have any moderation experience on Discord or elsewhere?**\nPlease describe, otherwise, type \`\`None\`\`.`)
 
                 message.channel.send({ embeds: [modAppQuestionTwo] })
 
@@ -67,7 +66,7 @@ module.exports = {
                     let modAppQuestionThree = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Question 3:`)
-                        .setDescription(`**[TBD]**`)
+                        .setDescription(`**How often are you on Discord and the Temple server per day? Per week?**\n(We expect moderators to be active in the server regularly as a core part of the position.)`)
 
                     message.channel.send({ embeds: [modAppQuestionThree] })
 
@@ -117,7 +116,7 @@ module.exports = {
                     let modAppQuestionFive = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Question 5:`)
-                        .setDescription(`**[TBD]**`)
+                        .setDescription(`**Suppose a few users in #general are in a heated argument. What would you do?**`)
     
                     message.channel.send({ embeds: [modAppQuestionFive] })
     

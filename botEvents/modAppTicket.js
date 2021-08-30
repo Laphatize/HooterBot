@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const config = require ('../config.json');
 const modAppTicketSchema = require('../Database/modappSchema');
+const moment = require('moment');
 
 
 module.exports = {
@@ -103,14 +104,18 @@ module.exports = {
                     modApplicantChannel.send({ content: `<@${interaction.user.id}>` })
                         .catch(err => console.log(err))
 
+
+                    const guildMember = interaction.guild.members.fetch(interaction.user.id)
+
                     // CREATE INTRO EMBED FOR ADMIN/MOD TICKET CHANNEL
                     let newTicketEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedBlurple)
+                        .setColor(config.embedDarkGrey)
                         .setTitle(`Application Opened:`)
                         .addField(`Applicant:`, `${interaction.user}`, true)
                         .addField(`Applicant Tag:`, `${interaction.user.tag}`, true)
                         .addField(`Applicant ID:`, `${interaction.user.id}`, true)
-                        .setDescription(`\n**Thank you for your interest in our moderator position!**\n\nTo help the admins assess applicants, HooterBot will ask you a few simple questions about your rationale and experience.\n\nThere are a total of **X questions**. HooterBot will ask each question one at a time. After submitting your message responding to the current question, HooterBot will follow up with the next question. If you want to append or change your response to a question, you can edit your message.`)
+                        .addField(`Server Join: ${moment.utc(guildMember.joinedAt).format("dddd, MMMM DD, YYYY")}`)
+                        .setDescription(`\n**Thank you for your interest in our moderator position!**\n\nTo help the admins assess applicants, HooterBot will ask you a few questions. There are a total of **5 questions**. HooterBot will ask each question one at a time. Submit your response to the current question and HooterBot will follow up with the next question. If need to append or change your response, please edit your message.`)
 
 
                     let modAppQuestionOne = new discord.MessageEmbed()
