@@ -151,14 +151,14 @@ module.exports = {
                         ephemeral: true })
                 }
 
-                let ticketCat = interaction.guild.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
-                let ticketCatSize = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.id == ticketCat.id).size
+
+                const ticketChCategory = interaction.guild.channels.filter(ch => ch.type === "GUILD_CATEGORY" && ch.name.startsWith(`VERIFICATION`));
 
                 // CHECK THE CHANNEL COUNT IN THE CATEGORY
-                if(ticketCatSize >= 50) {
+                if(ticketChCategory.children.size >= 50) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
-                        content: `**Apologies,** we have reached our maximum number of allowed verification tickets and cannot open any more right now. Please try again later! (If you continue to see this message after some time, please let <@${config.botAuthorId}> know.)`,
+                        content: `**Sorry,** we have reached our maximum number of allowed verification tickets and **cannot open any more right now&&. Please try again later!\n(If you continue to see this message after some time, please let <@${config.botAuthorId}> know!)`,
                         ephemeral: true })
                 }
 
