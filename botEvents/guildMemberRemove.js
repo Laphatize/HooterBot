@@ -89,7 +89,7 @@ module.exports = {
 
 
             // FETCHING TICKET CHANNEL
-            let ticketCh = member.guild.channels.cache.find(ch => ch.name === `verify-${member.user.username.toLowerCase()}`)
+            let ticketCh = member.guild.channels.cache.find(ch => ch.name === `verify-${member.id}`)
 
 
             if(ticketCh) {
@@ -105,7 +105,7 @@ module.exports = {
 
             // DELETING DATABASE ENTRY
             ticketSchema.deleteOne({
-                CREATOR_ID: member.user.id
+                CREATOR_ID: member.id
             }).exec();
         }
 	},
