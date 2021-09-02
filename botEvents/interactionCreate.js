@@ -137,7 +137,7 @@ module.exports = {
                 if(dbBlacklistData) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
-                        content: `Sorry, you are not eligible to create a verification ticket.\n*(If this is an error, please submit a ModMail ticket.)*`,
+                        content: `Sorry, you are not eligible to create a verification ticket.\n*(If this is an error, please submit a <@${config.ModMailId}> ticket.)*`,
                         ephemeral: true })
                 }
 
@@ -147,7 +147,18 @@ module.exports = {
                 if(interaction.member.roles.cache.some((role) => role.id === verifiedRole.id)) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
-                        content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a ModMail ticket and let us know.)*`,
+                        content: `Sorry, you're **already verified!**\n*(If this is an error, please submit a <@${config.ModMailId}> ticket and let us know.)*`,
+                        ephemeral: true })
+                }
+
+
+                let ticketCatSize = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size
+
+                // CHECK THE CHANNEL COUNT IN THE CATEGORY
+                if(ticketCatSize >= 50) {
+                    // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
+                    return interaction.reply({
+                        content: `**Apologies,** we have reached our maximum number of allowed verification tickets and cannot open any more right now. Please try again later! (If you continue to see this message after some time, please let <@${config.botAuthorId}> know.)`,
                         ephemeral: true })
                 }
 
