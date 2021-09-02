@@ -187,9 +187,21 @@ module.exports = {
 
 
             var connection = getVoiceConnection(interaction.guild.id)
+            
+
+            interaction.channel.send('\`\`Establishing voice connection to destroy.\`\`');
 
             // LEAVING VC - DESTROY CONNECTIOn
             connection.destroy();
+
+            interaction.channel.send('\`\`Voice connection destroyed.\`\`');
+
+            // JOIN CONFIRMATION
+            let joiningEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setDescription(`${config.emjGREENTICK} I've left ${userVC}!`)
+
+            interaction.followUp({ embeds: [joiningEmbed] });
         }
         
 
