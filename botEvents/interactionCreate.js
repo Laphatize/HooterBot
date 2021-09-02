@@ -151,14 +151,18 @@ module.exports = {
                         ephemeral: true })
                 }
 
+                // COUNTERS
+                let ticketCatOpenCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                let ticketCatClosedCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`closed-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+                let ticketCatArchivedCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`archived-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
 
-                const ticketChCategory = interaction.guild.channels.cache.filter(ch => ch.type === "GUILD_CATEGORY" && ch.name.startsWith(`VERIFICATION`));
+                let ticketCatSize = ticketCatOpenCount + ticketCatClosedCount + ticketCatArchivedCount
 
                 // CHECK THE CHANNEL COUNT IN THE CATEGORY
-                if(ticketChCategory.children.size >= 50) {
+                if(ticketCatSize >= 50) {
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
                     return interaction.reply({
-                        content: `**Sorry,** we have reached our maximum number of allowed verification tickets and **cannot open any more right now&&. Please try again later!\n(If you continue to see this message after some time, please let <@${config.botAuthorId}> know!)`,
+                        content: `**Sorry,** we have reached the maximum number of open verification tickets possible and **cannot open more at this time**. Please try again later!\n(If you continue to see this message after some time, please let <@${config.botAuthorId}> know!)`,
                         ephemeral: true })
                 }
 
