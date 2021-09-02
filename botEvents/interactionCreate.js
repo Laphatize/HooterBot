@@ -151,8 +151,8 @@ module.exports = {
                         ephemeral: true })
                 }
 
-
-                let ticketCatSize = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size
+                let ticketCat = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
+                let ticketCatSize = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.id == ticketCat.id).size
 
                 // CHECK THE CHANNEL COUNT IN THE CATEGORY
                 if(ticketCatSize >= 50) {
