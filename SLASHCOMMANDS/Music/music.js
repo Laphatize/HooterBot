@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const yt = require('ytdl-core')
 const ytSearch = require('yt-search')
-const { joinVoiceChannel, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
+const { joinVoiceChannel, VoiceConnectionStatus, getVoiceConnection, createAudioPlayer } = require('@discordjs/voice');
 
 
 module.exports = {
@@ -113,6 +113,54 @@ module.exports = {
             }
 
 
+            // BOT UNABLE TO SPEAK IN VC
+            if(!userVC.joinable) {
+                let notJoinableEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`I do not have permission to join your voice channel. An admin should check the voice channel's permissions.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notJoinableEmbed], ephemeral: true })
+            }
+
+
+            // BOT UNABLE TO JOIN BECAUSE OF USER LIMIT
+            if(!userVC.userLimit != 0 && userVC.userLimit >= userVC.members.size) {
+                let notJoinableEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`I'm not able to join your voice channel because there are too many members!`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notJoinableEmbed], ephemeral: true })
+            }
+
+
+            // BOT UNABLE TO CONNECT TO VC
+            if(!userVC.permissionsFor(interaction.guild.me).has('CONNECT')) {
+                let notConnectEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`I do not have permission to connect to your voice channel. An admin should check the voice channel's permissions.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notConnectEmbed], ephemeral: true })
+            }
+
+
+            // BOT UNABLE TO SPEAK IN VC
+            if(!userVC.permissionsFor(interaction.guild.me).has('SPEAK')) {
+                let notConnectEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`I do not have permission to play music in your voice channel. An admin should check the voice channel's permissions.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notConnectEmbed], ephemeral: true })
+            }
+
+
             var connection = getVoiceConnection(interaction.guild.id)
 
             // JOIN CONFIRMATION
@@ -198,8 +246,8 @@ module.exports = {
 
             // JOIN CONFIRMATION
             let leavingEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGreen)
-                .setDescription(`${config.emjGREENTICK} I've left ${userVC}!`)
+                .setColor(config.embedRed)
+                .setDescription(`${config.emjREDTICK} I've left ${userVC}!`)
 
             return interaction.reply({ embeds: [leavingEmbed] });
         }
@@ -225,11 +273,12 @@ module.exports = {
             }
 
             var connection = getVoiceConnection(interaction.guild.id)
-            const player = connection.state.subscription.player;
+            const player = createAudioPlayer();
 
-            // const subscription = connection.subscribe(audioPlayer);
+            interaction.channel.send('\`\`[Voice connection made, audio player created.]\`\`');
 
-            return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet!)` });
+            
+            return interaction.reply({ content: `You asked HooterBot to play music in your current voice channel. (Sorry, don't know how to do that yet! It's complicated!)` });
         }
 
 
@@ -255,7 +304,7 @@ module.exports = {
             var connection = getVoiceConnection(interaction.guild.id)
             // const subscription = connection.subscribe(audioPlayer);
 
-            return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet!)` });
+            return interaction.reply({ content: `You asked HooterBot to stop the music in your current voice channel. (Sorry, don't know how to do that yet! It's complicated!)` });
         }
 
 
@@ -280,7 +329,7 @@ module.exports = {
 
             // const subscription = connection.subscribe(audioPlayer);
 
-            return interaction.reply({ content: `You asked HooterBot to skip to the next song in the queue. (Sorry, don't know how to do that yet!)`});
+            return interaction.reply({ content: `You asked HooterBot to skip to the next song in the queue. (Sorry, don't know how to do that yet! It's complicated!)`});
         }
 
 
@@ -290,7 +339,7 @@ module.exports = {
         /*******************/
         if(subCmdName == 'queue') {
 
-            return interaction.reply({ content: `You asked HooterBot to pull up the current queue of music for this session. (Sorry, don't know how to do that yet!)`});
+            return interaction.reply({ content: `You asked HooterBot to pull up the current queue of music for this session. (Sorry, don't know how to do that yet! It's complicated!)`});
         }
         
 
@@ -311,7 +360,7 @@ module.exports = {
                 return interaction.reply({ embeds: [notInVcEmbed], ephemeral: true })
             }
             
-            return interaction.reply({ content: `You asked HooterBot to clear the current queue of music. (Sorry, don't know how to do that yet!)`});
+            return interaction.reply({ content: `You asked HooterBot to clear the current queue of music. (Sorry, don't know how to do that yet! It's complicated!)`});
         }
                 
 
@@ -327,33 +376,38 @@ module.exports = {
 
 
             if(!searchArtist) {
+                // YOUTUBE SEARCH QUERY
                 const result = await ytSearch(searchTitle)
 
-                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"*.` });
+                // DEFER INITIAL REPLY TO THINK
+                interaction.deferReply()
+
 
                 resultsArray = []
-
-
                 const videos = result.videos.slice( 0 , 1 )
                 videos.forEach( function (v) {
                     resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
+                // SHARING RESULT
+                interaction.channel.send({ content: `You asked HooterBot to search for music: *"${searchTitle}"*.\nResult: ${resultsArray.join(`\n`)}`})
             }
             else {
+                // YOUTUBE SEARCH QUERY
                 const result = await ytSearch(`${searchTitle} by ${searchArtist}`)
 
-                interaction.reply({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by **${searchArtist}**.` });
+                // DEFER INITIAL REPLY TO THINK
+                interaction.deferReply()
+
 
                 resultsArray = []
-
                 const videos = result.videos.slice( 0 , 1 )
                 videos.forEach( function (v) {
                     resultsArray.push( `**"${ v.title }"** (${ v.timestamp }) by *${ v.author.name }*` )
                 })
 
-                interaction.channel.send({ content: `Result: ${resultsArray.join(`\n`)}`})
+                // SHARING RESULT
+                interaction.channel.send({ content: `You asked HooterBot to search for music: *"${searchTitle}"* by **${searchArtist}**.\nResult: ${resultsArray.join(`\n`)}`})
             }
         }
 
@@ -382,10 +436,33 @@ module.exports = {
 
             // INVALID LINK TYPE
             if(videoURL.includes(`youtube.com/watch?v=`) || videoURL.includes(`youtu.be/`)) {
+
+                let videoId
+
+                // SPLIT OFF ID FROM URL
+                if(videoURL.includes(`youtube.com/watch?v=`)) {
+                    videoId = videoURL.split(`?v=`).pop()
+                }
+
+                // SPLIT OFF ID FROM URL
+                if(videoURL.includes(`youtu.be/`)) {
+                    videoId = videoURL.split(`.be/`).pop()
+                }
+
+
+
+                // SEARCHING USING EXACT VIDEO ID
+                const result = await ytSearch({ videoId: videoId })
+
+                
+
+
+
                 let validLinkEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGreen)
                     .setTitle(`${config.emjGREENTICK} YouTube Link Recognized`)
-                    .setDescription(`You shared a YouTube link I can use! (I still have a lot of work to go before I can add this to your queue)`)
+                    .setDescription(`You shared a YouTube link I can use!\n\n**Video ID:** ${videoId}\n**Video URL:** ${video.url}\n**Video Title:** ${video.title}\n**Video Duration:** ${video.timestamp}\n**Video Author:** ${video.author}\n**Video Date:** ${video.uploadDate} (${video.ago})`)
+                    .setThumbnail(video.thumbnail)
 
                 // SENDING TO CHANNEL
                 return interaction.reply({ embeds: [validLinkEmbed], ephemeral: true })
