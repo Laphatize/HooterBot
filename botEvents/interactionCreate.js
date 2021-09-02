@@ -152,7 +152,7 @@ module.exports = {
                 }
 
 
-                const ticketChCategory = interaction.guild.channels.filter(ch => ch.type === "GUILD_CATEGORY" && ch.name.startsWith(`VERIFICATION`));
+                const ticketChCategory = interaction.guild.channels.cache.filter(ch => ch.type === "GUILD_CATEGORY" && ch.name.startsWith(`VERIFICATION`));
 
                 // CHECK THE CHANNEL COUNT IN THE CATEGORY
                 if(ticketChCategory.children.size >= 50) {
