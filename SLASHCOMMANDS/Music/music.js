@@ -197,11 +197,11 @@ module.exports = {
             interaction.channel.send('\`\`Voice connection destroyed.\`\`');
 
             // JOIN CONFIRMATION
-            let joiningEmbed = new discord.MessageEmbed()
+            let leavingEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .setDescription(`${config.emjGREENTICK} I've left ${userVC}!`)
 
-            interaction.followUp({ embeds: [joiningEmbed] });
+            return interaction.reply({ embeds: [leavingEmbed] });
         }
         
 
