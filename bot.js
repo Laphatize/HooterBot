@@ -409,7 +409,7 @@ cron.schedule('00 00 08 * * *', async () => {
                 .catch(err => console.log(err))
 
             // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-            bdayUser = guild.members.fetch(id)
+            guild.members.fetch(id)
                 .then(user => {
                     bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
                 
@@ -645,7 +645,7 @@ cron.schedule('30 00 10 * * *', async () => {
                     user.send({embeds: [reminderEmbed], components: [quitButtonRow] })
 
 
-                    client.users.fetch( user.id )
+                    client.users.fetch(user.id)
                         .then(user => {
                             // FETCHING USER'S TICKET CHANNEL IN GUILD
                             let ticketChannel = client.channels.cache.find(ch => ch.name === `verify-${user.id}`);
@@ -875,7 +875,7 @@ cron.schedule('00 01 10 * * *', async () => {
                     );
 
 
-                    let dmUser = client.users.fetch(dmUser.id)
+                    client.users.fetch(dmUser.id)
                         .then(dmUser => {
                             // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
                             client.channels.cache.find(ch => ch.name === `verify-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
