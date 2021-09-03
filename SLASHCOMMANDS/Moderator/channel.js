@@ -232,9 +232,7 @@ module.exports = {
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error!`)
                     .setDescription(`Sorry, I do not have permission to bulk-delete messages for some reason. Make sure I have the \`\`MANAGE_MESSAGES\`\` permission in the channel.`)
-                    .setTimestamp()
                 
-                // SENDING MESSAGE
                 return interaction.reply({ embeds: [permErrorEmbed], ephemeral: true })
             }
 
@@ -246,7 +244,6 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Sorry!`)
                     .setDescription(`You have specified too many messages. I can only purge up to 99 messages at a time.`)
 
-                // POST EMBED
                 return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
             }
             if(purgeMsgCount < 1) {
@@ -255,7 +252,6 @@ module.exports = {
                     .setTitle(`${config.emjREDTICK} Sorry!`)
                     .setDescription(`You have specified too few messages. I need to be given a value between 1 and 99.`)
 
-                // POST EMBED
                 return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
             }
 
@@ -263,12 +259,33 @@ module.exports = {
             // PERFORMING PURGE - filterOld SET TO TRUE FOR MSGS OVER 14 DAYS OLD
             interaction.channel.bulkDelete(purgeMsgCount, {filterOld: true})
                 .then(msgs => {
-                    let purgeConfirmEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedRed)
-                        .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
 
-                    // POST EMBED
-                    return interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
+                    // ALL MESSAGES DELETED
+                    if(msgs === purgeMsgCount) {
+                        let purgeConfirmEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
+
+                        interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
+                    }
+
+                    // ALL MESSAGES DELETED
+                    if(msgs !== purgeMsgCount) {
+                        let purgeConfirmEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjORANGETICK} ${msgs.size}/${purgeMsgCount} Messages Purged!`)
+                            .setDescription(`I was unable to delete ${purgeMsgCount - msgs.size} of the messages you specified. These messages are likely more than 14 days old and will need to be manually deleted.`)
+
+                        interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
+                    }
+
+                    let purgeLogConfirm = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjORANGETICK} ${msgs.size} Messages Purged!`)
+                        .setDescription(`**Purged By:** ${interaction.user}\n**Channel:** ${interaction.channel}`)
+                        .setTimestamp()
+
+                    return interaction.guild.channels.cache.find(ch => ch.name === `mod-log`).send({embeds: [purgeLogConfirm] })
                 })
                 .catch(err => console.log(err))
         }
