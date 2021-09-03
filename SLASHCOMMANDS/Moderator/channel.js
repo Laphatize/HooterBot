@@ -108,7 +108,7 @@ module.exports = {
                 let cannotLockEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`This channel cannot be locked/unlocked using this command because it risks breaking the default permissions of the channel.`)
+                    .setDescription(`This channel cannot be locked/unlocked using this command because it risks breaking the default permissions of this channel.`)
 
                 // POST EMBED
                 return interaction.reply({ embeds: [cannotLockEmbed], ephemeral: true })
@@ -118,7 +118,7 @@ module.exports = {
             if(lockdownStatus == 'lock') {
 
                 // CHECK IF ALREADY IN LOCKDOWN BY PERMISSIONS FOR EVERYONE ROLE
-                if(everyonePerms.filter((perm) => perm !== 'SEND_MESSAGES')) {
+                if(!everyonePerms.filter((perm) => perm == 'SEND_MESSAGES')) {
                     let alreadyLockedEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Sorry!`)
