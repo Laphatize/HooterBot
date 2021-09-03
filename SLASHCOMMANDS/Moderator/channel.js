@@ -244,7 +244,7 @@ module.exports = {
 
 
             // PERFORMING PURGE - filterOld SET TO TRUE FOR MSGS OVER 14 DAYS OLD
-            interaction.channel.bulkDelete(purgeMsgCount, true)
+            interaction.channel.bulkDelete(purgeMsgCount, false)
                 .then(msgs => {
                     let purgeConfirmEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
