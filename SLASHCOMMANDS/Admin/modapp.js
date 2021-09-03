@@ -79,7 +79,7 @@ module.exports = {
                         .setTitle(`**Moderator Applications Are Open**`)
                         .setDescription(`The admins are looking for eager users interested in becoming moderators in the server!
                         \n\nEligiblity:
-                            \n${config.indent}**1.** Be a membmer for at least **one month**.
+                            \n${config.indent}**1.** Be a member for at least **one month**.
                             \n${config.indent}**2.** Be active member of the community (participating in channels).
                             \n${config.indent}**3.** Help enforce the server's rules, taking appropriate actions when necessary and logging these actions.
                             \n${config.indent}(Not required, but **past moderating experience on Discord** is a plus)
