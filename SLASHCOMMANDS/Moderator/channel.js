@@ -276,7 +276,7 @@ module.exports = {
                     .setTitle(`${config.emjGREENTICK} Slowmode Removed`)
 
                 // LOG ENTRY
-                return interaction.channel.send({embeds: [channelSlowmodeEndEmbed] })
+                return interaction.reply({embeds: [channelSlowmodeEndEmbed] })
             }
 
 
@@ -288,7 +288,7 @@ module.exports = {
                 // NOTICE FOR CHANNEL
                 let channelSlowmode10Embed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setTitle(`Slowmode has been enabled`)
                     .setDescription(`A moderator/admin has set this channel so messages can be sent once every **10** seconds.`)
 
                 // LOG ENTRY
@@ -304,7 +304,7 @@ module.exports = {
                 // NOTICE FOR CHANNEL
                 let channelSlowmode10Embed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setTitle(`Slowmode has been enabled`)
                     .setDescription(`A moderator/admin has set this channel so messages can be sent once every **30** seconds.`)
 
                 // LOG ENTRY
@@ -320,7 +320,7 @@ module.exports = {
                 // NOTICE FOR CHANNEL
                 let channelSlowmode10Embed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setTitle(`Slowmode has been enabled`)
                     .setDescription(`A moderator/admin has set this channel so messages can be sent once every **60** seconds.`)
 
                 // LOG ENTRY
