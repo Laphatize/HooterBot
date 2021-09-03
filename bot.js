@@ -416,7 +416,7 @@ cron.schedule('00 00 08 * * *', async () => {
                     user.roles.add(bdayRole)
                 })
             // WAIT 1 SECOND BETWEEN USERS
-            await wait(1000)
+            wait(1000)
         })
     }
 }, {
@@ -572,7 +572,7 @@ cron.schedule('00 00 10 * * *', async () => {
                 })
 
             // WAIT 1 SECOND BETWEEN USERS
-            await wait(1000)
+            wait(1000)
         })
     }
 }, {
@@ -674,7 +674,7 @@ cron.schedule('30 00 10 * * *', async () => {
                 })
 
             // WAIT 1 SECOND BETWEEN USERS
-            await wait(1000)    
+            wait(1000)    
         })
     }
 }, {
@@ -921,7 +921,7 @@ cron.schedule('00 01 10 * * *', async () => {
                 })
 
             // WAIT 1 SECOND BETWEEN USERS
-            await wait(1000)
+            wait(1000)
         }
     }
 }, {
