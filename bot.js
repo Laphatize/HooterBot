@@ -466,7 +466,7 @@ cron.schedule('00 59 07 * * *', async () => {
 
 // VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
 // EVERY DAY AT 10:30:00AM EST
-cron.schedule('00 45 10 * * *', async () => {
+cron.schedule('00 30 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.')
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
@@ -500,6 +500,8 @@ cron.schedule('00 45 10 * * *', async () => {
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
+            // WAIT 1 SECOND BETWEEN REMINDERS
+            wait(1000)
 
             // FETCH USER BY ID
             guild.members.fetch(id)
@@ -557,9 +559,6 @@ cron.schedule('00 45 10 * * *', async () => {
                                 })
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN REMINDERS
-            wait(1000)
         })
     }
 }, {
@@ -570,7 +569,7 @@ cron.schedule('00 45 10 * * *', async () => {
 
 // VERIFICATION TICKETS - CLOSE NOTICE TICKET 
 // EVERY DAY AT 10:31:00AM EST
-cron.schedule('00 46 10 * * *', async () => {
+cron.schedule('00 31 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.')
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
@@ -603,6 +602,8 @@ cron.schedule('00 46 10 * * *', async () => {
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
+            // WAIT 1 SECOND BETWEEN REMINDERS
+            wait(1000)
 
             // FETCH USER BY ID
             guild.members.fetch(id)
@@ -661,9 +662,6 @@ cron.schedule('00 46 10 * * *', async () => {
                                 })
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN REMINDERS
-            wait(1000)
         })
     }
 }, {
@@ -674,7 +672,7 @@ cron.schedule('00 46 10 * * *', async () => {
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
 // EVERY DAY AT 10:32:00AM EST          00 01 10
-cron.schedule('00 47 10 * * *', async () => {
+cron.schedule('00 32 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.')
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
@@ -696,6 +694,8 @@ cron.schedule('00 47 10 * * *', async () => {
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
             let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
+            // WAIT 1 SECOND BETWEEN REMINDERS
+            wait(1000)
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
                 .then(dmUser => {
@@ -910,9 +910,6 @@ cron.schedule('00 47 10 * * *', async () => {
                                 .catch(err => console.log(err))
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN TICKET CLOSINGS
-            wait(1000)
         }
     }
 }, {
