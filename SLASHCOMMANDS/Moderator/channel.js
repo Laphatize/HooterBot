@@ -31,7 +31,7 @@ module.exports = {
         },{
             // PURGE
             name: `purge`,
-            description: `MODERATOR | Purge up to 100 messages.`,
+            description: `MODERATOR | Purge up to 100 messages from the channel from within the past 2 weeks.`,
             type: 'SUB_COMMAND',
             options: [
                 {
@@ -51,7 +51,7 @@ module.exports = {
                     name: `value`,
                     description: `The amount of time for the slowmode.`,
                     type: `STRING`,
-                    required: false,
+                    required: true,
                     choices: [
                         {
                             name: `OFF`,
@@ -65,12 +65,6 @@ module.exports = {
                         },{
                             name: `1min`,
                             value: `1min`,
-                        },{
-                            name: `2min`,
-                            value: `2min`,
-                        },{
-                            name: `5min`,
-                            value: `5min`,
                         }
                     ]
                 }
@@ -215,6 +209,51 @@ module.exports = {
         if(subCmdName == 'purge') {
             let purgeMsgCount = interaction.options.getInteger('amount');
            
+            // PERMISSIONS VALIDATION
+            if(!interaction.member.permissions.has('MANAGE_MESSAGES')) {
+                let permErrorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error!`)
+                    .setDescription(`Sorry, I do not have permission to bulk-delete messages for some reason. Make sure I have the \`\`MANAGE_MESSAGES\`\` permission in the channel.`)
+                    .setTimestamp()
+                
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [permErrorEmbed], ephemeral: true })
+            }
+
+
+            // COUNT VALIDATION
+            if(purgeMsgCount > 100) {
+                let purgeCountErrorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`You have specified too many messages. I can only purge up to 100 messages at a time.`)
+
+                // POST EMBED
+                return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
+            }
+            if(purgeMsgCount < 1) {
+                let purgeCountErrorEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`You have specified too few messages. I need to be given a value between 1 and 100.`)
+
+                // POST EMBED
+                return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
+            }
+
+
+            // PERFORMING PURGE - filterOld SET TO TRUE FOR MSGS OVER 14 DAYS OLD
+            interaction.channel.bulkDelete(purgeMsgCount, true)
+                .then(msgs => {
+                    let purgeConfirmEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
+
+                    // POST EMBED
+                    return interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
+                })
+                .catch(err => console.log(err))
         }
 
 
@@ -225,7 +264,68 @@ module.exports = {
 
             // GETTING OPTIONS VALUES
             let slowmodeValue = interaction.options.getString('value');
-            
+
+            // SLOWMODE OFF
+            if(slowmodeValue == 'off') {
+
+                interaction.channel.setRateLimitPerUser(0, `Turning off slowmode per ${interaction.user.username}'s request.`)
+
+                // NOTICE FOR CHANNEL
+                let channelSlowmodeEndEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Slowmode Removed`)
+
+                // LOG ENTRY
+                return interaction.channel.send({embeds: [channelSlowmodeEndEmbed] })
+            }
+
+
+            // SLOWMODE – 10s
+            if(slowmodeValue == '10s') {
+
+                interaction.channel.setRateLimitPerUser(10, `Setting slowmode to 10s per ${interaction.user.username}'s request.`)
+
+                // NOTICE FOR CHANNEL
+                let channelSlowmode10Embed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setDescription(`A moderator/admin has set this channel so messages can be sent once every **10** seconds.`)
+
+                // LOG ENTRY
+                return interaction.reply({embeds: [channelSlowmode10Embed] })
+            }
+
+
+            // SLOWMODE – 30s
+            if(slowmodeValue == '30s') {
+
+                interaction.channel.setRateLimitPerUser(30, `Setting slowmode to 30s per ${interaction.user.username}'s request.`)
+
+                // NOTICE FOR CHANNEL
+                let channelSlowmode10Embed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setDescription(`A moderator/admin has set this channel so messages can be sent once every **30** seconds.`)
+
+                // LOG ENTRY
+                return interaction.reply({embeds: [channelSlowmode10Embed] })
+            }
+
+
+            // SLOWMODE – 1min
+            if(slowmodeValue == '1min') {
+
+                interaction.channel.setRateLimitPerUser(60, `Setting slowmode to 60s per ${interaction.user.username}'s request.`)
+
+                // NOTICE FOR CHANNEL
+                let channelSlowmode10Embed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Slowmode has been enabled`)
+                    .setDescription(`A moderator/admin has set this channel so messages can be sent once every **60** seconds.`)
+
+                // LOG ENTRY
+                return interaction.reply({embeds: [channelSlowmode10Embed] })
+            }            
         }
     }
 }
