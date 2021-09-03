@@ -151,6 +151,8 @@ module.exports = {
                         ephemeral: true })
                 }
 
+
+                
                 // COUNTERS
                 let ticketCatOpenCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
                 let ticketCatClosedCount = interaction.guild.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`closed-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;

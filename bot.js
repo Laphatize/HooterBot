@@ -9,6 +9,7 @@ const ticketSchema = require('./Database/ticketSchema');
 var cron = require('node-cron');
 const moment = require('moment');
 const levels = require('discord-xp');
+const wait = require('util').promisify(setTimeout);
 
 
 // INITIALIZATION
@@ -407,13 +408,15 @@ cron.schedule('00 00 08 * * *', async () => {
             guild.channels.cache.find(ch => ch.name === `☕｜off-topic`).send({ content: `${bdayMessage}` })
                 .catch(err => console.log(err))
 
-                // FETCH BIRTHDAY USER BY ID, GIVE ROLE
-                bdayUser = guild.members.fetch(id)
-                    .then(user => {
-                        bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
-                    
-                        user.roles.add(bdayRole)
-                    })
+            // FETCH BIRTHDAY USER BY ID, GIVE ROLE
+            bdayUser = guild.members.fetch(id)
+                .then(user => {
+                    bdayRole = guild.roles.cache.find(role => role.name === 'Birthday! 👑🥳')
+                
+                    user.roles.add(bdayRole)
+                })
+            // WAIT 1 SECOND BETWEEN USERS
+            await wait(1000)
         })
     }
 }, {
@@ -508,11 +511,11 @@ cron.schedule('00 00 10 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
-            client.users.fetch(id)
+            guild.members.fetch(id)
                 .then(user => {
 
                     // GENERATE AND SEND REMINDER EMBED
@@ -567,6 +570,9 @@ cron.schedule('00 00 10 * * *', async () => {
                                 })
                         })
                 })
+
+            // WAIT 1 SECOND BETWEEN USERS
+            await wait(1000)
         })
     }
 }, {
@@ -581,7 +587,7 @@ cron.schedule('30 00 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
-    oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
+    let oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
 
 
     // CHECK DATABASE FOR ENTRY
@@ -606,11 +612,11 @@ cron.schedule('30 00 10 * * *', async () => {
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
-            client.users.fetch(id)
+            guild.members.fetch(id)
                 .then(user => {
 
                     // GENERATE AND SEND REMINDER EMBED
@@ -666,6 +672,9 @@ cron.schedule('30 00 10 * * *', async () => {
                                 })
                         })
                 })
+
+            // WAIT 1 SECOND BETWEEN USERS
+            await wait(1000)    
         })
     }
 }, {
@@ -680,7 +689,7 @@ cron.schedule('00 01 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
-    closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
+    let closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
 
     // CHECK DATABASE FOR ENTRY
     const dbTicketData = await ticketSchema.find({
@@ -694,7 +703,7 @@ cron.schedule('00 01 10 * * *', async () => {
         for(let i in dbTicketData) {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
@@ -769,7 +778,7 @@ cron.schedule('00 01 10 * * *', async () => {
                             if(dbTicketData[i].DM_2NDMSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                secondDmMsg = dmCh.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
+                                dmCh.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
@@ -780,7 +789,7 @@ cron.schedule('00 01 10 * * *', async () => {
                             if(dbTicketData[i].REMINDER1_MSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                firstReminderMsg = dmCh.messages.fetch(dbTicketData[i].REMINDER1_MSG_ID)
+                                dmCh.messages.fetch(dbTicketData[i].REMINDER1_MSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
@@ -792,7 +801,7 @@ cron.schedule('00 01 10 * * *', async () => {
                             if(dbTicketData[i].REMINDER2_MSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                firstReminderMsg = dmCh.messages.fetch(dbTicketData[i].REMINDER2_MSG_ID)
+                                dmCh.messages.fetch(dbTicketData[i].REMINDER2_MSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
@@ -866,7 +875,7 @@ cron.schedule('00 01 10 * * *', async () => {
                     );
 
 
-                    dmUser = client.users.fetch(dmUser.id)
+                    let dmUser = client.users.fetch(dmUser.id)
                         .then(dmUser => {
                             // FETCHING TICKET CHANNEL AND SENDING CLOSURE NOTICE
                             client.channels.cache.find(ch => ch.name === `verify-${dmUser.id}`).send({ embeds: [closeNotice], components: [TicketCloseReviewButtonRow] })
@@ -910,6 +919,9 @@ cron.schedule('00 01 10 * * *', async () => {
                                 .catch(err => console.log(err))
                         })
                 })
+
+            // WAIT 1 SECOND BETWEEN USERS
+            await wait(1000)
         }
     }
 }, {
