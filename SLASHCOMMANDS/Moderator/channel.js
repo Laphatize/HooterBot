@@ -261,7 +261,7 @@ module.exports = {
                 .then(msgs => {
 
                     // ALL MESSAGES DELETED
-                    if(parseInt(msgs) === purgeMsgCount) {
+                    if(purgeMsgCount - msgs.size == 0) {
                         let purgeConfirmEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
@@ -270,7 +270,7 @@ module.exports = {
                     }
 
                     // ALL MESSAGES DELETED
-                    if(parseInt(msgs) !== purgeMsgCount) {
+                    if(purgeMsgCount - msgs.size != 0) {
                         let purgeConfirmEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjREDTICK} ${msgs.size}/${purgeMsgCount} Messages Purged!`)
