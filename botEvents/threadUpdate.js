@@ -32,7 +32,7 @@ module.exports = {
         if(oldThread.autoArchiveDuration !== newThread.autoArchiveDuration) {
             
             // CONVERTING THE NEW ARCHIVE DURATION TO MINUTES/DAYS
-            var oldThreadDurationTimeString
+            let oldThreadDurationTimeString
             if(oldThread.autoArchiveDuration <= 60) {
                 oldThreadDurationTimeString = `${oldThread.autoArchiveDuration} minutes`
             }
@@ -44,7 +44,7 @@ module.exports = {
             }
 
             // CONVERTING THE NEW ARCHIVE DURATION TO MINUTES/DAYS
-            var newThreadDurationTimeString
+            let newThreadDurationTimeString
             if(newThread.autoArchiveDuration <= 60) {
                 newThreadDurationTimeString = `${newThread.autoArchiveDuration} minutes`
             }
@@ -92,7 +92,7 @@ module.exports = {
             if(newThread.archived == false) {
 
                 // CONVERTING THE NEW ARCHIVE DURATION TO MINUTES/DAYS
-                var newThreadDurationTimeString
+                let newThreadDurationTimeString
                 if(newThread.autoArchiveDuration <= 60) {
                     newThreadDurationTimeString = `${newThread.autoArchiveDuration} minutes`
                 }

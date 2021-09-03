@@ -110,7 +110,7 @@ module.exports = {
             }).exec();
 
             // FOR MONTH NUMBER TO NAME
-            var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+            const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
             // CHANNEL CONFIRMATION
@@ -137,7 +137,7 @@ module.exports = {
 
 
         // FOR MONTH NUMBER TO NAME
-        var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+        const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
         // CHANNEL CONFIRMATION

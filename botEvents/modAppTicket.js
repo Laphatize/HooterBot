@@ -21,7 +21,7 @@ module.exports = {
             let modAppChannelName = `modapp-${interaction.user.id}`;
             let parentCategory = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod apps' && ch.type === 'GUILD_CATEGORY')
 
-            var memberDuration;
+            let memberDuration;
             const monthRequirement = (1) * 2628002880   // 30.4167 DAYS FOR THE AVERAGE "MONTH"
 
             // GET INTERACTION MEMBER AS GUILD MEMBER

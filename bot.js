@@ -6,7 +6,7 @@ const config = require ('./config.json');
 const birthdaySchema = require('./Database/birthdaySchema');
 const guildSchema = require('./Database/guildSchema');
 const ticketSchema = require('./Database/ticketSchema');
-var cron = require('node-cron');
+const cron = require('node-cron');
 const moment = require('moment');
 const levels = require('discord-xp');
 const wait = require('util').promisify(setTimeout);
@@ -328,8 +328,8 @@ cron.schedule('00 02,12,22,32,42,52 * * * *', async () => {
     let templeServer = client.guilds.cache.get(`829409161581821992`)
 
     // MEMBER LIST VC'S
-    var totalTestMembersCount = testServer.memberCount
-    var totalTempleMembersCount = templeServer.memberCount
+    const totalTestMembersCount = testServer.memberCount
+    const totalTempleMembersCount = templeServer.memberCount
     let memTestCount;
     let memTempleCount;
 
@@ -374,7 +374,7 @@ cron.schedule('00 00 08 * * *', async () => {
 
     if(dbBirthdayData) {
         // DEFINING A NEW ARRAY TO STORE THE BIRTHDAYS FROM THE DATABASE
-        var result = []
+        let result = []
 
 
         // FOR LOOP TO GRAB ID'S OF TODAY'S BIRTHDAYS FROM DATABASE
@@ -486,7 +486,7 @@ cron.schedule('00 00 10 * * *', async () => {
     if(dbTicketData) {
 
         // DEFINING A NEW ARRAY TO STORE THE IDs FROM THE DATABASE
-        var result = []
+        let result = []
 
 
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO ARE GETTING DAY 2 REMINDERS
@@ -587,7 +587,7 @@ cron.schedule('30 00 10 * * *', async () => {
     if(dbTicketData) {
 
         // DEFINING A NEW ARRAY TO STORE THE IDs FROM THE DATABASE
-        var result = []
+        let result = []
 
 
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO ARE GETTING CLOSE NOTICES

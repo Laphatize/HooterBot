@@ -336,7 +336,7 @@ module.exports = {
                 }).exec();
 
                 // FOR MONTH NUMBER TO NAME
-                var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+                let monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
                 // CHANNEL CONFIRMATION
@@ -363,7 +363,7 @@ module.exports = {
 
 
             // FOR MONTH NUMBER TO NAME
-            var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+            let monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 
             // CHANNEL CONFIRMATION
@@ -391,7 +391,7 @@ module.exports = {
                     let member = client.users.cache.find(user => user.id === infoUser.id)
                     
                     const flags = await member.fetchFlags()
-                    var userFlags = flags.toArray()
+                    let userFlags = flags.toArray()
 
                     if(userFlags) {
                         userFlags = `${userFlags.join(`\n`)}`
@@ -408,7 +408,7 @@ module.exports = {
 
 
                     // SERVER BOOSTING DATE FIX
-                    var booster
+                    let booster
                     if(booster == 'undefined') {
                         booster =  `*(N/A)*`
                     } else {
@@ -602,7 +602,7 @@ module.exports = {
                     }).sort( [['_id', -1]] ).exec();      // DESCENDING CREATION DATE
 
                     
-                var result = []
+                let result = []
 
                 // LOOPING TO GENERATE ENTRIES FOR EACH INFRACTION
                 for(let i in infractionResults) {

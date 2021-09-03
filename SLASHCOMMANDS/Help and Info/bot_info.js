@@ -1,5 +1,5 @@
 const discord = require('discord.js')
-var pjson = require('../../package.json');
+const pjson = require('../../package.json');
 const config = require ('../../config.json')
 
 

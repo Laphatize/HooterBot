@@ -148,8 +148,8 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
-        var linkName;
-        var link;
+        let linkName;
+        let link;
 
         // FETCHING NAME AND LINK
         switch(inputs[0]) {

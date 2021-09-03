@@ -60,7 +60,7 @@ module.exports = {
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
         }
 
-        var suggestionsChannel = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
+        let suggestionsChannel = interaction.guild.channels.cache.find(ch => ch.name === `suggestions`)
 
 
         // GRABBING SLASH COMMAND INPUT VALUES

@@ -52,7 +52,7 @@ module.exports = {
 
 
         // FETCH RULES CHANNEL
-        var rulesChannel = interaction.guild.channels.cache.find(ch => ch.name === `rules`)
+        let rulesChannel = interaction.guild.channels.cache.find(ch => ch.name === `rules`)
 
 
         // IF MESSAGE ID DNE IN DATABASE, POST THEN LOG MSG INFO IN DB

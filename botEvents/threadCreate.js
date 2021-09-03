@@ -10,7 +10,7 @@ module.exports = {
         const modLogChannel = thread.guild.channels.cache.find(ch => ch.name === `mod-log`)
  
 
-        var threadDurationTimeString
+        let threadDurationTimeString
 
         // CONVERTING THE ARCHIVE DURATION TO MINUTES OR DAYS DEPENDING ON VALUE
         if(thread.autoArchiveDuration <= 60) {
@@ -24,7 +24,7 @@ module.exports = {
         }
 
         // // CALCULATING ARCHIVE TIME
-        // var threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
+        // let threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED
