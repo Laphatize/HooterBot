@@ -31,12 +31,12 @@ module.exports = {
         },{
             // PURGE
             name: `purge`,
-            description: `MODERATOR | Purge up to 100 messages from the channel from within the past 2 weeks.`,
+            description: `MODERATOR | Purge up to 99 messages from the channel from within the past 2 weeks.`,
             type: 'SUB_COMMAND',
             options: [
                 {
                     name: `amount`,
-                    description: `The number of messages to purge. (limit: 100)`,
+                    description: `The number of messages to purge. (limit: 99)`,
                     type: `INTEGER`,
                     required: true,
                 }
@@ -96,6 +96,23 @@ module.exports = {
             const everyoneRole = interaction.guild.roles.everyone
             const everyonePerms = everyoneRole.permissions.toArray(); 
 
+            
+            // CHANNEL BLACKLISTING BECAUSE OF DEFAULT PERMISSIONS CHANGES
+            if (interaction.channel.parentId === '829420812951748628'       // TEMPLE MOD CHANNELS
+                || interaction.channel.parentId === '829409161581821993'    // TEMPLE INFORMATION CHANNELS
+                || interaction.channel.parentId === '842456511183585395'    // TEMPLE SERVER-STUFF CHANNELS
+                || interaction.channel.parentId === '843060523923013652'    // TEMPLE MODERATION CHANNELS
+                || interaction.channel.parentId === '850085982371708988'    // TEMPLE ARCHIVED CHANNELS
+                || interaction.channel.type == 'GUILD_NEWS'                 // ANY ANNOUNCEMENTS CHANNELS
+            ) {
+                let cannotLockEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Sorry!`)
+                    .setDescription(`This channel cannot be locked/unlocked using this command because it risks breaking the default permissions of the channel.`)
+
+                // POST EMBED
+                return interaction.reply({ embeds: [cannotLockEmbed], ephemeral: true })
+            }
 
             // TURNING ON LOCKDOWN
             if(lockdownStatus == 'lock') {
@@ -223,11 +240,11 @@ module.exports = {
 
 
             // COUNT VALIDATION
-            if(purgeMsgCount > 100) {
+            if(purgeMsgCount > 99) {
                 let purgeCountErrorEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`You have specified too many messages. I can only purge up to 100 messages at a time.`)
+                    .setDescription(`You have specified too many messages. I can only purge up to 99 messages at a time.`)
 
                 // POST EMBED
                 return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
@@ -236,7 +253,7 @@ module.exports = {
                 let purgeCountErrorEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Sorry!`)
-                    .setDescription(`You have specified too few messages. I need to be given a value between 1 and 100.`)
+                    .setDescription(`You have specified too few messages. I need to be given a value between 1 and 99.`)
 
                 // POST EMBED
                 return interaction.reply({ embeds: [purgeCountErrorEmbed], ephemeral: true })
@@ -244,7 +261,7 @@ module.exports = {
 
 
             // PERFORMING PURGE - filterOld SET TO TRUE FOR MSGS OVER 14 DAYS OLD
-            interaction.channel.bulkDelete(purgeMsgCount, false)
+            interaction.channel.bulkDelete(purgeMsgCount, {filterOld: true})
                 .then(msgs => {
                     let purgeConfirmEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
