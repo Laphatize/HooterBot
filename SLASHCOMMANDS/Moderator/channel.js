@@ -118,11 +118,11 @@ module.exports = {
             if(lockdownStatus == 'lock') {
 
                 // CHECK IF ALREADY IN LOCKDOWN BY PERMISSIONS FOR EVERYONE ROLE
-                if(!everyonePerms.filter((perm) => perm == 'SEND_MESSAGES')) {
+                if(!interaction.channel.permissionsFor(everyoneRole).has('SEND_MESSAGES')) {
                     let alreadyLockedEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Sorry!`)
-                        .setDescription(`This channel appears to already be locked since users do not have the \`\`SEND_MESSAGES\`\` permission!`)
+                        .setDescription(`This channel appears to already be locked - users do not have the \`\`SEND_MESSAGES\`\` permission!`)
 
                     // POST EMBED
                     return interaction.reply({ embeds: [alreadyLockedEmbed], ephemeral: true })
@@ -171,11 +171,11 @@ module.exports = {
             if(lockdownStatus == 'unlock') {
 
                 // CHECK IF ALREADY IN LOCKDOWN BY PERMISSIONS FOR EVERYONE ROLE
-                if(everyonePerms.filter((perm) => perm == 'SEND_MESSAGES')) {
+                if(interaction.channel.permissionsFor(everyoneRole).has('SEND_MESSAGES')) {
                     let alreadyUnlockedEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Sorry!`)
-                        .setDescription(`This channel appears to already be unlocked since users have the \`\`SEND_MESSAGES\`\` permission!`)
+                        .setDescription(`This channel appears to already be unlocked - users have the \`\`SEND_MESSAGES\`\` permission!`)
 
                     // POST EMBED
                     return interaction.reply({ embeds: [alreadyUnlockedEmbed], ephemeral: true })
