@@ -466,7 +466,7 @@ cron.schedule('00 59 07 * * *', async () => {
 // VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
 // EVERY DAY AT 10:30:00AM EST
 cron.schedule('00 30 10 * * *', async () => {
-    console.log('Finding verification tickets that are 2 days old to send first reminder.');
+    console.log('Finding verification tickets that are 2 days old to send first reminder.')
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
     fiveDaysLeft = moment(Date.now()).add(5, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
@@ -566,7 +566,7 @@ cron.schedule('00 30 10 * * *', async () => {
 // VERIFICATION TICKETS - CLOSE NOTICE TICKET 
 // EVERY DAY AT 10:31:00AM EST
 cron.schedule('00 31 10 * * *', async () => {
-    console.log('Finding verification tickets that are 6 days old to send close notice.');
+    console.log('Finding verification tickets that are 6 days old to send close notice.')
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
     let oneDayLeft = moment(Date.now()).add(1, 'days').utcOffset(-4).format("dddd, MMMM D, YYYY")
@@ -665,7 +665,7 @@ cron.schedule('00 31 10 * * *', async () => {
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
 // EVERY DAY AT 10:32:00AM EST          00 01 10
 cron.schedule('00 32 10 * * *', async () => {
-    console.log('Finding verification tickets that are 7 days old to close.');
+    console.log('Finding verification tickets that are 7 days old to close.')
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
     let closingDay = moment(Date.now()).utcOffset(-4).format("dddd, MMMM D, YYYY")
