@@ -261,7 +261,7 @@ module.exports = {
                 .then(msgs => {
 
                     // ALL MESSAGES DELETED
-                    if(msgs === purgeMsgCount) {
+                    if(parseInt(msgs) === purgeMsgCount) {
                         let purgeConfirmEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
                             .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
@@ -270,17 +270,17 @@ module.exports = {
                     }
 
                     // ALL MESSAGES DELETED
-                    if(msgs !== purgeMsgCount) {
+                    if(parseInt(msgs) !== purgeMsgCount) {
                         let purgeConfirmEmbed = new discord.MessageEmbed()
                             .setColor(config.embedRed)
-                            .setTitle(`${config.emjORANGETICK} ${msgs.size}/${purgeMsgCount} Messages Purged!`)
+                            .setTitle(`${config.emjREDTICK} ${msgs.size}/${purgeMsgCount} Messages Purged!`)
                             .setDescription(`I was unable to delete ${purgeMsgCount - msgs.size} of the messages you specified. These messages are likely more than 14 days old and will need to be manually deleted.`)
 
                         interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
                     }
 
                     let purgeLogConfirm = new discord.MessageEmbed()
-                        .setColor(config.embedRed)
+                        .setColor(config.embedOrange)
                         .setTitle(`${config.emjORANGETICK} ${msgs.size} Messages Purged!`)
                         .setDescription(`**Purged By:** ${interaction.user}\n**Channel:** ${interaction.channel}`)
                         .setTimestamp()
