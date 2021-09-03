@@ -263,7 +263,7 @@ module.exports = {
                     // ALL MESSAGES DELETED
                     if(purgeMsgCount - msgs.size == 0) {
                         let purgeConfirmEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
+                            .setColor(config.embedGreen)
                             .setTitle(`${config.emjGREENTICK} ${msgs.size} Messages Purged!`)
 
                         interaction.reply({ embeds: [purgeConfirmEmbed], ephemeral: true })
