@@ -390,7 +390,7 @@ cron.schedule('00 00 08 * * *', async () => {
             bdayMessage = createBdayMessage(id);
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
             // FETCH BOT CHANNEL OF GUILD AND SEND MESSAGE
             guild.channels.cache.find(ch => ch.name === `☕｜off-topic`).send({ content: `${bdayMessage}` })
@@ -432,13 +432,8 @@ function createBdayMessage(bdayUserId) {
 // cron.schedule('30 */2 * * * *', async () => {  // FOR TESTING 
 cron.schedule('00 59 07 * * *', async () => {
 
-    // TODAY'S DATE
-    todayDay = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("DD")
-    todayMonth = moment(Date.now()).subtract(1, 'days').utcOffset(-4).format("MM")
-
-
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-    guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
+    let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
     // GET POSITION OF CURERNT BIRTHDAY ROLE
@@ -469,8 +464,8 @@ cron.schedule('00 59 07 * * *', async () => {
 
 
 // VERIFICATION TICKETS - FIRST REMINDER (2 DAYS AFTER STARTING)
-// EVERY DAY AT 10:00:00AM EST
-cron.schedule('00 00 10 * * *', async () => {
+// EVERY DAY AT 10:30:00AM EST
+cron.schedule('00 30 10 * * *', async () => {
     console.log('Finding verification tickets that are 2 days old to send first reminder.');
 
     // GETTING TICKETS WHO CLOSE IN 5 DAYS (2 DAYS OLD NOW)
@@ -494,12 +489,14 @@ cron.schedule('00 00 10 * * *', async () => {
             result.push(dbTicketData[i].CREATOR_ID)
         }
 
+        console.log(`2 day old tickets: ${result.length}`)
+
 
         // THE "result" ARRAY HAS ALL THE IDs FOR USERS RECEIVING DAY 2 REMINDER
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
@@ -558,9 +555,6 @@ cron.schedule('00 00 10 * * *', async () => {
                                 })
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN USERS
-            wait(1000)
         })
     }
 }, {
@@ -570,8 +564,8 @@ cron.schedule('00 00 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - CLOSE NOTICE TICKET 
-// EVERY DAY AT 10:00:30AM EST
-cron.schedule('30 00 10 * * *', async () => {
+// EVERY DAY AT 10:31:00AM EST
+cron.schedule('00 31 10 * * *', async () => {
     console.log('Finding verification tickets that are 6 days old to send close notice.');
 
     // GETTING TICKETS WHO CLOSE IN 1 DAYS (6 DAYS OLD NOW)
@@ -585,22 +579,22 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
     if(dbTicketData) {
-
         // DEFINING A NEW ARRAY TO STORE THE IDs FROM THE DATABASE
         let result = []
-
 
         // FOR LOOP TO GRAB ID'S OF THE USERS WHO ARE GETTING CLOSE NOTICES
         for(let i in dbTicketData) {
             result.push(dbTicketData[i].CREATOR_ID)
         }
 
+        console.log(`6 day old tickets: ${result.length}`)
+
 
         // THE "result" ARRAY HAS ALL THE IDs FOR USERS RECEIVING CLOSE NOTICES
         result.forEach( id => {
 
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             // FETCH USER BY ID
@@ -660,9 +654,6 @@ cron.schedule('30 00 10 * * *', async () => {
                                 })
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN USERS
-            wait(1000)    
         })
     }
 }, {
@@ -672,8 +663,8 @@ cron.schedule('30 00 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
-// EVERY DAY AT 10:01:00AM EST          00 01 10
-cron.schedule('00 01 10 * * *', async () => {
+// EVERY DAY AT 10:32:00AM EST          00 01 10
+cron.schedule('00 32 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.');
 
     // GETTING TICKETS WHO'S CLOSING DAY MATCHES TODAY
@@ -691,7 +682,7 @@ cron.schedule('00 01 10 * * *', async () => {
         for(let i in dbTicketData) {
             
             // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
-            let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server') || client.guilds.cache.find(guild => guild.name === 'Temple University')
+            let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
 
 
             guild.members.fetch(dbTicketData[i].CREATOR_ID)
@@ -907,9 +898,6 @@ cron.schedule('00 01 10 * * *', async () => {
                                 .catch(err => console.log(err))
                         })
                 })
-
-            // WAIT 1 SECOND BETWEEN USERS
-            wait(1000)
         }
     }
 }, {
