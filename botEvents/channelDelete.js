@@ -19,6 +19,11 @@ module.exports = {
             if(channel.type === 'GUILD_STAGE_VOICE') chVar = `${config.emjStageChannel}`
 
 
+            let catName;
+            if(!channel.parent.name.toUpperCase()) catName = `*(None)*`
+            else catName = channel.parent.name.toUpperCase()
+
+            
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedOrange)
@@ -26,7 +31,7 @@ module.exports = {
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
                 .addField(`Type:`, `${channel.type}`, true)
-                .addField(`Category:`, `${channel.parent.name}`, true)
+                .addField(`Category:`, `${catName}`, true)
                 .setTimestamp()
 
             // LOG ENTRY
