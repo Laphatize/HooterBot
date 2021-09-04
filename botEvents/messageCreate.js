@@ -513,7 +513,7 @@ module.exports = {
                 .setColor(config.embedBlurple)
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
                 .setTitle(`New verification submissions paused`)
-                .setDescription(`Due to the large influx of new members we've recevied the past few days, HooterBot has reached some Discord API limits and cannot open more verification tickets until the number of open tickets decreases.\n\nIf you are looking to verify, consider **enabling notifications** for all messages posted in this channel; a follow-up message will be posted when verification reopens *(ETA 1-2 days, hopefully)*.\n\nThanks for your understanding!`)
+                .setDescription(`Due to the large influx of new members we've recevied the past few days, HooterBot has reached some Discord API limits and cannot open more verification tickets until the number of open tickets decreases.\n\nIf you are looking to verify, consider **enabling notifications** for all messages posted in this channel as I'll be posting a follow-up message when verification reopens *(ETA 1-2 days, hopefully)*.\n\nThanks for your understanding!`)
 
             return message.channel.send({ embeds: [ticketMaxNoticeEmbed] })
         }
