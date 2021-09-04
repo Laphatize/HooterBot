@@ -23,7 +23,7 @@ module.exports = {
 
 
             let catName;
-            if(!channel.parent.name.toUpperCase()) catName = `*(None)*`
+            if(!channel.parent) catName = `*(None)*`
             else catName = channel.parent.name.toUpperCase()
 
 
