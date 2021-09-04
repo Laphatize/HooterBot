@@ -505,14 +505,15 @@ module.exports = {
 
 
 
-        if(message.content.toLowerCase().startsWith(`$ticketoverflow`) && message.author.id == config.botAuthorId) {
+        if(message.content.toLowerCase().startsWith(`$ticket-overflow`) && message.author.id == config.botAuthorId) {
             
             setTimeout(() => message.delete(), 0)
 
             ticketMaxNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic:true }))
-                .setDescription(`Due to the large influx of new members we've recevied the past few days and Discord API limits, I need to **temporarily pause new verification submissions** until the number of open tickets decreases. If you are looking to verify, consider **enabling notifications** for all messages posted in this channel as I will post a follow-up message when verification reopens (hopefully in a day or two at most).\n\nThanks for your understanding! :)`)
+                .setTitle(`New verification submissions paused`)
+                .setDescription(`Due to the large influx of new members we've recevied the past few days, **new verification submissions are temporarily paused** until the number of open tickets decreases.\n\nIf you are looking to verify, consider **enabling notifications** for all messages posted in this channel as a follow-up message will be posted when verification reopens (ETA 1-2 days, hopefully).\n\nThanks for your understanding!`)
 
             return message.channel.send({ embeds: [ticketMaxNoticeEmbed] })
         }
