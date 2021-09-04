@@ -162,10 +162,14 @@ module.exports = {
 
                 // CHECK THE CHANNEL COUNT IN THE CATEGORY
                 if(ticketCatSize >= 50) {
+
+                    let ticketFullEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`*Well this is awkward...* ${emjHBslightfrown}`)
+                        .setDescription(`Due to the recent influx of new members, we're unable to open more verification tickets at this time. Please try again in a few hours.\n\n*If you continue to see this message after some time, please let <@${config.botAuthorId}> know!*`)
+
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-                    return interaction.reply({
-                        content: `**Sorry,** we have reached the maximum number of open verification tickets possible and **cannot open more at this time**. Please try again later!\n(If you continue to see this message after some time, please let <@${config.botAuthorId}> know!)`,
-                        ephemeral: true })
+                    return interaction.reply({ embeds: [ticketFullEmbed], ephemeral: true })
                 }
 
 
