@@ -169,7 +169,11 @@ module.exports = {
                         .setDescription(`Due to the recent influx of new members, we're unable to open more verification tickets at this time. Please try again in a few hours.\n\n*If you continue to see this message after some time, please let <@${config.botAuthorId}> know!*`)
 
                     // CANCEL AND RESPOND WITH EPHEMERAL - USER ALREADY VERIFIED
-                    return interaction.reply({ embeds: [ticketFullEmbed], ephemeral: true })
+                    interaction.reply({ embeds: [ticketFullEmbed], ephemeral: true })
+
+                    // MESSAGE THE MOD-CHAT
+                    interaction.guild.channels.cache.find(ch => ch.name === `moderator-only`).send({ content: `<@${config.botAuthorId}>, the verification system has reached it maximum number of open tickets.` })
+
                 }
 
 
