@@ -20,7 +20,7 @@ module.exports = {
 
 
         // MAIN RULES EMBED
-        let rules = new discord.MessageEmbed()
+        let rulesListStart = new discord.MessageEmbed()
             .setColor(config.embedBlurple)
             .setTitle('**Rules**')
             .setDescription(`By participating in this server, you agree to comply with these rules regardless if you have read them in their entirety.
@@ -29,12 +29,18 @@ module.exports = {
             \n**3. No spam, mention spamming, or ghost pinging**\n > This includes excessive use of text, emojis, GIFs, and reactions. Ghost pinging is tagging a user then deleting the message for the sake of pinging and frustrating users.
             \n**4. Keep channels on-topic**\n > If discussion is not relevant to the channel, consider taking it to <#829409161581821997> or <#829409161581822000>. If discussion digresses from the channel topic, consider opening a thread to continue your conversation. All memes must go in <#829409161581821999>. Mods reserve the right to delete messages that do not fit the channel subject.
             \n**5. No NSFW material or discussions that may cause hostility**\n > Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion, or anything that may cause hostility are prohibited.
-            \n**6. No advertising**\n > This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>, though these are still subject to moderator discretion. DM advertising is strictly prohibited and will result in an immediate ban.
+            `)
+
+
+        let rulesListEnd = new discord.MessageEmbed()
+            .setColor(config.embedBlurple)
+            .setDescription(`**6. No advertising**\n > This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>, though these are still subject to moderator discretion. DM advertising is strictly prohibited and will result in an immediate ban.
             \n**7. No server raiding**\n > Discussion of raids or participating in raids is not allowed.
             \n**8. Abide by Discord's Community Guidelines and Terms of Service (ToS) as well as Temple University's Student Code of Conduct**\n > • [Community Guidelines](https://discord.com/guidelines)\n > • [Terms of Service](https://discord.com/terms)\n > • [Student Conduct Code](https://secretary.temple.edu/sites/secretary/files/policies/03.70.12.pdf)
             \n**9. Moderator and Admin decisions are final**\n > Decisions are made at the moderation team's discretion based on evidence and context of a situation.
             \n**10. Multiple warnings will result in mutes and eventual bans**\n > The admins and moderators reserve discretion in expediting this process based on the severity of a situation.
             `)
+
 
         // SERVER STAFF EMBED
         let serverStaffList = new discord.MessageEmbed()
@@ -59,7 +65,7 @@ module.exports = {
         if(!dbData.RULES_MSG_ID) {
             
             // POSTING EMBEDS
-            await rulesChannel.send({ embeds: [rules, serverStaffList, ModmailHelp] })
+            await rulesChannel.send({ embeds: [rulesListStart, rulesListEnd, serverStaffList, ModmailHelp] })
                 .catch(err => console.log(err))
 
                 // GETTING MESSAGE ID OF ticketEmbed
