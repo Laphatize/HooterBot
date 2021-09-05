@@ -66,7 +66,7 @@ module.exports = {
                     let modAppQuestionThree = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Question 3:`)
-                        .setDescription(`**How often are you on Discord and the Temple server per day? Per week?**\n(We expect moderators to be active in the server regularly as a core part of the position.)`)
+                        .setDescription(`**How often are you on Discord and visiting the Temple server per day? Per week?**\n(We expect moderators to be active in the server regularly as a core part of the position.)`)
 
                     message.channel.send({ embeds: [modAppQuestionThree] })
 

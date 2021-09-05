@@ -63,7 +63,7 @@ module.exports = {
             [`No NSFW material or discussions that may cause hostility`, `Explicit content/porn is not allowed ANYWHERE in the server. Discussions about politics, religion or anything that may cause hostility are prohibited.`],
             [`No advertising`, `This includes ads for other communities, streams, or goods. Verified users may post student opportunities in <#829732282079903775>, though these are still subject to moderator discretion. DM advertising is strictly prohibited and will result in an immediate ban.`],
             [`No server raiding`, `Discussion of raids or participating in raids is not allowed.`],
-            [`Abide by Discord's Community Guidelines and Terms of Service (ToS)`, `• [Community Guidelines](https://discord.com/guidelines)\n > • [Terms of Service](https://discord.com/terms)`],
+            [`Abide by Discord's Community Guidelines and Terms of Service (ToS) as well as Temple University's Student Code of Conduct`, `• [Community Guidelines](https://discord.com/guidelines)\n > • [Terms of Service](https://discord.com/terms)\n > • [Student Conduct Code](https://secretary.temple.edu/sites/secretary/files/policies/03.70.12.pdf)`],
             [`Moderator and Admin decisions are final`, `Decisions are made at the moderation team's discretion based on evidence and context of a situation.`],
             [`Multiple warnings will result in mutes and eventual bans`, `The admins and moderators reserve discretion in expediting this process based on the severity of a situation.`],
         ]
