@@ -34,7 +34,7 @@ module.exports = {
                     name: `7_Server_raiding`,
                     value: 7,
                 },{
-                    name: `8_Discord_TOS`,
+                    name: `8_Discord_TOS_Temple_Conduct`,
                     value: 8,
                 },{
                     name: `9_Decisions_final`,
