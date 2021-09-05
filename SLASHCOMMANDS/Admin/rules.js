@@ -115,7 +115,7 @@ module.exports = {
             // GETTING THE VERIFICATION PROMPT CHANNEL ID FROM DATABASE
             await rulesChannel.messages.fetch(dbData.RULES_MSG_ID)
                 .then(msg => {
-                    msg.edit({ embeds: [rules, serverStaffList, ModmailHelp] })
+                    msg.edit({ embeds: [rulesListStart, rulesListEnd, serverStaffList, ModmailHelp] })
                 })
                 .catch(err => console.log(err))
 
