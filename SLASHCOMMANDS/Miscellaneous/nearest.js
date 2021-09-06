@@ -26,11 +26,7 @@ module.exports = {
 
 
         let locationName = inputs[0]
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?
-        size=600x300
-        &maptype=roadmap
-        &markers=color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116
-        &key=${process.env.GoogleMapsAPIkey}`
+        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&markers=color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116&key=${process.env.GoogleMapsAPIkey}`
 
 
         // GENERATING SUCCESSFUL MAP EMBED
@@ -38,7 +34,7 @@ module.exports = {
             .setColor(config.embedDarkGrey)
             .setTitle(`I've found a location!`)
             .setDescription(`**Search:** ${locationName}\n**Result:** (resulting address)`)
-            .setImage(`${locationImg}`)
+            .setImage(`${encodeURI(locationImg)}`)
 
 
         // WAIT AT LEAST 1 SECOND TO POST
