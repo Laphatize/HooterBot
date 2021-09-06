@@ -46,8 +46,8 @@ module.exports = {
             .then(function (response) {
                 console.log(JSON.stringify(response.data))
                 console.log(JSON.stringify(response.data.candidates[0]))
-                resultAddress = JSON.stringify(response.candidates[0].formatted_address)
-                resultName = JSON.stringify(response.candidates[0].name)
+                resultAddress = JSON.stringify(response.data.candidates[0].formatted_address)
+                resultName = JSON.stringify(response.data.candidates[0].name)
             })
             .catch(function (err) {
                 console.log(`**** GOOGLE MAPS API ERROR *****`);
