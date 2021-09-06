@@ -55,13 +55,13 @@ module.exports = {
                 
                 // DEFINING LOG EMBED
                 let logErrEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedGrey)
+                    .setColor(config.embedDarkBlue)
                     .setTitle(`${config.emjERROR} An error has occurred with the Google Maps API`)
                     .setDescription(`\`\`\`${err}\`\`\``)
                     .setTimestamp()
                 
                 // LOG ENTRY
-                client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed], content: `<@${config.botAuthorId}>` })
+                client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
             })
 
 
