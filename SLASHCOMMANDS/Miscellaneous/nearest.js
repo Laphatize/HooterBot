@@ -30,7 +30,7 @@ module.exports = {
         let locationName = inputs[0]
         let resultAddress
         let resultName
-        let fieldsValues = `formatted_address,name`
+        let fieldsValues = `formatted_address,name,geometry`
         let inputType = `textquery`
 
 
@@ -48,6 +48,8 @@ module.exports = {
                 console.log(response.data.candidates[0])
                 resultAddress = response.data.candidates[0]["formatted_address"]
                 resultName = response.data.candidates[0]["name"]
+                resultLat
+                resultLong
                 console.log(`resultAddress = ${resultAddress}`)
                 console.log(`resultName = ${resultName}`)
                         
@@ -55,13 +57,14 @@ module.exports = {
                 // GENERATE MAP WITH MARKERS
                 let mapDimensions = `800x450`
                 let mapType = `terrain`
-                let zoomLevel = `8`
                 let scaleFactor = `2`
-                let templeLatLong = `39.981279908357614,-75.15559610217116`
+                let center = `39.981279908357614,-75.15559610217116`
                 let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614,-75.15559610217116`
                 let locationMarker = `color:green%7Clabel:X%7C39.95241373896032,-75.1636000435979`
 
-                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?format=png&size=${mapDimensions}&center=${templeLatLong}&scale=${scaleFactor}&maptype=${mapType}&markers=${templeHomeMarker}|${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+                let markerList = `markers=${templeHomeMarker}&markers=${locationMarker}`
+
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapDimensions}&maptype=${mapType}&scale=${scaleFactor}&${markerList}&key=${process.env.GoogleMapsAPIkey}`
 
 
                 // GENERATING SUCCESSFUL MAP EMBED
