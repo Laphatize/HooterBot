@@ -1,4 +1,5 @@
 const config = require ('../../config.json')
+const wait = require('util').promisify(setTimeout);
 
 
 module.exports = {
@@ -19,16 +20,31 @@ module.exports = {
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
+        // DEFERRING
+        interaction.deferReply()
+
+
         let locationName = inputs[0]
-
-
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap
-        &markers=color:red%7Clabel:T%7C39.98069752863743, -75.15573473188353
-        &markers=color:red%7Clabel:C%7C40.718217,-73.998284
+        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?
+        size=600x300
+        &maptype=roadmap
+        &markers=color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116
         &key=${process.env.GoogleMapsAPIkey}`
 
 
-        // POSTING LINK USING VALUES FROM ABOVE
-        interaction.reply({ content: `Here you go!` })
+        // GENERATING SUCCESSFUL MAP EMBED
+        let nearestLocationEmbed = new discord.MessageEmbed()
+            .setColor(config.embedDarkGrey)
+            .setTitle(`I've found a location!`)
+            .setDescription(`**Search:** ${locationName}\n**Result:** (resulting address)`)
+            .setImage(`${locationImg}`)
+
+
+        // WAIT AT LEAST 1 SECOND TO POST
+        wait(1000)
+
+
+        // SHARING EMBED WITH LOCATION
+        interaction.editReply({ embeds: [nearestLocationEmbed] })
     }
 }
