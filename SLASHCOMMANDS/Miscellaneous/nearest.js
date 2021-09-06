@@ -30,7 +30,9 @@ module.exports = {
 
 
         // GENERATING TOP RESULT LOCATION DETAILS
-        let resultURL = encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname&input=${locationName}&inputtype=textquery&key=${process.env.GoogleMapsAPIkey}`)
+        let apiResult = encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname&input=${locationName}&inputtype=textquery&key=${process.env.GoogleMapsAPIkey}`)
+        let resultAddress = apiResult.candidates.formatted_address
+        let resultName = apiResult.candidates.name
 
 
         // GENERATE MAP WITH MARKERS
@@ -38,17 +40,18 @@ module.exports = {
         let mapType = `terrain`
         let zoomLevel = `8`
         let scaleFactor = `2`
-        let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116`
-        let locationMarker = `color:green%7Clabel:X%7C39.95241373896032, -75.1636000435979`
+        let templeLatLong = `39.981279908357614,-75.15559610217116`
+        let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614,-75.15559610217116`
+        let locationMarker = `color:green%7Clabel:X%7C39.95241373896032,-75.1636000435979`
 
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?format=png&size=${mapDimensions}&zoom=${zoomLevel}&scale=${scaleFactor}&maptype=${mapType}&markers=${templeHomeMarker}|${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?format=png&size=${mapDimensions}&center=${templeLatLong}&scale=${scaleFactor}&maptype=${mapType}&markers=${templeHomeMarker}|${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
 
 
         // GENERATING SUCCESSFUL MAP EMBED
         let nearestLocationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`I've found a location!`)
-            .setDescription(`**Search:** ${locationName}\n**Result:** result address ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
+            .setDescription(`**Search:** ${locationName}\n**Result:** ${resultName}\n${resultAddress} ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
             .setImage(`${encodeURI(locationImg)}`)
             .setFooter(`Click the image for a larger view`)
 
