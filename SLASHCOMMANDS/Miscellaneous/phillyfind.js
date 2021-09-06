@@ -6,7 +6,7 @@ const axios = require('axios');
 
 module.exports = {
     name: 'phillyfind',
-    description: `Search for places on campus or across Philly by name using the Google Maps API. [10s]`,
+    description: `Search for places on campus or across Philly by name and get an address and map. (🤖｜bot-spam) [10s]`,
     permissions: '',
     dmUse: true,
     cooldown: 10,
@@ -21,6 +21,21 @@ module.exports = {
     ],
     defaultPermission: true,
     run: async(client, interaction, inputs) => {
+        
+        // BOT-SPAM CHANNEL ONLY
+        if(interaction.channel.name !== '🤖｜bot-spam') {
+
+            let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
+
+            let wrongChannel = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`This command can only be run in <#${botSpamChannel.id}>. Head there and try again!`)
+
+            // POST EMBED
+            return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
+        }
+
 
         // DEFERRING
         await interaction.deferReply()
