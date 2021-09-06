@@ -36,7 +36,7 @@ module.exports = {
         // GENERATE MAP WITH MARKERS
         let mapDimensions = `800x450`
         let mapType = `terrain`
-        let zoomLevel = `21`
+        let zoomLevel = `8`
         let scaleFactor = `2`
         let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116`
         let locationMarker = `color:green%7Clabel:X%7C39.95241373896032, -75.1636000435979`
