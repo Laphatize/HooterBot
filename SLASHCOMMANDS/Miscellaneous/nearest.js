@@ -31,8 +31,8 @@ module.exports = {
 
         // GENERATING TOP RESULT LOCATION DETAILS
         let apiResult = encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname&input=${locationName}&inputtype=textquery&key=${process.env.GoogleMapsAPIkey}`)
-        let resultAddress = apiResult.candidates.formatted_address
-        let resultName = apiResult.candidates.name
+        let resultAddress = apiResult[0].candidates.formatted_address
+        let resultName = apiResult[0].candidates.name
 
 
         // GENERATE MAP WITH MARKERS
