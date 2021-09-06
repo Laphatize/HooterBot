@@ -5,7 +5,7 @@ const wait = require('util').promisify(setTimeout);
 
 module.exports = {
     name: 'nearest',
-    description: `Search for the nearest (query) location from main campus. [10s]`,
+    description: `[DEVELOPING] Search for the nearest (query) location from main campus. [10s]`,
     permissions: '',
     dmUse: true,
     cooldown: 10,
@@ -26,19 +26,27 @@ module.exports = {
 
 
         let locationName = inputs[0]
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&markers=color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116&key=${process.env.GoogleMapsAPIkey}`
+
+        let mapDimensions = `1600x900`
+        let mapType = `roadmap`
+        let mapZoomLevel = `auto`
+        let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116`
+        let locationMarker = `color:green%7Clabel:X%7C39.95241373896032, -75.1636000435979`
+
+        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=${mapDimensions}&zoom=${mapZoomLevel}&maptype=${mapType}&markers=${templeHomeMarker}&markers=${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
 
 
         // GENERATING SUCCESSFUL MAP EMBED
         let nearestLocationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`I've found a location!`)
-            .setDescription(`**Search:** ${locationName}\n**Result:** (resulting address)`)
+            .setDescription(`**Search:** ${locationName}\n**Result:** [](resulting address)`)
             .setImage(`${encodeURI(locationImg)}`)
+            .setFooter(`Click the image for a larger view`)
 
 
-        // WAIT AT LEAST 1 SECOND TO POST
-        await wait(1000)
+        // WAIT AT LEAST 1.5 SECOND TO POST
+        await wait(1500)
 
 
         // SHARING EMBED WITH LOCATION
