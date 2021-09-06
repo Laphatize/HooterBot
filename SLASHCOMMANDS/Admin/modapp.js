@@ -177,7 +177,7 @@ module.exports = {
             }
 
             // LOCKING SEND MESSAGE PERMISSION
-            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+            interaction.channel.permissionOverwrites.edit({
                 SEND_MESSAGES: false,
                 ADD_REACTIONS: false,
             }).then(channel => {
@@ -212,7 +212,7 @@ module.exports = {
             }
 
             // LOCKING SEND MESSAGE PERMISSION
-            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+            interaction.channel.permissionOverwrites.edit({
                 SEND_MESSAGES: false,
                 ADD_REACTIONS: false,
             }).then(channel => {
