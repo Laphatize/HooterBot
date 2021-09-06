@@ -80,11 +80,12 @@ module.exports = {
                         .setDescription(`The admins are looking for eager users interested in becoming moderators in the server!
                         \n\nEligiblity:
                             \n${config.indent}**1.** Be a member for at least **one month**.
-                            \n${config.indent}**2.** Be active member of the community (participating in channels).
-                            \n${config.indent}**3.** Help enforce the server's rules, taking appropriate actions when necessary and logging these actions.
+                            \n${config.indent}**2.** Be an active member of the community (participating in channels).
+                            \n${config.indent}**3.** Help enforce the server's rules, taking appropriate actions when necessary, and logging these actions.
                             \n${config.indent}(Not required, but **past moderating experience on Discord** is a plus)
-                            \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you in the channel so you can begin the application.
-                            \n*Be sure to answer all questions; incomplete applications will not be considered!*`)
+                            \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you in the channel to complete your application.
+                            \n*Be sure to answer all questions by the deadline as incomplete applications will not be considered!*
+                        \n\nAPPLICATION DEADLINE: <t:${moment().add(7, 'days').utcOffset(-4).unix()}:R>`)
 
 
                     let ApplyButton = new MessageButton()
