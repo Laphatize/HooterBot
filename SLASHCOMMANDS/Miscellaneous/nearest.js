@@ -28,8 +28,7 @@ module.exports = {
 
         // LOCATION QUERY
         let locationName = inputs[0]
-        let resultAddress
-        let resultName
+        let resultAddress, resultName, resultLat, resultLong
         let fieldsValues = `formatted_address,name,geometry`
         let inputType = `textquery`
 
