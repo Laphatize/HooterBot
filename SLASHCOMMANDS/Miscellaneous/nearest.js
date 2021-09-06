@@ -45,10 +45,10 @@ module.exports = {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data))
-                console.log(JSON.stringify(response.data.candidates[0]))
-                console.log(JSON.stringify(response.data.candidates[0]["formatted_address"]))
-                resultAddress = JSON.stringify(response.data.candidates[0]["formatted_address"])
-                resultName = JSON.stringify(response.data.candidates[0]["name"])
+                console.log(response.data.candidates[0])
+                console.log(response.data.candidates[0]["formatted_address"])
+                resultAddress = response.data.candidates[0]["formatted_address"]
+                resultName = response.data.candidates[0]["name"]
             })
             .catch(function (err) {
                 console.log(`**** GOOGLE MAPS API ERROR *****`);
