@@ -220,7 +220,7 @@ module.exports = {
                 // CONFIRMATION EMBED
                 let appLocked = new discord.MessageEmbed()
                     .setColor(config.embedRed)
-                    .setTitle(`${config.emjREDTICK} Application Not Successfully Submitted`)
+                    .setTitle(`${config.emjREDTICK} Application Not Submitted`)
                     .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider this application.`)
 
                 // LOG ENTRY
