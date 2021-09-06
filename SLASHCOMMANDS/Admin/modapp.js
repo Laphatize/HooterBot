@@ -166,6 +166,8 @@ module.exports = {
         // APP SUBMITTED SUCCESSFULLY AND IN FULL - FREEZE CURRENT APPLICATION CHANNEL
         if(inputs[0] == 'appconfirm') {
 
+            interaction.deferUpdate()
+
             if(!interaction.channel.name.startsWith(`modapp-`) && !interaction.channel.name.includes(`completed`) ) {
                 let notAppChEmbed = new discord.MessageEmbed()
                         .setColor(config.embedTempleRed)
@@ -198,6 +200,8 @@ module.exports = {
 
         // APP NOT COMPLETED IN FULL - FREEZE CURRENT APPLICATION CHANNEL
         if(inputs[0] == 'appdisq') {
+
+            interaction.deferUpdate()
 
             if(!interaction.channel.name.startsWith(`modapp-`)) {
                 let notAppChEmbed = new discord.MessageEmbed()
