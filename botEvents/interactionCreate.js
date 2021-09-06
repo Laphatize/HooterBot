@@ -118,7 +118,7 @@ module.exports = {
 
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.id}`;
-        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}.)\n\n`
+        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}.)*\n\n`
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -416,25 +416,25 @@ module.exports = {
             /*      QUIT VERIFICATION (ANY PROMPT IN DMS)              */
             /***********************************************************/
             if(interaction.customId === 'quit_DM') {
-                
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
-                // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -475,10 +475,6 @@ module.exports = {
             /*      QUIT VERIFICATION (ANY PROMPT IN THE MOD/ADMIN CH) */
             /***********************************************************/
             if(interaction.customId === 'quit_CH') {
-                
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
 
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('-').pop()
@@ -489,15 +485,19 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                }
                 
-                // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.channel.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 }
+
+                                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
 
 
                 // GENERATING QUIT CONFIRMATION EMBED FOR DM
@@ -538,25 +538,25 @@ module.exports = {
             /*      QUIT CONFIRM (2nd QUIT IN DMS PROMPT)              */
             /***********************************************************/
             if(interaction.customId === 'quit_confirmation_DM') {
-
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
                 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
 
-                // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
 
 
                 // FETCH INITIAL DM MESSAGE FROM DATABASE TO EDIT INITIAL PROMPT WITH BUTTONS DISABLED
@@ -779,10 +779,6 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'quit_confirmation_CH') {   
 
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-
-
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('-').pop()
       
@@ -792,16 +788,19 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                }
                 
-                // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.channel.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 }
 
+
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
 
                 
                 // EDIT THE INITIAL TICKET MESSAGE TO DISABLE BUTTON
@@ -1022,24 +1021,25 @@ module.exports = {
             /*      PHYSICAL TUID CARD                                 */
             /***********************************************************/
             if(interaction.customId === 'physical_TUid_Card') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
-                // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
@@ -1107,24 +1107,27 @@ module.exports = {
             /*      VIRTUAL TUID CARD                                  */
             /***********************************************************/
             if(interaction.customId === 'virtual_TUid_Card') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
@@ -1192,24 +1195,27 @@ module.exports = {
             /*      TUPORTAL STUDENT DASHBOARD                         */
             /***********************************************************/
             if(interaction.customId === 'TU_portal') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
@@ -1277,24 +1283,27 @@ module.exports = {
             /*      DATA & PRIVACY PROMPT - DMs                        */
             /***********************************************************/
             if(interaction.customId === 'Data_Privacy') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
 
 
                 // EMBED MESSAGE
@@ -1363,24 +1372,27 @@ module.exports = {
             /*      COLLECTED DATA PROMPT - DMs                        */
             /***********************************************************/
             if(interaction.customId === 'Info_Collected') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
                 
 
                 // EMBED MESSAGE
@@ -1449,24 +1461,27 @@ module.exports = {
             /*      CLOSE BUTTON                                       */
             /***********************************************************/
             if(interaction.customId === 'close_2nd_Prompt') {
-                
-                await interaction.deferUpdate()
-
 
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                }
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.reply({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
+
+                
+                // DEFERRING BUTTON ACTION
+                await interaction.deferUpdate()
 
 
                 // FETCH THE 2ND MESSAGE ID AND DELETE THE MESSAGE
@@ -1539,10 +1554,6 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'Proof_Approved') {
 
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-                
-
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('-').pop()
 
@@ -1553,7 +1564,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                }
+
+                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1794,10 +1812,6 @@ module.exports = {
             /***********************************************************/
             if(interaction.customId === 'Proof_Rejected') {
                 
-                // DEFERRING BUTTON ACTION
-                interaction.deferUpdate()
-                
-                
                 // FETCH THE TICKET USER VIA CHANNEL NAME
                 dmUserId = interaction.channel.name.split('-').pop()
       
@@ -1808,7 +1822,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) {
+                    return interaction.reply({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                }
+
+                
+                // DEFERRING BUTTON ACTION
+                interaction.deferUpdate()
+
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
