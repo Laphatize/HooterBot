@@ -5,8 +5,8 @@ const axios = require('axios');
 
 
 module.exports = {
-    name: 'nearest',
-    description: `Search for the nearest (query) location from main campus using the Google Maps API. [10s]`,
+    name: 'phillyfind',
+    description: `Search for places on campus or across Philly by name using the Google Maps API. [10s]`,
     permissions: '',
     dmUse: true,
     cooldown: 10,
@@ -52,16 +52,14 @@ module.exports = {
                 // GENERATE MAP WITH MARKERS
                 let locationMarker = `markers=color:green%7Clabel:X%7C${resultLat},%20${resultLong}`
 
-                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=800x450&visible=39.981279908357614,%20-75.15559610217116&visible=${resultLat},%20${resultLong}&maptype=roadmap&markers=color:red%7Clabel:T%7C39.981279908357614,%20-75.15559610217116&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
-
-                console.log(`locationImg = ${locationImg}`)
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=800x450&visible=39.981364957390184,%20-75.15441956488965&visible=${resultLat},%20${resultLong}&maptype=roadmap&markers=color:red%7Clabel:T%7C39.981364957390184,%20-75.15441956488965&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
 
                 // GENERATING SUCCESSFUL MAP EMBED
                 let nearestLocationEmbed = new discord.MessageEmbed()
                     .setColor(botconf.embedDarkGrey)
                     .setDescription(`**Query:** ${locationName}\n**Result:**\n${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
                     .setImage(`${locationImg}`)
-                    .setFooter(`Click the image for a larger view | NOTE: Results may be wonky sometimes, thank the Google API for that.`)
+                    .setFooter(`Click the image for a larger view\nNOTE: Result may not be the closest to campus if multiple locations exist (thank Google for favoriting locations).`)
 
 
                 // WAIT AT LEAST 1.5 SECOND TO POST
