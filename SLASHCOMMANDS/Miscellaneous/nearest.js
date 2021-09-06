@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const config = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
+const axios = require('axios');
 
 
 module.exports = {
@@ -27,23 +28,29 @@ module.exports = {
 
         // LOCATION QUERY
         let locationName = inputs[0]
+        let resultAddress
+        let resultName
 
 
         // GENERATING TOP RESULT LOCATION DETAILS
-        let apiResult = {
+        let config = {
             method: 'get',
             url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname&input=${locationName}&inputtype=textquery&key=${process.env.GoogleMapsAPIkey}`),
             headers: {}
         }
 
-        console.log(JSON.stringify(apiResult.data))
+        // GOOGLE MAPS API CALL
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data))
+                resultAddress = JSON.stringify(response.formatted_address)
+                resultName = JSON.stringify(response.name)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
 
-        let resultAddress = JSON.stringify(apiResult.candidates[0].formatted_address)
-        let resultName = JSON.stringify(apiResult.candidates[0].name)
-
-
-        console.log(apiResult)
-
+            
         // GENERATE MAP WITH MARKERS
         let mapDimensions = `800x450`
         let mapType = `terrain`
