@@ -40,7 +40,7 @@ module.exports = {
         let nearestLocationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`I've found a location!`)
-            .setDescription(`**Search:** ${locationName}\n**Result:** [](resulting address)`)
+            .setDescription(`**Search:** ${locationName}\n**Result:** result address ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
             .setImage(`${encodeURI(locationImg)}`)
             .setFooter(`Click the image for a larger view`)
 
