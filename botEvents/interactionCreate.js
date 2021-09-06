@@ -118,7 +118,7 @@ module.exports = {
 
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.id}`;
-        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}.)*\n\n`
+        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}. **You can dismiss this message, and try not to press more buttons!**)*\n\n`
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
