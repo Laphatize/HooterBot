@@ -46,9 +46,39 @@ module.exports = {
             .then(function (response) {
                 console.log(JSON.stringify(response.data))
                 console.log(response.data.candidates[0])
-                console.log(response.data.candidates[0]["formatted_address"])
                 resultAddress = response.data.candidates[0]["formatted_address"]
                 resultName = response.data.candidates[0]["name"]
+                console.log(`resultAddress = ${resultAddress}`)
+                console.log(`resultName = ${resultName}`)
+                        
+
+                // GENERATE MAP WITH MARKERS
+                let mapDimensions = `800x450`
+                let mapType = `terrain`
+                let zoomLevel = `8`
+                let scaleFactor = `2`
+                let templeLatLong = `39.981279908357614,-75.15559610217116`
+                let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614,-75.15559610217116`
+                let locationMarker = `color:green%7Clabel:X%7C39.95241373896032,-75.1636000435979`
+
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?format=png&size=${mapDimensions}&center=${templeLatLong}&scale=${scaleFactor}&maptype=${mapType}&markers=${templeHomeMarker}|${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+
+
+                // GENERATING SUCCESSFUL MAP EMBED
+                let nearestLocationEmbed = new discord.MessageEmbed()
+                    .setColor(botconf.embedDarkGrey)
+                    .setTitle(`The nearest ${locationName} is...`)
+                    .setDescription(`**Result:** ${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
+                    .setImage(`${encodeURI(locationImg)}`)
+                    .setFooter(`Click the image for a larger view`)
+
+
+                // WAIT AT LEAST 1.5 SECOND TO POST
+                await wait(1500)
+
+
+                // SHARING EMBED WITH LOCATION
+                await interaction.editReply({ embeds: [nearestLocationEmbed] })
             })
             .catch(function (err) {
                 console.log(`**** GOOGLE MAPS API ERROR *****`);
@@ -65,34 +95,5 @@ module.exports = {
                 // LOG ENTRY
                 client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
             })
-
-
-        // GENERATE MAP WITH MARKERS
-        let mapDimensions = `800x450`
-        let mapType = `terrain`
-        let zoomLevel = `8`
-        let scaleFactor = `2`
-        let templeLatLong = `39.981279908357614,-75.15559610217116`
-        let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614,-75.15559610217116`
-        let locationMarker = `color:green%7Clabel:X%7C39.95241373896032,-75.1636000435979`
-
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?format=png&size=${mapDimensions}&center=${templeLatLong}&scale=${scaleFactor}&maptype=${mapType}&markers=${templeHomeMarker}|${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
-
-
-        // GENERATING SUCCESSFUL MAP EMBED
-        let nearestLocationEmbed = new discord.MessageEmbed()
-            .setColor(botconf.embedDarkGrey)
-            .setTitle(`The nearest ${locationName} is...`)
-            .setDescription(`**Result:** ${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
-            .setImage(`${encodeURI(locationImg)}`)
-            .setFooter(`Click the image for a larger view`)
-
-
-        // WAIT AT LEAST 1.5 SECOND TO POST
-        await wait(1500)
-
-
-        // SHARING EMBED WITH LOCATION
-        await interaction.editReply({ embeds: [nearestLocationEmbed] })
     }
 }
