@@ -30,12 +30,14 @@ module.exports = {
         let locationName = inputs[0]
         let resultAddress
         let resultName
+        let fieldsValues = `formatted_address,name`
+        let inputType = `textquery`
 
 
         // GENERATING TOP RESULT LOCATION DETAILS
         let config = {
             method: 'get',
-            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${locationName}&inputtype=textquery&fields=formatted_address%2Cname&key=${process.env.GoogleMapsAPIkey}`),
+            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${locationName}&inputtype=${inputType}&fields=${fieldsValues}&key=${process.env.GoogleMapsAPIkey}`),
             headers: {}
         }
 
@@ -79,7 +81,7 @@ module.exports = {
         let nearestLocationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
             .setTitle(`The nearest ${locationName} is...`)
-            .setDescription(`**Result:** ${resultName}\n${resultAddress} ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
+            .setDescription(`**Result:** ${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
             .setImage(`${encodeURI(locationImg)}`)
             .setFooter(`Click the image for a larger view`)
 
