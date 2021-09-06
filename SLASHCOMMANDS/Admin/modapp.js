@@ -166,16 +166,14 @@ module.exports = {
         // APP SUBMITTED SUCCESSFULLY AND IN FULL - FREEZE CURRENT APPLICATION CHANNEL
         if(inputs[0] == 'appconfirm') {
 
-            interaction.deferUpdate()
-
             if(!interaction.channel.name.startsWith(`modapp-`) && !interaction.channel.name.includes(`completed`) ) {
                 let notAppChEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedTempleRed)
-                        .setTitle(`${config.emjREDTICK} **Error!**`)
-                        .setDescription(`This command can only be ran in completed moderator application channels. **This application is not complete!**`)
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`This command can only be ran in completed moderator application channels. **This application is not complete!**`)
 
-                    // SENDING TO CHANNEL
-                    return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
             }
 
             // LOCKING SEND MESSAGE PERMISSION
@@ -193,6 +191,8 @@ module.exports = {
                 // LOG ENTRY
                 channel.send({ embeds: [appLocked] })
             })
+
+            interaction.reply({ content: `App confirmation added`, ephemeral: true })
         }
 
 
@@ -201,17 +201,15 @@ module.exports = {
         // APP NOT COMPLETED IN FULL - FREEZE CURRENT APPLICATION CHANNEL
         if(inputs[0] == 'appdisq') {
 
-            interaction.deferUpdate()
-
             if(!interaction.channel.name.startsWith(`modapp-`)) {
                 let notAppChEmbed = new discord.MessageEmbed()
-                .setColor(config.embedTempleRed)
-                .setTitle(`${config.emjREDTICK} **Error!**`)
-                .setDescription(`This command can only be ran in moderator application channels.`)
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`This command can only be ran in **moderator application channels**.`)
 
-            // SENDING TO CHANNEL
-            return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
-        }
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
+            }
 
             // LOCKING SEND MESSAGE PERMISSION
             interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
@@ -228,6 +226,8 @@ module.exports = {
                 // LOG ENTRY
                 channel.send({ embeds: [appLocked] })
             })
+
+            interaction.reply({ content: `App confirmation added`, ephemeral: true })
         }
     }
 }
