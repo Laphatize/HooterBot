@@ -9,7 +9,7 @@ module.exports = {
     permissions: '',
     dmUse: true,
     cooldown: 10,
-    defaultPermission: true,
+    defaultPermission: false,
     options: [
         {
             name: `place_name`,
