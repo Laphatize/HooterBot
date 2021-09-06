@@ -176,8 +176,17 @@ module.exports = {
                 return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
             }
 
+            let chNameSplit = interaction.channel.name.split(`-`)
+            let applicantUserId = chNameSplit[1]
+                
+            // UPDATE DATABASE
+            await modAppTicketSchema.findOneAndDelete({
+                USER_ID: applicantUserId
+            }).exec();
+            
+
             // LOCKING SEND MESSAGE PERMISSION
-            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+            interaction.channel.permissionOverwrites.edit(applicantUserId, {
                 SEND_MESSAGES: false,
                 ADD_REACTIONS: false,
             }).then(channel => {
@@ -211,8 +220,17 @@ module.exports = {
                 return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
             }
 
+            let chNameSplit = interaction.channel.name.split(`-`)
+            let applicantUserId = chNameSplit[1]
+                
+            // UPDATE DATABASE
+            await modAppTicketSchema.findOneAndDelete({
+                USER_ID: applicantUserId[1]
+            }).exec();
+            
+
             // LOCKING SEND MESSAGE PERMISSION
-            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+            interaction.channel.permissionOverwrites.edit(applicantUserId, {
                 SEND_MESSAGES: false,
                 ADD_REACTIONS: false,
             }).then(channel => {

@@ -33,7 +33,7 @@ module.exports = {
 
 
             // WAIT 3.5 SECONDS TO FOLLOW UP WITH NEXT RESPONSE
-            await wait(3500)
+            await wait(500)
 
 
             // SENDING QUESTION 2
@@ -147,14 +147,8 @@ module.exports = {
                     message.channel.send({ embeds: [modAppQuestionFive] })
                     .then(msg => {
                         // RENAME CHANNEL TO AVOID DB CALL ISSUES
-                        msg.channel.setName(`modapp-${message.author.username.toLowerCase()}-completed`)
+                        msg.channel.setName(`modapp-${message.author.id}-completed`)
                     })
-    
-                    // UPDATE DATABASE
-                    await modAppTicketSchema.findOneAndDelete({
-                        USERNAME: message.author.username.toLowerCase(),
-                        USER_ID: message.author.id
-                    }).exec();
                 }
         }
 
