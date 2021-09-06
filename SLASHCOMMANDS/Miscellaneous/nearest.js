@@ -54,21 +54,18 @@ module.exports = {
                         
 
                 // GENERATE MAP WITH MARKERS
-                let mapDimensions = `640x450`
-                let mapType = `roadmap`
-                let center = `39.981279908357614,-75.15559610217116`
-                let locationLatLong = `${resultLat}, ${resultLong}`
-                let templeHomeMarker = `markers=color:red%7Clabel:T%7C39.981279908357614,%20-75.15559610217116`
                 let locationMarker = `markers=color:green%7Clabel:X%7C${resultLat},%20${resultLong}`
 
-                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size800x450&visible=${center}&visible=${locationLatLong}&maptype=${mapType}&${templeHomeMarker}&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=800x450&visible=39.981279908357614,%20-75.15559610217116&visible=${resultLat},%20${resultLong}&maptype=roadmap&markers=color:red%7Clabel:T%7C39.981279908357614,%20-75.15559610217116&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+
+                console.log(`locationImg = ${locationImg}`)
 
                 // GENERATING SUCCESSFUL MAP EMBED
                 let nearestLocationEmbed = new discord.MessageEmbed()
                     .setColor(botconf.embedDarkGrey)
                     .setDescription(`**Query:** ${locationName}\n**Result:**\n${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
-                    .setImage(`${encodeURI(locationImg)}`)
-                    .setFooter(`Click the image for a larger view`)
+                    .setImage(`${locationImg}`)
+                    .setFooter(`Click the image for a larger view | NOTE: Results may be wonky sometimes, thank the Google API for that.`)
 
 
                 // WAIT AT LEAST 1.5 SECOND TO POST
