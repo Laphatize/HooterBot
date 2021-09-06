@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const { MessageActionRow, MessageButton } = require('discord.js');
 const moment = require('moment');
-
+const modAppTicketSchema = require('../../Database/modappSchema')
 
 module.exports = {
     name: 'modapp',
