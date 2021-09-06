@@ -425,14 +425,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -494,8 +494,8 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === `verify-${dbTicketData.CREATOR_NAME}-id-${dbTicketData.CREATOR_ID}`)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dmUserId}`});
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
                 }
 
 
@@ -547,14 +547,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -797,8 +797,8 @@ module.exports = {
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
-                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === `verify-${dbTicketData.CREATOR_NAME}-id-${dbTicketData.CREATOR_ID}`)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dmUserId}`});
+                if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
+                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
                 }
 
 
@@ -1030,14 +1030,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1115,14 +1115,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1194,19 +1194,20 @@ module.exports = {
                 
                 await interaction.deferUpdate()
 
+
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1278,19 +1279,20 @@ module.exports = {
                 
                 await interaction.deferUpdate()
 
+
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1363,19 +1365,20 @@ module.exports = {
                 
                 await interaction.deferUpdate()
 
+
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
                 
 
@@ -1383,8 +1386,8 @@ module.exports = {
                 let MoreInfoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Collected Data**`)
-                    .setDescription(`The following information is collected by the bot when you create a ticket:`)
-                    .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple server.\n • Guild Name = the name of the Temple server (where you created the ticket).\n • Channel ID = a string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.\n`)
+                    .setDescription(`The following information is collected by the bot when you created this ticket:`)
+                    .addField(`SERVER INFO:`, ` • Guild ID = An 18-digit number representing the Temple University server.\n • Guild Name = the name of the Temple University server (where you created the ticket).\n • Channel ID = a string of numbers representing a channel in the Temple University server where mods/admins oversee ticket progress.\n`)
                     .addField(`USER INFO:`, ` • Your username = \`\`${interaction.user.username}\`\`\n • Your User ID = \`\`${interaction.user.id}\`\``)
                     .addField(`BOT INFO:`, ` • DM Message IDs = the ID's of the individual DM messages ${config.botName} sends during verification *(like this one!)*`)
                     .addField(`MISCELLANEOUS:`, ` • \_id = A randomly-generated identifier created and controlled by the database.\n• Ticket Close Date = The day the ticket is scheduled to automatically close\n• Creation Date = The day/time you created the ticket.\n• Updated Date = When the database entry was last modified by the bot.\n\n\nThis is a screenshot from the database showing an example of data collected by the bot when creating a ticket:`)
@@ -1448,19 +1451,20 @@ module.exports = {
                 
                 await interaction.deferUpdate()
 
+
                 // GRAB DATABASE ENTRY
                 const dbTicketData = await ticketSchema.findOne({
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel doesn't exist for ID: ${dbTicketData.CREATOR_ID}`});
+                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1498,25 +1502,25 @@ module.exports = {
                 let DataPrivacyEphemeralEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Collected Data**`)
-                    .setDescription(`The bot temporarily collects the following information to function:`)
-                    .addField(`Guild ID`, `An 18-digit number identifying the Temple server on Discord.`)
-                    .addField(`Guild Name`, `The name of the Temple server.`)
-                    .addField(`Channel ID`, `A string of numbers representing a channel in the Temple server where mods/admins oversee ticket progress.`)
-                    .addField(`Your username`, `\`\`${interaction.user.username}\`\``)
+                    .setDescription(`The bot collects the following information during the duration of the ticket:`)
+                    .addField(`Guild ID`, `An 18-digit number identifying the Temple University server on Discord.`)
+                    .addField(`Guild Name`, `The name of the Temple University server.`)
+                    .addField(`Channel ID`, `A string of numbers representing a channel in the Temple University server where mods/admins oversee ticket progress.`)
+                    .addField(`Your Username`, `\`\`${interaction.user.username}\`\``)
                     .addField(`Your User ID`, `\`\`${interaction.user.id}\`\``)
-                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process. (Users' messages are never stored)`)
-                    .addField(`Creation Date`, `The day/time you created the ticket.`)
+                    .addField(`DM Message IDs`, `Identifiers for the DM messages ${config.botName} sends during the verification process. (Neither message content nor attachments are ever stored)`)
+                    .addField(`Creation Date`, `The day and time you created the ticket.`)
 
                 let DataCollectedEphemeralEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
                     .setTitle(`**Data & Privacy**`)
                     .addField(`Where is the information stored?`, `In a remote and secured [MongoDB database](https://www.mongodb.com/).`)
-                    .addField(`Who has access to the database?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify database information. Moderators and admins have access to view and inspect the database.`)
-                    .addField(`How is the data used?`, `*No information is sold or shared.* Data is only collected temporarily and used by ${config.botName} to keep it's ticketing functions operational over the week-long duration of a ticket.`)
-                    .addField(`What happens when my ticket is closed/completed?`, `All the data the bot has stored in the database is purged automatically ([view code](https://github.com/MrMusicMan789/HooterBot/blob/main/botEvents/interactionCreate.js#L671)). Nothing is saved by the bot.`)
+                    .addField(`Who has access to the database information?`, `${config.botName} and ${config.botAuthorUsername} are the only users who can modify database information. Moderators and admins have been provided credentials to view and inspect the database.`)
+                    .addField(`How is the data used?`, `*No information is sold or shared.* This data is collected temporarily so ${config.botName} can maintain ticket functionality for the duration of a ticket.`)
+                    .addField(`When is the data deleted?`, `${config.botName} purges database entries automatically when tickets are closed ([view code](https://github.com/MrMusicMan789/HooterBot/blob/main/botEvents/interactionCreate.js#L698)), regardless if initiated by the user, server staff, or from ${config.botName}. No ticket data is permanently stored by the bot.`)
                     .addField(`How do I know nothing malicious is going on?`, `${config.botAuthorUsername} follows [Discord's Developer Policies](https://discord.com/developers/docs/legal) and invites you to check out all the source code for the bot on the [public GitHub repository](${pjson.repository.url.split(`+`).pop()}).`)
-                    .addField(`What if I do not want to share information with the bot?`, `While the information ${config.botName} stores is basic and public information on Discord, **do not create a verification ticket** if you wish to not share this information.`)
-                    .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions.`)
+                    .addField(`What if I do not want to share this information with the bot?`, `Though the information ${config.botName} stores is basic and public information on Discord that any user can obtain, **please do not create a verification ticket** if you do not wish to share this information.`)
+                    .addField(`Still have questions?`, `Please create a <@${config.ModMailId}> ticket and ${config.botAuthorUsername} will be happy to answer your questions to your satisfaction!`)
                 
                 
                 await interaction.reply({
@@ -1548,7 +1552,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1803,7 +1807,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dbTicketData.CREATOR_ID}`});
+                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
