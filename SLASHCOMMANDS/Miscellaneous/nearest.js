@@ -27,7 +27,7 @@ module.exports = {
 
         let locationName = inputs[0]
 
-        let mapDimensions = `1600x900`
+        let mapDimensions = `800x450`
         let mapType = `roadmap`
         let mapZoomLevel = `auto`
         let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116`
