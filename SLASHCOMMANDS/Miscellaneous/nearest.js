@@ -43,7 +43,7 @@ module.exports = {
 
         // GOOGLE MAPS API CALL
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 console.log(JSON.stringify(response.data))
                 console.log(response.data.candidates[0])
                 resultAddress = response.data.candidates[0]["formatted_address"]
