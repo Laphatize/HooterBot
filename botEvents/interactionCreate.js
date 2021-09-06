@@ -118,7 +118,7 @@ module.exports = {
 
         // TICKET CHANNEL NAME
         let ticketChannelName = `verify-${interaction.user.id}`;
-        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}.)\n\n\`\`Error:*`
+        let errorAppend = `*(Hmmm... ${config.botName} must've made a misstep closing this verification ticket earlier. Unless this ticket is supposed to be active/open, there's no need to inform ${config.botAuthorUsername}.)\n\n`
 
 
         // IGNORNING NON-BUTTON INTERACTIONS
@@ -426,14 +426,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -489,14 +489,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend} DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.channel.send({content: `${errorAppend} Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                    return interaction.channel.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 }
 
 
@@ -548,14 +548,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -792,14 +792,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend} DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.channel.send({content: `${errorAppend} Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                    return interaction.channel.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 }
 
 
@@ -1031,14 +1031,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -1116,14 +1116,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -1201,14 +1201,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -1286,14 +1286,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -1372,14 +1372,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
                 
 
@@ -1458,14 +1458,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.user.send({content: `${errorAppend} DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.user.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.user.send({content: `${errorAppend} Active ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
+                    return interaction.user.send({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${interaction.user.id}\`\``, ephemeral: true });
                 }
 
 
@@ -1553,7 +1553,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend} DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1808,7 +1808,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend} DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
+                if(!dbTicketData) return interaction.channel.send({content: `${errorAppend}\`\`Error: DB entry not found for ID: ${dmUserId}\`\``, ephemeral: true });
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
