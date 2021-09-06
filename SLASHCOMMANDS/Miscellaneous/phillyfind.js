@@ -28,8 +28,8 @@ module.exports = {
             let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
 
             let wrongChannel = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setColor(botconf.embedRed)
+                .setTitle(`${botconf.emjREDTICK} Sorry!`)
                 .setDescription(`This command can only be run in <#${botSpamChannel.id}>. Head there and try again!`)
 
             // POST EMBED
