@@ -425,14 +425,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -488,14 +488,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
+                if(!dbTicketData) return interaction.channel.send({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
+                    return interaction.channel.send({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
                 }
 
 
@@ -547,14 +547,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -791,14 +791,14 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
+                if(!dbTicketData) return interaction.channel.send({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
+                    return interaction.channel.send({content: `${config.emjERROR} Active ticket channel not found for ID: ${dmUserId}`});
                 }
 
 
@@ -1030,14 +1030,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1115,14 +1115,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1200,14 +1200,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1285,14 +1285,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1371,14 +1371,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Ticket channel not found for ID: ${interaction.user.id}`});
                 }
                 
 
@@ -1457,14 +1457,14 @@ module.exports = {
                     CREATOR_ID: interaction.user.id
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
+                if(!dbTicketData) return interaction.user.send({content: `${config.emjERROR} DB entry not found for ID: ${interaction.user.id}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
                 // IF TICKET CHANNEL DOESN'T EXIST, RETURN
                 if (!guild.channels.cache.find(ch => ch.name.toLowerCase() === ticketChannelName)) {
-                    return interaction.reply({content: `${config.emjERROR} Active ticket channel not found for ID: ${interaction.user.id}`});
+                    return interaction.user.send({content: `${config.emjERROR} Active ticket channel not found for ID: ${interaction.user.id}`});
                 }
 
 
@@ -1552,7 +1552,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
+                if(!dbTicketData) return interaction.channel.send({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
@@ -1807,7 +1807,7 @@ module.exports = {
                     CREATOR_ID: dmUserId
                 }).exec();
 
-                if(!dbTicketData) return interaction.reply({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
+                if(!dbTicketData) return interaction.channel.send({content: `${config.emjERROR} DB entry not found for ID: ${dmUserId}`});
                 
                 // GET GUILD OF TICKET
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
