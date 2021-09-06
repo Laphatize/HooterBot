@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const config = require ('../../config.json')
+const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 const axios = require('axios');
 
@@ -55,8 +55,8 @@ module.exports = {
                 
                 // DEFINING LOG EMBED
                 let logErrEmbed = new discord.MessageEmbed()
-                    .setColor(config.embedDarkBlue)
-                    .setTitle(`${config.emjERROR} An error has occurred with the Google Maps API`)
+                    .setColor(botconf.embedDarkBlue)
+                    .setTitle(`${botconf.emjERROR} An error has occurred with the Google Maps API`)
                     .setDescription(`\`\`\`${err}\`\`\``)
                     .setTimestamp()
                 
@@ -79,7 +79,7 @@ module.exports = {
 
         // GENERATING SUCCESSFUL MAP EMBED
         let nearestLocationEmbed = new discord.MessageEmbed()
-            .setColor(config.embedDarkGrey)
+            .setColor(botconf.embedDarkGrey)
             .setTitle(`The nearest ${locationName} is...`)
             .setDescription(`**Result:** ${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
             .setImage(`${encodeURI(locationImg)}`)
