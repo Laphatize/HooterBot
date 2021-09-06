@@ -54,22 +54,19 @@ module.exports = {
                         
 
                 // GENERATE MAP WITH MARKERS
-                let mapDimensions = `1280x900`
+                let mapDimensions = `640x450`
                 let mapType = `roadmap`
-                let scaleFactor = `2`
                 let center = `39.981279908357614,-75.15559610217116`
                 let locationLatLong = `${resultLat}, ${resultLong}`
-                let templeHomeMarker = `markers=color:red%7Clabel:T%7C39.981279908357614,-75.15559610217116`
-                let locationMarker = `markers=color:green%7Clabel:X%7C${resultLat},${resultLong}`
+                let templeHomeMarker = `markers=color:red%7Clabel:T%7C39.981279908357614,%20-75.15559610217116`
+                let locationMarker = `markers=color:green%7Clabel:X%7C${resultLat},%20${resultLong}`
 
-                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?visible=${center}&visible=${locationLatLong}&size=${mapDimensions}&maptype=${mapType}&scale=${scaleFactor}&${templeHomeMarker}&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
-
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size800x450&visible=${center}&visible=${locationLatLong}&maptype=${mapType}&${templeHomeMarker}&${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
 
                 // GENERATING SUCCESSFUL MAP EMBED
                 let nearestLocationEmbed = new discord.MessageEmbed()
                     .setColor(botconf.embedDarkGrey)
-                    .setTitle(`The nearest ${locationName} is...`)
-                    .setDescription(`**Result:** ${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
+                    .setDescription(`**Query:** ${locationName}\n**Result:**\n${resultName}\n${resultAddress}\n([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
                     .setImage(`${encodeURI(locationImg)}`)
                     .setFooter(`Click the image for a larger view`)
 
