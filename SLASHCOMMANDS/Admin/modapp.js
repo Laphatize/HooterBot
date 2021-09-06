@@ -86,7 +86,7 @@ module.exports = {
                             \n${config.indent}(Not required, but **past moderating experience on Discord** is a plus)
                             \n\nIf you want to apply, click the button below to open an application ticket in the server. HooterBot will ping you in the channel to complete your application.
                             \n*Be sure to answer all questions by the deadline as incomplete applications will not be considered!*
-                        \n\n**APPLICATION DEADLINE: <t:${moment().startOf('day').add(7, 'days').utcOffset(-4).unix()}:R> **`)
+                        \n\n**APPLICATION DEADLINE: <t:${moment().startOf('day').add(7, 'days').subtract(1, 'minutes').utcOffset(-4).unix()}:R> **`)
 
 
                     let ApplyButton = new MessageButton()
