@@ -63,7 +63,7 @@ module.exports = {
 
                 let markerList = `markers=${templeHomeMarker}&markers=${locationMarker}`
 
-                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapDimensions}&maptype=${mapType}&scale=${scaleFactor}&${markerList}&key=${process.env.GoogleMapsAPIkey}`
+                let locationImg = `https://maps.googleapis.com/maps/api/staticmap?visible=${center}&size=${mapDimensions}&maptype=${mapType}&scale=${scaleFactor}&${markerList}&key=${process.env.GoogleMapsAPIkey}`
 
 
                 // GENERATING SUCCESSFUL MAP EMBED
