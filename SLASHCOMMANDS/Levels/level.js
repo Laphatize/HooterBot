@@ -60,7 +60,7 @@ module.exports = {
                 // CREATING EMBED FOR RESPONSE        
                 let infoEmbed = new discord.MessageEmbed()
                     .setColor(config.embedGrey)
-                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic:true }))
+                    .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ dynamic:true }))
                     .addField(`LEVEL:`, `${selfUser.level}`, true)
                     .addField(`TOTAL XP:`, `${selfUser.xp}`, true)
                     .addField(`LEADERBOARD:`, `#${selfUser.position}`)
@@ -98,7 +98,7 @@ module.exports = {
                         // CREATING EMBED FOR RESPONSE        
                         let infoEmbed = new discord.MessageEmbed()
                             .setColor(config.embedGrey)
-                            .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic:true }))
+                            .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic:true }))
                             .addField(`LEVEL:`, `${targetUser.level}`, true)
                             .addField(`TOTAL XP`, `${targetUser.xp}`, true)
                             .addField(`LEADERBOARD:`, `#${targetUser.position}`)
