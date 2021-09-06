@@ -35,7 +35,7 @@ module.exports = {
         // GENERATING TOP RESULT LOCATION DETAILS
         let config = {
             method: 'get',
-            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname&input=${locationName}&inputtype=textquery&key=${process.env.GoogleMapsAPIkey}`),
+            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${locationName}&inputtype=textquery&fields=formatted_address%2Cname&key=${process.env.GoogleMapsAPIkey}`),
             headers: {}
         }
 
@@ -46,11 +46,23 @@ module.exports = {
                 resultAddress = JSON.stringify(response.formatted_address)
                 resultName = JSON.stringify(response.name)
             })
-            .catch(function (error) {
-                console.log(error)
+            .catch(function (err) {
+                console.log(`**** GOOGLE MAPS API ERROR *****`);
+                console.log(err);
+                console.log(`********************************\n`);
+                
+                // DEFINING LOG EMBED
+                let logErrEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGrey)
+                    .setTitle(`${config.emjERROR} An error has occurred with the Google Maps API`)
+                    .setDescription(`\`\`\`${err}\`\`\``)
+                    .setTimestamp()
+                
+                // LOG ENTRY
+                client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed], content: `<@${config.botAuthorId}>` })
             })
 
-            
+
         // GENERATE MAP WITH MARKERS
         let mapDimensions = `800x450`
         let mapType = `terrain`
@@ -66,8 +78,8 @@ module.exports = {
         // GENERATING SUCCESSFUL MAP EMBED
         let nearestLocationEmbed = new discord.MessageEmbed()
             .setColor(config.embedDarkGrey)
-            .setTitle(`I've found a location!`)
-            .setDescription(`**Search:** ${locationName}\n**Result:** ${resultName}\n${resultAddress} ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
+            .setTitle(`The nearest ${locationName} is...`)
+            .setDescription(`**Result:** ${resultName}\n${resultAddress} ([Google Maps link](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))`)
             .setImage(`${encodeURI(locationImg)}`)
             .setFooter(`Click the image for a larger view`)
 

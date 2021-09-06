@@ -126,7 +126,6 @@ client.on('ready', async () => {
     let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
     let channelSC = cmds.find(c => c.name === `channel`)
     let modappSC = cmds.find(c => c.name === `modapp`) 
-    let nearestSC = cmds.find(c => c.name === `nearest`) 
 
 
     // SETTING PERMISSIONS
