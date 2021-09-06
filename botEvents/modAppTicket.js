@@ -82,7 +82,7 @@ module.exports = {
                     {
                         // EVERYONE ROLE - HIDE
                         id: interaction.guild.roles.everyone.id,
-                        deny: [`VIEW_CHANNEL`, `USE_PUBLIC_THREADS`, `USE_PRIVATE_THREADS`]
+                        deny: [`VIEW_CHANNEL`, `USE_PUBLIC_THREADS`, `USE_PRIVATE_THREADS`, `ATTACH_FILES`]
                     },{
                         // ADMINS - VIEW AND RESPOND
                         id: adminRole.id,
@@ -90,7 +90,7 @@ module.exports = {
                     },{
                         // USER - VIEW AND RESPOND
                         id: interaction.user.id,
-                        allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`]
+                        allow: [`VIEW_CHANNEL`, `SEND_MESSAGES`],
                     },{
                         // HOOTERBOT ROLE - VIEW AND RESPOND
                         id: botRole.id,

@@ -20,6 +20,12 @@ module.exports = {
                 },{
                     name: `close`,
                     value: `close`,
+                },{
+                    name: `appconfirm`,
+                    value: `appconfirm`
+                },{
+                    name: `appdisq`,
+                    value: `appdisq`
                 }
             ]
         }
@@ -31,7 +37,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
 
-        // OPEN APPS
+        // OPEN APP PROMPT
         if(inputs[0] == 'open') {
 
             let adminRole = interaction.guild.roles.cache.find((role) => role.name.toLowerCase() == 'admin');
@@ -117,7 +123,7 @@ module.exports = {
 
 
 
-        // OPEN APPS
+        // CLOSE APP PROMPT
         if(inputs[0] == 'close') {
 
             let modAppNoticeChannel
@@ -139,7 +145,7 @@ module.exports = {
             let appNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`**Moderator Applications Are Now Closed**`)
-                .setDescription(`Thank you to everyone who has applied. We will begin reviewing your applications and will announce the new moderators soon.`)
+                .setDescription(`Thank you to all who applied. We will begin reviewing your applications and will announce the new moderators soon.`)
 
             await modAppNoticeChannel.send({ embeds: [appNoticeEmbed] })
 
@@ -152,6 +158,72 @@ module.exports = {
 
             // SENDING TO CHANNEL
             return interaction.reply({ embeds: [closeConfirmEmbed], ephemeral: true })
-        }                        
+        }
+        
+
+
+
+        // APP SUBMITTED SUCCESSFULLY AND IN FULL - FREEZE CURRENT APPLICATION CHANNEL
+        if(inputs[0] == 'appconfirm') {
+
+            if(!interaction.channel.name.startsWith(`modapp-`) && !interaction.channel.name.includes(`completed`) ) {
+                let notAppChEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedTempleRed)
+                        .setTitle(`${config.emjREDTICK} **Error!**`)
+                        .setDescription(`This command can only be ran in completed moderator application channels. **This application is not complete!**`)
+
+                    // SENDING TO CHANNEL
+                    return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
+            }
+
+            // LOCKING SEND MESSAGE PERMISSION
+            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false,
+            }).then(channel => {
+
+                // CONFIRMATION EMBED
+                let appLocked = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Application Successfully Submitted`)
+                    .setDescription(`This is confirmation that your application has been submitted successfully!\n\nThank you for taking the time to complete this application and for volunteering to help the Temple University server.\n\nThe admins will begin reviewing applications shortly and will announce the new moderator(s) in <#829414138794213397> once a decision has been made.`)
+
+                // LOG ENTRY
+                channel.send({ embeds: [appLocked] })
+            })
+        }
+
+
+
+
+        // APP NOT COMPLETED IN FULL - FREEZE CURRENT APPLICATION CHANNEL
+        if(inputs[0] == 'appdisq') {
+
+            if(!interaction.channel.name.startsWith(`modapp-`)) {
+                let notAppChEmbed = new discord.MessageEmbed()
+                .setColor(config.embedTempleRed)
+                .setTitle(`${config.emjREDTICK} **Error!**`)
+                .setDescription(`This command can only be ran in moderator application channels.`)
+
+            // SENDING TO CHANNEL
+            return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
+        }
+
+            // LOCKING SEND MESSAGE PERMISSION
+            interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false,
+            }).then(channel => {
+
+                // CONFIRMATION EMBED
+                let appLocked = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Application Not Successfully Submitted`)
+                    .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider this application.`)
+
+                // LOG ENTRY
+                channel.send({ embeds: [appLocked] })
+            })
+        }
     }
 }

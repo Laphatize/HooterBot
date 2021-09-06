@@ -142,7 +142,7 @@ module.exports = {
                     let modAppQuestionFive = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Application Complete:`)
-                        .setDescription(`Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave your questions below.\nOnce the application window closes, the admins will review all applications and announce the new moderator(s).`)
+                        .setDescription(`Thank you for applying. If you have any questions for the admins about becoming a moderator, please leave them below.\nOnce the application window closes, the admins will review all applications and announce the new moderator(s).`)
     
                     message.channel.send({ embeds: [modAppQuestionFive] })
                     .then(msg => {
@@ -401,9 +401,9 @@ module.exports = {
             || message.channel.name === `💩｜shitposting`
             || message.channel.name === `🎵｜music-commands`
             || message.channel.name === `🔇｜no-mic`
-            || message.channel.name.startsWith(`'verify-`)
-            || message.channel.name.startsWith(`'closed-`)
-            || message.channel.name.startsWith(`'archived-`)
+            || message.channel.name.startsWith(`verify-`)
+            || message.channel.name.startsWith(`closed-`)
+            || message.channel.name.startsWith(`archived-`)
             || message.author.bot
         ) {
             return;
