@@ -6,7 +6,7 @@ const axios = require('axios');
 
 module.exports = {
     name: 'nearest',
-    description: `[DEVELOPING] Search for the nearest (query) location from main campus using Google Maps. [10s]`,
+    description: `Search for the nearest (query) location from main campus using the Google Maps API. [10s]`,
     permissions: '',
     dmUse: true,
     cooldown: 10,
@@ -36,21 +36,17 @@ module.exports = {
         // GENERATING TOP RESULT LOCATION DETAILS
         let config = {
             method: 'get',
-            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${locationName}&inputtype=${inputType}&fields=${fieldsValues}&key=${process.env.GoogleMapsAPIkey}`),
+            url: encodeURI(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=philadelphia-${locationName}&inputtype=${inputType}&fields=${fieldsValues}&key=${process.env.GoogleMapsAPIkey}`),
             headers: {}
         }
 
         // GOOGLE MAPS API CALL
         axios(config)
             .then(async function (response) {
-                console.log(JSON.stringify(response.data))
-                console.log(response.data.candidates[0])
                 resultAddress = response.data.candidates[0]["formatted_address"]
                 resultName = response.data.candidates[0]["name"]
                 resultLat = response.data.candidates[0]["geometry"].location.lat
                 resultLong = response.data.candidates[0]["geometry"].location.lng
-                console.log(`resultAddress = ${resultAddress}`)
-                console.log(`resultName = ${resultName}`)
                         
 
                 // GENERATE MAP WITH MARKERS
