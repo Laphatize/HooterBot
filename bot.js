@@ -259,13 +259,6 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
-        },{
-            id: nearestSC.id,     // COMMAND: /nearest
-            permissions: [{
-                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-                type: 'USER',
-                permission: true,
-            }]
         }
     ];
     

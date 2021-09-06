@@ -9,7 +9,7 @@ module.exports = {
     permissions: '',
     dmUse: true,
     cooldown: 10,
-    defaultPermission: false,
+    defaultPermission: true,
     options: [
         {
             name: `place_name`,
@@ -28,11 +28,11 @@ module.exports = {
         let locationName = inputs[0]
 
         let mapDimensions = `800x450`
-        let mapType = `roadmap`
+        let mapType = `terrain`
         let templeHomeMarker = `color:red%7Clabel:T%7C39.981279908357614, -75.15559610217116`
         let locationMarker = `color:green%7Clabel:X%7C39.95241373896032, -75.1636000435979`
 
-        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=${mapDimensions}&maptype=${mapType}&markers=${templeHomeMarker}&markers=${locationMarker}&visible=${templeHomeMarker}&visible=${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
+        let locationImg = `https://maps.googleapis.com/maps/api/staticmap?size=${mapDimensions}&maptype=${mapType}&markers=${templeHomeMarker}&markers=${locationMarker}&key=${process.env.GoogleMapsAPIkey}`
 
 
         // GENERATING SUCCESSFUL MAP EMBED
