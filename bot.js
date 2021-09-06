@@ -769,7 +769,7 @@ cron.schedule('00 32 10 * * *', async () => {
                             if(dbTicketData[i].DM_2NDMSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                dmCh.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
+                                ch.messages.fetch(dbTicketData[i].DM_2NDMSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
@@ -780,7 +780,7 @@ cron.schedule('00 32 10 * * *', async () => {
                             if(dbTicketData[i].REMINDER1_MSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                dmCh.messages.fetch(dbTicketData[i].REMINDER1_MSG_ID)
+                                ch.messages.fetch(dbTicketData[i].REMINDER1_MSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
@@ -792,7 +792,7 @@ cron.schedule('00 32 10 * * *', async () => {
                             if(dbTicketData[i].REMINDER2_MSG_ID) {
                                                             
                                 // FETCH MESSAGE BY ID
-                                dmCh.messages.fetch(dbTicketData[i].REMINDER2_MSG_ID)
+                                ch.messages.fetch(dbTicketData[i].REMINDER2_MSG_ID)
                                     .then(msg => {
                                         setTimeout(() => msg.delete(), 0 );
                                     })
