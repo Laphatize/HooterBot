@@ -22,7 +22,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
 
         // DEFERRING
-        interaction.deferReply()
+        await interaction.deferReply()
 
 
         let locationName = inputs[0]
@@ -42,10 +42,10 @@ module.exports = {
 
 
         // WAIT AT LEAST 1 SECOND TO POST
-        wait(1000)
+        await wait(1000)
 
 
         // SHARING EMBED WITH LOCATION
-        interaction.editReply({ embeds: [nearestLocationEmbed] })
+        await interaction.editReply({ embeds: [nearestLocationEmbed] })
     }
 }
