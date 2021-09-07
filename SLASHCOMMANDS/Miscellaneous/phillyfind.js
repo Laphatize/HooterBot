@@ -66,10 +66,10 @@ module.exports = {
                         .setColor(botconf.embedRed)
                         .setTitle(`${botconf.emjREDTICK} Sorry!`)
                         .setDescription(`An entry for \`\`${locationName}\`\` could not be found. Try a different name!`)
-                    return interaction.reply({ embeds: [noResultEmbed], ephemeral: true })
+                    return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
                 }
 
-                
+
                 resultAddress = response.data.candidates[0]["formatted_address"]
                 resultName = response.data.candidates[0]["name"]
                 resultLat = response.data.candidates[0]["geometry"].location.lat
