@@ -60,60 +60,55 @@ module.exports = {
         /***************************************/
         if(weatherType == 'current') {
 
-            // FETCHING WEATHER
-            let config = {
-                method: 'get',
-                url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&aqi=yes`),
-                headers: {}
-            }
+
 
             // GOOGLE MAPS API CALL
-            axios(config)
-                .then(async function(err, result) {
-                    await wait(500)
+            fetch(`https://api.weatherapi.com/v1/current.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&aqi=yes`)
+            .then(response => response.json())
+            .then(data => console.log(`\n\nWEATHER API DATA:\n${data}\n\n`))
+            .catch(err => {
+                // WEATHER LOAD ERROR
+                let weatherFetchErrEmbed = new discord.MessageEmbed()
+                    .setColor(botconf.embedRed)
+                    .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                    .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
+                await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
 
-                    // WEATHER LOAD ERROR
-                    if(err) {
-                        // DEFINING ERROR EMBED
-                        let weatherFetchErrEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedRed)
-                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-                        await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
-
-                        console.log(`****** WEATHER API ERROR ******`);
-                        console.log(err);
-                        console.log(`********************************\n`);
-                        
-                        // DEFINING LOG EMBED
-                        let logErrEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedGrey)
-                            .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
-                            .setDescription(`\`\`\`${err}\`\`\``)
-                            .setTimestamp()
-                        
-                        // LOG ENTRY
-                        return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
-                    }
-
-                    currentWeather = result.data.current
+                console.log(`****** WEATHER API ERROR ******`);
+                console.log(err);
+                console.log(`********************************\n`);
+                
+                // DEFINING LOG EMBED
+                let logErrEmbed = new discord.MessageEmbed()
+                    .setColor(botconf.embedGrey)
+                    .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
+                    .setDescription(`\`\`\`${err}\`\`\``)
+                    .setTimestamp()
+                
+                // LOG ENTRY
+                return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
+            })
 
 
-                    let { condition } = currentWeather
-
-                    console.log(JSON.stringify(result.data, null, 5));
 
 
-                    // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
-                    if(result === undefined || result.length === 0) {
+                    // await wait(500)
 
-                        // DEFINING ERROR EMBED
-                        let noResultEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedRed)
-                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I'm having trouble locating a weather report for Philly right now. Please try again in a little while.`)
-                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-                    }
+                    // currentWeather = result.data.current
+
+                    // console.log(`\n\nWEATHER API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER API DATA)\n\n`);
+
+
+                    // // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
+                    // if(result === undefined || result.length === 0) {
+
+                    //     // DEFINING ERROR EMBED
+                    //     let noResultEmbed = new discord.MessageEmbed()
+                    //         .setColor(botconf.embedRed)
+                    //         .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                    //         .setDescription(`I'm having trouble locating a weather report for Philly right now. Please try again in a little while.`)
+                    //     return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+                    // }
 
 
                     // // WEATHER VALUES
@@ -137,7 +132,7 @@ module.exports = {
 
                     // // SHARING EMBED WITH LOCATION
                     // await interaction.editReply({ embeds: [nearestLocationEmbed] })
-                })
+                // })
         }
 
 
