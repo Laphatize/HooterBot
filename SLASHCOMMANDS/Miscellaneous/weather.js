@@ -78,9 +78,10 @@ module.exports = {
             axios(config)
                 .then(function (response) {
                     
+                    const { location } = response
+
                     console.log(`response = ${response}`)
-                    console.log(`response[0] = ${response[0]}`)
-                    console.log(`response.location = ${response.location}`)
+                    console.log(`location = ${location}`)
 
                     // await wait(500)
 
