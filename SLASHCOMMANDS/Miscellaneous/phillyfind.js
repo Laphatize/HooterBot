@@ -58,6 +58,18 @@ module.exports = {
         // GOOGLE MAPS API CALL
         axios(config)
             .then(async function (response) {
+                
+                await wait(500)
+
+                if(!response.data.candidates[0]) {
+                    let noResultEmbed = new discord.MessageEmbed()
+                        .setColor(botconf.embedRed)
+                        .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                        .setDescription(`An entry for \`\`${locationName}\`\` could not be found. Try a different name!`)
+                    return interaction.reply({ embeds: [noResultEmbed], ephemeral: true })
+                }
+
+                
                 resultAddress = response.data.candidates[0]["formatted_address"]
                 resultName = response.data.candidates[0]["name"]
                 resultLat = response.data.candidates[0]["geometry"].location.lat
