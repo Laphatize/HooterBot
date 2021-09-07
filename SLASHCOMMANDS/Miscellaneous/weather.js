@@ -77,12 +77,11 @@ module.exports = {
 
             // WEATHER API CALL
             axios(config)
-                .then(function (response) {
+                .then(async function (response) {
 
+                    await wait (500)
 
                     console.log(`response = ${response}`)
-
-                    // await wait(500)
 
                     // if(!response["location"]) {
                     //     let noResultEmbed = new discord.MessageEmbed()
