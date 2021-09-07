@@ -97,8 +97,8 @@ module.exports = {
                     let nearestLocationEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embed)
                         .setTitle(`Current Philadelphia Weather`)
-                        .setThumbnail(encodeURI(result.current.condition.icon))
-                        .addField(`Current:`, `${result.current.condition.text}`, true)
+                        .setThumbnail(encodeURI(result.current["condition"]["icon"]))
+                        .addField(`Current:`, `${result.current["condition"]["text"]}`, true)
                         .addField(`\u200b:`, `\u200b`, true)
                         .addField(`\u200b:`, `\u200b`, true)
                         .setFooter(`Powered by Weather API | Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
@@ -108,13 +108,14 @@ module.exports = {
                     await interaction.editReply({ embeds: [nearestLocationEmbed] })
                 })
                 .catch(err => {
-                    // WEATHER LOAD ERROR
+                    // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedRed)
                         .setTitle(`${botconf.emjREDTICK} Sorry!`)
                         .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
                     interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
 
+                    // LOG
                     console.log(`****** WEATHER API ERROR ******`);
                     console.log(err);
                     console.log(`********************************\n`);
