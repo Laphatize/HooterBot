@@ -72,7 +72,7 @@ module.exports = {
                     .setColor(botconf.embedRed)
                     .setTitle(`${botconf.emjREDTICK} Sorry!`)
                     .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-                await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
+                interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
 
                 console.log(`****** WEATHER API ERROR ******`);
                 console.log(err);
