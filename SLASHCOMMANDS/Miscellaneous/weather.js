@@ -80,9 +80,11 @@ module.exports = {
                     
                     await wait(500)
 
-                    console.log(JSON.stringify(response))
+                    const weatherResult = response.json()
 
-                    if(!response["location"]) {
+                    console.log(`weatherResult = ${weatherResult}`)
+
+                    if(!weatherResult["location"]) {
                         let noResultEmbed = new discord.MessageEmbed()
                             .setColor(botconf.embedRed)
                             .setTitle(`${botconf.emjREDTICK} Sorry!`)
@@ -91,8 +93,8 @@ module.exports = {
                     }
 
 
-                    mainForecast = response["current"]["condition"]
-                    mainIcon = response["current"]["icon"]
+                    mainForecast = weatherResult["current"]["condition"]
+                    mainIcon = weatherResult["current"]["icon"]
 
                     console.log(`mainForecast = ${mainForecast}`)
                     console.log(`mainIcon = ${mainIcon}`)
@@ -148,17 +150,10 @@ module.exports = {
 
             await wait(500)
 
-            // WEATHER API CALL
-            axios(config)
-                .then(async function (response) {
-                    if(!response["current"]) {
-                        let noResultEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedRed)
-                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I'm having trouble grabbing the weather forecast for Philly right now. Please try again in a little while.`)
-                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-                    }
-                })
+
+
+
+            
         }
     }
 }
