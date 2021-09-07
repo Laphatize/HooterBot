@@ -96,7 +96,7 @@ module.exports = {
                         return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
                     }
 
-                    currentWeather = result['current']
+                    currentWeather = result.data.current
 
                     console.log(JSON.stringify(result, null, 2));
 
