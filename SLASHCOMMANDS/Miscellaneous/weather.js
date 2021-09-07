@@ -1,7 +1,6 @@
 const discord = require('discord.js');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
-const weather = require('weather-js');
 
 
 module.exports = {
