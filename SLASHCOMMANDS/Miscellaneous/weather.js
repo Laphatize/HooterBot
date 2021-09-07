@@ -80,7 +80,7 @@ module.exports = {
                     
                     await wait(500)
 
-                    response.json().then(data => {
+                    response.json().then(async data => {
 
                         console.log(`data = ${data}`)
 
