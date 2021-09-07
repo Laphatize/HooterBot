@@ -63,7 +63,7 @@ module.exports = {
             // SLASH COMMAND COOLDOWN SETUP
             const { cooldowns } = client;
 
-            if (!cooldowns.has(slashCmd.name)) {
+            if (!cooldowns.has(slashCmd.name) && interaction.user.id !== config.botAuthorId) {
                 cooldowns.set(slashCmd.name, new discord.Collection());
             }
 

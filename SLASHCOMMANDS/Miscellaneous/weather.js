@@ -92,24 +92,80 @@ module.exports = {
                     // let precipIn, precipMm
                     // let cloudCoverage, uvIndex, airQualIndex
                     
+                    currentWeather = result.data.current
+
+
+                    let airQualIndicatorText
+
+                    // AIR QUALITY INDEX METER - https://www.epa.gov/wildfire-smoke-course/wildfire-smoke-and-your-patients-health-air-quality-index
+                    if(currentWeather.air_quality['us-epa-index'] >= 0 && currentWeather.air_quality['us-epa-index'] <= 50 ) {
+                        airQualIndicatorText = `🟩 ${currentWeather.air_quality['us-epa-index']} (Good)`
+                    }
+                    if(currentWeather.air_quality['us-epa-index'] >= 51 && currentWeather.air_quality['us-epa-index'] <= 10 ) {
+                        airQualIndicatorText = `🟨 ${currentWeather.air_quality['us-epa-index']} (Moderate)`
+                    }
+                    if(currentWeather.air_quality['us-epa-index'] >= 101 && currentWeather.air_quality['us-epa-index'] <= 150 ) {
+                        airQualIndicatorText = `🟧 ${currentWeather.air_quality['us-epa-index']} (Unhealthy for Sensitive Groups)`
+                    }
+                    if(currentWeather.air_quality['us-epa-index'] >= 151 && currentWeather.air_quality['us-epa-index'] <= 200 ) {
+                        airQualIndicatorText = `🟥 ${currentWeather.air_quality['us-epa-index']} (Unhealthy)`
+                    }
+                    if(currentWeather.air_quality['us-epa-index'] >= 201 && currentWeather.air_quality['us-epa-index'] <= 300 ) {
+                        airQualIndicatorText = `🟪 ${currentWeather.air_quality['us-epa-index']} (Very Unhealthy)`
+                    }
+                    if(currentWeather.air_quality['us-epa-index'] >= 301) {
+                        airQualIndicatorText = `⬛ ${currentWeather.air_quality['us-epa-index']} (Hazardous)`
+                    }
+
+
+
+                    atmPressure = currentWeather.pressure_mb / 1013
+
 
                     // GENERATING SUCCESSFUL WEATHER EMBED
-                    let nearestLocationEmbed = new discord.MessageEmbed()
-                        .setColor(botconf.embed)
-                        .setTitle(`Current Philadelphia Weather`)
-                        // .setThumbnail(encodeURI(result.current.condition_icon))
-                        // .addField(`Current:`, `${result.current.condition_text}`, true)
-                        .addField(`Temperature:`, `${result.data.current.temp_f}°F (${result.data.current.temp_c}°C)`, true)
-                        .addField(`Feels Like:`, `${result.data.current.feelslike_f}°F (${result.data.current.feelslike_c}°C)`, true)
-                        .addField(`\u200b:`, `\u200b`, true)
-                        .addField(`Wind:`, `${result.data.current.wind_mph}mph (${result.data.current.wind_kph}kph)`, true)
-                        .addField(`Wind Direction:`, `${result.data.current.wind_dir} (${result.data.current.wind_degree}°)`, true)
-                        .addField(`\u200b:`, `\u200b`, true)
-                        .setFooter(`Powered by Weather API | Updated: ${moment.unix(result.data.current.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
+                    let mainWeatherEmbed = new discord.MessageEmbed()
+                        .setColor(botconf.embedGold)
+                        .setTitle(`Current Philadelphia Weather (${moment.unix(currentWeather.last_updated_epoch).format(`h:mm a`).utcOffset(-4)})`)
+                        .setThumbnail(encodeURI(currentWeather.condition.icon))
+                        // ROW 1
+                        .addField(`Current Condition:`, `${currentWeather.condition.text}`, true)
+                        .addField(`Temperature:`, `${currentWeather.temp_f}°F (${currentWeather.temp_c}°C)`, true)
+                        .addField(`Feels Like:`, `${rescurrentWeather.feelslike_f}°F (${currentWeather.feelslike_c}°C)`, true)
+                        // ROW 2
+                        .addField(`Wind:`, `${currentWeather.wind_mph} mph (${currentWeather.wind_kph} kph)`, true)
+                        .addField(`Direction:`, `${currentWeather.wind_dir} (${currentWeather.wind_degree}°)`, true)
+                        .addField(`Max Gust Speed:`, `${currentWeather.gust_mph} mph (${currentWeather.gust_kph} kph)`, true)
+                        // ROW 3
+                        .addField(`Precipitation:`, `${currentWeather.precip_in} in/hour (${currentWeather.precip_mm} mm/hour)`, true)
+                        .addField(`Humidity:`, `${currentWeather.humidity}%`, true)
+                        .addField(`Pressure:`, `${currentWeather.pressure_in} inHg (${currentWeather.pressure_mb} mbar) (${atmPressure} atm)`, true)
+                        // ROW 4
+                        .addField(`UV Index:`, `${currentWeather.uv}`, true)
+                        .addField(`Cloud Coverage:`, `${currentWeather.cloud}%`, true)
+                        .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
 
+                        // FOOTER
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment.unix(currentWeather.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
+
+
+                    let airQualityEmbed = new discord.MessageEmbed()
+                        .setColor(botconf.embedGold)
+                        .setTitle(`Current Philadelphia Air Quality`)
+                        // ROW 1
+                        .setDescription(`**EPA Air Quality Index:** ${airQualIndicatorText}`)
+                        // ROW 2
+                        .addField(`Carbon Monoxide (CO):`, `${currentWeather.air_quality['co']} μg/m³`, true)
+                        .addField(`Ozone (O₃):`, `${currentWeather.air_quality['o3']} μg/m³`, true)
+                        .addField(`Nitrogen Dioxide (NO₂):`, `${currentWeather.air_quality['no2']} μg/m³`, true)
+                        // ROW 3
+                        .addField(`Sulfur Dioxide (SO₂):`, `${currentWeather.air_quality['so2']} μg/m³`, true)
+                        .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5']} μg/m³`, true)
+                        .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10']} μg/m³`, true)
+                        // FOOTER
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment.unix(currentWeather.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
 
                     // SHARING EMBED WITH LOCATION
-                    await interaction.editReply({ embeds: [nearestLocationEmbed] })
+                    await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
                 })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
