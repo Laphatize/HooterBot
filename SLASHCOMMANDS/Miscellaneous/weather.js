@@ -2,6 +2,7 @@ const discord = require('discord.js');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 const axios = require('axios');
+const moment = require('moment');
 
 
 module.exports = {
@@ -114,8 +115,6 @@ module.exports = {
 
 
             // WEATHER VALUES
-            let lastUpdateTimestamp
-            let mainForecast, mainIconURL
             let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
             let windSpeedMph, windSpeedKph, windDir
             let precipIn, precipMm
@@ -126,12 +125,14 @@ module.exports = {
             let nearestLocationEmbed = new discord.MessageEmbed()
                 .setColor(botconf.embed)
                 .setTitle(`Current Philadelphia Weather`)
-                .addField(`Current:`, `${currentWeather.skytext}`, true)
+                .addField(`Current:`, `${currentWeather.condition.text}`, true)
                 .addField(`Type:`, `${mainDescription}`, true)
                 .addField(`\u200b:`, `\u200b`, true)
                 .setFooter(`Powered by Weather API`)
-                .setThumbnail(encodeURI(currentWeather.imageUrl))
-                .setFooter(`Last Updated: observationtimeendpoint`)
+                .setThumbnail(encodeURI(currentWeather.condition.icon))
+                .setFooter(`Last Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
+
+
             // SHARING EMBED WITH LOCATION
             await interaction.editReply({ embeds: [nearestLocationEmbed] })
         }

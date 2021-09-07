@@ -91,7 +91,7 @@ module.exports = {
                     let modAppQuestionFour = new discord.MessageEmbed()
                         .setColor(config.embedBlurple)
                         .setTitle(`Question 4:`)
-                        .setDescription(`**[TBD]**`)
+                        .setDescription(`**Do you have any suggestions or feedback about the server that would make it operate better?**`)
 
                     message.channel.send({ embeds: [modAppQuestionFour] })
 
