@@ -1,7 +1,6 @@
 const discord = require('discord.js');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
-const weatherjslib = require('weatherjslib')
 
 
 module.exports = {
@@ -60,11 +59,6 @@ module.exports = {
         /***************************************/
         if(weatherType == 'current') {
 
-            weather.current.get('39.981364957390184,-75.15441956488965')
-                .then(forecast => {
-                    console.log(forecast)
-                })
-
 
             // WEATHER VARIABLES
             let lastUpdateTimestamp
@@ -79,10 +73,6 @@ module.exports = {
             axios(config)
                 .then(function (response) {
                     
-                    const { location } = response
-
-                    console.log(`response = ${response}`)
-                    console.log(`location = ${location}`)
 
                     // await wait(500)
 
