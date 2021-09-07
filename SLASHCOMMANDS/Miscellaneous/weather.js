@@ -98,6 +98,9 @@ module.exports = {
 
                     currentWeather = result.data.current
 
+
+                    let { condition } = currentWeather
+
                     console.log(JSON.stringify(result, null, 2));
 
 
@@ -111,30 +114,30 @@ module.exports = {
                             .setDescription(`I'm having trouble locating a weather report for Philly right now. Please try again in a little while.`)
                         return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
                     }
+
+
+                    // WEATHER VALUES
+                    let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
+                    let windSpeedMph, windSpeedKph, windDir
+                    let precipIn, precipMm
+                    let cloudCoverage, uvIndex, airQualIndex
+                    
+
+                    // GENERATING SUCCESSFUL WEATHER EMBED
+                    let nearestLocationEmbed = new discord.MessageEmbed()
+                        .setColor(botconf.embed)
+                        .setTitle(`Current Philadelphia Weather`)
+                        .addField(`Current:`, `${condition.text}`, true)
+                        .addField(`\u200b:`, `\u200b`, true)
+                        .addField(`\u200b:`, `\u200b`, true)
+                        .setFooter(`Powered by Weather API`)
+                        .setThumbnail(encodeURI(condition.icon))
+                        .setFooter(`Last Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
+
+
+                    // SHARING EMBED WITH LOCATION
+                    await interaction.editReply({ embeds: [nearestLocationEmbed] })
                 })
-
-
-            // WEATHER VALUES
-            let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
-            let windSpeedMph, windSpeedKph, windDir
-            let precipIn, precipMm
-            let cloudCoverage, uvIndex, airQualIndex
-            
-
-            // GENERATING SUCCESSFUL WEATHER EMBED
-            let nearestLocationEmbed = new discord.MessageEmbed()
-                .setColor(botconf.embed)
-                .setTitle(`Current Philadelphia Weather`)
-                .addField(`Current:`, `${currentWeather.condition.text}`, true)
-                .addField(`Type:`, `${mainDescription}`, true)
-                .addField(`\u200b:`, `\u200b`, true)
-                .setFooter(`Powered by Weather API`)
-                .setThumbnail(encodeURI(currentWeather.condition.icon))
-                .setFooter(`Last Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
-
-
-            // SHARING EMBED WITH LOCATION
-            await interaction.editReply({ embeds: [nearestLocationEmbed] })
         }
 
 
