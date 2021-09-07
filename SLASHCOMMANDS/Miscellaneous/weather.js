@@ -21,7 +21,7 @@ module.exports = {
                     name: `current`,
                     value: `current`,
                 },{
-                    name: `5_day_forecast`,
+                    name: `5day_forecast`,
                     value: `forecast`,
                 }
             ]
@@ -80,11 +80,11 @@ module.exports = {
                     
                     await wait(500)
 
-                    if(!response.coord) {
+                    if(!response["current"]) {
                         let noResultEmbed = new discord.MessageEmbed()
                             .setColor(botconf.embedRed)
                             .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I'm having trouble grabbing the weather for Philly right now. Please try again in a little while.`)
+                            .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
                         return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
                     }
 
@@ -144,6 +144,19 @@ module.exports = {
                 url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&days=5&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
             }
 
+            await wait(500)
+
+            // WEATHER API CALL
+            axios(config)
+                .then(async function (response) {
+                    if(!response["current"]) {
+                        let noResultEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embedRed)
+                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                            .setDescription(`I'm having trouble grabbing the weather forecast for Philly right now. Please try again in a little while.`)
+                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+                    }
+                })
         }
     }
 }
