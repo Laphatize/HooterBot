@@ -99,13 +99,13 @@ module.exports = {
                         .setTitle(`Current Philadelphia Weather`)
                         // .setThumbnail(encodeURI(result.current.condition_icon))
                         // .addField(`Current:`, `${result.current.condition_text}`, true)
-                        .addField(`Temperature:`, `${result.current.temp_f}°F (${result.current.temp_c}°C)`, true)
-                        .addField(`Feels Like:`, `${result.current.feelslike_f}°F (${result.current.feelslike_c}°C)`, true)
+                        .addField(`Temperature:`, `${result.data.current.temp_f}°F (${result.data.current.temp_c}°C)`, true)
+                        .addField(`Feels Like:`, `${result.data.current.feelslike_f}°F (${result.data.current.feelslike_c}°C)`, true)
                         .addField(`\u200b:`, `\u200b`, true)
-                        .addField(`Wind:`, `${result.current.wind_mph}mph (${result.current.wind_kph}kph)`, true)
-                        .addField(`Wind Direction:`, `${result.current.wind_dir} (${result.current.wind_degree}°)`, true)
+                        .addField(`Wind:`, `${result.data.current.wind_mph}mph (${result.data.current.wind_kph}kph)`, true)
+                        .addField(`Wind Direction:`, `${result.data.current.wind_dir} (${result.data.current.wind_degree}°)`, true)
                         .addField(`\u200b:`, `\u200b`, true)
-                        .setFooter(`Powered by Weather API | Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Powered by Weather API | Updated: ${moment.unix(result.data.current.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
                     // SHARING EMBED WITH LOCATION
