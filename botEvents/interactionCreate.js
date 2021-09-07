@@ -63,38 +63,40 @@ module.exports = {
             // SLASH COMMAND COOLDOWN SETUP
             const { cooldowns } = client;
 
-            if (!cooldowns.has(slashCmd.name) && interaction.user.id !== config.botAuthorId) {
-                cooldowns.set(slashCmd.name, new discord.Collection());
-            }
-
-            const now = Date.now();
-            const timestamps = cooldowns.get(slashCmd.name);
-            const cooldownTime = (slashCmd.cooldown || 0) * 1000;
-
-
-            // SLASH COMMAND COOLDOWN
-            if (timestamps.has(interaction.user.id)) {
-                const expireTime = timestamps.get(interaction.user.id) + cooldownTime;
-        
-                if (now < expireTime) {
-
-                    const timeLeft = (((expireTime - now) + 1) / 1000).toFixed(0);
-
-                    // DEFINING EMBED TO SEND
-                    let cooldownWaitEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedOrange)
-                        .setTitle(`${config.emjORANGETICK} Not so fast!`)
-                        .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${slashCmd.name}\`\` again.`)
-            
-
-                    // SENDING COOLDOWN WAIT NOTICE
-                    return interaction.reply({ embeds: [cooldownWaitEmbed], ephemeral: true })
+            if(interaction.user.id !== config.botAuthorId) {
+                if (!cooldowns.has(slashCmd.name)) {
+                    cooldowns.set(slashCmd.name, new discord.Collection());
                 }
-            }
 
-            // SETTING COOLDOWN TIMEOUT
-            timestamps.set(interaction.user.id, now);
-            setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
+                const now = Date.now();
+                const timestamps = cooldowns.get(slashCmd.name);
+                const cooldownTime = (slashCmd.cooldown || 0) * 1000;
+
+
+                // SLASH COMMAND COOLDOWN
+                if (timestamps.has(interaction.user.id)) {
+                    const expireTime = timestamps.get(interaction.user.id) + cooldownTime;
+            
+                    if (now < expireTime) {
+
+                        const timeLeft = (((expireTime - now) + 1) / 1000).toFixed(0);
+
+                        // DEFINING EMBED TO SEND
+                        let cooldownWaitEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedOrange)
+                            .setTitle(`${config.emjORANGETICK} Not so fast!`)
+                            .setDescription(`You just ran that command. Please wait ${timeLeft} more second(s) before running \`\`${slashCmd.name}\`\` again.`)
+                
+
+                        // SENDING COOLDOWN WAIT NOTICE
+                        return interaction.reply({ embeds: [cooldownWaitEmbed], ephemeral: true })
+                    }
+                }
+
+                // SETTING COOLDOWN TIMEOUT
+                timestamps.set(interaction.user.id, now);
+                setTimeout(() => timestamps.delete(interaction.user.id), cooldownTime);
+            }
 
 
             // ARGUMENTS
