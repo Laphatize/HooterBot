@@ -77,6 +77,8 @@ module.exports = {
             // WEATHER API CALL
             axios(config)
                 .then(async function (response) {
+
+                    console.log(`weatherAPI response = ${response}`)
                     
                     await wait(500)
 
