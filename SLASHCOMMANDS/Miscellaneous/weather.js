@@ -78,46 +78,45 @@ module.exports = {
             axios(config)
                 .then(async function (response) {
                     
+                    console.log(`response = ${response}`)
+                    console.log(`response['location'] = ${response['location']}`)
+                    console.log(`response.location = ${response.location}`)
+
                     await wait(500)
 
-                    response.json().then(async data => {
-
-                        console.log(`data = ${data}`)
-
-                        if(!data["location"]) {
-                            let noResultEmbed = new discord.MessageEmbed()
-                                .setColor(botconf.embedRed)
-                                .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                                .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
-                            return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-                        }
+                    if(!response["location"]) {
+                        let noResultEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embedRed)
+                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                            .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
+                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+                    }
 
 
-                        mainForecast = data["current"]["condition"]
-                        mainIcon = data["current"]["icon"]
+                    mainForecast = data["current"]["condition"]
+                    mainIcon = data["current"]["icon"]
 
-                        console.log(`mainForecast = ${mainForecast}`)
-                        console.log(`mainIcon = ${mainIcon}`)
-
-
-                        // GENERATING SUCCESSFUL MAP EMBED
-                        let nearestLocationEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embed)
-                            .setTitle(`Current Philadelphia Weather`)
-                            .addField(`Current:`, `${mainForecast}`, true)
-                            .addField(`Type:`, `${mainDescription}`, true)
-                            .addField(`\u200b:`, `\u200b`, true)
-                            .setFooter(`Powered by Weather API`)
-                            .setThumbnail(encodeURI(mainIcon))
+                    console.log(`mainForecast = ${mainForecast}`)
+                    console.log(`mainIcon = ${mainIcon}`)
 
 
-                        // WAIT AT LEAST 1.5 SECOND TO POST
-                        await wait(1500)
+                    // GENERATING SUCCESSFUL MAP EMBED
+                    let nearestLocationEmbed = new discord.MessageEmbed()
+                        .setColor(botconf.embed)
+                        .setTitle(`Current Philadelphia Weather`)
+                        .addField(`Current:`, `${mainForecast}`, true)
+                        .addField(`Type:`, `${mainDescription}`, true)
+                        .addField(`\u200b:`, `\u200b`, true)
+                        .setFooter(`Powered by Weather API`)
+                        .setThumbnail(encodeURI(mainIcon))
 
 
-                        // SHARING EMBED WITH LOCATION
-                        await interaction.editReply({ embeds: [nearestLocationEmbed] })
-                    })
+                    // WAIT AT LEAST 1.5 SECOND TO POST
+                    await wait(1500)
+
+
+                    // SHARING EMBED WITH LOCATION
+                    await interaction.editReply({ embeds: [nearestLocationEmbed] })
                 })
                 .catch(function (err) {
                     console.log(`****** WEATHER API ERROR ******`);
