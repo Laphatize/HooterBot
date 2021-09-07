@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
-const axios = require('axios');
+const weatherjslib = require('weatherjslib')
 
 
 module.exports = {
@@ -45,6 +45,8 @@ module.exports = {
         }
 
 
+        const weather = new weatherjslib(process.env.weatherAPIkey)
+
         // GRAB COMMAND TYPE OF WEATHER TO RUN
         let weatherType = interaction.options.getString('type');
 
@@ -58,11 +60,11 @@ module.exports = {
         /*  CURRENT PHILLY WEATHER FORECAST    */
         /***************************************/
         if(weatherType == 'current') {
-            // WEATHER DATA SETUP
-            let config = {
-                method: 'get',
-                url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&aqi=yes`), // PHILLY WEATHER AT BELL TOWER
-            }
+
+            weather.current.get('39.981364957390184,-75.15441956488965')
+                .then(forecast => {
+                    console.log(forecast)
+                })
 
 
             // WEATHER VARIABLES
