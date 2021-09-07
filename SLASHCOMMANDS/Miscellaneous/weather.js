@@ -78,9 +78,9 @@ module.exports = {
             axios(config)
                 .then(async function (response) {
                     
-                    console.log(`response = ${response}`)
-                    console.log(`response['location'] = ${response['location']}`)
-                    console.log(`response.location = ${response.location}`)
+                    console.log(`response[0] = ${response[0]}`)
+                    console.log(`response[0]['location'] = ${response[0]['location']}`)
+                    console.log(`response[0].location = ${response[0].location}`)
 
                     await wait(500)
 
