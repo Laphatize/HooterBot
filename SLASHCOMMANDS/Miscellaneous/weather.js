@@ -15,7 +15,7 @@ module.exports = {
             name: `type`,
             description: `Select what type of weather to display`,
             type: `STRING`,
-            required: false,
+            required: true,
             choices: [
                 {
                     name: `current`,
