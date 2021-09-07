@@ -61,16 +61,17 @@ module.exports = {
             // WEATHER DATA SETUP
             let config = {
                 method: 'get',
-                url: encodeURI(`https://api.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&APPID=${process.env.WeatherAPIkey}`),
-                headers: {}
+                url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&aqi=yes`), // PHILLY WEATHER AT BELL TOWER
             }
 
 
             // WEATHER VARIABLES
-            let mainForecast, mainDescription, mainIcon
-            let currentTemp, feelsLikeTemp, lowTemp, highTemp, pressureValue, humidityPercent
-            let windSpeed, windDegree
-            let cloudCoverage
+            let lastUpdateTimestamp
+            let mainForecast, mainIcon
+            let currentTempF, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
+            let windSpeedMph, windSpeedKph, windDir
+            let precipIn, precipMm
+            let cloudCoverage, uvIndex, airQualIndex
 
 
             // WEATHER API CALL
@@ -88,12 +89,10 @@ module.exports = {
                     }
 
 
-                    mainForecast = response["weather"]["main"]
-                    mainDescription = response["description"]["main"]
-                    mainIcon = response["icon"]["main"]
+                    mainForecast = response["current"]["condition"]
+                    mainIcon = response["current"]["icon"]
 
                     console.log(`mainForecast = ${mainForecast}`)
-                    console.log(`mainDescription = ${mainDescription}`)
                     console.log(`mainIcon = ${mainIcon}`)
 
 
@@ -104,8 +103,8 @@ module.exports = {
                         .addField(`Current:`, `${mainForecast}`, true)
                         .addField(`Type:`, `${mainDescription}`, true)
                         .addField(`\u200b:`, `\u200b`, true)
-                        .setFooter(`Powered by OpenWeatherMap API`)
-                        .setThumbnail(encodeURI(`http://openweathermap.org/img/wn/10d@${mainIcon}.png`))
+                        .setFooter(`Powered by WeatherAPI`)
+                        .setThumbnail(encodeURI(mainIcon))
 
 
                     // WAIT AT LEAST 1.5 SECOND TO POST
@@ -138,6 +137,13 @@ module.exports = {
         /***************************************/
         if(weatherType == 'forecast') {
             interaction.editReply({ content: 'Command is not ready yet, but will be soon.' })
+
+            // WEATHER DATA SETUP
+            let config = {
+                method: 'get',
+                url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&days=5&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+            }
+
         }
     }
 }
