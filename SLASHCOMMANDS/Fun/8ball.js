@@ -19,7 +19,6 @@ module.exports = {
     dmUse: false,
     cooldown: 30,
     defaultPermission: true,
-    defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         // GRAB INPUT MESSAGE

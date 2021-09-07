@@ -8,7 +8,6 @@ module.exports = {
     permissions: '',
     dmUse: true,
     cooldown: 0,
-    defaultPermission: true,
     options: [
         {
             name: `title`,

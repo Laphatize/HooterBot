@@ -126,6 +126,7 @@ client.on('ready', async () => {
     let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
     let channelSC = cmds.find(c => c.name === `channel`)
     let modappSC = cmds.find(c => c.name === `modapp`) 
+    let weatherSC = cmds.find(c => c.name === `weather`) 
 
 
     // SETTING PERMISSIONS
@@ -249,6 +250,17 @@ client.on('ready', async () => {
             }]
         },{
             id: modappSC.id,     // COMMAND: /modapp
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: weatherSC.id,    // COMMAND: /weather
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',

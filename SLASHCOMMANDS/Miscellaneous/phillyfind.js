@@ -6,11 +6,10 @@ const axios = require('axios');
 
 module.exports = {
     name: 'phillyfind',
-    description: `Search for places on campus or across Philly by name and get an address and map. (🤖｜bot-spam) [10s]`,
+    description: `Search for places on campus or across Philly by name and get an address and map. (🤖｜bot-spam) [30s]`,
     permissions: '',
     dmUse: true,
-    cooldown: 10,
-    defaultPermission: true,
+    cooldown: 30,
     options: [
         {
             name: `place_name`,
