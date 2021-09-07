@@ -80,6 +80,8 @@ module.exports = {
                     
                     await wait(500)
 
+                    console.log(JSON.stringify(response))
+
                     if(!response["location"]) {
                         let noResultEmbed = new discord.MessageEmbed()
                             .setColor(botconf.embedRed)
