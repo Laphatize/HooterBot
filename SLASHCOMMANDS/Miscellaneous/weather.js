@@ -6,7 +6,7 @@ const axios = require('axios');
 
 module.exports = {
     name: 'weather',
-    description: `Current weather and the upcoming weather forecast for Philadelphia (🤖｜bot-spam) [30]`,
+    description: `Current weather and upcoming 3-day forecast for Philadelphia (🤖｜bot-spam) [30]`,
     permissions: '',
     dmUse: true,
     cooldown: 30,
@@ -21,7 +21,7 @@ module.exports = {
                     name: `current`,
                     value: `current`,
                 },{
-                    name: `5day_forecast`,
+                    name: `3day_forecast`,
                     value: `forecast`,
                 }
             ]
@@ -78,11 +78,11 @@ module.exports = {
             axios(config)
                 .then(async function (response) {
 
-                    console.log(`weatherAPI response = ${response}`)
+                    console.log(`JSON.stringify(response) = ${JSON.stringify(response)}`)
                     
                     await wait(500)
 
-                    if(!response["current"]) {
+                    if(!response.data["current"]) {
                         let noResultEmbed = new discord.MessageEmbed()
                             .setColor(botconf.embedRed)
                             .setTitle(`${botconf.emjREDTICK} Sorry!`)
