@@ -62,6 +62,7 @@ module.exports = {
             let config = {
                 method: 'get',
                 url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&aqi=yes`), // PHILLY WEATHER AT BELL TOWER
+                headers: {}
             }
 
 
@@ -77,11 +78,9 @@ module.exports = {
             // WEATHER API CALL
             axios(config)
                 .then(function (response) {
-                    
-                    const { location } = response
+
 
                     console.log(`response = ${response}`)
-                    console.log(`location = ${location}`)
 
                     // await wait(500)
 
