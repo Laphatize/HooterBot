@@ -44,8 +44,7 @@ module.exports = {
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
         }
 
-
-        const weather = new weatherjslib(process.env.weatherAPIkey)
+        const weather = new weatherjslib(`${process.env.weatherAPIkey}`)
 
         // GRAB COMMAND TYPE OF WEATHER TO RUN
         let weatherType = interaction.options.getString('type');
