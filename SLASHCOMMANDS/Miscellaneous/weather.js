@@ -44,88 +44,96 @@ module.exports = {
             return interaction.reply({ embeds: [wrongChannel], ephemeral: true })
         }
 
-
         // GRAB COMMAND TYPE OF WEATHER TO RUN
         let weatherType = interaction.options.getString('type');
-
 
         // DEFERRING
         await interaction.deferReply()
 
-
+        let currentWeather
+        let forecastWeather
+        
 
         /***************************************/
         /*  CURRENT PHILLY WEATHER FORECAST    */
         /***************************************/
         if(weatherType == 'current') {
 
+            // FETCHING WEATHER
+            let config = {
+                method: 'get',
+                url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&aqi=yes`),
+                headers: {}
+            }
+
+            // GOOGLE MAPS API CALL
+            axios(config)
+                .then(async function(err, result) {
+                    await wait(500)
+
+                    // WEATHER LOAD ERROR
+                    if(err) {
+                        // DEFINING ERROR EMBED
+                        let weatherFetchErrEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embedRed)
+                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                            .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
+                        await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
+
+                        console.log(`****** WEATHER API ERROR ******`);
+                        console.log(err);
+                        console.log(`********************************\n`);
+                        
+                        // DEFINING LOG EMBED
+                        let logErrEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embedGrey)
+                            .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
+                            .setDescription(`\`\`\`${err}\`\`\``)
+                            .setTimestamp()
+                        
+                        // LOG ENTRY
+                        return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
+                    }
+
+                    currentWeather = result['current']
+
+                    console.log(JSON.stringify(result, null, 2));
+
+
+                    // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
+                    if(result === undefined || result.length === 0) {
+
+                        // DEFINING ERROR EMBED
+                        let noResultEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embedRed)
+                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                            .setDescription(`I'm having trouble locating a weather report for Philly right now. Please try again in a little while.`)
+                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+                    }
+                })
+
+
             // WEATHER VALUES
             let lastUpdateTimestamp
             let mainForecast, mainIconURL
-            let currentTempF, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
+            let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
             let windSpeedMph, windSpeedKph, windDir
             let precipIn, precipMm
             let cloudCoverage, uvIndex, airQualIndex
+            
 
-
-            weather.find({search: 'Philadelphia, PA', degreeType: 'F'}, function(err, result) {
-                // WEATHER LOAD ERROR
-                if(err) {
-                    console.log(`****** WEATHER API ERROR ******`);
-                    console.log(err);
-                    console.log(`********************************\n`);
-                    
-                    // DEFINING LOG EMBED
-                    let logErrEmbed = new discord.MessageEmbed()
-                        .setColor(botconf.embedGrey)
-                        .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
-                        .setDescription(`\`\`\`${err}\`\`\``)
-                        .setTimestamp()
-                    
-                    // LOG ENTRY
-                    client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
-                }
-               
-                // SUCCESS
-                console.log(JSON.stringify(result, null, 2));
-              });
-              
-           
-            // await wait (500)
-
-            // if(!response["location"]) {
-            //     let noResultEmbed = new discord.MessageEmbed()
-            //         .setColor(botconf.embedRed)
-            //         .setTitle(`${botconf.emjREDTICK} Sorry!`)
-            //         .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
-            //     return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-            // }
-
-
-            // mainForecast = data["current"]["condition"]
-            // mainIcon = data["current"]["icon"]
-
-            // console.log(`mainForecast = ${mainForecast}`)
-            // console.log(`mainIcon = ${mainIcon}`)
-
-
-            // // GENERATING SUCCESSFUL MAP EMBED
-            // let nearestLocationEmbed = new discord.MessageEmbed()
-            //     .setColor(botconf.embed)
-            //     .setTitle(`Current Philadelphia Weather`)
-            //     .addField(`Current:`, `${mainForecast}`, true)
-            //     .addField(`Type:`, `${mainDescription}`, true)
-            //     .addField(`\u200b:`, `\u200b`, true)
-            //     .setFooter(`Powered by Weather API`)
-            //     .setThumbnail(encodeURI(mainIcon))
-
-
-            // // WAIT AT LEAST 1.5 SECOND TO POST
-            // await wait(1500)
-
-
-            // // SHARING EMBED WITH LOCATION
-            // await interaction.editReply({ embeds: [nearestLocationEmbed] })
+            // GENERATING SUCCESSFUL WEATHER EMBED
+            let nearestLocationEmbed = new discord.MessageEmbed()
+                .setColor(botconf.embed)
+                .setTitle(`Current Philadelphia Weather`)
+                .addField(`Current:`, `${currentWeather.skytext}`, true)
+                .addField(`Type:`, `${mainDescription}`, true)
+                .addField(`\u200b:`, `\u200b`, true)
+                .setFooter(`Powered by Weather API`)
+                .setThumbnail(encodeURI(currentWeather.imageUrl))
+                .setFooter(`Last Updated: observationtimeendpoint`)
+            // SHARING EMBED WITH LOCATION
+            await interaction.editReply({ embeds: [nearestLocationEmbed] })
         }
 
 
@@ -138,7 +146,8 @@ module.exports = {
             // WEATHER DATA SETUP
             let config = {
                 method: 'get',
-                url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=631c95d5491d44a1a4620615210709&q=39.981364957390184,-75.15441956488965&days=5&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+                url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=5&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+                headers: {}
             }
 
             await wait(500)
