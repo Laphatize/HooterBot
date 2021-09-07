@@ -69,34 +69,34 @@ module.exports = {
 
             // GOOGLE MAPS API CALL
             axios(config)
-                .then(async function(err, result) {
+                .then(async function(result) {
                     await wait(500)
 
-                    // WEATHER LOAD ERROR
-                    if(err) {
-                        // DEFINING ERROR EMBED
-                        let weatherFetchErrEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedRed)
-                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-                        await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
+                    // // WEATHER LOAD ERROR
+                    // if(err) {
+                    //     // DEFINING ERROR EMBED
+                    //     let weatherFetchErrEmbed = new discord.MessageEmbed()
+                    //         .setColor(botconf.embedRed)
+                    //         .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                    //         .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
+                    //     await interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
 
-                        console.log(`****** WEATHER API ERROR ******`);
-                        console.log(err);
-                        console.log(`********************************\n`);
+                    //     console.log(`****** WEATHER API ERROR ******`);
+                    //     console.log(err);
+                    //     console.log(`********************************\n`);
                         
-                        // DEFINING LOG EMBED
-                        let logErrEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedGrey)
-                            .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
-                            .setDescription(`\`\`\`${err}\`\`\``)
-                            .setTimestamp()
+                    //     // DEFINING LOG EMBED
+                    //     let logErrEmbed = new discord.MessageEmbed()
+                    //         .setColor(botconf.embedGrey)
+                    //         .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
+                    //         .setDescription(`\`\`\`${err}\`\`\``)
+                    //         .setTimestamp()
                         
-                        // LOG ENTRY
-                        return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
-                    }
+                    //     // LOG ENTRY
+                    //     return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
+                    // }
 
-                    currentWeather = result.data.current
+                    // currentWeather = result.data.current
 
                     console.log(`\n\nWEATHER API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER API DATA)\n\n`);
 
