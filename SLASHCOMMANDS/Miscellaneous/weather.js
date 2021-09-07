@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
-const axios = require('axios');
+const weather = require('weather-js');
 
 
 module.exports = {
@@ -58,66 +58,19 @@ module.exports = {
         /*  CURRENT PHILLY WEATHER FORECAST    */
         /***************************************/
         if(weatherType == 'current') {
-            // WEATHER DATA SETUP
-            let config = {
-                method: 'get',
-                url: encodeURI(`https://api.weatherapi.com/v1/current.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&aqi=yes`), // PHILLY WEATHER AT BELL TOWER
-                headers: {}
-            }
 
-
-            // WEATHER VARIABLES
+            // WEATHER VALUES
             let lastUpdateTimestamp
-            let mainForecast, mainIcon
+            let mainForecast, mainIconURL
             let currentTempF, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
             let windSpeedMph, windSpeedKph, windDir
             let precipIn, precipMm
             let cloudCoverage, uvIndex, airQualIndex
 
 
-            // WEATHER API CALL
-            axios(config)
-                .then(async function (response) {
-
-                    await wait (500)
-
-                    console.log(`response = ${response}`)
-
-                    // if(!response["location"]) {
-                    //     let noResultEmbed = new discord.MessageEmbed()
-                    //         .setColor(botconf.embedRed)
-                    //         .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                    //         .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
-                    //     return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-                    // }
-
-
-                    // mainForecast = data["current"]["condition"]
-                    // mainIcon = data["current"]["icon"]
-
-                    // console.log(`mainForecast = ${mainForecast}`)
-                    // console.log(`mainIcon = ${mainIcon}`)
-
-
-                    // // GENERATING SUCCESSFUL MAP EMBED
-                    // let nearestLocationEmbed = new discord.MessageEmbed()
-                    //     .setColor(botconf.embed)
-                    //     .setTitle(`Current Philadelphia Weather`)
-                    //     .addField(`Current:`, `${mainForecast}`, true)
-                    //     .addField(`Type:`, `${mainDescription}`, true)
-                    //     .addField(`\u200b:`, `\u200b`, true)
-                    //     .setFooter(`Powered by Weather API`)
-                    //     .setThumbnail(encodeURI(mainIcon))
-
-
-                    // // WAIT AT LEAST 1.5 SECOND TO POST
-                    // await wait(1500)
-
-
-                    // // SHARING EMBED WITH LOCATION
-                    // await interaction.editReply({ embeds: [nearestLocationEmbed] })
-                })
-                .catch(function (err) {
+            weather.find({search: 'Philadelphia, PA', degreeType: 'F'}, function(err, result) {
+                // WEATHER LOAD ERROR
+                if(err) {
                     console.log(`****** WEATHER API ERROR ******`);
                     console.log(err);
                     console.log(`********************************\n`);
@@ -131,7 +84,48 @@ module.exports = {
                     
                     // LOG ENTRY
                     client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
-                })
+                }
+               
+                // SUCCESS
+                console.log(JSON.stringify(result, null, 2));
+              });
+              
+           
+            // await wait (500)
+
+            // if(!response["location"]) {
+            //     let noResultEmbed = new discord.MessageEmbed()
+            //         .setColor(botconf.embedRed)
+            //         .setTitle(`${botconf.emjREDTICK} Sorry!`)
+            //         .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
+            //     return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+            // }
+
+
+            // mainForecast = data["current"]["condition"]
+            // mainIcon = data["current"]["icon"]
+
+            // console.log(`mainForecast = ${mainForecast}`)
+            // console.log(`mainIcon = ${mainIcon}`)
+
+
+            // // GENERATING SUCCESSFUL MAP EMBED
+            // let nearestLocationEmbed = new discord.MessageEmbed()
+            //     .setColor(botconf.embed)
+            //     .setTitle(`Current Philadelphia Weather`)
+            //     .addField(`Current:`, `${mainForecast}`, true)
+            //     .addField(`Type:`, `${mainDescription}`, true)
+            //     .addField(`\u200b:`, `\u200b`, true)
+            //     .setFooter(`Powered by Weather API`)
+            //     .setThumbnail(encodeURI(mainIcon))
+
+
+            // // WAIT AT LEAST 1.5 SECOND TO POST
+            // await wait(1500)
+
+
+            // // SHARING EMBED WITH LOCATION
+            // await interaction.editReply({ embeds: [nearestLocationEmbed] })
         }
 
 
