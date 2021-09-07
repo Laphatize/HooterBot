@@ -101,7 +101,7 @@ module.exports = {
 
                     let { condition } = currentWeather
 
-                    console.log(JSON.stringify(result, null, 2));
+                    console.log(JSON.stringify(result.data, null, 5));
 
 
                     // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
@@ -116,27 +116,27 @@ module.exports = {
                     }
 
 
-                    // WEATHER VALUES
-                    let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
-                    let windSpeedMph, windSpeedKph, windDir
-                    let precipIn, precipMm
-                    let cloudCoverage, uvIndex, airQualIndex
+                    // // WEATHER VALUES
+                    // let temperature, currentTempC, feelsLikeTempF, feelsLikeTempC, lowTempF, lowTempC, highTempF, highTempC, pressureValue, humidityPercent
+                    // let windSpeedMph, windSpeedKph, windDir
+                    // let precipIn, precipMm
+                    // let cloudCoverage, uvIndex, airQualIndex
                     
 
-                    // GENERATING SUCCESSFUL WEATHER EMBED
-                    let nearestLocationEmbed = new discord.MessageEmbed()
-                        .setColor(botconf.embed)
-                        .setTitle(`Current Philadelphia Weather`)
-                        .addField(`Current:`, `${condition.text}`, true)
-                        .addField(`\u200b:`, `\u200b`, true)
-                        .addField(`\u200b:`, `\u200b`, true)
-                        .setFooter(`Powered by Weather API`)
-                        .setThumbnail(encodeURI(condition.icon))
-                        .setFooter(`Last Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
+                    // // GENERATING SUCCESSFUL WEATHER EMBED
+                    // let nearestLocationEmbed = new discord.MessageEmbed()
+                    //     .setColor(botconf.embed)
+                    //     .setTitle(`Current Philadelphia Weather`)
+                    //     .addField(`Current:`, `${condition.text}`, true)
+                    //     .addField(`\u200b:`, `\u200b`, true)
+                    //     .addField(`\u200b:`, `\u200b`, true)
+                    //     .setFooter(`Powered by Weather API`)
+                    //     .setThumbnail(encodeURI(condition.icon))
+                    //     .setFooter(`Last Updated: ${moment.unix(last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
-                    // SHARING EMBED WITH LOCATION
-                    await interaction.editReply({ embeds: [nearestLocationEmbed] })
+                    // // SHARING EMBED WITH LOCATION
+                    // await interaction.editReply({ embeds: [nearestLocationEmbed] })
                 })
         }
 
