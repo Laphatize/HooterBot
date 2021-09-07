@@ -9,7 +9,7 @@ module.exports = {
     description: `Current weather and upcoming 3-day forecast for Philadelphia (🤖｜bot-spam) [10 min]`,
     permissions: '',
     dmUse: true,
-    cooldown: 600,
+    cooldown: 60,
     options: [
         {
             name: `type`,
@@ -80,53 +80,54 @@ module.exports = {
                     
                     await wait(500)
 
-                    const weatherResult = response.json()
+                    response.json().then(data => {
 
-                    console.log(`weatherResult = ${weatherResult}`)
+                        console.log(`data = ${data}`)
 
-                    if(!weatherResult["location"]) {
-                        let noResultEmbed = new discord.MessageEmbed()
-                            .setColor(botconf.embedRed)
-                            .setTitle(`${botconf.emjREDTICK} Sorry!`)
-                            .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
-                        return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
-                    }
-
-
-                    mainForecast = weatherResult["current"]["condition"]
-                    mainIcon = weatherResult["current"]["icon"]
-
-                    console.log(`mainForecast = ${mainForecast}`)
-                    console.log(`mainIcon = ${mainIcon}`)
+                        if(!data["location"]) {
+                            let noResultEmbed = new discord.MessageEmbed()
+                                .setColor(botconf.embedRed)
+                                .setTitle(`${botconf.emjREDTICK} Sorry!`)
+                                .setDescription(`I'm having trouble grabbing the current weather for Philly right now. Please try again in a little while.`)
+                            return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
+                        }
 
 
-                    // GENERATING SUCCESSFUL MAP EMBED
-                    let nearestLocationEmbed = new discord.MessageEmbed()
-                        .setColor(botconf.embed)
-                        .setTitle(`Current Philadelphia Weather`)
-                        .addField(`Current:`, `${mainForecast}`, true)
-                        .addField(`Type:`, `${mainDescription}`, true)
-                        .addField(`\u200b:`, `\u200b`, true)
-                        .setFooter(`Powered by WeatherAPI`)
-                        .setThumbnail(encodeURI(mainIcon))
+                        mainForecast = data["current"]["condition"]
+                        mainIcon = data["current"]["icon"]
+
+                        console.log(`mainForecast = ${mainForecast}`)
+                        console.log(`mainIcon = ${mainIcon}`)
 
 
-                    // WAIT AT LEAST 1.5 SECOND TO POST
-                    await wait(1500)
+                        // GENERATING SUCCESSFUL MAP EMBED
+                        let nearestLocationEmbed = new discord.MessageEmbed()
+                            .setColor(botconf.embed)
+                            .setTitle(`Current Philadelphia Weather`)
+                            .addField(`Current:`, `${mainForecast}`, true)
+                            .addField(`Type:`, `${mainDescription}`, true)
+                            .addField(`\u200b:`, `\u200b`, true)
+                            .setFooter(`Powered by Weather API`)
+                            .setThumbnail(encodeURI(mainIcon))
 
 
-                    // SHARING EMBED WITH LOCATION
-                    await interaction.editReply({ embeds: [nearestLocationEmbed] })
+                        // WAIT AT LEAST 1.5 SECOND TO POST
+                        await wait(1500)
+
+
+                        // SHARING EMBED WITH LOCATION
+                        await interaction.editReply({ embeds: [nearestLocationEmbed] })
+                    })
                 })
                 .catch(function (err) {
-                    console.log(`**** OPENWEATHER API ERROR *****`);
+                    console.log(`****** WEATHER API ERROR ******`);
                     console.log(err);
                     console.log(`********************************\n`);
                     
                     // DEFINING LOG EMBED
                     let logErrEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGrey)
-                        .setTitle(`${botconf.emjERROR} An error has occurred with the OpenWeather API`)
+                        .setTitle(`${botconf.emjERROR} An error has occurred with the Weather API`)
                         .setDescription(`\`\`\`${err}\`\`\``)
                         .setTimestamp()
                     
@@ -153,7 +154,7 @@ module.exports = {
 
 
 
-            
+
         }
     }
 }
