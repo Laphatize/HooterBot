@@ -223,7 +223,7 @@ module.exports = {
                     }
                     
                     
-                    console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
+                    // console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
 
                     forecastWeather = result.data.forecast
                     
