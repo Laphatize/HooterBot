@@ -954,10 +954,10 @@ cron.schedule('00 */2 * * * *', async () => {
 
             forecastReport = result.data.forecast
             currentWeather = result.data.current
-            alertReports = result.data.alerts["alert"][0]
+            // alertReports = result.data.alerts["alert"][0]
 
-            console.log(`result.data.alerts = ${result.data.alerts}`)
-            console.log(`result.data.alerts["alert"][0] = ${result.data.alerts["alert"][0]}`)
+            // console.log(`result.data.alerts = ${result.data.alerts}`)
+            // console.log(`result.data.alerts["alert"][0] = ${result.data.alerts["alert"][0]}`)
             
 
             // GENERATING SUCCESSFUL WEATHER EMBED
@@ -1012,24 +1012,24 @@ cron.schedule('00 */2 * * * *', async () => {
                 .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
 
 
-            // WEATHER ALERTS
-            if(alertReports !== undefined) {
-                // FILTER OUT TO NEWEST ALERT THAT PERTAINS TO PHILADELPHIA SINCE NOT ALL ALERTS ARE ABOUT PHILLY
-                phillyReport = alertReports.find(alert => alert.toLowerCase().includes('philadelphia'));
+            // // WEATHER ALERTS
+            // if(alertReports !== undefined) {
+            //     // FILTER OUT TO NEWEST ALERT THAT PERTAINS TO PHILADELPHIA SINCE NOT ALL ALERTS ARE ABOUT PHILLY
+            //     phillyReport = alertReports.find(alert => alert.toLowerCase().includes('philadelphia'));
 
-                // EMBED
-                alertsReportEmbed = new discord.MessageEmbed()
-                    .setTitle(`${config.emjERROR} Weather Alerts`)
-                    .setColor(config.embedRed)
-                    .setDescription(`(${phillyReport.severity} ${phillyReport.msgtype}) ${phillyReport.headline}
-                    \n\`\`\`${phillyReport.desc}\n${phillyReport.instruction}\`\`\``)
-            } else {
-                // EMBED
-                alertsReportEmbed = new discord.MessageEmbed()
-                    .setTitle(`${config.emjERROR} Weather Alerts`)
-                    .setColor(config.embedRed)
-                    .setDescription(`\`\`\`No active weather alerts\`\`\``)
-            }
+            //     // EMBED
+            //     alertsReportEmbed = new discord.MessageEmbed()
+            //         .setTitle(`${config.emjERROR} Weather Alerts`)
+            //         .setColor(config.embedRed)
+            //         .setDescription(`(${phillyReport.severity} ${phillyReport.msgtype}) ${phillyReport.headline}
+            //         \n\`\`\`${phillyReport.desc}\n${phillyReport.instruction}\`\`\``)
+            // } else {
+            //     // EMBED
+            //     alertsReportEmbed = new discord.MessageEmbed()
+            //         .setTitle(`${config.emjERROR} Weather Alerts`)
+            //         .setColor(config.embedRed)
+            //         .setDescription(`\`\`\`No active weather alerts\`\`\``)
+            // }
         })
         .catch(err => {
             // WEATHER LOAD ERROR RESPONSE
@@ -1067,7 +1067,7 @@ cron.schedule('00 */2 * * * *', async () => {
 
         console.log(`Past weather message does not exist... posting and logging.`)
         
-        guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, alertsReportEmbed] })
+        guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
         .then(msg => {
             // LOG MESSAGE ID IN DATABASE FOR GUILD
             guildSchema.findOneAndUpdate({
@@ -1095,7 +1095,7 @@ cron.schedule('00 */2 * * * *', async () => {
                 .catch(err => console.log(err))
         }
 
-        guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, alertsReportEmbed] })
+        guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
         .then(msg => {
             // LOG MESSAGE ID IN DATABASE FOR GUILD
             guildSchema.findOneAndUpdate({
