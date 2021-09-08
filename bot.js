@@ -955,6 +955,9 @@ cron.schedule('00 */2 * * * *', async () => {
             forecastReport = result.data.forecast
             currentWeather = result.data.current
             alertReports = result.data.alerts["alert"][0]
+
+            console.log(`result.data.alerts = ${result.data.alerts}`)
+            console.log(`result.data.alerts["alert"][0] = ${result.data.alerts["alert"][0]}`)
             
 
             // GENERATING SUCCESSFUL WEATHER EMBED
