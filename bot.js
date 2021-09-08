@@ -957,7 +957,6 @@ cron.schedule('00 */2 * * * *', async () => {
             hourData = result.data.forecast.forecastday[0].hour[0]
 
             console.log(`hourData = ${hourData}`)
-            console.log(`hourData.entries() = ${hourData.entries()}`)
             
 
             // GENERATING SUCCESSFUL WEATHER EMBED
