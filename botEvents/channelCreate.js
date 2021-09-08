@@ -30,8 +30,8 @@ module.exports = {
             // LOG EMBED
             let logEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
-                .setTitle(`Channel Created`)
-                .addField(`Channel:`, `${chVar} ${channel}`, true)
+                .setTitle(`${chVar} Channel Created`)
+                .addField(`Channel:`, `${channel}`, true)
                 .addField(`Name:`, `${channel.name}`, true)
                 .addField(`ID:`, `${channel.id}`, true)
                 .addField(`Type:`, `${channel.type}`, true)

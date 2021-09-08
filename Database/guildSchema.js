@@ -6,7 +6,8 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     TICKET_CAT_ID:         {type: String, required:true},
     RULES_MSG_ID:          {type: String, required:true},
     VERIF_PERKS_MSG_ID:    {type: String, required:true},
-    VERIF_PROMPT_MSG_ID:   {type: String, required:true}
+    VERIF_PROMPT_MSG_ID:   {type: String, required:true},
+    WEATHER_MSG_ID:        {type: String, required:true},
 },{
     timestamps: true,
     versionKey: false,
