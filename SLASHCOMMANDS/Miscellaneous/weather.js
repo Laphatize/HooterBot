@@ -28,7 +28,7 @@ module.exports = {
             ]
         }
     ],
-    defaultPermission: false,
+    defaultPermission: true,
     run: async(client, interaction, inputs) => {
 
         // BOT-SPAM CHANNEL ONLY

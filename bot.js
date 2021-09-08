@@ -259,17 +259,6 @@ client.on('ready', async () => {
                 type: 'USER',
                 permission: true,
             }]
-        },{
-            id: weatherSC.id,    // COMMAND: /weather
-            permissions: [{
-                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-                type: 'USER',
-                permission: true,
-            },{
-                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-                type: 'USER',
-                permission: true,
-            }]
         }
     ];
     
