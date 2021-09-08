@@ -148,9 +148,9 @@ module.exports = {
                         .addField(`Direction:`, `${currentWeather.wind_dir} (${currentWeather.wind_degree}°)`, true)
                         .addField(`Max Gust Speed:`, `${currentWeather.gust_mph} mph (${currentWeather.gust_kph} kph)`, true)
                         // ROW 3
-                        .addField(`Precipitation:`, `${currentWeather.precip_in} in/hour (${currentWeather.precip_mm} mm/hour)`, true)
+                        .addField(`Precipitation:`, `${currentWeather.precip_in} in/hour\n(${currentWeather.precip_mm} mm/hour)`, true)
                         .addField(`Humidity:`, `${currentWeather.humidity}%`, true)
-                        .addField(`Pressure:`, `${currentWeather.pressure_in} inHg (${currentWeather.pressure_mb} mbar) (${atmPressure} atm)`, true)
+                        .addField(`Pressure:`, `${currentWeather.pressure_in} inHg (${currentWeather.pressure_mb} mbar)\n(${atmPressure.toFixed(2)} atm)`, true)
                         // ROW 4
                         .addField(`UV Index:`, `${currentWeather.uv}`, true)
                         .addField(`Cloud Coverage:`, `${currentWeather.cloud}%`, true)
@@ -166,13 +166,13 @@ module.exports = {
                         // ROW 1
                         .setDescription(`**EPA Air Quality Index:** ${airQualIndicatorText}`)
                         // ROW 2
-                        .addField(`Carbon Monoxide (CO):`, `${currentWeather.air_quality['co']} μg/m³`, true)
-                        .addField(`Ozone (O₃):`, `${currentWeather.air_quality['o3']} μg/m³`, true)
-                        .addField(`Nitrogen Dioxide (NO₂):`, `${currentWeather.air_quality['no2']} μg/m³`, true)
+                        .addField(`Carbon Monoxide (CO):`, `${currentWeather.air_quality['co'].toFixed(2)} μg/m³`, true)
+                        .addField(`Ozone (O₃):`, `${currentWeather.air_quality['o3'].toFixed(2)} μg/m³`, true)
+                        .addField(`Nitrogen Dioxide (NO₂):`, `${currentWeather.air_quality['no2'].toFixed(2)} μg/m³`, true)
                         // ROW 3
-                        .addField(`Sulfur Dioxide (SO₂):`, `${currentWeather.air_quality['so2']} μg/m³`, true)
-                        .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5']} μg/m³`, true)
-                        .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10']} μg/m³`, true)
+                        .addField(`Sulfur Dioxide (SO₂):`, `${currentWeather.air_quality['so2'].toFixed(2)} μg/m³`, true)
+                        .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5'].toFixed(2)} μg/m³`, true)
+                        .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10'].toFixed(2)} μg/m³`, true)
                         // FOOTER
                         .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.localtime).format(`MMMM D YYYY, h:mm:ss a`)}`)
 
