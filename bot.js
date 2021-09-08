@@ -956,8 +956,7 @@ cron.schedule('* * * * * *', async () => {
             currentWeather = result.data.current
             alertReports = result.data.alerts.alert
             
-            
-            console.log(`Generating main weather embed...`)
+
             // GENERATING SUCCESSFUL WEATHER EMBED
             forecastWeatherEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
@@ -995,7 +994,7 @@ cron.schedule('* * * * * *', async () => {
             let sixPMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 18:00`));
             let ninePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 21:00`));
 
-            console.log(`Generating hourly report 1...`)
+
             // GENERATING HOURLY REPORTS
             forecastHourlyReport1Embed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
@@ -1003,14 +1002,13 @@ cron.schedule('* * * * * *', async () => {
                 .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
                 .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
 
-            console.log(`Generating hourly report 2...`)
             forecastHourlyReport2Embed = new discord.MessageEmbed()
                 .setColor(config.embedGreen)
                 .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
                 .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
                 .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
 
-            console.log(`Generating weather alerts...`)
+
             // WEATHER ALERTS
             if(alertReports !== undefined) {
                 // FILTER OUT TO NEWEST ALERT THAT PERTAINS TO PHILADELPHIA SINCE NOT ALL ALERTS ARE ABOUT PHILLY
