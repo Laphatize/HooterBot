@@ -241,7 +241,7 @@ module.exports = {
                         \n**Chance of Rain:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_rain}%
                         \n**Chance of Snow:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_snow}%
                         \n**Precipitation:** ${forecastWeather.forecastday[0]["day"].totalprecip_in}in (${forecastWeather.forecastday[0]["day"].totalprecip_mm} mm)
-                        `)
+                        `, true)
 
                         // TOMORROW
                         .addField(`${moment(forecastWeather.forecastday[1].date).format(`MMMM D, YYYY`)}`,
@@ -252,7 +252,7 @@ module.exports = {
                         \n**Chance of Rain:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_rain}%
                         \n**Chance of Snow:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_snow}%
                         \n**Precipitation:** ${forecastWeather.forecastday[1]["day"].totalprecip_in}in (${forecastWeather.forecastday[1]["day"].totalprecip_mm} mm)
-                        `)
+                        `, true)
                         
                         // TWO DAYS FROM NOW
                         .addField(`${moment(forecastWeather.forecastday[2].date).format(`MMMM D, YYYY`)}`,
@@ -263,7 +263,7 @@ module.exports = {
                         \n**Chance of Rain:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_rain}%
                         \n**Chance of Snow:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_snow}%
                         \n**Precipitation:** ${forecastWeather.forecastday[2]["day"].totalprecip_in}in (${forecastWeather.forecastday[2]["day"].totalprecip_mm} mm)
-                        `)
+                        `, true)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [forecastWeatherEmbed] })
