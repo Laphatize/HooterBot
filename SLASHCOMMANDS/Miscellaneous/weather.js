@@ -121,7 +121,7 @@ module.exports = {
 
 
                     // TIME SPLITTING AND REFORMATTING
-                    let updateTime = `${currentWeather.localtime}`
+                    let updateTime = `${currentWeather.last_updated}`
 
                     console.log(`updateTime = ${updateTime}`)
 
@@ -168,7 +168,7 @@ module.exports = {
                         .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
 
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.localtime).subtract(1, 'hours').format(`MMMM D YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(4, 'hours').format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
                     let airQualityEmbed = new discord.MessageEmbed()
@@ -185,7 +185,7 @@ module.exports = {
                         .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5'].toFixed(2)} μg/m³`, true)
                         .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10'].toFixed(2)} μg/m³`, true)
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.localtime).subtract(1, 'hours').format(`MMMM D YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(4, 'hours').format(`MMMM D YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
