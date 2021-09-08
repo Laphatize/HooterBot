@@ -230,39 +230,30 @@ module.exports = {
                     let forecastWeatherEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGold)
                         .setTitle(`3-Day Philadelphia Weather Forecast`)
-                        .setThumbnail(encodeURI(`https:${forecastWeather.forecastday[0]["day"].condition.icon}`))
+                        .setThumbnail(encodeURI(`https:${forecastWeather.forecastday[1]["day"].condition.icon}`))
 
                         // TODAY
-                        .addField(`${moment(forecastWeather.forecastday[0].date).format(`MMMM D, YYYY`)}`,
-                        `**Conditions:** ${forecastWeather.forecastday[0]["day"].condition.text}
-                        **High:** ${forecastWeather.forecastday[0]["day"].maxtemp_f}°F (${forecastWeather.forecastday[0]["day"].maxtemp_c}°C)
-                        \n**Low:** ${forecastWeather.forecastday[0]["day"].mintemp_f}°F (${forecastWeather.forecastday[0]["day"].mintemp_c}°C)
+                        .addField(`${moment(forecastWeather.forecastday[0].date).format(`dddd, MMMM D, YYYY`)}`,
+                        `\n**Conditions:** ${forecastWeather.forecastday[0]["day"].condition.text}
+                        \n**High:** ${forecastWeather.forecastday[0]["day"].maxtemp_f}°F (${forecastWeather.forecastday[0]["day"].maxtemp_c}°C)\n**Low:** ${forecastWeather.forecastday[0]["day"].mintemp_f}°F (${forecastWeather.forecastday[0]["day"].mintemp_c}°C)
                         \n**Humidity:** ${forecastWeather.forecastday[0]["day"].avghumidity}
-                        \n**Chance of Rain:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_rain}%
-                        \n**Chance of Snow:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_snow}%
-                        \n**Precipitation:** ${forecastWeather.forecastday[0]["day"].totalprecip_in}in (${forecastWeather.forecastday[0]["day"].totalprecip_mm} mm)
+                        \n**Chance of Rain:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_rain}%\n**Chance of Snow:** ${forecastWeather.forecastday[0]["day"].daily_chance_of_snow}%\n**Precipitation:** ${forecastWeather.forecastday[0]["day"].totalprecip_in}in (${forecastWeather.forecastday[0]["day"].totalprecip_mm} mm)
                         `, true)
 
                         // TOMORROW
-                        .addField(`${moment(forecastWeather.forecastday[1].date).format(`MMMM D, YYYY`)}`,
-                        `**Conditions:** ${forecastWeather.forecastday[1]["day"].condition.text}
-                        **High:** ${forecastWeather.forecastday[1]["day"].maxtemp_f}°F (${forecastWeather.forecastday[1]["day"].maxtemp_c}°C)
-                        \n**Low:** ${forecastWeather.forecastday[1]["day"].mintemp_f}°F (${forecastWeather.forecastday[1]["day"].mintemp_c}°C)
+                        .addField(`${moment(forecastWeather.forecastday[1].date).format(`dddd, MMMM D, YYYY`)}`,
+                        `\n**Conditions:** ${forecastWeather.forecastday[1]["day"].condition.text}
+                        \n**High:** ${forecastWeather.forecastday[1]["day"].maxtemp_f}°F (${forecastWeather.forecastday[1]["day"].maxtemp_c}°C)\n**Low:** ${forecastWeather.forecastday[1]["day"].mintemp_f}°F (${forecastWeather.forecastday[1]["day"].mintemp_c}°C)
                         \n**Humidity:** ${forecastWeather.forecastday[1]["day"].avghumidity}
-                        \n**Chance of Rain:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_rain}%
-                        \n**Chance of Snow:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_snow}%
-                        \n**Precipitation:** ${forecastWeather.forecastday[1]["day"].totalprecip_in}in (${forecastWeather.forecastday[1]["day"].totalprecip_mm} mm)
+                        \n**Chance of Rain:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_rain}%\n**Chance of Snow:** ${forecastWeather.forecastday[1]["day"].daily_chance_of_snow}%\n**Precipitation:** ${forecastWeather.forecastday[1]["day"].totalprecip_in}in (${forecastWeather.forecastday[1]["day"].totalprecip_mm} mm)
                         `, true)
                         
                         // TWO DAYS FROM NOW
-                        .addField(`${moment(forecastWeather.forecastday[2].date).format(`MMMM D, YYYY`)}`,
-                        `**Conditions:** ${forecastWeather.forecastday[2]["day"].condition.text}
-                        **High:** ${forecastWeather.forecastday[2]["day"].maxtemp_f}°F (${forecastWeather.forecastday[2]["day"].maxtemp_c}°C)
-                        \n**Low:** ${forecastWeather.forecastday[2]["day"].mintemp_f}°F (${forecastWeather.forecastday[2]["day"].mintemp_c}°C)
+                        .addField(`${moment(forecastWeather.forecastday[2].date).format(`dddd, MMMM D, YYYY`)}`,
+                        `\n**Conditions:** ${forecastWeather.forecastday[2]["day"].condition.text}
+                        \n**High:** ${forecastWeather.forecastday[2]["day"].maxtemp_f}°F (${forecastWeather.forecastday[2]["day"].maxtemp_c}°C)\n**Low:** ${forecastWeather.forecastday[2]["day"].mintemp_f}°F (${forecastWeather.forecastday[2]["day"].mintemp_c}°C)
                         \n**Humidity:** ${forecastWeather.forecastday[2]["day"].avghumidity}
-                        \n**Chance of Rain:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_rain}%
-                        \n**Chance of Snow:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_snow}%
-                        \n**Precipitation:** ${forecastWeather.forecastday[2]["day"].totalprecip_in}in (${forecastWeather.forecastday[2]["day"].totalprecip_mm} mm)
+                        \n**Chance of Rain:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_rain}%\n**Chance of Snow:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_snow}%\n**Precipitation:** ${forecastWeather.forecastday[2]["day"].totalprecip_in}in (${forecastWeather.forecastday[2]["day"].totalprecip_mm} mm)
                         `, true)
 
                     // SHARING EMBED WITH LOCATION
