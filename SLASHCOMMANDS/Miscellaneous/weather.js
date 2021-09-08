@@ -199,8 +199,6 @@ module.exports = {
         /*  CURRENT PHILLY 3-DAY FORECAST      */
         /***************************************/
         if(weatherType == 'forecast') {
-            interaction.editReply({ content: 'Command is not ready yet, but will be soon.' })
-
             // WEATHER FORECAST DATA SETUP
             let config = {
                 method: 'get',
@@ -224,7 +222,7 @@ module.exports = {
                         return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
                     }
                     
-                    
+
                     forecastWeather = result.data.forecast
 
 
