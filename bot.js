@@ -915,7 +915,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT
-cron.schedule('00 02 05 * * *', async () => {
+cron.schedule('30 */2 * * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
