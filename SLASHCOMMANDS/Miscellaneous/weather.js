@@ -214,12 +214,11 @@ module.exports = {
                 headers: {}
             }
 
-
-            forecastWeather = result.data.forecast
-
             // WEATHER API CALL
             axios(config)
                 .then(async function(result) {
+                    forecastWeather = result.data.forecast
+
                     console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
             
                     await wait(500)
