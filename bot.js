@@ -943,8 +943,7 @@ cron.schedule('00 00 05 * * *', async () => {
                     .setTitle(`${config.emjREDTICK} Error generating daily report!`)
                     .setDescription(`I'm having trouble locating a daily weather report for Philly today, possibly indicative of an API issue.`)
                 ({ embeds: [noResultEmbed], ephemeral: true })
-                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [noResultEmbed] })
-                // termpleGuild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
+                guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
             }
 
 
