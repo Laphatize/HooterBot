@@ -133,7 +133,7 @@ module.exports = {
                     let localTimeMin = localTime[1];
                     let xm
                     
-                    if(localTime[0] > 12) {
+                    if(localTimeHour > 12) {
                         localTimeHour = `${localTime[0]-12}`
                         xm = `PM`
                     }
@@ -166,9 +166,6 @@ module.exports = {
                         .addField(`UV Index:`, `${currentWeather.uv}`, true)
                         .addField(`Cloud Coverage:`, `${currentWeather.cloud}%`, true)
                         .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
-
-                        // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
                     let airQualityEmbed = new discord.MessageEmbed()
