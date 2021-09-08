@@ -668,7 +668,7 @@ cron.schedule('00 31 10 * * *', async () => {
 
 
 // VERIFICATION TICKETS - AUTOMATIC CLOSING OF TICKET
-// EVERY DAY AT 10:32:00AM EST          00 01 10
+// EVERY DAY AT 10:32:00AM EST
 cron.schedule('00 32 10 * * *', async () => {
     console.log('Finding verification tickets that are 7 days old to close.')
 
@@ -915,7 +915,9 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT
-cron.schedule('00 56 04 * * *', async () => {
+cron.schedule('00 02 05 * * *', async () => {
+
+    console.log(`Running the daily weather report...`)
 
     let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
@@ -932,6 +934,9 @@ cron.schedule('00 56 04 * * *', async () => {
     // WEATHER API CALL
     axios(apiConfig)
         .then(async function(result) {
+
+            console.log(`API request sent, grabbing data...`)
+
             await wait(500)
 
             // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
@@ -1057,6 +1062,8 @@ cron.schedule('00 56 04 * * *', async () => {
     // PAST WEATHER MESSAGE EXISTS IN CHANNEL - DELETE OLD AND POST NEW, UPDATE MSG ID IN DB
     if(!dbGuildData.WEATHER_MSG_ID) {
 
+        console.log(`Past weather message does not exist... posting and logging.`)
+        
         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, alertsReportEmbed] })
         .then(msg => {
             // LOG MESSAGE ID IN DATABASE FOR GUILD
@@ -1072,6 +1079,8 @@ cron.schedule('00 56 04 * * *', async () => {
 
     // PAST WEATHER MESSAGE DNE - POST IN CHANNEL AND LOG
     if(dbGuildData.WEATHER_MSG_ID) {
+
+        console.log(`Past weather message already exists... deleting and then postin and logging.`)
 
         // DELETE 2ND REMINDER IF EXISTS
         if(dbGuildData.WEATHER_MSG_ID) {                            
