@@ -915,7 +915,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT
-cron.schedule('30 */2 * * * *', async () => {
+cron.schedule('* * * * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
@@ -1034,7 +1034,7 @@ cron.schedule('30 */2 * * * *', async () => {
                 .setColor(config.embedRed)
                 .setTitle(`${config.emjREDTICK} Sorry!`)
                 .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-            interaction.editReply({ embeds: [weatherFetchErrEmbed], ephemeral: true })
+            guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
 
             // LOG
             console.log(`****** WEATHER API ERROR ******`);
