@@ -126,7 +126,7 @@ module.exports = {
                     let mainWeatherEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGold)
                         .setTitle(`Current Philadelphia Weather (${moment(currentWeather.last_updated_epoch, 'x').format(`h:mm a`)})`)
-                        .setThumbnail(encodeURI(currentWeather.condition.icon))
+                        .setThumbnail(encodeURI(`https:${currentWeather.condition.icon}`))
                         // ROW 1
                         .addField(`Current Condition:`, `${currentWeather.condition.text}`, true)
                         .addField(`Temperature:`, `${currentWeather.temp_f}°F (${currentWeather.temp_c}°C)`, true)
