@@ -226,7 +226,7 @@ module.exports = {
                     console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
 
                     forecastWeather = result.data.forecast
-
+                    
 
                     // GENERATING SUCCESSFUL WEATHER EMBED
                     let forecastWeatherEmbed = new discord.MessageEmbed()
@@ -258,8 +258,8 @@ module.exports = {
                         \n**Chance of Rain:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_rain}%\n**Chance of Snow:** ${forecastWeather.forecastday[2]["day"].daily_chance_of_snow}%\n**Precipitation:** ${forecastWeather.forecastday[2]["day"].totalprecip_in}in (${forecastWeather.forecastday[2]["day"].totalprecip_mm} mm)
                         `, true)
 
-                        // // FOOTER
-                        // .setFooter(`Powered by Weather API | Weather as of: ${moment(forecastWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                        // FOOTER
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [forecastWeatherEmbed] })
