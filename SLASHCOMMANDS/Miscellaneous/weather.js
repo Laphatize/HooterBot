@@ -117,15 +117,27 @@ module.exports = {
                         airQualIndicatorText = `⬛ ${currentWeather.air_quality['us-epa-index']} (Hazardous)`
                     }
 
-
-
                     atmPressure = currentWeather.pressure_mb / 1013
+
+                    let localTime = currentWeather.localtime.split(' ').pop().split(':')
+
+                    let localTimeHour = localTime[0]
+                    let localTimeMin = localTime[1];
+                    let xm
+                    
+                    if(localTime[0] > 12) {
+                        localTimeHour = `${localTime[0]-12}`
+                        xm = `PM`
+                    }
+                    else {
+                        xm = 'AM'
+                    }
 
 
                     // GENERATING SUCCESSFUL WEATHER EMBED
                     let mainWeatherEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGold)
-                        .setTitle(`Current Philadelphia Weather (${moment(currentWeather.last_updated_epoch, 'x').format(`h:mm a`)})`)
+                        .setTitle(`Current Philadelphia Weather (${localTimeHour}:${localTimeMin}${xm})`)
                         .setThumbnail(encodeURI(`https:${currentWeather.condition.icon}`))
                         // ROW 1
                         .addField(`Current Condition:`, `${currentWeather.condition.text}`, true)
@@ -145,7 +157,7 @@ module.exports = {
                         .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
 
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.localtime).format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
                     let airQualityEmbed = new discord.MessageEmbed()
@@ -162,7 +174,7 @@ module.exports = {
                         .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5']} μg/m³`, true)
                         .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10']} μg/m³`, true)
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.localtime).format(`MMMM D YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
