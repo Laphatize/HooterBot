@@ -955,10 +955,6 @@ cron.schedule('00 */2 * * * *', async () => {
             forecastReport = result.data.forecast
             currentWeather = result.data.current
             hourData = result.data.forecast.forecastday[0].hour[0]
-            alertReports = result.data.alerts
-
-            console.log(`result.data.alerts = ${result.data.alerts}`)
-            console.log(`result.data.alerts["alert"][0] = ${result.data.alerts["alert"][0]}`)
 
             console.log(`hourData = ${hourData}`)
             
@@ -1013,26 +1009,6 @@ cron.schedule('00 */2 * * * *', async () => {
             //     .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
             //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
             //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
-
-
-            // // WEATHER ALERTS
-            // if(alertReports !== undefined) {
-            //     // FILTER OUT TO NEWEST ALERT THAT PERTAINS TO PHILADELPHIA SINCE NOT ALL ALERTS ARE ABOUT PHILLY
-            //     phillyReport = alertReports.find(alert => alert.toLowerCase().includes('philadelphia'));
-
-            //     // EMBED
-            //     alertsReportEmbed = new discord.MessageEmbed()
-            //         .setTitle(`${config.emjERROR} Weather Alerts`)
-            //         .setColor(config.embedRed)
-            //         .setDescription(`(${phillyReport.severity} ${phillyReport.msgtype}) ${phillyReport.headline}
-            //         \n\`\`\`${phillyReport.desc}\n${phillyReport.instruction}\`\`\``)
-            // } else {
-            //     // EMBED
-            //     alertsReportEmbed = new discord.MessageEmbed()
-            //         .setTitle(`${config.emjERROR} Weather Alerts`)
-            //         .setColor(config.embedRed)
-            //         .setDescription(`\`\`\`No active weather alerts\`\`\``)
-            // }
         })
         .catch(err => {
             // WEATHER LOAD ERROR RESPONSE
