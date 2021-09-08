@@ -22,7 +22,7 @@ module.exports = {
     run: async(client, interaction, inputs) => {
         
         // BOT-SPAM CHANNEL ONLY
-        if(interaction.channel.name !== '🤖｜bot-spam') {
+        if(interaction.channel.type !== 'DM' && interaction.channel.name !== '🤖｜bot-spam') {
 
             let botSpamChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === '🤖｜bot-spam')
 
