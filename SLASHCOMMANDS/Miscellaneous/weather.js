@@ -130,7 +130,7 @@ module.exports = {
                         // ROW 1
                         .addField(`Current Condition:`, `${currentWeather.condition.text}`, true)
                         .addField(`Temperature:`, `${currentWeather.temp_f}°F (${currentWeather.temp_c}°C)`, true)
-                        .addField(`Feels Like:`, `${rescurrentWeather.feelslike_f}°F (${currentWeather.feelslike_c}°C)`, true)
+                        .addField(`Feels Like:`, `${currentWeather.feelslike_f}°F (${currentWeather.feelslike_c}°C)`, true)
                         // ROW 2
                         .addField(`Wind:`, `${currentWeather.wind_mph} mph (${currentWeather.wind_kph} kph)`, true)
                         .addField(`Direction:`, `${currentWeather.wind_dir} (${currentWeather.wind_degree}°)`, true)
