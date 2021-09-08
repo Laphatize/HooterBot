@@ -67,13 +67,11 @@ module.exports = {
                 headers: {}
             }
 
-            // GOOGLE MAPS API CALL
+            // CURRENT WEATHER API CALL
             axios(config)
                 .then(async function(result) {
                     await wait(500)
-                    console.log(`\n\nWEATHER API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER API DATA)\n\n`);
-
-
+                    
                     // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
                     if(result === undefined || result.length === 0) {
 
@@ -122,17 +120,11 @@ module.exports = {
 
                     // TIME SPLITTING AND REFORMATTING
                     let updateTime = `${currentWeather.last_updated}`
-
-                    console.log(`updateTime = ${updateTime}`)
-
                     let localTime = updateTime.split(' ').pop().split(':')
-
-                    console.log(`localTime = ${localTime}`)
-
                     let localTimeHour = localTime[0]
                     let localTimeMin = localTime[1];
                     let xm
-                    
+
                     if(localTimeHour > 12) {
                         localTimeHour = `${localTime[0]-12}`
                         xm = `PM`
@@ -140,10 +132,6 @@ module.exports = {
                     else {
                         xm = 'AM'
                     }
-
-                    console.log(`localTimeHour = ${localTimeHour}`)
-                    console.log(`localTimeMin = ${localTimeMin}`)
-                    console.log(`xm = ${xm}`)
 
                     // GENERATING SUCCESSFUL WEATHER EMBED
                     let mainWeatherEmbed = new discord.MessageEmbed()
@@ -219,19 +207,24 @@ module.exports = {
         if(weatherType == 'forecast') {
             interaction.editReply({ content: 'Command is not ready yet, but will be soon.' })
 
-            // WEATHER DATA SETUP
+            // WEATHER FORECAST DATA SETUP
             let config = {
                 method: 'get',
                 url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=5&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
                 headers: {}
             }
 
-            await wait(500)
 
+            forecastWeather = result.data.forecast
 
+            // WEATHER API CALL
+            axios(config)
+                .then(async function(result) {
+                    console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
+            
+                    await wait(500)
 
-
-
+                })
         }
     }
 }
