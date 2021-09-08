@@ -969,7 +969,7 @@ cron.schedule('00 */2 * * * *', async () => {
                 // ROW 1
                 .addField(`Conditions:`, `${forecastReport.forecastday[0]["day"].condition.text}`, true)
                 .addField(`High Temp:`, `${forecastReport.forecastday[0]["day"].maxtemp_f}°F (${forecastReport.forecastday[0]["day"].maxtemp_c}°C)`, true)
-                .addField(`Low Temp: ${forecastReport.forecastday[0]["day"].mintemp_f}°F (${forecastReport.forecastday[0]["day"].mintemp_c}°C)`, true)
+                .addField(`Low Temp:`, `${forecastReport.forecastday[0]["day"].mintemp_f}°F (${forecastReport.forecastday[0]["day"].mintemp_c}°C)`, true)
                 // ROW 2
                 .addField(`Humidity:`, `${forecastReport.forecastday[0]["day"].avghumidity}`, true)
                 .addField(`Max Winds:`, `${forecastReport.forecastday[0]["day"].maxwind_mph} mph (${forecastReport.forecastday[0]["day"].maxwind_kph} kph)`, true)
