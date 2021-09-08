@@ -119,7 +119,7 @@ module.exports = {
 
                     atmPressure = currentWeather.pressure_mb / 1013
 
-                    let localTime = currentWeather.localtime.split(' ').pop().split(':')
+                    let localTime = currentWeather.localtime.toString().split(' ').pop().split(':')
 
                     let localTimeHour = localTime[0]
                     let localTimeMin = localTime[1];
