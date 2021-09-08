@@ -117,9 +117,12 @@ module.exports = {
                         airQualIndicatorText = `⬛ ${currentWeather.air_quality['us-epa-index']} (Hazardous)`
                     }
 
-                    atmPressure = currentWeather.pressure_mb / 1013
+                    let atmPressure = currentWeather.pressure_mb / 1013
 
-                    let localTime = currentWeather.localtime.toString().split(' ').pop().split(':')
+
+                    // TIME SPLITTING AND REFORMATTING
+                    let updateTime = `${currentWeather.localtime}`
+                    let localTime = updateTime.split(' ').pop().split(':')
 
                     let localTimeHour = localTime[0]
                     let localTimeMin = localTime[1];
