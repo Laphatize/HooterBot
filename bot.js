@@ -915,7 +915,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT
-cron.schedule('00 00 05 * * *', async () => {
+cron.schedule('00 56 04 * * *', async () => {
 
     let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
