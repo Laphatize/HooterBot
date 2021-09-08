@@ -145,7 +145,7 @@ module.exports = {
                         .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
 
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`)}`)
 
 
                     let airQualityEmbed = new discord.MessageEmbed()
@@ -162,7 +162,7 @@ module.exports = {
                         .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5']} μg/m³`, true)
                         .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10']} μg/m³`, true)
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
