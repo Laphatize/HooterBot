@@ -964,7 +964,7 @@ cron.schedule('00 */2 * * * *', async () => {
             forecastWeatherEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
-                .setThumbnail(encodeURI(`https:${currentWeather.forecastday[0]["day"].condition.icon}`))
+                .setThumbnail(encodeURI(`https:${forecastReport.forecastday[0]["day"].condition.icon}`))
 
                 // ROW 1
                 .addField(`Conditions:`, `${forecastReport.forecastday[0]["day"].condition.text}`, true)
