@@ -955,7 +955,7 @@ cron.schedule('00 */2 * * * *', async () => {
             forecastReport = result.data.forecast
             currentWeather = result.data.current
             hourData = result.data.forecast.forecastday[0].hour[0]
-            alertReports = result.data.alerts.alert[0]
+            alertReports = result.data.alerts
 
             console.log(`result.data.alerts = ${result.data.alerts}`)
             console.log(`result.data.alerts["alert"][0] = ${result.data.alerts["alert"][0]}`)
