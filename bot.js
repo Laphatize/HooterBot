@@ -957,6 +957,7 @@ cron.schedule('00 */2 * * * *', async () => {
             hourData = result.data.forecast.forecastday[0].hour[0]
 
             console.log(`hourData = ${hourData}`)
+            console.log(`hourData.entries() = ${hourData.entries()}`)
             
 
             // GENERATING SUCCESSFUL WEATHER EMBED
@@ -1035,30 +1036,30 @@ cron.schedule('00 */2 * * * *', async () => {
         })
 
 
-    // // CHECK DB FOR GUILD WEATHER MESSAGE
-    // const dbGuildData = await guildSchema.find({
-    //     GUILD_ID: guild.id,
-    // }).exec();
+    // CHECK DB FOR GUILD WEATHER MESSAGE
+    const dbGuildData = await guildSchema.find({
+        GUILD_ID: guild.id,
+    }).exec();
     
 
-    // // PAST WEATHER MESSAGE EXISTS IN CHANNEL - DELETE OLD AND POST NEW, UPDATE MSG ID IN DB
-    // if(!dbGuildData.WEATHER_MSG_ID) {
+    // PAST WEATHER MESSAGE EXISTS IN CHANNEL - DELETE OLD AND POST NEW, UPDATE MSG ID IN DB
+    if(!dbGuildData.WEATHER_MSG_ID) {
 
-    //     console.log(`Past weather message does not exist... posting and logging.`)
+        console.log(`Past weather message does not exist... posting and logging.`)
         
-    //     // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-    //     guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
-    //     .then(msg => {
-    //         // LOG MESSAGE ID IN DATABASE FOR GUILD
-    //         guildSchema.findOneAndUpdate({
-    //             GUILD_ID: guild.id
-    //         },{
-    //             WEATHER_MSG_ID: msg.id,
-    //         },{
-    //             upsert: true
-    //         }).exec();
-    //     })
-    // }
+        // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
+        guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
+        // .then(msg => {
+        //     // LOG MESSAGE ID IN DATABASE FOR GUILD
+        //     guildSchema.findOneAndUpdate({
+        //         GUILD_ID: guild.id
+        //     },{
+        //         WEATHER_MSG_ID: msg.id,
+        //     },{
+        //         upsert: true
+        //     }).exec();
+        // })
+    }
 
     // // PAST WEATHER MESSAGE DNE - POST IN CHANNEL AND LOG
     // if(dbGuildData.WEATHER_MSG_ID) {
