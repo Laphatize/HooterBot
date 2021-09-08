@@ -224,17 +224,14 @@ module.exports = {
                         return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
                     }
                     
-                   
-                    console.log(`\n\nWEATHER FORECAST API DATA:\n`,JSON.stringify(result.data, null, 5),`\n(END OF WEATHER FORECAST API DATA)\n\n`);
-            
- 
+                    
                     forecastWeather = result.data.forecast
 
 
                     // GENERATING SUCCESSFUL WEATHER EMBED
                     let forecastWeatherEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGold)
-                        .setTitle(`Current Philadelphia Weather (${localTimeHour}:${localTimeMin}${xm})`)
+                        .setTitle(`3-Day Philadelphia Weather Forecast`)
                         .setThumbnail(encodeURI(`https:${forecastWeather.forecastday[0]["day"].condition.icon}`))
 
                         // TODAY
