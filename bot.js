@@ -954,7 +954,7 @@ cron.schedule('00 */2 * * * *', async () => {
 
             forecastReport = result.data.forecast
             currentWeather = result.data.current
-            hourData = result.data.forecast.hour[0]
+            hourData = result.data.forecast.forecastday.hour[0]
             alertReports = result.data.alerts.alert[0]
 
             console.log(`result.data.alerts = ${result.data.alerts}`)
@@ -1051,7 +1051,7 @@ cron.schedule('00 */2 * * * *', async () => {
             let logErrEmbed = new discord.MessageEmbed()
                 .setColor(config.embedGrey)
                 .setTitle(`${config.emjERROR} An error has occurred with the Weather API...`)
-                .setDescription(`\`\`${err}\`\`\``)
+                .setDescription(`\`\`\`${err}\`\`\``)
                 .setTimestamp()
             
             // LOG ENTRY
