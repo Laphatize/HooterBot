@@ -125,7 +125,7 @@ module.exports = {
                     // GENERATING SUCCESSFUL WEATHER EMBED
                     let mainWeatherEmbed = new discord.MessageEmbed()
                         .setColor(botconf.embedGold)
-                        .setTitle(`Current Philadelphia Weather (${moment.unix(currentWeather.last_updated_epoch).format(`h:mm a`).utcOffset(-4)})`)
+                        .setTitle(`Current Philadelphia Weather (${moment(currentWeather.last_updated_epoch, 'x').format(`h:mm a`).utcOffset(-4)})`)
                         .setThumbnail(encodeURI(currentWeather.condition.icon))
                         // ROW 1
                         .addField(`Current Condition:`, `${currentWeather.condition.text}`, true)
@@ -145,7 +145,7 @@ module.exports = {
                         .addField(`Visibility:`, `${currentWeather.vis_miles} mi (${currentWeather.vis_km} km)`, true)
 
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment.unix(currentWeather.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
 
 
                     let airQualityEmbed = new discord.MessageEmbed()
@@ -162,7 +162,7 @@ module.exports = {
                         .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5']} μg/m³`, true)
                         .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10']} μg/m³`, true)
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment.unix(currentWeather.last_updated_epoch).format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
+                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated_epoch, 'x').format(`MMMM D YYYY, h:mm:ss a`).utcOffset(-4)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
