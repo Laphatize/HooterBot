@@ -55,8 +55,8 @@ module.exports = {
 
             forecastReport = result.data.forecast
             currentWeather = result.data.current
-            
-            console.log(`${moment(Date.now().utcOffset(-4).format('YYYY-MM-DD 06:00'))}`)
+
+            console.log(`${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`)
 
             sixAmData = result.data.forecast.forecastday[0].hour[0].find(f => f.time == `${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`);
 
