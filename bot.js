@@ -127,7 +127,7 @@ client.on('ready', async () => {
     let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
     let channelSC = cmds.find(c => c.name === `channel`)
     let modappSC = cmds.find(c => c.name === `modapp`) 
-    let weatherSC = cmds.find(c => c.name === `weather`) 
+    let weatherReportSC = cmds.find(c => c.name === `dailyweatherreport`) 
 
 
     // SETTING PERMISSIONS
@@ -257,6 +257,13 @@ client.on('ready', async () => {
                 permission: true,
             },{
                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: weatherReportSC.id,     // COMMAND: /weatherreport
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
             }]
@@ -914,8 +921,8 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 
-// // WEATHER REPORT
-// cron.schedule('00 */2 * * * *', async () => {
+// // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
+// cron.schedule('00 00 06 * * *', async () => {
 
 //     console.log(`Running the daily weather report...`)
 
@@ -924,7 +931,7 @@ cron.schedule('00 32 10 * * *', async () => {
 //     // GRAB WEATHER DATA
 //     let apiConfig = {
 //         method: 'get',
-//         url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=3&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+//         url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=1&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
 //         headers: {}
 //     }
 
@@ -954,7 +961,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 //             forecastReport = result.data.forecast
 //             currentWeather = result.data.current
-//             hourData = result.data.forecast.forecastday[0].hour[0]
+//             sixAmData = result.data.forecast.forecastday[0].filter(f => f.time === `${moment().format('YYYY-MM-DD 06:00')}`);
 
 //             console.log(`hourData = ${hourData}`)
             
@@ -989,26 +996,26 @@ cron.schedule('00 32 10 * * *', async () => {
 //                 .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
 
-//             // let sixAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 06:00`));
-//             // let nineAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 09:00`));
-//             // let noondata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 12:00`));
-//             // let threePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 15:00`));
-//             // let sixPMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 18:00`));
-//             // let ninePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 21:00`));
+            // let sixAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 06:00`));
+            // let nineAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 09:00`));
+            // let noondata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 12:00`));
+            // let threePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 15:00`));
+            // let sixPMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 18:00`));
+            // let ninePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 21:00`));
 
 
-//             // // GENERATING HOURLY REPORTS
-//             // forecastHourlyReport1Embed = new discord.MessageEmbed()
-//             //     .setColor(config.embedGreen)
-//             //     .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
-//             //     .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
-//             //     .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
+            // // GENERATING HOURLY REPORTS
+            // forecastHourlyReport1Embed = new discord.MessageEmbed()
+            //     .setColor(config.embedGreen)
+            //     .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
+            //     .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
+            //     .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
 
-//             // forecastHourlyReport2Embed = new discord.MessageEmbed()
-//             //     .setColor(config.embedGreen)
-//             //     .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
-//             //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
-//             //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
+            // forecastHourlyReport2Embed = new discord.MessageEmbed()
+            //     .setColor(config.embedGreen)
+            //     .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
+            //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
+            //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
 //         })
 //         .catch(err => {
 //             // WEATHER LOAD ERROR RESPONSE
@@ -1046,48 +1053,47 @@ cron.schedule('00 32 10 * * *', async () => {
 
 //         console.log(`Past weather message does not exist... posting and logging.`)
         
-//         // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-//         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
-//         // .then(msg => {
-//         //     // LOG MESSAGE ID IN DATABASE FOR GUILD
-//         //     guildSchema.findOneAndUpdate({
-//         //         GUILD_ID: guild.id
-//         //     },{
-//         //         WEATHER_MSG_ID: msg.id,
-//         //     },{
-//         //         upsert: true
-//         //     }).exec();
-//         // })
-//     }
+        // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
+        // .then(msg => {
+        //     // LOG MESSAGE ID IN DATABASE FOR GUILD
+        //     guildSchema.findOneAndUpdate({
+        //         GUILD_ID: guild.id
+        //     },{
+        //         WEATHER_MSG_ID: msg.id,
+        //     },{
+        //         upsert: true
+        //     }).exec();
+        // })
+    // }
 
-//     // // PAST WEATHER MESSAGE DNE - POST IN CHANNEL AND LOG
-//     // if(dbGuildData.WEATHER_MSG_ID) {
+    // // PAST WEATHER MESSAGE DNE - POST IN CHANNEL AND LOG
+    // if(dbGuildData.WEATHER_MSG_ID) {
 
-//     //     console.log(`Past weather message already exists... deleting and then postin and logging.`)
+    //     console.log(`Past weather message already exists... deleting and then postin and logging.`)
 
-//     //     // DELETE 2ND REMINDER IF EXISTS
-//     //     if(dbGuildData.WEATHER_MSG_ID) {                            
-//     //         // FETCH MESSAGE BY ID AND DELETE
-//     //         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).messages.fetch(dbGuildData.WEATHER_MSG_ID)
-//     //             .then(msg => {
-//     //                 setTimeout(() => msg.delete(), 0 );
-//     //             })
-//     //             .catch(err => console.log(err))
-//     //     }
+    //     // DELETE 2ND REMINDER IF EXISTS
+    //     if(dbGuildData.WEATHER_MSG_ID) {                            
+    //         // FETCH MESSAGE BY ID AND DELETE
+    //         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).messages.fetch(dbGuildData.WEATHER_MSG_ID)
+    //             .then(msg => {
+    //                 setTimeout(() => msg.delete(), 0 );
+    //             })
+    //             .catch(err => console.log(err))
+    //     }
 
-//     //     // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-//     //     guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
-//     //     .then(msg => {
-//     //         // LOG MESSAGE ID IN DATABASE FOR GUILD
-//     //         guildSchema.findOneAndUpdate({
-//     //             GUILD_ID: guild.id
-//     //         },{
-//     //             WEATHER_MSG_ID: msg.id,
-//     //         },{
-//     //             upsert: true
-//     //         }).exec();
-//     //     })
-//     // }
+    //     // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
+    //     guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
+    //     .then(msg => {
+    //         // LOG MESSAGE ID IN DATABASE FOR GUILD
+    //         guildSchema.findOneAndUpdate({
+    //             GUILD_ID: guild.id
+    //         },{
+    //             WEATHER_MSG_ID: msg.id,
+    //         },{
+    //             upsert: true
+    //         }).exec();
+    //     })
+    // }
 // })
 
 
