@@ -68,6 +68,8 @@ module.exports = {
             let hourDataEntry = hourData[0]
 
             console.log(`hourData[0]:\n${hourData[0]}\n\n`)
+
+            console.log(`hourData[0] (stringified):\n${JSON.stringify(hourData[0])}\n\n`)
             
 
             // // GENERATING SUCCESSFUL WEATHER EMBED
