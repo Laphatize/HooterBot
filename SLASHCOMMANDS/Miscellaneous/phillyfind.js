@@ -83,7 +83,7 @@ module.exports = {
                 // GENERATING SUCCESSFUL MAP EMBED
                 let nearestLocationEmbed = new discord.MessageEmbed()
                     .setColor(botconf.embedDarkGrey)
-                    .setDescription(`**Query:** ${locationName}\n**Result:** ${resultName}\n${resultAddress}\n**More results:** [on Google Maps](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)}))\n*The red marker is the Bell Tower.*`)
+                    .setDescription(`**Query:** ${locationName}\n**Result:** ${resultName}\n${resultAddress}\n**See more results [on Google Maps](${encodeURI(`https://www.google.com/maps/search/?api=1&query=${locationName}`)})**\n*The red marker is the Bell Tower.*`)
                     .setImage(`${locationImg}`)
                     .setFooter(`Click the image for a larger view\nNOTE: Results are skewed by Google and may not be the best choice or the closest to campus.`)
 
