@@ -112,27 +112,27 @@ module.exports = {
             //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
         })
         .catch(err => {
-            // WEATHER LOAD ERROR RESPONSE
-            let weatherFetchErrEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`${config.emjREDTICK} Sorry!`)
-                .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-            guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
+            // // WEATHER LOAD ERROR RESPONSE
+            // let weatherFetchErrEmbed = new discord.MessageEmbed()
+            //     .setColor(config.embedRed)
+            //     .setTitle(`${config.emjREDTICK} Sorry!`)
+            //     .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
+            // guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
 
             // LOG
             console.log(`****** WEATHER API ERROR ******`);
             console.log(err);
             console.log(`********************************\n`);
             
-            // DEFINING LOG EMBED
-            let logErrEmbed = new discord.MessageEmbed()
-                .setColor(config.embedGrey)
-                .setTitle(`${config.emjERROR} An error has occurred with the Weather API...`)
-                .setDescription(`\`\`\`${err}\`\`\``)
-                .setTimestamp()
+            // // DEFINING LOG EMBED
+            // let logErrEmbed = new discord.MessageEmbed()
+            //     .setColor(config.embedGrey)
+            //     .setTitle(`${config.emjERROR} An error has occurred with the Weather API...`)
+            //     .setDescription(`\`\`\`${err}\`\`\``)
+            //     .setTimestamp()
             
-            // LOG ENTRY
-            return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
+            // // LOG ENTRY
+            // return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
         })
 
 
