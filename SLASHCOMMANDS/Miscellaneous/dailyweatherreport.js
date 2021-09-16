@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const botconf = require ('../../config.json')
+const config = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 const axios = require('axios');
 const moment = require('moment');
@@ -60,34 +60,34 @@ module.exports = {
             console.log(`\n\nsixAmData:\n${sixAmData}\n\n`)
             
 
-            // GENERATING SUCCESSFUL WEATHER EMBED
-            forecastWeatherEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
-                .setThumbnail(encodeURI(`https:${forecastReport.forecastday[0]["day"].condition.icon}`))
+            // // GENERATING SUCCESSFUL WEATHER EMBED
+            // forecastWeatherEmbed = new discord.MessageEmbed()
+            //     .setColor(config.embedBlurple)
+            //     .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
+            //     .setThumbnail(encodeURI(`https:${forecastReport.forecastday[0]["day"].condition.icon}`))
 
-                // ROW 1
-                .addField(`Conditions:`, `${forecastReport.forecastday[0]["day"].condition.text}`, true)
-                .addField(`High Temp:`, `${forecastReport.forecastday[0]["day"].maxtemp_f}°F (${forecastReport.forecastday[0]["day"].maxtemp_c}°C)`, true)
-                .addField(`Low Temp:`, `${forecastReport.forecastday[0]["day"].mintemp_f}°F (${forecastReport.forecastday[0]["day"].mintemp_c}°C)`, true)
-                // ROW 2
-                .addField(`Humidity:`, `${forecastReport.forecastday[0]["day"].avghumidity}`, true)
-                .addField(`Max Winds:`, `${forecastReport.forecastday[0]["day"].maxwind_mph} mph (${forecastReport.forecastday[0]["day"].maxwind_kph} kph)`, true)
-                .addField(`UV Index:`, `${forecastReport.forecastday[0]["day"].uv}`, true)
-                // ROW 3
-                .addField(`Chance of Rain:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_rain}%`, true)
-                .addField(`Chance of Snow:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_snow}%`, true)
-                .addField(`Precipitation:`, `${forecastReport.forecastday[0]["day"].totalprecip_in}in (${forecastReport.forecastday[0]["day"].totalprecip_mm} mm)`, true)
-                // ROW 4
-                .addField(`Sunrise:`, `${forecastReport.forecastday[0]["astro"].sunrise}`, true)
-                .addField(`Sunset:`, `${forecastReport.forecastday[0]["astro"].sunset}`, true)
-                .addField(`\u200b`, `\u200b`, true)
-                // ROW 5
-                .addField(`Moonrise:`, `${forecastReport.forecastday[0]["astro"].moonrise}`, true)
-                .addField(`Moonset:`, `${forecastReport.forecastday[0]["astro"].moonset}`, true)
-                .addField(`Moon Phase:`, `${forecastReport.forecastday[0]["astro"].moon_phase}`, true)
-                // FOOTER
-                .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+            //     // ROW 1
+            //     .addField(`Conditions:`, `${forecastReport.forecastday[0]["day"].condition.text}`, true)
+            //     .addField(`High Temp:`, `${forecastReport.forecastday[0]["day"].maxtemp_f}°F (${forecastReport.forecastday[0]["day"].maxtemp_c}°C)`, true)
+            //     .addField(`Low Temp:`, `${forecastReport.forecastday[0]["day"].mintemp_f}°F (${forecastReport.forecastday[0]["day"].mintemp_c}°C)`, true)
+            //     // ROW 2
+            //     .addField(`Humidity:`, `${forecastReport.forecastday[0]["day"].avghumidity}`, true)
+            //     .addField(`Max Winds:`, `${forecastReport.forecastday[0]["day"].maxwind_mph} mph (${forecastReport.forecastday[0]["day"].maxwind_kph} kph)`, true)
+            //     .addField(`UV Index:`, `${forecastReport.forecastday[0]["day"].uv}`, true)
+            //     // ROW 3
+            //     .addField(`Chance of Rain:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_rain}%`, true)
+            //     .addField(`Chance of Snow:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_snow}%`, true)
+            //     .addField(`Precipitation:`, `${forecastReport.forecastday[0]["day"].totalprecip_in}in (${forecastReport.forecastday[0]["day"].totalprecip_mm} mm)`, true)
+            //     // ROW 4
+            //     .addField(`Sunrise:`, `${forecastReport.forecastday[0]["astro"].sunrise}`, true)
+            //     .addField(`Sunset:`, `${forecastReport.forecastday[0]["astro"].sunset}`, true)
+            //     .addField(`\u200b`, `\u200b`, true)
+            //     // ROW 5
+            //     .addField(`Moonrise:`, `${forecastReport.forecastday[0]["astro"].moonrise}`, true)
+            //     .addField(`Moonset:`, `${forecastReport.forecastday[0]["astro"].moonset}`, true)
+            //     .addField(`Moon Phase:`, `${forecastReport.forecastday[0]["astro"].moon_phase}`, true)
+            //     // FOOTER
+            //     .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
 
             // let sixAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 06:00`));
@@ -177,7 +177,7 @@ module.exports = {
 //     //     }
 
 //     //     // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-        interaction.editReply({ embeds: [forecastWeatherEmbed] })
+//     // interaction.editReply({ embeds: [forecastWeatherEmbed] })
 //     //     .then(msg => {
 //     //         // LOG MESSAGE ID IN DATABASE FOR GUILD
 //     //         guildSchema.findOneAndUpdate({
