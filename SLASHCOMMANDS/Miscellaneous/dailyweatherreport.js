@@ -58,9 +58,16 @@ module.exports = {
 
             console.log(`${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`)
 
-            sixAmData = result.data.forecast.forecastday[0].hour[0].find(f => f.time == `${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`);
+            let hourData = result.data.forecast.forecastday[0].hour[0]
+            
+            
+            // .find(f => f.time == `${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`);
 
-            console.log(`\n\nsixAmData:\n${sixAmData}\n\n`)
+            console.log(`\n\nhourData:\n${hourData}\n\n`)
+
+            let hourDataEntry = hourData[0]
+
+            console.log(`hourData[0]:\n${hourData[0]}\n\n`)
             
 
             // // GENERATING SUCCESSFUL WEATHER EMBED
