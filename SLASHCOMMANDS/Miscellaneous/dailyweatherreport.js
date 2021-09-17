@@ -64,12 +64,7 @@ module.exports = {
             // .find(f => f.time == `${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`);
 
             console.log(`\n\nhourData:\n${hourData}\n\n`)
-
-            let hourDataEntry = hourData[0]
-
-            console.log(`hourData[0]:\n${hourData[0]}\n\n`)
-
-            console.log(`hourData[0] (stringified):\n${JSON.stringify(hourData[0])}\n\n`)
+            console.log(`hourData (stringified):\n${JSON.stringify(hourData)}\n\n`)
             
 
             // // GENERATING SUCCESSFUL WEATHER EMBED
