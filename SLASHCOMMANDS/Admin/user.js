@@ -415,16 +415,14 @@ module.exports = {
                         booster = member.premiumSince
                     }
 
+
+                    let userRoleList
                     // ROLES
                     let userRoles = user.roles.cache
                         .map(role => role.toString())
                         .slice(0, -1)
 
-                    console.log(`userRoles = ${userRoles}`)
-
-                        if(userRoles == "" || userRoles == null) {
-                            userRoles == "*(no roles)*"
-                        }
+                    userRoleList = userRoles.join('\n')
 
 
                     let userInfoEmbed = new discord.MessageEmbed()
@@ -436,7 +434,7 @@ module.exports = {
                         .addField(`Server Boosting:`, `${booster}`, true)
                         .addField(`Server Join Date:`, `${moment(user.joinedAt).format(`LLL`)}`, true)
                         .addField(`Discord Join Date:`, `${moment(member.createdTimestamp).format(`LL`)}`, true)
-                        .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
+                        .addField(`Server Roles:`, `${userRoleList || `*(None)*`}`, true)
                         .addField(`Flags:`, `\`\`${userFlags || `(None)`}\`\``, true)
                         .addField(`Bot?`, `${member.bot}`, true)
 
