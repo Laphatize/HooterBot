@@ -422,7 +422,7 @@ module.exports = {
 
                     console.log(`userRoles = ${userRoles}`)
 
-                        if(!userRoles) {
+                        if(userRoles == "" || userRoles == null) {
                             userRoles = ["*(no roles)*"]
                         }
 
