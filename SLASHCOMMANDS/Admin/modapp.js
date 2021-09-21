@@ -24,8 +24,11 @@ module.exports = {
                     name: `appconfirm`,
                     value: `appconfirm`
                 },{
-                    name: `appdisq`,
-                    value: `appdisq`
+                    name: `appdisq-incomplete`,
+                    value: `appdisq-incomplete`
+                },{
+                    name: `appdisq-reqs`,
+                    value: `appdisq-reqs`
                 }
             ]
         }
@@ -208,7 +211,7 @@ module.exports = {
 
 
         // APP NOT COMPLETED IN FULL - FREEZE CURRENT APPLICATION CHANNEL
-        if(inputs[0] == 'appdisq') {
+        if(inputs[0] == 'appdisq-incomplete') {
 
             if(!interaction.channel.name.startsWith(`modapp-`)) {
                 let notAppChEmbed = new discord.MessageEmbed()
@@ -239,13 +242,56 @@ module.exports = {
                 let appLocked = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Application Not Submitted`)
-                    .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider this application.`)
+                    .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider your application at this time.`)
 
                 // LOG ENTRY
                 channel.send({ embeds: [appLocked] })
             })
 
-            interaction.reply({ content: `App confirmation added`, ephemeral: true })
+            interaction.reply({ content: `App confirmation added.`, ephemeral: true })
+        }
+
+
+
+        // APP COMPLETED BUT USER SOMEHOW GOT PAST HOOTERBOT'S MEMBER CHECKER
+        if(inputs[0] == 'appdisq-reqs') {
+
+            if(!interaction.channel.name.startsWith(`modapp-`)) {
+                let notAppChEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedTempleRed)
+                    .setTitle(`${config.emjREDTICK} **Error!**`)
+                    .setDescription(`This command can only be ran in **moderator application channels**.`)
+
+                // SENDING TO CHANNEL
+                return interaction.reply({ embeds: [notAppChEmbed], ephemeral: true })
+            }
+
+            let chNameSplit = interaction.channel.name.split(`-`)
+            let applicantUserId = chNameSplit[1]
+                
+            // UPDATE DATABASE
+            await modAppTicketSchema.findOneAndDelete({
+                USER_ID: applicantUserId[1]
+            }).exec();
+            
+
+            // LOCKING SEND MESSAGE PERMISSION
+            interaction.channel.permissionOverwrites.edit(applicantUserId, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false,
+            }).then(channel => {
+
+                // CONFIRMATION EMBED
+                let appLocked = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Application Disqualified`)
+                    .setDescription(`Unfortunately, you do not meet the moderator application minimum requirements (membership duration in the server) and we are unable to consider your application at this time. Be active in the server and consider reapplying again the next time applications open!`)
+
+                // LOG ENTRY
+                channel.send({ embeds: [appLocked] })
+            })
+
+            interaction.reply({ content: `App disqualification added.`, ephemeral: true })
         }
     }
 }
