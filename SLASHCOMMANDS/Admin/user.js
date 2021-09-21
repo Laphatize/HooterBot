@@ -409,16 +409,20 @@ module.exports = {
 
                     // SERVER BOOSTING DATE FIX
                     let booster
-                    if(booster == 'undefined') {
+                    if(booster == 'undefined' || booster == null) {
                         booster =  `*(N/A)*`
                     } else {
-                        booster = moment(member.premiumSince).format('LL')
+                        booster = member.premiumSince
                     }
 
                     // ROLES
                     const userRoles = user.roles.cache
                         .map(role => role.toString())
                         .slice(0, -1)
+
+                        if(!userRoles) {
+                            userRoles = "*(no roles)*"
+                        }
 
 
                     let userInfoEmbed = new discord.MessageEmbed()
