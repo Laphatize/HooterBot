@@ -420,6 +420,8 @@ module.exports = {
                         .map(role => role.toString())
                         .slice(0, -1)
 
+                    console.log(`userRoles = ${userRoles}`)
+
                         if(!userRoles) {
                             userRoles = ["*(no roles)*"]
                         }
@@ -431,7 +433,7 @@ module.exports = {
                         .addField(`Username:`, `${member.username}`, true)
                         .addField(`ID:`, `${member.id}`, true)
                         .addField(`Nickname:`, `${nickname}`, true)
-                        .addField(`Server Boosting:`, `*(Not calculating properly)*`, true)
+                        .addField(`Server Boosting:`, `${booster}`, true)
                         .addField(`Server Join Date:`, `${moment(user.joinedAt).format(`LLL`)}`, true)
                         .addField(`Discord Join Date:`, `${moment(member.createdTimestamp).format(`LL`)}`, true)
                         .addField(`Server Roles:`, `${userRoles.join('\n')}`, true)
