@@ -409,7 +409,7 @@ module.exports = {
 
                     // SERVER BOOSTING DATE FIX
                     let booster
-                    if(booster == 'undefined' || booster == null) {
+                    if(booster == 'undefined' || booster == null || booster == "") {
                         booster =  `*(N/A)*`
                     } else {
                         booster = member.premiumSince
