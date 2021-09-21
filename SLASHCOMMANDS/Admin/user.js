@@ -421,7 +421,7 @@ module.exports = {
                         .slice(0, -1)
 
                         if(!userRoles) {
-                            userRoles = "*(no roles)*"
+                            userRoles = ["*(no roles)*"]
                         }
 
 
