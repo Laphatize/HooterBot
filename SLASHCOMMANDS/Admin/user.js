@@ -416,14 +416,14 @@ module.exports = {
                     }
 
                     // ROLES
-                    const userRoles = user.roles.cache
+                    let userRoles = user.roles.cache
                         .map(role => role.toString())
                         .slice(0, -1)
 
                     console.log(`userRoles = ${userRoles}`)
 
                         if(userRoles == "" || userRoles == null) {
-                            userRoles = ["*(no roles)*"]
+                            userRoles == "*(no roles)*"
                         }
 
 
