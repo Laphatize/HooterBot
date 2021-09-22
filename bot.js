@@ -272,7 +272,7 @@ client.on('ready', async () => {
         },{
             id: blacklistSC.id,     // COMMAND: /blacklist
             permissions: [{
-                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
                 type: 'USER',
                 permission: true,
             }]
