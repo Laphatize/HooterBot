@@ -36,7 +36,7 @@ module.exports = {
             ]
         },{
             name: `list`,
-            description: `Generates a list of the current blacklist entries using the server collection.`,
+            description: `Generates a list of the current blacklist entries using the server collection, paginated.`,
             type: `SUB_COMMAND`,
         }
     ],
@@ -192,23 +192,24 @@ module.exports = {
             // const getCollection = client.blacklist.get(interaction.guild.id)
 
             const embed1 = new discord.MessageEmbed()
-                            .setTitle('Blacklist Terms')
-                            .setDescription('Page 1');
+                            .setTitle('Blacklist Terms – Page 1')
+                            .setDescription('(page 1 content)');
             
             const embed2 = new discord.MessageEmbed()
-                            .setTitle('Blacklist Terms')
-                            .setDescription('Page 2');
+                            .setTitle('Blacklist Terms – Page 2')
+                            .setDescription('(page 2 content)');
             
             const prevBtn = new MessageButton()
                             .setCustomId('previousbtn')
-                            .setLabel('⇐')
-                            .setStyle('DANGER');
+                            .setLabel('🡸 Back')
+                            .setStyle('PRIMARY');
             
             const nextBtn = new MessageButton()
                             .setCustomId('nextbtn')
-                            .setLabel('⇒')
-                            .setStyle('SUCCESS');
-            
+                            .setLabel('Next 🡺')
+                            .setStyle('PRIMARY')
+
+
             // Create an array of embeds
             pagesArr = [
                 embed1,
