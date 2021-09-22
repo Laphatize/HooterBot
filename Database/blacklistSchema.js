@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose')
 
 module.exports = mongoose.model("content-blacklist", new mongoose.Schema({
-    WORDS:   {type: [String]},
+    FILTER_LIST:   {type: [String]},
     GUILD_ID:   {type: String}
 },{
     timestamps: true,
