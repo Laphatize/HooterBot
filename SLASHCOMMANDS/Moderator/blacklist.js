@@ -62,7 +62,9 @@ module.exports = {
             client.blacklist
 
             // SEARCHING DATABASE USING SUGGESTIONNUM TO GET SUGGESTION
-            const dbBlacklistData = blacklistSchema;
+            const dbBlacklistData = await blacklistSchema.findOne({
+                GUILD_ID: interaction.guild.id
+            })
 
             console.log(`dbBlacklistData = ${dbBlacklistData}`)
         }
