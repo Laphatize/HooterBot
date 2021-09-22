@@ -47,6 +47,7 @@ client.commands = new discord.Collection();
 client.slashCommands = new discord.Collection();
 client.buttons = new discord.Collection();
 client.cooldowns = new discord.Collection();
+client.blacklist = new discord.Collection();
 
 
 /***********************************************************/
