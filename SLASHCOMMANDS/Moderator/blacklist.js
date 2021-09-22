@@ -10,7 +10,7 @@ module.exports = {
         {
             name: `add`,
             description: `Adds a string to the blacklist - please use REGEX!`,
-            type: `STRING`,
+            type: `SUB_COMMAND`,
             required: true,
             options: [
                 {
@@ -23,7 +23,7 @@ module.exports = {
         },{
             name: `list`,
             description: `Generates a list of the current blacklist entries.`,
-            type: `STRING`,
+            type: `SUB_COMMAND`,
             required: false
         }
     ],
