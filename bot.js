@@ -129,6 +129,7 @@ client.on('ready', async () => {
     let channelSC = cmds.find(c => c.name === `channel`)
     let modappSC = cmds.find(c => c.name === `modapp`) 
     let weatherReportSC = cmds.find(c => c.name === `dailyweatherreport`) 
+    let blacklistSC = cmds.find(c => c.name === `blacklist`) 
 
 
     // SETTING PERMISSIONS
@@ -263,6 +264,13 @@ client.on('ready', async () => {
             }]
         },{
             id: weatherReportSC.id,     // COMMAND: /weatherreport
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: blacklist.id,     // COMMAND: /blacklist
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
