@@ -270,7 +270,7 @@ client.on('ready', async () => {
                 permission: true,
             }]
         },{
-            id: blacklist.id,     // COMMAND: /blacklist
+            id: blacklistSC.id,     // COMMAND: /blacklist
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
