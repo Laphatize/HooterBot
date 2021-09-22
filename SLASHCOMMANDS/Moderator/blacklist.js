@@ -11,7 +11,6 @@ module.exports = {
             name: `add`,
             description: `Adds a string to the blacklist - please use REGEX!`,
             type: `SUB_COMMAND`,
-            required: true,
             options: [
                 {
                     name: `string`,
@@ -24,7 +23,6 @@ module.exports = {
             name: `list`,
             description: `Generates a list of the current blacklist entries.`,
             type: `SUB_COMMAND`,
-            required: false
         }
     ],
     permissions: 'MANAGE_MESSAGES',
