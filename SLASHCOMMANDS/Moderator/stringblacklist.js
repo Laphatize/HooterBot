@@ -281,7 +281,17 @@ module.exports = {
                 
                 let entriesList = dbBlacklistData.FILTER_LIST;
 
-                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:${entriesList.join('\n')}` })
+                const chunks = (a, size) =>
+                Array.from(
+                    new Array(Math.ceil(a.length / size)),
+                    (_, i) => a.slice(i * size, i * size + size)
+                )
+
+
+                let arrays = chunks(entriesList, 10)
+                
+
+                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${chunks(entriesList, 10)}\`\`\`` })
 
                 // if(dbBlacklistData.FILTER_LIST.length <= 20) {
 
