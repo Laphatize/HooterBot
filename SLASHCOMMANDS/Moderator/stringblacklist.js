@@ -76,68 +76,71 @@ module.exports = {
             let stringReformatted = stringToAdd.replace(/\s+/g, '').toLowerCase()
 
 
-            // SEARCHING DATABASE USING SUGGESTIONNUM TO GET SUGGESTION
-            blacklistSchema.findOne(interaction.guild.id, async(err, data) => { 
-                // GUILD ENTRY EXISTS
-                if(data) {
-                    // STRING EXISTS FOR GUILD
-                    if(data.FILTER_LIST.includes(stringReformatted)) {
-
-                        // GENERATE ERROR EMBED
-                        let termExistsEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
-                            .setTitle(`${config.emjREDTICK} Error!`)
-                            .setDescription(`Sorry ${interaction.user.username}, \`\`${stringToAdd}\`\` or a variation of this string already exists in the filter.`)
-                            .setTimestamp()
-                    
-                        // SENDING MESSAGE
-                        return interaction.reply({ embeds: [termExistsEmbed] })
-                    }
-
-                    // STRING DOES NOT EXIST FOR GUILD
-                    data.FILTER_LIST.push(stringReformatted)
-                    data.save();
-                    client.blacklist.get(interaction.guild.id).push(stringReformatted)
-
-                    // CONFIRMATION EMBED
-                    let confirmationEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Success!`)
-                        .setDescription(`The string \`\`${stringToAdd}\`\` has been added to my blacklist filter. Regular users will not be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
-                        .setTimestamp()
-                
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [confirmationEmbed] })
-                }
-                
-                // GUILD ENTRY DNE
-                else {
-                    // CREATING DB ENTRY, ADDING TERM
-                    await blacklistSchema.findOneAndUpdate({
-                        GUILD_ID: interaction.guild.id,
-                        FILTER_LIST: []
-                    },{
-                        GUILD_ID: interaction.guild.id,
-                        FILTER_LIST: [stringReformatted]
-                    },{
-                        upsert: true
-                    }).exec();
-
-
-                    // SETTING COLLECTION WITH stringReformatted AS FIRST ARRAY ENTRY
-                    client.blacklist.set(interaction.guild.id, [stringReformatted])
-
-                    // CONFIRMATION EMBED
-                    let confirmationEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Success!`)
-                        .setDescription(`The string \`\`${stringToAdd}\`\` has been added to my blacklist filter. Regular users will not be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
-                        .setTimestamp()
-                
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [confirmationEmbed] })
-                }
+            // SEARCHING DATABASE FOR GUILD ENTRY
+            let dbBlacklistData = await blacklistSchema.findOne({
+                GUILD_ID: interaction.guild.id
             })
+            
+
+            // GUILD ENTRY EXISTS
+            if(dbBlacklistData) {
+                // STRING EXISTS FOR GUILD
+                if(dbBlacklistData.FILTER_LIST.includes(stringReformatted)) {
+
+                    // GENERATE ERROR EMBED
+                    let termExistsEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Error!`)
+                        .setDescription(`Sorry ${interaction.user.username}, \`\`${stringToAdd}\`\` or a variation of this string already exists in the filter.`)
+                        .setTimestamp()
+                
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [termExistsEmbed] })
+                }
+
+                // STRING DOES NOT EXIST FOR GUILD
+                dbBlacklistData.FILTER_LIST.push(stringReformatted)
+                dbBlacklistData.save();
+                client.blacklist.get(interaction.guild.id).push(stringReformatted)
+
+                // CONFIRMATION EMBED
+                let confirmationEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Success!`)
+                    .setDescription(`The string \`\`${stringToAdd}\`\` has been added to my blacklist filter. Regular users will not be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [confirmationEmbed] })
+            }
+            
+            // GUILD ENTRY DNE
+            else {
+                // CREATING DB ENTRY, ADDING TERM
+                await blacklistSchema.findOneAndUpdate({
+                    GUILD_ID: interaction.guild.id,
+                    FILTER_LIST: []
+                },{
+                    GUILD_ID: interaction.guild.id,
+                    FILTER_LIST: [stringReformatted]
+                },{
+                    upsert: true
+                }).exec();
+
+
+                // SETTING COLLECTION WITH stringReformatted AS FIRST ARRAY ENTRY
+                client.blacklist.set(interaction.guild.id, [stringReformatted])
+
+                // CONFIRMATION EMBED
+                let confirmationEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Success!`)
+                    .setDescription(`The string \`\`${stringToAdd}\`\` has been added to my blacklist filter. Regular users will not be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [confirmationEmbed] })
+            }
         }
 
 
@@ -151,48 +154,49 @@ module.exports = {
             let stringReformatted = stringToAdd.replace(/\s+/g, '').toLowerCase()
 
 
-            // SEARCHING DATABASE USING SUGGESTIONNUM TO GET SUGGESTION
-            blacklistSchema.findOne(interaction.guild.id, async(err, data) => { 
-                // GUILD ENTRY EXISTS
-                if(data) {
-                    // STRING EXISTS FOR GUILD
-                    if(data.FILTER_LIST.includes(stringReformatted)) {
+            let dbBlacklistData = await blacklistSchema.findOne({
+                GUILD_ID: interaction.guild.id
+            })
+        
+            // GUILD ENTRY EXISTS
+            if(dbBlacklistData) {
+                // STRING EXISTS FOR GUILD
+                if(dbBlacklistData.FILTER_LIST.includes(stringReformatted)) {
 
-                        // GENERATE ERROR EMBED
-                        let termExistsEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedRed)
-                            .setTitle(`${config.emjREDTICK} Error!`)
-                            .setDescription(`Sorry ${interaction.user.username}, I do not have any blacklisted strings saved to my database.`)
-                            .setTimestamp()
-                    
-                        // SENDING MESSAGE
-                        return interaction.reply({ embeds: [termExistsEmbed] })
-                    }
-
-                    // FILTERING ARRAY TO GET STRING TO REMOVE FROM DB AND COLLECTION
-                    const refilteredList = data.FILTER_LIST.filter((target) => target !== stringReformatted)
-                    
-                    // DB REMOVAL
-                    await blacklistSchema.findOneAndUpdate(guild, {
-                        GUILD_ID: interaction.guild.id,
-                        FILTER_LIST: refilteredList
-                    })
-
-                    // COLLECTION REMOVAL
-                    client.blacklist.get(interaction.guild.id).filter((target) => target !== stringReformatted)
-
-
-                    // CONFIRMATION EMBED
-                    let confirmationEmbed = new discord.MessageEmbed()
-                        .setColor(config.embedGreen)
-                        .setTitle(`${config.emjGREENTICK} Success!`)
-                        .setDescription(`The string \`\`${stringToAdd}\`\` has been removed from my blacklist filter. Regular users will be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
+                    // GENERATE ERROR EMBED
+                    let termExistsEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Error!`)
+                        .setDescription(`Sorry ${interaction.user.username}, I do not have any blacklisted strings saved to my database.`)
                         .setTimestamp()
                 
                     // SENDING MESSAGE
-                    return interaction.reply({ embeds: [confirmationEmbed] })
+                    return interaction.reply({ embeds: [termExistsEmbed] })
                 }
-            })
+
+                // FILTERING ARRAY TO GET STRING TO REMOVE FROM DB AND COLLECTION
+                const refilteredList = dbBlacklistData.FILTER_LIST.filter((target) => target !== stringReformatted)
+                
+                // DB REMOVAL
+                await blacklistSchema.findOneAndUpdate(guild, {
+                    GUILD_ID: interaction.guild.id,
+                    FILTER_LIST: refilteredList
+                })
+
+                // COLLECTION REMOVAL
+                client.blacklist.get(interaction.guild.id).filter((target) => target !== stringReformatted)
+
+
+                // CONFIRMATION EMBED
+                let confirmationEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .setTitle(`${config.emjGREENTICK} Success!`)
+                    .setDescription(`The string \`\`${stringToAdd}\`\` has been removed from my blacklist filter. Regular users will be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
+                    .setTimestamp()
+            
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [confirmationEmbed] })
+            }
         }
 
         /*******************/
