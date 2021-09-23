@@ -213,8 +213,11 @@ module.exports = {
                         FILTER_LIST: newArray
                     })
 
-                    // COLLECTION REMOVAL
-                    client.blacklist.get(interaction.guild.id).filter((target) => target !== stringReformatted)
+
+                    // COLLECTION RESET
+                    client.blacklist.clear()
+                    client.blacklist.set(interaction.guild.id, [newArray])
+
 
                     // CONFIRMATION EMBED
                     let confirmationEmbed = new discord.MessageEmbed()
@@ -239,14 +242,12 @@ module.exports = {
                 GUILD_ID: interaction.guild.id
             })
 
-            console.log( `dbBlacklistData = \n${dbBlacklistData}`)
-
+            console.log( `dbBlacklistData.FILTER_LIST = \n${dbBlacklistData.FILTER_LIST}`)
 
 
             // EMPTY BLACKLIST
-            if(!getCollection.size == 0) {
-                
-                
+            if(dbBlacklistData.FILTER_LIST.length == 0) {
+
                 // GENERATE EMBED AND DISABLED BUTTONS
                 let termsDNEembed = new discord.MessageEmbed()
                     .setTitle('Blacklist Terms')
@@ -279,7 +280,7 @@ module.exports = {
             // NON-EMPTY BLACKLIST
             else {
 
-                interaction.reply({ content: 'The database possesses at lesat one blacklist entry.'})
+                interaction.reply({ content: 'The database possesses at least one blacklist entry.'})
                 // let termsArray = Array.from(getCollection.values())
 
                 // termsArray.sort();
