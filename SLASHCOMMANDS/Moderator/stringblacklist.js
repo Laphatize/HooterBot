@@ -236,11 +236,11 @@ module.exports = {
         if(subCmdName == 'list') {
             const getCollection = client.blacklist.get(interaction.guild.id)
 
-            console.log(`getCollection.size() = ${getCollection.size()}`)
+            console.log(`getCollection.size = ${getCollection.size}`)
 
 
             // EMPTY BLACKLIST
-            if(!getCollection.size() == 0) {
+            if(!getCollection.size == 0) {
                 
                 
                 // GENERATE EMBED AND DISABLED BUTTONS
