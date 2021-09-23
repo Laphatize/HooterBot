@@ -332,7 +332,7 @@ module.exports = {
                         return new MessageEmbed()
                             .setTitle('Blacklist Terms')
                             .setColor(config.embedDarkBlue)
-                            .setDescription(`x = ${x}`)
+                            .setDescription(`arrays[x] = ${arrays[x]}`)
                     });
 
                     const prevBtn = new MessageButton()
