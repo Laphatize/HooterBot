@@ -338,14 +338,12 @@ module.exports = {
                     const prevBtn = new MessageButton()
                         .setCustomId('previousbtn')
                         .setLabel('🡸 Back')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+                        .setStyle('DANGER')
                     
                     const nextBtn = new MessageButton()
                         .setCustomId('nextbtn')
                         .setLabel('Next 🡺')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+                        .setStyle('SUCCESS')
 
                     let btnRow = new MessageActionRow()
                         .addComponents(
