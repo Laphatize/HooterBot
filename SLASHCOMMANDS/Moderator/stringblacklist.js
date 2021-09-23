@@ -351,7 +351,7 @@ module.exports = {
                             nextBtn
                         );
                     
-                    paginationEmbed(interaction, embeds, btnRow, 60000);
+                    paginationEmbed(interaction, [embeds], btnRow, 60000);
                 }
             }
         }
