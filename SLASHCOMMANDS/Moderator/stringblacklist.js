@@ -2,7 +2,7 @@ const discord = require('discord.js')
 const config = require ('../../config.json')
 const blacklistSchema = require('../../Database/blacklistSchema');
 const paginationEmbed = require('discordjs-button-pagination');
-const { MessageEmbed , MessageButton} = require('discord.js');
+const { MessageButton, MessageActionRow} = require('discord.js');
 
 
 
@@ -209,37 +209,67 @@ module.exports = {
 
             console.log(`getCollection =\n\n${getCollection}`)
 
-            let termsArray = Array.from(getCollection)
 
+            // EMPTY BLACKLIST
+            if(getCollection == 'undefined') {
+                // GENERATE EMBED
+
+                
+                let termsDNEembed = new discord.MessageEmbed()
+                    .setTitle('Blacklist Terms')
+                    .setColor(config.embedDarkBlue)
+                    .setDescription('*(none)*');
+
+                const prevBtn = new MessageButton()
+                    .setCustomId('previousbtn')
+                    .setLabel('🡸 Back')
+                    .setStyle('PRIMARY')
+                    .setDisabled(true)
+                
+                const nextBtn = new MessageButton()
+                    .setCustomId('nextbtn')
+                    .setLabel('Next 🡺')
+                    .setStyle('PRIMARY')
+                    .setDisabled(true)
+
+                let disabledBtnRow = new MessageActionRow()
+                    .addComponents(
+                        prevBtn,
+                        nextBtn
+                    );
+
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+            }
+
+            
+            // NON-EMPTY BLACKLIST
+            
+            let termsArray = Array.from(getCollection.values())
+
+            termsArray.sort();
 
             interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
 
-        //     const embed1 = new discord.MessageEmbed()
-        //                     .setTitle('Blacklist Terms – Page 1')
-        //                     .setDescription('(page 1 content)');
+            // const embed1 = new discord.MessageEmbed()
+            //     .setTitle('Blacklist Terms – Page 1')
+            //     .setColor(config.embedDarkBlue)
+            //     .setDescription('(page 1 content)');
             
-        //     const embed2 = new discord.MessageEmbed()
-        //                     .setTitle('Blacklist Terms – Page 2')
-        //                     .setDescription('(page 2 content)');
+            // const embed2 = new discord.MessageEmbed()
+            //     .setTitle('Blacklist Terms – Page 2')
+            //     .setColor(config.embedDarkBlue)
+            //     .setDescription('(page 2 content)');
             
-        //     const prevBtn = new MessageButton()
-        //                     .setCustomId('previousbtn')
-        //                     .setLabel('🡸 Back')
-        //                     .setStyle('PRIMARY');
+            // const prevBtn = new MessageButton()
+            //     .setCustomId('previousbtn')
+            //     .setLabel('🡸 Back')
+            //     .setStyle('PRIMARY');
             
-        //     const nextBtn = new MessageButton()
-        //                     .setCustomId('nextbtn')
-        //                     .setLabel('Next 🡺')
-        //                     .setStyle('PRIMARY')
-
-
-            
-                            
-
-
-        //     let termsArray = 
-
-        //     termsArray.sort();
+            // const nextBtn = new MessageButton()
+            //     .setCustomId('nextbtn')
+            //     .setLabel('Next 🡺')
+            //     .setStyle('PRIMARY')
             
         //     for (let i = 0; i < termsArray.length; i+= 10) {
                         
