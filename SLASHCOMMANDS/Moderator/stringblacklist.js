@@ -36,7 +36,7 @@ module.exports = {
             ]
         },{
             name: `list`,
-            description: `MODERATOR | Generates a list of the current blacklist entries using the server collection, paginated.`,
+            description: `MODERATOR | Generates list of current blacklist entries using the server collection, paginated.`,
             type: `SUB_COMMAND`,
         }
     ],
