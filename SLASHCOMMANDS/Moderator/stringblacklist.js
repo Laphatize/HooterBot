@@ -8,11 +8,11 @@ const { MessageButton, MessageActionRow} = require('discord.js');
 
 module.exports = {
     name: 'blacklist',
-    description: 'MODERATOR | Add or remove string from the blacklist or view the current list. [10s]',
+    description: 'Add or remove string from the blacklist or view the current list. [10s]',
     options: [
         {
             name: `add`,
-            description: `Adds a string to the blacklist!`,
+            description: `ADMINISTRATOR | Adds a string to the blacklist!`,
             type: `SUB_COMMAND`,
             options: [
                 {
@@ -24,7 +24,7 @@ module.exports = {
             ],
         },{
             name: `remove`,
-            description: `Removes a string from the blacklist!`,
+            description: `ADMINISTRATOR | Removes a string from the blacklist!`,
             type: `SUB_COMMAND`,
             options: [
                 {
@@ -36,7 +36,7 @@ module.exports = {
             ]
         },{
             name: `list`,
-            description: `Generates a list of the current blacklist entries using the server collection, paginated.`,
+            description: `MODERATOR | Generates a list of the current blacklist entries using the server collection, paginated.`,
             type: `SUB_COMMAND`,
         }
     ],
@@ -70,6 +70,17 @@ module.exports = {
         /* ADD             */
         /*******************/
         if(subCmdName == 'add') {
+
+            if(!interaction.channel.permissionsFor(interaction.user).has('ADMINISTRATOR')) {
+                // DEFINING EMBED TO SEND
+                let cmdUserPermErrEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Sorry!`)
+                    .setDescription(`You must have the \`\`ADMINISTRATOR\`\` permission to use this slash command.`)
+
+                return interaction.reply({ embeds: [cmdUserPermErrEmbed], ephemeral: true })
+            }
+
 
             // GETTING OPTIONS VALUES
             let stringToAdd = interaction.options.getString('string');
@@ -149,6 +160,16 @@ module.exports = {
         /*******************/
         if(subCmdName == 'remove') {
 
+            if(!interaction.channel.permissionsFor(interaction.user).has('ADMINISTRATOR')) {
+                // DEFINING EMBED TO SEND
+                let cmdUserPermErrEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedOrange)
+                    .setTitle(`${config.emjORANGETICK} Sorry!`)
+                    .setDescription(`You must have the \`\`ADMINISTRATOR\`\` permission to use this slash command.`)
+
+                return interaction.reply({ embeds: [cmdUserPermErrEmbed], ephemeral: true })
+            }
+
             // GETTING OPTIONS VALUES
             let stringToAdd = interaction.options.getString('string');
             let stringReformatted = stringToAdd.replace(/\s+/g, '').toLowerCase()
@@ -219,10 +240,10 @@ module.exports = {
 
 
             // EMPTY BLACKLIST
-            if(!getCollection) {
-                // GENERATE EMBED
-
+            if(!getCollection || getCollection === 'undefined' || !dbBlacklistData.FILTER_LIST) {
                 
+                
+                // GENERATE EMBED AND DISABLED BUTTONS
                 let termsDNEembed = new discord.MessageEmbed()
                     .setTitle('Blacklist Terms')
                     .setColor(config.embedDarkBlue)
