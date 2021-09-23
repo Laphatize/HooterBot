@@ -290,11 +290,9 @@ module.exports = {
                 let listCount = 20
 
                 let arrays = chunks(entriesList, listCount)
-                
 
-                interaction.channel.send({ content: `The blacklist is a nonzero array with less than 21 entries.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
-
-                if(dbBlacklistData.FILTER_LIST.length <= listCount) {
+                // LESS THAN 20 ENTRIES - 1 PAGE
+                if(arrays.length < listCount) {
 
                     // GENERATE EMBED AND DISABLED BUTTONS
                     let termsDNEembed = new discord.MessageEmbed()
@@ -323,58 +321,39 @@ module.exports = {
                     // SENDING MESSAGE
                     return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
                 }
+
+                // MORE THAN 20 ENTRIES - 2+ PAGE
                 else {     
-                    interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
+                    interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries, requiring at least 2 pages.\nTotal entries: \`\`${entriesList.length}\`\`` })
                     
                     console.log(arrays)
-                    // let termsArray = Array.from(getCollection.values())
+                    
+                    const embeds = arrays.map((x) => {
+                        return new MessageEmbed()
+                            .setTitle('Blacklist Terms')
+                            .setColor(config.embedDarkBlue)
+                            .setDescription(`x = ${x}`)
+                    });
 
-                    // termsArray.sort();
+                    const prevBtn = new MessageButton()
+                        .setCustomId('previousbtn')
+                        .setLabel('🡸 Back')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
+                    
+                    const nextBtn = new MessageButton()
+                        .setCustomId('nextbtn')
+                        .setLabel('Next 🡺')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
 
-                    // interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
-
-                    // const embed1 = new discord.MessageEmbed()
-                    //     .setTitle('Blacklist Terms – Page 1')
-                    //     .setColor(config.embedDarkBlue)
-                    //     .setDescription('(page 1 content)');
+                    let btnRow = new MessageActionRow()
+                        .addComponents(
+                            prevBtn,
+                            nextBtn
+                        );
                     
-                    // const embed2 = new discord.MessageEmbed()
-                    //     .setTitle('Blacklist Terms – Page 2')
-                    //     .setColor(config.embedDarkBlue)
-                    //     .setDescription('(page 2 content)');
-                    
-                    // const prevBtn = new MessageButton()
-                    //     .setCustomId('previousbtn')
-                    //     .setLabel('🡸 Back')
-                    //     .setStyle('PRIMARY');
-                    
-                    // const nextBtn = new MessageButton()
-                    //     .setCustomId('nextbtn')
-                    //     .setLabel('Next 🡺')
-                    //     .setStyle('PRIMARY')
-                    
-                //     for (let i = 0; i < termsArray.length; i+= 10) {
-                                
-                //     const embeds = data.map((x) => {
-                        
-                //         return new MessageEmbed()
-                //             .setColor(config.embedBlurple)
-                //             .addField(x)
-                //             .addField("Gender", x.gender)
-                //             .addField("Email", x.email)
-                //             .addField("Date of Birth", new Date(x.dob).toDateString())
-                //             .addField("Age", x.age.toString())
-                //             .addField("Phone", x.phone)
-                //             .setThumbnail(x.image);
-                //     });
-
-                    
-                //     buttonArr = [
-                //         prevBtn,
-                //         nextBtn
-                //     ]
-                    
-                //     paginationEmbed(interaction, embeds, buttonArr, 60000);
+                    paginationEmbed(interaction, embeds, btnRow, 60000);
                 }
             }
         }
