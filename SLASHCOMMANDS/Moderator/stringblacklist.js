@@ -327,10 +327,9 @@ module.exports = {
                     interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries, requiring at least 2 pages.\nTotal entries: \`\`${entriesList.length}\`\`` })
                     
                     console.log(pageArrays, `\n`)
-                    console.log(pageArrays.fields, `\n`)
                     
                     const embeds = pageArrays.map((x) => {
-                        return new MessageEmbed()
+                        return new discord.MessageEmbed()
                             .setTitle('Blacklist Terms')
                             .setColor(config.embedDarkBlue)
                             .setDescription(`pageArrays[x] = ${arrays[x]}`)
