@@ -126,6 +126,16 @@ module.exports = {
 
                     // SETTING COLLECTION WITH stringReformatted AS FIRST ARRAY ENTRY
                     client.blacklist.set(interaction.guild.id, [stringReformatted])
+
+                    // CONFIRMATION EMBED
+                    let confirmationEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGreen)
+                        .setTitle(`${config.emjGREENTICK} Success!`)
+                        .setDescription(`The string \`\`${stringToAdd}\`\` has been added to my blacklist filter. Regular users will not be able to use \`\`${stringReformatted}\`\` in their message, regardless how many spaces they put between characters.`)
+                        .setTimestamp()
+                
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [confirmationEmbed] })
                 }
             })
         }
