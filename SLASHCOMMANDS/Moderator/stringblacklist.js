@@ -287,12 +287,12 @@ module.exports = {
                     (_, i) => a.slice(i * size, i * size + size)
                 )
 
-                let listCount = 20
+                let listCount = 20  // CHUNKS FOR LISTING - THIS NUMBER DETERMINES HOW MANY VALUES PER PAGE
 
-                let arrays = chunks(entriesList, listCount)
+                let pageArrays = chunks(entriesList, listCount)
 
                 // LESS THAN 20 ENTRIES - 1 PAGE
-                if(arrays.length < listCount) {
+                if(pageArrays.length < listCount) {
 
                     // GENERATE EMBED AND DISABLED BUTTONS
                     let termsDNEembed = new discord.MessageEmbed()
@@ -326,7 +326,8 @@ module.exports = {
                 else {     
                     interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries, requiring at least 2 pages.\nTotal entries: \`\`${entriesList.length}\`\`` })
                     
-                    console.log(arrays)
+                    console.log(pageArrays, `\n`)
+                    console.log(pageArrays.fields, `\n`)
                     
                     const embeds = arrays.map((x) => {
                         return new MessageEmbed()
