@@ -241,51 +241,77 @@ module.exports = {
         /*******************/
         if(subCmdName == 'list') {
             // SEARCHING DATABASE FOR GUILD ENTRY
-            let dbBlacklistData = await blacklistSchema.find({
+            let dbBlacklistData = await blacklistSchema.findOne({
                 GUILD_ID: interaction.guild.id
             })
 
-            console.log(`dbBlacklistData = \n ${dbBlacklistData}\n`)
 
-            console.log( `dbBlacklistData.FILTER_LIST = \n${dbBlacklistData.FILTER_LIST}\n`)
+            if(!dbBlacklistData) { 
+                // EMPTY BLACKLIST
+                if(dbBlacklistData.FILTER_LIST.length == 0) {
 
+                    // GENERATE EMBED AND DISABLED BUTTONS
+                    let termsDNEembed = new discord.MessageEmbed()
+                        .setTitle('Blacklist Terms')
+                        .setColor(config.embedDarkBlue)
+                        .setDescription('*(none)*');
 
-            // EMPTY BLACKLIST
-            if(dbBlacklistData.FILTER_LIST.length == 0) {
+                    const prevBtn = new MessageButton()
+                        .setCustomId('previousbtn')
+                        .setLabel('🡸 Back')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
+                    
+                    const nextBtn = new MessageButton()
+                        .setCustomId('nextbtn')
+                        .setLabel('Next 🡺')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
 
-                // GENERATE EMBED AND DISABLED BUTTONS
-                let termsDNEembed = new discord.MessageEmbed()
-                    .setTitle('Blacklist Terms')
-                    .setColor(config.embedDarkBlue)
-                    .setDescription('*(none)*');
+                    let disabledBtnRow = new MessageActionRow()
+                        .addComponents(
+                            prevBtn,
+                            nextBtn
+                        );
 
-                const prevBtn = new MessageButton()
-                    .setCustomId('previousbtn')
-                    .setLabel('🡸 Back')
-                    .setStyle('PRIMARY')
-                    .setDisabled(true)
-                
-                const nextBtn = new MessageButton()
-                    .setCustomId('nextbtn')
-                    .setLabel('Next 🡺')
-                    .setStyle('PRIMARY')
-                    .setDisabled(true)
-
-                let disabledBtnRow = new MessageActionRow()
-                    .addComponents(
-                        prevBtn,
-                        nextBtn
-                    );
-
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+                }
             }
 
             
             // NON-EMPTY BLACKLIST
             else {
+                if(dbBlacklistData.FILTER_LIST.length <= 20) {
 
-                interaction.reply({ content: 'The database possesses at least one blacklist entry.'})
+                    // GENERATE EMBED AND DISABLED BUTTONS
+                    let termsDNEembed = new discord.MessageEmbed()
+                        .setTitle('Blacklist Terms')
+                        .setColor(config.embedDarkBlue)
+                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+
+                    const prevBtn = new MessageButton()
+                        .setCustomId('previousbtn')
+                        .setLabel('🡸 Back')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
+                    
+                    const nextBtn = new MessageButton()
+                        .setCustomId('nextbtn')
+                        .setLabel('Next 🡺')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
+
+                    let disabledBtnRow = new MessageActionRow()
+                        .addComponents(
+                            prevBtn,
+                            nextBtn
+                        );
+
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+                }
+                
                 // let termsArray = Array.from(getCollection.values())
 
                 // termsArray.sort();
