@@ -281,7 +281,7 @@ module.exports = {
                 
                 let entriesList = dbBlacklistData.FILTER_LIST;
 
-                interaction.reply({ content: `The blacklist is a nonzero array:\n${entriesList}` })
+                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:${entriesList.join('\n')}` })
 
                 // if(dbBlacklistData.FILTER_LIST.length <= 20) {
 
