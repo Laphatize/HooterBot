@@ -161,13 +161,13 @@ module.exports = {
             // GUILD ENTRY EXISTS
             if(dbBlacklistData) {
                 // STRING EXISTS FOR GUILD
-                if(dbBlacklistData.FILTER_LIST.includes(stringReformatted)) {
+                if(!dbBlacklistData.FILTER_LIST.includes(stringReformatted)) {
 
                     // GENERATE ERROR EMBED
                     let termExistsEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Error!`)
-                        .setDescription(`Sorry ${interaction.user.username}, I do not have any blacklisted strings saved to my database.`)
+                        .setDescription(`Sorry ${interaction.user.username}, there's nothing to remove – I do not have any blacklisted strings saved to my database.`)
                         .setTimestamp()
                 
                     // SENDING MESSAGE
@@ -177,14 +177,16 @@ module.exports = {
                 // FILTERING ARRAY TO GET STRING TO REMOVE FROM DB AND COLLECTION
                 const refilteredList = dbBlacklistData.FILTER_LIST.filter((target) => target !== stringReformatted)
                 
-                // DB REMOVAL
-                await blacklistSchema.findOneAndUpdate(guild, {
-                    GUILD_ID: interaction.guild.id,
-                    FILTER_LIST: refilteredList
-                })
+                interaction.channel.send({ content: refilteredList })
 
-                // COLLECTION REMOVAL
-                client.blacklist.get(interaction.guild.id).filter((target) => target !== stringReformatted)
+                // // DB REMOVAL
+                // await blacklistSchema.findOneAndUpdate(interaction.guild.id, {
+                //     GUILD_ID: interaction.guild.id,
+                //     FILTER_LIST: refilteredList
+                // })
+
+                // // COLLECTION REMOVAL
+                // client.blacklist.get(interaction.guild.id).filter((target) => target !== stringReformatted)
 
 
                 // CONFIRMATION EMBED
@@ -205,7 +207,10 @@ module.exports = {
         if(subCmdName == 'list') {
             const getCollection = client.blacklist.get(interaction.guild.id)
 
-            interaction.reply({ content: `**getCollection:**\n${getCollection}` })
+            let termsArray = Array.from(getCollection)
+
+
+            interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
 
         //     const embed1 = new discord.MessageEmbed()
         //                     .setTitle('Blacklist Terms – Page 1')
