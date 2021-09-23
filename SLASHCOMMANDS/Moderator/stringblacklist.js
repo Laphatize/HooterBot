@@ -329,11 +329,11 @@ module.exports = {
                     console.log(pageArrays, `\n`)
                     console.log(pageArrays.fields, `\n`)
                     
-                    const embeds = arrays.map((x) => {
+                    const embeds = pageArrays.map((x) => {
                         return new MessageEmbed()
                             .setTitle('Blacklist Terms')
                             .setColor(config.embedDarkBlue)
-                            .setDescription(`arrays[x] = ${arrays[x]}`)
+                            .setDescription(`pageArrays[x] = ${arrays[x]}`)
                     });
 
                     const prevBtn = new MessageButton()
