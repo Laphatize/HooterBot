@@ -245,7 +245,9 @@ module.exports = {
                 GUILD_ID: interaction.guild.id
             })
 
-            console.log( `dbBlacklistData.FILTER_LIST = \n${dbBlacklistData.FILTER_LIST}`)
+            console.log(`dbBlacklistData = \n ${dbBlacklistData}\n`)
+
+            console.log( `dbBlacklistData.FILTER_LIST = \n${dbBlacklistData.FILTER_LIST}\n`)
 
 
             // EMPTY BLACKLIST
