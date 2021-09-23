@@ -207,11 +207,11 @@ module.exports = {
         if(subCmdName == 'list') {
             const getCollection = client.blacklist.get(interaction.guild.id)
 
-            console.log(`getCollection =${getCollection}`)
+            console.log(`getCollection = ${getCollection}`)
 
 
             // EMPTY BLACKLIST
-            if(getCollection == "" || getCollection == "undefined") {
+            if(!getCollection) {
                 // GENERATE EMBED
 
                 
