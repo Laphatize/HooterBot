@@ -328,12 +328,14 @@ module.exports = {
                     
                     console.log(pageArrays, `\n`)
                     
-                    const embeds = pageArrays.map((x) => {
-                        return new discord.MessageEmbed()
-                            .setTitle('Blacklist Terms')
-                            .setColor(config.embedDarkBlue)
-                            .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
-                    });
+                    const embeds = [
+                        pageArrays.map((x) => {
+                            return new discord.MessageEmbed()
+                                .setTitle('Blacklist Terms')
+                                .setColor(config.embedDarkBlue)
+                                .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
+                        })
+                    ]
 
                     const prevBtn = new MessageButton()
                         .setCustomId('previousbtn')
@@ -351,7 +353,7 @@ module.exports = {
                             nextBtn
                         );
                     
-                    paginationEmbed(interaction, [embeds], btnRow, 60000);
+                    paginationEmbed(interaction, embeds, btnRow, 60000);
                 }
             }
         }
