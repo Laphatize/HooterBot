@@ -332,7 +332,7 @@ module.exports = {
                         return new discord.MessageEmbed()
                             .setTitle('Blacklist Terms')
                             .setColor(config.embedDarkBlue)
-                            .setDescription(`pageArrays[x] = ${arrays[x]}`)
+                            .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
                     });
 
                     const prevBtn = new MessageButton()
