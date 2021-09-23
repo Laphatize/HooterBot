@@ -208,8 +208,6 @@ module.exports = {
         }
 
 
-
-
         // APP NOT COMPLETED IN FULL - FREEZE CURRENT APPLICATION CHANNEL
         if(inputs[0] == 'appdisq-incomplete') {
 
@@ -285,7 +283,7 @@ module.exports = {
                 let appLocked = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Application Disqualified`)
-                    .setDescription(`Unfortunately, you do not meet the moderator application minimum requirements (membership duration in the server) and we are unable to consider your application at this time. Be active in the server and consider reapplying again the next time applications open!`)
+                    .setDescription(`Thank you for applying to be a moderator. Unfortunately, you do not meet the moderator application minimum requirements (membership duration in the server) and we are unable to consider your application at this time. Be an active member in the server and consider reapplying again the next time applications open!`)
 
                 // LOG ENTRY
                 channel.send({ embeds: [appLocked] })

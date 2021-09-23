@@ -189,44 +189,59 @@ module.exports = {
         /* LIST            */
         /*******************/
         if(subCmdName == 'list') {
-            // const getCollection = client.blacklist.get(interaction.guild.id)
+            const getCollection = client.blacklist.get(interaction.guild.id)
 
-            const embed1 = new discord.MessageEmbed()
-                            .setTitle('Blacklist Terms – Page 1')
-                            .setDescription('(page 1 content)');
+            interaction.reply({ content: `**getCollection:**\n${getCollection}` })
+
+        //     const embed1 = new discord.MessageEmbed()
+        //                     .setTitle('Blacklist Terms – Page 1')
+        //                     .setDescription('(page 1 content)');
             
-            const embed2 = new discord.MessageEmbed()
-                            .setTitle('Blacklist Terms – Page 2')
-                            .setDescription('(page 2 content)');
+        //     const embed2 = new discord.MessageEmbed()
+        //                     .setTitle('Blacklist Terms – Page 2')
+        //                     .setDescription('(page 2 content)');
             
-            const prevBtn = new MessageButton()
-                            .setCustomId('previousbtn')
-                            .setLabel('🡸 Back')
-                            .setStyle('PRIMARY');
+        //     const prevBtn = new MessageButton()
+        //                     .setCustomId('previousbtn')
+        //                     .setLabel('🡸 Back')
+        //                     .setStyle('PRIMARY');
             
-            const nextBtn = new MessageButton()
-                            .setCustomId('nextbtn')
-                            .setLabel('Next 🡺')
-                            .setStyle('PRIMARY')
+        //     const nextBtn = new MessageButton()
+        //                     .setCustomId('nextbtn')
+        //                     .setLabel('Next 🡺')
+        //                     .setStyle('PRIMARY')
 
 
-            // Create an array of embeds
-            pagesArr = [
-                embed1,
-                embed2,
-            ];
             
-            //create an array of buttons
+                            
+
+
+        //     let termsArray = 
+
+        //     termsArray.sort();
             
-            buttonArr = [
-                prevBtn,
-                nextBtn
-            ]
+        //     for (let i = 0; i < termsArray.length; i+= 10) {
+                        
+        //     const embeds = data.map((x) => {
+                
+        //         return new MessageEmbed()
+        //             .setColor(config.embedBlurple)
+        //             .addField(x)
+        //             .addField("Gender", x.gender)
+        //             .addField("Email", x.email)
+        //             .addField("Date of Birth", new Date(x.dob).toDateString())
+        //             .addField("Age", x.age.toString())
+        //             .addField("Phone", x.phone)
+        //             .setThumbnail(x.image);
+        //     });
+
             
+        //     buttonArr = [
+        //         prevBtn,
+        //         nextBtn
+        //     ]
             
-            // Call the paginationEmbed method, first three arguments are required
-            // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
-            paginationEmbed(interaction, pagesArr, buttonArr, 60000);
+        //     paginationEmbed(interaction, embeds, buttonArr, 60000);
         }
     }
 }
