@@ -207,11 +207,11 @@ module.exports = {
         if(subCmdName == 'list') {
             const getCollection = client.blacklist.get(interaction.guild.id)
 
-            console.log(`getCollection =\n\n${getCollection}`)
+            console.log(`getCollection =${getCollection}`)
 
 
             // EMPTY BLACKLIST
-            if(getCollection == 'undefined') {
+            if(getCollection == "" || getCollection == "undefined") {
                 // GENERATE EMBED
 
                 
@@ -244,55 +244,56 @@ module.exports = {
 
             
             // NON-EMPTY BLACKLIST
-            
-            let termsArray = Array.from(getCollection.values())
+            else {
+                let termsArray = Array.from(getCollection.values())
 
-            termsArray.sort();
+                termsArray.sort();
 
-            interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
+                interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
 
-            // const embed1 = new discord.MessageEmbed()
-            //     .setTitle('Blacklist Terms – Page 1')
-            //     .setColor(config.embedDarkBlue)
-            //     .setDescription('(page 1 content)');
-            
-            // const embed2 = new discord.MessageEmbed()
-            //     .setTitle('Blacklist Terms – Page 2')
-            //     .setColor(config.embedDarkBlue)
-            //     .setDescription('(page 2 content)');
-            
-            // const prevBtn = new MessageButton()
-            //     .setCustomId('previousbtn')
-            //     .setLabel('🡸 Back')
-            //     .setStyle('PRIMARY');
-            
-            // const nextBtn = new MessageButton()
-            //     .setCustomId('nextbtn')
-            //     .setLabel('Next 🡺')
-            //     .setStyle('PRIMARY')
-            
-        //     for (let i = 0; i < termsArray.length; i+= 10) {
-                        
-        //     const embeds = data.map((x) => {
+                // const embed1 = new discord.MessageEmbed()
+                //     .setTitle('Blacklist Terms – Page 1')
+                //     .setColor(config.embedDarkBlue)
+                //     .setDescription('(page 1 content)');
                 
-        //         return new MessageEmbed()
-        //             .setColor(config.embedBlurple)
-        //             .addField(x)
-        //             .addField("Gender", x.gender)
-        //             .addField("Email", x.email)
-        //             .addField("Date of Birth", new Date(x.dob).toDateString())
-        //             .addField("Age", x.age.toString())
-        //             .addField("Phone", x.phone)
-        //             .setThumbnail(x.image);
-        //     });
+                // const embed2 = new discord.MessageEmbed()
+                //     .setTitle('Blacklist Terms – Page 2')
+                //     .setColor(config.embedDarkBlue)
+                //     .setDescription('(page 2 content)');
+                
+                // const prevBtn = new MessageButton()
+                //     .setCustomId('previousbtn')
+                //     .setLabel('🡸 Back')
+                //     .setStyle('PRIMARY');
+                
+                // const nextBtn = new MessageButton()
+                //     .setCustomId('nextbtn')
+                //     .setLabel('Next 🡺')
+                //     .setStyle('PRIMARY')
+                
+            //     for (let i = 0; i < termsArray.length; i+= 10) {
+                            
+            //     const embeds = data.map((x) => {
+                    
+            //         return new MessageEmbed()
+            //             .setColor(config.embedBlurple)
+            //             .addField(x)
+            //             .addField("Gender", x.gender)
+            //             .addField("Email", x.email)
+            //             .addField("Date of Birth", new Date(x.dob).toDateString())
+            //             .addField("Age", x.age.toString())
+            //             .addField("Phone", x.phone)
+            //             .setThumbnail(x.image);
+            //     });
 
-            
-        //     buttonArr = [
-        //         prevBtn,
-        //         nextBtn
-        //     ]
-            
-        //     paginationEmbed(interaction, embeds, buttonArr, 60000);
+                
+            //     buttonArr = [
+            //         prevBtn,
+            //         nextBtn
+            //     ]
+                
+            //     paginationEmbed(interaction, embeds, buttonArr, 60000);
+            }
         }
     }
 }
