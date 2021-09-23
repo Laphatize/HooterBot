@@ -247,70 +247,69 @@ module.exports = {
 
 
             if(!dbBlacklistData) { 
-                // EMPTY BLACKLIST
-                if(dbBlacklistData.FILTER_LIST.length == 0) {
+                // GENERATE EMBED AND DISABLED BUTTONS
+                let termsDNEembed = new discord.MessageEmbed()
+                    .setTitle('Blacklist Terms')
+                    .setColor(config.embedDarkBlue)
+                    .setDescription('*(none)*');
 
-                    // GENERATE EMBED AND DISABLED BUTTONS
-                    let termsDNEembed = new discord.MessageEmbed()
-                        .setTitle('Blacklist Terms')
-                        .setColor(config.embedDarkBlue)
-                        .setDescription('*(none)*');
+                const prevBtn = new MessageButton()
+                    .setCustomId('previousbtn')
+                    .setLabel('🡸 Back')
+                    .setStyle('PRIMARY')
+                    .setDisabled(true)
+                
+                const nextBtn = new MessageButton()
+                    .setCustomId('nextbtn')
+                    .setLabel('Next 🡺')
+                    .setStyle('PRIMARY')
+                    .setDisabled(true)
 
-                    const prevBtn = new MessageButton()
-                        .setCustomId('previousbtn')
-                        .setLabel('🡸 Back')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
-                    
-                    const nextBtn = new MessageButton()
-                        .setCustomId('nextbtn')
-                        .setLabel('Next 🡺')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+                let disabledBtnRow = new MessageActionRow()
+                    .addComponents(
+                        prevBtn,
+                        nextBtn
+                    );
 
-                    let disabledBtnRow = new MessageActionRow()
-                        .addComponents(
-                            prevBtn,
-                            nextBtn
-                        );
-
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
-                }
+                // SENDING MESSAGE
+                return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
             }
 
             
             // NON-EMPTY BLACKLIST
             else {
-                if(dbBlacklistData.FILTER_LIST.length <= 20) {
 
-                    // GENERATE EMBED AND DISABLED BUTTONS
-                    let termsDNEembed = new discord.MessageEmbed()
-                        .setTitle('Blacklist Terms')
-                        .setColor(config.embedDarkBlue)
-                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+                interaction.return({ content: `The blacklist is a nonzero array.` })
 
-                    const prevBtn = new MessageButton()
-                        .setCustomId('previousbtn')
-                        .setLabel('🡸 Back')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+                // if(dbBlacklistData.FILTER_LIST.length <= 20) {
+
+                //     // GENERATE EMBED AND DISABLED BUTTONS
+                //     let termsDNEembed = new discord.MessageEmbed()
+                //         .setTitle('Blacklist Terms')
+                //         .setColor(config.embedDarkBlue)
+                //         .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+
+                //     const prevBtn = new MessageButton()
+                //         .setCustomId('previousbtn')
+                //         .setLabel('🡸 Back')
+                //         .setStyle('PRIMARY')
+                //         .setDisabled(true)
                     
-                    const nextBtn = new MessageButton()
-                        .setCustomId('nextbtn')
-                        .setLabel('Next 🡺')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+                //     const nextBtn = new MessageButton()
+                //         .setCustomId('nextbtn')
+                //         .setLabel('Next 🡺')
+                //         .setStyle('PRIMARY')
+                //         .setDisabled(true)
 
-                    let disabledBtnRow = new MessageActionRow()
-                        .addComponents(
-                            prevBtn,
-                            nextBtn
-                        );
+                //     let disabledBtnRow = new MessageActionRow()
+                //         .addComponents(
+                //             prevBtn,
+                //             nextBtn
+                //         );
 
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
-                }
+                //     // SENDING MESSAGE
+                //     return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+                // }
                 
                 // let termsArray = Array.from(getCollection.values())
 
