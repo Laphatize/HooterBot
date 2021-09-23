@@ -1,9 +1,8 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const blacklistSchema = require('../../Database/blacklistSchema');
-const paginationEmbed = require('discordjs-button-pagination');
+const { Pagination } = require("discordjs-button-embed-pagination");
 const { MessageButton, MessageActionRow} = require('discord.js');
-
 
 
 module.exports = {
@@ -296,7 +295,7 @@ module.exports = {
 
                     // GENERATE EMBED AND DISABLED BUTTONS
                     let termsDNEembed = new discord.MessageEmbed()
-                        .setTitle('Blacklist Terms')
+                        .setTitle('Blacklisted Strings')
                         .setColor(config.embedDarkBlue)
                         .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
 
@@ -331,29 +330,21 @@ module.exports = {
                     const embeds = [
                         pageArrays.map((x) => {
                             return new discord.MessageEmbed()
-                                .setTitle('Blacklist Terms')
+                                .setTitle('Blacklisted Strings')
                                 .setColor(config.embedDarkBlue)
                                 .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
                         })
                     ]
 
-                    const prevBtn = new MessageButton()
-                        .setCustomId('previousbtn')
-                        .setLabel('🡸 Back')
-                        .setStyle('DANGER')
-                    
-                    const nextBtn = new MessageButton()
-                        .setCustomId('nextbtn')
-                        .setLabel('Next 🡺')
-                        .setStyle('SUCCESS')
-
-                    let btnRow = new MessageActionRow()
-                        .addComponents(
-                            prevBtn,
-                            nextBtn
-                        );
-                    
-                    paginationEmbed(interaction, embeds, btnRow, 60000);
+                    await new Pagination(message.channel, embeds, "page", 60000, [
+                        {
+                            style: "PRIMARY",
+                            label: '🡸 Back'
+                        },{
+                            style: "PRIMARY",
+                            label: 'Next 🡺'
+                        }
+                    ]).paginate()
                 }
             }
         }
