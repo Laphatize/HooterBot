@@ -292,7 +292,7 @@ module.exports = {
                 let pageArrays = chunks(entriesList, listCount)
 
                 // LESS THAN 20 ENTRIES - 1 PAGE
-                if(pageArrays.length < listCount) {
+                if(entriesList.length < listCount) {
 
                     // GENERATE EMBED AND DISABLED BUTTONS
                     let termsDNEembed = new discord.MessageEmbed()
