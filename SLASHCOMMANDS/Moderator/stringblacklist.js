@@ -234,9 +234,13 @@ module.exports = {
         /* LIST            */
         /*******************/
         if(subCmdName == 'list') {
-            const getCollection = client.blacklist.get(interaction.guild.id)
+            // SEARCHING DATABASE FOR GUILD ENTRY
+            let dbBlacklistData = await blacklistSchema.find({
+                GUILD_ID: interaction.guild.id
+            })
 
-            console.log(`getCollection.size = ${getCollection.size}`)
+            console.log( `dbBlacklistData = \n${dbBlacklistData}`)
+
 
 
             // EMPTY BLACKLIST
@@ -274,11 +278,13 @@ module.exports = {
             
             // NON-EMPTY BLACKLIST
             else {
-                let termsArray = Array.from(getCollection.values())
 
-                termsArray.sort();
+                interaction.reply({ content: 'The database possesses at lesat one blacklist entry.'})
+                // let termsArray = Array.from(getCollection.values())
 
-                interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
+                // termsArray.sort();
+
+                // interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
 
                 // const embed1 = new discord.MessageEmbed()
                 //     .setTitle('Blacklist Terms – Page 1')
