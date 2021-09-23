@@ -207,6 +207,8 @@ module.exports = {
         if(subCmdName == 'list') {
             const getCollection = client.blacklist.get(interaction.guild.id)
 
+            console.log(`getCollection =\n\n${getCollection}`)
+
             let termsArray = Array.from(getCollection)
 
 
