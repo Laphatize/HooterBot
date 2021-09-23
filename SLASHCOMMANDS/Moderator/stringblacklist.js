@@ -292,7 +292,7 @@ module.exports = {
                 let arrays = chunks(entriesList, listCount)
                 
 
-                interaction.channel.send({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
+                interaction.channel.send({ content: `The blacklist is a nonzero array with less than 21 entries.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
 
                 if(dbBlacklistData.FILTER_LIST.length <= listCount) {
 
@@ -324,7 +324,9 @@ module.exports = {
                     return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
                 }
                 else {     
-                    interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })           
+                    interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
+                    
+                    console.log(arrays)
                     // let termsArray = Array.from(getCollection.values())
 
                     // termsArray.sort();
