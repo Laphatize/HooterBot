@@ -1,7 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const blacklistSchema = require('../../Database/blacklistSchema');
-const paginationEmbed = require('discordjs-button-pagination');
+const { Pagination } = require("discordjs-button-embed-pagination");
 const { MessageButton, MessageActionRow} = require('discord.js');
 
 
@@ -298,7 +298,8 @@ module.exports = {
                     let termsDNEembed = new discord.MessageEmbed()
                         .setTitle('Blacklist Terms')
                         .setColor(config.embedDarkBlue)
-                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``)
+                        .setFooter(`Page 1/1`)
 
                     const prevBtn = new MessageButton()
                         .setCustomId('previousbtn')
@@ -335,25 +336,23 @@ module.exports = {
                             .setDescription(`x = ${x}`)
                     });
 
-                    const prevBtn = new MessageButton()
-                        .setCustomId('previousbtn')
-                        .setLabel('🡸 Back')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
-                    
-                    const nextBtn = new MessageButton()
-                        .setCustomId('nextbtn')
-                        .setLabel('Next 🡺')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
 
-                    let btnRow = new MessageActionRow()
-                        .addComponents(
-                            prevBtn,
-                            nextBtn
-                        );
-                    
-                    paginationEmbed(interaction, embeds, btnRow, 60000);
+                    await new Pagination(message.channel, embeds, "page", 60000, [
+                        {
+                            style: "PRIMARY",
+                            label: "∣🡸 First",
+                        }, {
+                            style: "PRIMARY",
+                            label: "🡸 Back",
+                        }, {
+                            style: "PRIMARY",
+                            label: "Next 🡺"
+                        }, {
+                            style: "PRIMARY",
+                            label: "Last 🡺∣",
+                        },
+        
+                    ]).paginate();
                 }
             }
         }
