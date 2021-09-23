@@ -112,7 +112,10 @@ module.exports = {
                 // STRING DOES NOT EXIST FOR GUILD
                 dbBlacklistData.FILTER_LIST.push(stringReformatted)
                 dbBlacklistData.save();
-                client.blacklist.get(interaction.guild.id).push(stringReformatted)
+                // COLLECTION RESET
+                client.blacklist.clear()
+                client.blacklist.set(interaction.guild.id, [dbBlacklistData.FILTER_LIST])
+                
 
                 // CONFIRMATION EMBED
                 let confirmationEmbed = new discord.MessageEmbed()
