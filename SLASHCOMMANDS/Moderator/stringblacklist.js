@@ -292,7 +292,7 @@ module.exports = {
                 let arrays = chunks(entriesList, listCount)
                 
 
-                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
+                interaction.channel.send({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
 
                 if(dbBlacklistData.FILTER_LIST.length <= listCount) {
 
