@@ -287,90 +287,93 @@ module.exports = {
                     (_, i) => a.slice(i * size, i * size + size)
                 )
 
+                let listCount = 20
 
-                let arrays = chunks(entriesList, 10)
+                let arrays = chunks(entriesList, listCount)
                 
 
-                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${chunks(entriesList, 10)}\`\`\`` })
+                interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })
 
-                // if(dbBlacklistData.FILTER_LIST.length <= 20) {
+                if(dbBlacklistData.FILTER_LIST.length <= listCount) {
 
-                //     // GENERATE EMBED AND DISABLED BUTTONS
-                //     let termsDNEembed = new discord.MessageEmbed()
-                //         .setTitle('Blacklist Terms')
-                //         .setColor(config.embedDarkBlue)
-                //         .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+                    // GENERATE EMBED AND DISABLED BUTTONS
+                    let termsDNEembed = new discord.MessageEmbed()
+                        .setTitle('Blacklist Terms')
+                        .setColor(config.embedDarkBlue)
+                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
 
-                //     const prevBtn = new MessageButton()
-                //         .setCustomId('previousbtn')
-                //         .setLabel('🡸 Back')
-                //         .setStyle('PRIMARY')
-                //         .setDisabled(true)
+                    const prevBtn = new MessageButton()
+                        .setCustomId('previousbtn')
+                        .setLabel('🡸 Back')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
                     
-                //     const nextBtn = new MessageButton()
-                //         .setCustomId('nextbtn')
-                //         .setLabel('Next 🡺')
-                //         .setStyle('PRIMARY')
-                //         .setDisabled(true)
+                    const nextBtn = new MessageButton()
+                        .setCustomId('nextbtn')
+                        .setLabel('Next 🡺')
+                        .setStyle('PRIMARY')
+                        .setDisabled(true)
 
-                //     let disabledBtnRow = new MessageActionRow()
-                //         .addComponents(
-                //             prevBtn,
-                //             nextBtn
-                //         );
+                    let disabledBtnRow = new MessageActionRow()
+                        .addComponents(
+                            prevBtn,
+                            nextBtn
+                        );
 
-                //     // SENDING MESSAGE
-                //     return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
-                // }
-                
-                // let termsArray = Array.from(getCollection.values())
+                    // SENDING MESSAGE
+                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+                }
+                else {     
+                    interaction.reply({ content: `The blacklist is a nonzero array.\nTotal entries: ${entriesList.length}\nValues:\n\`\`\`${arrays}\`\`\`` })           
+                    // let termsArray = Array.from(getCollection.values())
 
-                // termsArray.sort();
+                    // termsArray.sort();
 
-                // interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
+                    // interaction.reply({ content: `**termsArray.join('\n'):**\n\`\`\`${termsArray.join(`\n`)}\`\`\`` })
 
-                // const embed1 = new discord.MessageEmbed()
-                //     .setTitle('Blacklist Terms – Page 1')
-                //     .setColor(config.embedDarkBlue)
-                //     .setDescription('(page 1 content)');
-                
-                // const embed2 = new discord.MessageEmbed()
-                //     .setTitle('Blacklist Terms – Page 2')
-                //     .setColor(config.embedDarkBlue)
-                //     .setDescription('(page 2 content)');
-                
-                // const prevBtn = new MessageButton()
-                //     .setCustomId('previousbtn')
-                //     .setLabel('🡸 Back')
-                //     .setStyle('PRIMARY');
-                
-                // const nextBtn = new MessageButton()
-                //     .setCustomId('nextbtn')
-                //     .setLabel('Next 🡺')
-                //     .setStyle('PRIMARY')
-                
-            //     for (let i = 0; i < termsArray.length; i+= 10) {
-                            
-            //     const embeds = data.map((x) => {
+                    // const embed1 = new discord.MessageEmbed()
+                    //     .setTitle('Blacklist Terms – Page 1')
+                    //     .setColor(config.embedDarkBlue)
+                    //     .setDescription('(page 1 content)');
                     
-            //         return new MessageEmbed()
-            //             .setColor(config.embedBlurple)
-            //             .addField(x)
-            //             .addField("Gender", x.gender)
-            //             .addField("Email", x.email)
-            //             .addField("Date of Birth", new Date(x.dob).toDateString())
-            //             .addField("Age", x.age.toString())
-            //             .addField("Phone", x.phone)
-            //             .setThumbnail(x.image);
-            //     });
+                    // const embed2 = new discord.MessageEmbed()
+                    //     .setTitle('Blacklist Terms – Page 2')
+                    //     .setColor(config.embedDarkBlue)
+                    //     .setDescription('(page 2 content)');
+                    
+                    // const prevBtn = new MessageButton()
+                    //     .setCustomId('previousbtn')
+                    //     .setLabel('🡸 Back')
+                    //     .setStyle('PRIMARY');
+                    
+                    // const nextBtn = new MessageButton()
+                    //     .setCustomId('nextbtn')
+                    //     .setLabel('Next 🡺')
+                    //     .setStyle('PRIMARY')
+                    
+                //     for (let i = 0; i < termsArray.length; i+= 10) {
+                                
+                //     const embeds = data.map((x) => {
+                        
+                //         return new MessageEmbed()
+                //             .setColor(config.embedBlurple)
+                //             .addField(x)
+                //             .addField("Gender", x.gender)
+                //             .addField("Email", x.email)
+                //             .addField("Date of Birth", new Date(x.dob).toDateString())
+                //             .addField("Age", x.age.toString())
+                //             .addField("Phone", x.phone)
+                //             .setThumbnail(x.image);
+                //     });
 
-                
-            //     buttonArr = [
-            //         prevBtn,
-            //         nextBtn
-            //     ]
-                
-            //     paginationEmbed(interaction, embeds, buttonArr, 60000);
+                    
+                //     buttonArr = [
+                //         prevBtn,
+                //         nextBtn
+                //     ]
+                    
+                //     paginationEmbed(interaction, embeds, buttonArr, 60000);
+                }
             }
         }
     }
