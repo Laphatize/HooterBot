@@ -278,8 +278,10 @@ module.exports = {
             
             // NON-EMPTY BLACKLIST
             else {
+                
+                let entriesList = dbBlacklistData.FILTER_LIST;
 
-                interaction.return({ content: `The blacklist is a nonzero array.` })
+                interaction.reply({ content: `The blacklist is a nonzero array:\n${entriesList}` })
 
                 // if(dbBlacklistData.FILTER_LIST.length <= 20) {
 
