@@ -1,7 +1,7 @@
 const discord = require('discord.js')
 const config = require ('../../config.json')
 const blacklistSchema = require('../../Database/blacklistSchema');
-const { Pagination } = require("discordjs-button-embed-pagination");
+const paginationEmbed = require('discordjs-button-pagination');
 const { MessageButton, MessageActionRow} = require('discord.js');
 
 
@@ -239,114 +239,114 @@ module.exports = {
         /* LIST            */
         /*******************/
         if(subCmdName == 'list') {
-            // SEARCHING DATABASE FOR GUILD ENTRY
-            let dbBlacklistData = await blacklistSchema.findOne({
-                GUILD_ID: interaction.guild.id
-            })
+            // // SEARCHING DATABASE FOR GUILD ENTRY
+            // let dbBlacklistData = await blacklistSchema.findOne({
+            //     GUILD_ID: interaction.guild.id
+            // })
 
 
-            if(!dbBlacklistData) { 
-                // GENERATE EMBED AND DISABLED BUTTONS
-                let termsDNEembed = new discord.MessageEmbed()
-                    .setTitle('Blacklist Terms')
-                    .setColor(config.embedDarkBlue)
-                    .setDescription('*(none)*');
+            // if(!dbBlacklistData) { 
+            //     // GENERATE EMBED AND DISABLED BUTTONS
+            //     let termsDNEembed = new discord.MessageEmbed()
+            //         .setTitle('Blacklist Terms')
+            //         .setColor(config.embedDarkBlue)
+            //         .setDescription('*(none)*');
 
-                const prevBtn = new MessageButton()
-                    .setCustomId('previousbtn')
-                    .setLabel('🡸 Back')
-                    .setStyle('PRIMARY')
-                    .setDisabled(true)
+            //     const prevBtn = new MessageButton()
+            //         .setCustomId('previousbtn')
+            //         .setLabel('🡸 Back')
+            //         .setStyle('PRIMARY')
+            //         .setDisabled(true)
                 
-                const nextBtn = new MessageButton()
-                    .setCustomId('nextbtn')
-                    .setLabel('Next 🡺')
-                    .setStyle('PRIMARY')
-                    .setDisabled(true)
+            //     const nextBtn = new MessageButton()
+            //         .setCustomId('nextbtn')
+            //         .setLabel('Next 🡺')
+            //         .setStyle('PRIMARY')
+            //         .setDisabled(true)
 
-                let disabledBtnRow = new MessageActionRow()
-                    .addComponents(
-                        prevBtn,
-                        nextBtn
-                    );
+            //     let disabledBtnRow = new MessageActionRow()
+            //         .addComponents(
+            //             prevBtn,
+            //             nextBtn
+            //         );
 
-                // SENDING MESSAGE
-                return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
-            }
+            //     // SENDING MESSAGE
+            //     return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+            // }
 
             
-            // NON-EMPTY BLACKLIST
-            else {
+            // // NON-EMPTY BLACKLIST
+            // else {
                 
-                let entriesList = dbBlacklistData.FILTER_LIST;
+            //     let entriesList = dbBlacklistData.FILTER_LIST;
 
-                const chunks = (a, size) =>
-                Array.from(
-                    new Array(Math.ceil(a.length / size)),
-                    (_, i) => a.slice(i * size, i * size + size)
-                )
+            //     const chunks = (a, size) =>
+            //     Array.from(
+            //         new Array(Math.ceil(a.length / size)),
+            //         (_, i) => a.slice(i * size, i * size + size)
+            //     )
 
-                let listCount = 20  // CHUNKS FOR LISTING - THIS NUMBER DETERMINES HOW MANY VALUES PER PAGE
+            //     let listCount = 20  // CHUNKS FOR LISTING - THIS NUMBER DETERMINES HOW MANY VALUES PER PAGE
 
-                let pageArrays = chunks(entriesList, listCount)
+            //     let pageArrays = chunks(entriesList, listCount)
 
-                // LESS THAN 20 ENTRIES - 1 PAGE
-                if(entriesList.length < listCount) {
+            //     // LESS THAN 20 ENTRIES - 1 PAGE
+            //     if(entriesList.length < listCount) {
 
-                    // GENERATE EMBED AND DISABLED BUTTONS
-                    let termsDNEembed = new discord.MessageEmbed()
-                        .setTitle('Blacklisted Strings')
-                        .setColor(config.embedDarkBlue)
-                        .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
+            //         // GENERATE EMBED AND DISABLED BUTTONS
+            //         let termsDNEembed = new discord.MessageEmbed()
+            //             .setTitle('Blacklisted Strings')
+            //             .setColor(config.embedDarkBlue)
+            //             .setDescription(`\`\`${dbBlacklistData.FILTER_LIST.join(`\`\`\n\`\``)}\`\``);
 
-                    const prevBtn = new MessageButton()
-                        .setCustomId('previousbtn')
-                        .setLabel('🡸 Back')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+            //         const prevBtn = new MessageButton()
+            //             .setCustomId('previousbtn')
+            //             .setLabel('🡸 Back')
+            //             .setStyle('PRIMARY')
+            //             .setDisabled(true)
                     
-                    const nextBtn = new MessageButton()
-                        .setCustomId('nextbtn')
-                        .setLabel('Next 🡺')
-                        .setStyle('PRIMARY')
-                        .setDisabled(true)
+            //         const nextBtn = new MessageButton()
+            //             .setCustomId('nextbtn')
+            //             .setLabel('Next 🡺')
+            //             .setStyle('PRIMARY')
+            //             .setDisabled(true)
 
-                    let disabledBtnRow = new MessageActionRow()
-                        .addComponents(
-                            prevBtn,
-                            nextBtn
-                        );
+            //         let disabledBtnRow = new MessageActionRow()
+            //             .addComponents(
+            //                 prevBtn,
+            //                 nextBtn
+            //             );
 
-                    // SENDING MESSAGE
-                    return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
-                }
+            //         // SENDING MESSAGE
+            //         return interaction.reply({ embeds: [termsDNEembed], components: [disabledBtnRow] })
+            //     }
 
-                // MORE THAN 20 ENTRIES - 2+ PAGE
-                else {     
-                    interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries, requiring at least 2 pages.\nTotal entries: \`\`${entriesList.length}\`\`` })
+            //     // MORE THAN 20 ENTRIES - 2+ PAGE
+            //     else {     
+            //         interaction.reply({ content: `The blacklist is a nonzero array with more than 20 entries, requiring at least 2 pages.\nTotal entries: \`\`${entriesList.length}\`\`` })
                     
-                    console.log(pageArrays, `\n`)
+            //         console.log(pageArrays, `\n`)
                     
-                    const embeds = [
-                        pageArrays.map((x) => {
-                            return new discord.MessageEmbed()
-                                .setTitle('Blacklisted Strings')
-                                .setColor(config.embedDarkBlue)
-                                .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
-                        })
-                    ]
+            //         const embeds = [
+            //             pageArrays.map((x) => {
+            //                 return new discord.MessageEmbed()
+            //                     .setTitle('Blacklisted Strings')
+            //                     .setColor(config.embedDarkBlue)
+            //                     .setDescription(`pageArrays[x] = ${pageArrays[x]}`)
+            //             })
+            //         ]
 
-                    await new Pagination(message.channel, embeds, "page", 60000, [
-                        {
-                            style: "PRIMARY",
-                            label: '🡸 Back'
-                        },{
-                            style: "PRIMARY",
-                            label: 'Next 🡺'
-                        }
-                    ]).paginate()
-                }
-            }
+            //         await new Pagination(message.channel, embeds, "page", 60000, [
+            //             {
+            //                 style: "PRIMARY",
+            //                 label: '🡸 Back'
+            //             },{
+            //                 style: "PRIMARY",
+            //                 label: 'Next 🡺'
+            //             }
+            //         ]).paginate()
+            //     }
+            // }
         }
     }
 }
