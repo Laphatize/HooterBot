@@ -122,18 +122,23 @@ module.exports = {
                 // GENERATING HOURLY REPORTS
                 forecastHourlyReport1Embed = new discord.MessageEmbed()
                     .setTitle(`Weather Forecast`)
-                    .setColor(config.embedOrange)
+                    .setColor(config.embedDarkGrey)
                     .addField(`6AM – ${sixAMdata.condition.text}`, `**Temp:** ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\n**Feels like:** ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\n**Wind chill:** ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\n**UV:** ${uvIndicator(sixAMdata.uv)}\n**Humidity:** ${sixAMdata.humidity}%\n**Wind:** ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\n\n**Rain Chance:** ${sixAMdata.chance_of_rain}%\n**Snow Chance:** ${sixAMdata.chance_of_snow}%\n**Total Precipitation:** ${sixAMdata.precip_in}/hr`, true)
                     .addField(`9AM – ${nineAMdata.condition.text}`, `**Temp:** ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\n**Feels like:** ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\n**Wind chill:** ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\n\n**UV:** ${uvIndicator(nineAMdata.uv)}\n**Humidity:** ${nineAMdata.humidity}%\n**Wind:** ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\n\n**Rain Chance:** ${nineAMdata.chance_of_rain}%\n**Snow Chance:** ${nineAMdata.chance_of_snow}%\n**Total Precipitation:** ${nineAMdata.precip_in}/hr`, true)
                     .addField(`Noon – ${noondata.condition.text}`, `**Temp:** ${noondata.temp_f}°F (${noondata.temp_c}°C)\n**Feels like:** ${noondata.feelslike_f}°F (${noondata.feelslike_c}°C)\n**Wind chill:** ${noondata.windchill_f}°F (${noondata.windchill_c}°C)\n\n**UV:** ${uvIndicator(noondata.uv)}\n**Humidity:** ${noondata.humidity}%\n**Wind:** ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\n\n**Rain Chance:** ${noondata.chance_of_rain}%\n**Snow Chance:** ${noondata.chance_of_snow}%\n**Total Precipitation:** ${noondata.precip_in}/hr`, true)
   
                 forecastHourlyReport2Embed = new discord.MessageEmbed()
-                    .setColor(config.embedOrange)
+                    .setColor(config.embedDarkGrey)
                     .addField(`3PM – ${threePMdata.condition.text}`, `**Temp:** ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\n**Feels like:** ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\n**Wind chill:** ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\n**UV:** ${uvIndicator(threePMdata.uv)}\n**Humidity:** ${threePMdata.humidity}%\n**Wind:** ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\n**Rain Chance:** ${threePMdata.chance_of_rain}%\n**Snow Chance:** ${threePMdata.chance_of_snow}%\n**Total Precipitation:** ${threePMdata.precip_in}/hr`, true)
                     .addField(`6PM – ${sixPMdata.condition.text}`, `**Temp:** ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\n**Feels like:** ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\n**Wind chill:** ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\n**UV:** ${uvIndicator(sixPMdata.uv)}\n**Humidity:** ${sixPMdata.humidity}%\n**Wind:** ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\n**Rain Chance:** ${sixPMdata.chance_of_rain}%\n**Snow Chance:** ${sixPMdata.chance_of_snow}%\n**Total Precipitation:** ${sixPMdata.precip_in}/hr`, true)
                     .addField(`9PM – ${ninePMdata.condition.text}`, `**Temp:** ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\n**Feels like:** ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\n**Wind chill:** ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\n**UV:** ${uvIndicator(ninePMdata.uv)}\n**Humidity:** ${ninePMdata.humidity}%\n**Wind:** ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\n**Rain Chance:** ${ninePMdata.chance_of_rain}%\n**Snow Chance:** ${ninePMdata.chance_of_snow}%\n**Total Precipitation:** ${ninePMdata.precip_in}/hr`, true)
+                    .setFooter(`Powered by Weather API`)
 
-                interaction.editReply({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
+                EndingEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setDescription(`*To see the current weather or generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run \`\`/weather\`\`.`)
+
+                interaction.editReply({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed] })
 
             }
         })
