@@ -60,7 +60,7 @@ module.exports = {
                 // GENERATING SUCCESSFUL WEATHER EMBED
                 let forecastWeatherEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
-                    .setTitle(`Good morning Owls! Here's the weather for today: ${moment().format('dddd, MMMM D, YYYY')}`)
+                    .setTitle(`Good morning, Owls! The weather for today, ${moment().format('dddd, MMMM D, YYYY')}:`)
                     .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
                     // ROW 1
@@ -100,19 +100,19 @@ module.exports = {
                 function uvIndicator (uvIndex) {
                     // UV EVALUATIONS - https://www.epa.gov/enviro/uv-index-overview
                     if(uvIndex >= 0 && uvIndex <= 2 ) {
-                        uvIndicatorValue = `🟩 ${uvIndex} (Low Risk)`
+                        uvIndicatorValue = `🟩 ${uvIndex} *(Low Risk)*`
                     }
-                    if(uvIndex >= 0 && uvIndex <= 2 ) {
-                        uvIndicatorValue = `🟨 ${uvIndex} (Moderate)`
+                    if(uvIndex >= 3 && uvIndex <= 5 ) {
+                        uvIndicatorValue = `🟨 ${uvIndex} *(Moderate)*`
                     }
-                    if(uvIndex >= 0 && uvIndex <= 2 ) {
-                        uvIndicatorValue = `🟧 ${uvIndex} (High – Protect against sun damage)`
+                    if(uvIndex >= 6 && uvIndex <= 7 ) {
+                        uvIndicatorValue = `🟧 ${uvIndex} *(**High** – Protect against sun damage)*`
                     }
-                    if(uvIndex >= 0 && uvIndex <= 2 ) {
-                        uvIndicatorValue = `🟥 ${uvIndex} (Very High – Protect against sun damage)`
+                    if(uvIndex >= 8 && uvIndex <= 10 ) {
+                        uvIndicatorValue = `🟥 ${uvIndex} *(**Very High** – Protect against sun damage)*`
                     }
                     if(uvIndex >= 11 ) {
-                        uvIndicatorValue = `🟪 ${uvIndex} (Extreme – Protect against sun damage)`
+                        uvIndicatorValue = `🟪 ${uvIndex} *(**Extreme** – Protect against sun damage)*`
                     }
 
                     return uvIndicatorValue;
@@ -123,15 +123,15 @@ module.exports = {
                 forecastHourlyReport1Embed = new discord.MessageEmbed()
                     .setTitle(`Weather Forecast`)
                     .setColor(config.embedOrange)
-                    .addField(`6AM EST\n${sixAMdata.condition.text}`, `**Temp:** ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\n**Feels like:** ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\n**Wind chill:** ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_in}/hr`, true)
-                    .addField(`9AM EST\n${nineAMdata.condition.text}`, `**Temp:** ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\n**Feels like:** ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\n**Wind chill:** ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_in}/hr`, true)
-                    .addField(`12PM Noon EST\n${noondata.condition.text}`, `**Temp:** ${noondata.temp_f}°F (${noondata.temp_c}°C)\n**Feels like:** ${noondata.feelslike_f}°F (${noondata.feelslike_c}°C)\n**Wind chill:** ${noondata.windchill_f}°F (${noondata.windchill_c}°C)\nUV: ${uvIndicator(noondata.uv)}\nHumidity: ${noondata.humidity}%\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}%\nSnow Chance: ${noondata.chance_of_snow}%\nTotal Precipitation: ${noondata.precip_in}/hr`, true)
+                    .addField(`6AM – \n${sixAMdata.condition.text}`, `**Temp:** ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\n**Feels like:** ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\n**Wind chill:** ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_in}/hr`, true)
+                    .addField(`9AM – \n${nineAMdata.condition.text}`, `**Temp:** ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\n**Feels like:** ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\n**Wind chill:** ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_in}/hr`, true)
+                    .addField(`Noon – \n${noondata.condition.text}`, `**Temp:** ${noondata.temp_f}°F (${noondata.temp_c}°C)\n**Feels like:** ${noondata.feelslike_f}°F (${noondata.feelslike_c}°C)\n**Wind chill:** ${noondata.windchill_f}°F (${noondata.windchill_c}°C)\nUV: ${uvIndicator(noondata.uv)}\nHumidity: ${noondata.humidity}%\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}%\nSnow Chance: ${noondata.chance_of_snow}%\nTotal Precipitation: ${noondata.precip_in}/hr`, true)
   
                 forecastHourlyReport2Embed = new discord.MessageEmbed()
                     .setColor(config.embedOrange)
-                    .addField(`3PM EST\n${threePMdata.condition.text}`, `**Temp:** ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\n**Feels like:** ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\n**Wind chill:** ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in}/hr`, true)
-                    .addField(`6PM EST\n${sixPMdata.condition.text}`, `**Temp:** ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\n**Feels like:** ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\n**Wind chill:** ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in}/hr`, true)
-                    .addField(`9PM EST\n${ninePMdata.condition.text}`, `**Temp:** ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\n**Feels like:** ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\n**Wind chill:** ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in}/hr`, true)
+                    .addField(`3PM – \n${threePMdata.condition.text}`, `**Temp:** ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\n**Feels like:** ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\n**Wind chill:** ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in}/hr`, true)
+                    .addField(`6PM – \n${sixPMdata.condition.text}`, `**Temp:** ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\n**Feels like:** ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\n**Wind chill:** ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in}/hr`, true)
+                    .addField(`9PM – \n${ninePMdata.condition.text}`, `**Temp:** ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\n**Feels like:** ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\n**Wind chill:** ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in}/hr`, true)
 
                 interaction.editReply({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
 
