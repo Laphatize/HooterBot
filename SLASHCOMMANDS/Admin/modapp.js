@@ -230,11 +230,11 @@ module.exports = {
             }).exec();
             
 
-            // LOCKING SEND MESSAGE PERMISSION
-            interaction.channel.permissionOverwrites.edit(applicantUserId, {
-                SEND_MESSAGES: false,
-                ADD_REACTIONS: false,
-            }).then(channel => {
+            // // LOCKING SEND MESSAGE PERMISSION
+            // interaction.channel.permissionOverwrites.edit(applicantUserId, {
+            //     SEND_MESSAGES: false,
+            //     ADD_REACTIONS: false,
+            // }).then(channel => {
 
                 // CONFIRMATION EMBED
                 let appLocked = new discord.MessageEmbed()
@@ -243,8 +243,8 @@ module.exports = {
                     .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider your application at this time.`)
 
                 // LOG ENTRY
-                channel.send({ embeds: [appLocked] })
-            })
+                interaction.channelchannel.send({ embeds: [appLocked] })
+            // })
 
             interaction.reply({ content: `App confirmation added.`, ephemeral: true })
         }
