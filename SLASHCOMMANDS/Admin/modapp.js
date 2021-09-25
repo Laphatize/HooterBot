@@ -243,7 +243,7 @@ module.exports = {
                     .setDescription(`Unfortunately, your application has not been completed by the application deadline and as such, we are unable to consider your application at this time.`)
 
                 // LOG ENTRY
-                interaction.channelchannel.send({ embeds: [appLocked] })
+                interaction.channel.send({ embeds: [appLocked] })
             // })
 
             interaction.reply({ content: `App confirmation added.`, ephemeral: true })
