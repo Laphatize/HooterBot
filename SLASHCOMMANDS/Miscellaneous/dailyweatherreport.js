@@ -89,7 +89,7 @@ module.exports = {
                 .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
 
-            let sixAMdata = forecastReport.day.hour[0][6]
+            let sixAMdata = forecastReport.hour[0][6]
             // let nineAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 09:00`));
             // let noondata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 12:00`));
             // let threePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 15:00`));
