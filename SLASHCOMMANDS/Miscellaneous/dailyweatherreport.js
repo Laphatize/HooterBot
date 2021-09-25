@@ -52,69 +52,69 @@ module.exports = {
 
                 return interaction.reply({ embeds: [noResultEmbed], ephemeral: true })
             }
+            else {
+                forecastReport = result.data.forecast.forecastday[0]
+                currentWeather = result.data.current
+
+                console.log(`${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`)            
+                
+                // GENERATING SUCCESSFUL WEATHER EMBED
+                let forecastWeatherEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedBlurple)
+                    .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
+                    .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
+
+                    // ROW 1
+                    .addField(`Conditions:`, `${forecastReport.day.condition.text}`, true)
+                    .addField(`High Temp:`, `${forecastReport.day.maxtemp_f}°F (${forecastReport.day.maxtemp_c}°C)`, true)
+                    .addField(`Low Temp:`, `${forecastReport.day.mintemp_f}°F (${forecastReport.day.mintemp_c}°C)`, true)
+                    // ROW 2
+                    .addField(`Humidity:`, `${forecastReport.day.avghumidity}`, true)
+                    .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.day.maxwind_kph} kph)`, true)
+                    .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
+                    // ROW 3
+                    .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
+                    .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
+                    .addField(`Precipitation:`, `${forecastReport.day.totalprecip_in}in (${forecastReport.day.totalprecip_mm} mm)`, true)
+                    // ROW 4
+                    .addField(`Sunrise:`, `${forecastReport.astro.sunrise}`, true)
+                    .addField(`Sunset:`, `${forecastReport.astro.sunset}`, true)
+                    .addField(`Moon Phase:`, `${forecastReport.astro.moon_phase}`, true)
+                    // ROW 5
+                    .addField(`Moonrise:`, `${forecastReport.astro.moonrise}`, true)
+                    .addField(`Moonset:`, `${forecastReport.astro.moonset}`, true)
+                    .addField(`Moon Illumination:`, `${forecastReport.astro.moon_phase}%`, true)
+                    // FOOTER
+                    .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
 
-            forecastReport = result.data.forecast.forecastday[0]
-            currentWeather = result.data.current
+                let sixAMdata = forecastReport.hour[6]
+                // let nineAMdata = 
+                // let noondata = 
+                // let threePMdata = 
+                // let sixPMdata = 
+                // let ninePMdata = 
 
-            console.log(`${moment(Date.now()).utcOffset(-4).format('YYYY-MM-DD 06:00')}`)            
-            
-            // GENERATING SUCCESSFUL WEATHER EMBED
-            let forecastWeatherEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
-                .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
-
-                // ROW 1
-                .addField(`Conditions:`, `${forecastReport.day.condition.text}`, true)
-                .addField(`High Temp:`, `${forecastReport.day.maxtemp_f}°F (${forecastReport.day.maxtemp_c}°C)`, true)
-                .addField(`Low Temp:`, `${forecastReport.day.mintemp_f}°F (${forecastReport.day.mintemp_c}°C)`, true)
-                // ROW 2
-                .addField(`Humidity:`, `${forecastReport.day.avghumidity}`, true)
-                .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.day.maxwind_kph} kph)`, true)
-                .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
-                // ROW 3
-                .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
-                .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
-                .addField(`Precipitation:`, `${forecastReport.day.totalprecip_in}in (${forecastReport.day.totalprecip_mm} mm)`, true)
-                // ROW 4
-                .addField(`Sunrise:`, `${forecastReport.astro.sunrise}`, true)
-                .addField(`Sunset:`, `${forecastReport.astro.sunset}`, true)
-                .addField(`Moon Phase:`, `${forecastReport.astro.moon_phase}`, true)
-                // ROW 5
-                .addField(`Moonrise:`, `${forecastReport.astro.moonrise}`, true)
-                .addField(`Moonset:`, `${forecastReport.astro.moonset}`, true)
-                .addField(`Moon Illumination:`, `${forecastReport.astro.moon_phase}%`, true)
-                // FOOTER
-                .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
-
-
-            let sixAMdata = forecastReport.hour[0][6]
-            // let nineAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 09:00`));
-            // let noondata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 12:00`));
-            // let threePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 15:00`));
-            // let sixPMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 18:00`));
-            // let ninePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 21:00`));
-
-            console.log(`\nsixAMdata = ${sixAMdata}\n`)
+                console.log(`\nsixAMdata = ${sixAMdata}\n`)
 
 
 
-            // // GENERATING HOURLY REPORTS
-            // forecastHourlyReport1Embed = new discord.MessageEmbed()
-            //     .setColor(config.embedGreen)
-            //     .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
-            //     .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
-            //     .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
+                // // GENERATING HOURLY REPORTS
+                // forecastHourlyReport1Embed = new discord.MessageEmbed()
+                //     .setColor(config.embedGreen)
+                //     .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
+                //     .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
+                //     .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
 
-            // forecastHourlyReport2Embed = new discord.MessageEmbed()
-            //     .setColor(config.embedGreen)
-            //     .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
-            //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
-            //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
+                // forecastHourlyReport2Embed = new discord.MessageEmbed()
+                //     .setColor(config.embedGreen)
+                //     .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
+                //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
+                //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
 
-            interaction.reply({ embeds: [forecastWeatherEmbed] })
+                interaction.reply({ embeds: [forecastWeatherEmbed] })
 
+            }
         })
         .catch(err => {
             // // WEATHER LOAD ERROR RESPONSE
