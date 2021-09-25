@@ -50,7 +50,7 @@ module.exports = {
                     .setDescription(`I'm having trouble getting a daily weather report for Philly today, possibly indicative of an API issue.`)
                 guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
 
-                return interaction.reply({ embeds: [noResultEmbed], ephemeral: true })
+                return interaction.editReply({ embeds: [noResultEmbed], ephemeral: true })
             }
             else {
                 forecastReport = result.data.forecast.forecastday[0]
@@ -99,12 +99,12 @@ module.exports = {
 
 
 
-                // // GENERATING HOURLY REPORTS
-                // forecastHourlyReport1Embed = new discord.MessageEmbed()
-                //     .setColor(config.embedGreen)
-                //     .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
-                //     .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
-                //     .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
+                // GENERATING HOURLY REPORTS
+                forecastHourlyReport1Embed = new discord.MessageEmbed()
+                    .setColor(config.embedGreen)
+                    .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
+                    // .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
+                    // .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
 
                 // forecastHourlyReport2Embed = new discord.MessageEmbed()
                 //     .setColor(config.embedGreen)
@@ -112,7 +112,7 @@ module.exports = {
                 //     .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
                 //     .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
 
-                interaction.reply({ embeds: [forecastWeatherEmbed] })
+                interaction.editReply({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed] })
 
             }
         })
