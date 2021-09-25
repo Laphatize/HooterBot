@@ -164,7 +164,7 @@ module.exports = {
                         .addField(`Particulate Matter (<2.5μm):`, `${currentWeather.air_quality['pm2_5'].toFixed(2)} μg/m³`, true)
                         .addField(`Particulate Matter (<10μm):`, `${currentWeather.air_quality['pm10'].toFixed(2)} μg/m³`, true)
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Data from Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [mainWeatherEmbed, airQualityEmbed] })
@@ -259,7 +259,7 @@ module.exports = {
                         `, true)
 
                         // FOOTER
-                        .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                        .setFooter(`Data from Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
                     // SHARING EMBED WITH LOCATION
                     await interaction.editReply({ embeds: [forecastWeatherEmbed] })
