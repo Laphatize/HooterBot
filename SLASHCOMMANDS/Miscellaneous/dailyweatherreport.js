@@ -60,7 +60,7 @@ module.exports = {
                 // GENERATING SUCCESSFUL WEATHER EMBED
                 let forecastWeatherEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
-                    .setTitle(`Good morning, Owls! Here is the weather for today, ${moment().format('dddd, MMMM D, YYYY').utcOffset(-4)}:`)
+                    .setTitle(`Good morning, Owls! Here is the weather for today, ${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}:`)
                     .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
                     // ROW 1
