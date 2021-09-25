@@ -100,19 +100,19 @@ module.exports = {
                 function uvIndicator (uvIndex) {
                     // UV EVALUATIONS - https://www.epa.gov/enviro/uv-index-overview
                     if(uvIndex >= 0 && uvIndex <= 2 ) {
-                        uvIndicatorValue = `🟩 ${uvIndex}\n**UV Risk:** *Low Risk*`
+                        uvIndicatorValue = `🟩 ${uvIndex}\nUV Risk: *Low Risk*`
                     }
                     if(uvIndex >= 3 && uvIndex <= 5 ) {
-                        uvIndicatorValue = `🟨 ${uvIndex}\n**UV Risk:** *Moderate Risk*`
+                        uvIndicatorValue = `🟨 ${uvIndex}\nUV Risk: *Moderate Risk*`
                     }
                     if(uvIndex >= 6 && uvIndex <= 7 ) {
-                        uvIndicatorValue = `🟧 ${uvIndex}\n**UV Risk:** *__High__ – Protect against sun damage!*`
+                        uvIndicatorValue = `🟧 ${uvIndex}\nUV Risk: *__High__ – Be mindful of sun damage!*`
                     }
                     if(uvIndex >= 8 && uvIndex <= 10 ) {
-                        uvIndicatorValue = `🟥 ${uvIndex}\n**UV Risk:** *__Very High__ – Protect against sun damage!*`
+                        uvIndicatorValue = `🟥 ${uvIndex}\nUV Risk: *__Very High__ – Protect against sun damage!*`
                     }
                     if(uvIndex >= 11 ) {
-                        uvIndicatorValue = `🟪 ${uvIndex}\n**UV Risk:** *__EXTREME__ – Protect against sun damage!*`
+                        uvIndicatorValue = `🟪 ${uvIndex}\nUV Risk: *__EXTREME__ – Protect against sun damage!*`
                     }
 
                     return uvIndicatorValue;
