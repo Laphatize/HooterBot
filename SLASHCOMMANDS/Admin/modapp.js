@@ -21,6 +21,9 @@ module.exports = {
                     name: `close`,
                     value: `close`,
                 },{
+                    name: `not-open`,
+                    value: `not-open`,
+                },{
                     name: `appconfirm`,
                     value: `appconfirm`
                 },{
@@ -164,6 +167,42 @@ module.exports = {
         }
         
 
+        // APP NOT OPEN PROMPT
+        if(inputs[0] == 'not-open') {
+
+            let modAppNoticeChannel
+            
+            try {
+                modAppNoticeChannel = interaction.guild.channels.cache.find(ch => ch.name.toLowerCase() === 'mod-applications-info' && ch.type === 'GUILD_TEXT')
+            } catch (err) {
+                    let chNotFoundEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedTempleRed)
+                        .setTitle(`${config.emjREDTICK} **Error!**`)
+                        .setDescription(`I couldn't find the \`\`#mod-applications-info\`\` channel in the server! Please run \`\`/modapp open \`\``)
+
+                    // SENDING TO CHANNEL
+                    return interaction.reply({ embeds: [chNotFoundEmbed], ephemeral: true })
+            }
+
+
+            // CREATE APPLICATION INFO EMBED WITH BUTTON
+            let appNoticeEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setTitle(`**Moderator Applications**`)
+                .setDescription(`We are not currently looking for more moderators at this time. Keep an eye on this channel for future moderator application postings.`)
+
+            await modAppNoticeChannel.send({ embeds: [appNoticeEmbed] })
+
+
+            // CONFIRMATION
+            let closeConfirmEmbed = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Mod Application "Not Open" Notice Posted`)
+                .setDescription(`Have a great day, ${interaction.user.username}! ${config.emjHB}`)
+
+            // SENDING TO CHANNEL
+            return interaction.reply({ embeds: [closeConfirmEmbed], ephemeral: true })
+        }
 
 
         // APP SUBMITTED SUCCESSFULLY AND IN FULL - FREEZE CURRENT APPLICATION CHANNEL
