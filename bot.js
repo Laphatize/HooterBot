@@ -1121,6 +1121,9 @@ cron.schedule('00 07 21 * * *', async () => {
                     return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
                 })
         })
+}, {
+    scheduled: true,
+    timezone: "America/New_York"
 });
 
 
