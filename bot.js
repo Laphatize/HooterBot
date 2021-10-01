@@ -942,7 +942,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-cron.schedule('00 35,40,45,50 21 * * *', async () => {
+cron.schedule('00 35,36 21 * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
