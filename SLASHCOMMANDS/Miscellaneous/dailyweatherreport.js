@@ -136,7 +136,7 @@ module.exports = {
 
                 EndingEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
-                    .setDescription(`*To see the current weather or generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
+                    .setDescription(`*To see the current weather at this moment or to generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
 
                 interaction.editReply({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed] })
 
