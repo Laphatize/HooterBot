@@ -942,7 +942,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-cron.schedule('00 25 21 * * *', async () => {
+cron.schedule('00 35,40,45,50 21 * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
@@ -1072,6 +1072,8 @@ cron.schedule('00 25 21 * * *', async () => {
 
 
             // PAST WEATHER MESSAGE EXISTS - FETCH MSG FROM CHANNEL AND DELETE
+            console.log(`\n\ndbGuildData.WEATHER_MSG_ID = ${dbGuildData.WEATHER_MSG_ID}\n\n`)
+
 
             // MSG EXISTS, DELETE
             if(dbGuildData.WEATHER_MSG_ID) {                            
