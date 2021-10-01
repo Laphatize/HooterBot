@@ -47,7 +47,7 @@ module.exports = {
             .setColor(config.embedBlurple)
             .setTitle(`**Server Staff**`)
             .addField(`${config.emjAdmin} Admins:`, `<@400071708947513355>, <@694391619868295241>, <@472185023622152203>`)
-            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@418870468955602944>`)
+            .addField(`${config.emjModerator} Moderators:`, `<@626143139639459841>, <@395791768328601610>, <@132866617745866753>, <@418870468955602944>`)
 
         // MODMAIL INSTRUCTIONS EMBED
         let ModmailHelp = new discord.MessageEmbed()
