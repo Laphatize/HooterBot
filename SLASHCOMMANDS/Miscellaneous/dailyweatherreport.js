@@ -20,16 +20,16 @@ module.exports = {
      
         console.log(`Running the daily weather report...`)
 
-    let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+        let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
-    // GRAB WEATHER DATA
-    let apiConfig = {
-        method: 'get',
-        url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=1&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
-        headers: {}
-    }
+        // GRAB WEATHER DATA
+        let apiConfig = {
+            method: 'get',
+            url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=1&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+            headers: {}
+        }
 
-    let forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, alertsReportEmbed
+        let forecastHourlyReport1Embed, forecastHourlyReport2Embed
 
 
     // WEATHER API CALL
@@ -132,7 +132,7 @@ module.exports = {
                     .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nFeels like: ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\nWind chill: ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in} in`, true)
                     .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nFeels like: ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\nWind chill: ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in} in`, true)
                     .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
-                    .setFooter(`Data from Weather API`)
+                    .setFooter(`Data from Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
                 EndingEmbed = new discord.MessageEmbed()
                     .setColor(config.embedBlurple)
@@ -143,12 +143,12 @@ module.exports = {
             }
         })
         .catch(err => {
-            // // WEATHER LOAD ERROR RESPONSE
-            // let weatherFetchErrEmbed = new discord.MessageEmbed()
-            //     .setColor(config.embedRed)
-            //     .setTitle(`${config.emjREDTICK} Sorry!`)
-            //     .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-            // guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
+            // WEATHER LOAD ERROR RESPONSE
+            let weatherFetchErrEmbed = new discord.MessageEmbed()
+                .setColor(config.embedRed)
+                .setTitle(`${config.emjREDTICK} Sorry!`)
+                .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
+            guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
 
             // LOG
             console.log(`****** WEATHER API ERROR ******`);

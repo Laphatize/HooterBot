@@ -941,178 +941,188 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 
-// // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-// cron.schedule('00 00 06 * * *', async () => {
+// WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
+cron.schedule('00 00 21 * * *', async () => {
 
-//     console.log(`Running the daily weather report...`)
+    console.log(`Running the daily weather report...`)
 
-//     let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
+    let guild = client.guilds.cache.find(guild => guild.name === 'MMM789 Test Server')
 
-//     // GRAB WEATHER DATA
-//     let apiConfig = {
-//         method: 'get',
-//         url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=1&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
-//         headers: {}
-//     }
+    // GRAB WEATHER DATA
+    let apiConfig = {
+        method: 'get',
+        url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=39.981364957390184,-75.15441956488965&days=1&aqi=no&alerts=no`), // PHILLY WEATHER AT BELL TOWER
+        headers: {}
+    }
 
-//     let forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, alertsReportEmbed
-
-
-//     // WEATHER API CALL
-//     axios(apiConfig)
-//         .then(async function(result) {
-
-//             console.log(`API request sent, grabbing data...`)
-
-//             await wait(500)
-
-//             // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
-//             if(result === undefined || result.length === 0) {
-
-//                 // DEFINING ERROR EMBED
-//                 let noResultEmbed = new discord.MessageEmbed()
-//                     .setColor(config.embedRed)
-//                     .setTitle(`${config.emjREDTICK} Error generating daily report!`)
-//                     .setDescription(`I'm having trouble locating a daily weather report for Philly today, possibly indicative of an API issue.`)
-//                 ({ embeds: [noResultEmbed], ephemeral: true })
-//                 guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
-//             }
+    let forecastHourlyReport1Embed, forecastHourlyReport2Embed
 
 
-//             forecastReport = result.data.forecast.forecastday[0]
+    // WEATHER API CALL
+    axios(apiConfig)
+        .then(async function(result) {
 
-//             console.log(`forecastReport = ${forecastReport}`)
+            console.log(`API request sent, grabbing data...`)
+
+            await wait(500)
+
+            // IF JSON RESPONSE IS UNDEFINED OR EMPTY - NO WEATHER DATA
+            if(result === undefined || result.length === 0) {
+
+                // DEFINING ERROR EMBED
+                let noResultEmbed = new discord.MessageEmbed()
+                    .setColor(config.embedRed)
+                    .setTitle(`${config.emjREDTICK} Error generating daily report.`)
+                    .setDescription(`I'm having trouble getting a daily weather report for Philly today. This is potentially indicative of an API issue or the Earth has been destroyed and there is no weather anymore...`)
+                return guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
+            }
+
+
+            // WEATHER API RESPONSE IS VALID AND HAS DATA
+            console.log(`Weather API data received.`)
+            forecastReport = result.data.forecast.forecastday[0]
+            currentWeather = result.data.current
             
 
-//             // GENERATING SUCCESSFUL WEATHER EMBED
-//             forecastWeatherEmbed = new discord.MessageEmbed()
-//                 .setColor(config.embedBlurple)
-//                 .setTitle(`Weather Report: ${moment().format('dddd, MMMM D, YYYY')}`)
-//                 .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
+            // GENERATING SUCCESSFUL WEATHER EMBED
+            let forecastWeatherEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setTitle(`Good morning, Owls! Here is the weather for today, ${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}:`)
+                .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
-//                 // ROW 1
-//                 .addField(`Conditions:`, `${forecastReport.day.condition.text}`, true)
-//                 .addField(`High Temp:`, `${forecastReport.day.maxtemp_f}°F (${forecastReport.forecastday[0]["day"].maxtemp_c}°C)`, true)
-//                 .addField(`Low Temp:`, `${forecastReport.day.mintemp_f}°F (${forecastReport.forecastday[0]["day"].mintemp_c}°C)`, true)
-//                 // ROW 2
-//                 .addField(`Humidity:`, `${forecastReport.day.avghumidity}`, true)
-//                 .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.forecastday[0]["day"].maxwind_kph} kph)`, true)
-//                 .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
-//                 // ROW 3
-//                 .addField(`Chance of Rain:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_rain}%`, true)
-//                 .addField(`Chance of Snow:`, `${forecastReport.forecastday[0]["day"].daily_chance_of_snow}%`, true)
-//                 .addField(`Precipitation:`, `${forecastReport.forecastday[0]["day"].totalprecip_in}in (${forecastReport.forecastday[0]["day"].totalprecip_mm} mm)`, true)
-//                 // ROW 4
-//                 .addField(`Sunrise:`, `${forecastReport.forecastday[0]["astro"].sunrise}`, true)
-//                 .addField(`Sunset:`, `${forecastReport.forecastday[0]["astro"].sunset}`, true)
-//                 .addField(`\u200b`, `\u200b`, true)
-//                 // ROW 5
-//                 .addField(`Moonrise:`, `${forecastReport.forecastday[0]["astro"].moonrise}`, true)
-//                 .addField(`Moonset:`, `${forecastReport.forecastday[0]["astro"].moonset}`, true)
-//                 .addField(`Moon Phase:`, `${forecastReport.forecastday[0]["astro"].moon_phase}`, true)
-//                 // FOOTER
-//                 .setFooter(`Powered by Weather API | Weather as of: ${moment(result.data.current.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                // ROW 1
+                .addField(`Conditions:`, `${forecastReport.day.condition.text}`, true)
+                .addField(`High Temp:`, `${forecastReport.day.maxtemp_f}°F (${forecastReport.day.maxtemp_c}°C)`, true)
+                .addField(`Low Temp:`, `${forecastReport.day.mintemp_f}°F (${forecastReport.day.mintemp_c}°C)`, true)
+                // ROW 2
+                .addField(`Humidity:`, `${forecastReport.day.avghumidity}%`, true)
+                .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.day.maxwind_kph} kph)`, true)
+                .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
+                // ROW 3
+                .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
+                .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
+                .addField(`Precipitation:`, `${forecastReport.day.totalprecip_in}in (${forecastReport.day.totalprecip_mm} mm)`, true)
+                // ROW 4
+                .addField(`Sunrise:`, `${forecastReport.astro.sunrise}`, true)
+                .addField(`Sunset:`, `${forecastReport.astro.sunset}`, true)
+                .addField(`Moon Phase:`, `${forecastReport.astro.moon_phase}`, true)
+                // ROW 5
+                .addField(`Moonrise:`, `${forecastReport.astro.moonrise}`, true)
+                .addField(`Moonset:`, `${forecastReport.astro.moonset}`, true)
+                .addField(`Moon Illumination:`, `${forecastReport.astro.moon_illumination}%`, true)
 
 
-//             let sixAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 06:00`));
-//             let nineAMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 09:00`));
-//             let noondata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 12:00`));
-//             let threePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 15:00`));
-//             let sixPMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 18:00`));
-//             let ninePMdata = forecastReport.find(hour => hour.time === moment().utcOffset(-4).format(`YYYY-MM-DD 21:00`));
+            let sixAMdata = forecastReport.hour[6]
+            let nineAMdata = forecastReport.hour[9]
+            let noondata = forecastReport.hour[12]
+            let threePMdata = forecastReport.hour[15]
+            let sixPMdata = forecastReport.hour[18]
+            let ninePMdata = forecastReport.hour[21]
+            let uvIndicatorValue
+
+            function uvIndicator (uvIndex) {
+                // UV EVALUATIONS - https://www.epa.gov/enviro/uv-index-overview
+                if(uvIndex >= 0 && uvIndex <= 2 ) {
+                    uvIndicatorValue = `🟩 ${uvIndex} – *Low Risk*`
+                }
+                if(uvIndex >= 3 && uvIndex <= 5 ) {
+                    uvIndicatorValue = `🟨 ${uvIndex} – *Moderate Risk*`
+                }
+                if(uvIndex >= 6 && uvIndex <= 7 ) {
+                    uvIndicatorValue = `🟧 ${uvIndex} – *__High__ – Be mindful of sun damage!*`
+                }
+                if(uvIndex >= 8 && uvIndex <= 10 ) {
+                    uvIndicatorValue = `🟥 ${uvIndex} – *__Very High__ – Protect against sun damage!*`
+                }
+                if(uvIndex >= 11 ) {
+                    uvIndicatorValue = `🟪 ${uvIndex} – *__EXTREME__ – Protect against sun damage!*`
+                }
+
+                return uvIndicatorValue;
+            }
 
 
-//             // GENERATING HOURLY REPORTS
-//             forecastHourlyReport1Embed = new discord.MessageEmbed()
-//                 .setColor(config.embedGreen)
-//                 .addField(`6AM EST`, `Condition: ${sixAMdata.condition.text}\nTemp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nHumidity: ${sixAMdata.humidity}\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\nRain Chance: ${sixAMdata.chance_of_rain}\nSnow Chance: ${sixAMdata.chance_of_snow}`, true)
-//                 .addField(`9AM EST`, `Condition: ${nineAMdata.condition.text}\nTemp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nHumidity: ${nineAMdata.humidity}\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\nRain Chance: ${nineAMdata.chance_of_rain}\nSnow Chance: ${nineAMdata.chance_of_snow}`, true)
-//                 .addField(`12PM EST`, `Condition: ${noondata.condition.text}\nTemp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nHumidity: ${noondata.humidity}\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\nRain Chance: ${noondata.chance_of_rain}\nSnow Chance: ${noondata.chance_of_snow}`, true)
+            // GENERATING HOURLY REPORTS
+            forecastHourlyReport1Embed = new discord.MessageEmbed()
+                .setTitle(`Today's Weather Forecast:`)
+                .setColor(config.embedBlurple)
+                .addField(`6AM – ${sixAMdata.condition.text}`, `Temp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nFeels like: ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\nWind chill: ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\n\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_in} in`, true)
+                .addField(`9AM – ${nineAMdata.condition.text}`, `Temp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nFeels like: ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\nWind chill: ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\n\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_in} in`, true)
+                .addField(`Noon – ${noondata.condition.text}`, `Temp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nFeels like: ${noondata.feelslike_f}°F (${noondata.feelslike_c}°C)\nWind chill: ${noondata.windchill_f}°F (${noondata.windchill_c}°C)\n\nUV: ${uvIndicator(noondata.uv)}\nHumidity: ${noondata.humidity}%\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\n\nRain Chance: ${noondata.chance_of_rain}%\nSnow Chance: ${noondata.chance_of_snow}%\nTotal Precipitation: ${noondata.precip_in} in`, true)
 
-//             forecastHourlyReport2Embed = new discord.MessageEmbed()
-//                 .setColor(config.embedGreen)
-//                 .addField(`3PM EST`, `Condition: ${threePMdata.condition.text}\nTemp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nHumidity: ${threePMdata.humidity}\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\nRain Chance: ${threePMdata.chance_of_rain}\nSnow Chance: ${threePMdata.chance_of_snow}`, true)
-//                 .addField(`6PM EST`, `Condition: ${sixPMdata.condition.text}\nTemp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nHumidity: ${sixPMdata.humidity}\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\nRain Chance: ${sixPMdata.chance_of_rain}\nSnow Chance: ${sixPMdata.chance_of_snow}`, true)
-//                 .addField(`9PM EST`, `Condition: ${ninePMdata.condition.text}\nTemp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nHumidity: ${ninePMdata.humidity}\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\nRain Chance: ${ninePMdata.chance_of_rain}\nSnow Chance: ${ninePMdata.chance_of_snow}`, true)
-//         })
-//         .catch(err => {
-//             // WEATHER LOAD ERROR RESPONSE
-//             let weatherFetchErrEmbed = new discord.MessageEmbed()
-//                 .setColor(config.embedRed)
-//                 .setTitle(`${config.emjREDTICK} Sorry!`)
-//                 .setDescription(`I ran into an error grabbing weather data from the API. Please try again in a little while.`)
-//             guild.channels.cache.find(ch => ch.name === `mod-log`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
+            forecastHourlyReport2Embed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nFeels like: ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\nWind chill: ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in} in`, true)
+                .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nFeels like: ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\nWind chill: ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in} in`, true)
+                .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
+                .setFooter(`Data from Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
-//             // LOG
-//             console.log(`****** WEATHER API ERROR ******`);
-//             console.log(err);
-//             console.log(`********************************\n`);
-            
-//             // DEFINING LOG EMBED
-//             let logErrEmbed = new discord.MessageEmbed()
-//                 .setColor(config.embedGrey)
-//                 .setTitle(`${config.emjERROR} An error has occurred with the Weather API...`)
-//                 .setDescription(`\`\`\`${err}\`\`\``)
-//                 .setTimestamp()
-            
-//             // LOG ENTRY
-//             return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
-//         })
+            EndingEmbed = new discord.MessageEmbed()
+                .setColor(config.embedBlurple)
+                .setDescription(`*To see the current weather at this moment or to generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
 
 
-//     // CHECK DB FOR GUILD WEATHER MESSAGE
-//     const dbGuildData = await guildSchema.find({
-//         GUILD_ID: guild.id,
-//     }).exec();
-    
 
-//     // PAST WEATHER MESSAGE EXISTS IN CHANNEL - DELETE OLD AND POST NEW, UPDATE MSG ID IN DB
-//     if(!dbGuildData.WEATHER_MSG_ID) {
+            // CHECK DATABASE FOR WEATHER MESSAGE - IF EXISTS, EDIT, OTHERWISE POST AND STORE MSG ID
+            const dbGuildData = await guildSchema.find({
+                GUILD_ID: guild.id,
+            }).exec();
 
-//         console.log(`Past weather message does not exist... posting and logging.`)
-        
-//         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-//         .then(msg => {
-//             // LOG MESSAGE ID IN DATABASE FOR GUILD
-//             guildSchema.findOneAndUpdate({
-//                 GUILD_ID: guild.id
-//             },{
-//                 WEATHER_MSG_ID: msg.id,
-//             },{
-//                 upsert: true
-//             }).exec();
-//         })
-//     }
 
-//     // PAST WEATHER MESSAGE DNE - POST IN CHANNEL AND LOG
-//     if(dbGuildData.WEATHER_MSG_ID) {
+            // PAST WEATHER MESSAGE EXISTS - FETCH MSG FROM CHANNEL AND DELETE
 
-//         console.log(`Past weather message already exists... deleting and then postin and logging.`)
+            // MSG EXISTS, DELETE
+            if(dbGuildData.WEATHER_MSG_ID) {                            
+                console.log(`Past weather message exists. Deleting old message.`)
 
-//         // DELETE 2ND REMINDER IF EXISTS
-//         if(dbGuildData.WEATHER_MSG_ID) {                            
-//             // FETCH MESSAGE BY ID AND DELETE
-//             guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).messages.fetch(dbGuildData.WEATHER_MSG_ID)
-//                 .then(msg => {
-//                     setTimeout(() => msg.delete(), 0 );
-//                 })
-//                 .catch(err => console.log(err))
-//         }
+                // FETCH MESSAGE BY ID AND DELETE
+                guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).messages.fetch(dbGuildData.WEATHER_MSG_ID)
+                    .then(msg => {
+                        setTimeout(() => msg.delete(), 0 );
+                    })
+                    .catch(err => console.log(err))
+            }
 
-//         // guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed] })
-//         guild.channels.cache.find(ch => ch.name === `🌤｜weather-report`).send({ embeds: [forecastWeatherEmbed] })
-//         .then(msg => {
-//             // LOG MESSAGE ID IN DATABASE FOR GUILD
-//             guildSchema.findOneAndUpdate({
-//                 GUILD_ID: guild.id
-//             },{
-//                 WEATHER_MSG_ID: msg.id,
-//             },{
-//                 upsert: true
-//             }).exec();
-//         })
-//     }
-// })
+
+
+            console.log(`Posting new weather report...`)
+            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed] })
+                .then(msg => {
+                    // LOG MESSAGE ID IN DATABASE FOR GUILD
+                    guildSchema.findOneAndUpdate({
+                        GUILD_ID: guild.id
+                    },{
+                        WEATHER_MSG_ID: msg.id,
+                    },{
+                        upsert: true
+                    }).exec();
+                })
+                .catch(err => {
+                    // WEATHER LOAD ERROR RESPONSE
+                    let weatherFetchErrEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Sorry!`)
+                        .setDescription(`I ran into an error posting today's weather in this channel, sorry!`)
+                    guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
+
+                    // LOG
+                    console.log(`****** WEATHER API ERROR ******`);
+                    console.log(err);
+                    console.log(`********************************\n`);
+                    
+                    // DEFINING LOG EMBED
+                    let logErrEmbed = new discord.MessageEmbed()
+                        .setColor(config.embedGrey)
+                        .setTitle(`${config.emjERROR} An error has occurred with the Weather API...`)
+                        .setDescription(`\`\`\`${err}\`\`\``)
+                        .setTimestamp()
+                    
+                    // LOG ENTRY
+                    return client.channels.cache.find(ch => ch.name === `hooterbot-error-logging`).send({ embeds: [logErrEmbed] })
+                })
+        })
+})
+
 
 
 /***********************************************************/
