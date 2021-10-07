@@ -942,7 +942,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-cron.schedule('00 43 21 * * *', async () => {
+cron.schedule('00 45 15 * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
@@ -989,7 +989,7 @@ cron.schedule('00 43 21 * * *', async () => {
             // GENERATING SUCCESSFUL WEATHER EMBED
             let forecastWeatherEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`Good morning, Owls! Here is the weather for today, ${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}:`)
+                .setTitle(`${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}`)
                 .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
                 // ROW 1
@@ -1046,7 +1046,7 @@ cron.schedule('00 43 21 * * *', async () => {
 
             // GENERATING HOURLY REPORTS
             forecastHourlyReport1Embed = new discord.MessageEmbed()
-                .setTitle(`Today's Weather Forecast:`)
+                .setTitle(`Forecast:`)
                 .setColor(config.embedBlurple)
                 .addField(`6AM – ${sixAMdata.condition.text}`, `Temp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nFeels like: ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\nWind chill: ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\n\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_in} in`, true)
                 .addField(`9AM – ${nineAMdata.condition.text}`, `Temp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nFeels like: ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\nWind chill: ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\n\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_in} in`, true)
@@ -1064,46 +1064,17 @@ cron.schedule('00 43 21 * * *', async () => {
                 .setDescription(`*To see the current weather at this moment or to generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
 
 
-
-            // CHECK DATABASE FOR WEATHER MESSAGE - IF EXISTS, EDIT, OTHERWISE POST AND STORE MSG ID
-            const dbGuildData = await guildSchema.find({
-                GUILD_ID: guild.id,
-            }).exec();
-
-            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ content: `dbGuildData = \n \`\`\`${dbGuildData}\`\`\`` })
-            
-
-
-            // PAST WEATHER MESSAGE EXISTS - FETCH MSG FROM CHANNEL AND DELETE
-            console.log(`\n\ndbGuildData.WEATHER_MSG_ID = ${dbGuildData.WEATHER_MSG_ID}\n\n`)
-
-
-            // MSG EXISTS, DELETE
-            if(dbGuildData.WEATHER_MSG_ID) {                            
-                console.log(`Past weather message exists. Deleting old message.`)
-
-                // FETCH MESSAGE BY ID AND DELETE
-                guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).messages.fetch(dbGuildData.WEATHER_MSG_ID)
-                    .then(msg => {
-                        setTimeout(() => msg.delete(), 0 );
-                    })
-                    .catch(err => console.log(err))
+            // FUNCTION THAT GENERATES THE RANDOM MESSAGE
+            function greetingMsg() {
+                const channelMsgStart = [
+                    `Good morning, Owls! It's ${moment().format('dddd')} and here's the weather:`,
+                    `Happy ${moment().format('dddd')}, Owls! Here's the weather for today:`,
+                    ];      
+                return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
 
-
-
             console.log(`Posting new weather report...`)
-            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed] })
-                .then(msg => {
-                    // LOG MESSAGE ID IN DATABASE FOR GUILD
-                    guildSchema.findOneAndUpdate({
-                        GUILD_ID: guild.id
-                    },{
-                        WEATHER_MSG_ID: msg.id,
-                    },{
-                        upsert: true
-                    }).exec();
-                })
+            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
