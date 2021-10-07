@@ -1057,11 +1057,11 @@ cron.schedule('00 00 06 * * *', async () => {
                 .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nFeels like: ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\nWind chill: ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in} in`, true)
                 .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nFeels like: ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\nWind chill: ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in} in`, true)
                 .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
-                .setFooter(`Data from Weather API | Weather as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
             EndingEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setDescription(`*To see the current weather at this moment or to generate a 3-day forecase, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
+                .setDescription(`*To see the current weather at this moment or to generate a 3-day forecast, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
 
 
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
