@@ -942,7 +942,7 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-cron.schedule('00 45 15 * * *', async () => {
+cron.schedule('00 50 15 * * *', async () => {
 
     console.log(`Running the daily weather report...`)
 
@@ -1067,14 +1067,14 @@ cron.schedule('00 45 15 * * *', async () => {
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
                 const channelMsgStart = [
-                    `Good morning, Owls! It's ${moment().format('dddd')} and here's the weather:`,
-                    `Happy ${moment().format('dddd')}, Owls! Here's the weather for today:`,
+                    `Good morning, Owls! It's **${moment().format('dddd')}** and here's the weather:`,
+                    `Happy **${moment().format('dddd')}**, Owls! Here's the weather for today:`,
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
 
             console.log(`Posting new weather report...`)
-            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}` })
+            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
