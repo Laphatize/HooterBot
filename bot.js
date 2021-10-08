@@ -315,19 +315,13 @@ cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
     // GRAB TICKET CATEGORY USING ID
     let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
 
-    console.log(`templeServerTicketCategory.id = ${templeServerTicketCategory.id}`)
-
-    // SETTING COUNT VALUES    
-    // TEMPLE SERVER
+    // SETTING COUNT VALUES
     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
     
-    console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
-    console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
-
     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
     .then(category => {
-        console.log(`The ticket category has been updated: ${category.name}`)
+        // NOTHING
     })
     .catch(console.error)
 })
@@ -427,8 +421,6 @@ cron.schedule('00 00 08 * * *', async () => {
     scheduled: true,
     timezone: "America/New_York"
 });
-
-
 // FUNCTION TO PICK RANDOM BDAY MESSAGE
 function createBdayMessage(bdayUserId) {
     const bdayMessagePicker = [

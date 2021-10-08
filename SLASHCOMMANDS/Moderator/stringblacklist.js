@@ -33,10 +33,10 @@ module.exports = {
                     required: true
                 },
             ]
-        },{
-            name: `list`,
-            description: `MODERATOR | Generates list of current blacklist entries using the server collection, paginated.`,
-            type: `SUB_COMMAND`,
+        // },{
+        //     name: `list`,
+        //     description: `MODERATOR | Generates list of current blacklist entries using the server collection, paginated.`,
+        //     type: `SUB_COMMAND`,
         }
     ],
     permissions: 'MANAGE_MESSAGES',
