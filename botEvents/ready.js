@@ -15,7 +15,7 @@ module.exports = {
 
 		// SETTING ACTIVITY STATUS
 		console.log(`========== ACTIVITY STATUS ===========`);
-		client.user.setActivity(`verification requests`, {type: "WATCHING"});
+		client.user.setActivity(`👅👅👅👅👅👅👅👅👅👅👅👅👅`, {type: "WATCHING"});
 		console.log(`${config.botName}'s activity status is set.`)
 		console.log(`======================================\n`);
 
