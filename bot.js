@@ -942,9 +942,9 @@ cron.schedule('00 32 10 * * *', async () => {
 
 
 // WEATHER REPORT - EVERY DAY AT 06:00:00AM EST
-cron.schedule('00 00 06 * * *', async () => {
+cron.schedule('00 26 23 * * *', async () => {
 
-    console.log(`Running the daily weather report...`)
+    console.log(`Weather: Running the daily weather report...`)
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -964,7 +964,30 @@ cron.schedule('00 00 06 * * *', async () => {
     axios(apiConfig)
         .then(async function(result) {
 
-            console.log(`API request sent, grabbing data...`)
+            let weatherCh = guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`);
+
+            weatherCh.bulkDelete(1, {filterOld: true})
+                .then(msgs => {
+
+                    // ALL MESSAGES DELETED
+                    if(1 - msgs.size == 0) {
+                        console.log(`Weather: All past messages purged from channel.`)
+                    }
+
+                    // ALL MESSAGES DELETED
+                    if(1 - msgs.size != 0) {
+                        let purgeConfirmEmbed = new discord.MessageEmbed()
+                            .setColor(config.embedRed)
+                            .setTitle(`${config.emjREDTICK} !`)
+                            .setDescription(`I was unable to delete my old weather reports (reason: \`\`unknown\`\`).`)
+
+                        interaction.reply({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
+                    }
+                })
+                .catch(err => console.log(err))
+
+
+            console.log(`Weather: API request sent, grabbing data...`)
 
             await wait(500)
 
@@ -976,12 +999,12 @@ cron.schedule('00 00 06 * * *', async () => {
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error generating daily report.`)
                     .setDescription(`I'm having trouble getting a daily weather report for Philly today. This is potentially indicative of an API issue or the Earth has been destroyed and there is no weather anymore...`)
-                return guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
+                return weatherCh.send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
             }
 
 
             // WEATHER API RESPONSE IS VALID AND HAS DATA
-            console.log(`Weather API data received.`)
+            console.log(`Weather: Weather API data received.`)
             forecastReport = result.data.forecast.forecastday[0]
             currentWeather = result.data.current
             
@@ -1073,15 +1096,15 @@ cron.schedule('00 00 06 * * *', async () => {
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
 
-            console.log(`Posting new weather report...`)
-            guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n` })
+            console.log(`Weather: Posting new weather report...`)
+            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
                         .setColor(config.embedRed)
                         .setTitle(`${config.emjREDTICK} Sorry!`)
                         .setDescription(`I ran into an error posting today's weather in this channel, sorry!`)
-                    guild.channels.cache.find(ch => ch.name === `🌞｜weather-report`).send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
+                    weatherCh.send({ embeds: [weatherFetchErrEmbed], content: `<@${config.botAuthorId}>` })
 
                     // LOG
                     console.log(`****** WEATHER API ERROR ******`);
