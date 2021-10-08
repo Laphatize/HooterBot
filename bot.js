@@ -945,7 +945,7 @@ cron.schedule('00 32 10 * * *', async () => {
 /***********************************************************/
 
 // MAIN CAMPUS - 06:00:00AM EST
-cron.schedule('00 27 00 * * *', async () => {
+cron.schedule('00 50 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1119,8 +1119,8 @@ cron.schedule('00 27 00 * * *', async () => {
     timezone: "America/New_York"
 });
 
-// AMBLER CAMPUS - 06:00:30AM EST
-cron.schedule('10 27 00 * * *', async () => {
+// ROME CAMPUS - 06:00:30AM EST
+cron.schedule('10 50 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1129,7 +1129,7 @@ cron.schedule('10 27 00 * * *', async () => {
     // GRAB WEATHER DATA
     let apiConfig = {
         method: 'get',
-        url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=40.16533438689303,-75.1915556202359&days=1&aqi=no&alerts=no`),
+        url: encodeURI(`https://api.weatherapi.com/v1/forecast.json?key=${process.env.weatherAPIkey}&q=41.91442435535291,12.472092453724645&days=1&aqi=no&alerts=no`),
         headers: {}
     }
 
@@ -1140,7 +1140,7 @@ cron.schedule('10 27 00 * * *', async () => {
     axios(apiConfig)
         .then(async function(result) {
 
-            let weatherCh = guild.channels.cache.find(ch => ch.name === `🌞｜ambler-campus-weather`);
+            let weatherCh = guild.channels.cache.find(ch => ch.name === `🌞｜rome-campus-weather`);
 
             weatherCh.bulkDelete(1, {filterOld: true})
                 .then(msgs => {
@@ -1166,7 +1166,7 @@ cron.schedule('10 27 00 * * *', async () => {
                 let noResultEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
                     .setTitle(`${config.emjREDTICK} Error generating daily report.`)
-                    .setDescription(`I'm having trouble getting a daily weather report for Ambler today. This is potentially indicative of an API issue or the Earth has been destroyed and there is no weather anymore...`)
+                    .setDescription(`I'm having trouble getting a daily weather report for Rome today. This is potentially indicative of an API issue or the Earth has been destroyed and there is no weather anymore...`)
                 return weatherCh.send({ embeds: [noResultEmbed], content: `<@${config.botAuthorId}>` })
             }
 
@@ -1249,21 +1249,17 @@ cron.schedule('10 27 00 * * *', async () => {
                 .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
                 .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
-            EndingEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setDescription(`*To see the current weather at this moment or to generate a 3-day forecast, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
-
 
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
                 const channelMsgStart = [
-                    `Good morning, Owls! It's **${moment().format('dddd')}**! Here's the weather on the Ambler Campus:`,
-                    `Happy **${moment().format('dddd')}**, Owls! Here's the weather for today on the Ambler Campus:`,
+                    `Good morning, Owls! It's **${moment().format('dddd')}**! Here's the weather on the Rome Campus:`,
+                    `Happy **${moment().format('dddd')}**, Owls! Here's the weather for today on the Rome Campus:`,
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
 
-            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n${config.indent}` })
+            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed], content: `${greetingMsg()}\n${config.indent}` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
@@ -1274,7 +1270,7 @@ cron.schedule('10 27 00 * * *', async () => {
 
                     // LOG
                     console.log(`****** WEATHER API ERROR ******`);
-                    console.log(`WEATHER REPORT: Ambler Campus Report`);
+                    console.log(`WEATHER REPORT: Rome Campus Report`);
                     console.log(err);
                     console.log(`********************************\n`);
                     
@@ -1295,7 +1291,7 @@ cron.schedule('10 27 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('20 27 00 * * *', async () => {
+cron.schedule('20 50 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1424,10 +1420,6 @@ cron.schedule('20 27 00 * * *', async () => {
                 .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_c}°C (${ninePMdata.temp_f}°F)\nFeels like:${ninePMdata.feelslike_c}°C (${ninePMdata.feelslike_f}°F)\nWind chill: ${ninePMdata.windchill_c}°C (${ninePMdata.windchill_f}°F)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_kph} kph (${ninePMdata.wind_mph} mph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_mm} mm`, true)
                 .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
 
-            EndingEmbed = new discord.MessageEmbed()
-                .setColor(config.embedBlurple)
-                .setDescription(`*To see the current weather at this moment or to generate a 3-day forecast, head to <#829685931501027359> or DMs with <@${config.botId}> and run* \`\`/weather\`\`.`)
-
 
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
@@ -1438,7 +1430,7 @@ cron.schedule('20 27 00 * * *', async () => {
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
 
-            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n${config.indent}` })
+            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed], content: `${greetingMsg()}\n${config.indent}` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
