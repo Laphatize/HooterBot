@@ -1072,7 +1072,7 @@ cron.schedule('00 50 00 * * *', async () => {
                 .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nFeels like: ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\nWind chill: ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in} in`, true)
                 .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nFeels like: ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\nWind chill: ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in} in`, true)
                 .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
-                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)} EST`)
 
             EndingEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
@@ -1119,8 +1119,8 @@ cron.schedule('00 50 00 * * *', async () => {
     timezone: "America/New_York"
 });
 
-// ROME CAMPUS - 06:00:30AM EST
-cron.schedule('10 50 00 * * *', async () => {
+// ROME CAMPUS - 00:00:00AM EST (06:00:00AM CEST)
+cron.schedule('00 00 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1184,16 +1184,16 @@ cron.schedule('10 50 00 * * *', async () => {
 
                 // ROW 1
                 .addField(`Conditions:`, `${forecastReport.day.condition.text}`, true)
-                .addField(`High Temp:`, `${forecastReport.day.maxtemp_f}°F (${forecastReport.day.maxtemp_c}°C)`, true)
-                .addField(`Low Temp:`, `${forecastReport.day.mintemp_f}°F (${forecastReport.day.mintemp_c}°C)`, true)
+                .addField(`High Temp:`, `${forecastReport.day.maxtemp_c}°C (${forecastReport.day.maxtemp_f}°F)`, true)
+                .addField(`Low Temp:`, `${forecastReport.day.mintemp_c}°C (${forecastReport.day.mintemp_f}°F)`, true)
                 // ROW 2
                 .addField(`Humidity:`, `${forecastReport.day.avghumidity}%`, true)
-                .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.day.maxwind_kph} kph)`, true)
+                .addField(`Max Winds:`, `${forecastReport.day.maxwind_kph} kph (${forecastReport.day.maxwind_mph} mph)`, true)
                 .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
                 // ROW 3
                 .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
                 .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
-                .addField(`Precipitation:`, `${forecastReport.day.totalprecip_in}in (${forecastReport.day.totalprecip_mm} mm)`, true)
+                .addField(`Precipitation:`, `${forecastReport.day.totalprecip_mm}mm (${forecastReport.day.totalprecip_in} in)`, true)
                 // ROW 4
                 .addField(`Sunrise:`, `${forecastReport.astro.sunrise}`, true)
                 .addField(`Sunset:`, `${forecastReport.astro.sunset}`, true)
@@ -1238,16 +1238,16 @@ cron.schedule('10 50 00 * * *', async () => {
             forecastHourlyReport1Embed = new discord.MessageEmbed()
                 .setTitle(`Hourly Forecast`)
                 .setColor(config.embedBlurple)
-                .addField(`6AM – ${sixAMdata.condition.text}`, `Temp: ${sixAMdata.temp_f}°F (${sixAMdata.temp_c}°C)\nFeels like: ${sixAMdata.feelslike_f}°F (${sixAMdata.feelslike_c}°C)\nWind chill: ${sixAMdata.windchill_f}°F (${sixAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_mph} mph (${sixAMdata.wind_kph} kph)\n\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_in} in`, true)
-                .addField(`9AM – ${nineAMdata.condition.text}`, `Temp: ${nineAMdata.temp_f}°F (${nineAMdata.temp_c}°C)\nFeels like: ${nineAMdata.feelslike_f}°F (${nineAMdata.feelslike_c}°C)\nWind chill: ${nineAMdata.windchill_f}°F (${nineAMdata.windchill_c}°C)\n\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_mph} mph (${nineAMdata.wind_kph} kph)\n\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_in} in`, true)
-                .addField(`Noon – ${noondata.condition.text}`, `Temp: ${noondata.temp_f}°F (${noondata.temp_c}°C)\nFeels like: ${noondata.feelslike_f}°F (${noondata.feelslike_c}°C)\nWind chill: ${noondata.windchill_f}°F (${noondata.windchill_c}°C)\n\nUV: ${uvIndicator(noondata.uv)}\nHumidity: ${noondata.humidity}%\nWind: ${noondata.wind_mph} mph (${noondata.wind_kph} kph)\n\nRain Chance: ${noondata.chance_of_rain}%\nSnow Chance: ${noondata.chance_of_snow}%\nTotal Precipitation: ${noondata.precip_in} in`, true)
+                .addField(`6AM – ${sixAMdata.condition.text}`, `Temp: ${sixAMdata.temp_c}°C (${sixAMdata.temp_f}°F)\nFeels like: ${sixAMdata.feelslike_c}°C (${sixAMdata.feelslike_f}°F)\nWind chill: ${sixAMdata.windchill_c}°C (${sixAMdata.windchill_f}°F)\n\nUV: ${uvIndicator(sixAMdata.uv)}\nHumidity: ${sixAMdata.humidity}%\nWind: ${sixAMdata.wind_kph} kph (${sixAMdata.wind_mph} mph)\n\nRain Chance: ${sixAMdata.chance_of_rain}%\nSnow Chance: ${sixAMdata.chance_of_snow}%\nTotal Precipitation: ${sixAMdata.precip_mm} mm`, true)
+                .addField(`9AM – ${nineAMdata.condition.text}`, `Temp: ${nineAMdata.temp_c}°C (${nineAMdata.temp_f}°F)\nFeels like: ${nineAMdata.feelslike_c}°C (${nineAMdata.feelslike_f}°F)\nWind chill: ${nineAMdata.windchill_c}°C (${nineAMdata.windchill_f}°F)\n\nUV: ${uvIndicator(nineAMdata.uv)}\nHumidity: ${nineAMdata.humidity}%\nWind: ${nineAMdata.wind_kph} kph (${nineAMdata.wind_mph} mph)\n\nRain Chance: ${nineAMdata.chance_of_rain}%\nSnow Chance: ${nineAMdata.chance_of_snow}%\nTotal Precipitation: ${nineAMdata.precip_mm} mm`, true)
+                .addField(`Noon – ${noondata.condition.text}`, `Temp: ${noondata.temp_c}°C (${noondata.temp_f}°F)\nFeels like: ${noondata.feelslike_c}°C (${noondata.feelslike_f}°F)\nWind chill: ${noondata.windchill_c}°C (${noondata.windchill_f}°F)\n\nUV: ${uvIndicator(noondata.uv)}\nHumidity: ${noondata.humidity}%\nWind: ${noondata.wind_kph} kph (${noondata.wind_mph} mph)\n\nRain Chance: ${noondata.chance_of_rain}%\nSnow Chance: ${noondata.chance_of_snow}%\nTotal Precipitation: ${noondata.precip_mm} mm`, true)
 
             forecastHourlyReport2Embed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_f}°F (${threePMdata.temp_c}°C)\nFeels like: ${threePMdata.feelslike_f}°F (${threePMdata.feelslike_c}°C)\nWind chill: ${threePMdata.windchill_f}°F (${threePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_mph} mph (${threePMdata.wind_kph} kph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_in} in`, true)
-                .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_f}°F (${sixPMdata.temp_c}°C)\nFeels like: ${sixPMdata.feelslike_f}°F (${sixPMdata.feelslike_c}°C)\nWind chill: ${sixPMdata.windchill_f}°F (${sixPMdata.windchill_c}°C)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_mph} mph (${sixPMdata.wind_kph} kph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_in} in`, true)
-                .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_f}°F (${ninePMdata.temp_c}°C)\nFeels like: ${ninePMdata.feelslike_f}°F (${ninePMdata.feelslike_c}°C)\nWind chill: ${ninePMdata.windchill_f}°F (${ninePMdata.windchill_c}°C)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_mph} mph (${ninePMdata.wind_kph} kph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_in} in`, true)
-                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_c}°C (${threePMdata.temp_f}°F)\nFeels like: ${threePMdata.feelslike_c}°C (${threePMdata.feelslike_f}°F)\nWind chill: ${threePMdata.windchill_c}°C (${threePMdata.windchill_f}°f)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_kph} kph (${threePMdata.wind_mph} mph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_mm} mm`, true)
+                .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_c}°C (${sixPMdata.temp_f}°F)\nFeels like: ${sixPMdata.feelslike_c}°C (${sixPMdata.feelslike_f}°F)\nWind chill: ${sixPMdata.windchill_c}°C (${sixPMdata.windchill_f}°F)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_kph} kph (${sixPMdata.wind_mph} mph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_mm} mm`, true)
+                .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_c}°C (${ninePMdata.temp_f}°F)\nFeels like:${ninePMdata.feelslike_c}°C (${ninePMdata.feelslike_f}°F)\nWind chill: ${ninePMdata.windchill_c}°C (${ninePMdata.windchill_f}°F)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_kph} kph (${ninePMdata.wind_mph} mph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_mm} mm`, true)
+                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)} CEST`)
 
 
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
@@ -1291,7 +1291,7 @@ cron.schedule('10 50 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('20 50 00 * * *', async () => {
+cron.schedule('00 00 17 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1418,7 +1418,7 @@ cron.schedule('20 50 00 * * *', async () => {
                 .addField(`3PM – ${threePMdata.condition.text}`, `Temp: ${threePMdata.temp_c}°C (${threePMdata.temp_f}°F)\nFeels like: ${threePMdata.feelslike_c}°C (${threePMdata.feelslike_f}°F)\nWind chill: ${threePMdata.windchill_c}°C (${threePMdata.windchill_f}°f)\n\nUV: ${uvIndicator(threePMdata.uv)}\nHumidity: ${threePMdata.humidity}%\nWind: ${threePMdata.wind_kph} kph (${threePMdata.wind_mph} mph)\n\nRain Chance: ${threePMdata.chance_of_rain}%\nSnow Chance: ${threePMdata.chance_of_snow}%\nTotal Precipitation: ${threePMdata.precip_mm} mm`, true)
                 .addField(`6PM – ${sixPMdata.condition.text}`, `Temp: ${sixPMdata.temp_c}°C (${sixPMdata.temp_f}°F)\nFeels like: ${sixPMdata.feelslike_c}°C (${sixPMdata.feelslike_f}°F)\nWind chill: ${sixPMdata.windchill_c}°C (${sixPMdata.windchill_f}°F)\n\nUV: ${uvIndicator(sixPMdata.uv)}\nHumidity: ${sixPMdata.humidity}%\nWind: ${sixPMdata.wind_kph} kph (${sixPMdata.wind_mph} mph)\n\nRain Chance: ${sixPMdata.chance_of_rain}%\nSnow Chance: ${sixPMdata.chance_of_snow}%\nTotal Precipitation: ${sixPMdata.precip_mm} mm`, true)
                 .addField(`9PM – ${ninePMdata.condition.text}`, `Temp: ${ninePMdata.temp_c}°C (${ninePMdata.temp_f}°F)\nFeels like:${ninePMdata.feelslike_c}°C (${ninePMdata.feelslike_f}°F)\nWind chill: ${ninePMdata.windchill_c}°C (${ninePMdata.windchill_f}°F)\n\nUV: ${uvIndicator(ninePMdata.uv)}\nHumidity: ${ninePMdata.humidity}%\nWind: ${ninePMdata.wind_kph} kph (${ninePMdata.wind_mph} mph)\n\nRain Chance: ${ninePMdata.chance_of_rain}%\nSnow Chance: ${ninePMdata.chance_of_snow}%\nTotal Precipitation: ${ninePMdata.precip_mm} mm`, true)
-                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)}`)
+                .setFooter(`Weather data as of: ${moment(currentWeather.last_updated).subtract(0, 'hours').format(`MMMM D, YYYY, h:mm:ss a`)} JST`)
 
 
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
