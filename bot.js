@@ -305,46 +305,32 @@ client.on('ready', async () => {
 /***********************************************************/
 // SCHEDULER FORMAT: *(Second) *(Minute) *(Hour) *(Day of Month) *(Month) *(Day of Week)
 
-// // TICKET CATEGORY COUNTER
-// // EVERY 10 MINUTES
-// cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
+// TICKET CATEGORY COUNTER
+// EVERY 10 MINUTES
+cron.schedule('00 05,15,25,35,45,55 * * * *', async () => {
 
-//     // VERIFICATION CATEGORIES
-//     const dbGuildTestServerData = await guildSchema.findOne({
-//         GUILD_ID: `530503548937699340`
-//     }).exec();
+    // FETCHING THE GUILD FROM DATABASE
+    let templeServer = client.guilds.cache.get('829409161581821992')
 
-//     const dbGuildTempleServerData = await guildSchema.findOne({
-//         GUILD_ID: `829409161581821992`
-//     }).exec();
+    // GRAB TICKET CATEGORY USING ID
+    let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
 
+    console.log(`templeServerTicketCategory.id = ${templeServerTicketCategory.id}`)
 
-//     // FETCHING THE GUILD FROM DATABASE
-//     let testServer = client.guilds.cache.get(dbGuildTestServerData.GUILD_ID)
-//     let templeServer = client.guilds.cache.get(dbGuildTempleServerData.GUILD_ID)
-
-
-//     // GRAB TICKET CATEGORY USING ID
-//     let testServerTicketCategory = testServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
-//     let templeServerTicketCategory = templeServer.channels.cache.find(cat => cat.name.startsWith(`VERIFICATION (OPEN:`))
-
-
-//     // SETTING COUNT VALUES
-//     // TEST SERVER
-//     let ticketCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-//     let catChCountTestServer = testServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    // SETTING COUNT VALUES    
+    // TEMPLE SERVER
+    let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
+    let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
     
-//     testServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTestServer}) [${catChCountTestServer}/50]`)
-    
-//     // TEMPLE SERVER
-//     let ticketCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.name.startsWith(`verify-`) && ch.parent.name.startsWith(`VERIFICATION`)).size;
-//     let catChCountTempleServer = templeServer.channels.cache.filter(ch => ch.type === `GUILD_TEXT` && ch.parent.name.startsWith(`VERIFICATION`)).size;
-    
-//     console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
-//     console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
+    console.log(`ticketCountTempleServer = ${ticketCountTempleServer}`)
+    console.log(`catChCountTempleServer = ${catChCountTempleServer}`)
 
-//     templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
-// })
+    templeServerTicketCategory.setName(`VERIFICATION (OPEN: ${ticketCountTempleServer}) [${catChCountTempleServer}/50]`)
+    .then(category => {
+        console.log(`The ticket category has been updated: ${category.name}`)
+    })
+    .catch(console.error)
+})
 
 
 // MEMBER COUNTER
@@ -945,7 +931,7 @@ cron.schedule('00 32 10 * * *', async () => {
 /***********************************************************/
 
 // MAIN CAMPUS - 06:00:00AM EST
-cron.schedule('00 50 00 * * *', async () => {
+cron.schedule('00 00 06 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
