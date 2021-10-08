@@ -945,7 +945,7 @@ cron.schedule('00 32 10 * * *', async () => {
 /***********************************************************/
 
 // MAIN CAMPUS - 06:00:00AM EST
-cron.schedule('00 20 00 * * *', async () => {
+cron.schedule('00 27 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -977,7 +977,7 @@ cron.schedule('00 20 00 * * *', async () => {
                             .setTitle(`${config.emjREDTICK} !`)
                             .setDescription(`I was unable to delete my old weather reports (reason: \`\`unknown\`\`).`)
 
-                        interaction.reply({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
+                        weatherCh.send({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
                     }
                 })
                 .catch(err => console.log(err))
@@ -1120,7 +1120,7 @@ cron.schedule('00 20 00 * * *', async () => {
 });
 
 // AMBLER CAMPUS - 06:00:30AM EST
-cron.schedule('10 20 00 * * *', async () => {
+cron.schedule('10 27 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1152,7 +1152,7 @@ cron.schedule('10 20 00 * * *', async () => {
                             .setTitle(`${config.emjREDTICK} !`)
                             .setDescription(`I was unable to delete my old weather reports (reason: \`\`unknown\`\`).`)
 
-                        interaction.reply({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
+                        weatherCh.send({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
                     }
                 })
                 .catch(err => console.log(err))
@@ -1295,7 +1295,7 @@ cron.schedule('10 20 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('20 20 00 * * *', async () => {
+cron.schedule('20 27 00 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1327,7 +1327,7 @@ cron.schedule('20 20 00 * * *', async () => {
                             .setTitle(`${config.emjREDTICK} !`)
                             .setDescription(`I was unable to delete my old weather reports (reason: \`\`unknown\`\`).`)
 
-                        interaction.reply({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
+                        msgs.send({ embeds: [purgeConfirmEmbed], content: `<@${config.botAuthorId}>` })
                     }
                 })
                 .catch(err => console.log(err))
