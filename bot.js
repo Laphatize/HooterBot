@@ -1097,7 +1097,7 @@ cron.schedule('00 26 23 * * *', async () => {
             }
 
             console.log(`Weather: Posting new weather report...`)
-            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n` })
+            weatherCh.send({ embeds: [forecastWeatherEmbed, forecastHourlyReport1Embed, forecastHourlyReport2Embed, EndingEmbed], content: `${greetingMsg()}\n${config.indent}` })
                 .catch(err => {
                     // WEATHER LOAD ERROR RESPONSE
                     let weatherFetchErrEmbed = new discord.MessageEmbed()
