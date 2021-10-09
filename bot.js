@@ -1157,7 +1157,7 @@ cron.schedule('00 00 00 * * *', async () => {
             // GENERATING SUCCESSFUL WEATHER EMBED
             let forecastWeatherEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}`)
+                .setTitle(`${moment().utcOffset(1).format('dddd, MMMM D, YYYY')}`)
                 .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
                 // ROW 1
@@ -1231,8 +1231,8 @@ cron.schedule('00 00 00 * * *', async () => {
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
                 const channelMsgStart = [
-                    `Good morning, Owls! It's **${moment().format('dddd')}**! Here's the weather on the Rome Campus:`,
-                    `Happy **${moment().format('dddd')}**, Owls! Here's the weather for today on the Rome Campus:`,
+                    `Good morning, Owls! It's **${moment().utcOffset(1).format('dddd')}**! Here's the weather on the Rome Campus:`,
+                    `Happy **${moment().utcOffset(1).format('dddd')}**, Owls! Here's the weather for today on the Rome Campus:`,
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
