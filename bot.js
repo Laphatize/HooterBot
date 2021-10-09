@@ -992,7 +992,7 @@ cron.schedule('00 00 06 * * *', async () => {
                 // ROW 2
                 .addField(`Humidity:`, `${forecastReport.day.avghumidity}%`, true)
                 .addField(`Max Winds:`, `${forecastReport.day.maxwind_mph} mph (${forecastReport.day.maxwind_kph} kph)`, true)
-                .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
+                .addField(`\u200b`, `\u200b`, true)
                 // ROW 3
                 .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
                 .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
@@ -1167,7 +1167,7 @@ cron.schedule('00 00 00 * * *', async () => {
                 // ROW 2
                 .addField(`Humidity:`, `${forecastReport.day.avghumidity}%`, true)
                 .addField(`Max Winds:`, `${forecastReport.day.maxwind_kph} kph (${forecastReport.day.maxwind_mph} mph)`, true)
-                .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
+                .addField(`\u200b`, `\u200b`, true)
                 // ROW 3
                 .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
                 .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
@@ -1338,7 +1338,7 @@ cron.schedule('00 00 17 * * *', async () => {
                 // ROW 2
                 .addField(`Humidity:`, `${forecastReport.day.avghumidity}%`, true)
                 .addField(`Max Winds:`, `${forecastReport.day.maxwind_kph} kph (${forecastReport.day.maxwind_mph} mph)`, true)
-                .addField(`UV Index:`, `${forecastReport.day.uv}`, true)
+                .addField(`\u200b`, `\u200b`, true)
                 // ROW 3
                 .addField(`Chance of Rain:`, `${forecastReport.day.daily_chance_of_rain}%`, true)
                 .addField(`Chance of Snow:`, `${forecastReport.day.daily_chance_of_snow}%`, true)
