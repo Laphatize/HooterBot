@@ -1269,7 +1269,7 @@ cron.schedule('00 00 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('00 00 18 00 * *', async () => {
+cron.schedule('00 04 18 * * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1328,7 +1328,7 @@ cron.schedule('00 00 18 00 * *', async () => {
             // GENERATING SUCCESSFUL WEATHER EMBED
             let forecastWeatherEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
-                .setTitle(`${moment().utcOffset(-4).format('dddd, MMMM D, YYYY')}`)
+                .setTitle(`${moment().utcOffset(9).format('dddd, MMMM D, YYYY')}`)
                 .setThumbnail(encodeURI(`https:${forecastReport.day.condition.icon}`))
 
                 // ROW 1
@@ -1402,8 +1402,8 @@ cron.schedule('00 00 18 00 * *', async () => {
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
                 const channelMsgStart = [
-                    `Good morning, Owls! Here's the weather on the TUJ Campus:`,
-                    `Ohayō gozaimasu! Here's the weather for today on campus in Tokyo:`,
+                    `Good morning, Owls! It's **${moment().utcOffset(9).format('dddd')}**! Here's the weather on the TUJ Campus:`,
+                    `Happy **${moment().utcOffset(9).format('dddd')}**, Owls! Here's the weather for today on campus in Tokyo:`,
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
