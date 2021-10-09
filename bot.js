@@ -1269,7 +1269,7 @@ cron.schedule('00 00 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('00 00 17 50 * *', async () => {
+cron.schedule('00 00 17 46 * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
