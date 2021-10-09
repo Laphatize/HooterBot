@@ -1269,7 +1269,7 @@ cron.schedule('00 00 00 * * *', async () => {
 });
 
 // TUJ CAMPUS - 05:00:00PM EST (06:00:00AM JST)
-cron.schedule('00 00 17 50 * *', async () => {
+cron.schedule('00 00 17 54 * *', async () => {
 
     // DEFINE GUILD BY NAME, FETCHING BDAY ROLE
     let guild = client.guilds.cache.find(guild => guild.name === 'Temple University')
@@ -1402,8 +1402,8 @@ cron.schedule('00 00 17 50 * *', async () => {
             // FUNCTION THAT GENERATES THE RANDOM MESSAGE
             function greetingMsg() {
                 const channelMsgStart = [
-                    `Good morning, Owls! It's **${moment().add(1, 'days').format('dddd')}**! Here's the weather on the TUJ Campus:`,
-                    `Happy **${moment().add(1, 'days').format('dddd')}**, Owls! Here's the weather for today on campus in Tokyo:`,
+                    `Good morning, Owls! It's **${moment().utcOffset(9).format('dddd')}**! Here's the weather on the TUJ Campus:`,
+                    `Happy **${moment().utcOffset(9).format('dddd')}**, Owls! Here's the weather for today on campus in Tokyo:`,
                     ];      
                 return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
             }
