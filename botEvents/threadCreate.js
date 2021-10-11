@@ -1,6 +1,5 @@
 const discord = require('discord.js');
 const config = require('../config.json');
-const moment = require('moment');
 
 module.exports = {
 	name: 'threadCreate',
@@ -22,9 +21,6 @@ module.exports = {
         if(thread.autoArchiveDuration > 1440) {
             threadDurationTimeString = `${thread.autoArchiveDuration / (60 * 24)} days`
         }
-
-        // // CALCULATING ARCHIVE TIME
-        // let threadArchiveTimeStampNoAdjust = moment(thread.archiveTimestamp).add(thread.autoArchiveDuration, 'minutes').utcOffset(-4).format("LLLL")
 
         // LOG ENTRY
         // GENERATE NOTICE EMBED

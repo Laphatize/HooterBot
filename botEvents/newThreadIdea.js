@@ -1,8 +1,5 @@
 const discord = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
-
-
 
 module.exports = {
 	name: 'messageCreate',
@@ -24,3 +21,12 @@ module.exports = {
         }
     }
 }
+
+
+module.exports = {
+	name: 'threadCreate',
+	async execute(thread, client) {
+
+        thread.parent.send({ content: "A new thread was created with this channel as the parent, right?" })
+	},
+};
