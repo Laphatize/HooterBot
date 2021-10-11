@@ -5,7 +5,7 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        if (message.content.includes('$threadedChannelTestEmbed') && message.author.id === config.botAuthorId) {
+        if (message.content === '$threadedChannelTestEmbed' && message.author.id === config.botAuthorId) {
             setTimeout(() => message.delete(), 0 );
             let testEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
