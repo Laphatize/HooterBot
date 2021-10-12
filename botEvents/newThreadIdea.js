@@ -5,7 +5,7 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-        if (message.content === '$threadedChannelTestEmbed' && message.author.id === config.botAuthorId) {
+        if (message.content.startsWith(`$threadedChannelTestEmbed`) && message.author.id == config.botAuthorId) {
             setTimeout(() => message.delete(), 0 );
             let testEmbed = new discord.MessageEmbed()
                 .setColor(config.embedRed)
@@ -23,7 +23,7 @@ module.exports = {
 
         // THREAD CHANNEL ARRAY
         if(
-            thread.parent.id === 897145655145930842
+            thread.parent.id === 829706960403955724 // PROSPECTIVE STUDENTS
         ){
             let threadChannelEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
