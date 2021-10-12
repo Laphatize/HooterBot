@@ -5,17 +5,16 @@ module.exports = {
 	name: 'threadCreate',
 	async execute(thread, client) {
 
-        // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
-        // FETCHING, FILTERING, BULK-DELETING
-        let msgs = thread.parent.messages.fetch()
-        let msgfilter = msgs.filter(m => m.author.id === config.botId)
-        thread.parent.bulkDelete(msgfilter)
-
-
         // THREAD CHANNEL ARRAY
         if(
             thread.parent.id === 829706960403955724 // PROSPECTIVE STUDENTS
-        ){
+        ){    
+            // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
+            // FETCHING, FILTERING, BULK-DELETING
+            let msgs = thread.parent.messages.fetch()
+            let msgfilter = msgs.filter(m => m.author.id === config.botId)
+            thread.parent.bulkDelete(msgfilter)
+
             // POST THREAD INSTRUCTIONS
             let threadChannelEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
