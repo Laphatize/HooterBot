@@ -11,9 +11,8 @@ module.exports = {
         ){
             // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
             // FETCHING, FILTERING, BULK-DELETING
-            let msgs = thread.parent.messages.fetch()
-            let msgfilter = msgs.filter(m => m.author.id === config.botId)
-            thread.parent.bulkDelete(msgfilter)
+            let m = await thread.parent.messages.fetch()
+            thread.parent.bulkDelete(m.filter(msgs => msgs.author.id === config.botId, true))
 
             // POST THREAD INSTRUCTIONS
             let threadChannelEmbed = new discord.MessageEmbed()
