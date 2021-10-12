@@ -2,29 +2,21 @@ const discord = require('discord.js');
 const config = require('../config.json');
 
 module.exports = {
-	name: 'messageCreate',
-	async execute(message, client) {
-
-        if (message.content.startsWith(`$threadedChannelTestEmbed`) && message.author.id == config.botAuthorId) {
-            setTimeout(() => message.delete(), 0 );
-            let testEmbed = new discord.MessageEmbed()
-                .setColor(config.embedRed)
-                .setTitle(`Head's Up!`)
-                .setDescription(`The Admins are cooking up some changes and updates to the server and it will affect this channel. This channel will be temporarily offline tomorrow to implement these changes. Once that happens, consider using <#829409161581821997> or <#829409161581822000> until we restore the channel.\n\nThanks for understanding! `)
-            return message.channel.send({ embeds: [testEmbed ] })
-        }
-    }
-}
-
-
-module.exports = {
 	name: 'threadCreate',
 	async execute(thread, client) {
+
+        // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
+        // FETCHING, FILTERING, BULK-DELETING
+        let msgs = thread.parent.messages.fetch()
+        let msgfilter = msgs.filter(m => m.author.id === config.botId)
+        thread.parent.bulkDelete(msgfilter)
+
 
         // THREAD CHANNEL ARRAY
         if(
             thread.parent.id === 829706960403955724 // PROSPECTIVE STUDENTS
         ){
+            // POST THREAD INSTRUCTIONS
             let threadChannelEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setTitle(`This channel is using ${config.emjThread} threads to organize conversations!`)
