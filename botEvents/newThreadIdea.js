@@ -7,8 +7,8 @@ module.exports = {
 
         // THREAD CHANNEL ARRAY
         if(
-            thread.parent.id === 829706960403955724 // PROSPECTIVE STUDENTS
-        ){    
+            thread.parent.id === '829706960403955724' // PROSPECTIVE STUDENTS
+        ){
             // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
             // FETCHING, FILTERING, BULK-DELETING
             let msgs = thread.parent.messages.fetch()
