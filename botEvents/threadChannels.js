@@ -8,6 +8,13 @@ module.exports = {
         // THREAD CHANNEL ARRAY
         if(
             thread.parent.id === '829706960403955724' // PROSPECTIVE STUDENTS
+         || thread.parent.id === '897290329617739776' // UNIVERSITY HOUSING
+
+
+
+
+         || thread.parent.id === '829711412884406312' // THEATER-FILM-MEDIA-ARTS
+
         ){
             // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
             // FETCHING, FILTERING, BULK-DELETING
