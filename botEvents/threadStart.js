@@ -9,7 +9,7 @@ module.exports = {
         if(message.author.id == config.botAuthorId && message.content.toLowerCase() == '$threadstart') {
 
             // DELETE INVOCATION
-            setTimeout(() => msg.delete(), 0 );
+            setTimeout(() => message.delete(), 0 );
 
             // POST THREAD INSTRUCTIONS
             let threadChannelEmbed = new discord.MessageEmbed()
