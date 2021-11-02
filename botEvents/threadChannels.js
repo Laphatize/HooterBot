@@ -27,7 +27,7 @@ module.exports = {
          || thread.parent.id === '829711412884406312' // THEATER-FILM-MEDIA-ARTS
         
          // OTHER THREAD CHANNELS
-
+         || thread.parent.id === '897290329617739776' // HOUSING
         ){
             // DELETING PAST HOOTERBOT MESSAGES IN THE CHANNEL
             // FETCHING, FILTERING, BULK-DELETING
