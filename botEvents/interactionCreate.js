@@ -430,6 +430,7 @@ module.exports = {
                 
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
+                // USE INTERACTOR FOR ID
                 if (!guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
                     return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\` (EC#0434)`, ephemeral: true });
                 }
@@ -493,7 +494,8 @@ module.exports = {
                 
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                if (!guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                // USE ID FROM CHANNEL NAME, NOT INTERACTOR
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${dmUserId}`)) {
                     return interaction.reply({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\` (EC#0499)`, ephemeral: true });
                 }
 
@@ -552,7 +554,7 @@ module.exports = {
 
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                if (!guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${dmUserId}`)) {
                     return interaction.reply({content: `${errorAppend}\`\`Error: Ticket channel not found for ID: ${interaction.user.id}\`\` (EC#0558)`, ephemeral: true });
                 }
 
