@@ -17,12 +17,14 @@ module.exports = {
 				// FETCH WEBHOOK AND EDIT
 				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
 				.then(webhook => {
+					console.log(`webhook fetched`)
 					webhook.edit({
 						name: message.author.username,
 						avatar: message.author.displayAvatarURL(),
-						channel: webhook.channelId,
+						channel: message.channel.id,
 					})
 					.then(userWebhook => {
+						console.log(`webhook edited, posting`)
 						// REDACTING BLACKLISTED TERM(S)
 
 						// coming soon :)
