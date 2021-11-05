@@ -36,11 +36,16 @@ module.exports = {
                 const webhookClient = new WebhookClient({ id: process.env.testServerWebhookID, token: process.env.testServerWebhookToken })
 
                 console.log(`Webhook fetched, sending message...`)
-                webhookClient.send({
-                    content: '[Redacted message here]',
-                    username: message.author.username,
-                    avatarURL: message.author.displayAvatarURL,
+                webhookClient.edit({
+                    channel: message.channel.id
                 })
+                    .then( webhook => {
+                        webhook.send({
+                            content: '[Redacted message here]',
+                            username: message.author.username,
+                            avatarURL: message.author.displayAvatarURL,
+                        })
+                    })
 			}
 		}
 
