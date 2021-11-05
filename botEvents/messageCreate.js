@@ -49,14 +49,6 @@ module.exports = {
 
 						// POSTING REDACTED MESSAGE VIA WEBHOOK
 						userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
-						.then(finishedWebhook => {
-							// FETCH WEBHOOK, EDIT BACK TO DEFAULT
-							finishedWebhook.edit({
-								name: 'blacklist filter webhook',
-								avatar: 'https://lh3.googleusercontent.com/-JwjA8wq5m292e4FcVyfTS8nvgkltfnAE6aMet54OHweH48gbKJhiZ0kUM8wHpDdiiZr=s85',
-								channel: message.channel.id,
-							})
-						})
 					})
 				})
 			}
