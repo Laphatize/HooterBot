@@ -7,13 +7,12 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-		// DELETE INITIAL MESSAGE
-		setTimeout(() => message.delete(), 0 );
-
-
 		// TEST SERVER
 		if(message.guild.id === '530503548937699340') {
 			if(message.content.includes('blacklistthistermplease')) {
+
+				// DELETE INITIAL MESSAGE
+				setTimeout(() => message.delete(), 0 );
 
 				// FETCH WEBHOOK
 				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
