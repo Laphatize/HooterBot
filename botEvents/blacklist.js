@@ -8,7 +8,7 @@ module.exports = {
 	async execute(message, client) {
 
 		// STRIPPING MESSAGE OF SPACES
-		let msg = message.content.split(' ').join('');
+		let msg = message.content.toLowerCase().split(' ').join('');
 		console.log(`msg = ${msg}`)
 
 
