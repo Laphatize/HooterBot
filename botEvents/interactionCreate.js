@@ -798,7 +798,7 @@ module.exports = {
                 
                 let guild = client.guilds.cache.get(dbTicketData.GUILD_ID)
 
-                if (!guild.channels.cache.find(ch => ch.name === ticketChannelName)) {
+                if (!guild.channels.cache.find(ch => ch.name === `verify-${dmUserId}`)) {
                     return interaction.reply({content: `${errorAppend}\`\`Error: Active ticket channel not found for ID: ${dmUserId}\`\` (EC#0802)`, ephemeral: true });
                 }
 
