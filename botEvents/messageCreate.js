@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { MessageActionRow, MessageButton, WebhookClient } = require('discord.js');
 const config = require('../config.json');
 const ticketSchema = require('../Database/ticketSchema');
 const modAppTicketSchema = require('../Database/modappSchema');
@@ -51,6 +51,9 @@ module.exports = {
 						userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
 					})
 				})
+                .catch(err => {
+                    message.channel.send({ content: `<@${message.author.id}>, your message has been automatically removed because it contains a string or link that has been blacklisted.`})
+                })
 			}
 		}
 
