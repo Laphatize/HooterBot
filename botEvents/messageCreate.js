@@ -37,13 +37,15 @@ module.exports = {
 
                 console.log(`Webhook fetched, sending message...`)
                 webhookClient.edit({
+                    name: message.author.username,
+                    avatar: message.author.displayAvatarURL({ dynamic:true }),
                     channel: message.channel.id
                 })
                     .then( webhook => {
                         webhook.send({
                             content: '[Redacted message here]',
                             username: message.author.username,
-                            avatarURL: message.author.displayAvatarURL,
+                            avatarURL: message.author.displayAvatarURL({ dynamic:true }),
                         })
                     })
 			}
