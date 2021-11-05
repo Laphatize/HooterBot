@@ -10,7 +10,7 @@ module.exports = {
 		// // STRIPPING SPACES OUT OF MESSAGE STRING
 		// let msg = message.replace(/\s/g, '');
 
-		message.channel.send(`stripped message: \`\`${msg}\`\``)
+		message.channel.send(`stripped message: \`\`${message}\`\``)
 
 
 
