@@ -32,22 +32,24 @@ module.exports = {
 				setTimeout(() => message.delete(), 0 );
 
 
-                console.log(`Fetching webhook...`)
-                const webhookClient = new WebhookClient({ id: process.env.testServerWebhookID, token: process.env.testServerWebhookToken })
-
-                console.log(`Webhook fetched, sending message...`)
-                webhookClient.edit({
+                console.log(`Fetching webhook...`)                
+                const fetchedWebhook = client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+                
+                fetchedWebhook.edit({
                     name: message.author.username,
-                    avatar: message.author.displayAvatarURL({ dynamic:true }),
-                    channel: message.channel.id
+                    avatar: message.author.displayAvatarURL(),
+                    channel: message.channel.id,
                 })
-                    .then( webhook => {
-                        webhook.send({
-                            content: '[Redacted message here]',
-                            username: message.author.username,
-                            avatarURL: message.author.displayAvatarURL({ dynamic:true }),
-                        })
+                .then(webhook => {
+                    console.log(`Webhook grabbed and edited...`)
+                    webhook.send({
+                        content: '[Redacted message here]',
+                        username: message.author.username,
+                        avatarURL: message.author.displayAvatarURL({ dynamic:true }),
                     })
+                    console.log(`Webhook message sent.`)
+                })
+                .catch(console.error);
 			}
 		}
 
