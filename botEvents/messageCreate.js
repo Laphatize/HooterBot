@@ -576,7 +576,7 @@ function blacklistFilterCheck (filterMsg) {
     while(length--) {
         if (filterMsg.indexOf(blacklistTerms[length])!=-1) {
             // A BLACKLIST TERM EXISTS IN THE STRING
-            message.channel.send({ content: 'A blacklisted term exists in this message.' })
+            console.log('A blacklisted term exists in this message.')
             return true;
         }
         else {
