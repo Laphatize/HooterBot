@@ -15,18 +15,21 @@ module.exports = {
 				setTimeout(() => message.delete(), 0 );
 
 				// FETCH WEBHOOK AND EDIT
-				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken).edit({
-					name: message.author.username,
-					avatar: message.author.displayAvatarURL(),
-					channel: webhook.channelId,
-				})
-				.then(userWebhook => {
-					// REDACTING BLACKLISTED TERM(S)
+				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+				.then(webhook => {
+					webhook.edit({
+						name: message.author.username,
+						avatar: message.author.displayAvatarURL(),
+						channel: webhook.channelId,
+					})
+					.then(userWebhook => {
+						// REDACTING BLACKLISTED TERM(S)
 
-					// coming soon :)
+						// coming soon :)
 
-					// POSTING REDACTED MESSAGE VIA WEBHOOK
-					userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
+						// POSTING REDACTED MESSAGE VIA WEBHOOK
+						userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
+					})
 				})
 			}
 		}
