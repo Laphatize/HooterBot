@@ -26,8 +26,12 @@ module.exports = {
 			// FILTER FUNCTION REQUIRES CHANGING MESSAGE CONTENT, MESSAGE CONTAINS BLACKLISTED TERM(S)
 			if(blacklistFilterCheck(filterMsg)) {
 
+                console.log(`Blacklist term detected, deleting...`)
+
 				// DELETE MESSAGE
 				setTimeout(() => message.delete(), 0 );
+
+                console.log(`Fetching webhook...`)
 
 				// FETCH WEBHOOK, EDIT
 				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
@@ -38,6 +42,7 @@ module.exports = {
 						channel: message.channel.id,
 					})
 					.then(userWebhook => {
+                        console.log(`Webhook fetched...`)
 						// REDACTING BLACKLISTED TERM(S)
 
 						// coming soon :)
