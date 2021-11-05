@@ -24,7 +24,7 @@ module.exports = {
         // TEST SERVER
 		if(message.guild.id === '530503548937699340') {
 			// FILTER FUNCTION REQUIRES CHANGING MESSAGE CONTENT, MESSAGE CONTAINS BLACKLISTED TERM(S)
-			if(blacklistFilterCheck(filterMsg) !== message.content.toLowerCase()) {
+			if(blacklistFilterCheck(filterMsg)) {
 
 				// DELETE MESSAGE
 				setTimeout(() => message.delete(), 0 );
@@ -577,7 +577,10 @@ function blacklistFilterCheck (filterMsg) {
         if (filterMsg.indexOf(blacklistTerms[length])!=-1) {
             // A BLACKLIST TERM EXISTS IN THE STRING
             message.channel.send({ content: 'A blacklisted term exists in this message.' })
-            return 'This message needs a term redacted.'
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
