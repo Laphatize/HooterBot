@@ -15,6 +15,55 @@ module.exports = {
 	async execute(message, client) {
 
 
+        /***********************************************************/
+        /*      CONTENT FILTER SYSTEM                              */
+        /***********************************************************/
+        // STRIPPING MESSAGE OF SPACES
+		let filterMsg = message.content.toLowerCase().split(' ').join('');
+
+        // TEST SERVER
+		if(message.guild.id === '530503548937699340') {
+			// FILTER FUNCTION REQUIRES CHANGING MESSAGE CONTENT, MESSAGE CONTAINS BLACKLISTED TERM(S)
+			if(blacklistFilterCheck(filterMsg) !== message.content.toLowerCase()) {
+
+				// DELETE MESSAGE
+				setTimeout(() => message.delete(), 0 );
+
+				// FETCH WEBHOOK, EDIT
+				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+				.then(webhook => {
+					webhook.edit({
+						name: message.author.username,
+						avatar: message.author.displayAvatarURL(),
+						channel: message.channel.id,
+					})
+					.then(userWebhook => {
+						// REDACTING BLACKLISTED TERM(S)
+
+						// coming soon :)
+
+						// POSTING REDACTED MESSAGE VIA WEBHOOK
+						userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
+						.then(finishedWebhook => {
+							// FETCH WEBHOOK, EDIT BACK TO DEFAULT
+							finishedWebhook.edit({
+								name: 'blacklist filter webhook',
+								avatar: 'https://lh3.googleusercontent.com/-JwjA8wq5m292e4FcVyfTS8nvgkltfnAE6aMet54OHweH48gbKJhiZ0kUM8wHpDdiiZr=s85',
+								channel: message.channel.id,
+							})
+						})
+					})
+				})
+			}
+		}
+
+
+
+
+
+        
+
+
 
         /***********************************************************/
         /*      MOD APPLICATION TICKETS                            */
@@ -417,7 +466,6 @@ module.exports = {
         setTimeout(() => cooldowns.delete(message.author.id), 60000)
 
 
-
         // USER HAS LEVELED UP
         const hasLeveledUp = await levels.appendXp(message.author.id, message.guild.id, xpToAdd)
             .catch(err => console.log(err))
@@ -429,20 +477,6 @@ module.exports = {
             message.guild.channels.cache.find(ch => ch.name === `🤖｜bot-spam`).send({ content: `${createLevelMsg(message.author.username, user.level)}` })
                 .catch(err => console.log(err))
         }
-
-
-        /***********************************************************/
-        /*      SLASH COMMANDS                                     */
-        /***********************************************************/
-        // if (!client.application?.owner) await client.application?.fetch();
-
-        // // TO GET UPDATED LIST OF SLASH COMMAND DATA, INCLUDING SLASH COMMAND ID'S, RUN:
-        // if(message.content == 'hooterbot$slashcommanddata' && message.author.id === client.application?.owner.id) {
-        //     console.log(`****************************************\nHOOTERBOT'S SLASH COMMANDS\n****************************************`)
-        //     console.log(await message.guild?.commands.fetch())
-        //     console.log(`****************************************\nEND OF SLASH COMMAND DATA\n****************************************`)
-        // }
-
 
 
 
@@ -499,6 +533,9 @@ module.exports = {
 
 
 
+        /****************************************************************/
+        /*      VERIF TICKTE OVERFLOW                                   */
+        /****************************************************************/
         if(message.content.toLowerCase().startsWith(`$ticket-overflow`) && message.author.id == config.botAuthorId) {
             
             setTimeout(() => message.delete(), 0)
@@ -524,4 +561,23 @@ function createLevelMsg(username, level) {
         `**${username}**, you've talked so much, you're leveling up! \`\` Level ${level} \`\` ${config.emjOwl}`
     ];      
     return channelMsgStart[Math.floor(Math.random() * channelMsgStart.length)];
+}
+
+
+
+// BLACKLIST FILTERING FUNCTION
+function blacklistFilterCheck (filterMsg) {
+    const blacklistTerms = [
+        'testingblacklistterm'
+        ];
+    
+    let length = blacklistTerms.length;
+
+    while(length--) {
+        if (filterMsg.indexOf(blacklistTerms[length])!=-1) {
+            // A BLACKLIST TERM EXISTS IN THE STRING
+            message.channel.send({ content: 'A blacklisted term exists in this message.' })
+            return 'This message needs a term redacted.'
+        }
+    }
 }
