@@ -7,13 +7,6 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-		// // STRIPPING SPACES OUT OF MESSAGE STRING
-		// let msg = message.replace(/\s/g, '');
-
-		message.channel.send(`stripped message: \`\`${message}\`\``)
-
-
-
 		// TEST SERVER
 		if(message.guild.id === '530503548937699340') {
 
@@ -22,6 +15,12 @@ module.exports = {
 
 				// DELETE INITIAL MESSAGE
 				setTimeout(() => message.delete(), 0 );
+
+				
+				// // STRIPPING SPACES OUT OF MESSAGE STRING
+				// let msg = message.replace(/\s/g, '');
+
+				message.channel.send(`stripped message: \`\`${message}\`\``)
 
 				// FETCH WEBHOOK AND EDIT
 				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
