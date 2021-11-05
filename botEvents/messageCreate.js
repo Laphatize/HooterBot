@@ -31,28 +31,15 @@ module.exports = {
 				// DELETE MESSAGE
 				setTimeout(() => message.delete(), 0 );
 
+
                 console.log(`Fetching webhook...`)
+                const webhookClient = new WebhookClient({ id: process.env.testServerWebhookID, token: process.env.testServerWebhookToken })
 
-				// FETCH WEBHOOK, EDIT
-				client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
-				.then(webhook => {
-					webhook.edit({
-						name: message.author.username,
-						avatar: message.author.displayAvatarURL(),
-						channel: message.channel.id,
-					})
-					.then(userWebhook => {
-                        console.log(`Webhook fetched...`)
-						// REDACTING BLACKLISTED TERM(S)
-
-						// coming soon :)
-
-						// POSTING REDACTED MESSAGE VIA WEBHOOK
-						userWebhook.send({ content: 'The original message with the redacted term would go here. :)' })
-					})
-				})
-                .catch(err => {
-                    message.channel.send({ content: `<@${message.author.id}>, your message has been automatically removed because it contains a string or link that has been blacklisted.`})
+                console.log(`Webhook fetched, sending message...`)
+                webhookClient.send({
+                    content: '[Redacted message here]',
+                    username: message.author.username,
+                    avatarURL: message.author.displayAvatarURL,
                 })
 			}
 		}
