@@ -7,18 +7,9 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message, client) {
 
-		// STRIPPING SPACES OUT OF MESSAGE STRING
-		let msg = message.replace(/\s/g, '');
-
-		message.channel.send(`stripped message: \`\`${msg}\`\``)
-
-
-
 		// TEST SERVER
 		if(message.guild.id === '530503548937699340') {
-
-			// CHECKING MESSAGE AGAINST CONTENT
-			if(msg.content.includes('blacklistthistermplease')) {
+			if(message.content.includes('blacklistthistermplease')) {
 
 				// DELETE INITIAL MESSAGE
 				setTimeout(() => message.delete(), 0 );
@@ -50,6 +41,3 @@ module.exports = {
 
     }
 }
-
-
-// DEFINING FILTER
