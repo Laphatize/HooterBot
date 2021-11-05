@@ -14,7 +14,10 @@ module.exports = {
 
 
 				const webhookClient = client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
-					.then(webhook => message.channel.send(`Obtained the following webhook: ${webhook}`))
+					.then(webhook => {
+						message.channel.send(`Obtained the following webhook: ${webhook}`)
+						console.log(`WEBHOOK INFO: \n${webhook}`)
+					})
 
 
 				// channel.createWebhook(message.author.username, {
