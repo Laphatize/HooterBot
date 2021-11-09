@@ -22,43 +22,76 @@ module.exports = {
 		let filterMsg = message.content.toLowerCase().split(' ').join('');
 
         // TEST SERVER
-		if(message.guild.id === '530503548937699340') {
-			// FILTER FUNCTION REQUIRES CHANGING MESSAGE CONTENT, MESSAGE CONTAINS BLACKLISTED TERM(S)
-			if(blacklistFilterCheck(filterMsg)) {
+		if(message.guild.id === '530503548937699340' && message.author !== config.botId) {
 
-                console.log(`Blacklist term detected, deleting...`)
-
-				// DELETE MESSAGE
-				setTimeout(() => message.delete(), 0 );
+			// FILTER FUNCTION DOES NOT RETURN OK VALUE
+			if(blacklistFilterCheck(filterMsg) !== true) {
 
 
-                console.log(`Fetching webhook...`)                
-                client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
-                .then(webhook => {
+                // CHECK IF MESSAGE CONTAINS BAD URL
+                if(blacklistFilterCheck(filterMsg) == 'badURL') {
+                    console.log(`Blacklist term detected, deleting...`)
 
-                    webhook.edit({
-                        name: message.author.username,
-                        avatar: message.author.displayAvatarURL(),
-                        channel: message.channel.id,
-                    })
+                    // DELETE MESSAGE
+                    setTimeout(() => message.delete(), 0 );
+    
+    
+                    console.log(`Fetching webhook...`)                
+                    client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
                     .then(webhook => {
-                        console.log(`Webhook grabbed and edited...`)
-                        webhook.send({
-                            content: '[Redacted message here]',
-                            username: message.author.username,
-                            avatarURL: message.author.displayAvatarURL({ dynamic:true }),
+    
+                        webhook.edit({
+                            name: message.author.username,
+                            avatar: message.author.displayAvatarURL(),
+                            channel: message.channel.id,
                         })
-                        console.log(`Webhook message sent.`)
+                        .then(webhook => {
+                            console.log(`Webhook grabbed and edited...`)
+                            webhook.send({
+                                content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
+                                username: message.author.username,
+                                avatarURL: message.author.displayAvatarURL({ dynamic:true }),
+                            })
+                            console.log(`Webhook message sent.`)
+                        })
+                        .catch(console.error);
                     })
                     .catch(console.error);
-                })
-                .catch(console.error);
+                }
+
+
+                // CHECK IF MESSAGE CONTAINS BAD WORD
+                if(blacklistFilterCheck(filterMsg) == 'badWord') {
+                    console.log(`Blacklist term detected, deleting...`)
+
+                    // DELETE MESSAGE
+                    setTimeout(() => message.delete(), 0 );
+    
+    
+                    console.log(`Fetching webhook...`)                
+                    client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+                    .then(webhook => {
+    
+                        webhook.edit({
+                            name: message.author.username,
+                            avatar: message.author.displayAvatarURL(),
+                            channel: message.channel.id,
+                        })
+                        .then(webhook => {
+                            console.log(`Webhook grabbed and edited...`)
+                            webhook.send({
+                                content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
+                                username: message.author.username,
+                                avatarURL: message.author.displayAvatarURL({ dynamic:true }),
+                            })
+                            console.log(`Webhook message sent.`)
+                        })
+                        .catch(console.error);
+                    })
+                    .catch(console.error);
+                }
 			}
 		}
-
-
-
-
 
         
 
@@ -566,20 +599,35 @@ function createLevelMsg(username, level) {
 
 // BLACKLIST FILTERING FUNCTION
 function blacklistFilterCheck (filterMsg) {
-    const blacklistTerms = [
-        'testingblacklistterm'
+
+    // URL LIST
+    const badURLs = [
+        RegExp('..*discordgift\..*').test(filterMsg),
+        // 'discord.gift.',
+        // 'discord-',
+        // 'discorcl.',
+        // 'discorcl.',
+        // 'free-nitros.',
+        // 'discordapp.gift/',
+        ];
+
+    
+        if (!badURLs.every(x => x === false ) { 
+            return 'badURL';
+        }
+    }
+
+
+    // WORD LIST
+    const badWords = [
+        'fuckfuckfuckfuckfuckfuckfuckfuckfuckkkkk',
         ];
     
-    let length = blacklistTerms.length;
+    let wordlength = badWords.length;
 
-    while(length--) {
-        if (filterMsg.indexOf(blacklistTerms[length])!=-1) {
-            // A BLACKLIST TERM EXISTS IN THE STRING
-            console.log('A blacklisted term exists in this message.')
-            return true;
-        }
-        else {
-            return false;
+    while(wordlength--) {
+        if (filterMsg.indexOf(badWords[wordlength])!=-1) {
+            return 'badWord';
         }
     }
 }
