@@ -611,7 +611,7 @@ function blacklistFilterCheck (filterMsg) {
         // 'discordapp.gift/',
     ];
 
-    if (!badURLs.every(x => x === false ) { 
+    if (!badURLs.every(x => x === false )) { 
         return 'badURL';
     }
 
