@@ -21,78 +21,73 @@ module.exports = {
         // STRIPPING MESSAGE OF SPACES
 		let filterMsg = message.content.toLowerCase().split(' ').join('');
 
-        // TEST SERVER
-		if(message.guild.id === '530503548937699340' && message.author !== config.botId) {
-
-			// FILTER FUNCTION DOES NOT RETURN OK VALUE
-			if(blacklistFilterCheck(filterMsg) !== true) {
+        // FILTER FUNCTION DOES NOT RETURN OK VALUE
+        if(blacklistFilterCheck(filterMsg) !== true) {
 
 
-                // CHECK IF MESSAGE CONTAINS BAD URL
-                if(blacklistFilterCheck(filterMsg) == 'badURL') {
-                    console.log(`Blacklist term detected, deleting...`)
+            // CHECK IF MESSAGE CONTAINS BAD URL
+            if(blacklistFilterCheck(filterMsg) == 'badURL') {
+                console.log(`Blacklist term detected, deleting...`)
 
-                    // DELETE MESSAGE
-                    setTimeout(() => message.delete(), 0 );
-    
-    
-                    console.log(`Fetching webhook...`)                
-                    client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+                // DELETE MESSAGE
+                setTimeout(() => message.delete(), 0 );
+
+
+                console.log(`Fetching webhook...`)                
+                client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+                .then(webhook => {
+
+                    webhook.edit({
+                        name: message.author.username,
+                        avatar: message.author.displayAvatarURL(),
+                        channel: message.channel.id,
+                    })
                     .then(webhook => {
-    
-                        webhook.edit({
-                            name: message.author.username,
-                            avatar: message.author.displayAvatarURL(),
-                            channel: message.channel.id,
+                        console.log(`Webhook grabbed and edited...`)
+                        webhook.send({
+                            content: `<:Error:718938575122595932> *[This message contained a **malicious link**.]*`,
+                            username: message.author.username,
+                            avatarURL: message.author.displayAvatarURL({ dynamic:true }),
                         })
-                        .then(webhook => {
-                            console.log(`Webhook grabbed and edited...`)
-                            webhook.send({
-                                content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
-                                username: message.author.username,
-                                avatarURL: message.author.displayAvatarURL({ dynamic:true }),
-                            })
-                            console.log(`Webhook message sent.`)
-                        })
-                        .catch(console.error);
+                        console.log(`Webhook message sent.`)
                     })
                     .catch(console.error);
-                }
+                })
+                .catch(console.error);
+            }
 
 
-                // CHECK IF MESSAGE CONTAINS BAD WORD
-                if(blacklistFilterCheck(filterMsg) == 'badWord') {
-                    console.log(`Blacklist term detected, deleting...`)
+            // // CHECK IF MESSAGE CONTAINS BAD WORD
+            // if(blacklistFilterCheck(filterMsg) == 'badWord') {
+            //     console.log(`Blacklist term detected, deleting...`)
 
-                    // DELETE MESSAGE
-                    setTimeout(() => message.delete(), 0 );
-    
-    
-                    console.log(`Fetching webhook...`)                
-                    client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
-                    .then(webhook => {
-    
-                        webhook.edit({
-                            name: message.author.username,
-                            avatar: message.author.displayAvatarURL(),
-                            channel: message.channel.id,
-                        })
-                        .then(webhook => {
-                            console.log(`Webhook grabbed and edited...`)
-                            webhook.send({
-                                content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
-                                username: message.author.username,
-                                avatarURL: message.author.displayAvatarURL({ dynamic:true }),
-                            })
-                            console.log(`Webhook message sent.`)
-                        })
-                        .catch(console.error);
-                    })
-                    .catch(console.error);
-                }
-			}
-		}
+            //     // DELETE MESSAGE
+            //     setTimeout(() => message.delete(), 0 );
 
+
+            //     console.log(`Fetching webhook...`)                
+            //     client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+            //     .then(webhook => {
+
+            //         webhook.edit({
+            //             name: message.author.username,
+            //             avatar: message.author.displayAvatarURL(),
+            //             channel: message.channel.id,
+            //         })
+            //         .then(webhook => {
+            //             console.log(`Webhook grabbed and edited...`)
+            //             webhook.send({
+            //                 content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
+            //                 username: message.author.username,
+            //                 avatarURL: message.author.displayAvatarURL({ dynamic:true }),
+            //             })
+            //             console.log(`Webhook message sent.`)
+            //         })
+            //         .catch(console.error);
+            //     })
+            //     .catch(console.error);
+            // }
+        }
         
 
 
@@ -603,12 +598,12 @@ function blacklistFilterCheck (filterMsg) {
     // URL LIST
     const badURLs = [
         RegExp('..*discordgift\..*').test(filterMsg),
-        // 'discord.gift.',
-        // 'discord-',
-        // 'discorcl.',
-        // 'discorcl.',
-        // 'free-nitros.',
-        // 'discordapp.gift/',
+        RegExp('..*discord\-.*').test(filterMsg),
+        RegExp('..*discorcl.*').test(filterMsg),
+        RegExp('..*discorcl.*').test(filterMsg),
+        RegExp('..*free-nitros.*').test(filterMsg),
+        RegExp('..*discordapp\.gift*').test(filterMsg),
+        RegExp('..*academicgrader\.*').test(filterMsg),
     ];
 
     if (!badURLs.every(x => x === false )) { 
@@ -616,16 +611,16 @@ function blacklistFilterCheck (filterMsg) {
     }
 
 
-    // WORD LIST
-    const badWords = [
-        'fuckfuckfuckfuckfuckfuckfuckfuckfuckkkkk',
-        ];
+    // // WORD LIST
+    // const badWords = [
+    //     'fuckfuckfuckfuckfuckfuckfuckfuckfuckkkkk',
+    //     ];
     
-    let wordlength = badWords.length;
+    // let wordlength = badWords.length;
 
-    while(wordlength--) {
-        if (filterMsg.indexOf(badWords[wordlength])!=-1) {
-            return 'badWord';
-        }
-    }
+    // while(wordlength--) {
+    //     if (filterMsg.indexOf(badWords[wordlength])!=-1) {
+    //         return 'badWord';
+    //     }
+    // }
 }
