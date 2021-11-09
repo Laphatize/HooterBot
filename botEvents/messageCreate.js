@@ -605,6 +605,7 @@ function blacklistFilterCheck (filterMsg) {
         RegExp('..*free-nitros.*').test(filterMsg),
         RegExp('..*discordapp\.gift*').test(filterMsg),
         RegExp('..*academicgrader\.*').test(filterMsg),
+        RegExp('..*mybadlink\.*').test(filterMsg),
     ];
 
     if (!badURLs.every(x => x === false )) { 
