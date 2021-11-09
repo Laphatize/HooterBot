@@ -33,8 +33,9 @@ module.exports = {
                 setTimeout(() => message.delete(), 0 );
 
 
-                console.log(`Fetching webhook...`)                
-                client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
+                console.log(`Fetching webhook...`)
+
+                client.fetchWebhook(process.env.templeServerWebhookID, process.env.templeServerWebhookToken)
                 .then(webhook => {
 
                     webhook.edit({
