@@ -609,12 +609,10 @@ function blacklistFilterCheck (filterMsg) {
         // 'discorcl.',
         // 'free-nitros.',
         // 'discordapp.gift/',
-        ];
+    ];
 
-    
-        if (!badURLs.every(x => x === false ) { 
-            return 'badURL';
-        }
+    if (!badURLs.every(x => x === false ) { 
+        return 'badURL';
     }
 
 
