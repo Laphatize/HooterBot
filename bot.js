@@ -128,172 +128,172 @@ client.on('ready', async () => {
     await client.application?.commands.set(commands)        //  .commands.set([]) to empty
 
 
-//     // FETCHING COMMANDS BY NAME FOR PERMISSIONS
-//     const cmds = await client.application?.commands.fetch()
-//     let verifSC = cmds.find(c => c.name === `verif`)
-//     let userSC = cmds.find(c => c.name === `user`)
-//     let rulesSC = cmds.find(c => c.name === `rules_embed`)
-//     let permsSC = cmds.find(c => c.name === `permissions`)
-//     let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
-//     let suggestDecSC = cmds.find(c => c.name === `suggestion_decision`)
-//     let channelSC = cmds.find(c => c.name === `channel`)
-//     let modappSC = cmds.find(c => c.name === `modapp`) 
-//     let blacklistSC = cmds.find(c => c.name === `blacklist`)
+    // FETCHING COMMANDS BY NAME FOR PERMISSIONS
+    const cmds = await client.application?.commands.fetch()
+    let verifSC = cmds.find(c => c.name === `verif`)
+    let userSC = cmds.find(c => c.name === `user`)
+    let rulesSC = cmds.find(c => c.name === `rules_embed`)
+    let permsSC = cmds.find(c => c.name === `permissions`)
+    let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
+    let suggestDecSC = cmds.find(c => c.name === `suggestion_decision`)
+    let channelSC = cmds.find(c => c.name === `channel`)
+    let modappSC = cmds.find(c => c.name === `modapp`) 
+    let blacklistSC = cmds.find(c => c.name === `blacklist`)
 
 
-//     // SETTING PERMISSIONS
-//     const serverVerifPerms = [
-//         {
-//             id: verifSC.id,    // COMMAND: /verif
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: userSC.id,    // COMMAND: /user
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: rulesSC.id,    // COMMAND: /rules
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: permsSC.id,    // COMMAND: /permissions
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: partnerMsgSC.id,    // COMMAND: /partner_message
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: suggestDecSC.id,    // COMMAND: /suggestion_decision
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: channelSC.id,    // COMMAND: /channel
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '863645415458865163',   // TEST SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: modappSC.id,     // COMMAND: /modapp
-//             permissions: [{
-//                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             },{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: blacklistSC.id,     // COMMAND: /blacklist
-//             permissions: [{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         },{
-//             id: blacklistSC.id,     // COMMAND: /blacklist
-//             permissions: [{
-//                 id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
-//                 type: 'USER',
-//                 permission: true,
-//             }]
-//         }
-//     ];
+    // SETTING PERMISSIONS
+    const serverVerifPerms = [
+        {
+            id: verifSC.id,    // COMMAND: /verif
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: userSC.id,    // COMMAND: /user
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: rulesSC.id,    // COMMAND: /rules
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: permsSC.id,    // COMMAND: /permissions
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: partnerMsgSC.id,    // COMMAND: /partner_message
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: suggestDecSC.id,    // COMMAND: /suggestion_decision
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: channelSC.id,    // COMMAND: /channel
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '863645415458865163',   // TEST SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '835182957160300604',   // TEMPLE SERVER - MOD ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: modappSC.id,     // COMMAND: /modapp
+            permissions: [{
+                id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            },{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: blacklistSC.id,     // COMMAND: /blacklist
+            permissions: [{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        },{
+            id: blacklistSC.id,     // COMMAND: /blacklist
+            permissions: [{
+                id: '829416550867140608',   // TEMPLE SERVER - ADMIN ROLE
+                type: 'USER',
+                permission: true,
+            }]
+        }
+    ];
     
 
-//     // TEST SERVER
-//     client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
+    // TEST SERVER
+    client.guilds.cache.get('530503548937699340')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
 
-//     // TEMPLE SERVER
-//     client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
+    // TEMPLE SERVER
+    client.guilds.cache.get('829409161581821992')?.commands.permissions.set({ fullPermissions: serverVerifPerms })
 })
 
 
