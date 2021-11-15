@@ -125,7 +125,7 @@ client.on('ready', async () => {
     console.log(`======================================\n`);
 
     // GLOBAL SLASH COMMANDS - MMM789 TEST
-    await client.application?.commands.set(arrayOfSlashCmds)        //  .commands.set([]) to empty
+    await client.application?.commands.set(commands)        //  .commands.set([]) to empty
 
 
     // FETCHING COMMANDS BY NAME FOR PERMISSIONS
