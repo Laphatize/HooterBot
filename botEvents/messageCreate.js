@@ -505,7 +505,7 @@ module.exports = {
 
             const commands = [];
 
-            for (const folder of fs.readdirSync(`../SLASHCOMMANDS/`)) {
+            for (const folder of fs.readdirSync(`../SLASHCOMMANDS/${folder}`)) {
                 const commandFiles = fs.readdirSync(`../SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
             
                 for (const file of commandFiles) {
