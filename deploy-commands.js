@@ -4,14 +4,13 @@ const fs = require('fs');
 const config = require('./config.json');
 
 
-
 const commands = [];
 
-for (const folder of fs.readdirSync(`./SLASHCOMMANDS/`)) {
-    const commandFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+for (const folder of fs.readdirSync(`../SLASHCOMMANDS/`)) {
+    const commandFiles = fs.readdirSync(`../SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
 
     for (const file of commandFiles) {
-        const command = require(`./SLASHCOMMANDS/${folder}/${file}`);
+        const command = require(`../SLASHCOMMANDS/${folder}/${file}`);
         
         commands.push(command.data.toJSON());
     }
