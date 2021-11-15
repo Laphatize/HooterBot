@@ -1,6 +1,7 @@
 const discord = require('discord.js');
-const { MessageActionRow, MessageButton, WebhookClient } = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
+const fs = require('fs');
 const ticketSchema = require('../Database/ticketSchema');
 const modAppTicketSchema = require('../Database/modappSchema');
 const levels = require('discord-xp');
