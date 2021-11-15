@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require ('../../config.json')
 const birthdaySchema = require('../../Database/birthdaySchema');
 const infractionsSchema = require('../../Database/infractionsSchema');

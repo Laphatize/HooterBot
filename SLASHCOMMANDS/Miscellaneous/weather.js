@@ -1,5 +1,4 @@
 const discord = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const botconf = require ('../../config.json')
 const wait = require('util').promisify(setTimeout);
 const axios = require('axios');

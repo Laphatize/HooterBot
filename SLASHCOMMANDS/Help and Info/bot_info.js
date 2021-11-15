@@ -1,5 +1,4 @@
 const discord = require('discord.js')
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const pjson = require('../../package.json');
 const config = require ('../../config.json')
 
