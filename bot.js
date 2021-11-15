@@ -46,6 +46,7 @@ client.login(process.env.HB_BOT_TOKEN);
 
 // COLLECTIONS
 client.commands = new discord.Collection();
+client.slashCommands = new discord.Collection();
 client.buttons = new discord.Collection();
 client.cooldowns = new discord.Collection();
 client.blacklist = new discord.Collection();
@@ -95,18 +96,38 @@ for (const file of eventFiles) {
 /***********************************************************/
 /*      SLASH COMMAND HANDLER                              */
 /***********************************************************/
-const commands = [];
+const slashCommands = fs.readdirSync('./SLASHCOMMANDS');
+const arrayOfSlashCmds = [];
 
+for (const folder of slashCommands) {
+    const slashFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
 
-for (const folder of fs.readdirSync('./SLASHCOMMANDS')) {
-    const commandFiles = fs.readdirSync(`./SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
-
-    for (const file of commandFiles) {
-		const command = require(`./SLASHCOMMANDS/${folder}/${file}`);
+    for (const file of slashFiles) {
+		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
 		
-        client.commands.set(command.data.name, command);
+        arrayOfSlashCmds.push(slashCmd.data.toJSON());
 	}
 }
+
+
+const rest = new REST({ version: '9' }).setToken(process.env.HB_BOT_TOKEN)
+
+(async () => {
+    try {
+        console.log(`Started refreshing application commands (/)`)
+
+        await rest.put(
+            Routes.applicationCommands(config.botId),
+            { body: arrayOfSlashCmds },
+        );
+
+        console.log(`Successfully reloaded application commands (/)`)
+    }
+    catch (error) {
+        console.error(error)
+    }
+})();
+
 
 
 

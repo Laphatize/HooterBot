@@ -16,7 +16,7 @@ module.exports = {
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
         if(interaction.isCommand()) {
-            const slashCmd = client.commands.get(interaction.commandName)
+            const slashCmd = client.slashCommands.get(interaction.commandName)
 
             // IF NOT SLASH COMMAND
             if(!slashCmd) {

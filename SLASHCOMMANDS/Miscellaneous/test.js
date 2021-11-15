@@ -1,12 +1,11 @@
 const discord = require('discord.js')
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require ('../../config.json')
 
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('test')
-        .setDescription('Testing the new slash command system...')
+        .setName('verif')
+        .setDescription('Commands regarding server verification.')
         // .addSubcommand(subcommand =>
         //     subcommand
         //         .setName('blacklist')
