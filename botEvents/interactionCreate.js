@@ -16,10 +16,14 @@ module.exports = {
         /*      SLASH COMMANDS                                     */
         /***********************************************************/
         if(interaction.isCommand()) {
-            const slashCmd = client.commands.get(interaction.commandName)
+            const command = client.commands.get(interaction.commandName);
 
-            // IF NOT SLASH COMMAND
-            if(!slashCmd) {
+            if (!command) return;
+
+            try {
+                await command.execute(interaction);
+            } catch (error) {
+                console.error(error);
                 // DEFINING EMBED TO SEND IN CHANNEL
                 let errorEmbed = new discord.MessageEmbed()
                     .setColor(config.embedRed)
