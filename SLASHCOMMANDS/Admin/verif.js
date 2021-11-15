@@ -5,6 +5,7 @@ const config = require ('../../config.json')
 const ticketBlacklistSchema = require('../../Database/ticketBlacklistSchema');
 const guildSchema = require('../../Database/guildSchema');
 const moment = require('moment');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 
 
