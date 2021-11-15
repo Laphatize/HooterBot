@@ -4,16 +4,13 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const fs = require('fs');
 const config = require ('./config.json');
 const birthdaySchema = require('./Database/birthdaySchema');
+const guildSchema = require('./Database/guildSchema');
 const ticketSchema = require('./Database/ticketSchema');
 const cron = require('node-cron');
 const moment = require('moment');
 const levels = require('discord-xp');
 const wait = require('util').promisify(setTimeout);
 const axios = require('axios');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const { token } = require('./config.json');
-const fs = require('fs');
 
 
 // INITIALIZATION
@@ -128,7 +125,7 @@ client.on('ready', async () => {
     let rulesSC = cmds.find(c => c.name === `rules_embed`)
     let permsSC = cmds.find(c => c.name === `permissions`)
     let partnerMsgSC = cmds.find(c => c.name === `partner_message`)
-    let suggestDecSC = cmds.find(c => c.name === `suggestion_decision`)
+    let suggestDecisionSC = cmds.find(c => c.name === `suggestion_decision`)
     let channelSC = cmds.find(c => c.name === `channel`)
     let modappSC = cmds.find(c => c.name === `modapp`) 
     let blacklistSC = cmds.find(c => c.name === `blacklist`)
@@ -216,7 +213,7 @@ client.on('ready', async () => {
                 permission: true,
             }]
         },{
-            id: suggestDecSC.id,    // COMMAND: /suggestion_decision
+            id: suggestDecisionSC.id,    // COMMAND: /suggestion_decision
             permissions: [{
                 id: '863650974513758259',   // TEST SERVER - ADMIN ROLE
                 type: 'USER',
