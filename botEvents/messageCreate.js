@@ -1,13 +1,10 @@
 const discord = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const config = require('../config.json');
-const fs = require('fs');
 const ticketSchema = require('../Database/ticketSchema');
 const modAppTicketSchema = require('../Database/modappSchema');
 const levels = require('discord-xp');
 const wait = require('util').promisify(setTimeout);
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
 
 
 // COOLDOWN FOR XP SYSTEM
