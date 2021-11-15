@@ -1,4 +1,5 @@
 const discord = require('discord.js')
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require ('../../config.json')
 const { MessageActionRow, MessageButton } = require('discord.js');
 const moment = require('moment');
