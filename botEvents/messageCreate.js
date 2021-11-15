@@ -5,6 +5,9 @@ const ticketSchema = require('../Database/ticketSchema');
 const modAppTicketSchema = require('../Database/modappSchema');
 const levels = require('discord-xp');
 const wait = require('util').promisify(setTimeout);
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+
 
 // COOLDOWN FOR XP SYSTEM
 const cooldowns = new Set()
@@ -56,38 +59,6 @@ module.exports = {
                 })
                 .catch(console.error);
             }
-
-
-            // // CHECK IF MESSAGE CONTAINS BAD WORD
-            // if(blacklistFilterCheck(filterMsg) == 'badWord') {
-            //     console.log(`Blacklist term detected, deleting...`)
-
-            //     // DELETE MESSAGE
-            //     setTimeout(() => message.delete(), 0 );
-
-
-            //     console.log(`Fetching webhook...`)                
-            //     client.fetchWebhook(process.env.testServerWebhookID, process.env.testServerWebhookToken)
-            //     .then(webhook => {
-
-            //         webhook.edit({
-            //             name: message.author.username,
-            //             avatar: message.author.displayAvatarURL(),
-            //             channel: message.channel.id,
-            //         })
-            //         .then(webhook => {
-            //             console.log(`Webhook grabbed and edited...`)
-            //             webhook.send({
-            //                 content: '<:Error:718938575122595932> **I tried posting a malicious link just now.** <:Error:718938575122595932>',
-            //                 username: message.author.username,
-            //                 avatarURL: message.author.displayAvatarURL({ dynamic:true }),
-            //             })
-            //             console.log(`Webhook message sent.`)
-            //         })
-            //         .catch(console.error);
-            //     })
-            //     .catch(console.error);
-            // }
         }
         
 
@@ -509,72 +480,62 @@ module.exports = {
 
 
         /****************************************************************/
-        /*      LINK READER - ONLY WORKING FOR CACHED MESSAGES <4 HRS   */
-        /****************************************************************/
-        // DISCORD MESSAGE LINK FORMAT - FROM THE SAME SERVER
-        let discordMsgLinkFormat = `https://discord.com/channels/${message.guild.id}/`
-
-
-        // MESSAGE CONTAINS A LINK TO ANOTHER MESSAGE
-        if(message.content.includes(discordMsgLinkFormat)) {
-            // FINDING URL IN MESSAGE, CUTTING DOWN INTO USEFUL PIECES
-            let msgLink = message.content.slice(message.content.indexOf(discordMsgLinkFormat)).split(' ')
-            let msgFullUrl = msgLink[0]
-            let splitArgs = msgFullUrl.split('/')
-
-            // GRABBING MESSAGE CHANNEL ID AND MESSAGE ID FROM URL
-            let messageChannelId = splitArgs[5];
-            let messageId = splitArgs[6].split(' ');
-            
-            
-
-            // CHANNEL
-            let msgCh = message.guild.channels.cache.get(messageChannelId)
-
-            // MESSAGE
-            await msgCh.messages.fetch({}, false, true)
-                .then(async msg => {
-                    
-                    // [ MESSAGE ID , {MSG_OBJ} ]
-                    let grabbedMessage = msg.get(`${messageId}`)
-
-
-                    let msgLinkQuoteEmbed
-                    try {
-                        msgLinkQuoteEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedDarkGrey)
-                            .setAuthor(grabbedMessage.author.tag, grabbedMessage.author.displayAvatarURL({ dynamic:true }))
-                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
-                            .setTimestamp(grabbedMessage.createdTimestamp)
-                    } catch {
-                        msgLinkQuoteEmbed = new discord.MessageEmbed()
-                            .setColor(config.embedDarkGrey)
-                            .setAuthor(`Unknown Author`)
-                            .setDescription(`${grabbedMessage.content}\n\n[Jump to message](${msgFullUrl})`)
-                            .setTimestamp(grabbedMessage.createdTimestamp)
-                    }
-
-                    // SENDING BACK IN CHANNEL
-                    return message.channel.send({ embeds: [msgLinkQuoteEmbed] })
-                })
-        }
-
-
-
-        /****************************************************************/
         /*      VERIF TICKTE OVERFLOW                                   */
         /****************************************************************/
         if(message.content.toLowerCase().startsWith(`$ticket-overflow`) && message.author.id == config.botAuthorId) {
             
             setTimeout(() => message.delete(), 0)
 
-            ticketMaxNoticeEmbed = new discord.MessageEmbed()
+            let ticketMaxNoticeEmbed = new discord.MessageEmbed()
                 .setColor(config.embedBlurple)
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
                 .setTitle(`New verification submissions paused`)
                 .setDescription(`Due to the large influx of new members we've recevied the past few days, HooterBot has reached some Discord API limits and cannot open more verification tickets until the number of open tickets decreases.\n\nIf you are looking to verify, consider **enabling notifications** for all messages posted in this channel as I'll be posting a follow-up message when verification reopens *(ETA 1-2 days, hopefully)*.\n\nThanks for your understanding!`)
 
             return message.channel.send({ embeds: [ticketMaxNoticeEmbed] })
+        }
+
+
+
+        /****************************************************************/
+        /*      SLASH COMMAND DEPLOYMENT                                */
+        /****************************************************************/
+        if(message.content.toLowerCase().startsWith(`$deploy`) && message.author.id == config.botAuthorId) {
+            
+            setTimeout(() => message.delete(), 0)
+
+            const commands = [];
+
+            for (const folder of fs.readdirSync('.')) {
+                const commandFiles = fs.readdirSync(`../SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+            
+                for (const file of commandFiles) {
+                    const command = require(`../SLASHCOMMANDS/${folder}/${file}`);
+                    
+                    commands.push(command.data.toJSON());
+                }
+            }
+
+            const rest = new REST({ version: '9' }).setToken(process.env.HB_BOT_TOKEN);
+
+            rest.put(Routes.applicationCommands(config.botId), { body: commands })
+                .then(() => console.log('Successfully registered application commands.'))
+                .catch(error => {
+                    console.log(`\n\nSLASH COMMAND DEPLOYMENT ERROR\n ${error}`);
+                   
+                    let deployConfirmFail = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Slash Commands: Not Deployed`)
+
+                    return message.channel.send({ embeds: [deployConfirmFail] })
+                });
+
+
+            let deployConfirm = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Slash Commands: Successfully Deployed`)
+
+            return message.channel.send({ embeds: [deployConfirm] })
         }
     }
 }
