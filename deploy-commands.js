@@ -4,6 +4,11 @@ const fs = require('fs');
 const config = require('./config.json');
 
 
+
+
+
+
+
 const commands = [];
 
 for (const folder of fs.readdirSync(`./SLASHCOMMANDS/`)) {
