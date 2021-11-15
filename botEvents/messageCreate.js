@@ -495,6 +495,47 @@ module.exports = {
 
             return message.channel.send({ embeds: [ticketMaxNoticeEmbed] })
         }
+
+
+
+        /****************************************************************/
+        /*      SLASH COMMAND DEPLOYMENT                                */
+        /****************************************************************/
+        if(message.content.toLowerCase().startsWith(`$deploy`) && message.author.id == config.botAuthorId) {
+
+            const commands = [];
+
+            for (const folder of fs.readdirSync(`../SLASHCOMMANDS/`)) {
+                const commandFiles = fs.readdirSync(`../SLASHCOMMANDS/${folder}`).filter(file => file.endsWith('.js'));
+            
+                for (const file of commandFiles) {
+                    const command = require(`../SLASHCOMMANDS/${folder}/${file}`);
+                    
+                    commands.push(command.data.toJSON());
+                }
+            }
+
+            const rest = new REST({ version: '9' }).setToken(process.env.HB_BOT_TOKEN);
+
+            rest.put(Routes.applicationCommands(config.botId), { body: commands })
+                .then(() => console.log('Successfully registered application commands.'))
+                .catch(error => {
+                    console.log(`\n\nSLASH COMMAND DEPLOYMENT ERROR\n ${error}`);
+                   
+                    let deployConfirmFail = new discord.MessageEmbed()
+                        .setColor(config.embedRed)
+                        .setTitle(`${config.emjREDTICK} Slash Commands: Not Deployed`)
+
+                    return message.channel.send({ embeds: [deployConfirmFail] })
+                });
+
+
+            let deployConfirm = new discord.MessageEmbed()
+                .setColor(config.embedGreen)
+                .setTitle(`${config.emjGREENTICK} Slash Commands: Successfully Deployed`)
+
+            return message.channel.send({ embeds: [deployConfirm] })
+        }
     }
 }
 
