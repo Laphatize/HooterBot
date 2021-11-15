@@ -13,6 +13,7 @@ const axios = require('axios');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { token } = require('./config.json');
+const fs = require('fs');
 
 
 // INITIALIZATION
@@ -104,39 +105,10 @@ for (const folder of slashCommands) {
 
     for (const file of slashFiles) {
 		const slashCmd = require(`./SLASHCOMMANDS/${folder}/${file}`);
-		
-        arrayOfSlashCmds.push(slashCmd.data.toJSON());
+		client.slashCommands.set(slashCmd.name, slashCmd);
+        arrayOfSlashCmds.push(slashCmd)
 	}
 }
-
-
-const rest = new REST({ version: '9' }).setToken(process.env.HB_BOT_TOKEN)
-
-(async () => {
-    try {
-        console.log(`Started refreshing application commands (/)`)
-
-        await rest.put(
-            Routes.applicationCommands(config.botId),
-            { body: arrayOfSlashCmds },
-        );
-
-        console.log(`Successfully reloaded application commands (/)`)
-    }
-    catch (error) {
-        console.error(error)
-    }
-})();
-
-
-
-
-
-
-
-
-
-
 
 // REGISTERING SLASH COMMANDS
 client.on('ready', async () => {
