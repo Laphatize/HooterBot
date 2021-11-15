@@ -501,6 +501,8 @@ module.exports = {
         /*      SLASH COMMAND DEPLOYMENT                                */
         /****************************************************************/
         if(message.content.toLowerCase().startsWith(`$deploy`) && message.author.id == config.botAuthorId) {
+            
+            setTimeout(() => message.delete(), 0)
 
             const commands = [];
 
