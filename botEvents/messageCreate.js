@@ -599,7 +599,6 @@ function blacklistFilterCheck (filterMsg) {
     // URL LIST
     const badURLs = [
         RegExp('..*discordgift\..*').test(filterMsg),
-        
         RegExp('..*discord\-.*').test(filterMsg),
         RegExp('..*discorcl.*').test(filterMsg),
         RegExp('..*discorcl.*').test(filterMsg),
