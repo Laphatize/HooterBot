@@ -599,6 +599,7 @@ function blacklistFilterCheck (filterMsg) {
     // URL LIST
     const badURLs = [
         RegExp('..*discordgift\..*').test(filterMsg),
+        RegExp('^((?!blog.discord.com).)*$').test(filterMsg),
         RegExp('..*discord\-.*').test(filterMsg),
         RegExp('..*discorcl.*').test(filterMsg),
         RegExp('..*discorcl.*').test(filterMsg),
@@ -610,18 +611,4 @@ function blacklistFilterCheck (filterMsg) {
     if (!badURLs.every(x => x === false )) { 
         return 'badURL';
     }
-
-
-    // // WORD LIST
-    // const badWords = [
-    //     'fuckfuckfuckfuckfuckfuckfuckfuckfuckkkkk',
-    //     ];
-    
-    // let wordlength = badWords.length;
-
-    // while(wordlength--) {
-    //     if (filterMsg.indexOf(badWords[wordlength])!=-1) {
-    //         return 'badWord';
-    //     }
-    // }
 }
